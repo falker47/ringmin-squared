@@ -106,6 +106,33 @@ Reference/provenance assets to import:
 3. Certified-search pipeline: adapted `search.py`, `artifacts.py`, sweep/high-precision/frontier scripts, and small quadratic certificates.
 4. Reporting/figures/paper assets only after the computational and mathematical foundation is established.
 
+## Foundation Import - 2026-07-10
+
+Task dossier: `ops/TASK-20260710__foundation_import/`.
+
+Imported/adapted into Power-Ringmin:
+
+- `pyproject.toml` and `requirements.txt` as new Power-Ringmin package metadata, not a direct upstream metadata copy.
+- `LICENSE`, preserving the MIT notice for substantial adapted Ringmin code.
+- `src/power_ringmin/geometry.py`, adapted from upstream `src/ringmin/geometry.py`.
+- `src/power_ringmin/evaluator.py`, adapted from upstream `src/ringmin/evaluator.py` with scale-aware bracketing for quadratic radii.
+- `src/power_ringmin/highprec.py`, adapted from upstream `src/ringmin/highprec.py` with scale-aware high-precision bracketing.
+- `src/power_ringmin/patterns.py`, adapted selectively from upstream `src/ringmin/patterns.py`; evaluator-dependent exhaustive insertion was not imported.
+- `tests/test_quadratic_foundation.py`, adapted from upstream fixed-order/property tests but rewritten for quadratic-radii smoke coverage.
+
+Explicitly not imported in this task:
+
+- upstream `search.py`, `crosscheck.py`, `artifacts.py`, CLI, plots, scripts, result artifacts, figures, paper assets, and original Ringmin certified results.
+
+Verification:
+
+- `python -m pytest` passed 5 tests on 2026-07-10.
+
+Interpretation:
+
+- The imported foundation provides tested fixed-order computational tools for finite quadratic-radii smoke cases.
+- This import establishes no quadratic-radii theorem and no certified quadratic optimum.
+
 ## Read-Only Rules
 
 Power-Ringmin must not:

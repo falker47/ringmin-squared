@@ -85,17 +85,31 @@ Rules:
 
 See `UPSTREAM_RINGMIN.md` for provenance details.
 
+## Computational Foundation
+
+- VERIFIED FACT: the Python package import name is `power_ringmin`.
+- VERIFIED FACT: the initial package metadata is in `pyproject.toml`; package source is under `src/power_ringmin/`; tests are under `tests/`.
+- VERIFIED FACT: substantial imported/adapted code is licensed under MIT and records upstream Ringmin commit `cc0327400819fe06b230d967cdcbafffe1648317` in module docstrings.
+- VERIFIED FACT: `src/power_ringmin/geometry.py` provides positive-radius validation, `quadratic_radii(n)`, `theta(R,a,b)`, cyclic adjacent pairs, and cycle-equivalence helpers.
+- VERIFIED FACT: `src/power_ringmin/evaluator.py` provides a float64 fixed-order evaluator using all-pairs STN feasibility, scale-aware radius bracketing, recovered positions, Cartesian validation, essential tight-pair detection, and floating-radius detection.
+- VERIFIED FACT: `src/power_ringmin/highprec.py` provides an independent mpmath fixed-order feasibility verifier, high-precision full-radius bisection, position recovery, and pair slack checks.
+- VERIFIED FACT: `src/power_ringmin/patterns.py` provides selected generic order constructors: sequential, zigzag, interleave, Supnick maximum-tour form, Supnick minimum-tour form, and JSON order loading.
+- VERIFIED FACT: as of the foundation import, the certified-search pipeline, SLSQP cross-checks, CLI, plots, artifact schemas, and original Ringmin result artifacts have not been imported.
+- VERIFIED FACT: `python -m pytest` passed 5 adapted quadratic smoke tests on 2026-07-10.
+- INTERPRETATION: passing finite smoke tests verifies the imported implementation behavior on tested cases only; it is not a theorem about all quadratic-radii instances.
+
 ## Verified Environment Facts
 
 - VERIFIED FACT: repository root during bootstrap is `C:\Users\Falker\Desktop\Code\circle\ringmin-squared`.
 - VERIFIED FACT: before bootstrap, the only project file in the new repository folder was `AGENTS_GENERIC_TEMPLATE_v2.md`.
 - VERIFIED FACT: Git was initialized directly in this folder on branch `main`.
 - VERIFIED FACT: no Git remote is configured for this repository as of bootstrap.
-- VERIFIED FACT: no Ringmin source code has been imported into this repository.
+- VERIFIED FACT: Python reported version `3.14.3` during the 2026-07-10 foundation import.
+- VERIFIED FACT: mpmath reported version `1.3.0` during the 2026-07-10 foundation import.
 
 ## Canonical Commands
 
-No build, test, package, or experiment command exists yet for Power-Ringmin because no implementation has been created.
+- `python -m pytest`
 
 Read-only repository inspection commands used during bootstrap:
 
@@ -109,6 +123,7 @@ Read-only repository inspection commands used during bootstrap:
 
 ## Current Established Results
 
-- VERIFIED FACT: no quadratic-radii numerical result has yet been established in this repository.
+- VERIFIED FACT: the foundation smoke tests include finite quadratic-radii computations for fixed orders, including `(1,4,9)` and sampled orders from `quadratic_radii(6)` and `quadratic_radii(7)`.
+- VERIFIED FACT: no certified quadratic-radii optimum has yet been established in this repository.
 - VERIFIED FACT: no quadratic-radii theorem has yet been established in this repository.
-- VERIFIED FACT: no quadratic-radii implementation, test suite, certificate, or experiment artifact has yet been created in this repository.
+- VERIFIED FACT: no quadratic-radii certificate or experiment artifact has yet been created in this repository.
