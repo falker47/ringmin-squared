@@ -75,10 +75,18 @@ def export_artifact_for_order(
     digits: int = 80,
     local_radius_eta: str | None = None,
     created_at_utc: str | None = None,
+    command_name: str = "power-ringmin-export-fixed-order",
+    extra_source_files: Sequence[dict[str, str]] | None = None,
 ) -> dict[str, Any]:
     """Compute one fixed-order result and write its v1 artifact."""
-    command = _command_record(argv_for_provenance, backend=backend, output=output, n=len(order))
-    source_files = _source_files_for_backend(backend)
+    command = _command_record(
+        argv_for_provenance,
+        backend=backend,
+        output=output,
+        n=len(order),
+        command_name=command_name,
+    )
+    source_files = list(extra_source_files or []) + _source_files_for_backend(backend)
     evidence_statement = (
         "This artifact was exported from one explicit fixed cyclic order; "
         "it is not a global optimum certificate."
@@ -216,8 +224,9 @@ def _command_record(
     backend: Backend,
     output: Path,
     n: int,
+    command_name: str,
 ) -> dict[str, str]:
-    command = "power-ringmin-export-fixed-order"
+    command = command_name
     if argv:
         command += " " + shlex.join(str(item) for item in argv)
     return {

@@ -20,6 +20,7 @@ test = ["pytest>=8"]
 
 [project.scripts]
 power-ringmin-export-fixed-order = "power_ringmin.export_fixed_order_cli:main"
+power-ringmin-export-fixed-order-batch = "power_ringmin.export_fixed_order_batch_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

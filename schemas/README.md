@@ -46,4 +46,13 @@ power-ringmin-export-fixed-order --index-order 4,1,3,2 --backend mpmath --digits
 
 `--order` accepts quadratic radius values. `--index-order` accepts the corresponding quadratic indices and converts them to radii. Both forms must contain exactly one permutation of `1..n` after index normalization.
 
+The package entry point `power-ringmin-export-fixed-order-batch` exports one v1 artifact per explicit fixed cyclic order in a JSON list:
+
+```powershell
+power-ringmin-export-fixed-order-batch orders.json --output-dir artifacts
+power-ringmin-export-fixed-order-batch index_orders.json --order-kind index --backend mpmath --digits 80 --output-dir artifacts
+```
+
+The JSON input may be a top-level list, for example `[[16, 1, 9, 4], [1, 4, 9]]`, or an object with an `orders` list. With `--order-kind index`, entries are interpreted as quadratic indices and converted to radii before artifact export.
+
 The schema itself does not prove a result. Verification remains a separate evidence step, recorded in `evidence.checks` and in the task dossier for the run that produced the artifact.

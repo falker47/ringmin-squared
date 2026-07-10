@@ -2,16 +2,14 @@
 
 Last update: 2026-07-10
 
-- **Current phase:** fixed-order artifact CLI.
-- **Current task:** Add a small command-line entry point for exporting fixed-order artifacts from explicit order inputs.
-- **Task dossier:** `ops/TASK-20260710__fixed_order_artifact_cli/`.
+- **Current phase:** batch fixed-order artifact export.
+- **Current task:** Add batch fixed-order artifact export from a JSON list of explicit orders.
+- **Task dossier:** `ops/TASK-20260710__batch_fixed_order_artifact_export/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
-- **Current next atomic action:** user reviews the fixed-order artifact CLI diff and decides whether to commit manually.
+- **Current next atomic action:** user reviews the batch fixed-order artifact export diff and decides whether to commit manually.
 - **Awaiting user review:** yes.
 
 ## Proposed Next Task
 
-Add batch fixed-order artifact export from a JSON list of explicit orders.
-
-Do not execute this next task in the fixed-order artifact CLI chat.
+Add a batch standalone-verifier check for a directory of fixed-order artifacts.
