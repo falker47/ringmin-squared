@@ -35,4 +35,15 @@ The package module `power_ringmin.fixed_order_artifact` provides helpers for thi
 - `load_fixed_order_artifact(...)` and `loads_fixed_order_artifact(...)` validate and load v1 JSON artifacts;
 - `verifier_payload_from_artifact(...)` derives the minimal standalone-verifier payload.
 
+## CLI Export
+
+The package entry point `power-ringmin-export-fixed-order` exports one v1 artifact from one explicit fixed cyclic order:
+
+```powershell
+power-ringmin-export-fixed-order --order 16,1,9,4 --output artifact.json
+power-ringmin-export-fixed-order --index-order 4,1,3,2 --backend mpmath --digits 80 --output artifact.json
+```
+
+`--order` accepts quadratic radius values. `--index-order` accepts the corresponding quadratic indices and converts them to radii. Both forms must contain exactly one permutation of `1..n` after index normalization.
+
 The schema itself does not prove a result. Verification remains a separate evidence step, recorded in `evidence.checks` and in the task dossier for the run that produced the artifact.

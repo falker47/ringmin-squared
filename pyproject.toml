@@ -18,6 +18,9 @@ dependencies = [
 crosscheck = ["numpy>=2", "scipy>=1.14"]
 test = ["pytest>=8"]
 
+[project.scripts]
+power-ringmin-export-fixed-order = "power_ringmin.export_fixed_order_cli:main"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 
