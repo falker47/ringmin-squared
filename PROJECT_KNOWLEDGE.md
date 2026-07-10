@@ -108,8 +108,9 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: `src/power_ringmin/verify_fixed_order_artifacts_cli.py` provides the `power-ringmin-verify-fixed-order-artifacts` CLI for checking a directory of v1 fixed-order artifacts with root `verify.py`.
 - VERIFIED FACT: `power-ringmin-verify-fixed-order-artifacts` validates each matching v1 artifact, derives the minimal standalone-verifier payload, invokes root `verify.py` as a subprocess, prints per-artifact PASS/FAIL lines, and returns a nonzero exit code when any artifact fails.
 - VERIFIED FACT: `power-ringmin-verify-fixed-order-artifacts` supports directory glob patterns, recursive scans, verifier precision digits, per-artifact recorded local eta checks by default, an eta override, and an explicit `--stn-tol` pass-through for tolerance-labeled numerical artifacts.
+- VERIFIED FACT: `examples/fixed_order_batch_end_to_end/` provides a small reproducible batch example with explicit quadratic index orders, README commands for `power-ringmin-export-fixed-order-batch` and `power-ringmin-verify-fixed-order-artifacts`, and no checked-in generated result artifacts.
 - VERIFIED FACT: `examples/fixed_order_result_n3.json` is a checked schema fixture for the fixed cyclic order `(1,4,9)` and is classified as a `numerical_observation`, not as a global optimum certificate.
-- VERIFIED FACT: as of the batch fixed-order artifact export task, the certified-search pipeline, frontier verifier, plots, and original Ringmin result artifacts have not been imported.
+- VERIFIED FACT: as of the fixed-order batch end-to-end example task, the certified-search pipeline, frontier verifier, plots, and original Ringmin result artifacts have not been imported.
 - VERIFIED FACT: `pyproject.toml` defines optional `crosscheck` dependencies for NumPy/SciPy; `requirements.txt` includes NumPy/SciPy for the local development/test environment.
 - VERIFIED FACT: `pyproject.toml` registers the console script `power-ringmin-export-fixed-order`.
 - VERIFIED FACT: `pyproject.toml` registers the console script `power-ringmin-export-fixed-order-batch`.
@@ -121,6 +122,7 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: `python -m pytest` passed 18 tests after the fixed-order artifact CLI implementation on 2026-07-10.
 - VERIFIED FACT: `python -m pytest` passed 23 tests after the batch fixed-order artifact export implementation on 2026-07-10.
 - VERIFIED FACT: `python -m pytest` passed 28 tests after the batch standalone-verifier artifact check implementation on 2026-07-10.
+- VERIFIED FACT: `python -m pytest` passed 29 tests after the fixed-order batch end-to-end example implementation on 2026-07-10.
 - INTERPRETATION: passing finite smoke tests verifies the imported implementation behavior on tested cases only; it is not a theorem about all quadratic-radii instances.
 
 ## Verified Environment Facts
@@ -157,6 +159,7 @@ Read-only repository inspection commands used during bootstrap:
 - VERIFIED FACT: the fixed-order artifact CLI tests export a float64 artifact from radius order `(16,1,9,4)`, export a high-precision artifact from index order `(1,2,3)`, derive a standalone-verifier payload, reject non-quadratic radius input, and verify the console script registration.
 - VERIFIED FACT: the batch fixed-order artifact CLI tests export two float64 artifacts from a JSON list of radius orders, export a high-precision artifact from a JSON object with `index_orders`, reject non-quadratic radius input, refuse overwrite without `--overwrite`, allow overwrite with `--overwrite`, and verify the console script registration.
 - VERIFIED FACT: the batch standalone-verifier artifact tests accept a high-precision artifact directory with recorded local eta, accept a float64 artifact with explicit `--stn-tol`, report a deliberately weakened artifact as failed, reject an empty artifact directory, and verify the console script registration.
+- VERIFIED FACT: the fixed-order batch end-to-end example test exports high-precision artifacts from `examples/fixed_order_batch_end_to_end/index_orders.json` into a temporary directory and verifies them through the batch standalone-verifier CLI module path.
 - VERIFIED FACT: no certified quadratic-radii optimum has yet been established in this repository.
 - VERIFIED FACT: no quadratic-radii theorem has yet been established in this repository.
 - VERIFIED FACT: no global quadratic-radii certificate or production experiment artifact has yet been created in this repository.

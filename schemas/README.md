@@ -57,6 +57,8 @@ The JSON input may be a top-level list, for example `[[16, 1, 9, 4], [1, 4, 9]]`
 
 The schema itself does not prove a result. Verification remains a separate evidence step, recorded in `evidence.checks` and in the task dossier for the run that produced the artifact.
 
+See `examples/fixed_order_batch_end_to_end/` for a small reproducible batch example that exports high-precision artifacts and verifies the generated directory.
+
 ## Batch Standalone Verification
 
 The package entry point `power-ringmin-verify-fixed-order-artifacts` validates every matching v1 artifact in a directory, derives the minimal standalone `verify.py` payload, and invokes root `verify.py` once per artifact:
