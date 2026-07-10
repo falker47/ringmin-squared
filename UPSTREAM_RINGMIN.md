@@ -133,6 +133,34 @@ Interpretation:
 - The imported foundation provides tested fixed-order computational tools for finite quadratic-radii smoke cases.
 - This import establishes no quadratic-radii theorem and no certified quadratic optimum.
 
+## Fixed-Order Validation Import - 2026-07-10
+
+Task dossier: `ops/TASK-20260710__fixed_order_crosschecks/`.
+
+Imported/adapted into Power-Ringmin:
+
+- `src/power_ringmin/crosscheck.py`, adapted from upstream `src/ringmin/crosscheck.py`, limited to fixed-order SLSQP validation on explicit radius sequences.
+- Root `verify.py`, adapted from the standalone high-precision STN verification pattern in upstream root `verify.py`, but scoped to explicit fixed-order payloads rather than upstream result/frontier artifacts.
+- `tests/test_crosscheck_and_verifier.py`, adapted from upstream cross-check intent and rewritten for quadratic-radii fixed-order validation.
+
+Explicitly not imported in this task:
+
+- upstream `slsqp_unconstrained_global`;
+- upstream `search.py`;
+- upstream `artifacts.py`;
+- frontier/pruning verification from upstream root `verify.py`;
+- upstream result artifacts, scripts, plots, package CLI, figures, and paper assets.
+
+Verification:
+
+- `python -m pytest` passed 8 tests on 2026-07-10.
+- Direct `verify.py` invocations accepted the computed high-precision fixed-order radius for `(1,4,9)` and rejected a radius smaller by `1e-8`.
+
+Interpretation:
+
+- This import provides finite fixed-order numerical cross-checks and an independent verifier scaffold.
+- It establishes no certified quadratic-radii optimum, no global search result, and no quadratic-radii theorem.
+
 ## Read-Only Rules
 
 Power-Ringmin must not:

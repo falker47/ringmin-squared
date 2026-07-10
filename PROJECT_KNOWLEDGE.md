@@ -94,8 +94,13 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: `src/power_ringmin/evaluator.py` provides a float64 fixed-order evaluator using all-pairs STN feasibility, scale-aware radius bracketing, recovered positions, Cartesian validation, essential tight-pair detection, and floating-radius detection.
 - VERIFIED FACT: `src/power_ringmin/highprec.py` provides an independent mpmath fixed-order feasibility verifier, high-precision full-radius bisection, position recovery, and pair slack checks.
 - VERIFIED FACT: `src/power_ringmin/patterns.py` provides selected generic order constructors: sequential, zigzag, interleave, Supnick maximum-tour form, Supnick minimum-tour form, and JSON order loading.
-- VERIFIED FACT: as of the foundation import, the certified-search pipeline, SLSQP cross-checks, CLI, plots, artifact schemas, and original Ringmin result artifacts have not been imported.
+- VERIFIED FACT: `src/power_ringmin/crosscheck.py` provides a radius-sequence-aware fixed-order SLSQP cross-check using all-pairs Cartesian non-overlap constraints and explicit fixed-order angle variables.
+- VERIFIED FACT: the upstream unconstrained global SLSQP helper was not imported because it hardcodes the original radii `1,\dots,n` and belongs with a later radius-sequence-aware search design.
+- VERIFIED FACT: root `verify.py` is a standalone high-precision fixed-order verifier scaffold that imports only the Python standard library and `mpmath`; it accepts explicit order/radius inputs or minimal JSON payloads and can check optional witness positions and local radius brackets.
+- VERIFIED FACT: as of the fixed-order crosscheck import, the certified-search pipeline, frontier verifier, result artifact schema, package CLI, plots, and original Ringmin result artifacts have not been imported.
+- VERIFIED FACT: `pyproject.toml` defines optional `crosscheck` dependencies for NumPy/SciPy; `requirements.txt` includes NumPy/SciPy for the local development/test environment.
 - VERIFIED FACT: `python -m pytest` passed 5 adapted quadratic smoke tests on 2026-07-10.
+- VERIFIED FACT: `python -m pytest` passed 8 tests after the fixed-order crosscheck import on 2026-07-10.
 - INTERPRETATION: passing finite smoke tests verifies the imported implementation behavior on tested cases only; it is not a theorem about all quadratic-radii instances.
 
 ## Verified Environment Facts
@@ -106,6 +111,7 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: no Git remote is configured for this repository as of bootstrap.
 - VERIFIED FACT: Python reported version `3.14.3` during the 2026-07-10 foundation import.
 - VERIFIED FACT: mpmath reported version `1.3.0` during the 2026-07-10 foundation import.
+- VERIFIED FACT: during the 2026-07-10 fixed-order crosscheck import, NumPy reported version `2.4.3`, SciPy reported version `1.17.1`, and mpmath reported version `1.3.0`.
 
 ## Canonical Commands
 
@@ -124,6 +130,8 @@ Read-only repository inspection commands used during bootstrap:
 ## Current Established Results
 
 - VERIFIED FACT: the foundation smoke tests include finite quadratic-radii computations for fixed orders, including `(1,4,9)` and sampled orders from `quadratic_radii(6)` and `quadratic_radii(7)`.
+- VERIFIED FACT: the fixed-order crosscheck tests include a finite numerical comparison where SLSQP matches the STN fixed-order radius for the quadratic order `(16,1,9,4)` within the test tolerance.
+- VERIFIED FACT: the standalone verifier accepted the high-precision fixed-order radius for `(1,4,9)` and rejected a radius smaller by `1e-8` during the 2026-07-10 verification.
 - VERIFIED FACT: no certified quadratic-radii optimum has yet been established in this repository.
 - VERIFIED FACT: no quadratic-radii theorem has yet been established in this repository.
 - VERIFIED FACT: no quadratic-radii certificate or experiment artifact has yet been created in this repository.
