@@ -2,16 +2,16 @@
 
 Last update: 2026-07-10
 
-- **Current phase:** independent validation layer import.
-- **Current task:** radius-sequence-aware fixed-order SLSQP cross-checks and standalone high-precision verifier scaffold.
-- **Task dossier:** `ops/TASK-20260710__fixed_order_crosschecks/`.
+- **Current phase:** fixed-order artifact schema design.
+- **Current task:** Power-Ringmin fixed-order numerical result artifact schema.
+- **Task dossier:** `ops/TASK-20260710__fixed_order_artifact_schema/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
-- **Current next atomic action:** user reviews the fixed-order validation-layer diff and decides whether to commit manually.
+- **Current next atomic action:** user reviews the fixed-order artifact schema diff and decides whether to commit manually.
 - **Awaiting user review:** yes.
 
 ## Proposed Next Task
 
-Design the Power-Ringmin artifact schema for fixed-order numerical results, including explicit radius sequence, precision/tolerance metadata, provenance fields, and evidence classification.
+Implement a package exporter/loader for `power-ringmin.fixed_order_result.v1` artifacts, reusing the existing fixed-order evaluator/verifier outputs.
 
-Do not execute this next task in the fixed-order crosschecks chat.
+Do not execute this next task in the fixed-order artifact schema chat.

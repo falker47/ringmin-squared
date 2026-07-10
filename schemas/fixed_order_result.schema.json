@@ -1,0 +1,728 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://power-ringmin.local/schemas/fixed_order_result.schema.json",
+  "title": "Power-Ringmin fixed-order numerical result artifact",
+  "description": "Canonical JSON artifact for one fixed cyclic order in the Power-Ringmin quadratic-radii problem.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_type",
+    "problem",
+    "instance",
+    "fixed_order",
+    "result",
+    "precision",
+    "provenance",
+    "evidence"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "power-ringmin.fixed_order_result.v1"
+    },
+    "artifact_type": {
+      "const": "fixed_order_numerical_result"
+    },
+    "problem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project",
+        "radius_model",
+        "dimension",
+        "constraints"
+      ],
+      "properties": {
+        "project": {
+          "const": "power-ringmin"
+        },
+        "radius_model": {
+          "const": "quadratic"
+        },
+        "dimension": {
+          "const": 2
+        },
+        "constraints": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "central_external_tangency",
+            "peripheral_pairwise_disjoint_interiors",
+            "all_pairs_checked"
+          ],
+          "properties": {
+            "central_external_tangency": {
+              "const": true
+            },
+            "peripheral_pairwise_disjoint_interiors": {
+              "const": true
+            },
+            "all_pairs_checked": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "instance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "n",
+        "radius_sequence"
+      ],
+      "properties": {
+        "n": {
+          "type": "integer",
+          "minimum": 3
+        },
+        "radius_sequence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "formula",
+            "index_base",
+            "indices",
+            "radii"
+          ],
+          "properties": {
+            "kind": {
+              "const": "explicit"
+            },
+            "formula": {
+              "const": "k^2"
+            },
+            "index_base": {
+              "const": 1
+            },
+            "indices": {
+              "type": "array",
+              "minItems": 3,
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "uniqueItems": true
+            },
+            "radii": {
+              "type": "array",
+              "minItems": 3,
+              "items": {
+                "$ref": "#/$defs/decimalString"
+              },
+              "uniqueItems": true
+            }
+          }
+        }
+      }
+    },
+    "fixed_order": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "order_type",
+        "index_order",
+        "radius_order",
+        "orientation",
+        "equivalence",
+        "angle_anchor"
+      ],
+      "properties": {
+        "order_type": {
+          "const": "cyclic"
+        },
+        "index_order": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "uniqueItems": true
+        },
+        "radius_order": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/$defs/decimalString"
+          },
+          "uniqueItems": true
+        },
+        "orientation": {
+          "enum": [
+            "counterclockwise",
+            "clockwise",
+            "unoriented"
+          ]
+        },
+        "equivalence": {
+          "enum": [
+            "rotation",
+            "rotation_reflection",
+            "oriented"
+          ]
+        },
+        "angle_anchor": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "position_index",
+            "angle_decimal"
+          ],
+          "properties": {
+            "position_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "angle_decimal": {
+              "$ref": "#/$defs/decimalString"
+            }
+          }
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "result_kind",
+        "objective_status",
+        "feasible",
+        "central_radius"
+      ],
+      "properties": {
+        "result_kind": {
+          "enum": [
+            "full_fixed_order_radius",
+            "chain_relaxation_radius",
+            "feasibility_witness",
+            "optimizer_candidate"
+          ]
+        },
+        "objective_status": {
+          "enum": [
+            "bracketed_fixed_order_minimum",
+            "feasible_upper_bound",
+            "infeasible_lower_bound",
+            "optimizer_candidate",
+            "diagnostic_only"
+          ]
+        },
+        "feasible": {
+          "type": "boolean"
+        },
+        "central_radius": {
+          "$ref": "#/$defs/numericValue"
+        },
+        "chain_radius": {
+          "$ref": "#/$defs/numericValue"
+        },
+        "positions_rad": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/$defs/decimalString"
+          }
+        },
+        "local_radius_bracket": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eta_decimal",
+            "lower_radius_feasible",
+            "claimed_radius_feasible",
+            "upper_radius_feasible",
+            "method"
+          ],
+          "properties": {
+            "eta_decimal": {
+              "$ref": "#/$defs/decimalString"
+            },
+            "lower_radius_feasible": {
+              "type": "boolean"
+            },
+            "claimed_radius_feasible": {
+              "type": "boolean"
+            },
+            "upper_radius_feasible": {
+              "type": "boolean"
+            },
+            "method": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "binding_structure": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "essential_tight_pairs",
+            "recovered_tight_pairs",
+            "floating_radii"
+          ],
+          "properties": {
+            "essential_tight_pairs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/bindingPair"
+              }
+            },
+            "recovered_tight_pairs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/bindingPair"
+              }
+            },
+            "floating_radii": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/decimalString"
+              }
+            }
+          }
+        },
+        "diagnostics": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "stn_diagonal_margin_decimal": {
+              "$ref": "#/$defs/decimalString"
+            },
+            "min_pair_margin_decimal": {
+              "$ref": "#/$defs/decimalString"
+            },
+            "min_order_margin_decimal": {
+              "$ref": "#/$defs/decimalString"
+            }
+          }
+        }
+      }
+    },
+    "precision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value_encoding",
+        "primary_backend",
+        "working_precision_digits",
+        "rounding_policy",
+        "tolerances"
+      ],
+      "properties": {
+        "value_encoding": {
+          "const": "decimal_string"
+        },
+        "primary_backend": {
+          "enum": [
+            "float64",
+            "mpmath",
+            "mixed"
+          ]
+        },
+        "working_precision_digits": {
+          "type": "integer",
+          "minimum": 15
+        },
+        "rounding_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tolerances": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/tolerance"
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "created_at_utc",
+        "repository",
+        "software",
+        "source_files",
+        "commands",
+        "randomness"
+      ],
+      "properties": {
+        "created_at_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "repository": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "git_commit",
+            "git_dirty"
+          ],
+          "properties": {
+            "name": {
+              "const": "power-ringmin"
+            },
+            "git_commit": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{40}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "git_dirty": {
+              "type": "boolean"
+            },
+            "notes": {
+              "type": "string"
+            }
+          }
+        },
+        "software": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/software"
+          }
+        },
+        "source_files": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/sourceFile"
+          }
+        },
+        "commands": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/commandRecord"
+          }
+        },
+        "randomness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "used",
+            "seeds"
+          ],
+          "properties": {
+            "used": {
+              "type": "boolean"
+            },
+            "seeds": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/randomSeed"
+              }
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "claim",
+        "checks",
+        "limitations"
+      ],
+      "properties": {
+        "classification": {
+          "$ref": "#/$defs/evidenceClassification"
+        },
+        "claim": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "scope",
+            "statement"
+          ],
+          "properties": {
+            "scope": {
+              "enum": [
+                "schema_fixture",
+                "fixed_order_feasibility",
+                "fixed_order_radius_bracket",
+                "fixed_order_optimizer_candidate",
+                "global_instance_claim"
+              ]
+            },
+            "statement": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidenceCheck"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "extensions": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "decimalString": {
+      "type": "string",
+      "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?:[eE][+-]?[0-9]+)?$"
+    },
+    "numericValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decimal",
+        "encoding"
+      ],
+      "properties": {
+        "decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "encoding": {
+          "const": "decimal_string"
+        },
+        "source_precision_digits": {
+          "type": "integer",
+          "minimum": 15
+        }
+      }
+    },
+    "bindingPair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "i",
+        "j",
+        "radius_i",
+        "radius_j",
+        "kind",
+        "slack_decimal"
+      ],
+      "properties": {
+        "i": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "j": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "radius_i": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "radius_j": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "kind": {
+          "enum": [
+            "forward",
+            "wrap"
+          ]
+        },
+        "slack_decimal": {
+          "$ref": "#/$defs/decimalString"
+        }
+      }
+    },
+    "tolerance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "value_decimal",
+        "tolerance_type",
+        "applies_to"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "tolerance_type": {
+          "enum": [
+            "absolute",
+            "relative",
+            "other"
+          ]
+        },
+        "applies_to": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "software": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "version",
+        "role"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "sourceFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "role"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "upstream_ringmin_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      }
+    },
+    "commandRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "command",
+        "cwd",
+        "result"
+      ],
+      "properties": {
+        "command": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cwd": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "enum": [
+            "pass",
+            "fail",
+            "not_run",
+            "informational"
+          ]
+        },
+        "output_summary": {
+          "type": "string"
+        }
+      }
+    },
+    "randomSeed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        }
+      }
+    },
+    "evidenceClassification": {
+      "enum": [
+        "definition",
+        "verified_fact",
+        "exact_theorem",
+        "computer_certified_result",
+        "numerical_observation",
+        "empirical_pattern",
+        "heuristic",
+        "conjecture",
+        "unresolved_claim",
+        "disproved_claim"
+      ]
+    },
+    "evidenceCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "check_id",
+        "classification",
+        "method",
+        "result"
+      ],
+      "properties": {
+        "check_id": {
+          "type": "string",
+          "pattern": "^EV-[0-9]{3}$"
+        },
+        "classification": {
+          "$ref": "#/$defs/evidenceClassification"
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "command": {
+          "type": "string"
+        },
+        "result": {
+          "enum": [
+            "pass",
+            "fail",
+            "not_run",
+            "informational"
+          ]
+        },
+        "output_summary": {
+          "type": "string"
+        },
+        "limitations": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
