@@ -99,12 +99,14 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: root `verify.py` is a standalone high-precision fixed-order verifier scaffold that imports only the Python standard library and `mpmath`; it accepts explicit order/radius inputs or minimal JSON payloads and can check optional witness positions and local radius brackets.
 - VERIFIED FACT: `schemas/fixed_order_result.schema.json` defines the v1 JSON artifact schema for one fixed-order numerical result, requiring explicit radius sequence, cyclic order, precision/tolerance metadata, provenance, and evidence classification.
 - VERIFIED FACT: `schemas/README.md` documents fixed-order artifact schema design rules and verifier compatibility.
+- VERIFIED FACT: `src/power_ringmin/fixed_order_artifact.py` provides package helpers for `power-ringmin.fixed_order_result.v1` artifacts: construction from float64 `FullResult`, construction from high-precision fixed-order values, semantic validation, JSON dump/load helpers, and standalone-verifier payload derivation.
 - VERIFIED FACT: `examples/fixed_order_result_n3.json` is a checked schema fixture for the fixed cyclic order `(1,4,9)` and is classified as a `numerical_observation`, not as a global optimum certificate.
 - VERIFIED FACT: as of the fixed-order artifact schema design, the certified-search pipeline, frontier verifier, package CLI, plots, and original Ringmin result artifacts have not been imported.
 - VERIFIED FACT: `pyproject.toml` defines optional `crosscheck` dependencies for NumPy/SciPy; `requirements.txt` includes NumPy/SciPy for the local development/test environment.
 - VERIFIED FACT: `python -m pytest` passed 5 adapted quadratic smoke tests on 2026-07-10.
 - VERIFIED FACT: `python -m pytest` passed 8 tests after the fixed-order crosscheck import on 2026-07-10.
 - VERIFIED FACT: `python -m pytest` passed 11 tests after the fixed-order artifact schema design on 2026-07-10.
+- VERIFIED FACT: `python -m pytest` passed 14 tests after the fixed-order artifact exporter/loader implementation on 2026-07-10.
 - INTERPRETATION: passing finite smoke tests verifies the imported implementation behavior on tested cases only; it is not a theorem about all quadratic-radii instances.
 
 ## Verified Environment Facts
@@ -137,6 +139,7 @@ Read-only repository inspection commands used during bootstrap:
 - VERIFIED FACT: the fixed-order crosscheck tests include a finite numerical comparison where SLSQP matches the STN fixed-order radius for the quadratic order `(16,1,9,4)` within the test tolerance.
 - VERIFIED FACT: the standalone verifier accepted the high-precision fixed-order radius for `(1,4,9)` and rejected a radius smaller by `1e-8` during the 2026-07-10 verification.
 - VERIFIED FACT: the fixed-order artifact schema fixture `examples/fixed_order_result_n3.json` records an explicit radius sequence, fixed cyclic order, high-precision radius/positions, precision tolerances, provenance, and evidence classification for `(1,4,9)`.
+- VERIFIED FACT: the fixed-order artifact exporter/loader tests round-trip a float64 `FullResult` artifact for order `(16,1,9,4)`, round-trip a high-precision artifact for `(1,4,9)`, derive a standalone-verifier payload, and reject a fixed-order radius/index mismatch.
 - VERIFIED FACT: no certified quadratic-radii optimum has yet been established in this repository.
 - VERIFIED FACT: no quadratic-radii theorem has yet been established in this repository.
 - VERIFIED FACT: no global quadratic-radii certificate or production experiment artifact has yet been created in this repository.

@@ -28,4 +28,11 @@ The standalone `verify.py` payload can be derived from a v1 artifact by extracti
 - `result.central_radius.decimal` as the claimed radius;
 - `result.positions_rad`, when present, as optional witness positions.
 
+The package module `power_ringmin.fixed_order_artifact` provides helpers for this contract:
+
+- `export_full_result_artifact(...)` builds a v1 artifact from a float64 `FullResult`;
+- `export_highprec_artifact(...)` builds a v1 artifact from high-precision fixed-order values;
+- `load_fixed_order_artifact(...)` and `loads_fixed_order_artifact(...)` validate and load v1 JSON artifacts;
+- `verifier_payload_from_artifact(...)` derives the minimal standalone-verifier payload.
+
 The schema itself does not prove a result. Verification remains a separate evidence step, recorded in `evidence.checks` and in the task dossier for the run that produced the artifact.
