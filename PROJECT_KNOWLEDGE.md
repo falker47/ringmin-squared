@@ -79,6 +79,9 @@ Rules:
 - RULE: Ringmin is prior work and a read-only upstream reference.
 - RULE: future imports from Ringmin must preserve provenance and relevant license notices.
 - RULE: Ringmin mathematical results and observed structural patterns do not automatically transfer to quadratic radii.
+- VERIFIED FACT: the 2026-07-10 import audit found that upstream `geometry.py`, `evaluator.py`, `highprec.py`, and parts of `patterns.py` are primarily radius-value based and are the safest code foundation to import/adapt first.
+- VERIFIED FACT: the 2026-07-10 import audit found original-radii assumptions in upstream search wrappers, lower-bound components, verifier/result paths, unconstrained SLSQP helper, scripts, result artifacts, and paper/report assets.
+- RECOMMENDATION: import the Ringmin geometric/STN foundation before importing the certified-search pipeline; keep original Ringmin results as reference-only unless a later task explicitly creates a provenance-labeled reference area.
 
 See `UPSTREAM_RINGMIN.md` for provenance details.
 
@@ -109,4 +112,3 @@ Read-only repository inspection commands used during bootstrap:
 - VERIFIED FACT: no quadratic-radii numerical result has yet been established in this repository.
 - VERIFIED FACT: no quadratic-radii theorem has yet been established in this repository.
 - VERIFIED FACT: no quadratic-radii implementation, test suite, certificate, or experiment artifact has yet been created in this repository.
-
