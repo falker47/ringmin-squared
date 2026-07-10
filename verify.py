@@ -186,12 +186,23 @@ def main() -> int:
     parser.add_argument("--radius", help="claimed central radius; required with --order")
     parser.add_argument("--digits", type=int, default=DEFAULT_DIGITS)
     parser.add_argument("--eta", default="0", help="positive local bracket radius offset")
+    parser.add_argument(
+        "--stn-tol",
+        help="override the absolute closed-STN diagonal tolerance derived from --digits",
+    )
     args = parser.parse_args()
 
     if args.digits < 30:
         raise SystemExit("digits must be at least 30")
     mp.mp.dps = args.digits
     tol = _tolerance(args.digits)
+    if args.stn_tol is not None:
+        try:
+            tol = mp.mpf(str(args.stn_tol))
+        except Exception as exc:
+            raise SystemExit(f"invalid --stn-tol: {args.stn_tol!r}") from exc
+        if not mp.isfinite(tol) or tol < 0:
+            raise SystemExit("stn-tol must be finite and nonnegative")
 
     if args.input is not None:
         order, R, raw_positions = load_payload(args.input)

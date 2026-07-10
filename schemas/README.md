@@ -56,3 +56,14 @@ power-ringmin-export-fixed-order-batch index_orders.json --order-kind index --ba
 The JSON input may be a top-level list, for example `[[16, 1, 9, 4], [1, 4, 9]]`, or an object with an `orders` list. With `--order-kind index`, entries are interpreted as quadratic indices and converted to radii before artifact export.
 
 The schema itself does not prove a result. Verification remains a separate evidence step, recorded in `evidence.checks` and in the task dossier for the run that produced the artifact.
+
+## Batch Standalone Verification
+
+The package entry point `power-ringmin-verify-fixed-order-artifacts` validates every matching v1 artifact in a directory, derives the minimal standalone `verify.py` payload, and invokes root `verify.py` once per artifact:
+
+```powershell
+power-ringmin-verify-fixed-order-artifacts artifacts
+power-ringmin-verify-fixed-order-artifacts artifacts --recursive --pattern "*.json"
+```
+
+When an artifact records `result.local_radius_bracket.eta_decimal`, the batch verifier passes that eta to `verify.py` by default. Use `--no-artifact-eta` to skip local bracket checks, `--eta` to use the same eta for every artifact, or `--stn-tol` to pass an explicit closed-STN diagonal tolerance to `verify.py` for tolerance-labeled numerical artifacts such as float64 exports.
