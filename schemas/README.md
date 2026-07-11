@@ -1,4 +1,4 @@
-# Fixed-Order Result Artifact Schema
+# Artifact Schemas
 
 `fixed_order_result.schema.json` is the v1 canonical JSON Schema for one fixed cyclic order in Power-Ringmin.
 
@@ -58,6 +58,34 @@ The JSON input may be a top-level list, for example `[[16, 1, 9, 4], [1, 4, 9]]`
 The schema itself does not prove a result. Verification remains a separate evidence step, recorded in `evidence.checks` and in the task dossier for the run that produced the artifact.
 
 See `examples/fixed_order_batch_end_to_end/` for a small reproducible batch example that exports high-precision artifacts and verifies the generated directory.
+
+## Small-N Interval Certificates
+
+`small_n_interval_certificate.schema.json` is the v1 structural JSON Schema for a finite global small-n interval certificate assembled from verified local fixed-order interval brackets.
+
+The schema requires:
+
+- explicit quadratic instance metadata and canonical cyclic-order coverage metadata;
+- explicit aggregation method metadata naming the local verifier and regenerated order-space source;
+- strict global lower and feasible upper bound records with source index orders;
+- one human-readable local bracket summary per embedded local bracket;
+- provenance and evidence blocks classified as `computer_certified_result`.
+
+The package validator `power_ringmin.small_n_interval_certificate.validate_small_n_interval_certificate_artifact` is the semantic authority. It independently regenerates the canonical order space, re-verifies every embedded local fixed-order interval bracket with its recorded guarded interval backend metadata, recomputes summary diagnostics and aggregate bounds, and rejects artifacts whose evidence or aggregation metadata drift from the implemented verifier contract.
+
+Before attempting `n=5` or larger certificate production, use the bounded general exporter in dry-run mode to record the canonical order-space size:
+
+```powershell
+power-ringmin-export-small-n-interval-certificate --n 5 --max-canonical-orders 12 --dry-run
+```
+
+Actual generation requires both `--output` and an explicit `--max-canonical-orders` ceiling:
+
+```powershell
+power-ringmin-export-small-n-interval-certificate --n 5 --max-canonical-orders 12 --output artifact.json
+```
+
+This command still produces finite-`n` evidence only. It does not prove an exact optimum, an asymptotic result, or a theorem for all `n`.
 
 ## Batch Standalone Verification
 

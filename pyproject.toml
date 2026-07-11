@@ -24,6 +24,7 @@ power-ringmin-export-fixed-order-batch = "power_ringmin.export_fixed_order_batch
 power-ringmin-export-fixed-order-interval-bracket = "power_ringmin.interval_bracket_exporter:main"
 power-ringmin-export-n3-interval-certificate = "power_ringmin.small_n_interval_certificate:main"
 power-ringmin-export-n4-interval-certificate = "power_ringmin.small_n_interval_certificate:main_n4"
+power-ringmin-export-small-n-interval-certificate = "power_ringmin.small_n_interval_certificate:main_small_n"
 power-ringmin-verify-fixed-order-artifacts = "power_ringmin.verify_fixed_order_artifacts_cli:main"
 power-ringmin-search-small-n = "power_ringmin.search_small_n:main"
 

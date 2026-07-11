@@ -193,6 +193,15 @@ def verify_fixed_order_interval_bracket(
     """
     source = _expect_mapping(record, "fixed-order interval bracket record")
     oracle = oracle or MPMathIntervalAngularOracle()
+    precision_digits = oracle.backend_info.precision_digits
+    with mp.workdps(max(mp.mp.dps, precision_digits)):
+        return _verify_fixed_order_interval_bracket_at_precision(source, oracle)
+
+
+def _verify_fixed_order_interval_bracket_at_precision(
+    source: Mapping[str, Any],
+    oracle: AngularIntervalOracle,
+) -> FixedOrderIntervalVerification:
     messages: list[str] = []
 
     index_order = _parse_index_order(source.get("index_order"))

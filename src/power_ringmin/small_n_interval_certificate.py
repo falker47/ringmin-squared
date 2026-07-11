@@ -55,9 +55,23 @@ DEFAULT_N4_FIXTURE_GUARD_DECIMAL = "1e-70"
 DEFAULT_N4_FIXTURE_RADIUS_ETA = "1e-4"
 DEFAULT_N4_MAX_CANONICAL_ORDERS = 3
 DEFAULT_N4_LOCAL_MAX_ATTEMPTS = DEFAULT_LOCAL_BRACKET_MAX_ATTEMPTS
+DEFAULT_SMALL_N_CERTIFICATE_DIGITS = 80
+DEFAULT_SMALL_N_CERTIFICATE_GUARD_DECIMAL = "1e-70"
+DEFAULT_SMALL_N_CERTIFICATE_RADIUS_ETA = "1e-4"
+DEFAULT_SMALL_N_LOCAL_MAX_ATTEMPTS = DEFAULT_LOCAL_BRACKET_MAX_ATTEMPTS
 N3_COMMAND_NAME = "power-ringmin-export-n3-interval-certificate"
 N4_COMMAND_NAME = "power-ringmin-export-n4-interval-certificate"
+SMALL_N_COMMAND_NAME = "power-ringmin-export-small-n-interval-certificate"
 COMMAND_NAME = N3_COMMAND_NAME
+LOCAL_VERIFIER_NAME = "power_ringmin.interval_verifier.verify_fixed_order_interval_bracket"
+ORDER_SPACE_SOURCE = "power_ringmin.search_small_n.canonical_index_orders"
+COVERAGE_RULE = "exactly_one_verified_local_bracket_per_canonical_order"
+LOWER_BOUND_RULE = (
+    "minimum verified lower endpoint across canonical orders; "
+    "monotonicity of fixed-order feasibility in R extends each local "
+    "lower infeasibility certificate down to that endpoint"
+)
+UPPER_BOUND_RULE = "minimum verified upper endpoint across canonical orders"
 
 
 @dataclass(frozen=True)
@@ -246,6 +260,39 @@ def export_n4_interval_certificate_artifact(
     return load_small_n_interval_certificate_artifact(output_path)
 
 
+def export_small_n_interval_certificate_artifact(
+    output: str | Path,
+    *,
+    n: int,
+    max_canonical_orders: int,
+    digits: int = DEFAULT_SMALL_N_CERTIFICATE_DIGITS,
+    guard_decimal: str | None = DEFAULT_SMALL_N_CERTIFICATE_GUARD_DECIMAL,
+    radius_eta: str = DEFAULT_SMALL_N_CERTIFICATE_RADIUS_ETA,
+    local_max_attempts: int = DEFAULT_SMALL_N_LOCAL_MAX_ATTEMPTS,
+    created_at_utc: str | None = None,
+    argv_for_provenance: Sequence[str] | None = None,
+) -> SmallNIntervalCertificate:
+    """Build, verify, write, and reload a bounded finite small-n certificate."""
+    output_path = Path(output)
+    artifact = build_bounded_small_n_interval_certificate_fixture(
+        n,
+        max_canonical_orders=max_canonical_orders,
+        digits=digits,
+        guard_decimal=guard_decimal,
+        radius_eta=radius_eta,
+        local_max_attempts=local_max_attempts,
+        created_at_utc=created_at_utc,
+        command_summary=_command_summary(
+            argv_for_provenance,
+            output=output_path,
+            command_name=SMALL_N_COMMAND_NAME,
+            programmatic_function="export_small_n_interval_certificate_artifact",
+        ),
+    )
+    dump_small_n_interval_certificate_artifact(artifact, output_path)
+    return load_small_n_interval_certificate_artifact(output_path)
+
+
 def build_small_n_interval_certificate(
     local_bracket_records: Sequence[Mapping[str, Any] | FixedOrderIntervalBracketExport],
     *,
@@ -288,17 +335,13 @@ def build_small_n_interval_certificate(
             "canonicalization_rule": CANONICALIZATION_RULE,
             "expected_canonical_count": canonical_index_order_count(n),
             "covered_canonical_count": len(verified),
-            "coverage_rule": "exactly_one_verified_local_bracket_per_canonical_order",
+            "coverage_rule": COVERAGE_RULE,
         },
         "aggregation_method": {
-            "local_verifier": "power_ringmin.interval_verifier.verify_fixed_order_interval_bracket",
-            "order_space_source": "power_ringmin.search_small_n.canonical_index_orders",
-            "lower_bound_rule": (
-                "minimum verified lower endpoint across canonical orders; "
-                "monotonicity of fixed-order feasibility in R extends each local "
-                "lower infeasibility certificate down to that endpoint"
-            ),
-            "upper_bound_rule": "minimum verified upper endpoint across canonical orders",
+            "local_verifier": LOCAL_VERIFIER_NAME,
+            "order_space_source": ORDER_SPACE_SOURCE,
+            "lower_bound_rule": LOWER_BOUND_RULE,
+            "upper_bound_rule": UPPER_BOUND_RULE,
         },
         "result": {
             "global_lower_bound": {
@@ -349,6 +392,14 @@ def validate_small_n_interval_certificate_artifact(artifact: Mapping[str, Any]) 
         raise ValueError("problem.project must be power-ringmin")
     if problem.get("radius_model") != "quadratic":
         raise ValueError("problem.radius_model must be quadratic")
+    if problem.get("dimension") != 2:
+        raise ValueError("problem.dimension must be 2")
+    if constraints.get("central_external_tangency") is not True:
+        raise ValueError("problem.constraints.central_external_tangency must be true")
+    if constraints.get("peripheral_pairwise_disjoint_interiors") is not True:
+        raise ValueError(
+            "problem.constraints.peripheral_pairwise_disjoint_interiors must be true"
+        )
     if constraints.get("all_pairs_checked") is not True:
         raise ValueError("problem.constraints.all_pairs_checked must be true")
 
@@ -356,6 +407,12 @@ def validate_small_n_interval_certificate_artifact(artifact: Mapping[str, Any]) 
     n = _parse_positive_int(instance.get("n"), "instance.n")
     _validate_n(n)
     radius_sequence = _expect_mapping(instance.get("radius_sequence"), "instance.radius_sequence")
+    if radius_sequence.get("kind") != "explicit":
+        raise ValueError("instance.radius_sequence.kind must be explicit")
+    if radius_sequence.get("formula") != "k^2":
+        raise ValueError("instance.radius_sequence.formula must be k^2")
+    if radius_sequence.get("index_base") != 1:
+        raise ValueError("instance.radius_sequence.index_base must be 1")
     if tuple(radius_sequence.get("indices", [])) != tuple(range(1, n + 1)):
         raise ValueError("instance.radius_sequence.indices must equal 1..n")
     if tuple(radius_sequence.get("radii", [])) != quadratic_radii(n):
@@ -363,6 +420,8 @@ def validate_small_n_interval_certificate_artifact(artifact: Mapping[str, Any]) 
 
     order_space = _expect_mapping(source.get("order_space"), "order_space")
     expected_count = canonical_index_order_count(n)
+    if order_space.get("order_type") != "cyclic":
+        raise ValueError("order_space.order_type must be cyclic")
     if order_space.get("equivalence") != ORDER_EQUIVALENCE:
         raise ValueError("order_space.equivalence must be rotation_reflection")
     if order_space.get("canonicalization_rule") != CANONICALIZATION_RULE:
@@ -371,23 +430,39 @@ def validate_small_n_interval_certificate_artifact(artifact: Mapping[str, Any]) 
         raise ValueError("order_space.expected_canonical_count is inconsistent with n")
     if int(order_space.get("covered_canonical_count")) != expected_count:
         raise ValueError("order_space.covered_canonical_count must equal expected count")
+    if order_space.get("coverage_rule") != COVERAGE_RULE:
+        raise ValueError("order_space.coverage_rule is unsupported")
+
+    aggregation = _expect_mapping(source.get("aggregation_method"), "aggregation_method")
+    if aggregation.get("local_verifier") != LOCAL_VERIFIER_NAME:
+        raise ValueError("aggregation_method.local_verifier is unsupported")
+    if aggregation.get("order_space_source") != ORDER_SPACE_SOURCE:
+        raise ValueError("aggregation_method.order_space_source is unsupported")
+    if aggregation.get("lower_bound_rule") != LOWER_BOUND_RULE:
+        raise ValueError("aggregation_method.lower_bound_rule is unsupported")
+    if aggregation.get("upper_bound_rule") != UPPER_BOUND_RULE:
+        raise ValueError("aggregation_method.upper_bound_rule is unsupported")
 
     local_brackets = _expect_list(source.get("local_brackets"), "local_brackets")
     verified = _verify_and_cover_local_records(local_brackets, n=n)
-    summaries = _expect_list(source.get("local_bracket_summaries"), "local_bracket_summaries")
-    if len(summaries) != len(verified):
-        raise ValueError("local_bracket_summaries length must match local_brackets")
-    _validate_local_summaries(summaries, verified)
+    validation_digits = max(item.interval_digits for item in verified)
+    with mp.workdps(max(mp.mp.dps, validation_digits)):
+        summaries = _expect_list(source.get("local_bracket_summaries"), "local_bracket_summaries")
+        if len(summaries) != len(verified):
+            raise ValueError("local_bracket_summaries length must match local_brackets")
+        _validate_local_summaries(summaries, verified)
 
-    lower_source = min(verified, key=lambda item: (item.lower_radius, item.index_order))
-    upper_source = min(verified, key=lambda item: (item.upper_radius, item.index_order))
-    result = _expect_mapping(source.get("result"), "result")
-    lower_bound = _expect_mapping(result.get("global_lower_bound"), "result.global_lower_bound")
-    upper_bound = _expect_mapping(result.get("global_upper_bound"), "result.global_upper_bound")
-    _validate_bound(lower_bound, lower_source, included=False, name="result.global_lower_bound")
-    _validate_bound(upper_bound, upper_source, included=True, name="result.global_upper_bound")
-    if mp.mpf(lower_bound["radius_decimal"]) > mp.mpf(upper_bound["radius_decimal"]):
-        raise ValueError("global lower bound must not exceed global upper bound")
+        lower_source = min(verified, key=lambda item: (item.lower_radius, item.index_order))
+        upper_source = min(verified, key=lambda item: (item.upper_radius, item.index_order))
+        result = _expect_mapping(source.get("result"), "result")
+        lower_bound = _expect_mapping(result.get("global_lower_bound"), "result.global_lower_bound")
+        upper_bound = _expect_mapping(result.get("global_upper_bound"), "result.global_upper_bound")
+        _validate_bound(lower_bound, lower_source, included=False, name="result.global_lower_bound")
+        _validate_bound(upper_bound, upper_source, included=True, name="result.global_upper_bound")
+        if mp.mpf(lower_bound["radius_decimal"]) > mp.mpf(upper_bound["radius_decimal"]):
+            raise ValueError("global lower bound must not exceed global upper bound")
+
+    _validate_provenance(source.get("provenance"))
 
     evidence = _expect_mapping(source.get("evidence"), "evidence")
     classification = evidence.get("classification")
@@ -398,10 +473,12 @@ def validate_small_n_interval_certificate_artifact(artifact: Mapping[str, Any]) 
     claim = _expect_mapping(evidence.get("claim"), "evidence.claim")
     if claim.get("scope") != EVIDENCE_SCOPE:
         raise ValueError("evidence.claim.scope must be finite_global_small_n_interval_bracket")
-    _expect_list(evidence.get("checks"), "evidence.checks")
+    _validate_evidence_checks(_expect_list(evidence.get("checks"), "evidence.checks"), n=n)
     limitations = _expect_list(evidence.get("limitations"), "evidence.limitations")
     if not any("No theorem for all n" in str(item) for item in limitations):
         raise ValueError("evidence.limitations must disclaim theorem-for-all-n status")
+    if not any("Interval backend provenance" in str(item) for item in limitations):
+        raise ValueError("evidence.limitations must mention interval backend provenance")
 
 
 def dump_small_n_interval_certificate_artifact(
@@ -546,6 +623,70 @@ def build_n4_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def build_small_n_parser() -> argparse.ArgumentParser:
+    """Build the parser for bounded finite small-n certificate production."""
+    parser = argparse.ArgumentParser(
+        description=(
+            "Export a bounded finite small-n interval certificate artifact, "
+            "or dry-run the canonical-order preflight."
+        ),
+    )
+    parser.add_argument("--n", required=True, type=int, help="quadratic instance size, minimum 3")
+    parser.add_argument(
+        "--max-canonical-orders",
+        required=True,
+        type=int,
+        help="explicit hard ceiling on regenerated canonical orders",
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        type=Path,
+        help="path to write the finite small-n interval certificate JSON artifact",
+    )
+    parser.add_argument(
+        "--digits",
+        type=int,
+        default=DEFAULT_SMALL_N_CERTIFICATE_DIGITS,
+        help=f"mpmath working precision digits (default: {DEFAULT_SMALL_N_CERTIFICATE_DIGITS})",
+    )
+    parser.add_argument(
+        "--guard-decimal",
+        default=DEFAULT_SMALL_N_CERTIFICATE_GUARD_DECIMAL,
+        help=(
+            "nonnegative guard added to interval endpoints "
+            f"(default: {DEFAULT_SMALL_N_CERTIFICATE_GUARD_DECIMAL})"
+        ),
+    )
+    parser.add_argument(
+        "--radius-eta",
+        default=DEFAULT_SMALL_N_CERTIFICATE_RADIUS_ETA,
+        help=(
+            "positive radius bracket offset for each embedded local bracket "
+            f"(default: {DEFAULT_SMALL_N_CERTIFICATE_RADIUS_ETA})"
+        ),
+    )
+    parser.add_argument(
+        "--local-max-attempts",
+        type=int,
+        default=DEFAULT_SMALL_N_LOCAL_MAX_ATTEMPTS,
+        help=(
+            "maximum bracket-widening attempts per local fixed order "
+            f"(default: {DEFAULT_SMALL_N_LOCAL_MAX_ATTEMPTS})"
+        ),
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="only report canonical-order count and whether the bound permits generation",
+    )
+    parser.add_argument(
+        "--created-at-utc",
+        help="optional UTC timestamp to record in artifact provenance",
+    )
+    return parser
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """Run the finite n=3 interval certificate exporter CLI."""
     parser = build_parser()
@@ -586,6 +727,49 @@ def main_n4(argv: Sequence[str] | None = None) -> int:
             guard_decimal=args.guard_decimal,
             radius_eta=args.radius_eta,
             max_canonical_orders=args.max_canonical_orders,
+            local_max_attempts=args.local_max_attempts,
+            created_at_utc=args.created_at_utc,
+            argv_for_provenance=raw_argv,
+        )
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        parser.error(str(exc))
+
+    print(
+        f"wrote {args.output} n={certificate.n} "
+        f"bracket=({certificate.lower_radius_decimal}, {certificate.upper_radius_decimal}] "
+        "classification=computer_certified_result "
+        f"covered={certificate.covered_canonical_count}"
+    )
+    return 0
+
+
+def main_small_n(argv: Sequence[str] | None = None) -> int:
+    """Run the bounded finite small-n interval certificate exporter CLI."""
+    parser = build_small_n_parser()
+    raw_argv = list(sys.argv[1:] if argv is None else argv)
+    args = parser.parse_args(raw_argv)
+
+    try:
+        _validate_n(args.n)
+        max_orders = _parse_positive_int(args.max_canonical_orders, "max_canonical_orders")
+        expected_count = canonical_index_order_count(args.n)
+        generation_allowed = expected_count <= max_orders
+        if args.dry_run:
+            print(
+                f"preflight n={args.n} canonical_orders={expected_count} "
+                f"max_canonical_orders={max_orders} "
+                f"generation_allowed={str(generation_allowed).lower()}"
+            )
+            return 0
+        if args.output is None:
+            parser.error("--output is required unless --dry-run is set")
+        certificate = export_small_n_interval_certificate_artifact(
+            args.output,
+            n=args.n,
+            max_canonical_orders=max_orders,
+            digits=args.digits,
+            guard_decimal=args.guard_decimal,
+            radius_eta=args.radius_eta,
             local_max_attempts=args.local_max_attempts,
             created_at_utc=args.created_at_utc,
             argv_for_provenance=raw_argv,
@@ -694,6 +878,9 @@ def _validate_local_summaries(
 ) -> None:
     for i, (summary, item) in enumerate(zip(summaries, verified, strict=True)):
         source = _expect_mapping(summary, f"local_bracket_summaries[{i}]")
+        expected_check_id = f"LB-{i + 1:04d}"
+        if source.get("check_id") != expected_check_id:
+            raise ValueError(f"local_bracket_summaries[{i}].check_id must be {expected_check_id}")
         if tuple(source.get("index_order", [])) != item.index_order:
             raise ValueError(f"local_bracket_summaries[{i}].index_order mismatch")
         if tuple(source.get("radius_order", [])) != item.radius_order:
@@ -702,6 +889,18 @@ def _validate_local_summaries(
             raise ValueError(f"local_bracket_summaries[{i}].lower_radius_decimal mismatch")
         if mp.mpf(str(source.get("upper_radius_decimal"))) != item.upper_radius:
             raise ValueError(f"local_bracket_summaries[{i}].upper_radius_decimal mismatch")
+        if mp.mpf(str(source.get("lower_negative_cycle_sum_upper_decimal"))) != mp.mpf(
+            _decimal_string(item.lower_negative_cycle_sum_upper, digits=item.interval_digits)
+        ):
+            raise ValueError(
+                f"local_bracket_summaries[{i}].lower_negative_cycle_sum_upper_decimal mismatch"
+            )
+        if mp.mpf(str(source.get("min_upper_witness_slack_lower_decimal"))) != mp.mpf(
+            _decimal_string(item.min_upper_witness_slack_lower, digits=item.interval_digits)
+        ):
+            raise ValueError(
+                f"local_bracket_summaries[{i}].min_upper_witness_slack_lower_decimal mismatch"
+            )
         if source.get("result") != "pass":
             raise ValueError(f"local_bracket_summaries[{i}].result must be pass")
 
@@ -849,6 +1048,57 @@ def _evidence_record(*, n: int, local_count: int) -> dict[str, Any]:
     }
 
 
+def _validate_provenance(value: Any) -> None:
+    provenance = _expect_mapping(value, "provenance")
+    if not isinstance(provenance.get("created_at_utc"), str) or not provenance["created_at_utc"]:
+        raise ValueError("provenance.created_at_utc must be a non-empty string")
+    repository = _expect_mapping(provenance.get("repository"), "provenance.repository")
+    if repository.get("name") != "power-ringmin":
+        raise ValueError("provenance.repository.name must be power-ringmin")
+    git_commit = repository.get("git_commit")
+    if git_commit is not None and (
+        not isinstance(git_commit, str) or len(git_commit) != 40
+    ):
+        raise ValueError("provenance.repository.git_commit must be null or a 40-character string")
+    if not isinstance(repository.get("git_dirty"), bool):
+        raise ValueError("provenance.repository.git_dirty must be boolean")
+    if not _expect_list(provenance.get("software"), "provenance.software"):
+        raise ValueError("provenance.software must be non-empty")
+    if not _expect_list(provenance.get("source_files"), "provenance.source_files"):
+        raise ValueError("provenance.source_files must be non-empty")
+    if not _expect_list(provenance.get("commands"), "provenance.commands"):
+        raise ValueError("provenance.commands must be non-empty")
+    randomness = _expect_mapping(provenance.get("randomness"), "provenance.randomness")
+    if randomness.get("used") is not False:
+        raise ValueError("provenance.randomness.used must be false")
+    if not isinstance(randomness.get("seeds"), list):
+        raise ValueError("provenance.randomness.seeds must be a list")
+
+
+def _validate_evidence_checks(checks: Sequence[Any], *, n: int) -> None:
+    expected = (
+        ("EV-001", "verified_fact", "independent canonical index-order regeneration"),
+        ("EV-002", "computer_certified_result", "local fixed-order interval bracket verification"),
+        ("EV-003", "computer_certified_result", "finite global bracket aggregation"),
+    )
+    if len(checks) != len(expected):
+        raise ValueError("evidence.checks must contain the three required checks")
+    for i, (check, (check_id, classification, method)) in enumerate(zip(checks, expected, strict=True)):
+        source = _expect_mapping(check, f"evidence.checks[{i}]")
+        if source.get("check_id") != check_id:
+            raise ValueError(f"evidence.checks[{i}].check_id must be {check_id}")
+        if source.get("classification") != classification:
+            raise ValueError(f"evidence.checks[{i}].classification must be {classification}")
+        if source.get("method") != method:
+            raise ValueError(f"evidence.checks[{i}].method must be {method}")
+        if source.get("result") != "pass":
+            raise ValueError(f"evidence.checks[{i}].result must be pass")
+    expected_count = canonical_index_order_count(n)
+    first_summary = str(_expect_mapping(checks[0], "evidence.checks[0]").get("output_summary", ""))
+    if str(expected_count) not in first_summary:
+        raise ValueError("evidence.checks[0].output_summary must mention the canonical count")
+
+
 def _command_summary(
     argv: Sequence[str] | None,
     *,
@@ -886,7 +1136,8 @@ def _parse_positive_int(value: Any, name: str) -> int:
 
 
 def _decimal_string(value: Any, *, digits: int) -> str:
-    text = mp.nstr(mp.mpf(value), n=digits)
+    with mp.workdps(max(mp.mp.dps, digits)):
+        text = mp.nstr(mp.mpf(value), n=digits)
     return text[1:] if text.startswith("+") else text
 
 
@@ -917,9 +1168,14 @@ __all__ = [
     "DEFAULT_N3_FIXTURE_DIGITS",
     "DEFAULT_N3_FIXTURE_GUARD_DECIMAL",
     "DEFAULT_N3_FIXTURE_RADIUS_ETA",
+    "DEFAULT_SMALL_N_CERTIFICATE_DIGITS",
+    "DEFAULT_SMALL_N_CERTIFICATE_GUARD_DECIMAL",
+    "DEFAULT_SMALL_N_CERTIFICATE_RADIUS_ETA",
+    "DEFAULT_SMALL_N_LOCAL_MAX_ATTEMPTS",
     "EVIDENCE_SCOPE",
     "N3_COMMAND_NAME",
     "N4_COMMAND_NAME",
+    "SMALL_N_COMMAND_NAME",
     "SMALL_N_INTERVAL_CERTIFICATE_SCHEMA_VERSION",
     "SmallNIntervalCertificate",
     "VerifiedLocalIntervalBracket",
@@ -927,15 +1183,18 @@ __all__ = [
     "build_parser",
     "build_n3_interval_certificate_fixture",
     "build_n4_interval_certificate_fixture",
+    "build_small_n_parser",
     "build_small_n_interval_certificate",
     "dump_small_n_interval_certificate_artifact",
     "dumps_small_n_interval_certificate_artifact",
     "export_n3_interval_certificate_artifact",
     "export_n4_interval_certificate_artifact",
+    "export_small_n_interval_certificate_artifact",
     "load_small_n_interval_certificate_artifact",
     "loads_small_n_interval_certificate_artifact",
     "main",
     "main_n4",
+    "main_small_n",
     "validate_small_n_interval_certificate_artifact",
 ]
 

@@ -1,0 +1,526 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://power-ringmin.local/schemas/small_n_interval_certificate.schema.json",
+  "title": "Power-Ringmin finite small-n interval certificate artifact",
+  "description": "Structural JSON contract for a finite small-n interval certificate assembled from verified fixed-order interval brackets.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_type",
+    "problem",
+    "instance",
+    "order_space",
+    "aggregation_method",
+    "result",
+    "local_bracket_summaries",
+    "local_brackets",
+    "provenance",
+    "evidence"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "power-ringmin.small_n_interval_certificate.v1"
+    },
+    "artifact_type": {
+      "const": "small_n_interval_certificate"
+    },
+    "problem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project",
+        "radius_model",
+        "dimension",
+        "constraints"
+      ],
+      "properties": {
+        "project": {
+          "const": "power-ringmin"
+        },
+        "radius_model": {
+          "const": "quadratic"
+        },
+        "dimension": {
+          "const": 2
+        },
+        "constraints": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "central_external_tangency",
+            "peripheral_pairwise_disjoint_interiors",
+            "all_pairs_checked"
+          ],
+          "properties": {
+            "central_external_tangency": {
+              "const": true
+            },
+            "peripheral_pairwise_disjoint_interiors": {
+              "const": true
+            },
+            "all_pairs_checked": {
+              "const": true
+            }
+          }
+        }
+      }
+    },
+    "instance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "n",
+        "radius_sequence"
+      ],
+      "properties": {
+        "n": {
+          "type": "integer",
+          "minimum": 3
+        },
+        "radius_sequence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "formula",
+            "index_base",
+            "indices",
+            "radii"
+          ],
+          "properties": {
+            "kind": {
+              "const": "explicit"
+            },
+            "formula": {
+              "const": "k^2"
+            },
+            "index_base": {
+              "const": 1
+            },
+            "indices": {
+              "$ref": "#/$defs/positiveIntegerArray"
+            },
+            "radii": {
+              "$ref": "#/$defs/positiveIntegerArray"
+            }
+          }
+        }
+      }
+    },
+    "order_space": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "order_type",
+        "equivalence",
+        "canonicalization_rule",
+        "expected_canonical_count",
+        "covered_canonical_count",
+        "coverage_rule"
+      ],
+      "properties": {
+        "order_type": {
+          "const": "cyclic"
+        },
+        "equivalence": {
+          "const": "rotation_reflection"
+        },
+        "canonicalization_rule": {
+          "const": "largest_index_first_second_index_less_than_last"
+        },
+        "expected_canonical_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "covered_canonical_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "coverage_rule": {
+          "const": "exactly_one_verified_local_bracket_per_canonical_order"
+        }
+      }
+    },
+    "aggregation_method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "local_verifier",
+        "order_space_source",
+        "lower_bound_rule",
+        "upper_bound_rule"
+      ],
+      "properties": {
+        "local_verifier": {
+          "const": "power_ringmin.interval_verifier.verify_fixed_order_interval_bracket"
+        },
+        "order_space_source": {
+          "const": "power_ringmin.search_small_n.canonical_index_orders"
+        },
+        "lower_bound_rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "upper_bound_rule": {
+          "const": "minimum verified upper endpoint across canonical orders"
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "global_lower_bound",
+        "global_upper_bound",
+        "statement"
+      ],
+      "properties": {
+        "global_lower_bound": {
+          "$ref": "#/$defs/globalBound"
+        },
+        "global_upper_bound": {
+          "$ref": "#/$defs/globalBound"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "local_bracket_summaries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/localBracketSummary"
+      }
+    },
+    "local_brackets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/embeddedLocalBracket"
+      }
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "evidence": {
+      "$ref": "#/$defs/evidence"
+    }
+  },
+  "$defs": {
+    "decimalString": {
+      "type": "string",
+      "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?:[eE][+-]?[0-9]+)?$"
+    },
+    "positiveIntegerArray": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "uniqueItems": true
+    },
+    "indexOrder": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "uniqueItems": true
+    },
+    "globalBound": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "radius_decimal",
+        "encoding",
+        "included",
+        "source_index_order"
+      ],
+      "properties": {
+        "radius_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "encoding": {
+          "const": "decimal_string"
+        },
+        "included": {
+          "type": "boolean"
+        },
+        "source_index_order": {
+          "$ref": "#/$defs/indexOrder"
+        }
+      }
+    },
+    "localBracketSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "check_id",
+        "index_order",
+        "radius_order",
+        "lower_radius_decimal",
+        "upper_radius_decimal",
+        "lower_negative_cycle_sum_upper_decimal",
+        "min_upper_witness_slack_lower_decimal",
+        "result"
+      ],
+      "properties": {
+        "check_id": {
+          "type": "string",
+          "pattern": "^LB-[0-9]{4}$"
+        },
+        "index_order": {
+          "$ref": "#/$defs/indexOrder"
+        },
+        "radius_order": {
+          "$ref": "#/$defs/positiveIntegerArray"
+        },
+        "lower_radius_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "upper_radius_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "lower_negative_cycle_sum_upper_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "min_upper_witness_slack_lower_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "result": {
+          "const": "pass"
+        }
+      }
+    },
+    "embeddedLocalBracket": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "artifact_type",
+        "index_order",
+        "radius_order",
+        "lower_radius_decimal",
+        "upper_radius_decimal",
+        "lower_certificate",
+        "upper_certificate",
+        "theta_interval_backend",
+        "min_upper_witness_slack_lower",
+        "lower_negative_cycle_sum_upper",
+        "evidence"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "power-ringmin.fixed_order_interval_bracket.v1"
+        },
+        "artifact_type": {
+          "const": "fixed_order_interval_bracket"
+        },
+        "index_order": {
+          "$ref": "#/$defs/indexOrder"
+        },
+        "radius_order": {
+          "$ref": "#/$defs/positiveIntegerArray"
+        },
+        "lower_radius_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "upper_radius_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "lower_certificate": {
+          "type": "object"
+        },
+        "upper_certificate": {
+          "type": "object"
+        },
+        "theta_interval_backend": {
+          "type": "object"
+        },
+        "min_upper_witness_slack_lower": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "lower_negative_cycle_sum_upper": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "evidence": {
+          "type": "object"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "created_at_utc",
+        "repository",
+        "software",
+        "source_files",
+        "commands",
+        "randomness"
+      ],
+      "properties": {
+        "created_at_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "repository": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "name",
+            "git_commit",
+            "git_dirty"
+          ],
+          "properties": {
+            "name": {
+              "const": "power-ringmin"
+            },
+            "git_commit": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{40}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "git_dirty": {
+              "type": "boolean"
+            }
+          }
+        },
+        "software": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object"
+          }
+        },
+        "source_files": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object"
+          }
+        },
+        "commands": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object"
+          }
+        },
+        "randomness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "used",
+            "seeds"
+          ],
+          "properties": {
+            "used": {
+              "const": false
+            },
+            "seeds": {
+              "type": "array"
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "claim",
+        "checks",
+        "limitations"
+      ],
+      "properties": {
+        "classification": {
+          "const": "computer_certified_result"
+        },
+        "claim": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "scope",
+            "statement"
+          ],
+          "properties": {
+            "scope": {
+              "const": "finite_global_small_n_interval_bracket"
+            },
+            "statement": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "checks": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/$defs/evidenceCheck"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "evidenceCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "check_id",
+        "classification",
+        "method",
+        "result"
+      ],
+      "properties": {
+        "check_id": {
+          "type": "string",
+          "pattern": "^EV-[0-9]{3}$"
+        },
+        "classification": {
+          "enum": [
+            "verified_fact",
+            "computer_certified_result"
+          ]
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "enum": [
+            "pass",
+            "fail",
+            "not_run",
+            "informational"
+          ]
+        },
+        "output_summary": {
+          "type": "string"
+        },
+        "limitations": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import json
 from pathlib import Path
 import tomllib
 
@@ -11,6 +12,7 @@ from power_ringmin.search_small_n import canonical_index_orders
 from power_ringmin.small_n_interval_certificate import (
     COMMAND_NAME,
     N4_COMMAND_NAME,
+    SMALL_N_COMMAND_NAME,
     SMALL_N_INTERVAL_CERTIFICATE_SCHEMA_VERSION,
     build_n3_interval_certificate_fixture,
     build_n4_interval_certificate_fixture,
@@ -19,8 +21,32 @@ from power_ringmin.small_n_interval_certificate import (
     load_small_n_interval_certificate_artifact,
     main,
     main_n4,
+    main_small_n,
     validate_small_n_interval_certificate_artifact,
 )
+
+
+def test_small_n_interval_certificate_schema_contract_and_examples() -> None:
+    schema = json.loads(Path("schemas/small_n_interval_certificate.schema.json").read_text())
+
+    assert schema["$schema"] == "https://json-schema.org/draft/2020-12/schema"
+    assert schema["properties"]["schema_version"]["const"] == (
+        SMALL_N_INTERVAL_CERTIFICATE_SCHEMA_VERSION
+    )
+    assert schema["properties"]["artifact_type"]["const"] == "small_n_interval_certificate"
+    assert "aggregation_method" in schema["required"]
+    assert "local_brackets" in schema["required"]
+    assert schema["properties"]["evidence"]["$ref"] == "#/$defs/evidence"
+
+    for path in (
+        Path("examples/small_n_interval_certificate_n3.json"),
+        Path("examples/small_n_interval_certificate_n4.json"),
+    ):
+        artifact = json.loads(path.read_text(encoding="utf-8"))
+        validate_small_n_interval_certificate_artifact(artifact)
+        assert artifact["schema_version"] == SMALL_N_INTERVAL_CERTIFICATE_SCHEMA_VERSION
+        assert artifact["artifact_type"] == schema["properties"]["artifact_type"]["const"]
+        assert artifact["evidence"]["classification"] == "computer_certified_result"
 
 
 def test_n3_interval_certificate_fixture_covers_every_canonical_order() -> None:
@@ -143,6 +169,16 @@ def test_small_n_interval_certificate_validation_rechecks_embedded_local_bracket
     with pytest.raises(ValueError, match="global_upper_bound"):
         validate_small_n_interval_certificate_artifact(broken_bound)
 
+    broken_summary = copy.deepcopy(artifact)
+    broken_summary["local_bracket_summaries"][0]["min_upper_witness_slack_lower_decimal"] = "0"
+    with pytest.raises(ValueError, match="min_upper_witness_slack_lower_decimal"):
+        validate_small_n_interval_certificate_artifact(broken_summary)
+
+    broken_method = copy.deepcopy(artifact)
+    broken_method["aggregation_method"]["local_verifier"] = "some.other.verifier"
+    with pytest.raises(ValueError, match="aggregation_method.local_verifier"):
+        validate_small_n_interval_certificate_artifact(broken_method)
+
 
 def test_n3_interval_certificate_cli_writes_checked_finite_artifact(
     tmp_path: Path,
@@ -228,6 +264,83 @@ def test_n4_interval_certificate_cli_writes_checked_finite_artifact(
     assert "No theorem for all n." in artifact["evidence"]["limitations"]
 
 
+def test_small_n_interval_certificate_cli_dry_run_reports_n5_order_count(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    exit_code = main_small_n(
+        [
+            "--n",
+            "5",
+            "--max-canonical-orders",
+            "12",
+            "--dry-run",
+        ]
+    )
+
+    assert exit_code == 0
+    stdout = capsys.readouterr().out
+    assert "preflight n=5" in stdout
+    assert "canonical_orders=12" in stdout
+    assert "generation_allowed=true" in stdout
+
+
+def test_small_n_interval_certificate_cli_writes_bounded_n3_artifact(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    output = tmp_path / "small_n3_interval_certificate.json"
+
+    exit_code = main_small_n(
+        [
+            "--n",
+            "3",
+            "--max-canonical-orders",
+            "1",
+            "--output",
+            str(output),
+            "--digits",
+            "80",
+            "--guard-decimal",
+            "1e-70",
+            "--radius-eta",
+            "1e-4",
+            "--local-max-attempts",
+            "8",
+            "--created-at-utc",
+            "2026-07-11T00:00:00Z",
+        ]
+    )
+
+    assert exit_code == 0
+    assert "covered=1" in capsys.readouterr().out
+
+    loaded = load_small_n_interval_certificate_artifact(output)
+    artifact = loaded.to_dict()
+    assert loaded.n == 3
+    assert artifact["provenance"]["commands"][0]["command"].startswith(
+        f"{SMALL_N_COMMAND_NAME} --n 3"
+    )
+    assert artifact["order_space"]["covered_canonical_count"] == 1
+
+
+def test_small_n_interval_certificate_cli_refuses_unbounded_larger_generation(
+    tmp_path: Path,
+) -> None:
+    with pytest.raises(SystemExit) as exc_info:
+        main_small_n(
+            [
+                "--n",
+                "5",
+                "--max-canonical-orders",
+                "11",
+                "--output",
+                str(tmp_path / "n5.json"),
+            ]
+        )
+
+    assert exc_info.value.code == 2
+
+
 def test_checked_n3_interval_certificate_artifact_loads() -> None:
     path = Path("examples/small_n_interval_certificate_n3.json")
 
@@ -276,4 +389,12 @@ def test_n4_interval_certificate_console_script_entry_point_is_registered() -> N
 
     assert pyproject["project"]["scripts"][N4_COMMAND_NAME] == (
         "power_ringmin.small_n_interval_certificate:main_n4"
+    )
+
+
+def test_small_n_interval_certificate_console_script_entry_point_is_registered() -> None:
+    pyproject = tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))
+
+    assert pyproject["project"]["scripts"][SMALL_N_COMMAND_NAME] == (
+        "power_ringmin.small_n_interval_certificate:main_small_n"
     )

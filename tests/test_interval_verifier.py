@@ -44,6 +44,24 @@ def test_local_interval_bracket_accepts_strict_n3_record() -> None:
     assert assert_fixed_order_interval_bracket_verified(record, oracle=oracle) == result
 
 
+def test_local_interval_bracket_parses_decimals_at_oracle_precision() -> None:
+    oracle = MPMathIntervalAngularOracle(digits=90, guard_decimal="1e-80")
+    record = _strict_n3_bracket_record(oracle)
+    with mp.workdps(90):
+        expected_lower = mp.mpf(str(record["lower_radius_decimal"]))
+
+    old_dps = mp.mp.dps
+    try:
+        mp.mp.dps = 15
+        result = verify_fixed_order_interval_bracket(record, oracle=oracle)
+    finally:
+        mp.mp.dps = old_dps
+
+    assert result.verified
+    with mp.workdps(90):
+        assert result.lower_radius == expected_lower
+
+
 def test_local_interval_bracket_rejects_tolerance_based_backend_metadata() -> None:
     oracle = MPMathIntervalAngularOracle(digits=90, guard_decimal="1e-80")
     record = _strict_n3_bracket_record(oracle)

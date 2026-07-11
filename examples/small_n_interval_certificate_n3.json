@@ -81,8 +81,8 @@
       ],
       "lower_radius_decimal": "0.3832870361393696523322205393924377858638763427734375",
       "upper_radius_decimal": "0.383487036139369685816546962087159045040607452392578125",
-      "lower_negative_cycle_sum_upper_decimal": "-0.0003457957018790924763607108616270124912261962890625",
-      "min_upper_witness_slack_lower_decimal": "0.0000781249999999289457264239899814128875732421875",
+      "lower_negative_cycle_sum_upper_decimal": "-0.00034579570187859013214730215681983491187369876107781983598197982374883291574071622",
+      "min_upper_witness_slack_lower_decimal": "0.000078124999999990777768396705551741806559649356763309767206240826837099452803080971",
       "result": "pass"
     }
   ],
@@ -139,8 +139,8 @@
         "tolerance_based": false,
         "guard_decimal": "1e-70"
       },
-      "min_upper_witness_slack_lower": "0.00003906249999996447286321199499070644378662109375",
-      "lower_negative_cycle_sum_upper": "-0.00017289785093954623818035543081350624561309814453125",
+      "min_upper_witness_slack_lower": "0.000039062499999995386177654987935881081284605897963047027587890625",
+      "lower_negative_cycle_sum_upper": "-0.00017289785093929505564204485157375756898545660078525543212890625",
       "generator": {
         "backend": "mpmath_highprec_proposal_with_interval_verifier_acceptance",
         "digits": 80,
@@ -150,15 +150,15 @@
         "verified": true,
         "claim_scope": "local_fixed_order_interval_bracket",
         "verification_summary": {
-          "lower_negative_cycle_sum_upper_decimal": "-0.0003457957018790924763607108616270124912261962890625",
-          "min_upper_witness_slack_lower_decimal": "0.0000781249999999289457264239899814128875732421875"
+          "lower_negative_cycle_sum_upper_decimal": "-0.0003457957018785901112840897031475151379709132015705108642578125",
+          "min_upper_witness_slack_lower_decimal": "0.00007812499999999077235530997587176216256921179592609405517578125"
         }
       },
       "provenance": {
         "created_at_utc": "2026-07-11T00:00:00Z",
         "repository": {
           "name": "power-ringmin",
-          "git_commit": "7f8e1d1b9eace8931502b0fb12db7925cdfe3434",
+          "git_commit": "b2388e8d4015c1be67e731c77635bd2ea0fa0977",
           "git_dirty": true
         },
         "software": [
@@ -225,7 +225,7 @@
     "created_at_utc": "2026-07-11T00:00:00Z",
     "repository": {
       "name": "power-ringmin",
-      "git_commit": "7f8e1d1b9eace8931502b0fb12db7925cdfe3434",
+      "git_commit": "b2388e8d4015c1be67e731c77635bd2ea0fa0977",
       "git_dirty": true
     },
     "software": [
@@ -260,7 +260,7 @@
       },
       {
         "path": "src/power_ringmin/interval_bracket_exporter.py",
-        "role": "n=3 fixture local bracket generator"
+        "role": "local fixed-order interval bracket generator/exporter"
       },
       {
         "path": "src/power_ringmin/highprec.py",

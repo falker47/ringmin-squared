@@ -87,8 +87,8 @@
       ],
       "lower_radius_decimal": "1.6128928824552846155171437203534878790378570556640625",
       "upper_radius_decimal": "1.6130928824552845934903189117903821170330047607421875",
-      "lower_negative_cycle_sum_upper_decimal": "-0.0001277508946884164942048300872556865215301513671875",
-      "min_upper_witness_slack_lower_decimal": "0.00001953124999953814722175593487918376922607421875",
+      "lower_negative_cycle_sum_upper_decimal": "-0.00012775089468844982350152350839604072985574992221030344511866995007196330678129661",
+      "min_upper_witness_slack_lower_decimal": "0.000019531249999894490387769382910351824361894188622581358141352454520539904741787059",
       "result": "pass"
     },
     {
@@ -107,8 +107,8 @@
       ],
       "lower_radius_decimal": "1.4955284118749971877804227915476076304912567138671875",
       "upper_radius_decimal": "1.4957284118749971657535979829845018684864044189453125",
-      "lower_negative_cycle_sum_upper_decimal": "-0.000140173396414144946220403653569519519805908203125",
-      "min_upper_witness_slack_lower_decimal": "0.0000195312499997601918266809661872684955596923828125",
+      "lower_negative_cycle_sum_upper_decimal": "-0.00014017339641415690839181273672591384502052528528406581126006956245256368339300894",
+      "min_upper_witness_slack_lower_decimal": "0.000019531249999762684993760621802088118306690988823886477258188851962442181105018493",
       "result": "pass"
     },
     {
@@ -127,8 +127,8 @@
       ],
       "lower_radius_decimal": "1.644741253500284106081608115346170961856842041015625",
       "upper_radius_decimal": "1.64494125350028408405478330678306519985198974609375",
-      "lower_negative_cycle_sum_upper_decimal": "-0.000124602575298116136082171578891575336456298828125",
-      "min_upper_witness_slack_lower_decimal": "0.00001953124999953814722175593487918376922607421875",
+      "lower_negative_cycle_sum_upper_decimal": "-0.00012460257529766088547652913195378316060016103845304567419726132792992464339125418",
+      "min_upper_witness_slack_lower_decimal": "0.000019531249999997884673795124374364525564932146308738907078242237795057033798279564",
       "result": "pass"
     }
   ],
@@ -193,8 +193,8 @@
         "tolerance_based": false,
         "guard_decimal": "1e-70"
       },
-      "min_upper_witness_slack_lower": "0.000009765624999769073610877967439591884613037109375",
-      "lower_negative_cycle_sum_upper": "-0.00006387544734420824710241504362784326076507568359375",
+      "min_upper_witness_slack_lower": "0.00000976562499994724529726701500731422811441007070243358612060546875",
+      "lower_negative_cycle_sum_upper": "-0.00006387544734422491671081700825851612535188905894756317138671875",
       "generator": {
         "backend": "mpmath_highprec_proposal_with_interval_verifier_acceptance",
         "digits": 80,
@@ -204,15 +204,15 @@
         "verified": true,
         "claim_scope": "local_fixed_order_interval_bracket",
         "verification_summary": {
-          "lower_negative_cycle_sum_upper_decimal": "-0.0001277508946884164942048300872556865215301513671875",
-          "min_upper_witness_slack_lower_decimal": "0.00001953124999953814722175593487918376922607421875"
+          "lower_negative_cycle_sum_upper_decimal": "-0.0001277508946884498334216340165170322507037781178951263427734375",
+          "min_upper_witness_slack_lower_decimal": "0.0000195312499998944905945340300146284562288201414048671722412109375"
         }
       },
       "provenance": {
         "created_at_utc": "2026-07-11T00:00:00Z",
         "repository": {
           "name": "power-ringmin",
-          "git_commit": "4742b82bff0334a3097ea058f46cf7ecfbfae355",
+          "git_commit": "b2388e8d4015c1be67e731c77635bd2ea0fa0977",
           "git_dirty": true
         },
         "software": [
@@ -334,8 +334,8 @@
         "tolerance_based": false,
         "guard_decimal": "1e-70"
       },
-      "min_upper_witness_slack_lower": "0.00000976562499988009591334048309363424777984619140625",
-      "lower_negative_cycle_sum_upper": "-0.0000700866982070724731102018267847597599029541015625",
+      "min_upper_witness_slack_lower": "0.0000097656249998813427458388414237333563505671918392181396484375",
+      "lower_negative_cycle_sum_upper": "-0.000070086698207078449774677653127952225986518897116184234619140625",
       "generator": {
         "backend": "mpmath_highprec_proposal_with_interval_verifier_acceptance",
         "digits": 80,
@@ -345,15 +345,15 @@
         "verified": true,
         "claim_scope": "local_fixed_order_interval_bracket",
         "verification_summary": {
-          "lower_negative_cycle_sum_upper_decimal": "-0.000140173396414144946220403653569519519805908203125",
-          "min_upper_witness_slack_lower_decimal": "0.0000195312499997601918266809661872684955596923828125"
+          "lower_negative_cycle_sum_upper_decimal": "-0.00014017339641415689954935530625590445197303779423236846923828125",
+          "min_upper_witness_slack_lower_decimal": "0.000019531249999762685491677682847466712701134383678436279296875"
         }
       },
       "provenance": {
         "created_at_utc": "2026-07-11T00:00:00Z",
         "repository": {
           "name": "power-ringmin",
-          "git_commit": "4742b82bff0334a3097ea058f46cf7ecfbfae355",
+          "git_commit": "b2388e8d4015c1be67e731c77635bd2ea0fa0977",
           "git_dirty": true
         },
         "software": [
@@ -475,8 +475,8 @@
         "tolerance_based": false,
         "guard_decimal": "1e-70"
       },
-      "min_upper_witness_slack_lower": "0.000009765624999769073610877967439591884613037109375",
-      "lower_negative_cycle_sum_upper": "-0.0000623012876490580680410857894457876682281494140625",
+      "min_upper_witness_slack_lower": "0.000009765624999998943106169733974208924109916551969945430755615234375",
+      "lower_negative_cycle_sum_upper": "-0.0000623012876488304397949724577898678035126067698001861572265625",
       "generator": {
         "backend": "mpmath_highprec_proposal_with_interval_verifier_acceptance",
         "digits": 80,
@@ -486,15 +486,15 @@
         "verified": true,
         "claim_scope": "local_fixed_order_interval_bracket",
         "verification_summary": {
-          "lower_negative_cycle_sum_upper_decimal": "-0.000124602575298116136082171578891575336456298828125",
-          "min_upper_witness_slack_lower_decimal": "0.00001953124999953814722175593487918376922607421875"
+          "lower_negative_cycle_sum_upper_decimal": "-0.000124602575297660879589944915579735607025213539600372314453125",
+          "min_upper_witness_slack_lower_decimal": "0.00001953124999999788621233946794841784821983310393989086151123046875"
         }
       },
       "provenance": {
         "created_at_utc": "2026-07-11T00:00:00Z",
         "repository": {
           "name": "power-ringmin",
-          "git_commit": "4742b82bff0334a3097ea058f46cf7ecfbfae355",
+          "git_commit": "b2388e8d4015c1be67e731c77635bd2ea0fa0977",
           "git_dirty": true
         },
         "software": [
@@ -561,7 +561,7 @@
     "created_at_utc": "2026-07-11T00:00:00Z",
     "repository": {
       "name": "power-ringmin",
-      "git_commit": "4742b82bff0334a3097ea058f46cf7ecfbfae355",
+      "git_commit": "b2388e8d4015c1be67e731c77635bd2ea0fa0977",
       "git_dirty": true
     },
     "software": [
