@@ -2,14 +2,14 @@
 
 Last update: 2026-07-11
 
-- **Current phase:** n=3 interval certificate artifact/CLI promotion.
-- **Current task:** Promote the n=3 interval certificate fixture into a checked reproducible artifact and CLI command with finite-certificate labeling.
-- **Task dossier:** `ops/TASK-20260711__n3_interval_certificate_artifact_cli/`.
+- **Current phase:** n=4 finite-certificate next-step design.
+- **Current task:** Design the next finite-certificate step for `n=4`, choosing between a runtime-bounded interval certificate attempt and verifier/format hardening before larger certificates.
+- **Task dossier:** `ops/TASK-20260711__n4_finite_certificate_next_step_design/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
-- **Current next atomic action:** user reviews the checked n=3 interval certificate artifact/CLI diff and decides whether to commit manually.
+- **Current next atomic action:** user reviews the n=4 next-step design and decides whether to commit manually.
 - **Awaiting user review:** yes.
 
 ## Proposed Next Task
 
-Design the next finite-certificate step for `n=4`: either a runtime-bounded interval certificate attempt or a verifier/format hardening task before larger certificates.
+Implement a runtime-bounded `n=4` interval certificate artifact/export path, generate exactly the three canonical `n=4` local brackets, aggregate them with the existing validator, and check in an `examples/small_n_interval_certificate_n4.json` artifact only if validation passes.
