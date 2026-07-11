@@ -10,6 +10,7 @@ import pytest
 from power_ringmin.evaluator import full_radius
 from power_ringmin.geometry import quadratic_radii
 from power_ringmin.search_small_n import (
+    DEFAULT_HIGH_PRECISION_RECHECK_DIGITS,
     build_small_n_search_artifact,
     canonical_index_order_count,
     canonical_index_orders,
@@ -68,6 +69,19 @@ def test_exhaustive_float64_search_n3_matches_fixed_order_radius() -> None:
     assert result.best.R_full == pytest.approx(fixed.R_full, rel=1e-10, abs=1e-10)
     assert result.ties == (result.best,)
     assert result.top_records == (result.best,)
+    assert result.high_precision_recheck_digits == DEFAULT_HIGH_PRECISION_RECHECK_DIGITS
+    assert len(result.high_precision_rechecks) == 1
+
+    recheck = result.high_precision_rechecks[0]
+    assert recheck.index_order == result.best.index_order
+    assert recheck.radius_order == result.best.radius_order
+    assert recheck.float64_R_full == result.best.R_full
+    assert float(recheck.mpmath_R_full_decimal) == pytest.approx(
+        result.best.R_full,
+        rel=1e-9,
+        abs=1e-9,
+    )
+    assert recheck.feasible_with_default_tol is True
 
 
 def test_small_n_search_artifact_validates_classification_and_orders() -> None:
@@ -86,6 +100,20 @@ def test_small_n_search_artifact_validates_classification_and_orders() -> None:
     assert artifact["order_space"]["expected_canonical_count"] == 3
     assert artifact["order_space"]["enumerated_count"] == 3
     assert artifact["result"]["evaluated_full_count"] == 3
+    assert artifact["search_method"]["high_precision_recheck"] == {
+        "enabled": True,
+        "selection": "float64_incumbent_and_ties",
+        "backend": "mpmath",
+        "digits": DEFAULT_HIGH_PRECISION_RECHECK_DIGITS,
+    }
+    assert artifact["high_precision_recheck"]["enabled"] is True
+    assert artifact["high_precision_recheck"]["record_count"] == len(artifact["result"]["ties"])
+    assert artifact["high_precision_recheck"]["records"][0]["index_order"] == (
+        artifact["result"]["ties"][0]["index_order"]
+    )
+    assert "not certified intervals" in " ".join(
+        artifact["high_precision_recheck"]["limitations"]
+    )
 
     bad_radius = copy.deepcopy(artifact)
     bad_radius["result"]["best"]["radius_order"][0] = 999
@@ -101,6 +129,13 @@ def test_small_n_search_artifact_validates_classification_and_orders() -> None:
     bad_n["instance"]["n"] = 5
     with pytest.raises(ValueError):
         validate_small_n_search_artifact(bad_n)
+
+    bad_recheck = copy.deepcopy(artifact)
+    bad_recheck["high_precision_recheck"]["records"] = []
+    bad_recheck["high_precision_recheck"]["record_count"] = 0
+    bad_recheck["high_precision_recheck"]["enabled"] = False
+    with pytest.raises(ValueError):
+        validate_small_n_search_artifact(bad_recheck)
 
 
 def test_small_n_search_cli_writes_deterministic_n3_output(
@@ -127,12 +162,15 @@ def test_small_n_search_cli_writes_deterministic_n3_output(
     assert "wrote" in stdout
     assert "backend=float64" in stdout
     assert "enumerated=1" in stdout
+    assert "highprec_rechecks=1" in stdout
 
     artifact = load_small_n_search_artifact(output)
     assert artifact["provenance"]["created_at_utc"] == "2026-07-11T00:00:00Z"
     assert artifact["result"]["best"]["index_order"] == [3, 1, 2]
     assert artifact["result"]["best"]["radius_order"] == [9, 1, 4]
     assert artifact["result"]["top_records"] == artifact["result"]["ties"]
+    assert artifact["high_precision_recheck"]["record_count"] == 1
+    assert artifact["high_precision_recheck"]["records"][0]["index_order"] == [3, 1, 2]
     assert artifact["evidence"]["classification"] == "numerical_observation"
 
 
@@ -142,4 +180,3 @@ def test_small_n_search_console_script_entry_point_is_registered() -> None:
     assert pyproject["project"]["scripts"]["power-ringmin-search-small-n"] == (
         "power_ringmin.search_small_n:main"
     )
-

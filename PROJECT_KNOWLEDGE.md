@@ -113,6 +113,10 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: `power-ringmin-search-small-n` is the CLI for exhaustive float64 small-n search over canonical quadratic index orders; it writes a JSON summary classified as `numerical_observation`.
 - VERIFIED FACT: small-n search artifacts use schema version `power-ringmin.small_n_search_result.v1`, record explicit radius-sequence and order-space metadata, and reject `computer_certified_result` classification for the float64 baseline.
 - VERIFIED FACT: small-n search artifacts classify their claim scope as `finite_exhaustive_float64_order_search` and explicitly disclaim certified global optimality.
+- VERIFIED FACT: small-n search now rechecks the float64 incumbent and float64 tie set with `mpmath` by default, recording the results in a `high_precision_recheck` artifact block.
+- VERIFIED FACT: `power-ringmin-search-small-n` supports `--highprec-recheck-digits` for the mpmath recheck precision and `--no-highprec-recheck` for speed-sensitive exploratory runs.
+- VERIFIED FACT: small-n search artifact validation requires the search-method recheck metadata to match the top-level `high_precision_recheck` block; when recheck records are present, they must cover exactly the float64 tie set.
+- INTERPRETATION: small-n high-precision incumbent/tie rechecks are still numerical observations, not computer-certified global optimum evidence, unless a later interval verifier supplies certified bounds across the order space.
 - VERIFIED FACT: `examples/fixed_order_batch_end_to_end/` provides a small reproducible batch example with explicit n=3 and n=4 quadratic index orders, README commands for `power-ringmin-export-fixed-order-batch` and `power-ringmin-verify-fixed-order-artifacts`, and no checked-in generated result artifacts.
 - VERIFIED FACT: `examples/fixed_order_batch_end_to_end/README.md` documents that generated example artifacts are finite fixed-order numerical observations, not global optimum certificates, and gives local eta guidance: choose an absolute offset above STN/serialization noise but small relative to the reported radius scale, then verify `R`, `R + eta`, and `R - eta` when applicable.
 - VERIFIED FACT: `examples/fixed_order_result_n3.json` is a checked schema fixture for the fixed cyclic order `(1,4,9)` and is classified as a `numerical_observation`, not as a global optimum certificate.
@@ -138,6 +142,8 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: `python -m pytest` passed 30 tests after the finite artifact/local eta documentation note on 2026-07-11.
 - VERIFIED FACT: `python -m pytest tests\test_search_small_n.py` passed 7 small-n search tests on 2026-07-11.
 - VERIFIED FACT: `python -m pytest` passed 37 tests after the small-n float64 search implementation on 2026-07-11.
+- VERIFIED FACT: `python -m pytest tests\test_search_small_n.py` passed 7 small-n search tests after adding incumbent/tie high-precision rechecks on 2026-07-11.
+- VERIFIED FACT: `python -m pytest` passed 37 tests after adding small-n incumbent/tie high-precision rechecks on 2026-07-11.
 - INTERPRETATION: passing finite smoke tests verifies the imported implementation behavior on tested cases only; it is not a theorem about all quadratic-radii instances.
 
 ## Verified Environment Facts
@@ -177,6 +183,8 @@ Read-only repository inspection commands used during bootstrap:
 - VERIFIED FACT: the fixed-order batch end-to-end example test exports high-precision artifacts, including the n=4 index order `(4,1,3,2)`, from `examples/fixed_order_batch_end_to_end/index_orders.json` into a temporary directory and verifies them through the batch standalone-verifier CLI module path.
 - NUMERICAL OBSERVATION: the small-n float64 search smoke artifact `ops/TASK-20260711__small_n_float64_search/small_n_search_n3_smoke.json` enumerates the single canonical n=3 index order `(3,1,2)`, corresponding to radius order `(9,1,4)`, and records `R_full = 0.38338703613939273`.
 - INTERPRETATION: the n=3 small-n smoke artifact is a finite float64 numerical observation, not a computer-certified global optimum certificate.
+- NUMERICAL OBSERVATION: the small-n high-precision recheck smoke artifact `ops/TASK-20260711__small_n_highprec_rechecks/small_n_search_n3_highprec_recheck_smoke.json` enumerates the single canonical n=3 index order `(3,1,2)`, records float64 `R_full = 0.38338703613939273`, and rechecks the incumbent/tie order at 80 mpmath digits with `mpmath_R_full = 0.38338703613936966604628713672532649776985422245654228331612995273239552892574553`.
+- INTERPRETATION: the n=3 high-precision recheck smoke artifact remains a finite numerical observation because it does not include interval lower bounds for every canonical order.
 - NUMERICAL OBSERVATION: for index order `(4,1,3,2)` / radius order `(16,1,9,4)` at 80 digits, the raw `full_radius_mp` result has an STN margin within the default `1e-40` tolerance, while its direct 80-significant-digit decimal serialization can round slightly downward and fail that same tolerance check; this was fixed as exporter robustness, not interpreted as mathematical infeasibility.
 - VERIFIED FACT: no certified quadratic-radii optimum has yet been established in this repository.
 - VERIFIED FACT: no quadratic-radii theorem has yet been established in this repository.

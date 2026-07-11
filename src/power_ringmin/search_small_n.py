@@ -15,6 +15,8 @@ import shlex
 import sys
 from typing import Any, Literal
 
+import mpmath as mp
+
 from power_ringmin.evaluator import FULL_REL_TOL, full_radius
 from power_ringmin.fixed_order_artifact import (
     EVIDENCE_CLASSIFICATIONS,
@@ -22,6 +24,7 @@ from power_ringmin.fixed_order_artifact import (
     detect_repository_state,
 )
 from power_ringmin.geometry import quadratic_radii
+from power_ringmin.highprec import feasibility_margin_mp, full_radius_mp, is_feasible_mp
 
 SEARCH_SCHEMA_VERSION = "power-ringmin.small_n_search_result.v1"
 SEARCH_ARTIFACT_TYPE = "small_n_search_numerical_result"
@@ -30,6 +33,9 @@ ORDER_EQUIVALENCE = "rotation_reflection"
 CANONICALIZATION_RULE = "largest_index_first_second_index_less_than_last"
 EVIDENCE_CLASSIFICATION = "numerical_observation"
 EVIDENCE_SCOPE = "finite_exhaustive_float64_order_search"
+HIGH_PRECISION_RECHECK_BACKEND = "mpmath"
+HIGH_PRECISION_RECHECK_SELECTION = "float64_incumbent_and_ties"
+DEFAULT_HIGH_PRECISION_RECHECK_DIGITS = 80
 
 SearchMode = Literal["exhaustive_float64"]
 
@@ -43,6 +49,20 @@ class OrderSearchRecord:
     R_chain: float
     R_full: float
     feasible: bool
+
+
+@dataclass(frozen=True)
+class HighPrecisionRecheckRecord:
+    """High-precision recomputation for one float64 incumbent/tie order."""
+
+    index_order: tuple[int, ...]
+    radius_order: tuple[int, ...]
+    float64_R_full: float
+    mpmath_R_full_decimal: str
+    delta_mpmath_minus_float64_decimal: str
+    feasibility_margin_decimal: str
+    feasible_with_default_tol: bool
+    digits: int
 
 
 @dataclass(frozen=True)
@@ -63,6 +83,8 @@ class SmallNSearchResult:
     top_k: int
     tie_abs_tol: float
     tie_rel_tol: float
+    high_precision_recheck_digits: int
+    high_precision_rechecks: tuple[HighPrecisionRecheckRecord, ...]
     evidence_classification: Literal["numerical_observation"]
 
 
@@ -107,6 +129,8 @@ def exhaustive_float64_search(
     top_k: int = 20,
     tie_abs_tol: float = 1e-9,
     tie_rel_tol: float = 1e-12,
+    high_precision_recheck: bool = True,
+    high_precision_recheck_digits: int = DEFAULT_HIGH_PRECISION_RECHECK_DIGITS,
 ) -> SmallNSearchResult:
     """Evaluate every canonical quadratic index order with the float64 backend."""
     _validate_search_n(n)
@@ -114,6 +138,7 @@ def exhaustive_float64_search(
         raise ValueError(f"top_k must be positive, got {top_k!r}")
     if tie_abs_tol < 0.0 or tie_rel_tol < 0.0:
         raise ValueError("tie tolerances must be nonnegative")
+    _validate_high_precision_digits(high_precision_recheck_digits)
 
     records: list[OrderSearchRecord] = []
     for index_order in canonical_index_orders(n):
@@ -148,6 +173,11 @@ def exhaustive_float64_search(
             rel_tol=tie_rel_tol,
         )
     )
+    high_precision_rechecks = (
+        _build_high_precision_rechecks(ties, digits=high_precision_recheck_digits)
+        if high_precision_recheck
+        else ()
+    )
     return SmallNSearchResult(
         n=n,
         radius_sequence=quadratic_radii(n),
@@ -163,6 +193,8 @@ def exhaustive_float64_search(
         top_k=top_k,
         tie_abs_tol=float(tie_abs_tol),
         tie_rel_tol=float(tie_rel_tol),
+        high_precision_recheck_digits=high_precision_recheck_digits,
+        high_precision_rechecks=high_precision_rechecks,
         evidence_classification=EVIDENCE_CLASSIFICATION,
     )
 
@@ -180,7 +212,53 @@ def build_small_n_search_artifact(
         output=output,
         n=result.n,
         top_k=result.top_k,
+        high_precision_recheck_count=len(result.high_precision_rechecks),
+        high_precision_recheck_digits=result.high_precision_recheck_digits,
     )
+    software = [
+        {
+            "name": "Python",
+            "version": sys.version.split()[0],
+            "role": "runtime",
+        },
+        {
+            "name": "power-ringmin",
+            "version": "0.1.0",
+            "role": "small-n search implementation",
+        },
+    ]
+    source_files = [
+        {
+            "path": "src/power_ringmin/search_small_n.py",
+            "role": "canonical enumeration and exhaustive float64 search",
+        },
+        {
+            "path": "src/power_ringmin/evaluator.py",
+            "role": "float64 all-pairs fixed-order STN evaluator",
+            "upstream_ringmin_commit": UPSTREAM_RINGMIN_COMMIT,
+        },
+        {
+            "path": "src/power_ringmin/geometry.py",
+            "role": "quadratic radii and geometric primitives",
+            "upstream_ringmin_commit": UPSTREAM_RINGMIN_COMMIT,
+        },
+    ]
+    if result.high_precision_rechecks:
+        software.append(
+            {
+                "name": "mpmath",
+                "version": mp.__version__,
+                "role": "high-precision incumbent/tie recheck",
+            }
+        )
+        source_files.append(
+            {
+                "path": "src/power_ringmin/highprec.py",
+                "role": "mpmath fixed-order STN recheck",
+                "upstream_ringmin_commit": UPSTREAM_RINGMIN_COMMIT,
+            }
+        )
+
     artifact: dict[str, Any] = {
         "schema_version": SEARCH_SCHEMA_VERSION,
         "artifact_type": SEARCH_ARTIFACT_TYPE,
@@ -217,6 +295,12 @@ def build_small_n_search_artifact(
             "top_k": result.top_k,
             "tie_abs_tol_decimal": _decimal_string(result.tie_abs_tol),
             "tie_rel_tol_decimal": _decimal_string(result.tie_rel_tol),
+            "high_precision_recheck": {
+                "enabled": bool(result.high_precision_rechecks),
+                "selection": HIGH_PRECISION_RECHECK_SELECTION,
+                "backend": HIGH_PRECISION_RECHECK_BACKEND,
+                "digits": result.high_precision_recheck_digits,
+            },
             "randomness": {
                 "used": False,
                 "seeds": [],
@@ -227,6 +311,22 @@ def build_small_n_search_artifact(
             "ties": [_record_to_json(record) for record in result.ties],
             "top_records": [_record_to_json(record) for record in result.top_records],
             "evaluated_full_count": result.evaluated_full_count,
+        },
+        "high_precision_recheck": {
+            "enabled": bool(result.high_precision_rechecks),
+            "selection": HIGH_PRECISION_RECHECK_SELECTION,
+            "backend": HIGH_PRECISION_RECHECK_BACKEND,
+            "digits": result.high_precision_recheck_digits,
+            "record_count": len(result.high_precision_rechecks),
+            "records": [
+                _high_precision_recheck_to_json(record)
+                for record in result.high_precision_rechecks
+            ],
+            "limitations": [
+                "Rechecks only the float64 incumbent and float64 tie orders.",
+                "High-precision bisection outputs are numerical values, not certified intervals.",
+                "No lower interval bounds are computed for every nonwinner order.",
+            ],
         },
         "precision": {
             "value_encoding": "decimal_string",
@@ -257,34 +357,8 @@ def build_small_n_search_artifact(
         "provenance": {
             "created_at_utc": created_at_utc or _created_at_utc_now(),
             "repository": detect_repository_state(),
-            "software": [
-                {
-                    "name": "Python",
-                    "version": sys.version.split()[0],
-                    "role": "runtime",
-                },
-                {
-                    "name": "power-ringmin",
-                    "version": "0.1.0",
-                    "role": "small-n search implementation",
-                },
-            ],
-            "source_files": [
-                {
-                    "path": "src/power_ringmin/search_small_n.py",
-                    "role": "canonical enumeration and exhaustive float64 search",
-                },
-                {
-                    "path": "src/power_ringmin/evaluator.py",
-                    "role": "float64 all-pairs fixed-order STN evaluator",
-                    "upstream_ringmin_commit": UPSTREAM_RINGMIN_COMMIT,
-                },
-                {
-                    "path": "src/power_ringmin/geometry.py",
-                    "role": "quadratic radii and geometric primitives",
-                    "upstream_ringmin_commit": UPSTREAM_RINGMIN_COMMIT,
-                },
-            ],
+            "software": software,
+            "source_files": source_files,
             "commands": [command],
         },
         "evidence": {
@@ -321,10 +395,26 @@ def build_small_n_search_artifact(
                     ),
                     "limitations": "Float64 exhaustive output is finite numerical evidence only.",
                 },
+                {
+                    "check_id": "EV-003",
+                    "classification": "numerical_observation",
+                    "method": "mpmath high-precision recheck of float64 incumbent/tie orders",
+                    "result": "pass" if result.high_precision_rechecks else "not_run",
+                    "output_summary": (
+                        f"Rechecked {len(result.high_precision_rechecks)} "
+                        "float64 incumbent/tie orders at "
+                        f"{result.high_precision_recheck_digits} digits."
+                    ),
+                    "limitations": (
+                        "This is not interval verification and does not check "
+                        "high-precision lower bounds for every nonwinner order."
+                    ),
+                },
             ],
             "limitations": [
                 "Finite n only.",
                 "Float64 fixed-order evaluations only.",
+                "High-precision incumbent/tie rechecks are numerical observations only.",
                 "No independent high-precision interval verifier for every order.",
                 "No computer-certified global optimum claim.",
                 "No theorem for all n.",
@@ -415,6 +505,12 @@ def validate_small_n_search_artifact(artifact: Mapping[str, Any]) -> None:
         raise ValueError("search_method.backend must be float64")
     _assert_decimal_string(method.get("tie_abs_tol_decimal"), "search_method.tie_abs_tol_decimal")
     _assert_decimal_string(method.get("tie_rel_tol_decimal"), "search_method.tie_rel_tol_decimal")
+    method_recheck = method.get("high_precision_recheck")
+    if method_recheck is not None:
+        _validate_high_precision_recheck_metadata(
+            method_recheck,
+            "search_method.high_precision_recheck",
+        )
 
     result = _expect_mapping(source.get("result"), "result")
     if int(result.get("evaluated_full_count")) != expected_count:
@@ -424,6 +520,16 @@ def validate_small_n_search_artifact(artifact: Mapping[str, Any]) -> None:
         _validate_record(record, n, f"result.ties[{i}]")
     for i, record in enumerate(_expect_list(result.get("top_records"), "result.top_records")):
         _validate_record(record, n, f"result.top_records[{i}]")
+    tie_orders = {
+        tuple(_expect_list(record["index_order"], f"result.ties[{i}].index_order"))
+        for i, record in enumerate(_expect_list(result.get("ties"), "result.ties"))
+    }
+
+    recheck = source.get("high_precision_recheck")
+    if recheck is not None:
+        _validate_high_precision_recheck_block(recheck, n, tie_orders)
+        if method_recheck is not None:
+            _validate_high_precision_recheck_consistency(method_recheck, recheck)
 
     evidence = _expect_mapping(source.get("evidence"), "evidence")
     classification = evidence.get("classification")
@@ -465,6 +571,17 @@ def build_parser() -> argparse.ArgumentParser:
         default=1e-12,
         help="relative tolerance for grouping best-order ties",
     )
+    parser.add_argument(
+        "--highprec-recheck-digits",
+        type=int,
+        default=DEFAULT_HIGH_PRECISION_RECHECK_DIGITS,
+        help="mpmath digits for incumbent/tie rechecks",
+    )
+    parser.add_argument(
+        "--no-highprec-recheck",
+        action="store_true",
+        help="skip the default mpmath incumbent/tie recheck",
+    )
     parser.add_argument("-o", "--output", required=True, type=Path, help="path to write JSON summary")
     parser.add_argument("--created-at-utc", help="optional UTC timestamp to record in provenance")
     return parser
@@ -482,6 +599,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             top_k=args.top_k,
             tie_abs_tol=args.tie_abs_tol,
             tie_rel_tol=args.tie_rel_tol,
+            high_precision_recheck=not args.no_highprec_recheck,
+            high_precision_recheck_digits=args.highprec_recheck_digits,
         )
         artifact = build_small_n_search_artifact(
             result,
@@ -496,7 +615,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     radius = artifact["result"]["best"]["R_full"]["decimal"]
     print(
         f"wrote {args.output} n={args.n} backend={args.backend} "
-        f"enumerated={result.enumerated_count} best_R={radius}"
+        f"enumerated={result.enumerated_count} best_R={radius} "
+        f"highprec_rechecks={len(result.high_precision_rechecks)}"
     )
     return 0
 
@@ -547,6 +667,34 @@ def _within_tolerance(left: float, right: float, *, abs_tol: float, rel_tol: flo
     return abs(left - right) <= max(abs_tol, rel_tol * scale)
 
 
+def _build_high_precision_rechecks(
+    records: Sequence[OrderSearchRecord],
+    *,
+    digits: int,
+) -> tuple[HighPrecisionRecheckRecord, ...]:
+    _validate_high_precision_digits(digits)
+    rechecks: list[HighPrecisionRecheckRecord] = []
+    for record in records:
+        mp.mp.dps = digits
+        radius = full_radius_mp(record.radius_order, digits=digits)
+        margin = feasibility_margin_mp(record.radius_order, radius, digits=digits)
+        feasible = is_feasible_mp(record.radius_order, radius, digits=digits)
+        delta = radius - mp.mpf(repr(record.R_full))
+        rechecks.append(
+            HighPrecisionRecheckRecord(
+                index_order=record.index_order,
+                radius_order=record.radius_order,
+                float64_R_full=record.R_full,
+                mpmath_R_full_decimal=_mp_decimal_string(radius, digits=digits),
+                delta_mpmath_minus_float64_decimal=_mp_decimal_string(delta, digits=digits),
+                feasibility_margin_decimal=_mp_decimal_string(margin, digits=digits),
+                feasible_with_default_tol=bool(feasible),
+                digits=digits,
+            )
+        )
+    return tuple(rechecks)
+
+
 def _record_to_json(record: OrderSearchRecord) -> dict[str, Any]:
     return {
         "index_order": list(record.index_order),
@@ -557,11 +705,41 @@ def _record_to_json(record: OrderSearchRecord) -> dict[str, Any]:
     }
 
 
+def _high_precision_recheck_to_json(record: HighPrecisionRecheckRecord) -> dict[str, Any]:
+    return {
+        "index_order": list(record.index_order),
+        "radius_order": list(record.radius_order),
+        "float64_R_full": _numeric_value(record.float64_R_full),
+        "mpmath_R_full": _high_precision_numeric_value(
+            record.mpmath_R_full_decimal,
+            digits=record.digits,
+        ),
+        "delta_mpmath_minus_float64": _high_precision_numeric_value(
+            record.delta_mpmath_minus_float64_decimal,
+            digits=record.digits,
+        ),
+        "feasibility_margin_at_mpmath_R": _high_precision_numeric_value(
+            record.feasibility_margin_decimal,
+            digits=record.digits,
+        ),
+        "feasible_with_default_tol": record.feasible_with_default_tol,
+    }
+
+
 def _numeric_value(value: float) -> dict[str, Any]:
     return {
         "decimal": _decimal_string(value),
         "encoding": "decimal_string",
         "source_precision_digits": 17,
+    }
+
+
+def _high_precision_numeric_value(decimal: str, *, digits: int) -> dict[str, Any]:
+    _assert_decimal_string(decimal, "high-precision decimal value")
+    return {
+        "decimal": decimal,
+        "encoding": "decimal_string",
+        "source_precision_digits": digits,
     }
 
 
@@ -579,6 +757,14 @@ def _decimal_string(value: Any) -> str:
     return text
 
 
+def _mp_decimal_string(value: Any, *, digits: int) -> str:
+    _validate_high_precision_digits(digits)
+    with mp.workdps(digits):
+        text = mp.nstr(mp.mpf(value), n=digits, strip_zeros=False)
+    _assert_decimal_string(text, "mpmath decimal value")
+    return text
+
+
 def _assert_decimal_string(value: Any, name: str) -> None:
     if not isinstance(value, str) or not value:
         raise ValueError(f"{name} must be a non-empty decimal string")
@@ -590,12 +776,19 @@ def _assert_decimal_string(value: Any, name: str) -> None:
         raise ValueError(f"{name} must be finite, got {value!r}")
 
 
+def _validate_high_precision_digits(digits: int) -> None:
+    if isinstance(digits, bool) or not isinstance(digits, int) or digits < 30:
+        raise ValueError(f"high_precision_recheck_digits must be an integer at least 30, got {digits!r}")
+
+
 def _command_record(
     argv: Sequence[str] | None,
     *,
     output: Path | None,
     n: int,
     top_k: int,
+    high_precision_recheck_count: int,
+    high_precision_recheck_digits: int,
 ) -> dict[str, str]:
     command = "power-ringmin-search-small-n"
     if argv:
@@ -606,6 +799,8 @@ def _command_record(
         "result": "pass",
         "output_summary": (
             f"Ran exhaustive float64 small-n search for n={n}, top_k={top_k}"
+            f", high_precision_rechecks={high_precision_recheck_count}"
+            f", high_precision_recheck_digits={high_precision_recheck_digits}"
             + (f", output={output}" if output is not None else "")
             + "."
         ),
@@ -639,6 +834,97 @@ def _validate_record(value: Any, n: int, name: str) -> None:
         _assert_decimal_string(numeric.get("decimal"), f"{name}.{key}.decimal")
     if not isinstance(record.get("feasible"), bool):
         raise ValueError(f"{name}.feasible must be boolean")
+
+
+def _validate_high_precision_recheck_metadata(value: Any, name: str) -> None:
+    recheck = _expect_mapping(value, name)
+    if not isinstance(recheck.get("enabled"), bool):
+        raise ValueError(f"{name}.enabled must be boolean")
+    if recheck.get("selection") != HIGH_PRECISION_RECHECK_SELECTION:
+        raise ValueError(f"{name}.selection must be {HIGH_PRECISION_RECHECK_SELECTION}")
+    if recheck.get("backend") != HIGH_PRECISION_RECHECK_BACKEND:
+        raise ValueError(f"{name}.backend must be {HIGH_PRECISION_RECHECK_BACKEND}")
+    _validate_high_precision_digits(int(recheck.get("digits")))
+
+
+def _validate_high_precision_recheck_block(
+    value: Any,
+    n: int,
+    tie_orders: set[tuple[Any, ...]],
+) -> None:
+    recheck = _expect_mapping(value, "high_precision_recheck")
+    _validate_high_precision_recheck_metadata(recheck, "high_precision_recheck")
+    record_count = int(recheck.get("record_count"))
+    records = _expect_list(recheck.get("records"), "high_precision_recheck.records")
+    if record_count != len(records):
+        raise ValueError("high_precision_recheck.record_count must equal records length")
+    if bool(recheck.get("enabled")) != bool(records):
+        raise ValueError("high_precision_recheck.enabled must match whether records are present")
+    actual_orders: set[tuple[Any, ...]] = set()
+    for i, record in enumerate(records):
+        actual_orders.add(
+            _validate_high_precision_recheck_record(
+                record,
+                n,
+                f"high_precision_recheck.records[{i}]",
+            )
+        )
+    if records and actual_orders != tie_orders:
+        raise ValueError("high_precision_recheck.records must cover exactly the float64 tie set")
+    limitations = _expect_list(recheck.get("limitations"), "high_precision_recheck.limitations")
+    if not any("not certified intervals" in str(item) for item in limitations):
+        raise ValueError("high_precision_recheck.limitations must disclaim interval certification")
+
+
+def _validate_high_precision_recheck_consistency(method_value: Any, block_value: Any) -> None:
+    method = _expect_mapping(method_value, "search_method.high_precision_recheck")
+    block = _expect_mapping(block_value, "high_precision_recheck")
+    for key in ("enabled", "selection", "backend", "digits"):
+        if method.get(key) != block.get(key):
+            raise ValueError(
+                "search_method.high_precision_recheck must match high_precision_recheck"
+            )
+
+
+def _validate_high_precision_recheck_record(value: Any, n: int, name: str) -> tuple[Any, ...]:
+    record = _expect_mapping(value, name)
+    index_order = tuple(
+        _parse_positive_int(item, f"{name}.index_order")
+        for item in _expect_list(record.get("index_order"), f"{name}.index_order")
+    )
+    if len(index_order) != n:
+        raise ValueError(f"{name}.index_order length must equal n")
+    if canonicalize_index_order(index_order) != index_order:
+        raise ValueError(f"{name}.index_order must be canonical")
+    radius_order = tuple(
+        _parse_positive_int(item, f"{name}.radius_order")
+        for item in _expect_list(record.get("radius_order"), f"{name}.radius_order")
+    )
+    if radius_order != index_order_to_radius_order(index_order):
+        raise ValueError(f"{name}.radius_order must match index_order")
+    _validate_numeric_value(record.get("float64_R_full"), f"{name}.float64_R_full")
+    for key in (
+        "mpmath_R_full",
+        "delta_mpmath_minus_float64",
+        "feasibility_margin_at_mpmath_R",
+    ):
+        numeric = _validate_numeric_value(record.get(key), f"{name}.{key}")
+        digits = int(numeric.get("source_precision_digits"))
+        _validate_high_precision_digits(digits)
+    if not isinstance(record.get("feasible_with_default_tol"), bool):
+        raise ValueError(f"{name}.feasible_with_default_tol must be boolean")
+    return index_order
+
+
+def _validate_numeric_value(value: Any, name: str) -> Mapping[str, Any]:
+    numeric = _expect_mapping(value, name)
+    if numeric.get("encoding") != "decimal_string":
+        raise ValueError(f"{name}.encoding must be decimal_string")
+    _assert_decimal_string(numeric.get("decimal"), f"{name}.decimal")
+    digits = int(numeric.get("source_precision_digits"))
+    if digits < 1:
+        raise ValueError(f"{name}.source_precision_digits must be positive")
+    return numeric
 
 
 def _expect_mapping(value: Any, name: str) -> Mapping[str, Any]:

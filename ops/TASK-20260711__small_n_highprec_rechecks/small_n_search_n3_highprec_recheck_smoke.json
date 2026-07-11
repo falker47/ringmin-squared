@@ -1,0 +1,300 @@
+{
+  "schema_version": "power-ringmin.small_n_search_result.v1",
+  "artifact_type": "small_n_search_numerical_result",
+  "problem": {
+    "project": "power-ringmin",
+    "radius_model": "quadratic",
+    "dimension": 2,
+    "constraints": {
+      "central_external_tangency": true,
+      "peripheral_pairwise_disjoint_interiors": true,
+      "all_pairs_checked": true
+    }
+  },
+  "instance": {
+    "n": 3,
+    "radius_sequence": {
+      "kind": "explicit",
+      "formula": "k^2",
+      "index_base": 1,
+      "indices": [
+        1,
+        2,
+        3
+      ],
+      "radii": [
+        1,
+        4,
+        9
+      ]
+    }
+  },
+  "order_space": {
+    "order_type": "cyclic",
+    "equivalence": "rotation_reflection",
+    "canonicalization_rule": "largest_index_first_second_index_less_than_last",
+    "expected_canonical_count": 1,
+    "enumerated_count": 1
+  },
+  "search_method": {
+    "mode": "exhaustive_float64",
+    "backend": "float64",
+    "top_k": 5,
+    "tie_abs_tol_decimal": "1e-09",
+    "tie_rel_tol_decimal": "1e-12",
+    "high_precision_recheck": {
+      "enabled": true,
+      "selection": "float64_incumbent_and_ties",
+      "backend": "mpmath",
+      "digits": 80
+    },
+    "randomness": {
+      "used": false,
+      "seeds": []
+    }
+  },
+  "result": {
+    "best": {
+      "index_order": [
+        3,
+        1,
+        2
+      ],
+      "radius_order": [
+        9,
+        1,
+        4
+      ],
+      "R_chain": {
+        "decimal": "0.38338703613939273",
+        "encoding": "decimal_string",
+        "source_precision_digits": 17
+      },
+      "R_full": {
+        "decimal": "0.38338703613939273",
+        "encoding": "decimal_string",
+        "source_precision_digits": 17
+      },
+      "feasible": true
+    },
+    "ties": [
+      {
+        "index_order": [
+          3,
+          1,
+          2
+        ],
+        "radius_order": [
+          9,
+          1,
+          4
+        ],
+        "R_chain": {
+          "decimal": "0.38338703613939273",
+          "encoding": "decimal_string",
+          "source_precision_digits": 17
+        },
+        "R_full": {
+          "decimal": "0.38338703613939273",
+          "encoding": "decimal_string",
+          "source_precision_digits": 17
+        },
+        "feasible": true
+      }
+    ],
+    "top_records": [
+      {
+        "index_order": [
+          3,
+          1,
+          2
+        ],
+        "radius_order": [
+          9,
+          1,
+          4
+        ],
+        "R_chain": {
+          "decimal": "0.38338703613939273",
+          "encoding": "decimal_string",
+          "source_precision_digits": 17
+        },
+        "R_full": {
+          "decimal": "0.38338703613939273",
+          "encoding": "decimal_string",
+          "source_precision_digits": 17
+        },
+        "feasible": true
+      }
+    ],
+    "evaluated_full_count": 1
+  },
+  "high_precision_recheck": {
+    "enabled": true,
+    "selection": "float64_incumbent_and_ties",
+    "backend": "mpmath",
+    "digits": 80,
+    "record_count": 1,
+    "records": [
+      {
+        "index_order": [
+          3,
+          1,
+          2
+        ],
+        "radius_order": [
+          9,
+          1,
+          4
+        ],
+        "float64_R_full": {
+          "decimal": "0.38338703613939273",
+          "encoding": "decimal_string",
+          "source_precision_digits": 17
+        },
+        "mpmath_R_full": {
+          "decimal": "0.38338703613936966604628713672532649776985422245654228331612995273239552892574553",
+          "encoding": "decimal_string",
+          "source_precision_digits": 80
+        },
+        "delta_mpmath_minus_float64": {
+          "decimal": "-0.000000000000023063953712863274673502230145777543457716683870047267604471074254470013178585091",
+          "encoding": "decimal_string",
+          "source_precision_digits": 80
+        },
+        "feasibility_margin_at_mpmath_R": {
+          "decimal": "-9.9999999999999999999999999999999999999984427657572005330287169688477905888014294e-41",
+          "encoding": "decimal_string",
+          "source_precision_digits": 80
+        },
+        "feasible_with_default_tol": true
+      }
+    ],
+    "limitations": [
+      "Rechecks only the float64 incumbent and float64 tie orders.",
+      "High-precision bisection outputs are numerical values, not certified intervals.",
+      "No lower interval bounds are computed for every nonwinner order."
+    ]
+  },
+  "precision": {
+    "value_encoding": "decimal_string",
+    "primary_backend": "float64",
+    "working_precision_digits": 17,
+    "rounding_policy": "Float64 values encoded with Python repr.",
+    "tolerances": [
+      {
+        "name": "full_radius_relative_bisection",
+        "value_decimal": "1e-12",
+        "tolerance_type": "relative",
+        "applies_to": "float64 fixed-order radius bisection"
+      },
+      {
+        "name": "tie_abs_tol",
+        "value_decimal": "1e-09",
+        "tolerance_type": "absolute",
+        "applies_to": "best-order tie grouping"
+      },
+      {
+        "name": "tie_rel_tol",
+        "value_decimal": "1e-12",
+        "tolerance_type": "relative",
+        "applies_to": "best-order tie grouping"
+      }
+    ]
+  },
+  "provenance": {
+    "created_at_utc": "2026-07-11T00:00:00Z",
+    "repository": {
+      "name": "power-ringmin",
+      "git_commit": "1b2fe5497ff7d38b077069b1508e96b406988880",
+      "git_dirty": true
+    },
+    "software": [
+      {
+        "name": "Python",
+        "version": "3.14.3",
+        "role": "runtime"
+      },
+      {
+        "name": "power-ringmin",
+        "version": "0.1.0",
+        "role": "small-n search implementation"
+      },
+      {
+        "name": "mpmath",
+        "version": "1.3.0",
+        "role": "high-precision incumbent/tie recheck"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "src/power_ringmin/search_small_n.py",
+        "role": "canonical enumeration and exhaustive float64 search"
+      },
+      {
+        "path": "src/power_ringmin/evaluator.py",
+        "role": "float64 all-pairs fixed-order STN evaluator",
+        "upstream_ringmin_commit": "cc0327400819fe06b230d967cdcbafffe1648317"
+      },
+      {
+        "path": "src/power_ringmin/geometry.py",
+        "role": "quadratic radii and geometric primitives",
+        "upstream_ringmin_commit": "cc0327400819fe06b230d967cdcbafffe1648317"
+      },
+      {
+        "path": "src/power_ringmin/highprec.py",
+        "role": "mpmath fixed-order STN recheck",
+        "upstream_ringmin_commit": "cc0327400819fe06b230d967cdcbafffe1648317"
+      }
+    ],
+    "commands": [
+      {
+        "command": "power-ringmin-search-small-n --n 3 --top-k 5 --output 'ops\\TASK-20260711__small_n_highprec_rechecks\\small_n_search_n3_highprec_recheck_smoke.json' --created-at-utc 2026-07-11T00:00:00Z",
+        "cwd": "C:\\Users\\Falker\\Desktop\\Code\\circle\\ringmin-squared",
+        "result": "pass",
+        "output_summary": "Ran exhaustive float64 small-n search for n=3, top_k=5, high_precision_rechecks=1, high_precision_recheck_digits=80, output=ops\\TASK-20260711__small_n_highprec_rechecks\\small_n_search_n3_highprec_recheck_smoke.json."
+      }
+    ]
+  },
+  "evidence": {
+    "classification": "numerical_observation",
+    "claim": {
+      "scope": "finite_exhaustive_float64_order_search",
+      "statement": "This artifact records a finite exhaustive float64 search over canonical cyclic index orders for one quadratic-radii instance. It is a numerical observation, not a computer-certified global optimum."
+    },
+    "checks": [
+      {
+        "check_id": "EV-001",
+        "classification": "verified_fact",
+        "method": "canonical index-order enumeration",
+        "result": "pass",
+        "output_summary": "Enumerated 1 canonical orders; expected 1.",
+        "limitations": "Enumeration count does not certify float64 numerical values."
+      },
+      {
+        "check_id": "EV-002",
+        "classification": "numerical_observation",
+        "method": "float64 all-pairs STN fixed-order evaluation",
+        "result": "pass",
+        "output_summary": "Evaluated 1 fixed orders; best R_full=0.38338703613939273.",
+        "limitations": "Float64 exhaustive output is finite numerical evidence only."
+      },
+      {
+        "check_id": "EV-003",
+        "classification": "numerical_observation",
+        "method": "mpmath high-precision recheck of float64 incumbent/tie orders",
+        "result": "pass",
+        "output_summary": "Rechecked 1 float64 incumbent/tie orders at 80 digits.",
+        "limitations": "This is not interval verification and does not check high-precision lower bounds for every nonwinner order."
+      }
+    ],
+    "limitations": [
+      "Finite n only.",
+      "Float64 fixed-order evaluations only.",
+      "High-precision incumbent/tie rechecks are numerical observations only.",
+      "No independent high-precision interval verifier for every order.",
+      "No computer-certified global optimum claim.",
+      "No theorem for all n."
+    ]
+  }
+}

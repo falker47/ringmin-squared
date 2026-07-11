@@ -2,14 +2,14 @@
 
 Last update: 2026-07-11
 
-- **Current phase:** small-n float64 search baseline.
-- **Current task:** Implement canonical index-order enumeration and exhaustive float64 small-n search.
-- **Task dossier:** `ops/TASK-20260711__small_n_float64_search/`.
+- **Current phase:** small-n high-precision recheck baseline.
+- **Current task:** Add high-precision incumbent/tie rechecks for small-n search outputs while preserving numerical-observation classification.
+- **Task dossier:** `ops/TASK-20260711__small_n_highprec_rechecks/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
-- **Current next atomic action:** user reviews the small-n search implementation diff and decides whether to commit manually.
+- **Current next atomic action:** user reviews the small-n high-precision recheck diff and decides whether to commit manually.
 - **Awaiting user review:** yes.
 
 ## Proposed Next Task
 
-Add a high-precision incumbent/tie recheck path for small-n search outputs, still classified as numerical observation unless a later interval verifier proves a finite global certificate.
+Design the high-precision interval verifier semantics needed to upgrade a finite small-n result from numerical observation to a possible `computer_certified_result`.
