@@ -18,6 +18,13 @@ from power_ringmin.fixed_order_artifact import (
     verifier_payload_from_artifact,
 )
 from power_ringmin.geometry import quadratic_radii, theta
+from power_ringmin.interval_verifier import (
+    FIXED_ORDER_INTERVAL_BRACKET_SCHEMA_VERSION,
+    FixedOrderIntervalVerification,
+    MPMathIntervalAngularOracle,
+    assert_fixed_order_interval_bracket_verified,
+    verify_fixed_order_interval_bracket,
+)
 
 __version__ = "0.1.0"
 
@@ -25,10 +32,14 @@ __all__ = [
     "ARTIFACT_TYPE",
     "BindingPair",
     "FixedOrderArtifact",
+    "FixedOrderIntervalVerification",
     "FullResult",
+    "FIXED_ORDER_INTERVAL_BRACKET_SCHEMA_VERSION",
+    "MPMathIntervalAngularOracle",
     "SCHEMA_VERSION",
     "SLSQPCheckResult",
     "__version__",
+    "assert_fixed_order_interval_bracket_verified",
     "artifact_from_full_result",
     "artifact_from_highprec_result",
     "chain_radius",
@@ -44,4 +55,5 @@ __all__ = [
     "theta",
     "validate_fixed_order_artifact",
     "verifier_payload_from_artifact",
+    "verify_fixed_order_interval_bracket",
 ]

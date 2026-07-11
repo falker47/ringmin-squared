@@ -122,6 +122,10 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - DESIGN DECISION: certified feasible upper endpoints should be checked by explicit all-pairs witness slacks using upper angular bounds; certified infeasible lower endpoints should be checked by explicit negative cycles in a relaxed STN using lower angular bounds.
 - DESIGN DECISION: tolerance-based `mpmath` STN acceptance such as `margin >= -tol` is not sufficient for `computer_certified_result`; it remains numerical evidence unless replaced by interval signs.
 - PROOF OBLIGATION: the interval-verifier implementation still needs locally recorded justifications for the angular formula, monotonicity of `theta_R(a,b)` in `R`, fixed-order angular/STN equivalence, and negative-cycle infeasibility.
+- VERIFIED FACT: `src/power_ringmin/interval_verifier.py` implements local fixed-order interval bracket verifier semantics for one canonical quadratic index order.
+- VERIFIED FACT: the local interval bracket verifier checks the radius order against the index-order squares, rejects noncanonical index orders, rejects tolerance-based interval metadata, checks a lower endpoint by an explicit negative cycle using relaxed interval edge upper weights, and checks an upper endpoint by explicit all-pairs witness slacks using theta upper bounds.
+- VERIFIED FACT: `MPMathIntervalAngularOracle` provides a guarded `mpmath.iv` angular interval backend using `atan2(x, sqrt(1-x^2))` for the inverse-sine step and records backend precision, guard, outward-enclosure, and no-tolerance metadata.
+- INTERPRETATION: local fixed-order interval bracket verification is a certification building block only; it does not by itself certify a global small-n optimum, cover every cyclic order, or establish a theorem for all `n`.
 - VERIFIED FACT: `examples/fixed_order_batch_end_to_end/` provides a small reproducible batch example with explicit n=3 and n=4 quadratic index orders, README commands for `power-ringmin-export-fixed-order-batch` and `power-ringmin-verify-fixed-order-artifacts`, and no checked-in generated result artifacts.
 - VERIFIED FACT: `examples/fixed_order_batch_end_to_end/README.md` documents that generated example artifacts are finite fixed-order numerical observations, not global optimum certificates, and gives local eta guidance: choose an absolute offset above STN/serialization noise but small relative to the reported radius scale, then verify `R`, `R + eta`, and `R - eta` when applicable.
 - VERIFIED FACT: `examples/fixed_order_result_n3.json` is a checked schema fixture for the fixed cyclic order `(1,4,9)` and is classified as a `numerical_observation`, not as a global optimum certificate.
@@ -150,6 +154,8 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: `python -m pytest tests\test_search_small_n.py` passed 7 small-n search tests after adding incumbent/tie high-precision rechecks on 2026-07-11.
 - VERIFIED FACT: `python -m pytest` passed 37 tests after adding small-n incumbent/tie high-precision rechecks on 2026-07-11.
 - VERIFIED FACT: `python -m pytest` passed 37 tests after the interval verifier semantics design task on 2026-07-11.
+- VERIFIED FACT: `python -m pytest tests\test_interval_verifier.py` passed 6 local interval verifier tests on 2026-07-11.
+- VERIFIED FACT: `python -m pytest` passed 43 tests after the local fixed-order interval bracket verifier implementation on 2026-07-11.
 - INTERPRETATION: passing finite smoke tests verifies the imported implementation behavior on tested cases only; it is not a theorem about all quadratic-radii instances.
 
 ## Verified Environment Facts
@@ -192,6 +198,8 @@ Read-only repository inspection commands used during bootstrap:
 - NUMERICAL OBSERVATION: the small-n high-precision recheck smoke artifact `ops/TASK-20260711__small_n_highprec_rechecks/small_n_search_n3_highprec_recheck_smoke.json` enumerates the single canonical n=3 index order `(3,1,2)`, records float64 `R_full = 0.38338703613939273`, and rechecks the incumbent/tie order at 80 mpmath digits with `mpmath_R_full = 0.38338703613936966604628713672532649776985422245654228331612995273239552892574553`.
 - INTERPRETATION: the n=3 high-precision recheck smoke artifact remains a finite numerical observation because it does not include interval lower bounds for every canonical order.
 - NUMERICAL OBSERVATION: for index order `(4,1,3,2)` / radius order `(16,1,9,4)` at 80 digits, the raw `full_radius_mp` result has an STN margin within the default `1e-40` tolerance, while its direct 80-significant-digit decimal serialization can round slightly downward and fail that same tolerance check; this was fixed as exporter robustness, not interpreted as mathematical infeasibility.
+- VERIFIED FACT: the local interval verifier test fixture verifies a fixed-order bracket for the canonical n=3 index order `(3,1,2)` / radius order `(9,1,4)` under the guarded interval oracle.
+- INTERPRETATION: the n=3 local interval verifier fixture is a fixed-order endpoint semantics test, not a global small-n certificate artifact.
 - VERIFIED FACT: no certified quadratic-radii optimum has yet been established in this repository.
 - VERIFIED FACT: no quadratic-radii theorem has yet been established in this repository.
 - VERIFIED FACT: no global quadratic-radii certificate or production experiment artifact has yet been created in this repository.
