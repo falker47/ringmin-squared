@@ -22,6 +22,7 @@ test = ["pytest>=8"]
 power-ringmin-export-fixed-order = "power_ringmin.export_fixed_order_cli:main"
 power-ringmin-export-fixed-order-batch = "power_ringmin.export_fixed_order_batch_cli:main"
 power-ringmin-verify-fixed-order-artifacts = "power_ringmin.verify_fixed_order_artifacts_cli:main"
+power-ringmin-search-small-n = "power_ringmin.search_small_n:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
