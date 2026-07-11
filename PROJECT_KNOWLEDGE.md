@@ -113,6 +113,10 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: `examples/fixed_order_batch_end_to_end/README.md` documents that generated example artifacts are finite fixed-order numerical observations, not global optimum certificates, and gives local eta guidance: choose an absolute offset above STN/serialization noise but small relative to the reported radius scale, then verify `R`, `R + eta`, and `R - eta` when applicable.
 - VERIFIED FACT: `examples/fixed_order_result_n3.json` is a checked schema fixture for the fixed cyclic order `(1,4,9)` and is classified as a `numerical_observation`, not as a global optimum certificate.
 - VERIFIED FACT: as of the fixed-order batch end-to-end example task, the certified-search pipeline, frontier verifier, plots, and original Ringmin result artifacts have not been imported.
+- VERIFIED FACT: `ops/TASK-20260711__small_n_cyclic_order_search_design/DESIGN.md` records the design for a future radius-sequence-aware small-n cyclic-order search.
+- DESIGN DECISION: the planned small-n search should represent cyclic orders by quadratic index order and explicit radius order separately, using canonical index orders modulo rotation and reflection.
+- DESIGN DECISION: the first planned implementation should be an exhaustive float64 baseline over canonical quadratic index orders, with output classified as finite numerical observation unless later independent high-precision interval evidence supports a stronger global claim.
+- UNRESOLVED CLAIM: pruned or frontier-certified quadratic-radii search needs a local proof and verifier for any subset-chain or floating-candidate lower bounds before it can support `computer_certified_result` claims.
 - VERIFIED FACT: `pyproject.toml` defines optional `crosscheck` dependencies for NumPy/SciPy; `requirements.txt` includes NumPy/SciPy for the local development/test environment.
 - VERIFIED FACT: `pyproject.toml` registers the console script `power-ringmin-export-fixed-order`.
 - VERIFIED FACT: `pyproject.toml` registers the console script `power-ringmin-export-fixed-order-batch`.
