@@ -1,6 +1,6 @@
 # PROJECT_KNOWLEDGE - power-ringmin
 
-Last reviewed: 2026-07-10
+Last reviewed: 2026-07-11
 
 ## Project Identity
 
@@ -102,13 +102,14 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: `src/power_ringmin/fixed_order_artifact.py` provides package helpers for `power-ringmin.fixed_order_result.v1` artifacts: construction from float64 `FullResult`, construction from high-precision fixed-order values, semantic validation, JSON dump/load helpers, and standalone-verifier payload derivation.
 - VERIFIED FACT: `src/power_ringmin/export_fixed_order_cli.py` provides the `power-ringmin-export-fixed-order` CLI for exporting one v1 fixed-order artifact from either an explicit quadratic radius order (`--order`) or an explicit quadratic index order (`--index-order`).
 - VERIFIED FACT: `power-ringmin-export-fixed-order` uses the float64 fixed-order evaluator by default, supports an optional `mpmath` backend with `--digits` and `--local-radius-eta`, records CLI provenance, and refuses to write an artifact whose exported radius is infeasible at the requested precision.
+- VERIFIED FACT: after the n=4 high-precision export rejection investigation, the `mpmath` exporter path stabilizes the serialized decimal radius before artifact construction by adaptively nudging a near-boundary computed radius upward until the exact decimal to be written is feasible under the requested STN tolerance.
 - VERIFIED FACT: `src/power_ringmin/export_fixed_order_batch_cli.py` provides the `power-ringmin-export-fixed-order-batch` CLI for exporting one v1 fixed-order artifact per explicit order in a JSON list.
 - VERIFIED FACT: `power-ringmin-export-fixed-order-batch` accepts a top-level JSON list or an object with an `orders` list, treats orders as quadratic radius orders by default, supports `--order-kind index` for quadratic index orders, writes deterministic `fixed_order_####_n#.json` artifact names, and refuses to overwrite generated files unless `--overwrite` is passed.
 - VERIFIED FACT: `power-ringmin-export-fixed-order-batch` reuses the single-order fixed-order exporter, supports the same `float64` and `mpmath` backend options, and records batch CLI provenance in each generated artifact.
 - VERIFIED FACT: `src/power_ringmin/verify_fixed_order_artifacts_cli.py` provides the `power-ringmin-verify-fixed-order-artifacts` CLI for checking a directory of v1 fixed-order artifacts with root `verify.py`.
 - VERIFIED FACT: `power-ringmin-verify-fixed-order-artifacts` validates each matching v1 artifact, derives the minimal standalone-verifier payload, invokes root `verify.py` as a subprocess, prints per-artifact PASS/FAIL lines, and returns a nonzero exit code when any artifact fails.
 - VERIFIED FACT: `power-ringmin-verify-fixed-order-artifacts` supports directory glob patterns, recursive scans, verifier precision digits, per-artifact recorded local eta checks by default, an eta override, and an explicit `--stn-tol` pass-through for tolerance-labeled numerical artifacts.
-- VERIFIED FACT: `examples/fixed_order_batch_end_to_end/` provides a small reproducible batch example with explicit quadratic index orders, README commands for `power-ringmin-export-fixed-order-batch` and `power-ringmin-verify-fixed-order-artifacts`, and no checked-in generated result artifacts.
+- VERIFIED FACT: `examples/fixed_order_batch_end_to_end/` provides a small reproducible batch example with explicit n=3 and n=4 quadratic index orders, README commands for `power-ringmin-export-fixed-order-batch` and `power-ringmin-verify-fixed-order-artifacts`, and no checked-in generated result artifacts.
 - VERIFIED FACT: `examples/fixed_order_result_n3.json` is a checked schema fixture for the fixed cyclic order `(1,4,9)` and is classified as a `numerical_observation`, not as a global optimum certificate.
 - VERIFIED FACT: as of the fixed-order batch end-to-end example task, the certified-search pipeline, frontier verifier, plots, and original Ringmin result artifacts have not been imported.
 - VERIFIED FACT: `pyproject.toml` defines optional `crosscheck` dependencies for NumPy/SciPy; `requirements.txt` includes NumPy/SciPy for the local development/test environment.
@@ -123,6 +124,7 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: `python -m pytest` passed 23 tests after the batch fixed-order artifact export implementation on 2026-07-10.
 - VERIFIED FACT: `python -m pytest` passed 28 tests after the batch standalone-verifier artifact check implementation on 2026-07-10.
 - VERIFIED FACT: `python -m pytest` passed 29 tests after the fixed-order batch end-to-end example implementation on 2026-07-10.
+- VERIFIED FACT: `python -m pytest` passed 30 tests after the n=4 high-precision export stabilization on 2026-07-11.
 - INTERPRETATION: passing finite smoke tests verifies the imported implementation behavior on tested cases only; it is not a theorem about all quadratic-radii instances.
 
 ## Verified Environment Facts
@@ -156,10 +158,11 @@ Read-only repository inspection commands used during bootstrap:
 - VERIFIED FACT: the standalone verifier accepted the high-precision fixed-order radius for `(1,4,9)` and rejected a radius smaller by `1e-8` during the 2026-07-10 verification.
 - VERIFIED FACT: the fixed-order artifact schema fixture `examples/fixed_order_result_n3.json` records an explicit radius sequence, fixed cyclic order, high-precision radius/positions, precision tolerances, provenance, and evidence classification for `(1,4,9)`.
 - VERIFIED FACT: the fixed-order artifact exporter/loader tests round-trip a float64 `FullResult` artifact for order `(16,1,9,4)`, round-trip a high-precision artifact for `(1,4,9)`, derive a standalone-verifier payload, and reject a fixed-order radius/index mismatch.
-- VERIFIED FACT: the fixed-order artifact CLI tests export a float64 artifact from radius order `(16,1,9,4)`, export a high-precision artifact from index order `(1,2,3)`, derive a standalone-verifier payload, reject non-quadratic radius input, and verify the console script registration.
+- VERIFIED FACT: the fixed-order artifact CLI tests export a float64 artifact from radius order `(16,1,9,4)`, export a high-precision artifact from index order `(1,2,3)`, verify that the high-precision exporter stabilizes the serialized radius for index order `(4,1,3,2)`, derive a standalone-verifier payload, reject non-quadratic radius input, and verify the console script registration.
 - VERIFIED FACT: the batch fixed-order artifact CLI tests export two float64 artifacts from a JSON list of radius orders, export a high-precision artifact from a JSON object with `index_orders`, reject non-quadratic radius input, refuse overwrite without `--overwrite`, allow overwrite with `--overwrite`, and verify the console script registration.
 - VERIFIED FACT: the batch standalone-verifier artifact tests accept a high-precision artifact directory with recorded local eta, accept a float64 artifact with explicit `--stn-tol`, report a deliberately weakened artifact as failed, reject an empty artifact directory, and verify the console script registration.
-- VERIFIED FACT: the fixed-order batch end-to-end example test exports high-precision artifacts from `examples/fixed_order_batch_end_to_end/index_orders.json` into a temporary directory and verifies them through the batch standalone-verifier CLI module path.
+- VERIFIED FACT: the fixed-order batch end-to-end example test exports high-precision artifacts, including the n=4 index order `(4,1,3,2)`, from `examples/fixed_order_batch_end_to_end/index_orders.json` into a temporary directory and verifies them through the batch standalone-verifier CLI module path.
+- NUMERICAL OBSERVATION: for index order `(4,1,3,2)` / radius order `(16,1,9,4)` at 80 digits, the raw `full_radius_mp` result has an STN margin within the default `1e-40` tolerance, while its direct 80-significant-digit decimal serialization can round slightly downward and fail that same tolerance check; this was fixed as exporter robustness, not interpreted as mathematical infeasibility.
 - VERIFIED FACT: no certified quadratic-radii optimum has yet been established in this repository.
 - VERIFIED FACT: no quadratic-radii theorem has yet been established in this repository.
 - VERIFIED FACT: no global quadratic-radii certificate or production experiment artifact has yet been created in this repository.

@@ -33,7 +33,7 @@ def test_fixed_order_batch_end_to_end_example_exports_and_verifies(
             "--output-dir",
             str(output_dir),
             "--created-at-utc",
-            "2026-07-10T00:00:00Z",
+            "2026-07-11T00:00:00Z",
         ],
         cwd=ROOT,
         env=env,
@@ -48,7 +48,7 @@ def test_fixed_order_batch_end_to_end_example_exports_and_verifies(
     assert "batch complete count=2" in export_completed.stdout
     assert sorted(path.name for path in output_dir.glob("*.json")) == [
         "fixed_order_0001_n3.json",
-        "fixed_order_0002_n3.json",
+        "fixed_order_0002_n4.json",
     ]
 
     verify_completed = subprocess.run(

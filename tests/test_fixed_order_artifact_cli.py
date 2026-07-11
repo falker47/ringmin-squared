@@ -91,6 +91,43 @@ def test_cli_mpmath_index_order_exports_verifier_payload(
     assert "positions" in payload
 
 
+def test_cli_mpmath_n4_index_order_stabilizes_serialized_radius(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    output = tmp_path / "fixed_order_mpmath_n4.json"
+
+    exit_code = main(
+        [
+            "--index-order",
+            "4,1,3,2",
+            "--backend",
+            "mpmath",
+            "--digits",
+            "80",
+            "--local-radius-eta",
+            "1e-12",
+            "--output",
+            str(output),
+            "--created-at-utc",
+            "2026-07-11T00:00:00Z",
+        ]
+    )
+
+    assert exit_code == 0
+    assert "backend=mpmath" in capsys.readouterr().out
+
+    loaded = load_fixed_order_artifact(output)
+    artifact = loaded.to_dict()
+    assert loaded.index_order == (4, 1, 3, 2)
+    assert loaded.radius_order == ("16", "1", "9", "4")
+    assert loaded.positions_rad is not None
+    assert artifact["result"]["feasible"] is True
+    assert artifact["result"]["local_radius_bracket"]["lower_radius_feasible"] is False
+    assert artifact["result"]["local_radius_bracket"]["claimed_radius_feasible"] is True
+    assert artifact["result"]["local_radius_bracket"]["upper_radius_feasible"] is True
+
+
 def test_cli_rejects_non_quadratic_radius_order(tmp_path: Path) -> None:
     with pytest.raises(SystemExit) as exc_info:
         main(["--order", "1,2,9", "--output", str(tmp_path / "bad.json")])

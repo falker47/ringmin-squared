@@ -1,8 +1,8 @@
 # Fixed-Order Batch End-To-End Example
 
 This example exports two high-precision v1 fixed-order artifacts from explicit
-quadratic index orders, then verifies the generated artifact directory with
-`power-ringmin-verify-fixed-order-artifacts`.
+n=3 and n=4 quadratic index orders, then verifies the generated artifact
+directory with `power-ringmin-verify-fixed-order-artifacts`.
 
 The result is finite fixed-order numerical evidence only. It is not a global
 optimum certificate and does not prove any theorem for all `n`.
@@ -20,7 +20,7 @@ power-ringmin-export-fixed-order-batch `
   --digits 80 `
   --local-radius-eta 1e-12 `
   --output-dir $output `
-  --created-at-utc 2026-07-10T00:00:00Z `
+  --created-at-utc 2026-07-11T00:00:00Z `
   --overwrite
 
 power-ringmin-verify-fixed-order-artifacts $output --digits 80
@@ -53,7 +53,7 @@ python -m power_ringmin.export_fixed_order_batch_cli `
   --digits 80 `
   --local-radius-eta 1e-12 `
   --output-dir $output `
-  --created-at-utc 2026-07-10T00:00:00Z `
+  --created-at-utc 2026-07-11T00:00:00Z `
   --overwrite
 
 python -m power_ringmin.verify_fixed_order_artifacts_cli $output --digits 80

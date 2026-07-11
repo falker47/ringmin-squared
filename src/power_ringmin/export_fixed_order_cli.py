@@ -10,6 +10,8 @@ import shlex
 import sys
 from typing import Any, Literal
 
+import mpmath as mp
+
 from power_ringmin.evaluator import full_radius
 from power_ringmin.fixed_order_artifact import (
     UPSTREAM_RINGMIN_COMMIT,
@@ -17,9 +19,10 @@ from power_ringmin.fixed_order_artifact import (
     export_full_result_artifact,
     export_highprec_artifact,
 )
-from power_ringmin.highprec import full_radius_mp, recover_positions_mp
+from power_ringmin.highprec import full_radius_mp, is_feasible_mp, recover_positions_mp
 
 Backend = Literal["float64", "mpmath"]
+MAX_EXPORT_RADIUS_STABILIZATION_STEPS = 200
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -103,10 +106,11 @@ def export_artifact_for_order(
         )
     else:
         radius = full_radius_mp(list(order), digits=digits)
-        positions = recover_positions_mp(list(order), radius, digits=digits)
+        radius_decimal = _stable_highprec_radius_decimal(order, radius, digits=digits)
+        positions = recover_positions_mp(list(order), radius_decimal, digits=digits)
         artifact = export_highprec_artifact(
             order,
-            radius,
+            radius_decimal,
             positions=positions,
             digits=digits,
             local_radius_eta=local_radius_eta,
@@ -268,6 +272,61 @@ def _source_files_for_backend(backend: Backend) -> list[dict[str, str]]:
             }
         )
     return files
+
+
+def _stable_highprec_radius_decimal(
+    order: Sequence[int],
+    radius: mp.mpf,
+    *,
+    digits: int,
+) -> str:
+    """Return a serialized mpmath radius that remains feasible when re-read."""
+    mp.mp.dps = digits
+    tolerance = mp.mpf(10) ** (-max(30, digits // 2))
+    candidate = mp.mpf(radius)
+    decimal = _mp_decimal(candidate, digits=digits)
+    if _serialized_radius_is_feasible(order, decimal, digits=digits, tolerance=tolerance):
+        return decimal
+
+    scale = max(mp.mpf("1"), abs(candidate))
+    step = scale * (mp.mpf(10) ** (-(digits - 5)))
+    last_decimal = decimal
+    for _ in range(MAX_EXPORT_RADIUS_STABILIZATION_STEPS):
+        candidate += step
+        decimal = _mp_decimal(candidate, digits=digits)
+        if decimal != last_decimal and _serialized_radius_is_feasible(
+            order,
+            decimal,
+            digits=digits,
+            tolerance=tolerance,
+        ):
+            return decimal
+        last_decimal = decimal
+        step *= 2
+
+    raise ValueError(
+        "could not stabilize high-precision radius for decimal export; "
+        "increase --digits or retry with a larger precision"
+    )
+
+
+def _mp_decimal(value: mp.mpf, *, digits: int) -> str:
+    return mp.nstr(mp.mpf(value), n=digits)
+
+
+def _serialized_radius_is_feasible(
+    order: Sequence[int],
+    radius_decimal: str,
+    *,
+    digits: int,
+    tolerance: mp.mpf,
+) -> bool:
+    return is_feasible_mp(
+        list(order),
+        mp.mpf(radius_decimal),
+        digits=digits,
+        tol=tolerance,
+    )
 
 
 if __name__ == "__main__":
