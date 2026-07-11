@@ -2,14 +2,14 @@
 
 Last update: 2026-07-11
 
-- **Current phase:** n=4 finite-certificate next-step design.
-- **Current task:** Design the next finite-certificate step for `n=4`, choosing between a runtime-bounded interval certificate attempt and verifier/format hardening before larger certificates.
-- **Task dossier:** `ops/TASK-20260711__n4_finite_certificate_next_step_design/`.
+- **Current phase:** finite small-n interval certificate artifacts.
+- **Current task:** Implemented the bounded `n=4` interval certificate artifact/export path and generated `examples/small_n_interval_certificate_n4.json` only after validation passed.
+- **Task dossier:** `ops/TASK-20260711__n4_interval_certificate_artifact/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
-- **Current next atomic action:** user reviews the n=4 next-step design and decides whether to commit manually.
+- **Current next atomic action:** user reviews the bounded n=4 certificate artifact/export changes and decides whether to commit manually.
 - **Awaiting user review:** yes.
 
 ## Proposed Next Task
 
-Implement a runtime-bounded `n=4` interval certificate artifact/export path, generate exactly the three canonical `n=4` local brackets, aggregate them with the existing validator, and check in an `examples/small_n_interval_certificate_n4.json` artifact only if validation passes.
+Review and harden the interval-certificate production path: audit the guarded `mpmath.iv` backend/outward-enclosure contract, decide whether to publish an explicit schema for small-n interval certificate artifacts, and identify what must change before attempting `n=5` or larger certificates.

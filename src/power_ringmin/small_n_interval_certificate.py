@@ -29,6 +29,7 @@ from power_ringmin.fixed_order_artifact import (
 )
 from power_ringmin.geometry import quadratic_radii
 from power_ringmin.interval_bracket_exporter import (
+    DEFAULT_MAX_ATTEMPTS as DEFAULT_LOCAL_BRACKET_MAX_ATTEMPTS,
     FixedOrderIntervalBracketExport,
     build_fixed_order_interval_bracket_record,
 )
@@ -49,7 +50,14 @@ EVIDENCE_SCOPE = "finite_global_small_n_interval_bracket"
 DEFAULT_N3_FIXTURE_DIGITS = 80
 DEFAULT_N3_FIXTURE_GUARD_DECIMAL = "1e-70"
 DEFAULT_N3_FIXTURE_RADIUS_ETA = "1e-4"
-COMMAND_NAME = "power-ringmin-export-n3-interval-certificate"
+DEFAULT_N4_FIXTURE_DIGITS = 80
+DEFAULT_N4_FIXTURE_GUARD_DECIMAL = "1e-70"
+DEFAULT_N4_FIXTURE_RADIUS_ETA = "1e-4"
+DEFAULT_N4_MAX_CANONICAL_ORDERS = 3
+DEFAULT_N4_LOCAL_MAX_ATTEMPTS = DEFAULT_LOCAL_BRACKET_MAX_ATTEMPTS
+N3_COMMAND_NAME = "power-ringmin-export-n3-interval-certificate"
+N4_COMMAND_NAME = "power-ringmin-export-n4-interval-certificate"
+COMMAND_NAME = N3_COMMAND_NAME
 
 
 @dataclass(frozen=True)
@@ -104,19 +112,77 @@ def build_n3_interval_certificate_fixture(
     command_summary: str = "programmatic call: build_n3_interval_certificate_fixture",
 ) -> dict[str, Any]:
     """Build the tiny global n=3 fixture from generated local brackets."""
+    return build_bounded_small_n_interval_certificate_fixture(
+        3,
+        max_canonical_orders=1,
+        digits=digits,
+        guard_decimal=guard_decimal,
+        radius_eta=radius_eta,
+        local_max_attempts=DEFAULT_LOCAL_BRACKET_MAX_ATTEMPTS,
+        created_at_utc=created_at_utc,
+        command_summary=command_summary,
+    )
+
+
+def build_n4_interval_certificate_fixture(
+    *,
+    digits: int = DEFAULT_N4_FIXTURE_DIGITS,
+    guard_decimal: str | None = DEFAULT_N4_FIXTURE_GUARD_DECIMAL,
+    radius_eta: str = DEFAULT_N4_FIXTURE_RADIUS_ETA,
+    max_canonical_orders: int = DEFAULT_N4_MAX_CANONICAL_ORDERS,
+    local_max_attempts: int = DEFAULT_N4_LOCAL_MAX_ATTEMPTS,
+    created_at_utc: str | None = None,
+    command_summary: str = "programmatic call: build_n4_interval_certificate_fixture",
+) -> dict[str, Any]:
+    """Build the bounded finite n=4 certificate from generated local brackets."""
+    return build_bounded_small_n_interval_certificate_fixture(
+        4,
+        max_canonical_orders=max_canonical_orders,
+        digits=digits,
+        guard_decimal=guard_decimal,
+        radius_eta=radius_eta,
+        local_max_attempts=local_max_attempts,
+        created_at_utc=created_at_utc,
+        command_summary=command_summary,
+    )
+
+
+def build_bounded_small_n_interval_certificate_fixture(
+    n: int,
+    *,
+    max_canonical_orders: int,
+    digits: int,
+    guard_decimal: str | None,
+    radius_eta: str,
+    local_max_attempts: int,
+    created_at_utc: str | None = None,
+    command_summary: str = "programmatic call: build_bounded_small_n_interval_certificate_fixture",
+) -> dict[str, Any]:
+    """Build a small-n certificate only when the order-space bound admits it."""
+    _validate_n(n)
+    max_orders = _parse_positive_int(max_canonical_orders, "max_canonical_orders")
+    max_attempts = _parse_positive_int(local_max_attempts, "local_max_attempts")
+    expected_count = canonical_index_order_count(n)
+    if expected_count > max_orders:
+        raise ValueError(
+            f"n={n} has {expected_count} canonical orders, "
+            f"exceeding max_canonical_orders={max_orders}"
+        )
+
     records = [
         build_fixed_order_interval_bracket_record(
             order,
             digits=digits,
             guard_decimal=guard_decimal,
             radius_eta=radius_eta,
+            max_attempts=max_attempts,
             created_at_utc=created_at_utc,
         )
-        for order in canonical_index_orders(3)
+        for order in canonical_index_orders(n)
     ]
     return build_small_n_interval_certificate(
         records,
-        n=3,
+        n=n,
         created_at_utc=created_at_utc,
         command_summary=command_summary,
     )
@@ -138,7 +204,43 @@ def export_n3_interval_certificate_artifact(
         guard_decimal=guard_decimal,
         radius_eta=radius_eta,
         created_at_utc=created_at_utc,
-        command_summary=_command_summary(argv_for_provenance, output=output_path),
+        command_summary=_command_summary(
+            argv_for_provenance,
+            output=output_path,
+            command_name=N3_COMMAND_NAME,
+            programmatic_function="export_n3_interval_certificate_artifact",
+        ),
+    )
+    dump_small_n_interval_certificate_artifact(artifact, output_path)
+    return load_small_n_interval_certificate_artifact(output_path)
+
+
+def export_n4_interval_certificate_artifact(
+    output: str | Path,
+    *,
+    digits: int = DEFAULT_N4_FIXTURE_DIGITS,
+    guard_decimal: str | None = DEFAULT_N4_FIXTURE_GUARD_DECIMAL,
+    radius_eta: str = DEFAULT_N4_FIXTURE_RADIUS_ETA,
+    max_canonical_orders: int = DEFAULT_N4_MAX_CANONICAL_ORDERS,
+    local_max_attempts: int = DEFAULT_N4_LOCAL_MAX_ATTEMPTS,
+    created_at_utc: str | None = None,
+    argv_for_provenance: Sequence[str] | None = None,
+) -> SmallNIntervalCertificate:
+    """Build, verify, write, and reload the bounded finite n=4 certificate."""
+    output_path = Path(output)
+    artifact = build_n4_interval_certificate_fixture(
+        digits=digits,
+        guard_decimal=guard_decimal,
+        radius_eta=radius_eta,
+        max_canonical_orders=max_canonical_orders,
+        local_max_attempts=local_max_attempts,
+        created_at_utc=created_at_utc,
+        command_summary=_command_summary(
+            argv_for_provenance,
+            output=output_path,
+            command_name=N4_COMMAND_NAME,
+            programmatic_function="export_n4_interval_certificate_artifact",
+        ),
     )
     dump_small_n_interval_certificate_artifact(artifact, output_path)
     return load_small_n_interval_certificate_artifact(output_path)
@@ -385,6 +487,65 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def build_n4_parser() -> argparse.ArgumentParser:
+    """Build the command-line parser for the bounded finite n=4 exporter."""
+    parser = argparse.ArgumentParser(
+        description="Export the checked finite n=4 interval certificate artifact.",
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=Path,
+        help="path to write the finite n=4 interval certificate JSON artifact",
+    )
+    parser.add_argument(
+        "--digits",
+        type=int,
+        default=DEFAULT_N4_FIXTURE_DIGITS,
+        help=f"mpmath working precision digits (default: {DEFAULT_N4_FIXTURE_DIGITS})",
+    )
+    parser.add_argument(
+        "--guard-decimal",
+        default=DEFAULT_N4_FIXTURE_GUARD_DECIMAL,
+        help=(
+            "nonnegative guard added to interval endpoints "
+            f"(default: {DEFAULT_N4_FIXTURE_GUARD_DECIMAL})"
+        ),
+    )
+    parser.add_argument(
+        "--radius-eta",
+        default=DEFAULT_N4_FIXTURE_RADIUS_ETA,
+        help=(
+            "positive radius bracket offset for each embedded local bracket "
+            f"(default: {DEFAULT_N4_FIXTURE_RADIUS_ETA})"
+        ),
+    )
+    parser.add_argument(
+        "--max-canonical-orders",
+        type=int,
+        default=DEFAULT_N4_MAX_CANONICAL_ORDERS,
+        help=(
+            "hard ceiling on regenerated canonical orders "
+            f"(default: {DEFAULT_N4_MAX_CANONICAL_ORDERS})"
+        ),
+    )
+    parser.add_argument(
+        "--local-max-attempts",
+        type=int,
+        default=DEFAULT_N4_LOCAL_MAX_ATTEMPTS,
+        help=(
+            "maximum bracket-widening attempts per local fixed order "
+            f"(default: {DEFAULT_N4_LOCAL_MAX_ATTEMPTS})"
+        ),
+    )
+    parser.add_argument(
+        "--created-at-utc",
+        help="optional UTC timestamp to record in artifact provenance",
+    )
+    return parser
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """Run the finite n=3 interval certificate exporter CLI."""
     parser = build_parser()
@@ -397,6 +558,35 @@ def main(argv: Sequence[str] | None = None) -> int:
             digits=args.digits,
             guard_decimal=args.guard_decimal,
             radius_eta=args.radius_eta,
+            created_at_utc=args.created_at_utc,
+            argv_for_provenance=raw_argv,
+        )
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        parser.error(str(exc))
+
+    print(
+        f"wrote {args.output} n={certificate.n} "
+        f"bracket=({certificate.lower_radius_decimal}, {certificate.upper_radius_decimal}] "
+        "classification=computer_certified_result "
+        f"covered={certificate.covered_canonical_count}"
+    )
+    return 0
+
+
+def main_n4(argv: Sequence[str] | None = None) -> int:
+    """Run the bounded finite n=4 interval certificate exporter CLI."""
+    parser = build_n4_parser()
+    raw_argv = list(sys.argv[1:] if argv is None else argv)
+    args = parser.parse_args(raw_argv)
+
+    try:
+        certificate = export_n4_interval_certificate_artifact(
+            args.output,
+            digits=args.digits,
+            guard_decimal=args.guard_decimal,
+            radius_eta=args.radius_eta,
+            max_canonical_orders=args.max_canonical_orders,
+            local_max_attempts=args.local_max_attempts,
             created_at_utc=args.created_at_utc,
             argv_for_provenance=raw_argv,
         )
@@ -576,7 +766,7 @@ def _provenance_record(
             },
             {
                 "path": "src/power_ringmin/interval_bracket_exporter.py",
-                "role": "n=3 fixture local bracket generator",
+                "role": "local fixed-order interval bracket generator/exporter",
             },
             {
                 "path": "src/power_ringmin/highprec.py",
@@ -659,10 +849,16 @@ def _evidence_record(*, n: int, local_count: int) -> dict[str, Any]:
     }
 
 
-def _command_summary(argv: Sequence[str] | None, *, output: Path) -> str:
+def _command_summary(
+    argv: Sequence[str] | None,
+    *,
+    output: Path,
+    command_name: str,
+    programmatic_function: str,
+) -> str:
     if argv:
-        return COMMAND_NAME + " " + shlex.join(str(item) for item in argv)
-    return f"programmatic call: export_n3_interval_certificate_artifact(output={str(output)!r})"
+        return command_name + " " + shlex.join(str(item) for item in argv)
+    return f"programmatic call: {programmatic_function}(output={str(output)!r})"
 
 
 def _validate_n(n: int) -> None:
@@ -713,22 +909,33 @@ def _created_at_utc_now() -> str:
 __all__ = [
     "ARTIFACT_TYPE",
     "COMMAND_NAME",
+    "DEFAULT_N4_FIXTURE_DIGITS",
+    "DEFAULT_N4_FIXTURE_GUARD_DECIMAL",
+    "DEFAULT_N4_FIXTURE_RADIUS_ETA",
+    "DEFAULT_N4_LOCAL_MAX_ATTEMPTS",
+    "DEFAULT_N4_MAX_CANONICAL_ORDERS",
     "DEFAULT_N3_FIXTURE_DIGITS",
     "DEFAULT_N3_FIXTURE_GUARD_DECIMAL",
     "DEFAULT_N3_FIXTURE_RADIUS_ETA",
     "EVIDENCE_SCOPE",
+    "N3_COMMAND_NAME",
+    "N4_COMMAND_NAME",
     "SMALL_N_INTERVAL_CERTIFICATE_SCHEMA_VERSION",
     "SmallNIntervalCertificate",
     "VerifiedLocalIntervalBracket",
+    "build_bounded_small_n_interval_certificate_fixture",
     "build_parser",
     "build_n3_interval_certificate_fixture",
+    "build_n4_interval_certificate_fixture",
     "build_small_n_interval_certificate",
     "dump_small_n_interval_certificate_artifact",
     "dumps_small_n_interval_certificate_artifact",
     "export_n3_interval_certificate_artifact",
+    "export_n4_interval_certificate_artifact",
     "load_small_n_interval_certificate_artifact",
     "loads_small_n_interval_certificate_artifact",
     "main",
+    "main_n4",
     "validate_small_n_interval_certificate_artifact",
 ]
 

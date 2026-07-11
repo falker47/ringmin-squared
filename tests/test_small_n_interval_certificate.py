@@ -10,12 +10,15 @@ from power_ringmin.interval_bracket_exporter import build_fixed_order_interval_b
 from power_ringmin.search_small_n import canonical_index_orders
 from power_ringmin.small_n_interval_certificate import (
     COMMAND_NAME,
+    N4_COMMAND_NAME,
     SMALL_N_INTERVAL_CERTIFICATE_SCHEMA_VERSION,
     build_n3_interval_certificate_fixture,
+    build_n4_interval_certificate_fixture,
     build_small_n_interval_certificate,
     dump_small_n_interval_certificate_artifact,
     load_small_n_interval_certificate_artifact,
     main,
+    main_n4,
     validate_small_n_interval_certificate_artifact,
 )
 
@@ -45,6 +48,43 @@ def test_n3_interval_certificate_fixture_covers_every_canonical_order() -> None:
     assert artifact["result"]["global_upper_bound"]["included"] is True
     assert artifact["evidence"]["classification"] == "computer_certified_result"
     assert "No theorem for all n." in artifact["evidence"]["limitations"]
+
+
+def test_n4_interval_certificate_fixture_covers_every_canonical_order() -> None:
+    artifact = build_n4_interval_certificate_fixture(
+        digits=80,
+        guard_decimal="1e-70",
+        radius_eta="1e-4",
+        max_canonical_orders=3,
+        local_max_attempts=8,
+        created_at_utc="2026-07-11T00:00:00Z",
+    )
+
+    validate_small_n_interval_certificate_artifact(artifact)
+
+    assert artifact["instance"]["n"] == 4
+    assert artifact["order_space"]["expected_canonical_count"] == 3
+    assert artifact["order_space"]["covered_canonical_count"] == 3
+    assert [tuple(item["index_order"]) for item in artifact["local_bracket_summaries"]] == [
+        (4, 1, 2, 3),
+        (4, 1, 3, 2),
+        (4, 2, 1, 3),
+    ]
+    assert artifact["result"]["global_lower_bound"]["source_index_order"] == [4, 1, 3, 2]
+    assert artifact["result"]["global_upper_bound"]["source_index_order"] == [4, 1, 3, 2]
+    assert artifact["evidence"]["classification"] == "computer_certified_result"
+    assert "No theorem for all n." in artifact["evidence"]["limitations"]
+
+
+def test_n4_interval_certificate_fixture_enforces_order_space_bound() -> None:
+    with pytest.raises(ValueError, match="exceeding max_canonical_orders=2"):
+        build_n4_interval_certificate_fixture(
+            digits=80,
+            guard_decimal="1e-70",
+            radius_eta="1e-4",
+            max_canonical_orders=2,
+            created_at_utc="2026-07-11T00:00:00Z",
+        )
 
 
 def test_small_n_interval_certificate_dump_load_round_trips(tmp_path: Path) -> None:
@@ -143,6 +183,51 @@ def test_n3_interval_certificate_cli_writes_checked_finite_artifact(
     assert "No theorem for all n." in artifact["evidence"]["limitations"]
 
 
+def test_n4_interval_certificate_cli_writes_checked_finite_artifact(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    output = tmp_path / "n4_interval_certificate.json"
+
+    exit_code = main_n4(
+        [
+            "--output",
+            str(output),
+            "--digits",
+            "80",
+            "--guard-decimal",
+            "1e-70",
+            "--radius-eta",
+            "1e-4",
+            "--max-canonical-orders",
+            "3",
+            "--local-max-attempts",
+            "8",
+            "--created-at-utc",
+            "2026-07-11T00:00:00Z",
+        ]
+    )
+
+    assert exit_code == 0
+    stdout = capsys.readouterr().out
+    assert "classification=computer_certified_result" in stdout
+    assert "covered=3" in stdout
+
+    loaded = load_small_n_interval_certificate_artifact(output)
+    artifact = loaded.to_dict()
+    assert loaded.n == 4
+    assert loaded.covered_canonical_count == 3
+    assert artifact["provenance"]["created_at_utc"] == "2026-07-11T00:00:00Z"
+    assert artifact["provenance"]["commands"][0]["command"].startswith(
+        f"{N4_COMMAND_NAME} --output"
+    )
+    assert artifact["result"]["global_lower_bound"]["source_index_order"] == [4, 1, 3, 2]
+    assert artifact["result"]["global_upper_bound"]["source_index_order"] == [4, 1, 3, 2]
+    assert artifact["evidence"]["classification"] == "computer_certified_result"
+    assert artifact["evidence"]["claim"]["scope"] == "finite_global_small_n_interval_bracket"
+    assert "No theorem for all n." in artifact["evidence"]["limitations"]
+
+
 def test_checked_n3_interval_certificate_artifact_loads() -> None:
     path = Path("examples/small_n_interval_certificate_n3.json")
 
@@ -158,9 +243,37 @@ def test_checked_n3_interval_certificate_artifact_loads() -> None:
     assert "No theorem for all n." in artifact["evidence"]["limitations"]
 
 
+def test_checked_n4_interval_certificate_artifact_loads() -> None:
+    path = Path("examples/small_n_interval_certificate_n4.json")
+
+    loaded = load_small_n_interval_certificate_artifact(path)
+    artifact = loaded.to_dict()
+
+    assert loaded.n == 4
+    assert loaded.covered_canonical_count == 3
+    assert [tuple(item["index_order"]) for item in artifact["local_bracket_summaries"]] == [
+        (4, 1, 2, 3),
+        (4, 1, 3, 2),
+        (4, 2, 1, 3),
+    ]
+    assert artifact["result"]["global_lower_bound"]["source_index_order"] == [4, 1, 3, 2]
+    assert artifact["result"]["global_upper_bound"]["source_index_order"] == [4, 1, 3, 2]
+    assert artifact["evidence"]["classification"] == "computer_certified_result"
+    assert artifact["evidence"]["claim"]["scope"] == "finite_global_small_n_interval_bracket"
+    assert "No theorem for all n." in artifact["evidence"]["limitations"]
+
+
 def test_n3_interval_certificate_console_script_entry_point_is_registered() -> None:
     pyproject = tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))
 
     assert pyproject["project"]["scripts"][COMMAND_NAME] == (
         "power_ringmin.small_n_interval_certificate:main"
+    )
+
+
+def test_n4_interval_certificate_console_script_entry_point_is_registered() -> None:
+    pyproject = tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))
+
+    assert pyproject["project"]["scripts"][N4_COMMAND_NAME] == (
+        "power_ringmin.small_n_interval_certificate:main_n4"
     )
