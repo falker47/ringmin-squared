@@ -126,6 +126,10 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: the local interval bracket verifier checks the radius order against the index-order squares, rejects noncanonical index orders, rejects tolerance-based interval metadata, checks a lower endpoint by an explicit negative cycle using relaxed interval edge upper weights, and checks an upper endpoint by explicit all-pairs witness slacks using theta upper bounds.
 - VERIFIED FACT: `MPMathIntervalAngularOracle` provides a guarded `mpmath.iv` angular interval backend using `atan2(x, sqrt(1-x^2))` for the inverse-sine step and records backend precision, guard, outward-enclosure, and no-tolerance metadata.
 - INTERPRETATION: local fixed-order interval bracket verification is a certification building block only; it does not by itself certify a global small-n optimum, cover every cyclic order, or establish a theorem for all `n`.
+- VERIFIED FACT: `src/power_ringmin/interval_bracket_exporter.py` provides a fixed-order interval bracket generator/exporter for records consumed by `src/power_ringmin/interval_verifier.py`.
+- VERIFIED FACT: the fixed-order interval bracket exporter accepts one canonical quadratic index order, computes a high-precision `mpmath` fixed-order radius proposal, widens a local bracket as needed, extracts an explicit lower-endpoint negative cycle, constructs an upper-endpoint strict witness by solving a padded STN, and refuses to return or write the record unless `verify_fixed_order_interval_bracket` accepts it.
+- VERIFIED FACT: fixed-order interval bracket JSON helpers verify records before serialization and after loading by reconstructing the recorded `MPMathIntervalAngularOracle` metadata.
+- INTERPRETATION: generated fixed-order interval bracket records are local fixed-order certificate building blocks only; they do not certify a global small-n optimum unless a later global verifier covers every canonical order.
 - VERIFIED FACT: `examples/fixed_order_batch_end_to_end/` provides a small reproducible batch example with explicit n=3 and n=4 quadratic index orders, README commands for `power-ringmin-export-fixed-order-batch` and `power-ringmin-verify-fixed-order-artifacts`, and no checked-in generated result artifacts.
 - VERIFIED FACT: `examples/fixed_order_batch_end_to_end/README.md` documents that generated example artifacts are finite fixed-order numerical observations, not global optimum certificates, and gives local eta guidance: choose an absolute offset above STN/serialization noise but small relative to the reported radius scale, then verify `R`, `R + eta`, and `R - eta` when applicable.
 - VERIFIED FACT: `examples/fixed_order_result_n3.json` is a checked schema fixture for the fixed cyclic order `(1,4,9)` and is classified as a `numerical_observation`, not as a global optimum certificate.
@@ -137,6 +141,7 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: `pyproject.toml` defines optional `crosscheck` dependencies for NumPy/SciPy; `requirements.txt` includes NumPy/SciPy for the local development/test environment.
 - VERIFIED FACT: `pyproject.toml` registers the console script `power-ringmin-export-fixed-order`.
 - VERIFIED FACT: `pyproject.toml` registers the console script `power-ringmin-export-fixed-order-batch`.
+- VERIFIED FACT: `pyproject.toml` registers the console script `power-ringmin-export-fixed-order-interval-bracket`.
 - VERIFIED FACT: `pyproject.toml` registers the console script `power-ringmin-verify-fixed-order-artifacts`.
 - VERIFIED FACT: `pyproject.toml` registers the console script `power-ringmin-search-small-n`.
 - VERIFIED FACT: `python -m pytest` passed 5 adapted quadratic smoke tests on 2026-07-10.
@@ -156,6 +161,8 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: `python -m pytest` passed 37 tests after the interval verifier semantics design task on 2026-07-11.
 - VERIFIED FACT: `python -m pytest tests\test_interval_verifier.py` passed 6 local interval verifier tests on 2026-07-11.
 - VERIFIED FACT: `python -m pytest` passed 43 tests after the local fixed-order interval bracket verifier implementation on 2026-07-11.
+- VERIFIED FACT: `python -m pytest tests\test_interval_bracket_exporter.py` passed 5 fixed-order interval bracket exporter tests on 2026-07-11.
+- VERIFIED FACT: `python -m pytest` passed 48 tests after the fixed-order interval bracket exporter implementation on 2026-07-11.
 - INTERPRETATION: passing finite smoke tests verifies the imported implementation behavior on tested cases only; it is not a theorem about all quadratic-radii instances.
 
 ## Verified Environment Facts
@@ -200,6 +207,8 @@ Read-only repository inspection commands used during bootstrap:
 - NUMERICAL OBSERVATION: for index order `(4,1,3,2)` / radius order `(16,1,9,4)` at 80 digits, the raw `full_radius_mp` result has an STN margin within the default `1e-40` tolerance, while its direct 80-significant-digit decimal serialization can round slightly downward and fail that same tolerance check; this was fixed as exporter robustness, not interpreted as mathematical infeasibility.
 - VERIFIED FACT: the local interval verifier test fixture verifies a fixed-order bracket for the canonical n=3 index order `(3,1,2)` / radius order `(9,1,4)` under the guarded interval oracle.
 - INTERPRETATION: the n=3 local interval verifier fixture is a fixed-order endpoint semantics test, not a global small-n certificate artifact.
+- VERIFIED FACT: the fixed-order interval bracket exporter tests generate and verify a local interval bracket record for the canonical n=3 index order `(3,1,2)` / radius order `(9,1,4)`, round-trip it through JSON dump/load helpers, reject a deliberately broken witness, export the record through the CLI, reject noncanonical index order `(1,2,3)`, and verify the console script registration.
+- INTERPRETATION: the generated n=3 interval bracket test record is local fixed-order evidence only; it is not a global n=3 certificate until a later verifier confirms coverage of the full canonical order space.
 - VERIFIED FACT: no certified quadratic-radii optimum has yet been established in this repository.
 - VERIFIED FACT: no quadratic-radii theorem has yet been established in this repository.
 - VERIFIED FACT: no global quadratic-radii certificate or production experiment artifact has yet been created in this repository.
