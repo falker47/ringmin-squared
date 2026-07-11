@@ -8,6 +8,7 @@ claim anything for all n.
 
 from __future__ import annotations
 
+import argparse
 from collections.abc import Mapping, Sequence
 import copy
 from dataclasses import dataclass
@@ -15,6 +16,8 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 import platform
+import shlex
+import sys
 from typing import Any
 
 import mpmath as mp
@@ -46,6 +49,7 @@ EVIDENCE_SCOPE = "finite_global_small_n_interval_bracket"
 DEFAULT_N3_FIXTURE_DIGITS = 80
 DEFAULT_N3_FIXTURE_GUARD_DECIMAL = "1e-70"
 DEFAULT_N3_FIXTURE_RADIUS_ETA = "1e-4"
+COMMAND_NAME = "power-ringmin-export-n3-interval-certificate"
 
 
 @dataclass(frozen=True)
@@ -97,6 +101,7 @@ def build_n3_interval_certificate_fixture(
     guard_decimal: str | None = DEFAULT_N3_FIXTURE_GUARD_DECIMAL,
     radius_eta: str = DEFAULT_N3_FIXTURE_RADIUS_ETA,
     created_at_utc: str | None = None,
+    command_summary: str = "programmatic call: build_n3_interval_certificate_fixture",
 ) -> dict[str, Any]:
     """Build the tiny global n=3 fixture from generated local brackets."""
     records = [
@@ -113,8 +118,30 @@ def build_n3_interval_certificate_fixture(
         records,
         n=3,
         created_at_utc=created_at_utc,
-        command_summary="programmatic call: build_n3_interval_certificate_fixture",
+        command_summary=command_summary,
     )
+
+
+def export_n3_interval_certificate_artifact(
+    output: str | Path,
+    *,
+    digits: int = DEFAULT_N3_FIXTURE_DIGITS,
+    guard_decimal: str | None = DEFAULT_N3_FIXTURE_GUARD_DECIMAL,
+    radius_eta: str = DEFAULT_N3_FIXTURE_RADIUS_ETA,
+    created_at_utc: str | None = None,
+    argv_for_provenance: Sequence[str] | None = None,
+) -> SmallNIntervalCertificate:
+    """Build, verify, write, and reload the finite n=3 interval certificate."""
+    output_path = Path(output)
+    artifact = build_n3_interval_certificate_fixture(
+        digits=digits,
+        guard_decimal=guard_decimal,
+        radius_eta=radius_eta,
+        created_at_utc=created_at_utc,
+        command_summary=_command_summary(argv_for_provenance, output=output_path),
+    )
+    dump_small_n_interval_certificate_artifact(artifact, output_path)
+    return load_small_n_interval_certificate_artifact(output_path)
 
 
 def build_small_n_interval_certificate(
@@ -315,6 +342,74 @@ def loads_small_n_interval_certificate_artifact(text: str) -> SmallNIntervalCert
         raise ValueError("small-n interval certificate JSON must contain an object")
     validate_small_n_interval_certificate_artifact(payload)
     return SmallNIntervalCertificate(copy.deepcopy(payload))
+
+
+def build_parser() -> argparse.ArgumentParser:
+    """Build the command-line parser for the finite n=3 certificate exporter."""
+    parser = argparse.ArgumentParser(
+        description="Export the checked finite n=3 interval certificate artifact.",
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=Path,
+        help="path to write the finite n=3 interval certificate JSON artifact",
+    )
+    parser.add_argument(
+        "--digits",
+        type=int,
+        default=DEFAULT_N3_FIXTURE_DIGITS,
+        help=f"mpmath working precision digits (default: {DEFAULT_N3_FIXTURE_DIGITS})",
+    )
+    parser.add_argument(
+        "--guard-decimal",
+        default=DEFAULT_N3_FIXTURE_GUARD_DECIMAL,
+        help=(
+            "nonnegative guard added to interval endpoints "
+            f"(default: {DEFAULT_N3_FIXTURE_GUARD_DECIMAL})"
+        ),
+    )
+    parser.add_argument(
+        "--radius-eta",
+        default=DEFAULT_N3_FIXTURE_RADIUS_ETA,
+        help=(
+            "positive radius bracket offset for the embedded local bracket "
+            f"(default: {DEFAULT_N3_FIXTURE_RADIUS_ETA})"
+        ),
+    )
+    parser.add_argument(
+        "--created-at-utc",
+        help="optional UTC timestamp to record in artifact provenance",
+    )
+    return parser
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    """Run the finite n=3 interval certificate exporter CLI."""
+    parser = build_parser()
+    raw_argv = list(sys.argv[1:] if argv is None else argv)
+    args = parser.parse_args(raw_argv)
+
+    try:
+        certificate = export_n3_interval_certificate_artifact(
+            args.output,
+            digits=args.digits,
+            guard_decimal=args.guard_decimal,
+            radius_eta=args.radius_eta,
+            created_at_utc=args.created_at_utc,
+            argv_for_provenance=raw_argv,
+        )
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        parser.error(str(exc))
+
+    print(
+        f"wrote {args.output} n={certificate.n} "
+        f"bracket=({certificate.lower_radius_decimal}, {certificate.upper_radius_decimal}] "
+        "classification=computer_certified_result "
+        f"covered={certificate.covered_canonical_count}"
+    )
+    return 0
 
 
 def _verify_and_cover_local_records(
@@ -564,6 +659,12 @@ def _evidence_record(*, n: int, local_count: int) -> dict[str, Any]:
     }
 
 
+def _command_summary(argv: Sequence[str] | None, *, output: Path) -> str:
+    if argv:
+        return COMMAND_NAME + " " + shlex.join(str(item) for item in argv)
+    return f"programmatic call: export_n3_interval_certificate_artifact(output={str(output)!r})"
+
+
 def _validate_n(n: int) -> None:
     if isinstance(n, bool) or not isinstance(n, int) or n < 3:
         raise ValueError(f"n must be an integer at least 3, got {n!r}")
@@ -611,6 +712,7 @@ def _created_at_utc_now() -> str:
 
 __all__ = [
     "ARTIFACT_TYPE",
+    "COMMAND_NAME",
     "DEFAULT_N3_FIXTURE_DIGITS",
     "DEFAULT_N3_FIXTURE_GUARD_DECIMAL",
     "DEFAULT_N3_FIXTURE_RADIUS_ETA",
@@ -618,11 +720,18 @@ __all__ = [
     "SMALL_N_INTERVAL_CERTIFICATE_SCHEMA_VERSION",
     "SmallNIntervalCertificate",
     "VerifiedLocalIntervalBracket",
+    "build_parser",
     "build_n3_interval_certificate_fixture",
     "build_small_n_interval_certificate",
     "dump_small_n_interval_certificate_artifact",
     "dumps_small_n_interval_certificate_artifact",
+    "export_n3_interval_certificate_artifact",
     "load_small_n_interval_certificate_artifact",
     "loads_small_n_interval_certificate_artifact",
+    "main",
     "validate_small_n_interval_certificate_artifact",
 ]
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

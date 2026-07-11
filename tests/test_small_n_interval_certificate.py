@@ -2,17 +2,20 @@ from __future__ import annotations
 
 import copy
 from pathlib import Path
+import tomllib
 
 import pytest
 
 from power_ringmin.interval_bracket_exporter import build_fixed_order_interval_bracket_record
 from power_ringmin.search_small_n import canonical_index_orders
 from power_ringmin.small_n_interval_certificate import (
+    COMMAND_NAME,
     SMALL_N_INTERVAL_CERTIFICATE_SCHEMA_VERSION,
     build_n3_interval_certificate_fixture,
     build_small_n_interval_certificate,
     dump_small_n_interval_certificate_artifact,
     load_small_n_interval_certificate_artifact,
+    main,
     validate_small_n_interval_certificate_artifact,
 )
 
@@ -99,3 +102,65 @@ def test_small_n_interval_certificate_validation_rechecks_embedded_local_bracket
     broken_bound["result"]["global_upper_bound"]["radius_decimal"] = "1"
     with pytest.raises(ValueError, match="global_upper_bound"):
         validate_small_n_interval_certificate_artifact(broken_bound)
+
+
+def test_n3_interval_certificate_cli_writes_checked_finite_artifact(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    output = tmp_path / "n3_interval_certificate.json"
+
+    exit_code = main(
+        [
+            "--output",
+            str(output),
+            "--digits",
+            "80",
+            "--guard-decimal",
+            "1e-70",
+            "--radius-eta",
+            "1e-4",
+            "--created-at-utc",
+            "2026-07-11T00:00:00Z",
+        ]
+    )
+
+    assert exit_code == 0
+    stdout = capsys.readouterr().out
+    assert "classification=computer_certified_result" in stdout
+    assert "covered=1" in stdout
+
+    loaded = load_small_n_interval_certificate_artifact(output)
+    artifact = loaded.to_dict()
+    assert loaded.n == 3
+    assert loaded.covered_canonical_count == 1
+    assert artifact["provenance"]["created_at_utc"] == "2026-07-11T00:00:00Z"
+    assert artifact["provenance"]["commands"][0]["command"].startswith(
+        f"{COMMAND_NAME} --output"
+    )
+    assert artifact["evidence"]["classification"] == "computer_certified_result"
+    assert artifact["evidence"]["claim"]["scope"] == "finite_global_small_n_interval_bracket"
+    assert "No theorem for all n." in artifact["evidence"]["limitations"]
+
+
+def test_checked_n3_interval_certificate_artifact_loads() -> None:
+    path = Path("examples/small_n_interval_certificate_n3.json")
+
+    loaded = load_small_n_interval_certificate_artifact(path)
+    artifact = loaded.to_dict()
+
+    assert loaded.n == 3
+    assert loaded.covered_canonical_count == 1
+    assert artifact["local_bracket_summaries"][0]["index_order"] == [3, 1, 2]
+    assert artifact["local_bracket_summaries"][0]["radius_order"] == [9, 1, 4]
+    assert artifact["evidence"]["classification"] == "computer_certified_result"
+    assert artifact["evidence"]["claim"]["scope"] == "finite_global_small_n_interval_bracket"
+    assert "No theorem for all n." in artifact["evidence"]["limitations"]
+
+
+def test_n3_interval_certificate_console_script_entry_point_is_registered() -> None:
+    pyproject = tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))
+
+    assert pyproject["project"]["scripts"][COMMAND_NAME] == (
+        "power_ringmin.small_n_interval_certificate:main"
+    )

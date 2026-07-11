@@ -35,6 +35,7 @@ from power_ringmin.interval_bracket_exporter import (
     loads_fixed_order_interval_bracket_record,
 )
 from power_ringmin.small_n_interval_certificate import (
+    COMMAND_NAME as N3_INTERVAL_CERTIFICATE_COMMAND_NAME,
     SMALL_N_INTERVAL_CERTIFICATE_SCHEMA_VERSION,
     SmallNIntervalCertificate,
     VerifiedLocalIntervalBracket,
@@ -42,6 +43,7 @@ from power_ringmin.small_n_interval_certificate import (
     build_small_n_interval_certificate,
     dump_small_n_interval_certificate_artifact,
     dumps_small_n_interval_certificate_artifact,
+    export_n3_interval_certificate_artifact,
     load_small_n_interval_certificate_artifact,
     loads_small_n_interval_certificate_artifact,
     validate_small_n_interval_certificate_artifact,
@@ -58,6 +60,7 @@ __all__ = [
     "FullResult",
     "FIXED_ORDER_INTERVAL_BRACKET_SCHEMA_VERSION",
     "MPMathIntervalAngularOracle",
+    "N3_INTERVAL_CERTIFICATE_COMMAND_NAME",
     "SCHEMA_VERSION",
     "SMALL_N_INTERVAL_CERTIFICATE_SCHEMA_VERSION",
     "SLSQPCheckResult",
@@ -77,6 +80,7 @@ __all__ = [
     "dumps_fixed_order_artifact",
     "dumps_fixed_order_interval_bracket_record",
     "dumps_small_n_interval_certificate_artifact",
+    "export_n3_interval_certificate_artifact",
     "export_fixed_order_interval_bracket_record",
     "export_full_result_artifact",
     "export_highprec_artifact",
