@@ -117,6 +117,11 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: `power-ringmin-search-small-n` supports `--highprec-recheck-digits` for the mpmath recheck precision and `--no-highprec-recheck` for speed-sensitive exploratory runs.
 - VERIFIED FACT: small-n search artifact validation requires the search-method recheck metadata to match the top-level `high_precision_recheck` block; when recheck records are present, they must cover exactly the float64 tie set.
 - INTERPRETATION: small-n high-precision incumbent/tie rechecks are still numerical observations, not computer-certified global optimum evidence, unless a later interval verifier supplies certified bounds across the order space.
+- VERIFIED FACT: `ops/TASK-20260711__interval_verifier_semantics/DESIGN.md` records the design semantics for a future high-precision interval verifier for finite small-n certification.
+- DESIGN DECISION: a future finite small-n `computer_certified_result` should require outward interval enclosures, strict sign checks, one verified fixed-order interval bracket per canonical order, and independent regeneration of the canonical order space.
+- DESIGN DECISION: certified feasible upper endpoints should be checked by explicit all-pairs witness slacks using upper angular bounds; certified infeasible lower endpoints should be checked by explicit negative cycles in a relaxed STN using lower angular bounds.
+- DESIGN DECISION: tolerance-based `mpmath` STN acceptance such as `margin >= -tol` is not sufficient for `computer_certified_result`; it remains numerical evidence unless replaced by interval signs.
+- PROOF OBLIGATION: the interval-verifier implementation still needs locally recorded justifications for the angular formula, monotonicity of `theta_R(a,b)` in `R`, fixed-order angular/STN equivalence, and negative-cycle infeasibility.
 - VERIFIED FACT: `examples/fixed_order_batch_end_to_end/` provides a small reproducible batch example with explicit n=3 and n=4 quadratic index orders, README commands for `power-ringmin-export-fixed-order-batch` and `power-ringmin-verify-fixed-order-artifacts`, and no checked-in generated result artifacts.
 - VERIFIED FACT: `examples/fixed_order_batch_end_to_end/README.md` documents that generated example artifacts are finite fixed-order numerical observations, not global optimum certificates, and gives local eta guidance: choose an absolute offset above STN/serialization noise but small relative to the reported radius scale, then verify `R`, `R + eta`, and `R - eta` when applicable.
 - VERIFIED FACT: `examples/fixed_order_result_n3.json` is a checked schema fixture for the fixed cyclic order `(1,4,9)` and is classified as a `numerical_observation`, not as a global optimum certificate.
@@ -144,6 +149,7 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: `python -m pytest` passed 37 tests after the small-n float64 search implementation on 2026-07-11.
 - VERIFIED FACT: `python -m pytest tests\test_search_small_n.py` passed 7 small-n search tests after adding incumbent/tie high-precision rechecks on 2026-07-11.
 - VERIFIED FACT: `python -m pytest` passed 37 tests after adding small-n incumbent/tie high-precision rechecks on 2026-07-11.
+- VERIFIED FACT: `python -m pytest` passed 37 tests after the interval verifier semantics design task on 2026-07-11.
 - INTERPRETATION: passing finite smoke tests verifies the imported implementation behavior on tested cases only; it is not a theorem about all quadratic-radii instances.
 
 ## Verified Environment Facts
