@@ -130,6 +130,10 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: the fixed-order interval bracket exporter accepts one canonical quadratic index order, computes a high-precision `mpmath` fixed-order radius proposal, widens a local bracket as needed, extracts an explicit lower-endpoint negative cycle, constructs an upper-endpoint strict witness by solving a padded STN, and refuses to return or write the record unless `verify_fixed_order_interval_bracket` accepts it.
 - VERIFIED FACT: fixed-order interval bracket JSON helpers verify records before serialization and after loading by reconstructing the recorded `MPMathIntervalAngularOracle` metadata.
 - INTERPRETATION: generated fixed-order interval bracket records are local fixed-order certificate building blocks only; they do not certify a global small-n optimum unless a later global verifier covers every canonical order.
+- VERIFIED FACT: `src/power_ringmin/small_n_interval_certificate.py` provides a finite small-n interval certificate aggregator that embeds local fixed-order interval bracket records, independently regenerates the canonical cyclic index-order space, verifies exactly one local bracket per canonical order, and computes a finite global radius bracket from the verified local endpoints.
+- VERIFIED FACT: `build_n3_interval_certificate_fixture` generates the tiny n=3 interval certificate fixture by building and aggregating a local interval bracket for the single canonical n=3 index order `(3,1,2)` / radius order `(9,1,4)`.
+- COMPUTER-CERTIFIED RESULT: under the repository's documented local interval-verifier semantics and guarded `mpmath.iv` interval backend contract, the n=3 interval certificate fixture verifies one local fixed-order interval bracket for every canonical n=3 cyclic order and aggregates them into a finite global bracket.
+- INTERPRETATION: the n=3 global interval certificate fixture is finite n=3 evidence only; it is not a theorem for all `n`, not an asymptotic result, and still carries the interval-backend provenance limitation documented for the local verifier/exporter.
 - VERIFIED FACT: `examples/fixed_order_batch_end_to_end/` provides a small reproducible batch example with explicit n=3 and n=4 quadratic index orders, README commands for `power-ringmin-export-fixed-order-batch` and `power-ringmin-verify-fixed-order-artifacts`, and no checked-in generated result artifacts.
 - VERIFIED FACT: `examples/fixed_order_batch_end_to_end/README.md` documents that generated example artifacts are finite fixed-order numerical observations, not global optimum certificates, and gives local eta guidance: choose an absolute offset above STN/serialization noise but small relative to the reported radius scale, then verify `R`, `R + eta`, and `R - eta` when applicable.
 - VERIFIED FACT: `examples/fixed_order_result_n3.json` is a checked schema fixture for the fixed cyclic order `(1,4,9)` and is classified as a `numerical_observation`, not as a global optimum certificate.
@@ -163,6 +167,8 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: `python -m pytest` passed 43 tests after the local fixed-order interval bracket verifier implementation on 2026-07-11.
 - VERIFIED FACT: `python -m pytest tests\test_interval_bracket_exporter.py` passed 5 fixed-order interval bracket exporter tests on 2026-07-11.
 - VERIFIED FACT: `python -m pytest` passed 48 tests after the fixed-order interval bracket exporter implementation on 2026-07-11.
+- VERIFIED FACT: `python -m pytest tests\test_small_n_interval_certificate.py` passed 4 finite n=3 interval certificate tests on 2026-07-11.
+- VERIFIED FACT: `python -m pytest` passed 52 tests after the n=3 global interval certificate fixture implementation on 2026-07-11.
 - INTERPRETATION: passing finite smoke tests verifies the imported implementation behavior on tested cases only; it is not a theorem about all quadratic-radii instances.
 
 ## Verified Environment Facts
@@ -209,6 +215,8 @@ Read-only repository inspection commands used during bootstrap:
 - INTERPRETATION: the n=3 local interval verifier fixture is a fixed-order endpoint semantics test, not a global small-n certificate artifact.
 - VERIFIED FACT: the fixed-order interval bracket exporter tests generate and verify a local interval bracket record for the canonical n=3 index order `(3,1,2)` / radius order `(9,1,4)`, round-trip it through JSON dump/load helpers, reject a deliberately broken witness, export the record through the CLI, reject noncanonical index order `(1,2,3)`, and verify the console script registration.
 - INTERPRETATION: the generated n=3 interval bracket test record is local fixed-order evidence only; it is not a global n=3 certificate until a later verifier confirms coverage of the full canonical order space.
+- VERIFIED FACT: the small-n interval certificate tests build an n=3 fixture, verify that it covers the single canonical order `(3,1,2)`, round-trip the self-contained JSON artifact, reject missing/duplicate/wrong-n local coverage, and reject tampering with an embedded local witness or aggregate upper endpoint.
+- COMPUTER-CERTIFIED RESULT: the n=3 fixture produced by `build_n3_interval_certificate_fixture` is a finite global interval certificate for n=3 under the local interval-verifier semantics because it verifies a local interval bracket for every canonical n=3 order and records the resulting strict lower and feasible upper endpoints.
 - VERIFIED FACT: no certified quadratic-radii optimum has yet been established in this repository.
 - VERIFIED FACT: no quadratic-radii theorem has yet been established in this repository.
-- VERIFIED FACT: no global quadratic-radii certificate or production experiment artifact has yet been created in this repository.
+- VERIFIED FACT: no production global quadratic-radii certificate artifact has yet been checked in; the current n=3 global interval certificate is generated as a package/test fixture.
