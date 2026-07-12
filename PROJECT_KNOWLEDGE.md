@@ -1,6 +1,6 @@
 # PROJECT_KNOWLEDGE - power-ringmin
 
-Last reviewed: 2026-07-11
+Last reviewed: 2026-07-12
 
 ## Project Identity
 
@@ -150,6 +150,9 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: the small-n interval certificate validator now checks the full problem/order-space/aggregation metadata contract, provenance essentials, evidence check contract, and recomputed local summary diagnostics in addition to re-verifying every embedded local fixed-order interval bracket.
 - VERIFIED FACT: `power-ringmin-export-small-n-interval-certificate` is a bounded general finite small-n certificate CLI that requires an explicit `--max-canonical-orders` ceiling and supports `--dry-run` preflight without writing an artifact.
 - VERIFIED FACT: under the current canonical cyclic order convention, `n=5` has 12 canonical orders; the hardening task verified this through the bounded CLI dry-run test and did not generate or check in an `n=5` certificate artifact.
+- VERIFIED FACT: the 2026-07-12 bounded `n=5` certificate attempt ran `power-ringmin-export-small-n-interval-certificate` through the source tree with `--n 5 --max-canonical-orders 12` and generated `ops/TASK-20260712__bounded_n5_interval_certificate_attempt/small_n_interval_certificate_n5_attempt.json`.
+- COMPUTER-CERTIFIED RESULT: under the repository's documented local interval-verifier semantics and guarded `mpmath.iv` interval backend contract, the 2026-07-12 `n=5` task artifact verifies one local fixed-order interval bracket for each of the 12 canonical n=5 cyclic orders and records the finite global bracket `(3.934227717145796443531935437931679189205169677734375, 3.9344277171457964215051106293685734272003173828125]`.
+- INTERPRETATION: the 2026-07-12 `n=5` task artifact is finite n=5 evidence only; it is not an exact optimum value, not a theorem for all `n`, not an asymptotic result, and its artifact provenance records `git_dirty=true` because task dossier files existed during generation.
 - DESIGN DECISION: the 2026-07-11 n=4 design task chose a runtime-bounded n=4 interval certificate attempt before broad verifier/format hardening for larger certificates; the checked n=4 artifact task then implemented that step.
 - VERIFIED FACT: `examples/fixed_order_batch_end_to_end/` provides a small reproducible batch example with explicit n=3 and n=4 quadratic index orders, README commands for `power-ringmin-export-fixed-order-batch` and `power-ringmin-verify-fixed-order-artifacts`, and no checked-in generated result artifacts.
 - VERIFIED FACT: `examples/fixed_order_batch_end_to_end/README.md` documents that generated example artifacts are finite fixed-order numerical observations, not global optimum certificates, and gives local eta guidance: choose an absolute offset above STN/serialization noise but small relative to the reported radius scale, then verify `R`, `R + eta`, and `R - eta` when applicable.
@@ -195,6 +198,8 @@ See `UPSTREAM_RINGMIN.md` for provenance details.
 - VERIFIED FACT: `python -m pytest` passed 60 tests after adding the bounded n=4 interval certificate artifact/export path on 2026-07-11.
 - VERIFIED FACT: `python -m pytest tests\test_interval_verifier.py tests\test_small_n_interval_certificate.py` passed 24 interval verifier/certificate tests after interval-certificate production hardening on 2026-07-11.
 - VERIFIED FACT: `python -m pytest` passed 66 tests after interval-certificate production hardening on 2026-07-11.
+- VERIFIED FACT: `python -m pytest tests\test_interval_verifier.py tests\test_small_n_interval_certificate.py` passed 24 focused interval verifier/certificate tests before the bounded n=5 certificate attempt on 2026-07-12.
+- VERIFIED FACT: `python -m pytest` passed 66 tests after the bounded n=5 certificate attempt on 2026-07-12.
 - INTERPRETATION: passing finite smoke tests verifies the imported implementation behavior on tested cases only; it is not a theorem about all quadratic-radii instances.
 
 ## Verified Environment Facts

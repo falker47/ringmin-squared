@@ -1,15 +1,15 @@
 # CURRENT_STATUS - power-ringmin
 
-Last update: 2026-07-11
+Last update: 2026-07-12
 
-- **Current phase:** interval-certificate production hardening before larger finite certificates.
-- **Current task:** Audited and hardened the interval-certificate production path with oracle-precision decimal parsing, a small-n interval certificate schema, stricter aggregate validation, and a bounded general export/dry-run CLI.
-- **Task dossier:** `ops/TASK-20260711__interval_certificate_production_hardening/`.
+- **Current phase:** bounded finite small-n interval certificate production.
+- **Current task:** Reviewed the interval-certificate production hardening commit and ran a bounded `n=5` certificate attempt with `--max-canonical-orders 12`.
+- **Task dossier:** `ops/TASK-20260712__bounded_n5_interval_certificate_attempt/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
-- **Current next atomic action:** user reviews the hardening changes and decides whether to commit manually.
+- **Current next atomic action:** user reviews the generated `n=5` task artifact and decides whether to promote it to a checked example or keep it as task evidence.
 - **Awaiting user review:** yes.
 
 ## Proposed Next Task
 
-After review, run a bounded `n=5` interval-certificate production attempt only if the explicit preflight ceiling is acceptable: `power-ringmin-export-small-n-interval-certificate --n 5 --max-canonical-orders 12 --output <artifact>`. Do not start this in the hardening chat.
+After review, decide whether to promote `ops/TASK-20260712__bounded_n5_interval_certificate_attempt/small_n_interval_certificate_n5_attempt.json` to an `examples/` artifact with regenerated clean-tree provenance, or leave it as task-scoped evidence.
