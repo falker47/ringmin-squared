@@ -1,0 +1,3278 @@
+{
+  "summary_format_version": "power-ringmin.task_scoped_finite_results_summary.v1",
+  "generated_by": "power_ringmin.finite_results",
+  "source_artifact_count": 4,
+  "claims_and_limitations": {
+    "candidate_set_definition": "For one checked finite certificate with verified local brackets, U is the minimum verified upper endpoint across all canonical orders, and C is the set of orders sigma with L_sigma <= U.",
+    "excluded_order_definition": "An order with L_sigma > U is certified not to be globally optimal under the checked artifact semantics.",
+    "exclusion_gap_definition": "When at least one order is excluded, the exclusion gap is min(L_sigma - U) over excluded orders.",
+    "unique_candidate_interpretation": "Candidate-set size 1 means there is a unique certified candidate order modulo the current rotation/reflection canonicalization convention.",
+    "multiple_candidate_warning": "Candidate-set size greater than 1 is not an exact tie claim between the candidate orders.",
+    "serialized_bracket_warning": "Identical serialized local bracket endpoints are not an exact equality claim for the corresponding fixed-order optima.",
+    "asymptotic_diagnostics": "Ratios and differences against n^3/(6*pi) are exploratory finite-n diagnostics classified as numerical observations or empirical patterns, never certified asymptotic claims.",
+    "summary_scope": "This is a task-scoped derived summary, not a checked permanent schema artifact."
+  },
+  "results": [
+    {
+      "n": 3,
+      "source_artifact": {
+        "path": "examples/small_n_interval_certificate_n3.json",
+        "provenance_commit": "b2388e8d4015c1be67e731c77635bd2ea0fa0977",
+        "provenance_git_dirty": true
+      },
+      "canonical_order_count": 1,
+      "global_bracket": {
+        "lower_endpoint_decimal": "0.3832870361393696523322205393924377858638763427734375",
+        "lower_included": false,
+        "upper_endpoint_decimal": "0.383487036139369685816546962087159045040607452392578125",
+        "upper_included": true,
+        "width_decimal": "0.000200000000000033484326422694721259176731109619140625"
+      },
+      "certificate_source_orders": {
+        "selected_order": [
+          3,
+          1,
+          2
+        ],
+        "selected_order_meaning": "source_index_order of result.global_upper_bound",
+        "global_lower_source_order": [
+          3,
+          1,
+          2
+        ],
+        "global_upper_source_order": [
+          3,
+          1,
+          2
+        ]
+      },
+      "candidate_set": {
+        "definition": "canonical orders with verified strict lower endpoint L_sigma <= U",
+        "size": 1,
+        "classification": "unique_certified_candidate_mod_rotation_reflection",
+        "orders": [
+          {
+            "index_order": [
+              3,
+              1,
+              2
+            ],
+            "radius_order": [
+              9,
+              1,
+              4
+            ],
+            "lower_radius_decimal": "0.3832870361393696523322205393924377858638763427734375",
+            "upper_radius_decimal": "0.383487036139369685816546962087159045040607452392578125"
+          }
+        ],
+        "warning": "The unique candidate is modulo the current rotation/reflection convention."
+      },
+      "excluded_orders": {
+        "definition": "canonical orders with verified strict lower endpoint L_sigma > U",
+        "count": 0,
+        "exclusion_gap_decimal": null,
+        "exclusion_gap_orders": [],
+        "orders": []
+      },
+      "identical_serialized_local_bracket_groups": [],
+      "asymptotic_diagnostics": {
+        "classification": "numerical_observation",
+        "reference": "n^3/(6*pi)",
+        "reference_value_decimal": "1.4323944878270580219199538703526292583101368116641",
+        "midpoint_decimal": "0.3833870361393696690743837507397984154522418975830078125",
+        "lower_ratio_decimal": "0.26758483043369984136076787098347228955705877327003",
+        "midpoint_ratio_decimal": "0.26765464360377962623207969638536051054269711953714",
+        "upper_ratio_decimal": "0.26772445677385941110339152178724873152833546580424",
+        "warning": "These finite-n diagnostics are numerical observations only, not certified asymptotic claims.",
+        "additive_difference_from_reference": {
+          "lower_minus_reference_decimal": "-1.0491074516876883695877333309601914724462604688907",
+          "midpoint_minus_reference_decimal": "-1.0490074516876883528455701196128308428578949140811",
+          "upper_minus_reference_decimal": "-1.0489074516876883361034069082654702132695293592715"
+        }
+      }
+    },
+    {
+      "n": 4,
+      "source_artifact": {
+        "path": "examples/small_n_interval_certificate_n4.json",
+        "provenance_commit": "b2388e8d4015c1be67e731c77635bd2ea0fa0977",
+        "provenance_git_dirty": true
+      },
+      "canonical_order_count": 3,
+      "global_bracket": {
+        "lower_endpoint_decimal": "1.4955284118749971877804227915476076304912567138671875",
+        "lower_included": false,
+        "upper_endpoint_decimal": "1.4957284118749971657535979829845018684864044189453125",
+        "upper_included": true,
+        "width_decimal": "0.0001999999999999779731751914368942379951477050781250"
+      },
+      "certificate_source_orders": {
+        "selected_order": [
+          4,
+          1,
+          3,
+          2
+        ],
+        "selected_order_meaning": "source_index_order of result.global_upper_bound",
+        "global_lower_source_order": [
+          4,
+          1,
+          3,
+          2
+        ],
+        "global_upper_source_order": [
+          4,
+          1,
+          3,
+          2
+        ]
+      },
+      "candidate_set": {
+        "definition": "canonical orders with verified strict lower endpoint L_sigma <= U",
+        "size": 1,
+        "classification": "unique_certified_candidate_mod_rotation_reflection",
+        "orders": [
+          {
+            "index_order": [
+              4,
+              1,
+              3,
+              2
+            ],
+            "radius_order": [
+              16,
+              1,
+              9,
+              4
+            ],
+            "lower_radius_decimal": "1.4955284118749971877804227915476076304912567138671875",
+            "upper_radius_decimal": "1.4957284118749971657535979829845018684864044189453125"
+          }
+        ],
+        "warning": "The unique candidate is modulo the current rotation/reflection convention."
+      },
+      "excluded_orders": {
+        "definition": "canonical orders with verified strict lower endpoint L_sigma > U",
+        "count": 2,
+        "exclusion_gap_decimal": "0.1171644705802874497635457373689860105514526367187500",
+        "exclusion_gap_orders": [
+          {
+            "index_order": [
+              4,
+              1,
+              2,
+              3
+            ],
+            "radius_order": [
+              16,
+              1,
+              4,
+              9
+            ],
+            "lower_radius_decimal": "1.6128928824552846155171437203534878790378570556640625",
+            "lower_minus_global_U_decimal": "0.1171644705802874497635457373689860105514526367187500"
+          }
+        ],
+        "orders": [
+          {
+            "index_order": [
+              4,
+              1,
+              2,
+              3
+            ],
+            "radius_order": [
+              16,
+              1,
+              4,
+              9
+            ],
+            "lower_radius_decimal": "1.6128928824552846155171437203534878790378570556640625",
+            "upper_radius_decimal": "1.6130928824552845934903189117903821170330047607421875",
+            "lower_minus_global_U_decimal": "0.1171644705802874497635457373689860105514526367187500"
+          },
+          {
+            "index_order": [
+              4,
+              2,
+              1,
+              3
+            ],
+            "radius_order": [
+              16,
+              4,
+              1,
+              9
+            ],
+            "lower_radius_decimal": "1.644741253500284106081608115346170961856842041015625",
+            "upper_radius_decimal": "1.64494125350028408405478330678306519985198974609375",
+            "lower_minus_global_U_decimal": "0.1490128416252869403280101323616690933704376220703125"
+          }
+        ]
+      },
+      "identical_serialized_local_bracket_groups": [],
+      "asymptotic_diagnostics": {
+        "classification": "numerical_observation",
+        "reference": "n^3/(6*pi)",
+        "reference_value_decimal": "3.3953054526271004964028536186136397234018057757964",
+        "midpoint_decimal": "1.4956284118749971767670103872660547494888305664062500",
+        "lower_ratio_decimal": "0.44046947549824703107305807994144638745331516908212",
+        "midpoint_ratio_decimal": "0.44049892792937443214095096407513696627716047627377",
+        "upper_ratio_decimal": "0.44052838036050183320884384820882754510100578346542",
+        "warning": "These finite-n diagnostics are numerical observations only, not certified asymptotic claims.",
+        "additive_difference_from_reference": {
+          "lower_minus_reference_decimal": "-1.8997770407521033086224308270660320929105490619292",
+          "midpoint_minus_reference_decimal": "-1.8996770407521033196358432313475849739129752093902",
+          "upper_minus_reference_decimal": "-1.8995770407521033306492556356291378549154013568511"
+        }
+      }
+    },
+    {
+      "n": 5,
+      "source_artifact": {
+        "path": "examples/small_n_interval_certificate_n5.json",
+        "provenance_commit": "1b013793eafe03661d12e0c1ae5aec3e9173d151",
+        "provenance_git_dirty": false
+      },
+      "canonical_order_count": 12,
+      "global_bracket": {
+        "lower_endpoint_decimal": "3.934227717145796443531935437931679189205169677734375",
+        "lower_included": false,
+        "upper_endpoint_decimal": "3.9344277171457964215051106293685734272003173828125",
+        "upper_included": true,
+        "width_decimal": "0.000199999999999977973175191436894237995147705078125"
+      },
+      "certificate_source_orders": {
+        "selected_order": [
+          5,
+          1,
+          3,
+          4,
+          2
+        ],
+        "selected_order_meaning": "source_index_order of result.global_upper_bound",
+        "global_lower_source_order": [
+          5,
+          1,
+          3,
+          4,
+          2
+        ],
+        "global_upper_source_order": [
+          5,
+          1,
+          3,
+          4,
+          2
+        ]
+      },
+      "candidate_set": {
+        "definition": "canonical orders with verified strict lower endpoint L_sigma <= U",
+        "size": 2,
+        "classification": "multiple_certified_candidates_no_exact_tie_claim",
+        "orders": [
+          {
+            "index_order": [
+              5,
+              1,
+              3,
+              4,
+              2
+            ],
+            "radius_order": [
+              25,
+              1,
+              9,
+              16,
+              4
+            ],
+            "lower_radius_decimal": "3.934227717145796443531935437931679189205169677734375",
+            "upper_radius_decimal": "3.9344277171457964215051106293685734272003173828125"
+          },
+          {
+            "index_order": [
+              5,
+              2,
+              4,
+              1,
+              3
+            ],
+            "radius_order": [
+              25,
+              4,
+              16,
+              1,
+              9
+            ],
+            "lower_radius_decimal": "3.934227717145796443531935437931679189205169677734375",
+            "upper_radius_decimal": "3.9344277171457964215051106293685734272003173828125"
+          }
+        ],
+        "warning": "Multiple certified candidates are not an exact tie claim."
+      },
+      "excluded_orders": {
+        "definition": "canonical orders with verified strict lower endpoint L_sigma > U",
+        "count": 10,
+        "exclusion_gap_decimal": "0.1137866156209259571596703608520328998565673828125",
+        "exclusion_gap_orders": [
+          {
+            "index_order": [
+              5,
+              1,
+              2,
+              4,
+              3
+            ],
+            "radius_order": [
+              25,
+              1,
+              4,
+              16,
+              9
+            ],
+            "lower_radius_decimal": "4.048214332766722378664780990220606327056884765625",
+            "lower_minus_global_U_decimal": "0.1137866156209259571596703608520328998565673828125"
+          }
+        ],
+        "orders": [
+          {
+            "index_order": [
+              5,
+              1,
+              2,
+              3,
+              4
+            ],
+            "radius_order": [
+              25,
+              1,
+              4,
+              9,
+              16
+            ],
+            "lower_radius_decimal": "4.184065099286758737662239582277834415435791015625",
+            "upper_radius_decimal": "4.184265099286758271546204923652112483978271484375",
+            "lower_minus_global_U_decimal": "0.2496373821409623161571289529092609882354736328125"
+          },
+          {
+            "index_order": [
+              5,
+              1,
+              2,
+              4,
+              3
+            ],
+            "radius_order": [
+              25,
+              1,
+              4,
+              16,
+              9
+            ],
+            "lower_radius_decimal": "4.048214332766722378664780990220606327056884765625",
+            "upper_radius_decimal": "4.04841433276672280072716603172011673450469970703125",
+            "lower_minus_global_U_decimal": "0.1137866156209259571596703608520328998565673828125"
+          },
+          {
+            "index_order": [
+              5,
+              1,
+              3,
+              2,
+              4
+            ],
+            "radius_order": [
+              25,
+              1,
+              9,
+              4,
+              16
+            ],
+            "lower_radius_decimal": "4.1283188156084360542763533885590732097625732421875",
+            "upper_radius_decimal": "4.1285188156084355881603187299333512783050537109375",
+            "lower_minus_global_U_decimal": "0.1938910984626396327712427591904997825622558593750"
+          },
+          {
+            "index_order": [
+              5,
+              1,
+              4,
+              2,
+              3
+            ],
+            "radius_order": [
+              25,
+              1,
+              16,
+              4,
+              9
+            ],
+            "lower_radius_decimal": "4.1283188156084360542763533885590732097625732421875",
+            "upper_radius_decimal": "4.1285188156084355881603187299333512783050537109375",
+            "lower_minus_global_U_decimal": "0.1938910984626396327712427591904997825622558593750"
+          },
+          {
+            "index_order": [
+              5,
+              1,
+              4,
+              3,
+              2
+            ],
+            "radius_order": [
+              25,
+              1,
+              16,
+              9,
+              4
+            ],
+            "lower_radius_decimal": "4.0835109476314013221553977928124368190765380859375",
+            "upper_radius_decimal": "4.08371094763140174421778283431194722652435302734375",
+            "lower_minus_global_U_decimal": "0.1490832304856049006502871634438633918762207031250"
+          },
+          {
+            "index_order": [
+              5,
+              2,
+              1,
+              3,
+              4
+            ],
+            "radius_order": [
+              25,
+              4,
+              1,
+              9,
+              16
+            ],
+            "lower_radius_decimal": "4.32250733526103037007715101935900747776031494140625",
+            "upper_radius_decimal": "4.3227073352610307921395360608585178852081298828125",
+            "lower_minus_global_U_decimal": "0.38807961811523394857204038999043405055999755859375"
+          },
+          {
+            "index_order": [
+              5,
+              2,
+              1,
+              4,
+              3
+            ],
+            "radius_order": [
+              25,
+              4,
+              1,
+              16,
+              9
+            ],
+            "lower_radius_decimal": "4.0960430568321601896286665578372776508331298828125",
+            "upper_radius_decimal": "4.0962430568321597235126318992115557193756103515625",
+            "lower_minus_global_U_decimal": "0.1616153396863637681235559284687042236328125000000"
+          },
+          {
+            "index_order": [
+              5,
+              2,
+              3,
+              1,
+              4
+            ],
+            "radius_order": [
+              25,
+              4,
+              9,
+              1,
+              16
+            ],
+            "lower_radius_decimal": "4.0835109476314013221553977928124368190765380859375",
+            "upper_radius_decimal": "4.08371094763140174421778283431194722652435302734375",
+            "lower_minus_global_U_decimal": "0.1490832304856049006502871634438633918762207031250"
+          },
+          {
+            "index_order": [
+              5,
+              3,
+              1,
+              2,
+              4
+            ],
+            "radius_order": [
+              25,
+              9,
+              1,
+              4,
+              16
+            ],
+            "lower_radius_decimal": "4.36533250781520276717628803453408181667327880859375",
+            "upper_radius_decimal": "4.36553250781520230106025337590835988521575927734375",
+            "lower_minus_global_U_decimal": "0.43090479066940634567117740516550838947296142578125"
+          },
+          {
+            "index_order": [
+              5,
+              3,
+              2,
+              1,
+              4
+            ],
+            "radius_order": [
+              25,
+              9,
+              4,
+              1,
+              16
+            ],
+            "lower_radius_decimal": "4.2759780017422119868797381059266626834869384765625",
+            "upper_radius_decimal": "4.2761780017422115207637034473009407520294189453125",
+            "lower_minus_global_U_decimal": "0.3415502845964155653746274765580892562866210937500"
+          }
+        ]
+      },
+      "identical_serialized_local_bracket_groups": [
+        {
+          "lower_radius_decimal": "4.1283188156084360542763533885590732097625732421875",
+          "upper_radius_decimal": "4.1285188156084355881603187299333512783050537109375",
+          "size": 2,
+          "orders": [
+            {
+              "index_order": [
+                5,
+                1,
+                3,
+                2,
+                4
+              ],
+              "radius_order": [
+                25,
+                1,
+                9,
+                4,
+                16
+              ]
+            },
+            {
+              "index_order": [
+                5,
+                1,
+                4,
+                2,
+                3
+              ],
+              "radius_order": [
+                25,
+                1,
+                16,
+                4,
+                9
+              ]
+            }
+          ],
+          "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima."
+        },
+        {
+          "lower_radius_decimal": "3.934227717145796443531935437931679189205169677734375",
+          "upper_radius_decimal": "3.9344277171457964215051106293685734272003173828125",
+          "size": 2,
+          "orders": [
+            {
+              "index_order": [
+                5,
+                1,
+                3,
+                4,
+                2
+              ],
+              "radius_order": [
+                25,
+                1,
+                9,
+                16,
+                4
+              ]
+            },
+            {
+              "index_order": [
+                5,
+                2,
+                4,
+                1,
+                3
+              ],
+              "radius_order": [
+                25,
+                4,
+                16,
+                1,
+                9
+              ]
+            }
+          ],
+          "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima."
+        },
+        {
+          "lower_radius_decimal": "4.0835109476314013221553977928124368190765380859375",
+          "upper_radius_decimal": "4.08371094763140174421778283431194722652435302734375",
+          "size": 2,
+          "orders": [
+            {
+              "index_order": [
+                5,
+                1,
+                4,
+                3,
+                2
+              ],
+              "radius_order": [
+                25,
+                1,
+                16,
+                9,
+                4
+              ]
+            },
+            {
+              "index_order": [
+                5,
+                2,
+                3,
+                1,
+                4
+              ],
+              "radius_order": [
+                25,
+                4,
+                9,
+                1,
+                16
+              ]
+            }
+          ],
+          "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima."
+        }
+      ],
+      "asymptotic_diagnostics": {
+        "classification": "numerical_observation",
+        "reference": "n^3/(6*pi)",
+        "reference_value_decimal": "6.6314559621623056570368234738547650847691519058524",
+        "midpoint_decimal": "3.9343277171457964325185230336501263082027435302734375",
+        "lower_ratio_decimal": "0.59326756289925970286296173920872375584001487092551",
+        "midpoint_ratio_decimal": "0.59328264254399693220972289588517333219782366820764",
+        "upper_ratio_decimal": "0.59329772218873416155648405256162290855563246548977",
+        "warning": "These finite-n diagnostics are numerical observations only, not certified asymptotic claims.",
+        "additive_difference_from_reference": {
+          "lower_minus_reference_decimal": "-2.6972282450165092135048880359230858955639822281180",
+          "midpoint_minus_reference_decimal": "-2.6971282450165092245183004402046387765664083755789",
+          "upper_minus_reference_decimal": "-2.6970282450165092355317128444861916575688345230399"
+        }
+      }
+    },
+    {
+      "n": 6,
+      "source_artifact": {
+        "path": "examples/small_n_interval_certificate_n6.json",
+        "provenance_commit": "32743f7f791c8a1550689e39f56347a194d4520a",
+        "provenance_git_dirty": false
+      },
+      "canonical_order_count": 60,
+      "global_bracket": {
+        "lower_endpoint_decimal": "8.4678350760883720482752323732711374759674072265625",
+        "lower_included": false,
+        "upper_endpoint_decimal": "8.4680350760883715821591977146454155445098876953125",
+        "upper_included": true,
+        "width_decimal": "0.0001999999999995338839653413742780685424804687500"
+      },
+      "certificate_source_orders": {
+        "selected_order": [
+          6,
+          1,
+          2,
+          5,
+          4,
+          3
+        ],
+        "selected_order_meaning": "source_index_order of result.global_upper_bound",
+        "global_lower_source_order": [
+          6,
+          1,
+          2,
+          5,
+          4,
+          3
+        ],
+        "global_upper_source_order": [
+          6,
+          1,
+          2,
+          5,
+          4,
+          3
+        ]
+      },
+      "candidate_set": {
+        "definition": "canonical orders with verified strict lower endpoint L_sigma <= U",
+        "size": 5,
+        "classification": "multiple_certified_candidates_no_exact_tie_claim",
+        "orders": [
+          {
+            "index_order": [
+              6,
+              1,
+              2,
+              5,
+              4,
+              3
+            ],
+            "radius_order": [
+              36,
+              1,
+              4,
+              25,
+              16,
+              9
+            ],
+            "lower_radius_decimal": "8.4678350760883720482752323732711374759674072265625",
+            "upper_radius_decimal": "8.4680350760883715821591977146454155445098876953125"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              3,
+              4,
+              5,
+              2
+            ],
+            "radius_order": [
+              36,
+              1,
+              9,
+              16,
+              25,
+              4
+            ],
+            "lower_radius_decimal": "8.4678350760883720482752323732711374759674072265625",
+            "upper_radius_decimal": "8.4680350760883715821591977146454155445098876953125"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              1,
+              5,
+              4,
+              3
+            ],
+            "radius_order": [
+              36,
+              4,
+              1,
+              25,
+              16,
+              9
+            ],
+            "lower_radius_decimal": "8.4678350760883720482752323732711374759674072265625",
+            "upper_radius_decimal": "8.4680350760883715821591977146454155445098876953125"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              5,
+              1,
+              4,
+              3
+            ],
+            "radius_order": [
+              36,
+              4,
+              25,
+              1,
+              16,
+              9
+            ],
+            "lower_radius_decimal": "8.4678350760883720482752323732711374759674072265625",
+            "upper_radius_decimal": "8.4680350760883715821591977146454155445098876953125"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              5,
+              4,
+              1,
+              3
+            ],
+            "radius_order": [
+              36,
+              4,
+              25,
+              16,
+              1,
+              9
+            ],
+            "lower_radius_decimal": "8.4678350760883720482752323732711374759674072265625",
+            "upper_radius_decimal": "8.4680350760883715821591977146454155445098876953125"
+          }
+        ],
+        "warning": "Multiple certified candidates are not an exact tie claim."
+      },
+      "excluded_orders": {
+        "definition": "canonical orders with verified strict lower endpoint L_sigma > U",
+        "count": 55,
+        "exclusion_gap_decimal": "0.0488707956703002821541304001584649085998535156250",
+        "exclusion_gap_orders": [
+          {
+            "index_order": [
+              6,
+              1,
+              2,
+              5,
+              3,
+              4
+            ],
+            "radius_order": [
+              36,
+              1,
+              4,
+              25,
+              9,
+              16
+            ],
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "lower_minus_global_U_decimal": "0.0488707956703002821541304001584649085998535156250"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              4,
+              3,
+              5,
+              2
+            ],
+            "radius_order": [
+              36,
+              1,
+              16,
+              9,
+              25,
+              4
+            ],
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "lower_minus_global_U_decimal": "0.0488707956703002821541304001584649085998535156250"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              1,
+              5,
+              3,
+              4
+            ],
+            "radius_order": [
+              36,
+              4,
+              1,
+              25,
+              9,
+              16
+            ],
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "lower_minus_global_U_decimal": "0.0488707956703002821541304001584649085998535156250"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              5,
+              1,
+              3,
+              4
+            ],
+            "radius_order": [
+              36,
+              4,
+              25,
+              1,
+              9,
+              16
+            ],
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "lower_minus_global_U_decimal": "0.0488707956703002821541304001584649085998535156250"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              5,
+              3,
+              1,
+              4
+            ],
+            "radius_order": [
+              36,
+              4,
+              25,
+              9,
+              1,
+              16
+            ],
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "lower_minus_global_U_decimal": "0.0488707956703002821541304001584649085998535156250"
+          }
+        ],
+        "orders": [
+          {
+            "index_order": [
+              6,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "radius_order": [
+              36,
+              1,
+              4,
+              9,
+              16,
+              25
+            ],
+            "lower_radius_decimal": "9.0783473292937681975445229909382760524749755859375",
+            "upper_radius_decimal": "9.0785473292937677314284883323125541210174560546875",
+            "lower_minus_global_U_decimal": "0.6103122532053966153853252762928605079650878906250"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              2,
+              3,
+              5,
+              4
+            ],
+            "radius_order": [
+              36,
+              1,
+              4,
+              9,
+              25,
+              16
+            ],
+            "lower_radius_decimal": "8.905524099653945313548319973051548004150390625",
+            "upper_radius_decimal": "8.9057240996539466237891247146762907505035400390625",
+            "lower_minus_global_U_decimal": "0.4374890235655737313891222584061324596405029296875"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              2,
+              4,
+              3,
+              5
+            ],
+            "radius_order": [
+              36,
+              1,
+              4,
+              16,
+              9,
+              25
+            ],
+            "lower_radius_decimal": "8.769251709106651304637125576846301555633544921875",
+            "upper_radius_decimal": "8.769451709106650838521090918220579624176025390625",
+            "lower_minus_global_U_decimal": "0.3012166330182797224779278622008860111236572265625"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              2,
+              4,
+              5,
+              3
+            ],
+            "radius_order": [
+              36,
+              1,
+              4,
+              16,
+              25,
+              9
+            ],
+            "lower_radius_decimal": "8.554468633373215169513059663586318492889404296875",
+            "upper_radius_decimal": "8.554668633373214703397025004960596561431884765625",
+            "lower_minus_global_U_decimal": "0.0864335572848435873538619489409029483795166015625"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              2,
+              5,
+              3,
+              4
+            ],
+            "radius_order": [
+              36,
+              1,
+              4,
+              25,
+              9,
+              16
+            ],
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "upper_radius_decimal": "8.5171058717586713981972934561781585216522216796875",
+            "lower_minus_global_U_decimal": "0.0488707956703002821541304001584649085998535156250"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              3,
+              2,
+              4,
+              5
+            ],
+            "radius_order": [
+              36,
+              1,
+              9,
+              4,
+              16,
+              25
+            ],
+            "lower_radius_decimal": "9.2394704168493202445233691832982003688812255859375",
+            "upper_radius_decimal": "9.2396704168493197784073345246724784374237060546875",
+            "lower_minus_global_U_decimal": "0.7714353407609486623641714686527848243713378906250"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              3,
+              2,
+              5,
+              4
+            ],
+            "radius_order": [
+              36,
+              1,
+              9,
+              4,
+              25,
+              16
+            ],
+            "lower_radius_decimal": "8.96902255347639965066264267079532146453857421875",
+            "upper_radius_decimal": "8.9692225534764009609034474124200642108917236328125",
+            "lower_minus_global_U_decimal": "0.5009874773880280685034449561499059200286865234375"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              3,
+              4,
+              2,
+              5
+            ],
+            "radius_order": [
+              36,
+              1,
+              9,
+              16,
+              4,
+              25
+            ],
+            "lower_radius_decimal": "8.831630574986558457339924643747508525848388671875",
+            "upper_radius_decimal": "8.8318305749865597675807293853722512722015380859375",
+            "lower_minus_global_U_decimal": "0.3635954988981868751807269291020929813385009765625"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              3,
+              5,
+              2,
+              4
+            ],
+            "radius_order": [
+              36,
+              1,
+              9,
+              25,
+              4,
+              16
+            ],
+            "lower_radius_decimal": "8.6649065699016194486148378928191959857940673828125",
+            "upper_radius_decimal": "8.6651065699016189824988032341934740543365478515625",
+            "lower_minus_global_U_decimal": "0.1968714938132478664556401781737804412841796875000"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              3,
+              5,
+              4,
+              2
+            ],
+            "radius_order": [
+              36,
+              1,
+              9,
+              25,
+              16,
+              4
+            ],
+            "lower_radius_decimal": "8.554468633373215169513059663586318492889404296875",
+            "upper_radius_decimal": "8.554668633373214703397025004960596561431884765625",
+            "lower_minus_global_U_decimal": "0.0864335572848435873538619489409029483795166015625"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              4,
+              2,
+              3,
+              5
+            ],
+            "radius_order": [
+              36,
+              1,
+              16,
+              4,
+              9,
+              25
+            ],
+            "lower_radius_decimal": "9.29504388425279870489248423837125301361083984375",
+            "upper_radius_decimal": "9.2952438842528000151332889799959957599639892578125",
+            "lower_minus_global_U_decimal": "0.8270088081644271227332865237258374691009521484375"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              4,
+              2,
+              5,
+              3
+            ],
+            "radius_order": [
+              36,
+              1,
+              16,
+              4,
+              25,
+              9
+            ],
+            "lower_radius_decimal": "8.6649065699016194486148378928191959857940673828125",
+            "upper_radius_decimal": "8.6651065699016189824988032341934740543365478515625",
+            "lower_minus_global_U_decimal": "0.1968714938132478664556401781737804412841796875000"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              4,
+              3,
+              2,
+              5
+            ],
+            "radius_order": [
+              36,
+              1,
+              16,
+              9,
+              4,
+              25
+            ],
+            "lower_radius_decimal": "9.1984310185626423361782144638709723949432373046875",
+            "upper_radius_decimal": "9.1986310185626418700621798052452504634857177734375",
+            "lower_minus_global_U_decimal": "0.7303959424742707540190167492255568504333496093750"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              4,
+              3,
+              5,
+              2
+            ],
+            "radius_order": [
+              36,
+              1,
+              16,
+              9,
+              25,
+              4
+            ],
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "upper_radius_decimal": "8.5171058717586713981972934561781585216522216796875",
+            "lower_minus_global_U_decimal": "0.0488707956703002821541304001584649085998535156250"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              4,
+              5,
+              2,
+              3
+            ],
+            "radius_order": [
+              36,
+              1,
+              16,
+              25,
+              4,
+              9
+            ],
+            "lower_radius_decimal": "8.96902255347639965066264267079532146453857421875",
+            "upper_radius_decimal": "8.9692225534764009609034474124200642108917236328125",
+            "lower_minus_global_U_decimal": "0.5009874773880280685034449561499059200286865234375"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              4,
+              5,
+              3,
+              2
+            ],
+            "radius_order": [
+              36,
+              1,
+              16,
+              25,
+              9,
+              4
+            ],
+            "lower_radius_decimal": "8.905524099653945313548319973051548004150390625",
+            "upper_radius_decimal": "8.9057240996539466237891247146762907505035400390625",
+            "lower_minus_global_U_decimal": "0.4374890235655737313891222584061324596405029296875"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              5,
+              2,
+              3,
+              4
+            ],
+            "radius_order": [
+              36,
+              1,
+              25,
+              4,
+              9,
+              16
+            ],
+            "lower_radius_decimal": "9.1984310185626423361782144638709723949432373046875",
+            "upper_radius_decimal": "9.1986310185626418700621798052452504634857177734375",
+            "lower_minus_global_U_decimal": "0.7303959424742707540190167492255568504333496093750"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              5,
+              2,
+              4,
+              3
+            ],
+            "radius_order": [
+              36,
+              1,
+              25,
+              4,
+              16,
+              9
+            ],
+            "lower_radius_decimal": "8.831630574986558457339924643747508525848388671875",
+            "upper_radius_decimal": "8.8318305749865597675807293853722512722015380859375",
+            "lower_minus_global_U_decimal": "0.3635954988981868751807269291020929813385009765625"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              5,
+              3,
+              2,
+              4
+            ],
+            "radius_order": [
+              36,
+              1,
+              25,
+              9,
+              4,
+              16
+            ],
+            "lower_radius_decimal": "9.29504388425279870489248423837125301361083984375",
+            "upper_radius_decimal": "9.2952438842528000151332889799959957599639892578125",
+            "lower_minus_global_U_decimal": "0.8270088081644271227332865237258374691009521484375"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              5,
+              3,
+              4,
+              2
+            ],
+            "radius_order": [
+              36,
+              1,
+              25,
+              9,
+              16,
+              4
+            ],
+            "lower_radius_decimal": "8.769251709106651304637125576846301555633544921875",
+            "upper_radius_decimal": "8.769451709106650838521090918220579624176025390625",
+            "lower_minus_global_U_decimal": "0.3012166330182797224779278622008860111236572265625"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              5,
+              4,
+              2,
+              3
+            ],
+            "radius_order": [
+              36,
+              1,
+              25,
+              16,
+              4,
+              9
+            ],
+            "lower_radius_decimal": "9.2394704168493202445233691832982003688812255859375",
+            "upper_radius_decimal": "9.2396704168493197784073345246724784374237060546875",
+            "lower_minus_global_U_decimal": "0.7714353407609486623641714686527848243713378906250"
+          },
+          {
+            "index_order": [
+              6,
+              1,
+              5,
+              4,
+              3,
+              2
+            ],
+            "radius_order": [
+              36,
+              1,
+              25,
+              16,
+              9,
+              4
+            ],
+            "lower_radius_decimal": "9.0783473292937681975445229909382760524749755859375",
+            "upper_radius_decimal": "9.0785473292937677314284883323125541210174560546875",
+            "lower_minus_global_U_decimal": "0.6103122532053966153853252762928605079650878906250"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              1,
+              3,
+              4,
+              5
+            ],
+            "radius_order": [
+              36,
+              4,
+              1,
+              9,
+              16,
+              25
+            ],
+            "lower_radius_decimal": "9.0783473292937681975445229909382760524749755859375",
+            "upper_radius_decimal": "9.0785473292937677314284883323125541210174560546875",
+            "lower_minus_global_U_decimal": "0.6103122532053966153853252762928605079650878906250"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              1,
+              3,
+              5,
+              4
+            ],
+            "radius_order": [
+              36,
+              4,
+              1,
+              9,
+              25,
+              16
+            ],
+            "lower_radius_decimal": "8.905524099653945313548319973051548004150390625",
+            "upper_radius_decimal": "8.9057240996539466237891247146762907505035400390625",
+            "lower_minus_global_U_decimal": "0.4374890235655737313891222584061324596405029296875"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              1,
+              4,
+              3,
+              5
+            ],
+            "radius_order": [
+              36,
+              4,
+              1,
+              16,
+              9,
+              25
+            ],
+            "lower_radius_decimal": "8.769251709106651304637125576846301555633544921875",
+            "upper_radius_decimal": "8.769451709106650838521090918220579624176025390625",
+            "lower_minus_global_U_decimal": "0.3012166330182797224779278622008860111236572265625"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              1,
+              4,
+              5,
+              3
+            ],
+            "radius_order": [
+              36,
+              4,
+              1,
+              16,
+              25,
+              9
+            ],
+            "lower_radius_decimal": "8.554468633373215169513059663586318492889404296875",
+            "upper_radius_decimal": "8.554668633373214703397025004960596561431884765625",
+            "lower_minus_global_U_decimal": "0.0864335572848435873538619489409029483795166015625"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              1,
+              5,
+              3,
+              4
+            ],
+            "radius_order": [
+              36,
+              4,
+              1,
+              25,
+              9,
+              16
+            ],
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "upper_radius_decimal": "8.5171058717586713981972934561781585216522216796875",
+            "lower_minus_global_U_decimal": "0.0488707956703002821541304001584649085998535156250"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              3,
+              1,
+              4,
+              5
+            ],
+            "radius_order": [
+              36,
+              4,
+              9,
+              1,
+              16,
+              25
+            ],
+            "lower_radius_decimal": "9.0783473292937681975445229909382760524749755859375",
+            "upper_radius_decimal": "9.0785473292937677314284883323125541210174560546875",
+            "lower_minus_global_U_decimal": "0.6103122532053966153853252762928605079650878906250"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              3,
+              1,
+              5,
+              4
+            ],
+            "radius_order": [
+              36,
+              4,
+              9,
+              1,
+              25,
+              16
+            ],
+            "lower_radius_decimal": "8.905524099653945313548319973051548004150390625",
+            "upper_radius_decimal": "8.9057240996539466237891247146762907505035400390625",
+            "lower_minus_global_U_decimal": "0.4374890235655737313891222584061324596405029296875"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              3,
+              4,
+              1,
+              5
+            ],
+            "radius_order": [
+              36,
+              4,
+              9,
+              16,
+              1,
+              25
+            ],
+            "lower_radius_decimal": "9.0783473292937681975445229909382760524749755859375",
+            "upper_radius_decimal": "9.0785473292937677314284883323125541210174560546875",
+            "lower_minus_global_U_decimal": "0.6103122532053966153853252762928605079650878906250"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              3,
+              5,
+              1,
+              4
+            ],
+            "radius_order": [
+              36,
+              4,
+              9,
+              25,
+              1,
+              16
+            ],
+            "lower_radius_decimal": "8.905524099653945313548319973051548004150390625",
+            "upper_radius_decimal": "8.9057240996539466237891247146762907505035400390625",
+            "lower_minus_global_U_decimal": "0.4374890235655737313891222584061324596405029296875"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              4,
+              1,
+              3,
+              5
+            ],
+            "radius_order": [
+              36,
+              4,
+              16,
+              1,
+              9,
+              25
+            ],
+            "lower_radius_decimal": "8.769251709106651304637125576846301555633544921875",
+            "upper_radius_decimal": "8.769451709106650838521090918220579624176025390625",
+            "lower_minus_global_U_decimal": "0.3012166330182797224779278622008860111236572265625"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              4,
+              1,
+              5,
+              3
+            ],
+            "radius_order": [
+              36,
+              4,
+              16,
+              1,
+              25,
+              9
+            ],
+            "lower_radius_decimal": "8.554468633373215169513059663586318492889404296875",
+            "upper_radius_decimal": "8.554668633373214703397025004960596561431884765625",
+            "lower_minus_global_U_decimal": "0.0864335572848435873538619489409029483795166015625"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              4,
+              3,
+              1,
+              5
+            ],
+            "radius_order": [
+              36,
+              4,
+              16,
+              9,
+              1,
+              25
+            ],
+            "lower_radius_decimal": "8.769251709106651304637125576846301555633544921875",
+            "upper_radius_decimal": "8.769451709106650838521090918220579624176025390625",
+            "lower_minus_global_U_decimal": "0.3012166330182797224779278622008860111236572265625"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              4,
+              5,
+              1,
+              3
+            ],
+            "radius_order": [
+              36,
+              4,
+              16,
+              25,
+              1,
+              9
+            ],
+            "lower_radius_decimal": "8.554468633373215169513059663586318492889404296875",
+            "upper_radius_decimal": "8.554668633373214703397025004960596561431884765625",
+            "lower_minus_global_U_decimal": "0.0864335572848435873538619489409029483795166015625"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              5,
+              1,
+              3,
+              4
+            ],
+            "radius_order": [
+              36,
+              4,
+              25,
+              1,
+              9,
+              16
+            ],
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "upper_radius_decimal": "8.5171058717586713981972934561781585216522216796875",
+            "lower_minus_global_U_decimal": "0.0488707956703002821541304001584649085998535156250"
+          },
+          {
+            "index_order": [
+              6,
+              2,
+              5,
+              3,
+              1,
+              4
+            ],
+            "radius_order": [
+              36,
+              4,
+              25,
+              9,
+              1,
+              16
+            ],
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "upper_radius_decimal": "8.5171058717586713981972934561781585216522216796875",
+            "lower_minus_global_U_decimal": "0.0488707956703002821541304001584649085998535156250"
+          },
+          {
+            "index_order": [
+              6,
+              3,
+              1,
+              2,
+              4,
+              5
+            ],
+            "radius_order": [
+              36,
+              9,
+              1,
+              4,
+              16,
+              25
+            ],
+            "lower_radius_decimal": "9.2394704168493202445233691832982003688812255859375",
+            "upper_radius_decimal": "9.2396704168493197784073345246724784374237060546875",
+            "lower_minus_global_U_decimal": "0.7714353407609486623641714686527848243713378906250"
+          },
+          {
+            "index_order": [
+              6,
+              3,
+              1,
+              2,
+              5,
+              4
+            ],
+            "radius_order": [
+              36,
+              9,
+              1,
+              4,
+              25,
+              16
+            ],
+            "lower_radius_decimal": "8.96902255347639965066264267079532146453857421875",
+            "upper_radius_decimal": "8.9692225534764009609034474124200642108917236328125",
+            "lower_minus_global_U_decimal": "0.5009874773880280685034449561499059200286865234375"
+          },
+          {
+            "index_order": [
+              6,
+              3,
+              1,
+              4,
+              2,
+              5
+            ],
+            "radius_order": [
+              36,
+              9,
+              1,
+              16,
+              4,
+              25
+            ],
+            "lower_radius_decimal": "8.831630574986558457339924643747508525848388671875",
+            "upper_radius_decimal": "8.8318305749865597675807293853722512722015380859375",
+            "lower_minus_global_U_decimal": "0.3635954988981868751807269291020929813385009765625"
+          },
+          {
+            "index_order": [
+              6,
+              3,
+              1,
+              5,
+              2,
+              4
+            ],
+            "radius_order": [
+              36,
+              9,
+              1,
+              25,
+              4,
+              16
+            ],
+            "lower_radius_decimal": "8.6649065699016194486148378928191959857940673828125",
+            "upper_radius_decimal": "8.6651065699016189824988032341934740543365478515625",
+            "lower_minus_global_U_decimal": "0.1968714938132478664556401781737804412841796875000"
+          },
+          {
+            "index_order": [
+              6,
+              3,
+              2,
+              1,
+              4,
+              5
+            ],
+            "radius_order": [
+              36,
+              9,
+              4,
+              1,
+              16,
+              25
+            ],
+            "lower_radius_decimal": "9.2394704168493202445233691832982003688812255859375",
+            "upper_radius_decimal": "9.2396704168493197784073345246724784374237060546875",
+            "lower_minus_global_U_decimal": "0.7714353407609486623641714686527848243713378906250"
+          },
+          {
+            "index_order": [
+              6,
+              3,
+              2,
+              1,
+              5,
+              4
+            ],
+            "radius_order": [
+              36,
+              9,
+              4,
+              1,
+              25,
+              16
+            ],
+            "lower_radius_decimal": "8.96902255347639965066264267079532146453857421875",
+            "upper_radius_decimal": "8.9692225534764009609034474124200642108917236328125",
+            "lower_minus_global_U_decimal": "0.5009874773880280685034449561499059200286865234375"
+          },
+          {
+            "index_order": [
+              6,
+              3,
+              2,
+              4,
+              1,
+              5
+            ],
+            "radius_order": [
+              36,
+              9,
+              4,
+              16,
+              1,
+              25
+            ],
+            "lower_radius_decimal": "9.2394704168493202445233691832982003688812255859375",
+            "upper_radius_decimal": "9.2396704168493197784073345246724784374237060546875",
+            "lower_minus_global_U_decimal": "0.7714353407609486623641714686527848243713378906250"
+          },
+          {
+            "index_order": [
+              6,
+              3,
+              2,
+              5,
+              1,
+              4
+            ],
+            "radius_order": [
+              36,
+              9,
+              4,
+              25,
+              1,
+              16
+            ],
+            "lower_radius_decimal": "8.96902255347639965066264267079532146453857421875",
+            "upper_radius_decimal": "8.9692225534764009609034474124200642108917236328125",
+            "lower_minus_global_U_decimal": "0.5009874773880280685034449561499059200286865234375"
+          },
+          {
+            "index_order": [
+              6,
+              3,
+              4,
+              1,
+              2,
+              5
+            ],
+            "radius_order": [
+              36,
+              9,
+              16,
+              1,
+              4,
+              25
+            ],
+            "lower_radius_decimal": "8.831630574986558457339924643747508525848388671875",
+            "upper_radius_decimal": "8.8318305749865597675807293853722512722015380859375",
+            "lower_minus_global_U_decimal": "0.3635954988981868751807269291020929813385009765625"
+          },
+          {
+            "index_order": [
+              6,
+              3,
+              4,
+              2,
+              1,
+              5
+            ],
+            "radius_order": [
+              36,
+              9,
+              16,
+              4,
+              1,
+              25
+            ],
+            "lower_radius_decimal": "8.831630574986558457339924643747508525848388671875",
+            "upper_radius_decimal": "8.8318305749865597675807293853722512722015380859375",
+            "lower_minus_global_U_decimal": "0.3635954988981868751807269291020929813385009765625"
+          },
+          {
+            "index_order": [
+              6,
+              3,
+              5,
+              1,
+              2,
+              4
+            ],
+            "radius_order": [
+              36,
+              9,
+              25,
+              1,
+              4,
+              16
+            ],
+            "lower_radius_decimal": "8.6649065699016194486148378928191959857940673828125",
+            "upper_radius_decimal": "8.6651065699016189824988032341934740543365478515625",
+            "lower_minus_global_U_decimal": "0.1968714938132478664556401781737804412841796875000"
+          },
+          {
+            "index_order": [
+              6,
+              3,
+              5,
+              2,
+              1,
+              4
+            ],
+            "radius_order": [
+              36,
+              9,
+              25,
+              4,
+              1,
+              16
+            ],
+            "lower_radius_decimal": "8.6649065699016194486148378928191959857940673828125",
+            "upper_radius_decimal": "8.6651065699016189824988032341934740543365478515625",
+            "lower_minus_global_U_decimal": "0.1968714938132478664556401781737804412841796875000"
+          },
+          {
+            "index_order": [
+              6,
+              4,
+              1,
+              2,
+              3,
+              5
+            ],
+            "radius_order": [
+              36,
+              16,
+              1,
+              4,
+              9,
+              25
+            ],
+            "lower_radius_decimal": "9.29504388425279870489248423837125301361083984375",
+            "upper_radius_decimal": "9.2952438842528000151332889799959957599639892578125",
+            "lower_minus_global_U_decimal": "0.8270088081644271227332865237258374691009521484375"
+          },
+          {
+            "index_order": [
+              6,
+              4,
+              1,
+              3,
+              2,
+              5
+            ],
+            "radius_order": [
+              36,
+              16,
+              1,
+              9,
+              4,
+              25
+            ],
+            "lower_radius_decimal": "9.1984310185626423361782144638709723949432373046875",
+            "upper_radius_decimal": "9.1986310185626418700621798052452504634857177734375",
+            "lower_minus_global_U_decimal": "0.7303959424742707540190167492255568504333496093750"
+          },
+          {
+            "index_order": [
+              6,
+              4,
+              2,
+              1,
+              3,
+              5
+            ],
+            "radius_order": [
+              36,
+              16,
+              4,
+              1,
+              9,
+              25
+            ],
+            "lower_radius_decimal": "9.29504388425279870489248423837125301361083984375",
+            "upper_radius_decimal": "9.2952438842528000151332889799959957599639892578125",
+            "lower_minus_global_U_decimal": "0.8270088081644271227332865237258374691009521484375"
+          },
+          {
+            "index_order": [
+              6,
+              4,
+              2,
+              3,
+              1,
+              5
+            ],
+            "radius_order": [
+              36,
+              16,
+              4,
+              9,
+              1,
+              25
+            ],
+            "lower_radius_decimal": "9.29504388425279870489248423837125301361083984375",
+            "upper_radius_decimal": "9.2952438842528000151332889799959957599639892578125",
+            "lower_minus_global_U_decimal": "0.8270088081644271227332865237258374691009521484375"
+          },
+          {
+            "index_order": [
+              6,
+              4,
+              3,
+              1,
+              2,
+              5
+            ],
+            "radius_order": [
+              36,
+              16,
+              9,
+              1,
+              4,
+              25
+            ],
+            "lower_radius_decimal": "9.1984310185626423361782144638709723949432373046875",
+            "upper_radius_decimal": "9.1986310185626418700621798052452504634857177734375",
+            "lower_minus_global_U_decimal": "0.7303959424742707540190167492255568504333496093750"
+          },
+          {
+            "index_order": [
+              6,
+              4,
+              3,
+              2,
+              1,
+              5
+            ],
+            "radius_order": [
+              36,
+              16,
+              9,
+              4,
+              1,
+              25
+            ],
+            "lower_radius_decimal": "9.1984310185626423361782144638709723949432373046875",
+            "upper_radius_decimal": "9.1986310185626418700621798052452504634857177734375",
+            "lower_minus_global_U_decimal": "0.7303959424742707540190167492255568504333496093750"
+          }
+        ]
+      },
+      "identical_serialized_local_bracket_groups": [
+        {
+          "lower_radius_decimal": "9.0783473292937681975445229909382760524749755859375",
+          "upper_radius_decimal": "9.0785473292937677314284883323125541210174560546875",
+          "size": 5,
+          "orders": [
+            {
+              "index_order": [
+                6,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "radius_order": [
+                36,
+                1,
+                4,
+                9,
+                16,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                1,
+                5,
+                4,
+                3,
+                2
+              ],
+              "radius_order": [
+                36,
+                1,
+                25,
+                16,
+                9,
+                4
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                1,
+                3,
+                4,
+                5
+              ],
+              "radius_order": [
+                36,
+                4,
+                1,
+                9,
+                16,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                3,
+                1,
+                4,
+                5
+              ],
+              "radius_order": [
+                36,
+                4,
+                9,
+                1,
+                16,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                3,
+                4,
+                1,
+                5
+              ],
+              "radius_order": [
+                36,
+                4,
+                9,
+                16,
+                1,
+                25
+              ]
+            }
+          ],
+          "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima."
+        },
+        {
+          "lower_radius_decimal": "8.905524099653945313548319973051548004150390625",
+          "upper_radius_decimal": "8.9057240996539466237891247146762907505035400390625",
+          "size": 5,
+          "orders": [
+            {
+              "index_order": [
+                6,
+                1,
+                2,
+                3,
+                5,
+                4
+              ],
+              "radius_order": [
+                36,
+                1,
+                4,
+                9,
+                25,
+                16
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                1,
+                4,
+                5,
+                3,
+                2
+              ],
+              "radius_order": [
+                36,
+                1,
+                16,
+                25,
+                9,
+                4
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                1,
+                3,
+                5,
+                4
+              ],
+              "radius_order": [
+                36,
+                4,
+                1,
+                9,
+                25,
+                16
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                3,
+                1,
+                5,
+                4
+              ],
+              "radius_order": [
+                36,
+                4,
+                9,
+                1,
+                25,
+                16
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                3,
+                5,
+                1,
+                4
+              ],
+              "radius_order": [
+                36,
+                4,
+                9,
+                25,
+                1,
+                16
+              ]
+            }
+          ],
+          "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima."
+        },
+        {
+          "lower_radius_decimal": "8.769251709106651304637125576846301555633544921875",
+          "upper_radius_decimal": "8.769451709106650838521090918220579624176025390625",
+          "size": 5,
+          "orders": [
+            {
+              "index_order": [
+                6,
+                1,
+                2,
+                4,
+                3,
+                5
+              ],
+              "radius_order": [
+                36,
+                1,
+                4,
+                16,
+                9,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                1,
+                5,
+                3,
+                4,
+                2
+              ],
+              "radius_order": [
+                36,
+                1,
+                25,
+                9,
+                16,
+                4
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                1,
+                4,
+                3,
+                5
+              ],
+              "radius_order": [
+                36,
+                4,
+                1,
+                16,
+                9,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                4,
+                1,
+                3,
+                5
+              ],
+              "radius_order": [
+                36,
+                4,
+                16,
+                1,
+                9,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                4,
+                3,
+                1,
+                5
+              ],
+              "radius_order": [
+                36,
+                4,
+                16,
+                9,
+                1,
+                25
+              ]
+            }
+          ],
+          "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima."
+        },
+        {
+          "lower_radius_decimal": "8.554468633373215169513059663586318492889404296875",
+          "upper_radius_decimal": "8.554668633373214703397025004960596561431884765625",
+          "size": 5,
+          "orders": [
+            {
+              "index_order": [
+                6,
+                1,
+                2,
+                4,
+                5,
+                3
+              ],
+              "radius_order": [
+                36,
+                1,
+                4,
+                16,
+                25,
+                9
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                1,
+                3,
+                5,
+                4,
+                2
+              ],
+              "radius_order": [
+                36,
+                1,
+                9,
+                25,
+                16,
+                4
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                1,
+                4,
+                5,
+                3
+              ],
+              "radius_order": [
+                36,
+                4,
+                1,
+                16,
+                25,
+                9
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                4,
+                1,
+                5,
+                3
+              ],
+              "radius_order": [
+                36,
+                4,
+                16,
+                1,
+                25,
+                9
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                4,
+                5,
+                1,
+                3
+              ],
+              "radius_order": [
+                36,
+                4,
+                16,
+                25,
+                1,
+                9
+              ]
+            }
+          ],
+          "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima."
+        },
+        {
+          "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+          "upper_radius_decimal": "8.5171058717586713981972934561781585216522216796875",
+          "size": 5,
+          "orders": [
+            {
+              "index_order": [
+                6,
+                1,
+                2,
+                5,
+                3,
+                4
+              ],
+              "radius_order": [
+                36,
+                1,
+                4,
+                25,
+                9,
+                16
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                1,
+                4,
+                3,
+                5,
+                2
+              ],
+              "radius_order": [
+                36,
+                1,
+                16,
+                9,
+                25,
+                4
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                1,
+                5,
+                3,
+                4
+              ],
+              "radius_order": [
+                36,
+                4,
+                1,
+                25,
+                9,
+                16
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                5,
+                1,
+                3,
+                4
+              ],
+              "radius_order": [
+                36,
+                4,
+                25,
+                1,
+                9,
+                16
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                5,
+                3,
+                1,
+                4
+              ],
+              "radius_order": [
+                36,
+                4,
+                25,
+                9,
+                1,
+                16
+              ]
+            }
+          ],
+          "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima."
+        },
+        {
+          "lower_radius_decimal": "8.4678350760883720482752323732711374759674072265625",
+          "upper_radius_decimal": "8.4680350760883715821591977146454155445098876953125",
+          "size": 5,
+          "orders": [
+            {
+              "index_order": [
+                6,
+                1,
+                2,
+                5,
+                4,
+                3
+              ],
+              "radius_order": [
+                36,
+                1,
+                4,
+                25,
+                16,
+                9
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                1,
+                3,
+                4,
+                5,
+                2
+              ],
+              "radius_order": [
+                36,
+                1,
+                9,
+                16,
+                25,
+                4
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                1,
+                5,
+                4,
+                3
+              ],
+              "radius_order": [
+                36,
+                4,
+                1,
+                25,
+                16,
+                9
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                5,
+                1,
+                4,
+                3
+              ],
+              "radius_order": [
+                36,
+                4,
+                25,
+                1,
+                16,
+                9
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                5,
+                4,
+                1,
+                3
+              ],
+              "radius_order": [
+                36,
+                4,
+                25,
+                16,
+                1,
+                9
+              ]
+            }
+          ],
+          "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima."
+        },
+        {
+          "lower_radius_decimal": "9.2394704168493202445233691832982003688812255859375",
+          "upper_radius_decimal": "9.2396704168493197784073345246724784374237060546875",
+          "size": 5,
+          "orders": [
+            {
+              "index_order": [
+                6,
+                1,
+                3,
+                2,
+                4,
+                5
+              ],
+              "radius_order": [
+                36,
+                1,
+                9,
+                4,
+                16,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                1,
+                5,
+                4,
+                2,
+                3
+              ],
+              "radius_order": [
+                36,
+                1,
+                25,
+                16,
+                4,
+                9
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                3,
+                1,
+                2,
+                4,
+                5
+              ],
+              "radius_order": [
+                36,
+                9,
+                1,
+                4,
+                16,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                3,
+                2,
+                1,
+                4,
+                5
+              ],
+              "radius_order": [
+                36,
+                9,
+                4,
+                1,
+                16,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                3,
+                2,
+                4,
+                1,
+                5
+              ],
+              "radius_order": [
+                36,
+                9,
+                4,
+                16,
+                1,
+                25
+              ]
+            }
+          ],
+          "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima."
+        },
+        {
+          "lower_radius_decimal": "8.96902255347639965066264267079532146453857421875",
+          "upper_radius_decimal": "8.9692225534764009609034474124200642108917236328125",
+          "size": 5,
+          "orders": [
+            {
+              "index_order": [
+                6,
+                1,
+                3,
+                2,
+                5,
+                4
+              ],
+              "radius_order": [
+                36,
+                1,
+                9,
+                4,
+                25,
+                16
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                1,
+                4,
+                5,
+                2,
+                3
+              ],
+              "radius_order": [
+                36,
+                1,
+                16,
+                25,
+                4,
+                9
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                3,
+                1,
+                2,
+                5,
+                4
+              ],
+              "radius_order": [
+                36,
+                9,
+                1,
+                4,
+                25,
+                16
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                3,
+                2,
+                1,
+                5,
+                4
+              ],
+              "radius_order": [
+                36,
+                9,
+                4,
+                1,
+                25,
+                16
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                3,
+                2,
+                5,
+                1,
+                4
+              ],
+              "radius_order": [
+                36,
+                9,
+                4,
+                25,
+                1,
+                16
+              ]
+            }
+          ],
+          "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima."
+        },
+        {
+          "lower_radius_decimal": "8.831630574986558457339924643747508525848388671875",
+          "upper_radius_decimal": "8.8318305749865597675807293853722512722015380859375",
+          "size": 5,
+          "orders": [
+            {
+              "index_order": [
+                6,
+                1,
+                3,
+                4,
+                2,
+                5
+              ],
+              "radius_order": [
+                36,
+                1,
+                9,
+                16,
+                4,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                1,
+                5,
+                2,
+                4,
+                3
+              ],
+              "radius_order": [
+                36,
+                1,
+                25,
+                4,
+                16,
+                9
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                3,
+                1,
+                4,
+                2,
+                5
+              ],
+              "radius_order": [
+                36,
+                9,
+                1,
+                16,
+                4,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                3,
+                4,
+                1,
+                2,
+                5
+              ],
+              "radius_order": [
+                36,
+                9,
+                16,
+                1,
+                4,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                3,
+                4,
+                2,
+                1,
+                5
+              ],
+              "radius_order": [
+                36,
+                9,
+                16,
+                4,
+                1,
+                25
+              ]
+            }
+          ],
+          "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima."
+        },
+        {
+          "lower_radius_decimal": "8.6649065699016194486148378928191959857940673828125",
+          "upper_radius_decimal": "8.6651065699016189824988032341934740543365478515625",
+          "size": 5,
+          "orders": [
+            {
+              "index_order": [
+                6,
+                1,
+                3,
+                5,
+                2,
+                4
+              ],
+              "radius_order": [
+                36,
+                1,
+                9,
+                25,
+                4,
+                16
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                1,
+                4,
+                2,
+                5,
+                3
+              ],
+              "radius_order": [
+                36,
+                1,
+                16,
+                4,
+                25,
+                9
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                3,
+                1,
+                5,
+                2,
+                4
+              ],
+              "radius_order": [
+                36,
+                9,
+                1,
+                25,
+                4,
+                16
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                3,
+                5,
+                1,
+                2,
+                4
+              ],
+              "radius_order": [
+                36,
+                9,
+                25,
+                1,
+                4,
+                16
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                3,
+                5,
+                2,
+                1,
+                4
+              ],
+              "radius_order": [
+                36,
+                9,
+                25,
+                4,
+                1,
+                16
+              ]
+            }
+          ],
+          "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima."
+        },
+        {
+          "lower_radius_decimal": "9.29504388425279870489248423837125301361083984375",
+          "upper_radius_decimal": "9.2952438842528000151332889799959957599639892578125",
+          "size": 5,
+          "orders": [
+            {
+              "index_order": [
+                6,
+                1,
+                4,
+                2,
+                3,
+                5
+              ],
+              "radius_order": [
+                36,
+                1,
+                16,
+                4,
+                9,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                1,
+                5,
+                3,
+                2,
+                4
+              ],
+              "radius_order": [
+                36,
+                1,
+                25,
+                9,
+                4,
+                16
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                4,
+                1,
+                2,
+                3,
+                5
+              ],
+              "radius_order": [
+                36,
+                16,
+                1,
+                4,
+                9,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                4,
+                2,
+                1,
+                3,
+                5
+              ],
+              "radius_order": [
+                36,
+                16,
+                4,
+                1,
+                9,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                4,
+                2,
+                3,
+                1,
+                5
+              ],
+              "radius_order": [
+                36,
+                16,
+                4,
+                9,
+                1,
+                25
+              ]
+            }
+          ],
+          "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima."
+        },
+        {
+          "lower_radius_decimal": "9.1984310185626423361782144638709723949432373046875",
+          "upper_radius_decimal": "9.1986310185626418700621798052452504634857177734375",
+          "size": 5,
+          "orders": [
+            {
+              "index_order": [
+                6,
+                1,
+                4,
+                3,
+                2,
+                5
+              ],
+              "radius_order": [
+                36,
+                1,
+                16,
+                9,
+                4,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                1,
+                5,
+                2,
+                3,
+                4
+              ],
+              "radius_order": [
+                36,
+                1,
+                25,
+                4,
+                9,
+                16
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                4,
+                1,
+                3,
+                2,
+                5
+              ],
+              "radius_order": [
+                36,
+                16,
+                1,
+                9,
+                4,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                4,
+                3,
+                1,
+                2,
+                5
+              ],
+              "radius_order": [
+                36,
+                16,
+                9,
+                1,
+                4,
+                25
+              ]
+            },
+            {
+              "index_order": [
+                6,
+                4,
+                3,
+                2,
+                1,
+                5
+              ],
+              "radius_order": [
+                36,
+                16,
+                9,
+                4,
+                1,
+                25
+              ]
+            }
+          ],
+          "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima."
+        }
+      ],
+      "asymptotic_diagnostics": {
+        "classification": "numerical_observation",
+        "reference": "n^3/(6*pi)",
+        "reference_value_decimal": "11.459155902616464175359630962821034066481094493313",
+        "midpoint_decimal": "8.4679350760883718152172150439582765102386474609375",
+        "lower_ratio_decimal": "0.73895801296803326327460434830254644072598693435891",
+        "midpoint_ratio_decimal": "0.73896673961429321458434021392383309660393607393622",
+        "upper_ratio_decimal": "0.73897546626055316589407607954511975248188521351353",
+        "warning": "These finite-n diagnostics are numerical observations only, not certified asymptotic claims.",
+        "additive_difference_from_reference": {
+          "lower_minus_reference_decimal": "-2.9913208265280921270843985895498965905136872667504",
+          "midpoint_minus_reference_decimal": "-2.9912208265280923601424159188627575562424470323754",
+          "upper_minus_reference_decimal": "-2.9911208265280925932004332481756185219712067980004"
+        }
+      }
+    }
+  ]
+}

@@ -91,13 +91,29 @@ The following checked artifacts are classified as COMPUTER-CERTIFIED RESULT unde
 - INTERPRETATION: these finite brackets do not prove exact optimum values; each strict lower endpoint is excluded and each upper endpoint is certified feasible under the artifact semantics.
 - INTERPRETATION: these finite brackets do not prove the conjecture \(R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))\).
 
+Candidate-set extraction uses the following finite-certificate semantics.
+
+- DEFINITION: for one finite certificate with verified local brackets, \(U\) is the minimum verified upper endpoint across all canonical orders, and the certified candidate set is \(C=\{\sigma:L_\sigma\le U\}\), where \(L_\sigma\) is the verified strict lower endpoint for order \(\sigma\).
+- DEFINITION: an order with \(L_\sigma>U\) is certified not to be globally optimal under the checked artifact semantics.
+- DEFINITION: when at least one order is excluded, the exclusion gap is \(\Delta=\min_{\sigma\notin C}(L_\sigma-U)\).
+- COMPUTER-CERTIFIED RESULT: derived from the checked `n=3..6` artifacts, current candidate-set sizes and exclusion gaps are:
+
+| `n` | Candidate-set size | Excluded-order count | Exclusion gap |
+|---:|---:|---:|---|
+| 3 | 1 | 0 | undefined |
+| 4 | 1 | 2 | `0.1171644705802874497635457373689860105514526367187500` |
+| 5 | 2 | 10 | `0.1137866156209259571596703608520328998565673828125` |
+| 6 | 5 | 55 | `0.0488707956703002821541304001584649085998535156250` |
+
+- INTERPRETATION: candidate-set size `1` means there is a unique certified candidate order modulo the current rotation/reflection convention.
+- WARNING: candidate-set size greater than `1` does not prove an exact tie between the candidate orders.
+- WARNING: identical serialized local brackets must not be described as exact equality of the corresponding fixed-order optima.
+
 ## Empirical Structural Questions
 
-- OPEN QUESTION: which certified local orders realize or nearly realize the global upper endpoint for `n=3..6`?
-- OPEN QUESTION: what are the certified candidate sets and exclusion gaps implied by the checked artifacts?
+- OPEN QUESTION: can tighter brackets or independent methods reduce the multiple certified candidate sets for `n=5` and `n=6`?
 - OPEN QUESTION: how do the checked finite brackets compare numerically with \(\frac{n^3}{6\pi}\) at small `n`?
 - OPEN QUESTION: do the checked finite cases suggest stable optimal-order representatives, floating-circle regimes, or contact structures that can be formulated as conjectures?
-- RULE: candidate-set sizes, exclusion gaps, and optimal-order representatives should be extracted automatically from checked artifacts before being promoted to stable knowledge.
 
 ## Open Proof Obligations And Limitations
 
