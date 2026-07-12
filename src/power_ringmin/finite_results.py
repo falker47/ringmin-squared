@@ -430,7 +430,7 @@ def _analyze_source_certificate(
     source_record = _source_certificate_record(
         artifact_path,
         artifact,
-        content_sha256=_sha256_file(artifact_path),
+        content_sha256=source_content_sha256(artifact_path),
     )
     result = _finite_result_from_artifact(
         artifact,
@@ -1055,11 +1055,34 @@ def _reject_forbidden_claim_phrases(source: Mapping[str, Any]) -> None:
             raise ValueError(f"finite-results summary must not contain forbidden claim phrase: {phrase}")
 
 
-def _sha256_file(path: Path) -> str:
+def source_content_sha256(path: str | Path) -> str:
+    """Return SHA-256 over file bytes with all line endings normalized to LF.
+
+    The digest input is the original byte stream after replacing every CRLF
+    sequence and every lone CR byte with one LF byte. No character decoding or
+    other byte normalization is performed.
+    """
+
     digest = hashlib.sha256()
-    with path.open("rb") as handle:
+    pending_cr = False
+    with Path(path).open("rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
+            if pending_cr:
+                if chunk.startswith(b"\n"):
+                    digest.update(b"\n")
+                    chunk = chunk[1:]
+                else:
+                    digest.update(b"\n")
+                pending_cr = False
+            if not chunk:
+                continue
+            if chunk.endswith(b"\r"):
+                pending_cr = True
+                chunk = chunk[:-1]
+            if chunk:
+                digest.update(chunk.replace(b"\r\n", b"\n").replace(b"\r", b"\n"))
+    if pending_cr:
+        digest.update(b"\n")
     return digest.hexdigest()
 
 
@@ -1161,6 +1184,7 @@ __all__ = [
     "loads_finite_results_summary",
     "loads_finite_results_summary_artifact",
     "main",
+    "source_content_sha256",
     "validate_finite_results_summary_artifact",
 ]
 

@@ -67,7 +67,7 @@
   "source_certificates": [
     {
       "path": "examples/small_n_interval_certificate_n3.json",
-      "content_sha256": "1aefe98e301391fbe4b8cd60593838e45b3b786dbb2d0edc8317952b888e0685",
+      "content_sha256": "7026b174251d92dcb84bd63bede4674b8248559ab6bb24449aecd161301d0043",
       "schema_version": "power-ringmin.small_n_interval_certificate.v1",
       "artifact_type": "small_n_interval_certificate",
       "n": 3,
@@ -80,7 +80,7 @@
     },
     {
       "path": "examples/small_n_interval_certificate_n4.json",
-      "content_sha256": "436fad33d37adf9161cc3cb8e475df01ae1f025915cde5457899e55de6e97fa2",
+      "content_sha256": "d86bb1d6d76bf4a7d9ef01056130632537bd4b55533f67efa774e08fca3e22a5",
       "schema_version": "power-ringmin.small_n_interval_certificate.v1",
       "artifact_type": "small_n_interval_certificate",
       "n": 4,
@@ -93,7 +93,7 @@
     },
     {
       "path": "examples/small_n_interval_certificate_n5.json",
-      "content_sha256": "a35f896665a4462bb9b6fc1154ee20386b8127b8728551f8f47423de0ecd7dfb",
+      "content_sha256": "d2233af9372ad3e409b9c065313bdb7d21ffa239fc0128e17de3d98317820258",
       "schema_version": "power-ringmin.small_n_interval_certificate.v1",
       "artifact_type": "small_n_interval_certificate",
       "n": 5,
@@ -106,7 +106,7 @@
     },
     {
       "path": "examples/small_n_interval_certificate_n6.json",
-      "content_sha256": "40cfe3cf9c7723373499b5445c694c193b79237131f3c64fd7ff1b8767776a92",
+      "content_sha256": "d0998e1ebe01467f9bcc1897ab59aec3e55ccd5c89053dca76404ab3f2e90c65",
       "schema_version": "power-ringmin.small_n_interval_certificate.v1",
       "artifact_type": "small_n_interval_certificate",
       "n": 6,
@@ -123,7 +123,7 @@
       "n": 3,
       "source_certificate": {
         "path": "examples/small_n_interval_certificate_n3.json",
-        "content_sha256": "1aefe98e301391fbe4b8cd60593838e45b3b786dbb2d0edc8317952b888e0685",
+        "content_sha256": "7026b174251d92dcb84bd63bede4674b8248559ab6bb24449aecd161301d0043",
         "schema_version": "power-ringmin.small_n_interval_certificate.v1",
         "artifact_type": "small_n_interval_certificate",
         "n": 3,
@@ -225,7 +225,7 @@
       "n": 4,
       "source_certificate": {
         "path": "examples/small_n_interval_certificate_n4.json",
-        "content_sha256": "436fad33d37adf9161cc3cb8e475df01ae1f025915cde5457899e55de6e97fa2",
+        "content_sha256": "d86bb1d6d76bf4a7d9ef01056130632537bd4b55533f67efa774e08fca3e22a5",
         "schema_version": "power-ringmin.small_n_interval_certificate.v1",
         "artifact_type": "small_n_interval_certificate",
         "n": 4,
@@ -385,7 +385,7 @@
       "n": 5,
       "source_certificate": {
         "path": "examples/small_n_interval_certificate_n5.json",
-        "content_sha256": "a35f896665a4462bb9b6fc1154ee20386b8127b8728551f8f47423de0ecd7dfb",
+        "content_sha256": "d2233af9372ad3e409b9c065313bdb7d21ffa239fc0128e17de3d98317820258",
         "schema_version": "power-ringmin.small_n_interval_certificate.v1",
         "artifact_type": "small_n_interval_certificate",
         "n": 5,
@@ -858,7 +858,7 @@
       "n": 6,
       "source_certificate": {
         "path": "examples/small_n_interval_certificate_n6.json",
-        "content_sha256": "40cfe3cf9c7723373499b5445c694c193b79237131f3c64fd7ff1b8767776a92",
+        "content_sha256": "d0998e1ebe01467f9bcc1897ab59aec3e55ccd5c89053dca76404ab3f2e90c65",
         "schema_version": "power-ringmin.small_n_interval_certificate.v1",
         "artifact_type": "small_n_interval_certificate",
         "n": 6,
@@ -3649,7 +3649,7 @@
     "created_at_utc": "2026-07-12T00:00:00Z",
     "repository": {
       "name": "power-ringmin",
-      "git_commit": "97bc6327209a98b9e0a6777d121b6e9391fb1da6",
+      "git_commit": "92d60179da91ab72a643b76299445f1a1c8b82c8",
       "git_dirty": true
     },
     "software": [

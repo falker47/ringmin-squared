@@ -226,6 +226,7 @@
           "minLength": 1
         },
         "content_sha256": {
+          "description": "SHA-256 hex digest of the source certificate byte stream after normalizing every CRLF sequence and every lone CR byte to one LF byte. No character decoding or other byte normalization is performed, so all non-line-ending byte changes change the digest.",
           "$ref": "#/$defs/sha256"
         },
         "schema_version": {

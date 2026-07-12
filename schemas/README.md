@@ -99,7 +99,9 @@ This is a separate contract from `small_n_interval_certificate.schema.json`:
 - finite-results summaries are derived analysis artifacts;
 - candidate sets, excluded-order counts, exclusion gaps, identical serialized bracket groups, cross-`n` comparisons, and ratios to `n^3/(6*pi)` belong in the derived summary, not in the primary certificate schema.
 
-The JSON Schema is structural only. The package validator `power_ringmin.finite_results.validate_finite_results_summary_artifact` is the semantic authority. It reloads every source certificate through `power_ringmin.small_n_interval_certificate.load_small_n_interval_certificate_artifact`, recomputes source SHA-256 hashes, rederives all candidate sets and exclusion gaps, and rejects stale summaries when source bytes or derived content no longer match.
+The JSON Schema is structural only. The package validator `power_ringmin.finite_results.validate_finite_results_summary_artifact` is the semantic authority. It reloads every source certificate through `power_ringmin.small_n_interval_certificate.load_small_n_interval_certificate_artifact`, recomputes source `content_sha256` values, rederives all candidate sets and exclusion gaps, and rejects stale summaries when source content or derived content no longer match.
+
+The `content_sha256` value is a cross-platform source-content digest, not a raw checkout-byte digest. It is the SHA-256 hex digest of the source certificate byte stream after normalizing every CRLF sequence and every lone CR byte to one LF byte. No character decoding or other byte normalization is performed, so every non-line-ending byte change remains digest-sensitive.
 
 Evidence classifications in v1 are:
 

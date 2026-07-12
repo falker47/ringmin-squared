@@ -20,6 +20,7 @@ from power_ringmin.finite_results import (
     format_finite_results_markdown,
     load_finite_results_summary,
     main,
+    source_content_sha256,
     validate_finite_results_summary_artifact,
 )
 from power_ringmin.small_n_interval_certificate import (
@@ -72,6 +73,12 @@ def test_finite_results_summary_schema_contract() -> None:
     assert schema["$defs"]["sourceCertificate"]["properties"]["content_sha256"][
         "$ref"
     ] == "#/$defs/sha256"
+    assert "CRLF" in schema["$defs"]["sourceCertificate"]["properties"][
+        "content_sha256"
+    ]["description"]
+    assert "lone CR" in schema["$defs"]["sourceCertificate"]["properties"][
+        "content_sha256"
+    ]["description"]
     assert schema["$defs"]["candidateSet"]["properties"]["classification"]["const"] == (
         "computer_certified_result"
     )
@@ -94,11 +101,31 @@ def test_checked_summary_has_v1_structure_and_source_hashes(checked_summary: dic
         CHECKED_ARTIFACT_PATHS,
         strict=True,
     ):
-        expected_hash = hashlib.sha256(path.read_bytes()).hexdigest()
+        expected_hash = source_content_sha256(path)
         assert source["path"] == path.as_posix()
         assert source["content_sha256"] == expected_hash
         assert source["artifact_type"] == "small_n_interval_certificate"
         assert source["evidence_classification"] == "computer_certified_result"
+
+
+def test_source_content_sha256_normalizes_line_endings_only(tmp_path: Path) -> None:
+    chunk_minus_one = 1024 * 1024 - 1
+    normalized = b"a" * chunk_minus_one + b"\nsecond line\n"
+    lf_path = tmp_path / "source_lf.json"
+    crlf_path = tmp_path / "source_crlf.json"
+    cr_path = tmp_path / "source_cr.json"
+    changed_path = tmp_path / "source_changed.json"
+
+    lf_path.write_bytes(normalized)
+    crlf_path.write_bytes(b"a" * chunk_minus_one + b"\r\nsecond line\r\n")
+    cr_path.write_bytes(b"a" * chunk_minus_one + b"\rsecond line\r")
+    changed_path.write_bytes(b"a" * chunk_minus_one + b"\nsecond line!\n")
+
+    expected = hashlib.sha256(normalized).hexdigest()
+    assert source_content_sha256(lf_path) == expected
+    assert source_content_sha256(crlf_path) == expected
+    assert source_content_sha256(cr_path) == expected
+    assert source_content_sha256(changed_path) != expected
 
 
 def test_candidate_set_semantics_and_current_sizes(checked_summary: dict) -> None:
@@ -236,6 +263,23 @@ def test_summary_validation_detects_stale_source_hash(tmp_path: Path) -> None:
 
     with pytest.raises(ValueError, match="source_certificates"):
         validate_finite_results_summary_artifact(summary)
+
+
+def test_summary_validation_accepts_source_line_ending_only_changes(tmp_path: Path) -> None:
+    source_path = tmp_path / "n3_certificate.json"
+    lf_source = CHECKED_ARTIFACT_PATHS[0].read_bytes().replace(b"\r\n", b"\n").replace(
+        b"\r", b"\n"
+    )
+    source_path.write_bytes(lf_source)
+    summary = build_finite_results_summary(
+        [source_path],
+        created_at_utc=FIXED_CREATED_AT,
+        command_summary="test fixed summary",
+    )
+
+    source_path.write_bytes(lf_source.replace(b"\n", b"\r\n"))
+
+    validate_finite_results_summary_artifact(summary)
 
 
 def test_summary_validation_detects_tampered_candidate_content(checked_summary: dict) -> None:

@@ -26,10 +26,10 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install package and test dependencies
+      - name: Install package, test, and crosscheck dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e ".[test]"
+          python -m pip install -e ".[test,crosscheck]"
 
       - name: Run full test suite
         run: python -m pytest

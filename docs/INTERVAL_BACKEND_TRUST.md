@@ -82,7 +82,7 @@ The repository tests check that:
   stale summaries or tampered embedded verifier metadata;
 - checked `n=3,4,5,6` finite certificates reload through semantic validators;
 - the checked finite-results summary reloads its source certificates, recomputes
-  source hashes and derived content, and rejects stale summaries;
+  source content digests and derived content, and rejects stale summaries;
 - JSON Schema tests validate the structural contract for checked examples.
 
 ## What Has Not Been Proved
