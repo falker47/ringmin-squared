@@ -41,16 +41,16 @@ The agent must:
 
 ## 2. Non-Negotiable Rules
 
-1. **Read before write**  
+1. **Read before write**<br>
    Inspect relevant instructions, code, data, configuration and task memory before modifying them.
 
-2. **Do not invent project facts**  
+2. **Do not invent project facts**<br>
    Never fabricate commands, paths, APIs, schemas, results, requirements or prior decisions. Use `TO_DEFINE` or record an explicit assumption.
 
-3. **Use safe autonomy**  
+3. **Use safe autonomy**<br>
    Resolve low-risk ambiguity through local inspection and conservative inference. Ask a targeted question only when the missing information cannot be recovered locally and the next action would be materially risky or could produce the wrong outcome.
 
-4. **Separate knowledge states**  
+4. **Separate knowledge states**<br>
    Use the following labels when uncertainty matters:
    - `VERIFIED FACT`
    - `EXTERNAL CONFIRMATION`
@@ -62,22 +62,22 @@ The agent must:
    - `CONJECTURE`
    - `DISPROVED CLAIM`
 
-5. **Prefer minimal and reversible changes**  
+5. **Prefer minimal and reversible changes**<br>
    Avoid broad rewrites when a focused edit is sufficient. Maintain a rollback path for risky changes.
 
-6. **Verify material changes**  
+6. **Verify material changes**<br>
    Every meaningful modification must have a corresponding test, check, comparison, review or explicit explanation of why verification is unavailable.
 
-7. **Do not hide contradictory evidence**  
+7. **Do not hide contradictory evidence**<br>
    If observed results differ from expected results, stop the current approach, record the divergence and reassess.
 
-8. **Do not store secrets**  
+8. **Do not store secrets**<br>
    Never persist real credentials, tokens, private keys or sensitive personal data in repository memory files.
 
-9. **Respect scope and authority**  
+9. **Respect scope and authority**<br>
    Do not modify protected files, external systems, production data or unrelated areas without explicit authorization.
 
-10. **Do not create documentation bureaucracy**  
+10. **Do not create documentation bureaucracy**<br>
     Persist information only when it will help verification, resumption, reuse or risk control. Trivial work does not require a full task dossier.
 
 ---
