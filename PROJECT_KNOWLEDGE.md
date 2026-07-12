@@ -16,7 +16,7 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - VERIFIED FACT: upstream inspected commit is `cc0327400819fe06b230d967cdcbafffe1648317`.
 - RULE: Ringmin is prior work and a read-only upstream reference. No Ringmin theorem, implementation assumption, or structural pattern automatically transfers to quadratic radii.
 
-## Definitions And Conjectures
+## Definitions And Disproved Targets
 
 - DEFINITION: peripheral radii are \(r_k=k^2\), for \(k=1,\dots,n\).
 - DEFINITION: \(R_2^*(n)\) is the minimum feasible central radius for externally tangent peripheral circles with pairwise disjoint interiors.
@@ -40,20 +40,28 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   {\sqrt{(R+i^2)(R+j^2)}}
   \right).
   \]
-- CONJECTURE: the principal research target is
+- DISPROVED CLAIM: the former principal research target
   \[
   R_2^*(n)=\frac{n^3}{6\pi}(1+o(1)).
   \]
-- UNRESOLVED CLAIM: a possible stronger target is
+- DISPROVED CLAIM: the former stronger target
   \[
   R_2^*(n)=\frac{n^3}{6\pi}+O(n^2).
   \]
 - HEURISTIC: in the expected regime \(R\asymp n^3\), \(\theta_R(i^2,j^2)\approx 2ij/R\).
-- HEURISTIC: a Supnick-type or alternating chain may suggest a leading adjacent weight of order \(\sum ij\sim n^3/6\).
+- WARNING: any heuristic leading to the former \(n^3/(6\pi)\) scale is insufficient as an asymptotic target because the induced-subset lower bound proves \(\liminf 6\pi R_2^*(n)/n^3\ge 4(\sqrt2-1)>1\).
 - RULE: all-pairs non-overlap constraints are part of the problem, not merely adjacent-pair constraints.
 
 ## All-n Lower Bound
 
+- EXACT THEOREM: for every finite index set \(S\) with \(|S|\ge 3\), every cyclic order \(\tau\) of \(S\), and the sorted duplicated multiset \(M_S=\{x_1\le\cdots\le x_{2|S|}\}\),
+  \[
+  \sum_\ell \tau_\ell\tau_{\ell+1}
+  \ge
+  \sum_{\ell=1}^{|S|}x_\ell x_{2|S|+1-\ell}.
+  \]
+  The proof is the rearrangement pairing lower bound applied to the duplicated multiset of indices.
+- EXACT THEOREM: for every all-pairs feasible Power-Ringmin configuration and every subset \(S\) of at least three indices, the induced cyclic order on \(S\) has positive gaps summing to \(2\pi\), and each induced adjacent gap is at least the corresponding \(\theta_R(i^2,j^2)\).
 - EXACT THEOREM: for every cyclic order \(\sigma\) of \(\{1,\dots,n\}\),
   \[
   \sum_{k=1}^n \sigma_k\sigma_{k+1}
@@ -65,13 +73,25 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \[
   R_2^*(n)\ge \frac{n(n+1)(n+2)}{6\pi}-n^2.
   \]
+- EXACT THEOREM: for every \(n\ge 4\) and \(1\le m\le n-2\),
+  \[
+  R_2^*(n)\ge \frac{P_{m,n}}{\pi}-n^2,
+  \qquad
+  P_{m,n}
+  =
+  \sum_{k=m}^n k(m+n-k)
+  =
+  \frac{(n-m+1)(m^2+4mn+m+n^2-n)}{6}.
+  \]
 - EXACT THEOREM:
   \[
-  \liminf_{n\to\infty}\frac{6\pi R_2^*(n)}{n^3}\ge 1.
+  \liminf_{n\to\infty}\frac{6\pi R_2^*(n)}{n^3}\ge 4(\sqrt2-1)>1.
   \]
-- VERIFIED FACT: `research/ALL_N_LOWER_BOUND.md` records the self-contained proof, including the domain \(n\ge 3\), the geometry-to-adjacent-gap passage, the angular inequality \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\), and the role of non-adjacent constraints.
-- INTERPRETATION: the lower bound uses only adjacent consequences of all-pairs feasibility. Non-adjacent constraints are not needed for this lower bound, but they remain necessary for any matching upper-bound construction.
-- INTERPRETATION: this proves the lower asymptotic inequality only; it does not prove exact optima, a matching upper bound, or \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
+- VERIFIED FACT: `research/ALL_N_LOWER_BOUND.md` records the self-contained proof, including the subset-induced cyclic-gap passage, the consecutive-subset formula \(P_{m,n}\), the rounded asymptotic choice \(m=\lceil(\sqrt2-1)n\rceil\), the angular inequality \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\), and a gap/counterexample audit.
+- INTERPRETATION: the induced-subset lower bound uses only necessary consequences of all-pairs feasibility; it does not require constructing a feasible order or controlling all non-adjacent constraints for an upper bound.
+- INTERPRETATION: this proves a strict lower obstruction above the former \(n^3/(6\pi)\) target; it does not prove exact optima, a matching upper bound, or an exact asymptotic constant.
+- DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
+- DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 
 ## Verified Computational Machinery
 
@@ -120,7 +140,7 @@ The following checked artifacts are classified as COMPUTER-CERTIFIED RESULT unde
 | 6 | 60 | `8.4678350760883720482752323732711374759674072265625` | `8.4680350760883715821591977146454155445098876953125` | `examples/small_n_interval_certificate_n6.json` | finite `n` only; no exact optimum, all-`n` theorem, or asymptotic claim; guarded `mpmath.iv` backend provenance remains a limitation |
 
 - INTERPRETATION: these finite brackets do not prove exact optimum values; each strict lower endpoint is excluded and each upper endpoint is certified feasible under the artifact semantics.
-- INTERPRETATION: these finite brackets do not prove the conjecture \(R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))\).
+- INTERPRETATION: these finite brackets do not prove exact optima or asymptotic claims; the disproof of the former \(n^3/(6\pi)\) target comes from the all-\(n\) induced-subset theorem, not from finite certificates.
 
 Candidate-set extraction uses the following finite-certificate semantics.
 
@@ -145,7 +165,7 @@ Candidate-set extraction uses the following finite-certificate semantics.
 ## Empirical Structural Questions
 
 - OPEN QUESTION: can tighter brackets or independent methods reduce the multiple certified candidate sets for `n=5` and `n=6`?
-- OPEN QUESTION: how do the checked finite brackets compare numerically with \(\frac{n^3}{6\pi}\) at small `n`?
+- OPEN QUESTION: how do the checked finite brackets compare numerically with the induced-subset lower obstruction at small `n`?
 - OPEN QUESTION: do the checked finite cases suggest stable optimal-order representatives, floating-circle regimes, or contact structures that can be formulated as conjectures?
 
 ## Candidate Critical-Structure Analysis
@@ -163,10 +183,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
 
 ## Current Research Roadmap
 
-- VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate sets and exclusion gaps, critical-cycle diagnostics, weak-constraint observations, verifier limitations, CI status, combinatorial growth, and the target asymptotic conjecture.
-- INTERPRETATION: the highest-value next task is a reduced-core fixed-order analysis on the existing checked `n=5,6` candidate orders, not automatic `n=7` enumeration.
+- VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate sets and exclusion gaps, critical-cycle diagnostics, weak-constraint observations, verifier limitations, CI status, combinatorial growth, and the induced-subset lower-bound disproof of the former \(n^3/(6\pi)\) target.
+- INTERPRETATION: the highest-value next research direction is to understand possible upper-bound scales and structured feasible families above the new lower obstruction, not automatic `n=7` enumeration.
 - CONJECTURE: the most promising structural lemma is a reduced-core insertion statement: a leading all-pairs fixed-order subsystem is supported on indices `2..n`, while index `1` can be inserted with only lower-order or slack constraints.
-- OPEN QUESTION: can a structured order family and gap allocation satisfy all non-adjacent constraints at radius \(n^3/(6\pi)+O(n^2)\) or \((1+o(1))n^3/(6\pi)\), giving a matching upper bound?
+- OPEN QUESTION: can a structured order family and gap allocation satisfy all non-adjacent constraints at a radius scale compatible with the induced-subset lower obstruction, giving any matching upper bound?
 - RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
 
 ## Open Proof Obligations And Limitations
@@ -176,7 +196,7 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: finite computation for `n=3..6` is not proof for all `n`.
 - LIMITATION: no exact optimum value has been proved in this repository.
 - LIMITATION: no matching upper bound has been proved in this repository.
-- LIMITATION: no asymptotic equality theorem has been proved in this repository.
+- LIMITATION: no exact asymptotic leading constant or asymptotic equality theorem has been proved in this repository.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.
 
 ## Evidence Classification Rules

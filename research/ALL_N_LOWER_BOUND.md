@@ -1,4 +1,4 @@
-# All-n Adjacent-Product Lower Bound
+# All-n Induced-Subset Lower Bound
 
 Date: 2026-07-12
 
@@ -8,13 +8,35 @@ Date: 2026-07-12
   \[
   R_2^*(n)\ge {n(n+1)(n+2)\over 6\pi}-n^2.
   \]
+- EXACT THEOREM: if \(n\ge 4\) and \(1\le m\le n-2\), then
+  \[
+  R_2^*(n)\ge {P_{m,n}\over \pi}-n^2,
+  \]
+  where
+  \[
+  P_{m,n}
+  =
+  \sum_{k=m}^n k(m+n-k)
+  =
+  {(n-m+1)(m^2+4mn+m+n^2-n)\over 6}.
+  \]
 - EXACT THEOREM:
   \[
-  \liminf_{n\to\infty}{6\pi R_2^*(n)\over n^3}\ge 1.
+  \liminf_{n\to\infty}{6\pi R_2^*(n)\over n^3}
+  \ge
+  4(\sqrt2-1)>1.
+  \]
+- DISPROVED CLAIM:
+  \[
+  R_2^*(n)= {n^3\over 6\pi}(1+o(1)).
+  \]
+- DISPROVED CLAIM:
+  \[
+  R_2^*(n)= {n^3\over 6\pi}+O(n^2).
   \]
 
-These statements use only the defining all-pairs feasibility condition through
-its adjacent-pair consequences. They do not prove a matching upper bound.
+The lower-bound proof uses only necessary consequences of all-pairs feasibility.
+It does not prove an exact leading constant or any matching upper bound.
 
 ## Domain And Definitions
 
@@ -45,123 +67,130 @@ opposite; three or more distinct peripheral circles cannot all be pairwise
 opposite. Hence every feasible configuration relevant to \(R_2^*(n)\) has
 \(R>0\), and the displayed angular formula applies.
 
-If a feasible configuration has cyclic index order
+## Combinatorial Pairing Lemma
+
+Lemma. Let
 \[
-\sigma=(\sigma_1,\dots,\sigma_n),
+S=\{s_1<s_2<\cdots<s_q\}
 \]
-indices are read modulo \(n\), so \(\sigma_{n+1}=\sigma_1\).
-
-## Combinatorial Lemma
-
-Lemma. For every cyclic order \(\sigma\) of \(\{1,\dots,n\}\),
+be a set of \(q\ge 3\) positive indices. Let
 \[
-\sum_{k=1}^n \sigma_k\sigma_{k+1}
+M_S=\{s_1,s_1,s_2,s_2,\dots,s_q,s_q\}
+\]
+be sorted as
+\[
+x_1\le x_2\le \cdots\le x_{2q}.
+\]
+For every cyclic order \(\tau=(\tau_1,\dots,\tau_q)\) of \(S\),
+\[
+\sum_{\ell=1}^q \tau_\ell\tau_{\ell+1}
 \ge
-{n(n+1)(n+2)\over 6}.
+\sum_{\ell=1}^q x_\ell x_{2q+1-\ell},
 \]
+with \(\tau_{q+1}=\tau_1\).
 
 Proof. First recall the standard rearrangement pairing form. Let
 \[
-x_1\le x_2\le \cdots \le x_{2m}
+x_1\le x_2\le \cdots \le x_{2q}
 \]
-be nonnegative real numbers. Among all partitions of these \(2m\) entries into
-\(m\) unordered pairs, the sum of pair-products is minimized by pairing the
+be nonnegative real numbers. Among all partitions of these \(2q\) entries into
+\(q\) unordered pairs, the sum of pair-products is minimized by pairing the
 smallest entry with the largest, the second-smallest with the second-largest,
 and so on:
 \[
-\sum_{\{p,q\}}x_px_q
+\sum_{\{p,r\}}x_px_r
 \ge
-\sum_{p=1}^m x_p x_{2m+1-p}.
+\sum_{\ell=1}^q x_\ell x_{2q+1-\ell}.
 \]
 Indeed, in a minimizing pairing, if \(x_1\) is paired with \(x_j\) and
-\(x_{2m}\) is paired with \(x_k\), where \(j<2m\), replacing those two pairs by
-\(\{x_1,x_{2m}\}\) and \(\{x_j,x_k\}\) changes the product sum by
+\(x_{2q}\) is paired with \(x_k\), where \(j<2q\), replacing those two pairs by
+\(\{x_1,x_{2q}\}\) and \(\{x_j,x_k\}\) changes the product sum by
 \[
-\bigl(x_1x_j+x_kx_{2m}\bigr)
+\bigl(x_1x_j+x_kx_{2q}\bigr)
 -
-\bigl(x_1x_{2m}+x_kx_j\bigr)
+\bigl(x_1x_{2q}+x_kx_j\bigr)
 =
-(x_k-x_1)(x_{2m}-x_j)\ge 0.
+(x_k-x_1)(x_{2q}-x_j)\ge 0.
 \]
-Thus some minimum has \(x_1\) paired with \(x_{2m}\), and induction gives the
+Thus some minimum has \(x_1\) paired with \(x_{2q}\), and induction gives the
 claim.
 
-Apply this to the sorted multiset
-\[
-M_n=\{1,1,2,2,\dots,n,n\}.
-\]
-The \(n\) adjacent edges of the cycle \(\sigma\) use exactly two copies of every
-index, so they define a partition of \(M_n\) into \(n\) pairs, with product sum
-\(\sum_k\sigma_k\sigma_{k+1}\). Therefore this cyclic product sum is bounded
-below by the anti-sorted pairing sum for \(M_n\).
+The \(q\) adjacent edges of the cycle \(\tau\) use exactly two copies of every
+index in \(S\), so they define a partition of \(M_S\) into \(q\) pairs, with
+product sum \(\sum_\ell\tau_\ell\tau_{\ell+1}\). The rearrangement pairing
+bound applies to that partition. The argument is a relaxation: it allows
+pairings that need not be realizable as a Hamiltonian cycle, so equality is not
+asserted.
 
-If \(n=2m\), this anti-sorted sum is
+For \(S=\{1,\dots,n\}\), this gives the older full-index bound
 \[
-2\sum_{i=1}^m i(2m+1-i)
-=
-{n(n+1)(n+2)\over 6}.
+\sum_{k=1}^n \sigma_k\sigma_{k+1}
+\ge
+{n(n+1)(n+2)\over 6}
 \]
-If \(n=2m-1\), it is
-\[
-2\sum_{i=1}^{m-1} i(2m-i)+m^2
-=
-{n(n+1)(n+2)\over 6}.
-\]
-This proves the lemma. The argument is a relaxation: it allows pairings that
-need not be realizable as a Hamiltonian cycle, so equality is not asserted.
+for every cyclic order \(\sigma\) of \(\{1,\dots,n\}\).
 
-## Geometry To Adjacent Gaps
+## Geometry To Induced Subset Gaps
 
 Consider any feasible Power-Ringmin configuration for \(n\ge 3\) with central
-radius \(R\). Let the peripheral centers be ordered by their polar angles around
+radius \(R\). Let \(S\subseteq\{1,\dots,n\}\) have cardinality \(q\ge 3\).
+Order only the centers whose indices lie in \(S\) by their polar angles around
 the central center:
 \[
-\sigma_1,\dots,\sigma_n.
+\tau_1,\dots,\tau_q.
 \]
 Coincident polar angles cannot occur in a feasible configuration, since two
 distinct peripheral centers on the same ray have distance
-\(|i^2-j^2|<i^2+j^2\). Let
+\(|i^2-j^2|<i^2+j^2\). Therefore the induced cyclic order is well-defined.
+
+Let
 \[
-\delta_k\in(0,2\pi),\qquad k=1,\dots,n,
+\Delta_\ell\in(0,2\pi),\qquad \ell=1,\dots,q,
 \]
-be the positive oriented angular gaps between consecutive centers in this
-cyclic order. Then
+be the positive oriented angular gaps between consecutive \(S\)-centers in
+this induced cyclic order. Each \(\Delta_\ell\) may contain centers whose
+indices are not in \(S\), but the induced gaps still partition the full turn:
 \[
-\sum_{k=1}^n\delta_k=2\pi.
+\sum_{\ell=1}^q \Delta_\ell=2\pi.
 \]
 
-For the adjacent pair \(i=\sigma_k\), \(j=\sigma_{k+1}\), all-pairs feasibility
-includes the non-overlap condition for this pair. Their center distance must be
-at least \(i^2+j^2\). By the law of cosines, with central gap \(\delta_k\),
-this condition is equivalent to
+For the induced adjacent pair \(i=\tau_\ell\), \(j=\tau_{\ell+1}\), all-pairs
+feasibility of the original configuration includes the non-overlap condition
+for this pair. Their center distance must be at least \(i^2+j^2\). By the law
+of cosines, with oriented central gap \(\Delta_\ell\), this condition is
+equivalent to
 \[
-\sin^2{\delta_k\over 2}
+\sin^2{\Delta_\ell\over 2}
 \ge
 {i^2j^2\over (R+i^2)(R+j^2)}.
 \]
-Since \(R>0\), the right side is in \((0,1)\). Let
+Since \(R>0\), the right side is in \((0,1)\). With
 \[
 \theta_R(i^2,j^2)
 =
 2\arcsin\left({ij\over \sqrt{(R+i^2)(R+j^2)}}\right)
-\in(0,\pi).
+\in(0,\pi),
 \]
-For \(\delta_k\in(0,2\pi)\), the last sine inequality implies
+the sine inequality and \(\Delta_\ell\in(0,2\pi)\) imply
 \[
-\delta_k\in[\theta_R(i^2,j^2),\,2\pi-\theta_R(i^2,j^2)],
+\Delta_\ell\in[\theta_R(i^2,j^2),\,2\pi-\theta_R(i^2,j^2)],
 \]
 and in particular
 \[
-\delta_k\ge \theta_R(i^2,j^2).
+\Delta_\ell\ge \theta_R(i^2,j^2).
 \]
-Summing over adjacent gaps gives the adjacent-chain lower bound
+Summing over induced adjacent gaps gives
 \[
 2\pi
 =
-\sum_{k=1}^n\delta_k
+\sum_{\ell=1}^q\Delta_\ell
 \ge
-\sum_{k=1}^n\theta_R(\sigma_k^2,\sigma_{k+1}^2).
+\sum_{\ell=1}^q\theta_R(\tau_\ell^2,\tau_{\ell+1}^2).
 \]
+
+This is the key strengthening over the full-cycle argument: the same adjacent
+gap inequality applies to every induced subset \(S\), not only to
+\(\{1,\dots,n\}\).
 
 ## Angular Inequality
 
@@ -184,61 +213,204 @@ Therefore
 {2ij\over R+n^2}.
 \]
 
-## Lower Bound For \(R_2^*(n)\)
+## Lower Bound From An Arbitrary Subset
 
-Combining the adjacent-gap inequality, the angular inequality, and the
-combinatorial lemma,
+Let \(S\subseteq\{1,\dots,n\}\) have \(q\ge 3\) indices, and let
+\[
+A(S)=\sum_{\ell=1}^q x_\ell x_{2q+1-\ell}
+\]
+be the anti-sorted pairing sum for the duplicated sorted multiset
+\(M_S=\{x_1,\dots,x_{2q}\}\). Combining the induced-gap inequality, the angular
+inequality, and the pairing lemma gives
 \[
 2\pi
 \ge
-\sum_{k=1}^n\theta_R(\sigma_k^2,\sigma_{k+1}^2)
+\sum_{\ell=1}^q\theta_R(\tau_\ell^2,\tau_{\ell+1}^2)
 \ge
 {2\over R+n^2}
-\sum_{k=1}^n\sigma_k\sigma_{k+1}
+\sum_{\ell=1}^q\tau_\ell\tau_{\ell+1}
 \ge
-{2\over R+n^2}\,{n(n+1)(n+2)\over 6}.
+{2A(S)\over R+n^2}.
 \]
 Hence every feasible central radius \(R\) satisfies
 \[
-R+n^2\ge {n(n+1)(n+2)\over 6\pi},
+R\ge {A(S)\over\pi}-n^2.
 \]
-or
-\[
-R\ge {n(n+1)(n+2)\over 6\pi}-n^2.
-\]
-Taking the infimum, and therefore also the minimum when the minimum is known to
-exist, gives
+Taking the infimum over feasible \(R\) gives the same bound for \(R_2^*(n)\).
+
+For \(S=\{1,\dots,n\}\), \(A(S)=n(n+1)(n+2)/6\), recovering
 \[
 R_2^*(n)\ge {n(n+1)(n+2)\over 6\pi}-n^2
-\qquad(n\ge 3).
+\qquad(n\ge 3),
 \]
-
-Finally,
-\[
-{6\pi R_2^*(n)\over n^3}
-\ge
-{n(n+1)(n+2)\over n^3}-{6\pi\over n}
-=
-1+{3\over n}+{2\over n^2}-{6\pi\over n},
-\]
-so
+and therefore the older consequence
 \[
 \liminf_{n\to\infty}{6\pi R_2^*(n)\over n^3}\ge 1.
 \]
 
-## Role Of Non-Adjacent Constraints
+## Consecutive Large-Index Subsets
 
-This lower bound is valid because every all-pairs feasible configuration is, in
-particular, adjacent-pair feasible along its cyclic order. The proof deliberately
-relaxes the full problem to adjacent gaps only; relaxing constraints can only
-make lower bounds weaker, not invalid.
-
-The same relaxation is not enough for a matching upper bound. To prove
+Now specialize to
 \[
-R_2^*(n)\le {n^3\over 6\pi}(1+o(1))
+S=\{m,m+1,\dots,n\},
+\qquad
+1\le m\le n-2.
 \]
-or the stronger \(n^3/(6\pi)+O(n^2)\) target, one must construct actual
-placements or fixed-order angle variables satisfying all non-adjacent pair
-constraints as well as adjacent ones. In other words, non-adjacent checks are
-not needed for this lower bound, but they remain the main obstruction for the
-matching upper-bound direction.
+The anti-sorted pairing of
+\[
+\{m,m,m+1,m+1,\dots,n,n\}
+\]
+pairs \(k\) with \(m+n-k\), counting both copies through the sum over
+\(k=m,\dots,n\). Thus
+\[
+P_{m,n}
+=
+A(\{m,\dots,n\})
+=
+\sum_{k=m}^n k(m+n-k).
+\]
+
+Let \(q=n-m+1\). Since
+\[
+\sum_{k=m}^n k = {q(m+n)\over 2},
+\]
+and
+\[
+\sum_{k=m}^n k^2
+=
+{n(n+1)(2n+1)-(m-1)m(2m-1)\over 6},
+\]
+we get
+\[
+\begin{aligned}
+P_{m,n}
+&=
+(m+n)\sum_{k=m}^n k-\sum_{k=m}^n k^2\\
+&=
+{(n-m+1)(m^2+4mn+m+n^2-n)\over 6}.
+\end{aligned}
+\]
+Therefore, for \(n\ge 4\) and \(1\le m\le n-2\),
+\[
+R_2^*(n)\ge {P_{m,n}\over \pi}-n^2.
+\]
+
+## Asymptotic Optimization
+
+Let
+\[
+m=\alpha n+O(1),
+\qquad 0\le \alpha<1.
+\]
+Using the closed form for \(P_{m,n}\),
+\[
+P_{m,n}
+=
+{(1-\alpha)(\alpha^2+4\alpha+1)\over 6}\,n^3
++O(n^2).
+\]
+Define
+\[
+\phi(\alpha)
+=
+{(1-\alpha)(\alpha^2+4\alpha+1)\over 6}.
+\]
+Then
+\[
+\phi'(\alpha)
+=
+{1-2\alpha-\alpha^2\over 2},
+\qquad
+\phi''(\alpha)=-(1+\alpha)<0.
+\]
+The unique maximum on \([0,1]\) is therefore
+\[
+\alpha_0=\sqrt2-1.
+\]
+At this value,
+\[
+\alpha_0^2+4\alpha_0+1=2\sqrt2,
+\qquad
+1-\alpha_0=2-\sqrt2,
+\]
+so
+\[
+\phi(\alpha_0)
+=
+{2(\sqrt2-1)\over 3}.
+\]
+
+The rounding is harmless and explicit. Choose
+\[
+m_n=\lceil(\sqrt2-1)n\rceil
+=(\sqrt2-1)n+\varepsilon_n,
+\qquad 0\le\varepsilon_n<1.
+\]
+For \(n\ge 4\), this gives \(1\le m_n\le n-2\). Substituting
+\(m_n=(\sqrt2-1)n+\varepsilon_n\) into the exact formula gives
+\[
+P_{m_n,n}
+=
+{2(\sqrt2-1)\over 3}n^3
++(\sqrt2-1)n^2
++{ -3\sqrt2\,\varepsilon_n^2+6\varepsilon_n+\sqrt2-2\over 6}\,n
++{(1-\varepsilon_n)(\varepsilon_n^2+\varepsilon_n)\over 6}.
+\]
+Because \(0\le\varepsilon_n<1\), the last two terms are \(O(n)\), uniformly in
+\(n\). Hence
+\[
+P_{m_n,n}
+=
+{2(\sqrt2-1)\over 3}n^3+O(n^2),
+\]
+and the induced-subset lower bound gives
+\[
+R_2^*(n)
+\ge
+{2(\sqrt2-1)\over 3\pi}n^3
+-O(n^2).
+\]
+Consequently,
+\[
+\liminf_{n\to\infty}{6\pi R_2^*(n)\over n^3}
+\ge
+4(\sqrt2-1)>1.
+\]
+
+This contradicts any asymptotic formula whose normalized ratio
+\(6\pi R_2^*(n)/n^3\) tends to \(1\). Therefore
+\[
+R_2^*(n)= {n^3\over 6\pi}(1+o(1))
+\]
+is a disproved claim. The stronger target
+\[
+R_2^*(n)= {n^3\over 6\pi}+O(n^2)
+\]
+is also a disproved claim, since it would also force the normalized ratio to
+tend to \(1\).
+
+## Gap And Counterexample Audit
+
+- The induced gaps are valid even when skipped non-\(S\) centers lie inside
+  them: they are positive oriented arcs between consecutive \(S\)-centers and
+  still sum to \(2\pi\).
+- The induced adjacent endpoints need not be adjacent in the full order. This
+  is not a gap, because all-pairs feasibility applies directly to every pair of
+  endpoints in the original configuration.
+- The sine condition gives both
+  \(\Delta_\ell\ge\theta_R(i^2,j^2)\) and
+  \(\Delta_\ell\le2\pi-\theta_R(i^2,j^2)\). The lower-bound proof uses only
+  the first inequality.
+- The pairing lemma is a relaxation over all pair partitions of the duplicated
+  subset multiset. Relaxing the cyclic-order constraint can only lower the
+  product sum used in a necessary lower bound, so it cannot invalidate the
+  lower bound.
+- The angular inequality uses \(R+n^2\), the largest radius scale in the full
+  \(n\)-circle instance. This is weaker than using the maximum index in a
+  smaller subset, but it is valid for all \(i,j\le n\) and is exactly what is
+  needed for \(S=\{m,\dots,n\}\).
+- The asymptotic optimization uses an integer choice
+  \(m_n=\lceil(\sqrt2-1)n\rceil\) with an explicit bounded rounding parameter
+  \(\varepsilon_n\). No real-valued \(m\) is used as an index.
+- This proof does not supply a matching upper bound and must not be described
+  as identifying the exact asymptotic leading constant.
