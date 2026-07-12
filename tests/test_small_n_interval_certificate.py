@@ -41,6 +41,7 @@ def test_small_n_interval_certificate_schema_contract_and_examples() -> None:
     for path in (
         Path("examples/small_n_interval_certificate_n3.json"),
         Path("examples/small_n_interval_certificate_n4.json"),
+        Path("examples/small_n_interval_certificate_n5.json"),
     ):
         artifact = json.loads(path.read_text(encoding="utf-8"))
         validate_small_n_interval_certificate_artifact(artifact)
@@ -371,6 +372,23 @@ def test_checked_n4_interval_certificate_artifact_loads() -> None:
     ]
     assert artifact["result"]["global_lower_bound"]["source_index_order"] == [4, 1, 3, 2]
     assert artifact["result"]["global_upper_bound"]["source_index_order"] == [4, 1, 3, 2]
+    assert artifact["evidence"]["classification"] == "computer_certified_result"
+    assert artifact["evidence"]["claim"]["scope"] == "finite_global_small_n_interval_bracket"
+    assert "No theorem for all n." in artifact["evidence"]["limitations"]
+
+
+def test_checked_n5_interval_certificate_artifact_loads() -> None:
+    path = Path("examples/small_n_interval_certificate_n5.json")
+
+    loaded = load_small_n_interval_certificate_artifact(path)
+    artifact = loaded.to_dict()
+
+    assert loaded.n == 5
+    assert loaded.covered_canonical_count == 12
+    assert artifact["order_space"]["expected_canonical_count"] == 12
+    assert artifact["provenance"]["repository"]["git_dirty"] is False
+    assert artifact["result"]["global_lower_bound"]["source_index_order"] == [5, 1, 3, 4, 2]
+    assert artifact["result"]["global_upper_bound"]["source_index_order"] == [5, 1, 3, 4, 2]
     assert artifact["evidence"]["classification"] == "computer_certified_result"
     assert artifact["evidence"]["claim"]["scope"] == "finite_global_small_n_interval_bracket"
     assert "No theorem for all n." in artifact["evidence"]["limitations"]
