@@ -2,9 +2,10 @@
 
 This roadmap synthesizes the checked `n=3..6` certificates, candidate-set
 diagnostics, critical-structure analysis, the checked-artifact verification
-pipeline, and the induced-subset all-\(n\) lower bound.
+pipeline, the induced-subset all-\(n\) lower bound, and the exact eventual
+radius-one insertion theorem.
 
-As of 2026-07-12, the former asymptotic target
+As of 2026-07-13, the former asymptotic target
 \[
 R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))
 \]
@@ -25,7 +26,7 @@ not a proved exact asymptotic constant for Power-Ringmin.
 
 No upper-bound construction, leading-order LP, new finite certificate, `n=7`
 certificate, preflight artifact, or exhaustive enumeration was generated for
-this roadmap update.
+the radius-one theorem task.
 
 ## Evidence Basis
 
@@ -77,6 +78,15 @@ this roadmap update.
   For \(n\ge4\), the unique maximizer is \(\lfloor\rho_n\rfloor+1\) unless
   \(\rho_n\) is an integer, in which case the two maximizers are
   \(\rho_n\) and \(\rho_n+1\).
+- EXACT THEOREM: writing \(R^*_{2:n}\) for the infimum central radius of the
+  core radii \(2^2,\dots,n^2\),
+  \[
+  R_2^*(n)=R^*_{2:n}\qquad(n\ge12).
+  \]
+  The proof uses the exact forbidden-arc insertion criterion
+  \(\sum_{j=2}^n\theta_R(1,j^2)<\pi\), rigorous angular majorants, and the
+  configuration-level induced-subset lower bound. It proves equality of the
+  full and core feasible-radius sets and does not assume a minimizer.
 - VERIFIED FACT: `examples/finite_results_summary_n3_n6.json` derives
   candidate sets, exclusion gaps, repeated serialized bracket groups, and
   small-`n` ratios from the checked finite certificates.
@@ -114,13 +124,22 @@ this roadmap update.
    enumeration, and the integer characterization of the discrete maximizers.
    They are not the all-\(n\) proof.
 
+5. The former reduced-core observation now has an exact eventual consequence:
+   for \(n\ge12\), adding radius \(1\) does not change any feasible central
+   radius. This does not validate the finite lower-cycle proxy as an exact
+   contact graph, does not settle \(n\le11\), and is not based on the checked
+   cases \(n=5,6\).
+
 ## Updated Research Questions
 
 - OPEN QUESTION: what upper-bound construction, if any, matches the new
   induced-subset lower obstruction up to lower-order terms?
 - OPEN QUESTION: can the previous reduced-core observations at checked
-  `n=5,6` be reinterpreted under the induced-subset obstruction, or were they
-  artifacts of pursuing the former \(n^3/(6\pi)\) scale?
+  `n=5,6` be related to the exact feasible-radius-set equality for
+  \(n\ge12\), or are their lower-cycle proxies a separate finite phenomenon?
+- OPEN QUESTION: is \(12\) the least threshold for
+  \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
+  stronger exact estimates or counterexamples?
 - OPEN QUESTION: can one identify a structured order family and gap allocation
   whose all-pairs constraints are feasible at a radius scale consistent with
   the new lower bound?
@@ -132,10 +151,10 @@ this roadmap update.
 
 Immediate:
 
-- Revisit the reduced-core fixed-order observations only as structural
-  diagnostics, no longer as evidence for the disproved \(n^3/(6\pi)\) target.
 - Prove and document the fixed-order STN/geometric equivalence with certificate
   endpoint semantics.
+- Keep the exact radius-one theorem separate from finite critical-cycle proxy
+  claims and from any assumption that an optimum is attained.
 
 Next:
 
@@ -154,6 +173,9 @@ Later:
   multiple candidates at `n=5,6` if exact tie questions become important.
 - Consider larger finite certificates only after a structural prediction gives
   a precise discriminator.
+- Revisit whether the sufficient radius-one threshold can be lowered below
+  \(12\), using exact inequalities or a genuine counterexample rather than
+  finite-certificate extrapolation.
 
 Deliberately deferred:
 
@@ -165,6 +187,7 @@ Deliberately deferred:
   constant.
 - Diagnostic `n=3..6` comparison tables unless explicitly requested in a fresh
   task.
+- Any claim that the radius-one threshold \(12\) is minimal.
 
 ## Recommended Next Atomic Task
 

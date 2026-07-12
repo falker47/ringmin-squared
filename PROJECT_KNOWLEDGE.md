@@ -1,6 +1,6 @@
 # PROJECT_KNOWLEDGE - power-ringmin
 
-Last reviewed: 2026-07-12
+Last reviewed: 2026-07-13
 
 This file is stable durable project memory. Chronology, command transcripts, failed attempts, and task-local evidence belong in `ops/`.
 
@@ -19,7 +19,10 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 ## Definitions And Disproved Targets
 
 - DEFINITION: peripheral radii are \(r_k=k^2\), for \(k=1,\dots,n\).
-- DEFINITION: \(R_2^*(n)\) is the minimum feasible central radius for externally tangent peripheral circles with pairwise disjoint interiors.
+- DEFINITION: \(R_2^*(n)\) is the infimum feasible central radius for externally tangent peripheral circles with pairwise disjoint interiors.
+- DEFINITION: optimum-radius symbols are treated as infima unless attainment
+  has been proved. In particular, \(R^*_{2:n}\) is the infimum feasible
+  central radius for only the core radii \(2^2,\dots,n^2\).
 - DEFINITION: for peripheral radii \(r_i,r_j\) and central radius \(R\),
   \[
   \theta_R(r_i,r_j)
@@ -117,6 +120,39 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 
+## Exact Radius-One Insertion
+
+- EXACT THEOREM: for a feasible core configuration at central radius \(R>0\),
+  the circle of radius \(1\) can be inserted at the same radius whenever
+  \[
+  \sum_{j=2}^n\theta_R(1,j^2)<\pi.
+  \]
+  Each core circle forbids an open angular arc of measure
+  \(2\theta_R(1,j^2)\); subadditivity leaves an allowed angle, and the proof
+  explicitly verifies every new pair \((1,j^2)\), central tangency, and
+  preservation of all core-core constraints.
+- EXACT THEOREM: for \(R>0\) and \(j\ge2\),
+  \[
+  \theta_R(1,j^2)
+  <{2j\over\sqrt{R(R+j^2+1)}}
+  <{2j\over R}.
+  \]
+- EXACT THEOREM: the full and core feasible-radius sets are equal for every
+  \(n\ge12\). Consequently,
+  \[
+  R_2^*(n)=R^*_{2:n}\qquad(n\ge12),
+  \]
+  without assuming either infimum is attained.
+- VERIFIED FACT: `research/ALL_N_LOWER_BOUND.md` records the self-contained
+  insertion proof, exact rational boundary estimates for `n=12,13`, uniform
+  symbolic estimates for `n>=14`, the configuration-level core lower-bound
+  reuse, and the infimum audit.
+- INTERPRETATION: `12` is a sufficient explicit threshold, not a proved
+  minimal threshold. The argument gives no conclusion for `n<=11`.
+- INTERPRETATION: this exact theorem is independent of the checked `n=5,6`
+  candidate structures and does not turn lower negative cycles into exact
+  contact graphs.
+
 ## Verified Computational Machinery
 
 - VERIFIED FACT: the Python package import name is `power_ringmin`; package source is under `src/power_ringmin/`; tests are under `tests/`.
@@ -207,9 +243,12 @@ Candidate-set extraction uses the following finite-certificate semantics.
 
 ## Current Research Roadmap
 
-- VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate sets and exclusion gaps, critical-cycle diagnostics, weak-constraint observations, verifier limitations, CI status, combinatorial growth, and the induced-subset lower-bound disproof of the former \(n^3/(6\pi)\) target.
+- VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate sets and exclusion gaps, critical-cycle diagnostics, weak-constraint observations, verifier limitations, CI status, combinatorial growth, the induced-subset lower-bound disproof of the former \(n^3/(6\pi)\) target, and the exact eventual radius-one insertion theorem.
 - INTERPRETATION: the highest-value next research direction is to understand possible upper-bound scales and structured feasible families above the new lower obstruction, not automatic `n=7` enumeration.
-- CONJECTURE: the most promising structural lemma is a reduced-core insertion statement: a leading all-pairs fixed-order subsystem is supported on indices `2..n`, while index `1` can be inserted with only lower-order or slack constraints.
+- EXACT THEOREM: the reduced-core insertion question has an all-configuration
+  answer at the level of feasible radii for `n>=12`: index `1` can be inserted
+  without increasing the central radius. This does not assert a fixed-order
+  active-subsystem description or settle `n<=11`.
 - OPEN QUESTION: can a structured order family and gap allocation satisfy all non-adjacent constraints at a radius scale compatible with the induced-subset lower obstruction, giving any matching upper bound?
 - RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
 
@@ -222,6 +261,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: no matching upper bound has been proved in this repository.
 - LIMITATION: no exact asymptotic leading constant or asymptotic equality theorem has been proved in this repository.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.
+- LIMITATION: the sufficient radius-one threshold `12` is not known to be
+  minimal, and the exact equality question remains open for `n<=11`.
 
 ## Evidence Classification Rules
 

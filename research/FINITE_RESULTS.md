@@ -8,8 +8,8 @@ Primary machine-readable inputs:
 - `examples/finite_results_summary_n3_n6.json`
 - `ops/TASK-20260712__critical_constraints_order_structure/critical_structure_n3_n6.json`
 
-All-\(n\) lower-bound context is recorded separately in
-`research/ALL_N_LOWER_BOUND.md`. In particular, the coefficient
+All-\(n\) lower-bound and radius-one insertion context is recorded separately
+in `research/ALL_N_LOWER_BOUND.md`. In particular, the coefficient
 \(2(\sqrt2-1)/(3\pi)\) is now known to be optimal only for the specific
 relaxation based on induced subsets, duplicated-multiset pairing, and
 \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\). It is not an exact asymptotic constant
@@ -96,6 +96,34 @@ Heuristic rule used in the machine-readable output: an index is listed as possib
 
 These are heuristic or empirical labels only. They do not certify that circle `1` is non-incident with all active constraints, and they do not certify a floating circle.
 
+## Exact Eventual Radius-One Result
+
+The finite critical-cycle observations are now complemented by an independent
+all-configuration theorem.
+
+- EXACT THEOREM: if a core configuration on radii \(2^2,\dots,n^2\) is
+  feasible at radius \(R>0\) and
+  \[
+  \sum_{j=2}^n\theta_R(1,j^2)<\pi,
+  \]
+  then the circle of radius \(1\) can be inserted at the same central radius.
+  The proof bounds the union of all \(n-1\) open forbidden angular arcs and
+  checks every new pairwise constraint.
+- EXACT THEOREM: if \(R^*_{2:n}\) is the infimum for the core, then
+  \[
+  R_2^*(n)=R^*_{2:n}\qquad(n\ge12).
+  \]
+  More strongly, the full and core feasible-radius sets coincide for every
+  \(n\ge12\).
+- INTERPRETATION: the explicit threshold \(12\) is sufficient and is not
+  claimed minimal. The proof gives no conclusion for \(n\le11\).
+- INTERPRETATION: this theorem is not inferred from the checked \(n=5,6\)
+  candidates. It reuses the exact configuration-level induced-subset lower
+  bound and rigorous angular majorants.
+- WARNING: equality of the two infima does not prove that either infimum is
+  attained, identify an exact optimum value, or show that index \(1\) is absent
+  from every exact active-contact graph.
+
 ## Conjectures
 
 CONJECTURE 1: For the next checked multiple-candidate cases, at least one certified candidate group with identical or near-identical brackets will share a lower-cycle pair core supported entirely on indices `2..n`, with index `1` absent from that lower-cycle proxy.
@@ -121,6 +149,11 @@ Falsification: a later checked case has index `1` absent from the lower core and
 - Is there a symmetry or transformation between candidate orders not captured by the current rotation/reflection convention?
 - Can the reduced subsystem on indices `2..n` be expressed as a smaller exact geometric or STN problem?
 - Which slack proxy, if any, predicts exact active contacts after bracket widths are reduced?
+- Is the sufficient insertion threshold \(12\) minimal, or does
+  \(R_2^*(n)=R^*_{2:n}\) also hold for some or all \(n\le11\)?
+- Can the exact feasible-radius-set equality for \(n\ge12\) be reflected in a
+  useful fixed-order STN reduction without confusing it with the finite lower
+  negative-cycle proxy?
 
 ## Warnings
 
@@ -128,8 +161,8 @@ Falsification: a later checked case has index `1` absent from the lower core and
 - No exact tie has been proved between candidate orders.
 - The finite artifacts summarized here do not prove any all-`n` theorem,
   asymptotic equality theorem, matching upper bound, or exact leading constant.
-  The all-`n` induced-subset lower theorem is independent of these finite
-  certificates.
+  The all-`n` induced-subset lower theorem and the eventual radius-one
+  insertion theorem are independent of these finite certificates.
 - Lower negative cycles certify lower-endpoint infeasibility; they are not exact active contact graphs.
 - Upper-witness slacks are diagnostics at certified upper endpoints; positive slack is expected at finite bracket width.
 - The word "floating" is deliberately avoided as a certified claim.

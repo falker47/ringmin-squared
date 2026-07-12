@@ -1,6 +1,6 @@
-# All-n Induced-Subset Lower Bound
+# All-n Induced-Subset Lower Bound And Radius-One Insertion
 
-Date: 2026-07-12
+Date: 2026-07-13
 
 ## Classification
 
@@ -41,6 +41,22 @@ Date: 2026-07-12
   \ge
   4(\sqrt2-1)>1.
   \]
+- EXACT THEOREM: if a configuration of the core radii
+  \(2^2,\dots,n^2\) is feasible at central radius \(R>0\), then a circle of
+  radius \(1\) can be inserted at the same central radius whenever
+  \[
+  \sum_{j=2}^n\theta_R(1,j^2)<\pi.
+  \]
+  The proof uses the measure of the union of all forbidden angular arcs and
+  checks every new pairwise constraint.
+- EXACT THEOREM: define \(R^*_{2:n}\) as the infimum feasible central radius
+  for the core radii \(2^2,\dots,n^2\). Then
+  \[
+  R_2^*(n)=R^*_{2:n}\qquad(n\ge 12).
+  \]
+  In fact, for every \(n\ge12\), the full problem and the core problem have
+  exactly the same set of feasible positive central radii. The threshold
+  \(12\) is sufficient; no minimal-threshold claim is made.
 - DISPROVED CLAIM:
   \[
   R_2^*(n)= {n^3\over 6\pi}(1+o(1)).
@@ -61,6 +77,26 @@ Fix \(n\ge 3\). The Power-Ringmin radii are
 \[
 r_i=i^2,\qquad i=1,\dots,n.
 \]
+
+Let
+\[
+\mathcal F_n
+=
+\{R>0:\text{the radii }1^2,\dots,n^2\text{ are feasible at }R\}
+\]
+and
+\[
+\mathcal C_n
+=
+\{R>0:\text{the core radii }2^2,\dots,n^2\text{ are feasible at }R\}.
+\]
+In this note the optimum symbols mean infima:
+\[
+R_2^*(n)=\inf\mathcal F_n,
+\qquad
+R^*_{2:n}=\inf\mathcal C_n.
+\]
+No attainment assumption is used below.
 
 For a central radius \(R>0\), the minimum central angle needed between two
 peripheral circles of radii \(a,b>0\), both externally tangent to the central
@@ -528,6 +564,271 @@ R_2^*(n)= {n^3\over 6\pi}+O(n^2)
 is also a disproved claim, since it would also force the normalized ratio to
 tend to \(1\).
 
+## Exact Radius-One Insertion
+
+The following result turns the finite reduced-core observation into an exact
+eventual theorem. Its proof does not use the checked cases \(n=5,6\).
+
+### Forbidden-arc lemma
+
+Consider a feasible configuration of the core radii \(2^2,\dots,n^2\) at
+central radius \(R>0\). Let \(\phi_j\) be the polar angle of the center of the
+circle of radius \(j^2\). On the angular circle
+\(\mathbb T=\mathbb R/(2\pi\mathbb Z)\), let
+\(d_{\mathbb T}\in[0,\pi]\) denote circular distance and define
+\[
+B_j
+=
+\{\alpha\in\mathbb T:
+d_{\mathbb T}(\alpha,\phi_j)<\theta_R(1,j^2)\}.
+\]
+Because \(0<\theta_R(1,j^2)<\pi\), the set \(B_j\) is an open arc of angular
+measure \(2\theta_R(1,j^2)\). Hence
+\[
+\mu\!\left(\bigcup_{j=2}^n B_j\right)
+\le
+\sum_{j=2}^n\mu(B_j)
+=
+2\sum_{j=2}^n\theta_R(1,j^2).
+\]
+If the angular sum is less than \(\pi\), the union has measure less than
+\(2\pi\). Choose \(\alpha\) outside that union and place the new center at
+polar coordinates \((R+1,\alpha)\).
+
+This construction checks all constraints introduced by the new circle.
+
+1. Its center is at distance \(R+1\) from the central center, so the new circle
+   is externally tangent to the central circle.
+2. For every \(j=2,\dots,n\), put
+   \(\delta_j=d_{\mathbb T}(\alpha,\phi_j)\). Since
+   \(\alpha\notin B_j\), one has
+   \(\delta_j\ge\theta_R(1,j^2)\). The squared distance to the \(j\)-th
+   center is
+   \[
+   d_j^2
+   =
+   (j^2-1)^2
+   +4(R+1)(R+j^2)\sin^2(\delta_j/2).
+   \]
+   Because \(0\le\delta_j\le\pi\), the sine is increasing on the relevant
+   half-angle interval. By the definition of \(\theta_R\),
+   \[
+   d_j^2
+   \ge
+   (j^2-1)^2+4j^2
+   =
+   (j^2+1)^2.
+   \]
+   Thus every one of the \(n-1\) new peripheral pairwise constraints
+   \((1,j^2)\) holds; equality is permitted because tangent peripheral
+   circles have disjoint interiors.
+3. Every core-core pairwise constraint is unchanged.
+
+There are no other new constraints. This proves the insertion criterion.
+
+### Angular majorant
+
+For \(R>0\) and \(j\ge2\), set
+\[
+x={j\over\sqrt{(R+1)(R+j^2)}}
+\quad\text{and}\quad
+y=\arcsin x.
+\]
+Since \(0<y<\pi/2\), one has \(y<\tan y\). Also
+\[
+(R+1)(R+j^2)-j^2=R(R+j^2+1).
+\]
+Therefore
+\[
+\theta_R(1,j^2)
+=2\arcsin x
+< {2x\over\sqrt{1-x^2}}
+= {2j\over\sqrt{R(R+j^2+1)}}
+< {2j\over R}.
+\tag{1}
+\]
+In particular, with
+\[
+S_n=2\sum_{j=2}^n j=n(n+1)-2,
+\]
+equation (1) gives
+\[
+\sum_{j=2}^n\theta_R(1,j^2)<{S_n\over R}.
+\tag{2}
+\]
+
+We use the elementary rational bounds
+\[
+{31\over10}<\pi<{22\over7}.
+\tag{3}
+\]
+For completeness, the upper bound follows from the positive integral identity
+\[
+{22\over7}-\pi
+=
+\int_0^1{x^4(1-x)^4\over1+x^2}\,dx>0.
+\]
+For the lower bound, the perimeter of the regular dodecagon inscribed in the
+unit circle gives
+\[
+\pi>3(\sqrt6-\sqrt2)>{31\over10}.
+\]
+The last comparison is purely algebraic; after two squarings of positive
+quantities its strict margin is
+\(6239^2-3\cdot3600^2=45121>0\).
+
+### Configuration-level core lower bound
+
+The induced-subset theorem above must be reapplied to a core configuration;
+the scalar lower bound for the full optimum alone would not imply a lower
+bound for the smaller core optimum. If \(R\in\mathcal C_n\) and
+\(2\le m\le n-2\), apply the already-proved induced-gap and pairing argument
+to the tail \(\{m,m+1,\dots,n\}\), which is present in the core. It gives
+\[
+R\ge {P_{m,n}\over\pi}-n^2,
+\qquad
+P_{m,n}=\sum_{k=m}^n k(m+n-k).
+\tag{4}
+\]
+This is a statement about every feasible core configuration, not about an
+unattained infimum.
+
+### The boundary case \(n=12\)
+
+For \(m=6\), one has \(P_{6,12}=539\). Equations (3)--(4) give, for every
+\(R\in\mathcal C_{12}\),
+\[
+R\ge{539\over\pi}-144>{7\cdot539\over22}-144={55\over2}.
+\]
+Put \(R_0=55/2\). For \(j=2,\dots,12\), equation (1) is bounded at \(R_0\)
+by \(k_j/1000\), using the following exact integer checks. The first
+majorant in (1) is strictly decreasing in \(R\), so an upper bound at \(R_0\)
+also bounds every feasible \(R>R_0\).
+
+| \(j\) | \(k_j\) | \(k_j^2\,55(57+2j^2)-16{,}000{,}000j^2\) |
+|---:|---:|---:|
+| 2 | 134 | 192700 |
+| 3 | 187 | 247125 |
+| 4 | 229 | 698695 |
+| 5 | 261 | 892085 |
+| 6 | 285 | 291375 |
+| 7 | 304 | 3846400 |
+| 8 | 318 | 4936700 |
+| 9 | 329 | 7762845 |
+| 10 | 337 | 5297815 |
+| 11 | 344 | 10035520 |
+| 12 | 349 | 7173975 |
+
+Every margin is positive, which after squaring positive quantities proves
+\[
+{2j\over\sqrt{R_0(R_0+j^2+1)}}<{k_j\over1000}.
+\]
+Since \(\sum_{j=2}^{12}k_j=3077\),
+\[
+\sum_{j=2}^{12}\theta_R(1,j^2)
+<{3077\over1000}
+<{31\over10}
+<\pi.
+\tag{5}
+\]
+
+### The boundary case \(n=13\)
+
+Here \(P_{6,13}=680\), so every \(R\in\mathcal C_{13}\) satisfies
+\[
+R\ge{680\over\pi}-169>{521\over11}>47.
+\]
+For
+\[
+f_R(x)={x\over\sqrt{R+x^2+1}},
+\]
+one has \(f_R'(x)>0\). Hence the right-interval integral bound gives
+\[
+\sum_{j=2}^{13}f_R(j)
+\le
+\int_2^{14}f_R(x)\,dx
+=
+\sqrt{R+197}-\sqrt{R+5}.
+\]
+Combining this with (1) and rationalizing yields
+\[
+\sum_{j=2}^{13}\theta_R(1,j^2)
+<
+{384\over
+\sqrt{R(R+197)}+\sqrt{R(R+5)}}.
+\]
+For \(R>47\), the denominator is greater than
+\[
+\sqrt{47\cdot244}+\sqrt{47\cdot52}
+>107+49=156,
+\]
+because \(107^2<47\cdot244\) and \(49^2<47\cdot52\). Consequently
+\[
+\sum_{j=2}^{13}\theta_R(1,j^2)
+<{384\over156}
+={32\over13}
+<3
+<\pi.
+\tag{6}
+\]
+
+### Uniform estimate for \(n\ge14\)
+
+Let \(m=\lfloor n/2\rfloor\). If \(n=2t\), then
+\[
+P_{m,n}={t(t+1)(13t-1)\over6};
+\]
+if \(n=2t+1\), then
+\[
+P_{m,n}={t(t+2)(13t+7)\over6}.
+\]
+For \(t\ge7\), both cases satisfy
+\[
+P_{m,n}\ge {29\over7}n^2+n-2.
+\tag{7}
+\]
+Indeed, after multiplying the difference in (7) by \(42\) and putting
+\(u=t-7\ge0\), the even and odd cases respectively become
+\[
+91u^3+1299u^2+4718u+672>0
+\]
+and
+\[
+91u^3+1446u^2+6185u+3522>0.
+\]
+Using (3), (4), and (7), every \(R\in\mathcal C_n\) satisfies
+\[
+R
+\ge {P_{m,n}\over\pi}-n^2
+={P_{m,n}-\pi n^2\over\pi}
+>{S_n\over\pi}.
+\]
+Equation (2) therefore gives
+\[
+\sum_{j=2}^n\theta_R(1,j^2)<{S_n\over R}<\pi
+\qquad(n\ge14).
+\tag{8}
+\]
+
+### Equality of feasible-radius sets and infima
+
+Restriction of a full configuration to its core always gives
+\(\mathcal F_n\subseteq\mathcal C_n\). Conversely, equations (5), (6), and
+(8), followed by the forbidden-arc lemma, show that every
+\(R\in\mathcal C_n\) also belongs to \(\mathcal F_n\) when \(n\ge12\).
+Thus
+\[
+\mathcal F_n=\mathcal C_n\qquad(n\ge12).
+\]
+Taking infima of equal sets proves
+\[
+\boxed{R_2^*(n)=R^*_{2:n}\qquad(n\ge12)}.
+\]
+No core minimizer, full minimizer, or limiting configuration was assumed. The
+argument does not prove that \(12\) is the least possible threshold. The same
+chain of lower and upper bounds does not close \(n=11\), which is a limitation
+of this proof and not a counterexample to equality at \(n=11\).
+
 ## Gap And Counterexample Audit
 
 - The induced gaps are valid even when skipped non-\(S\) centers lie inside
@@ -560,3 +861,14 @@ tend to \(1\).
   as identifying the exact asymptotic leading constant for Power-Ringmin. The
   coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal only inside the relaxation
   explicitly analyzed above.
+- The radius-one theorem reapplies the configuration-level induced-subset
+  argument to a subset already present in the core. Inferring a core lower
+  bound only from the scalar full-problem lower bound would reverse the useful
+  implication and would be invalid.
+- The forbidden arcs are open and each has measure \(2\theta_R(1,j^2)\), not
+  \(\theta_R(1,j^2)\). Their union may overlap; subadditivity is all that is
+  needed.
+- The equality for \(n\ge12\) is an exact all-configuration theorem, not an
+  extrapolation from the checked cases \(n=5,6\).
+- The threshold \(12\) is sufficient and explicit, not claimed minimal. No
+  conclusion for \(n\le11\) follows from the failure of this proof chain.

@@ -18,7 +18,8 @@ Power-Ringmin studies the quadratic-radii extension of Ringmin. Given peripheral
 
 place all of them externally tangent to one central circle while requiring pairwise-disjoint peripheral interiors.
 
-Definition: \(R_2^*(n)\) is the minimum feasible central radius.
+Definition: \(R_2^*(n)\) is the infimum feasible central radius. No general
+attainment assumption is needed for the current theorems.
 
 The quadratic-radii computational foundation has been implemented. Checked finite interval certificate artifacts currently exist for `n=3,4,5,6`; they provide finite global radius brackets under the documented guarded `mpmath.iv` interval-backend contract.
 
@@ -60,6 +61,22 @@ governed by
 \]
 Thus \(2(\sqrt2-1)/(3\pi)\) is optimal only within this specific lower-bound
 relaxation, not necessarily for Power-Ringmin itself.
+
+There is also an exact eventual radius-one insertion theorem. Let
+\(R^*_{2:n}\) be the infimum feasible central radius for only the core radii
+\(2^2,\dots,n^2\). A core configuration at radius \(R\) admits insertion of
+the radius-\(1\) circle whenever
+\[
+\sum_{j=2}^n\theta_R(1,j^2)<\pi.
+\]
+Rigorous angular majorants combined with the configuration-level
+induced-subset lower bound prove
+\[
+R_2^*(n)=R^*_{2:n}\qquad(n\ge12).
+\]
+In fact, the full and core feasible-radius sets coincide in that range. The
+threshold \(12\) is sufficient and is not claimed minimal; the proof is
+independent of the checked cases \(n=5,6\).
 
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
@@ -159,6 +176,9 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \ge
   4(\sqrt2-1)>1.
   \]
+- EXACT THEOREM: if \(R^*_{2:n}\) denotes the core infimum, then
+  \(R_2^*(n)=R^*_{2:n}\) for every \(n\ge12\), with equality already at the
+  level of feasible-radius sets.
 - EXACT THEOREM: within the induced-subset plus duplicated-pairing plus
   \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\) relaxation, no nonconsecutive subset
   improves the tail bounds \(P_{m,n}\); the best discrete tail is characterized

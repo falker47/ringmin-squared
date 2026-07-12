@@ -1,118 +1,98 @@
 # CURRENT_STATUS - power-ringmin
 
-Last update: 2026-07-12
+Last update: 2026-07-13
 
-- **Current phase:** induced-subset lower-bound relaxation exactly characterized; exact Power-Ringmin asymptotic leading constant and matching upper bound remain open.
-- **Current task:** Characterize the extremal subset-pairing lower bound and its exact discrete maximizer.
-- **Task dossier:** `ops/TASK-20260712__subset_pairing_extremal_bound/`.
+- **Current phase:** exact eventual radius-one insertion proved; exact asymptotic leading constant, matching upper bound, and minimal insertion threshold remain open.
+- **Current task:** Prove or disprove an exact radius-one insertion lemma and derive an explicit equality threshold for the full and core infima.
+- **Task dossier:** `ops/TASK-20260713__radius_one_insertion/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
-## Current Stable Artifacts
+## Current Stable Result
 
-`research/ALL_N_LOWER_BOUND.md` records the self-contained induced-subset lower
-bound and the exact extremal characterization of the specific relaxation.
-
-For \(S=\{s_1<\cdots<s_q\}\), the duplicated-multiset pairing value is
+Let
 \[
-A(S)=2\sum_{a=1}^t s_a s_{2t+1-a}\quad(q=2t),
+\mathcal F_n
+=\{R>0:1^2,\dots,n^2\text{ are feasible at }R\}
 \]
 and
 \[
-A(S)=2\sum_{a=1}^t s_a s_{2t+2-a}+s_{t+1}^2\quad(q=2t+1).
+\mathcal C_n
+=\{R>0:2^2,\dots,n^2\text{ are feasible at }R\}.
 \]
-
-At fixed cardinality \(q\), \(A(S)\) is uniquely maximized by the tail
+Define
 \[
-\{n-q+1,\dots,n\}.
-\]
-Therefore no nonconsecutive subset improves the corresponding \(P_{m,n}\)
-bound within the induced-subset plus duplicated-pairing plus
-\(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\) relaxation.
-
-For every `n>=4` and `1<=m<=n-2`,
-\[
-R_2^*(n)\ge \frac{P_{m,n}}{\pi}-n^2,
+R_2^*(n)=\inf\mathcal F_n,
 \qquad
-P_{m,n}
-=
-\sum_{k=m}^n k(m+n-k)
-=
-\frac{(n-m+1)(m^2+4mn+m+n^2-n)}{6}.
+R^*_{2:n}=\inf\mathcal C_n.
 \]
 
-The exact discrete maximizers of \(P_{m,n}\) over \(1\le m\le n-2\) are
-characterized by
+EXACT THEOREM: a feasible core configuration at radius \(R>0\) admits a
+circle of radius \(1\) at the same central radius whenever
 \[
-\rho_n=\frac{\sqrt{8n^2+8n+1}-(2n+1)}2.
+\sum_{j=2}^n\theta_R(1,j^2)<\pi.
 \]
-For \(n\ge4\), the unique maximizer is \(\lfloor\rho_n\rfloor+1\) unless
-\(\rho_n\in\mathbb Z\), in which case the two maximizers are
-\(\rho_n,\rho_n+1\). For \(n=3\), the admissible set is the singleton \(m=1\).
+The proof assigns to every core circle an open forbidden angular arc of measure
+\(2\theta_R(1,j^2)\), uses subadditivity of arc measure, and explicitly checks
+all new pairs \((1,j^2)\), the new central tangency, and the unchanged core
+pairs.
 
-Consequently the relaxation's best leading coefficient is exactly
+EXACT THEOREM: for every \(n\ge12\),
 \[
-\frac{2(\sqrt2-1)}{3\pi}.
+\mathcal F_n=\mathcal C_n
+\quad\text{and hence}\quad
+R_2^*(n)=R^*_{2:n}.
 \]
-This is optimal only within the named relaxation. It is not a matching upper
-bound and not a proved exact asymptotic coefficient for Power-Ringmin.
+The proof combines
+\[
+\theta_R(1,j^2)
+<\frac{2j}{\sqrt{R(R+j^2+1)}}
+<\frac{2j}{R}
+\]
+with the already-proved configuration-level induced-subset lower bound.
+Exact rational estimates cover `n=12,13`; a symbolic parity inequality covers
+all `n>=14`.
 
-The all-\(n\) lower bound still implies
+The threshold `12` is sufficient, not claimed minimal. Failure of the current
+bound chain to close `n<=11` is not a counterexample. The theorem does not use
+the checked `n=5,6` structures as evidence and assumes no minimizer: it proves
+equality of feasible-radius sets before taking infima.
+
+## Other Stable Context
+
+`research/ALL_N_LOWER_BOUND.md` also retains the exact induced-subset lower
+bound and its extremal characterization. In particular,
 \[
-\liminf_{n\to\infty}\frac{6\pi R_2^*(n)}{n^3}
-\ge
-4(\sqrt2-1)>1.
+R_2^*(n)\ge\frac{P_{m,n}}\pi-n^2
 \]
-Thus the former conjectural target
+for the documented range, and the best leading coefficient within that
+specific relaxation is \(2(\sqrt2-1)/(3\pi)\). This is not a matching upper
+bound or an exact asymptotic coefficient.
+
+The former targets
 \[
 R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))
-\]
-is a DISPROVED CLAIM, and the former stronger target
-\[
+\quad\text{and}\quad
 R_2^*(n)=\frac{n^3}{6\pi}+O(n^2)
 \]
-is also a DISPROVED CLAIM.
+remain DISPROVED CLAIMS.
 
-`tests/test_induced_subset_lower_bound.py` now contains finite diagnostic tests
-using integer arithmetic for the explicit \(A(S)\) formula, exhaustive small-`n`
-fixed-cardinality tail optimality, exact \(\rho_n\)-based discrete maximizers,
-and pairing bounds on sample nonconsecutive subsets and induced orders. These
-tests are finite verifications only; they are not the all-\(n\) proof.
-
-`research/FINITE_RESULTS.md` summarizes the checked finite results and now
-labels the ratio to `n^3/(6*pi)` as a legacy diagnostic baseline only.
-
-`docs/INTERVAL_BACKEND_TRUST.md` records that the checked finite interval
-backend does not prove exact optima, matching upper bounds, asymptotic equality,
-or exact leading constants. The all-\(n\) induced-subset theorem is independent
-of that backend.
-
-`research/NEXT_RESEARCH_STEPS.md` is the current research roadmap. It no longer
-proposes a diagnostic `n=3..6` comparison table as the next task; the
-recommended next atomic task is to document fixed-order STN/geometric
-equivalence and endpoint semantics.
-
-`examples/finite_results_summary_n3_n6.json` remains the checked derived
-finite-results summary under `power-ringmin.finite_results_summary.v1`.
+`research/FINITE_RESULTS.md` keeps the checked `n=3..6` results and finite
+critical-structure diagnostics separate from the exact eventual insertion
+theorem. `research/NEXT_RESEARCH_STEPS.md` is the aligned research roadmap.
 
 ## Verification
 
-- `python -m pytest tests\test_induced_subset_lower_bound.py` passed: 7 tests.
-- `python -m pytest` passed: 117 tests.
-- `python -m power_ringmin.verify_checked_artifacts` failed before setting
-  `PYTHONPATH` because the local package was not importable from site-packages.
+- `python -m pytest tests\test_radius_one_insertion.py tests\test_induced_subset_lower_bound.py` passed: 12 tests.
+- `python -m pytest` passed: 122 tests.
 - `$env:PYTHONPATH='src'; python -m power_ringmin.verify_checked_artifacts`
-  passed: 4 checked certificates, 76 embedded local brackets, summary
+  passed: 4 checked certificates, 76 embedded local brackets, and summary
   `examples/finite_results_summary_n3_n6.json` for `n=3,4,5,6`.
-
-## Current Research Finding
-
-The best lower bound obtainable from the named relaxation has now been
-characterized exactly. The result eliminates nonconsecutive subsets as a source
-of improvement inside that relaxation and gives an exact integer-discrete
-maximizer rule. It does not solve the exact Power-Ringmin asymptotic constant.
+- Independent proof review found no actionable defect in the geometry,
+  inequalities, threshold algebra, or infimum handling.
+- `git diff --check` passed; final status and diff were inspected.
 
 ## Proposed Next Task
 
@@ -125,5 +105,5 @@ Acceptance criteria:
 - state lower-endpoint negative-cycle and upper-endpoint witness semantics;
 - separate exact mathematical implications from interval-backend trust
   assumptions;
-- do not generate certificates, create `n=3..6` diagnostic tables, start
-  upper-bound construction, run leading-order LP, or begin `n=7`.
+- do not generate certificates, begin exhaustive enumeration, start an
+  upper-bound construction, or claim that the insertion threshold is minimal.
