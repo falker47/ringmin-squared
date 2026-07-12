@@ -120,6 +120,19 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - OPEN QUESTION: how do the checked finite brackets compare numerically with \(\frac{n^3}{6\pi}\) at small `n`?
 - OPEN QUESTION: do the checked finite cases suggest stable optimal-order representatives, floating-circle regimes, or contact structures that can be formulated as conjectures?
 
+## Candidate Critical-Structure Analysis
+
+- VERIFIED FACT: `src/power_ringmin/critical_structure.py` provides deterministic structural analysis for checked finite candidate orders, including lower negative-cycle normalization, stable index/radius-pair labels, interval-lower upper-witness slack rankings, candidate common-core intersections, candidate differences, weak-constraint proxy labels, and identical-bracket diagnostics.
+- VERIFIED FACT: `ops/TASK-20260712__critical_constraints_order_structure/critical_structure_n3_n6.json` records the checked `n=3..6` candidate-order structural analysis under `power-ringmin.critical_structure_analysis.v1`.
+- VERIFIED FACT: `research/FINITE_RESULTS.md` summarizes the checked finite results and structural diagnostics with separate evidence labels for computer-certified finite facts, verified structural data, numerical observations, empirical patterns, heuristics, conjectures, open questions, and warnings.
+- VERIFIED FACT: for the checked certified candidate orders at `n=5`, both candidates share the same lower negative-cycle pair set `{2-4, 2-5, 3-4, 3-5}` after stable index/radius-pair normalization.
+- VERIFIED FACT: for the checked certified candidate orders at `n=6`, all five candidates share the same lower negative-cycle pair set `{2-5, 2-6, 3-4, 3-6, 4-5}` after stable index/radius-pair normalization.
+- EMPIRICAL PATTERN: in the checked multiple-candidate cases `n=5` and `n=6`, the repeated serialized candidate brackets align with a shared lower-cycle pair core on indices `2..n`, while directed cycle signatures and upper-witness minimum-slack pair sets are not common across all candidates.
+- HEURISTIC: under the recorded finite proxy rule, index `1` is a possible weakly constrained index for the checked multiple-candidate cases `n=5` and `n=6`; this is not a certified floating-circle or active-constraint non-incidence statement.
+- WARNING: lower negative cycles are lower-endpoint infeasibility certificates, not exact active contact graphs; upper-witness slack rankings are finite numerical diagnostics at certified upper endpoints.
+- OPEN QUESTION: can the shared lower-cycle core on indices `2..n` be formulated as a smaller exact reduced subsystem, or is it an artifact of the current bracket generator and resolution?
+- OPEN QUESTION: can tighter brackets or independent fixed-order analysis determine whether repeated serialized brackets at `n=5` and `n=6` reflect exact ties, hidden symmetry, or numerical coincidence?
+
 ## Open Proof Obligations And Limitations
 
 - PROOF OBLIGATION: locally record or prove the angular formula, monotonicity of \(\theta_R(a,b)\) in `R`, fixed-order angular/STN equivalence, and negative-cycle infeasibility.

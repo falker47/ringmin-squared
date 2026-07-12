@@ -28,6 +28,7 @@ power-ringmin-export-small-n-interval-certificate = "power_ringmin.small_n_inter
 power-ringmin-verify-fixed-order-artifacts = "power_ringmin.verify_fixed_order_artifacts_cli:main"
 power-ringmin-search-small-n = "power_ringmin.search_small_n:main"
 power-ringmin-analyze-finite-results = "power_ringmin.finite_results:main"
+power-ringmin-analyze-critical-structure = "power_ringmin.critical_structure:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
