@@ -1,0 +1,752 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://power-ringmin.local/schemas/finite_results_summary.schema.json",
+  "title": "Power-Ringmin finite-results summary artifact",
+  "description": "Structural JSON contract for a derived finite-results summary built from checked finite small-n interval certificates.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_type",
+    "problem",
+    "summary_scope",
+    "source_certificate_count",
+    "definitions",
+    "evidence_classification_by_category",
+    "source_certificates",
+    "results",
+    "cross_n_analysis",
+    "provenance",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "power-ringmin.finite_results_summary.v1"
+    },
+    "artifact_type": {
+      "const": "finite_results_summary"
+    },
+    "problem": {
+      "$ref": "#/$defs/problem"
+    },
+    "summary_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "n_values",
+        "source_certificate_schema_version",
+        "source_certificate_artifact_type",
+        "source_evidence_scope"
+      ],
+      "properties": {
+        "n_values": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "integer",
+            "minimum": 3
+          },
+          "uniqueItems": true
+        },
+        "source_certificate_schema_version": {
+          "const": "power-ringmin.small_n_interval_certificate.v1"
+        },
+        "source_certificate_artifact_type": {
+          "const": "small_n_interval_certificate"
+        },
+        "source_evidence_scope": {
+          "const": "finite_global_small_n_interval_bracket"
+        }
+      }
+    },
+    "source_certificate_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "definitions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence_classification_by_category": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/classificationRecord"
+      }
+    },
+    "source_certificates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/sourceCertificate"
+      }
+    },
+    "results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/perNResult"
+      }
+    },
+    "cross_n_analysis": {
+      "$ref": "#/$defs/crossNAnalysis"
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "limitations": {
+      "$ref": "#/$defs/nonEmptyStringArray"
+    }
+  },
+  "$defs": {
+    "decimalString": {
+      "type": "string",
+      "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?:[eE][+-]?[0-9]+)?$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "evidenceClassification": {
+      "enum": [
+        "definition",
+        "verified_fact",
+        "exact_theorem",
+        "computer_certified_result",
+        "numerical_observation",
+        "empirical_pattern",
+        "heuristic",
+        "conjecture",
+        "unresolved_claim",
+        "disproved_claim"
+      ]
+    },
+    "indexOrder": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "uniqueItems": true
+    },
+    "positiveIntegerArray": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "uniqueItems": true
+    },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "problem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project",
+        "radius_model",
+        "dimension",
+        "constraints"
+      ],
+      "properties": {
+        "project": {
+          "const": "power-ringmin"
+        },
+        "radius_model": {
+          "const": "quadratic"
+        },
+        "dimension": {
+          "const": 2
+        },
+        "constraints": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "central_external_tangency",
+            "peripheral_pairwise_disjoint_interiors",
+            "all_pairs_checked"
+          ],
+          "properties": {
+            "central_external_tangency": {
+              "const": true
+            },
+            "peripheral_pairwise_disjoint_interiors": {
+              "const": true
+            },
+            "all_pairs_checked": {
+              "const": true
+            }
+          }
+        }
+      }
+    },
+    "classificationRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "basis"
+      ],
+      "properties": {
+        "classification": {
+          "$ref": "#/$defs/evidenceClassification"
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "sourceCertificate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "content_sha256",
+        "schema_version",
+        "artifact_type",
+        "n",
+        "evidence_classification",
+        "evidence_scope",
+        "source_provenance"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "schema_version": {
+          "const": "power-ringmin.small_n_interval_certificate.v1"
+        },
+        "artifact_type": {
+          "const": "small_n_interval_certificate"
+        },
+        "n": {
+          "type": "integer",
+          "minimum": 3
+        },
+        "evidence_classification": {
+          "const": "computer_certified_result"
+        },
+        "evidence_scope": {
+          "const": "finite_global_small_n_interval_bracket"
+        },
+        "source_provenance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "repository_git_commit",
+            "repository_git_dirty"
+          ],
+          "properties": {
+            "repository_git_commit": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{40}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "repository_git_dirty": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "perNResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "n",
+        "source_certificate",
+        "canonical_order_count",
+        "certified_global_bracket",
+        "candidate_set",
+        "excluded_orders",
+        "identical_serialized_bracket_groups",
+        "exploratory_asymptotic_ratios",
+        "limitations"
+      ],
+      "properties": {
+        "n": {
+          "type": "integer",
+          "minimum": 3
+        },
+        "source_certificate": {
+          "$ref": "#/$defs/sourceCertificate"
+        },
+        "canonical_order_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "certified_global_bracket": {
+          "$ref": "#/$defs/certifiedGlobalBracket"
+        },
+        "candidate_set": {
+          "$ref": "#/$defs/candidateSet"
+        },
+        "excluded_orders": {
+          "$ref": "#/$defs/excludedOrders"
+        },
+        "identical_serialized_bracket_groups": {
+          "$ref": "#/$defs/identicalBracketGroups"
+        },
+        "exploratory_asymptotic_ratios": {
+          "$ref": "#/$defs/asymptoticRatios"
+        },
+        "limitations": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        }
+      }
+    },
+    "certifiedGlobalBracket": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "lower_endpoint",
+        "upper_endpoint",
+        "width_decimal"
+      ],
+      "properties": {
+        "classification": {
+          "const": "computer_certified_result"
+        },
+        "lower_endpoint": {
+          "$ref": "#/$defs/globalEndpoint"
+        },
+        "upper_endpoint": {
+          "$ref": "#/$defs/globalEndpoint"
+        },
+        "width_decimal": {
+          "$ref": "#/$defs/decimalString"
+        }
+      }
+    },
+    "globalEndpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "radius_decimal",
+        "encoding",
+        "included",
+        "source_index_order"
+      ],
+      "properties": {
+        "radius_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "encoding": {
+          "const": "decimal_string"
+        },
+        "included": {
+          "type": "boolean"
+        },
+        "source_index_order": {
+          "$ref": "#/$defs/indexOrder"
+        }
+      }
+    },
+    "orderBracket": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_check_id",
+        "index_order",
+        "radius_order",
+        "lower_radius_decimal",
+        "upper_radius_decimal"
+      ],
+      "properties": {
+        "source_check_id": {
+          "type": "string",
+          "pattern": "^LB-[0-9]{4}$"
+        },
+        "index_order": {
+          "$ref": "#/$defs/indexOrder"
+        },
+        "radius_order": {
+          "$ref": "#/$defs/positiveIntegerArray"
+        },
+        "lower_radius_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "upper_radius_decimal": {
+          "$ref": "#/$defs/decimalString"
+        }
+      }
+    },
+    "candidateSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "semantics",
+        "size",
+        "multiplicity_interpretation",
+        "orders",
+        "warning"
+      ],
+      "properties": {
+        "classification": {
+          "const": "computer_certified_result"
+        },
+        "semantics": {
+          "type": "string",
+          "minLength": 1
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "multiplicity_interpretation": {
+          "enum": [
+            "unique_certified_candidate_mod_rotation_reflection",
+            "multiple_certified_candidates_no_exact_tie_claim"
+          ]
+        },
+        "orders": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/orderBracket"
+          }
+        },
+        "warning": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "excludedOrders": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "semantics",
+        "count",
+        "orders",
+        "exclusion_gap"
+      ],
+      "properties": {
+        "classification": {
+          "const": "computer_certified_result"
+        },
+        "semantics": {
+          "type": "string",
+          "minLength": 1
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/excludedOrderBracket"
+          }
+        },
+        "exclusion_gap": {
+          "$ref": "#/$defs/exclusionGap"
+        }
+      }
+    },
+    "excludedOrderBracket": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_check_id",
+        "index_order",
+        "radius_order",
+        "lower_radius_decimal",
+        "upper_radius_decimal",
+        "lower_minus_global_upper_decimal"
+      ],
+      "properties": {
+        "source_check_id": {
+          "type": "string",
+          "pattern": "^LB-[0-9]{4}$"
+        },
+        "index_order": {
+          "$ref": "#/$defs/indexOrder"
+        },
+        "radius_order": {
+          "$ref": "#/$defs/positiveIntegerArray"
+        },
+        "lower_radius_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "upper_radius_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "lower_minus_global_upper_decimal": {
+          "$ref": "#/$defs/decimalString"
+        }
+      }
+    },
+    "exclusionGap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "defined",
+        "gap_decimal",
+        "orders"
+      ],
+      "properties": {
+        "classification": {
+          "const": "computer_certified_result"
+        },
+        "defined": {
+          "type": "boolean"
+        },
+        "gap_decimal": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/decimalString"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "orders": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "identicalBracketGroups": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "warning",
+        "groups"
+      ],
+      "properties": {
+        "classification": {
+          "const": "verified_fact"
+        },
+        "warning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identicalBracketGroup"
+          }
+        }
+      }
+    },
+    "identicalBracketGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lower_radius_decimal",
+        "upper_radius_decimal",
+        "size",
+        "orders"
+      ],
+      "properties": {
+        "lower_radius_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "upper_radius_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "orders": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "asymptoticRatios": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "classification",
+        "reference",
+        "reference_value_decimal",
+        "midpoint_decimal",
+        "lower_ratio_decimal",
+        "midpoint_ratio_decimal",
+        "upper_ratio_decimal",
+        "warning"
+      ],
+      "properties": {
+        "classification": {
+          "const": "numerical_observation"
+        },
+        "reference": {
+          "const": "n^3/(6*pi)"
+        },
+        "reference_value_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "midpoint_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "lower_ratio_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "midpoint_ratio_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "upper_ratio_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "warning": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "crossNAnalysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "n_values",
+        "finite_sequences",
+        "observed_patterns",
+        "warning"
+      ],
+      "properties": {
+        "classification": {
+          "const": "empirical_pattern"
+        },
+        "n_values": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 3
+          }
+        },
+        "finite_sequences": {
+          "type": "object"
+        },
+        "observed_patterns": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "warning": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "created_at_utc",
+        "repository",
+        "software",
+        "source_files",
+        "commands",
+        "randomness"
+      ],
+      "properties": {
+        "created_at_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "repository": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "name",
+            "git_commit",
+            "git_dirty"
+          ],
+          "properties": {
+            "name": {
+              "const": "power-ringmin"
+            },
+            "git_commit": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{40}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "git_dirty": {
+              "type": "boolean"
+            }
+          }
+        },
+        "software": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object"
+          }
+        },
+        "source_files": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object"
+          }
+        },
+        "commands": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object"
+          }
+        },
+        "randomness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "used",
+            "seeds"
+          ],
+          "properties": {
+            "used": {
+              "const": false
+            },
+            "seeds": {
+              "type": "array"
+            }
+          }
+        }
+      }
+    }
+  }
+}

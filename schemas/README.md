@@ -87,6 +87,40 @@ power-ringmin-export-small-n-interval-certificate --n 5 --max-canonical-orders 1
 
 This command still produces finite-`n` evidence only. It does not prove an exact optimum, an asymptotic result, or a theorem for all `n`.
 
+## Finite Results Summaries
+
+`finite_results_summary.schema.json` is the v1 structural JSON Schema for a derived finite-results summary built from checked finite small-n interval certificates.
+
+This is a separate contract from `small_n_interval_certificate.schema.json`:
+
+- small-n interval certificates are primary evidence artifacts;
+- finite-results summaries are derived analysis artifacts;
+- candidate sets, excluded-order counts, exclusion gaps, identical serialized bracket groups, cross-`n` comparisons, and ratios to `n^3/(6*pi)` belong in the derived summary, not in the primary certificate schema.
+
+The package validator `power_ringmin.finite_results.validate_finite_results_summary_artifact` is the semantic authority. It reloads every source certificate through `power_ringmin.small_n_interval_certificate.load_small_n_interval_certificate_artifact`, recomputes source SHA-256 hashes, rederives all candidate sets and exclusion gaps, and rejects stale summaries when source bytes or derived content no longer match.
+
+Evidence classifications in v1 are:
+
+- `computer_certified_result` for certified global brackets, candidate-set membership, excluded-order counts, and defined exclusion gaps;
+- `verified_fact` for identical serialized bracket groups;
+- `numerical_observation` for ratios to `n^3/(6*pi)`;
+- `empirical_pattern` for cross-`n` trends over the listed checked inputs;
+- `unresolved_claim` for explicit scope limitations.
+
+The checked example path is:
+
+```powershell
+examples/finite_results_summary_n3_n6.json
+```
+
+Regenerate it from the checked source certificates with a fixed timestamp when deterministic byte-for-byte output is required:
+
+```powershell
+power-ringmin-analyze-finite-results --created-at-utc 2026-07-12T00:00:00Z --output examples/finite_results_summary_n3_n6.json
+```
+
+The summary remains finite checked evidence only. Multiple candidate orders are not exact ties, identical serialized brackets are not exact equality claims, and ratio sequences do not establish behavior outside the listed inputs.
+
 ## Batch Standalone Verification
 
 The package entry point `power-ringmin-verify-fixed-order-artifacts` validates every matching v1 artifact in a directory, derives the minimal standalone `verify.py` payload, and invokes root `verify.py` once per artifact:

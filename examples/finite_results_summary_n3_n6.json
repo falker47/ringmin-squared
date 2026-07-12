@@ -1,0 +1,3710 @@
+{
+  "schema_version": "power-ringmin.finite_results_summary.v1",
+  "artifact_type": "finite_results_summary",
+  "problem": {
+    "project": "power-ringmin",
+    "radius_model": "quadratic",
+    "dimension": 2,
+    "constraints": {
+      "central_external_tangency": true,
+      "peripheral_pairwise_disjoint_interiors": true,
+      "all_pairs_checked": true
+    }
+  },
+  "summary_scope": {
+    "n_values": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "source_certificate_schema_version": "power-ringmin.small_n_interval_certificate.v1",
+    "source_certificate_artifact_type": "small_n_interval_certificate",
+    "source_evidence_scope": "finite_global_small_n_interval_bracket"
+  },
+  "source_certificate_count": 4,
+  "definitions": {
+    "candidate_set": "For one checked finite certificate, U is the verified global upper endpoint and C is the set of canonical orders sigma with verified strict lower endpoint L_sigma <= U.",
+    "excluded_order": "An excluded order has verified strict lower endpoint L_sigma > U.",
+    "exclusion_gap": "When excluded orders exist, the exclusion gap is min(L_sigma - U) over excluded orders; otherwise it is null.",
+    "identical_serialized_brackets": "Groups of canonical orders whose source summary lower and upper endpoint strings are identical.",
+    "ratio_reference": "n^3/(6*pi)."
+  },
+  "evidence_classification_by_category": {
+    "certified_global_bracket": {
+      "classification": "computer_certified_result",
+      "basis": "verified source certificate global endpoints"
+    },
+    "candidate_set_membership": {
+      "classification": "computer_certified_result",
+      "basis": "verified source lower endpoints compared with verified global upper endpoint"
+    },
+    "excluded_order_count": {
+      "classification": "computer_certified_result",
+      "basis": "verified source lower endpoints compared with verified global upper endpoint"
+    },
+    "exclusion_gap": {
+      "classification": "computer_certified_result",
+      "basis": "verified source lower endpoints minus verified global upper endpoint"
+    },
+    "identical_serialized_bracket_groups": {
+      "classification": "verified_fact",
+      "basis": "string identity in semantically validated source certificate summaries"
+    },
+    "ratios_to_reference": {
+      "classification": "numerical_observation",
+      "basis": "finite-n arithmetic diagnostic against n^3/(6*pi)"
+    },
+    "cross_n_trends": {
+      "classification": "empirical_pattern",
+      "basis": "patterns visible only in the listed checked finite inputs"
+    },
+    "limitations": {
+      "classification": "unresolved_claim",
+      "basis": "explicit scope boundaries not settled by this artifact"
+    }
+  },
+  "source_certificates": [
+    {
+      "path": "examples/small_n_interval_certificate_n3.json",
+      "content_sha256": "1aefe98e301391fbe4b8cd60593838e45b3b786dbb2d0edc8317952b888e0685",
+      "schema_version": "power-ringmin.small_n_interval_certificate.v1",
+      "artifact_type": "small_n_interval_certificate",
+      "n": 3,
+      "evidence_classification": "computer_certified_result",
+      "evidence_scope": "finite_global_small_n_interval_bracket",
+      "source_provenance": {
+        "repository_git_commit": "b2388e8d4015c1be67e731c77635bd2ea0fa0977",
+        "repository_git_dirty": true
+      }
+    },
+    {
+      "path": "examples/small_n_interval_certificate_n4.json",
+      "content_sha256": "436fad33d37adf9161cc3cb8e475df01ae1f025915cde5457899e55de6e97fa2",
+      "schema_version": "power-ringmin.small_n_interval_certificate.v1",
+      "artifact_type": "small_n_interval_certificate",
+      "n": 4,
+      "evidence_classification": "computer_certified_result",
+      "evidence_scope": "finite_global_small_n_interval_bracket",
+      "source_provenance": {
+        "repository_git_commit": "b2388e8d4015c1be67e731c77635bd2ea0fa0977",
+        "repository_git_dirty": true
+      }
+    },
+    {
+      "path": "examples/small_n_interval_certificate_n5.json",
+      "content_sha256": "a35f896665a4462bb9b6fc1154ee20386b8127b8728551f8f47423de0ecd7dfb",
+      "schema_version": "power-ringmin.small_n_interval_certificate.v1",
+      "artifact_type": "small_n_interval_certificate",
+      "n": 5,
+      "evidence_classification": "computer_certified_result",
+      "evidence_scope": "finite_global_small_n_interval_bracket",
+      "source_provenance": {
+        "repository_git_commit": "1b013793eafe03661d12e0c1ae5aec3e9173d151",
+        "repository_git_dirty": false
+      }
+    },
+    {
+      "path": "examples/small_n_interval_certificate_n6.json",
+      "content_sha256": "40cfe3cf9c7723373499b5445c694c193b79237131f3c64fd7ff1b8767776a92",
+      "schema_version": "power-ringmin.small_n_interval_certificate.v1",
+      "artifact_type": "small_n_interval_certificate",
+      "n": 6,
+      "evidence_classification": "computer_certified_result",
+      "evidence_scope": "finite_global_small_n_interval_bracket",
+      "source_provenance": {
+        "repository_git_commit": "32743f7f791c8a1550689e39f56347a194d4520a",
+        "repository_git_dirty": false
+      }
+    }
+  ],
+  "results": [
+    {
+      "n": 3,
+      "source_certificate": {
+        "path": "examples/small_n_interval_certificate_n3.json",
+        "content_sha256": "1aefe98e301391fbe4b8cd60593838e45b3b786dbb2d0edc8317952b888e0685",
+        "schema_version": "power-ringmin.small_n_interval_certificate.v1",
+        "artifact_type": "small_n_interval_certificate",
+        "n": 3,
+        "evidence_classification": "computer_certified_result",
+        "evidence_scope": "finite_global_small_n_interval_bracket",
+        "source_provenance": {
+          "repository_git_commit": "b2388e8d4015c1be67e731c77635bd2ea0fa0977",
+          "repository_git_dirty": true
+        }
+      },
+      "canonical_order_count": 1,
+      "certified_global_bracket": {
+        "classification": "computer_certified_result",
+        "lower_endpoint": {
+          "radius_decimal": "0.3832870361393696523322205393924377858638763427734375",
+          "encoding": "decimal_string",
+          "included": false,
+          "source_index_order": [
+            3,
+            1,
+            2
+          ]
+        },
+        "upper_endpoint": {
+          "radius_decimal": "0.383487036139369685816546962087159045040607452392578125",
+          "encoding": "decimal_string",
+          "included": true,
+          "source_index_order": [
+            3,
+            1,
+            2
+          ]
+        },
+        "width_decimal": "0.000200000000000033484326422694721259176731109619140625"
+      },
+      "candidate_set": {
+        "classification": "computer_certified_result",
+        "semantics": "canonical orders whose verified strict lower endpoint L_sigma is <= verified global upper endpoint U",
+        "size": 1,
+        "multiplicity_interpretation": "unique_certified_candidate_mod_rotation_reflection",
+        "orders": [
+          {
+            "source_check_id": "LB-0001",
+            "index_order": [
+              3,
+              1,
+              2
+            ],
+            "radius_order": [
+              9,
+              1,
+              4
+            ],
+            "lower_radius_decimal": "0.3832870361393696523322205393924377858638763427734375",
+            "upper_radius_decimal": "0.383487036139369685816546962087159045040607452392578125"
+          }
+        ],
+        "warning": "The unique candidate is modulo the current rotation/reflection convention."
+      },
+      "excluded_orders": {
+        "classification": "computer_certified_result",
+        "semantics": "canonical orders whose verified strict lower endpoint L_sigma is > verified global upper endpoint U",
+        "count": 0,
+        "orders": [],
+        "exclusion_gap": {
+          "classification": "computer_certified_result",
+          "defined": false,
+          "gap_decimal": null,
+          "orders": []
+        }
+      },
+      "identical_serialized_bracket_groups": {
+        "classification": "verified_fact",
+        "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima.",
+        "groups": []
+      },
+      "exploratory_asymptotic_ratios": {
+        "classification": "numerical_observation",
+        "reference": "n^3/(6*pi)",
+        "reference_value_decimal": "1.4323944878270580219199538703526292583101368116641",
+        "midpoint_decimal": "0.3833870361393696690743837507397984154522418975830078125",
+        "lower_ratio_decimal": "0.26758483043369984136076787098347228955705877327003",
+        "midpoint_ratio_decimal": "0.26765464360377962623207969638536051054269711953714",
+        "upper_ratio_decimal": "0.26772445677385941110339152178724873152833546580424",
+        "warning": "These finite-n diagnostics are numerical observations only.",
+        "additive_difference_from_reference": {
+          "lower_minus_reference_decimal": "-1.0491074516876883695877333309601914724462604688907",
+          "midpoint_minus_reference_decimal": "-1.0490074516876883528455701196128308428578949140811",
+          "upper_minus_reference_decimal": "-1.0489074516876883361034069082654702132695293592715"
+        }
+      },
+      "limitations": [
+        "Finite checked certificate evidence for this n only.",
+        "Candidate multiplicity is not an exact tie claim.",
+        "Identical serialized brackets are not exact optimum equality claims."
+      ]
+    },
+    {
+      "n": 4,
+      "source_certificate": {
+        "path": "examples/small_n_interval_certificate_n4.json",
+        "content_sha256": "436fad33d37adf9161cc3cb8e475df01ae1f025915cde5457899e55de6e97fa2",
+        "schema_version": "power-ringmin.small_n_interval_certificate.v1",
+        "artifact_type": "small_n_interval_certificate",
+        "n": 4,
+        "evidence_classification": "computer_certified_result",
+        "evidence_scope": "finite_global_small_n_interval_bracket",
+        "source_provenance": {
+          "repository_git_commit": "b2388e8d4015c1be67e731c77635bd2ea0fa0977",
+          "repository_git_dirty": true
+        }
+      },
+      "canonical_order_count": 3,
+      "certified_global_bracket": {
+        "classification": "computer_certified_result",
+        "lower_endpoint": {
+          "radius_decimal": "1.4955284118749971877804227915476076304912567138671875",
+          "encoding": "decimal_string",
+          "included": false,
+          "source_index_order": [
+            4,
+            1,
+            3,
+            2
+          ]
+        },
+        "upper_endpoint": {
+          "radius_decimal": "1.4957284118749971657535979829845018684864044189453125",
+          "encoding": "decimal_string",
+          "included": true,
+          "source_index_order": [
+            4,
+            1,
+            3,
+            2
+          ]
+        },
+        "width_decimal": "0.0001999999999999779731751914368942379951477050781250"
+      },
+      "candidate_set": {
+        "classification": "computer_certified_result",
+        "semantics": "canonical orders whose verified strict lower endpoint L_sigma is <= verified global upper endpoint U",
+        "size": 1,
+        "multiplicity_interpretation": "unique_certified_candidate_mod_rotation_reflection",
+        "orders": [
+          {
+            "source_check_id": "LB-0002",
+            "index_order": [
+              4,
+              1,
+              3,
+              2
+            ],
+            "radius_order": [
+              16,
+              1,
+              9,
+              4
+            ],
+            "lower_radius_decimal": "1.4955284118749971877804227915476076304912567138671875",
+            "upper_radius_decimal": "1.4957284118749971657535979829845018684864044189453125"
+          }
+        ],
+        "warning": "The unique candidate is modulo the current rotation/reflection convention."
+      },
+      "excluded_orders": {
+        "classification": "computer_certified_result",
+        "semantics": "canonical orders whose verified strict lower endpoint L_sigma is > verified global upper endpoint U",
+        "count": 2,
+        "orders": [
+          {
+            "source_check_id": "LB-0001",
+            "index_order": [
+              4,
+              1,
+              2,
+              3
+            ],
+            "radius_order": [
+              16,
+              1,
+              4,
+              9
+            ],
+            "lower_radius_decimal": "1.6128928824552846155171437203534878790378570556640625",
+            "upper_radius_decimal": "1.6130928824552845934903189117903821170330047607421875",
+            "lower_minus_global_upper_decimal": "0.1171644705802874497635457373689860105514526367187500"
+          },
+          {
+            "source_check_id": "LB-0003",
+            "index_order": [
+              4,
+              2,
+              1,
+              3
+            ],
+            "radius_order": [
+              16,
+              4,
+              1,
+              9
+            ],
+            "lower_radius_decimal": "1.644741253500284106081608115346170961856842041015625",
+            "upper_radius_decimal": "1.64494125350028408405478330678306519985198974609375",
+            "lower_minus_global_upper_decimal": "0.1490128416252869403280101323616690933704376220703125"
+          }
+        ],
+        "exclusion_gap": {
+          "classification": "computer_certified_result",
+          "defined": true,
+          "gap_decimal": "0.1171644705802874497635457373689860105514526367187500",
+          "orders": [
+            {
+              "index_order": [
+                4,
+                1,
+                2,
+                3
+              ],
+              "radius_order": [
+                16,
+                1,
+                4,
+                9
+              ],
+              "lower_radius_decimal": "1.6128928824552846155171437203534878790378570556640625",
+              "lower_minus_global_upper_decimal": "0.1171644705802874497635457373689860105514526367187500"
+            }
+          ]
+        }
+      },
+      "identical_serialized_bracket_groups": {
+        "classification": "verified_fact",
+        "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima.",
+        "groups": []
+      },
+      "exploratory_asymptotic_ratios": {
+        "classification": "numerical_observation",
+        "reference": "n^3/(6*pi)",
+        "reference_value_decimal": "3.3953054526271004964028536186136397234018057757964",
+        "midpoint_decimal": "1.4956284118749971767670103872660547494888305664062500",
+        "lower_ratio_decimal": "0.44046947549824703107305807994144638745331516908212",
+        "midpoint_ratio_decimal": "0.44049892792937443214095096407513696627716047627377",
+        "upper_ratio_decimal": "0.44052838036050183320884384820882754510100578346542",
+        "warning": "These finite-n diagnostics are numerical observations only.",
+        "additive_difference_from_reference": {
+          "lower_minus_reference_decimal": "-1.8997770407521033086224308270660320929105490619292",
+          "midpoint_minus_reference_decimal": "-1.8996770407521033196358432313475849739129752093902",
+          "upper_minus_reference_decimal": "-1.8995770407521033306492556356291378549154013568511"
+        }
+      },
+      "limitations": [
+        "Finite checked certificate evidence for this n only.",
+        "Candidate multiplicity is not an exact tie claim.",
+        "Identical serialized brackets are not exact optimum equality claims."
+      ]
+    },
+    {
+      "n": 5,
+      "source_certificate": {
+        "path": "examples/small_n_interval_certificate_n5.json",
+        "content_sha256": "a35f896665a4462bb9b6fc1154ee20386b8127b8728551f8f47423de0ecd7dfb",
+        "schema_version": "power-ringmin.small_n_interval_certificate.v1",
+        "artifact_type": "small_n_interval_certificate",
+        "n": 5,
+        "evidence_classification": "computer_certified_result",
+        "evidence_scope": "finite_global_small_n_interval_bracket",
+        "source_provenance": {
+          "repository_git_commit": "1b013793eafe03661d12e0c1ae5aec3e9173d151",
+          "repository_git_dirty": false
+        }
+      },
+      "canonical_order_count": 12,
+      "certified_global_bracket": {
+        "classification": "computer_certified_result",
+        "lower_endpoint": {
+          "radius_decimal": "3.934227717145796443531935437931679189205169677734375",
+          "encoding": "decimal_string",
+          "included": false,
+          "source_index_order": [
+            5,
+            1,
+            3,
+            4,
+            2
+          ]
+        },
+        "upper_endpoint": {
+          "radius_decimal": "3.9344277171457964215051106293685734272003173828125",
+          "encoding": "decimal_string",
+          "included": true,
+          "source_index_order": [
+            5,
+            1,
+            3,
+            4,
+            2
+          ]
+        },
+        "width_decimal": "0.000199999999999977973175191436894237995147705078125"
+      },
+      "candidate_set": {
+        "classification": "computer_certified_result",
+        "semantics": "canonical orders whose verified strict lower endpoint L_sigma is <= verified global upper endpoint U",
+        "size": 2,
+        "multiplicity_interpretation": "multiple_certified_candidates_no_exact_tie_claim",
+        "orders": [
+          {
+            "source_check_id": "LB-0004",
+            "index_order": [
+              5,
+              1,
+              3,
+              4,
+              2
+            ],
+            "radius_order": [
+              25,
+              1,
+              9,
+              16,
+              4
+            ],
+            "lower_radius_decimal": "3.934227717145796443531935437931679189205169677734375",
+            "upper_radius_decimal": "3.9344277171457964215051106293685734272003173828125"
+          },
+          {
+            "source_check_id": "LB-0010",
+            "index_order": [
+              5,
+              2,
+              4,
+              1,
+              3
+            ],
+            "radius_order": [
+              25,
+              4,
+              16,
+              1,
+              9
+            ],
+            "lower_radius_decimal": "3.934227717145796443531935437931679189205169677734375",
+            "upper_radius_decimal": "3.9344277171457964215051106293685734272003173828125"
+          }
+        ],
+        "warning": "Multiple certified candidates are not an exact tie claim."
+      },
+      "excluded_orders": {
+        "classification": "computer_certified_result",
+        "semantics": "canonical orders whose verified strict lower endpoint L_sigma is > verified global upper endpoint U",
+        "count": 10,
+        "orders": [
+          {
+            "source_check_id": "LB-0001",
+            "index_order": [
+              5,
+              1,
+              2,
+              3,
+              4
+            ],
+            "radius_order": [
+              25,
+              1,
+              4,
+              9,
+              16
+            ],
+            "lower_radius_decimal": "4.184065099286758737662239582277834415435791015625",
+            "upper_radius_decimal": "4.184265099286758271546204923652112483978271484375",
+            "lower_minus_global_upper_decimal": "0.2496373821409623161571289529092609882354736328125"
+          },
+          {
+            "source_check_id": "LB-0002",
+            "index_order": [
+              5,
+              1,
+              2,
+              4,
+              3
+            ],
+            "radius_order": [
+              25,
+              1,
+              4,
+              16,
+              9
+            ],
+            "lower_radius_decimal": "4.048214332766722378664780990220606327056884765625",
+            "upper_radius_decimal": "4.04841433276672280072716603172011673450469970703125",
+            "lower_minus_global_upper_decimal": "0.1137866156209259571596703608520328998565673828125"
+          },
+          {
+            "source_check_id": "LB-0003",
+            "index_order": [
+              5,
+              1,
+              3,
+              2,
+              4
+            ],
+            "radius_order": [
+              25,
+              1,
+              9,
+              4,
+              16
+            ],
+            "lower_radius_decimal": "4.1283188156084360542763533885590732097625732421875",
+            "upper_radius_decimal": "4.1285188156084355881603187299333512783050537109375",
+            "lower_minus_global_upper_decimal": "0.1938910984626396327712427591904997825622558593750"
+          },
+          {
+            "source_check_id": "LB-0005",
+            "index_order": [
+              5,
+              1,
+              4,
+              2,
+              3
+            ],
+            "radius_order": [
+              25,
+              1,
+              16,
+              4,
+              9
+            ],
+            "lower_radius_decimal": "4.1283188156084360542763533885590732097625732421875",
+            "upper_radius_decimal": "4.1285188156084355881603187299333512783050537109375",
+            "lower_minus_global_upper_decimal": "0.1938910984626396327712427591904997825622558593750"
+          },
+          {
+            "source_check_id": "LB-0006",
+            "index_order": [
+              5,
+              1,
+              4,
+              3,
+              2
+            ],
+            "radius_order": [
+              25,
+              1,
+              16,
+              9,
+              4
+            ],
+            "lower_radius_decimal": "4.0835109476314013221553977928124368190765380859375",
+            "upper_radius_decimal": "4.08371094763140174421778283431194722652435302734375",
+            "lower_minus_global_upper_decimal": "0.1490832304856049006502871634438633918762207031250"
+          },
+          {
+            "source_check_id": "LB-0007",
+            "index_order": [
+              5,
+              2,
+              1,
+              3,
+              4
+            ],
+            "radius_order": [
+              25,
+              4,
+              1,
+              9,
+              16
+            ],
+            "lower_radius_decimal": "4.32250733526103037007715101935900747776031494140625",
+            "upper_radius_decimal": "4.3227073352610307921395360608585178852081298828125",
+            "lower_minus_global_upper_decimal": "0.38807961811523394857204038999043405055999755859375"
+          },
+          {
+            "source_check_id": "LB-0008",
+            "index_order": [
+              5,
+              2,
+              1,
+              4,
+              3
+            ],
+            "radius_order": [
+              25,
+              4,
+              1,
+              16,
+              9
+            ],
+            "lower_radius_decimal": "4.0960430568321601896286665578372776508331298828125",
+            "upper_radius_decimal": "4.0962430568321597235126318992115557193756103515625",
+            "lower_minus_global_upper_decimal": "0.1616153396863637681235559284687042236328125000000"
+          },
+          {
+            "source_check_id": "LB-0009",
+            "index_order": [
+              5,
+              2,
+              3,
+              1,
+              4
+            ],
+            "radius_order": [
+              25,
+              4,
+              9,
+              1,
+              16
+            ],
+            "lower_radius_decimal": "4.0835109476314013221553977928124368190765380859375",
+            "upper_radius_decimal": "4.08371094763140174421778283431194722652435302734375",
+            "lower_minus_global_upper_decimal": "0.1490832304856049006502871634438633918762207031250"
+          },
+          {
+            "source_check_id": "LB-0011",
+            "index_order": [
+              5,
+              3,
+              1,
+              2,
+              4
+            ],
+            "radius_order": [
+              25,
+              9,
+              1,
+              4,
+              16
+            ],
+            "lower_radius_decimal": "4.36533250781520276717628803453408181667327880859375",
+            "upper_radius_decimal": "4.36553250781520230106025337590835988521575927734375",
+            "lower_minus_global_upper_decimal": "0.43090479066940634567117740516550838947296142578125"
+          },
+          {
+            "source_check_id": "LB-0012",
+            "index_order": [
+              5,
+              3,
+              2,
+              1,
+              4
+            ],
+            "radius_order": [
+              25,
+              9,
+              4,
+              1,
+              16
+            ],
+            "lower_radius_decimal": "4.2759780017422119868797381059266626834869384765625",
+            "upper_radius_decimal": "4.2761780017422115207637034473009407520294189453125",
+            "lower_minus_global_upper_decimal": "0.3415502845964155653746274765580892562866210937500"
+          }
+        ],
+        "exclusion_gap": {
+          "classification": "computer_certified_result",
+          "defined": true,
+          "gap_decimal": "0.1137866156209259571596703608520328998565673828125",
+          "orders": [
+            {
+              "index_order": [
+                5,
+                1,
+                2,
+                4,
+                3
+              ],
+              "radius_order": [
+                25,
+                1,
+                4,
+                16,
+                9
+              ],
+              "lower_radius_decimal": "4.048214332766722378664780990220606327056884765625",
+              "lower_minus_global_upper_decimal": "0.1137866156209259571596703608520328998565673828125"
+            }
+          ]
+        }
+      },
+      "identical_serialized_bracket_groups": {
+        "classification": "verified_fact",
+        "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima.",
+        "groups": [
+          {
+            "lower_radius_decimal": "4.1283188156084360542763533885590732097625732421875",
+            "upper_radius_decimal": "4.1285188156084355881603187299333512783050537109375",
+            "size": 2,
+            "orders": [
+              {
+                "source_check_id": "LB-0003",
+                "index_order": [
+                  5,
+                  1,
+                  3,
+                  2,
+                  4
+                ],
+                "radius_order": [
+                  25,
+                  1,
+                  9,
+                  4,
+                  16
+                ]
+              },
+              {
+                "source_check_id": "LB-0005",
+                "index_order": [
+                  5,
+                  1,
+                  4,
+                  2,
+                  3
+                ],
+                "radius_order": [
+                  25,
+                  1,
+                  16,
+                  4,
+                  9
+                ]
+              }
+            ]
+          },
+          {
+            "lower_radius_decimal": "3.934227717145796443531935437931679189205169677734375",
+            "upper_radius_decimal": "3.9344277171457964215051106293685734272003173828125",
+            "size": 2,
+            "orders": [
+              {
+                "source_check_id": "LB-0004",
+                "index_order": [
+                  5,
+                  1,
+                  3,
+                  4,
+                  2
+                ],
+                "radius_order": [
+                  25,
+                  1,
+                  9,
+                  16,
+                  4
+                ]
+              },
+              {
+                "source_check_id": "LB-0010",
+                "index_order": [
+                  5,
+                  2,
+                  4,
+                  1,
+                  3
+                ],
+                "radius_order": [
+                  25,
+                  4,
+                  16,
+                  1,
+                  9
+                ]
+              }
+            ]
+          },
+          {
+            "lower_radius_decimal": "4.0835109476314013221553977928124368190765380859375",
+            "upper_radius_decimal": "4.08371094763140174421778283431194722652435302734375",
+            "size": 2,
+            "orders": [
+              {
+                "source_check_id": "LB-0006",
+                "index_order": [
+                  5,
+                  1,
+                  4,
+                  3,
+                  2
+                ],
+                "radius_order": [
+                  25,
+                  1,
+                  16,
+                  9,
+                  4
+                ]
+              },
+              {
+                "source_check_id": "LB-0009",
+                "index_order": [
+                  5,
+                  2,
+                  3,
+                  1,
+                  4
+                ],
+                "radius_order": [
+                  25,
+                  4,
+                  9,
+                  1,
+                  16
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "exploratory_asymptotic_ratios": {
+        "classification": "numerical_observation",
+        "reference": "n^3/(6*pi)",
+        "reference_value_decimal": "6.6314559621623056570368234738547650847691519058524",
+        "midpoint_decimal": "3.9343277171457964325185230336501263082027435302734375",
+        "lower_ratio_decimal": "0.59326756289925970286296173920872375584001487092551",
+        "midpoint_ratio_decimal": "0.59328264254399693220972289588517333219782366820764",
+        "upper_ratio_decimal": "0.59329772218873416155648405256162290855563246548977",
+        "warning": "These finite-n diagnostics are numerical observations only.",
+        "additive_difference_from_reference": {
+          "lower_minus_reference_decimal": "-2.6972282450165092135048880359230858955639822281180",
+          "midpoint_minus_reference_decimal": "-2.6971282450165092245183004402046387765664083755789",
+          "upper_minus_reference_decimal": "-2.6970282450165092355317128444861916575688345230399"
+        }
+      },
+      "limitations": [
+        "Finite checked certificate evidence for this n only.",
+        "Candidate multiplicity is not an exact tie claim.",
+        "Identical serialized brackets are not exact optimum equality claims."
+      ]
+    },
+    {
+      "n": 6,
+      "source_certificate": {
+        "path": "examples/small_n_interval_certificate_n6.json",
+        "content_sha256": "40cfe3cf9c7723373499b5445c694c193b79237131f3c64fd7ff1b8767776a92",
+        "schema_version": "power-ringmin.small_n_interval_certificate.v1",
+        "artifact_type": "small_n_interval_certificate",
+        "n": 6,
+        "evidence_classification": "computer_certified_result",
+        "evidence_scope": "finite_global_small_n_interval_bracket",
+        "source_provenance": {
+          "repository_git_commit": "32743f7f791c8a1550689e39f56347a194d4520a",
+          "repository_git_dirty": false
+        }
+      },
+      "canonical_order_count": 60,
+      "certified_global_bracket": {
+        "classification": "computer_certified_result",
+        "lower_endpoint": {
+          "radius_decimal": "8.4678350760883720482752323732711374759674072265625",
+          "encoding": "decimal_string",
+          "included": false,
+          "source_index_order": [
+            6,
+            1,
+            2,
+            5,
+            4,
+            3
+          ]
+        },
+        "upper_endpoint": {
+          "radius_decimal": "8.4680350760883715821591977146454155445098876953125",
+          "encoding": "decimal_string",
+          "included": true,
+          "source_index_order": [
+            6,
+            1,
+            2,
+            5,
+            4,
+            3
+          ]
+        },
+        "width_decimal": "0.0001999999999995338839653413742780685424804687500"
+      },
+      "candidate_set": {
+        "classification": "computer_certified_result",
+        "semantics": "canonical orders whose verified strict lower endpoint L_sigma is <= verified global upper endpoint U",
+        "size": 5,
+        "multiplicity_interpretation": "multiple_certified_candidates_no_exact_tie_claim",
+        "orders": [
+          {
+            "source_check_id": "LB-0006",
+            "index_order": [
+              6,
+              1,
+              2,
+              5,
+              4,
+              3
+            ],
+            "radius_order": [
+              36,
+              1,
+              4,
+              25,
+              16,
+              9
+            ],
+            "lower_radius_decimal": "8.4678350760883720482752323732711374759674072265625",
+            "upper_radius_decimal": "8.4680350760883715821591977146454155445098876953125"
+          },
+          {
+            "source_check_id": "LB-0010",
+            "index_order": [
+              6,
+              1,
+              3,
+              4,
+              5,
+              2
+            ],
+            "radius_order": [
+              36,
+              1,
+              9,
+              16,
+              25,
+              4
+            ],
+            "lower_radius_decimal": "8.4678350760883720482752323732711374759674072265625",
+            "upper_radius_decimal": "8.4680350760883715821591977146454155445098876953125"
+          },
+          {
+            "source_check_id": "LB-0030",
+            "index_order": [
+              6,
+              2,
+              1,
+              5,
+              4,
+              3
+            ],
+            "radius_order": [
+              36,
+              4,
+              1,
+              25,
+              16,
+              9
+            ],
+            "lower_radius_decimal": "8.4678350760883720482752323732711374759674072265625",
+            "upper_radius_decimal": "8.4680350760883715821591977146454155445098876953125"
+          },
+          {
+            "source_check_id": "LB-0040",
+            "index_order": [
+              6,
+              2,
+              5,
+              1,
+              4,
+              3
+            ],
+            "radius_order": [
+              36,
+              4,
+              25,
+              1,
+              16,
+              9
+            ],
+            "lower_radius_decimal": "8.4678350760883720482752323732711374759674072265625",
+            "upper_radius_decimal": "8.4680350760883715821591977146454155445098876953125"
+          },
+          {
+            "source_check_id": "LB-0042",
+            "index_order": [
+              6,
+              2,
+              5,
+              4,
+              1,
+              3
+            ],
+            "radius_order": [
+              36,
+              4,
+              25,
+              16,
+              1,
+              9
+            ],
+            "lower_radius_decimal": "8.4678350760883720482752323732711374759674072265625",
+            "upper_radius_decimal": "8.4680350760883715821591977146454155445098876953125"
+          }
+        ],
+        "warning": "Multiple certified candidates are not an exact tie claim."
+      },
+      "excluded_orders": {
+        "classification": "computer_certified_result",
+        "semantics": "canonical orders whose verified strict lower endpoint L_sigma is > verified global upper endpoint U",
+        "count": 55,
+        "orders": [
+          {
+            "source_check_id": "LB-0001",
+            "index_order": [
+              6,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "radius_order": [
+              36,
+              1,
+              4,
+              9,
+              16,
+              25
+            ],
+            "lower_radius_decimal": "9.0783473292937681975445229909382760524749755859375",
+            "upper_radius_decimal": "9.0785473292937677314284883323125541210174560546875",
+            "lower_minus_global_upper_decimal": "0.6103122532053966153853252762928605079650878906250"
+          },
+          {
+            "source_check_id": "LB-0002",
+            "index_order": [
+              6,
+              1,
+              2,
+              3,
+              5,
+              4
+            ],
+            "radius_order": [
+              36,
+              1,
+              4,
+              9,
+              25,
+              16
+            ],
+            "lower_radius_decimal": "8.905524099653945313548319973051548004150390625",
+            "upper_radius_decimal": "8.9057240996539466237891247146762907505035400390625",
+            "lower_minus_global_upper_decimal": "0.4374890235655737313891222584061324596405029296875"
+          },
+          {
+            "source_check_id": "LB-0003",
+            "index_order": [
+              6,
+              1,
+              2,
+              4,
+              3,
+              5
+            ],
+            "radius_order": [
+              36,
+              1,
+              4,
+              16,
+              9,
+              25
+            ],
+            "lower_radius_decimal": "8.769251709106651304637125576846301555633544921875",
+            "upper_radius_decimal": "8.769451709106650838521090918220579624176025390625",
+            "lower_minus_global_upper_decimal": "0.3012166330182797224779278622008860111236572265625"
+          },
+          {
+            "source_check_id": "LB-0004",
+            "index_order": [
+              6,
+              1,
+              2,
+              4,
+              5,
+              3
+            ],
+            "radius_order": [
+              36,
+              1,
+              4,
+              16,
+              25,
+              9
+            ],
+            "lower_radius_decimal": "8.554468633373215169513059663586318492889404296875",
+            "upper_radius_decimal": "8.554668633373214703397025004960596561431884765625",
+            "lower_minus_global_upper_decimal": "0.0864335572848435873538619489409029483795166015625"
+          },
+          {
+            "source_check_id": "LB-0005",
+            "index_order": [
+              6,
+              1,
+              2,
+              5,
+              3,
+              4
+            ],
+            "radius_order": [
+              36,
+              1,
+              4,
+              25,
+              9,
+              16
+            ],
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "upper_radius_decimal": "8.5171058717586713981972934561781585216522216796875",
+            "lower_minus_global_upper_decimal": "0.0488707956703002821541304001584649085998535156250"
+          },
+          {
+            "source_check_id": "LB-0007",
+            "index_order": [
+              6,
+              1,
+              3,
+              2,
+              4,
+              5
+            ],
+            "radius_order": [
+              36,
+              1,
+              9,
+              4,
+              16,
+              25
+            ],
+            "lower_radius_decimal": "9.2394704168493202445233691832982003688812255859375",
+            "upper_radius_decimal": "9.2396704168493197784073345246724784374237060546875",
+            "lower_minus_global_upper_decimal": "0.7714353407609486623641714686527848243713378906250"
+          },
+          {
+            "source_check_id": "LB-0008",
+            "index_order": [
+              6,
+              1,
+              3,
+              2,
+              5,
+              4
+            ],
+            "radius_order": [
+              36,
+              1,
+              9,
+              4,
+              25,
+              16
+            ],
+            "lower_radius_decimal": "8.96902255347639965066264267079532146453857421875",
+            "upper_radius_decimal": "8.9692225534764009609034474124200642108917236328125",
+            "lower_minus_global_upper_decimal": "0.5009874773880280685034449561499059200286865234375"
+          },
+          {
+            "source_check_id": "LB-0009",
+            "index_order": [
+              6,
+              1,
+              3,
+              4,
+              2,
+              5
+            ],
+            "radius_order": [
+              36,
+              1,
+              9,
+              16,
+              4,
+              25
+            ],
+            "lower_radius_decimal": "8.831630574986558457339924643747508525848388671875",
+            "upper_radius_decimal": "8.8318305749865597675807293853722512722015380859375",
+            "lower_minus_global_upper_decimal": "0.3635954988981868751807269291020929813385009765625"
+          },
+          {
+            "source_check_id": "LB-0011",
+            "index_order": [
+              6,
+              1,
+              3,
+              5,
+              2,
+              4
+            ],
+            "radius_order": [
+              36,
+              1,
+              9,
+              25,
+              4,
+              16
+            ],
+            "lower_radius_decimal": "8.6649065699016194486148378928191959857940673828125",
+            "upper_radius_decimal": "8.6651065699016189824988032341934740543365478515625",
+            "lower_minus_global_upper_decimal": "0.1968714938132478664556401781737804412841796875000"
+          },
+          {
+            "source_check_id": "LB-0012",
+            "index_order": [
+              6,
+              1,
+              3,
+              5,
+              4,
+              2
+            ],
+            "radius_order": [
+              36,
+              1,
+              9,
+              25,
+              16,
+              4
+            ],
+            "lower_radius_decimal": "8.554468633373215169513059663586318492889404296875",
+            "upper_radius_decimal": "8.554668633373214703397025004960596561431884765625",
+            "lower_minus_global_upper_decimal": "0.0864335572848435873538619489409029483795166015625"
+          },
+          {
+            "source_check_id": "LB-0013",
+            "index_order": [
+              6,
+              1,
+              4,
+              2,
+              3,
+              5
+            ],
+            "radius_order": [
+              36,
+              1,
+              16,
+              4,
+              9,
+              25
+            ],
+            "lower_radius_decimal": "9.29504388425279870489248423837125301361083984375",
+            "upper_radius_decimal": "9.2952438842528000151332889799959957599639892578125",
+            "lower_minus_global_upper_decimal": "0.8270088081644271227332865237258374691009521484375"
+          },
+          {
+            "source_check_id": "LB-0014",
+            "index_order": [
+              6,
+              1,
+              4,
+              2,
+              5,
+              3
+            ],
+            "radius_order": [
+              36,
+              1,
+              16,
+              4,
+              25,
+              9
+            ],
+            "lower_radius_decimal": "8.6649065699016194486148378928191959857940673828125",
+            "upper_radius_decimal": "8.6651065699016189824988032341934740543365478515625",
+            "lower_minus_global_upper_decimal": "0.1968714938132478664556401781737804412841796875000"
+          },
+          {
+            "source_check_id": "LB-0015",
+            "index_order": [
+              6,
+              1,
+              4,
+              3,
+              2,
+              5
+            ],
+            "radius_order": [
+              36,
+              1,
+              16,
+              9,
+              4,
+              25
+            ],
+            "lower_radius_decimal": "9.1984310185626423361782144638709723949432373046875",
+            "upper_radius_decimal": "9.1986310185626418700621798052452504634857177734375",
+            "lower_minus_global_upper_decimal": "0.7303959424742707540190167492255568504333496093750"
+          },
+          {
+            "source_check_id": "LB-0016",
+            "index_order": [
+              6,
+              1,
+              4,
+              3,
+              5,
+              2
+            ],
+            "radius_order": [
+              36,
+              1,
+              16,
+              9,
+              25,
+              4
+            ],
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "upper_radius_decimal": "8.5171058717586713981972934561781585216522216796875",
+            "lower_minus_global_upper_decimal": "0.0488707956703002821541304001584649085998535156250"
+          },
+          {
+            "source_check_id": "LB-0017",
+            "index_order": [
+              6,
+              1,
+              4,
+              5,
+              2,
+              3
+            ],
+            "radius_order": [
+              36,
+              1,
+              16,
+              25,
+              4,
+              9
+            ],
+            "lower_radius_decimal": "8.96902255347639965066264267079532146453857421875",
+            "upper_radius_decimal": "8.9692225534764009609034474124200642108917236328125",
+            "lower_minus_global_upper_decimal": "0.5009874773880280685034449561499059200286865234375"
+          },
+          {
+            "source_check_id": "LB-0018",
+            "index_order": [
+              6,
+              1,
+              4,
+              5,
+              3,
+              2
+            ],
+            "radius_order": [
+              36,
+              1,
+              16,
+              25,
+              9,
+              4
+            ],
+            "lower_radius_decimal": "8.905524099653945313548319973051548004150390625",
+            "upper_radius_decimal": "8.9057240996539466237891247146762907505035400390625",
+            "lower_minus_global_upper_decimal": "0.4374890235655737313891222584061324596405029296875"
+          },
+          {
+            "source_check_id": "LB-0019",
+            "index_order": [
+              6,
+              1,
+              5,
+              2,
+              3,
+              4
+            ],
+            "radius_order": [
+              36,
+              1,
+              25,
+              4,
+              9,
+              16
+            ],
+            "lower_radius_decimal": "9.1984310185626423361782144638709723949432373046875",
+            "upper_radius_decimal": "9.1986310185626418700621798052452504634857177734375",
+            "lower_minus_global_upper_decimal": "0.7303959424742707540190167492255568504333496093750"
+          },
+          {
+            "source_check_id": "LB-0020",
+            "index_order": [
+              6,
+              1,
+              5,
+              2,
+              4,
+              3
+            ],
+            "radius_order": [
+              36,
+              1,
+              25,
+              4,
+              16,
+              9
+            ],
+            "lower_radius_decimal": "8.831630574986558457339924643747508525848388671875",
+            "upper_radius_decimal": "8.8318305749865597675807293853722512722015380859375",
+            "lower_minus_global_upper_decimal": "0.3635954988981868751807269291020929813385009765625"
+          },
+          {
+            "source_check_id": "LB-0021",
+            "index_order": [
+              6,
+              1,
+              5,
+              3,
+              2,
+              4
+            ],
+            "radius_order": [
+              36,
+              1,
+              25,
+              9,
+              4,
+              16
+            ],
+            "lower_radius_decimal": "9.29504388425279870489248423837125301361083984375",
+            "upper_radius_decimal": "9.2952438842528000151332889799959957599639892578125",
+            "lower_minus_global_upper_decimal": "0.8270088081644271227332865237258374691009521484375"
+          },
+          {
+            "source_check_id": "LB-0022",
+            "index_order": [
+              6,
+              1,
+              5,
+              3,
+              4,
+              2
+            ],
+            "radius_order": [
+              36,
+              1,
+              25,
+              9,
+              16,
+              4
+            ],
+            "lower_radius_decimal": "8.769251709106651304637125576846301555633544921875",
+            "upper_radius_decimal": "8.769451709106650838521090918220579624176025390625",
+            "lower_minus_global_upper_decimal": "0.3012166330182797224779278622008860111236572265625"
+          },
+          {
+            "source_check_id": "LB-0023",
+            "index_order": [
+              6,
+              1,
+              5,
+              4,
+              2,
+              3
+            ],
+            "radius_order": [
+              36,
+              1,
+              25,
+              16,
+              4,
+              9
+            ],
+            "lower_radius_decimal": "9.2394704168493202445233691832982003688812255859375",
+            "upper_radius_decimal": "9.2396704168493197784073345246724784374237060546875",
+            "lower_minus_global_upper_decimal": "0.7714353407609486623641714686527848243713378906250"
+          },
+          {
+            "source_check_id": "LB-0024",
+            "index_order": [
+              6,
+              1,
+              5,
+              4,
+              3,
+              2
+            ],
+            "radius_order": [
+              36,
+              1,
+              25,
+              16,
+              9,
+              4
+            ],
+            "lower_radius_decimal": "9.0783473292937681975445229909382760524749755859375",
+            "upper_radius_decimal": "9.0785473292937677314284883323125541210174560546875",
+            "lower_minus_global_upper_decimal": "0.6103122532053966153853252762928605079650878906250"
+          },
+          {
+            "source_check_id": "LB-0025",
+            "index_order": [
+              6,
+              2,
+              1,
+              3,
+              4,
+              5
+            ],
+            "radius_order": [
+              36,
+              4,
+              1,
+              9,
+              16,
+              25
+            ],
+            "lower_radius_decimal": "9.0783473292937681975445229909382760524749755859375",
+            "upper_radius_decimal": "9.0785473292937677314284883323125541210174560546875",
+            "lower_minus_global_upper_decimal": "0.6103122532053966153853252762928605079650878906250"
+          },
+          {
+            "source_check_id": "LB-0026",
+            "index_order": [
+              6,
+              2,
+              1,
+              3,
+              5,
+              4
+            ],
+            "radius_order": [
+              36,
+              4,
+              1,
+              9,
+              25,
+              16
+            ],
+            "lower_radius_decimal": "8.905524099653945313548319973051548004150390625",
+            "upper_radius_decimal": "8.9057240996539466237891247146762907505035400390625",
+            "lower_minus_global_upper_decimal": "0.4374890235655737313891222584061324596405029296875"
+          },
+          {
+            "source_check_id": "LB-0027",
+            "index_order": [
+              6,
+              2,
+              1,
+              4,
+              3,
+              5
+            ],
+            "radius_order": [
+              36,
+              4,
+              1,
+              16,
+              9,
+              25
+            ],
+            "lower_radius_decimal": "8.769251709106651304637125576846301555633544921875",
+            "upper_radius_decimal": "8.769451709106650838521090918220579624176025390625",
+            "lower_minus_global_upper_decimal": "0.3012166330182797224779278622008860111236572265625"
+          },
+          {
+            "source_check_id": "LB-0028",
+            "index_order": [
+              6,
+              2,
+              1,
+              4,
+              5,
+              3
+            ],
+            "radius_order": [
+              36,
+              4,
+              1,
+              16,
+              25,
+              9
+            ],
+            "lower_radius_decimal": "8.554468633373215169513059663586318492889404296875",
+            "upper_radius_decimal": "8.554668633373214703397025004960596561431884765625",
+            "lower_minus_global_upper_decimal": "0.0864335572848435873538619489409029483795166015625"
+          },
+          {
+            "source_check_id": "LB-0029",
+            "index_order": [
+              6,
+              2,
+              1,
+              5,
+              3,
+              4
+            ],
+            "radius_order": [
+              36,
+              4,
+              1,
+              25,
+              9,
+              16
+            ],
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "upper_radius_decimal": "8.5171058717586713981972934561781585216522216796875",
+            "lower_minus_global_upper_decimal": "0.0488707956703002821541304001584649085998535156250"
+          },
+          {
+            "source_check_id": "LB-0031",
+            "index_order": [
+              6,
+              2,
+              3,
+              1,
+              4,
+              5
+            ],
+            "radius_order": [
+              36,
+              4,
+              9,
+              1,
+              16,
+              25
+            ],
+            "lower_radius_decimal": "9.0783473292937681975445229909382760524749755859375",
+            "upper_radius_decimal": "9.0785473292937677314284883323125541210174560546875",
+            "lower_minus_global_upper_decimal": "0.6103122532053966153853252762928605079650878906250"
+          },
+          {
+            "source_check_id": "LB-0032",
+            "index_order": [
+              6,
+              2,
+              3,
+              1,
+              5,
+              4
+            ],
+            "radius_order": [
+              36,
+              4,
+              9,
+              1,
+              25,
+              16
+            ],
+            "lower_radius_decimal": "8.905524099653945313548319973051548004150390625",
+            "upper_radius_decimal": "8.9057240996539466237891247146762907505035400390625",
+            "lower_minus_global_upper_decimal": "0.4374890235655737313891222584061324596405029296875"
+          },
+          {
+            "source_check_id": "LB-0033",
+            "index_order": [
+              6,
+              2,
+              3,
+              4,
+              1,
+              5
+            ],
+            "radius_order": [
+              36,
+              4,
+              9,
+              16,
+              1,
+              25
+            ],
+            "lower_radius_decimal": "9.0783473292937681975445229909382760524749755859375",
+            "upper_radius_decimal": "9.0785473292937677314284883323125541210174560546875",
+            "lower_minus_global_upper_decimal": "0.6103122532053966153853252762928605079650878906250"
+          },
+          {
+            "source_check_id": "LB-0034",
+            "index_order": [
+              6,
+              2,
+              3,
+              5,
+              1,
+              4
+            ],
+            "radius_order": [
+              36,
+              4,
+              9,
+              25,
+              1,
+              16
+            ],
+            "lower_radius_decimal": "8.905524099653945313548319973051548004150390625",
+            "upper_radius_decimal": "8.9057240996539466237891247146762907505035400390625",
+            "lower_minus_global_upper_decimal": "0.4374890235655737313891222584061324596405029296875"
+          },
+          {
+            "source_check_id": "LB-0035",
+            "index_order": [
+              6,
+              2,
+              4,
+              1,
+              3,
+              5
+            ],
+            "radius_order": [
+              36,
+              4,
+              16,
+              1,
+              9,
+              25
+            ],
+            "lower_radius_decimal": "8.769251709106651304637125576846301555633544921875",
+            "upper_radius_decimal": "8.769451709106650838521090918220579624176025390625",
+            "lower_minus_global_upper_decimal": "0.3012166330182797224779278622008860111236572265625"
+          },
+          {
+            "source_check_id": "LB-0036",
+            "index_order": [
+              6,
+              2,
+              4,
+              1,
+              5,
+              3
+            ],
+            "radius_order": [
+              36,
+              4,
+              16,
+              1,
+              25,
+              9
+            ],
+            "lower_radius_decimal": "8.554468633373215169513059663586318492889404296875",
+            "upper_radius_decimal": "8.554668633373214703397025004960596561431884765625",
+            "lower_minus_global_upper_decimal": "0.0864335572848435873538619489409029483795166015625"
+          },
+          {
+            "source_check_id": "LB-0037",
+            "index_order": [
+              6,
+              2,
+              4,
+              3,
+              1,
+              5
+            ],
+            "radius_order": [
+              36,
+              4,
+              16,
+              9,
+              1,
+              25
+            ],
+            "lower_radius_decimal": "8.769251709106651304637125576846301555633544921875",
+            "upper_radius_decimal": "8.769451709106650838521090918220579624176025390625",
+            "lower_minus_global_upper_decimal": "0.3012166330182797224779278622008860111236572265625"
+          },
+          {
+            "source_check_id": "LB-0038",
+            "index_order": [
+              6,
+              2,
+              4,
+              5,
+              1,
+              3
+            ],
+            "radius_order": [
+              36,
+              4,
+              16,
+              25,
+              1,
+              9
+            ],
+            "lower_radius_decimal": "8.554468633373215169513059663586318492889404296875",
+            "upper_radius_decimal": "8.554668633373214703397025004960596561431884765625",
+            "lower_minus_global_upper_decimal": "0.0864335572848435873538619489409029483795166015625"
+          },
+          {
+            "source_check_id": "LB-0039",
+            "index_order": [
+              6,
+              2,
+              5,
+              1,
+              3,
+              4
+            ],
+            "radius_order": [
+              36,
+              4,
+              25,
+              1,
+              9,
+              16
+            ],
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "upper_radius_decimal": "8.5171058717586713981972934561781585216522216796875",
+            "lower_minus_global_upper_decimal": "0.0488707956703002821541304001584649085998535156250"
+          },
+          {
+            "source_check_id": "LB-0041",
+            "index_order": [
+              6,
+              2,
+              5,
+              3,
+              1,
+              4
+            ],
+            "radius_order": [
+              36,
+              4,
+              25,
+              9,
+              1,
+              16
+            ],
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "upper_radius_decimal": "8.5171058717586713981972934561781585216522216796875",
+            "lower_minus_global_upper_decimal": "0.0488707956703002821541304001584649085998535156250"
+          },
+          {
+            "source_check_id": "LB-0043",
+            "index_order": [
+              6,
+              3,
+              1,
+              2,
+              4,
+              5
+            ],
+            "radius_order": [
+              36,
+              9,
+              1,
+              4,
+              16,
+              25
+            ],
+            "lower_radius_decimal": "9.2394704168493202445233691832982003688812255859375",
+            "upper_radius_decimal": "9.2396704168493197784073345246724784374237060546875",
+            "lower_minus_global_upper_decimal": "0.7714353407609486623641714686527848243713378906250"
+          },
+          {
+            "source_check_id": "LB-0044",
+            "index_order": [
+              6,
+              3,
+              1,
+              2,
+              5,
+              4
+            ],
+            "radius_order": [
+              36,
+              9,
+              1,
+              4,
+              25,
+              16
+            ],
+            "lower_radius_decimal": "8.96902255347639965066264267079532146453857421875",
+            "upper_radius_decimal": "8.9692225534764009609034474124200642108917236328125",
+            "lower_minus_global_upper_decimal": "0.5009874773880280685034449561499059200286865234375"
+          },
+          {
+            "source_check_id": "LB-0045",
+            "index_order": [
+              6,
+              3,
+              1,
+              4,
+              2,
+              5
+            ],
+            "radius_order": [
+              36,
+              9,
+              1,
+              16,
+              4,
+              25
+            ],
+            "lower_radius_decimal": "8.831630574986558457339924643747508525848388671875",
+            "upper_radius_decimal": "8.8318305749865597675807293853722512722015380859375",
+            "lower_minus_global_upper_decimal": "0.3635954988981868751807269291020929813385009765625"
+          },
+          {
+            "source_check_id": "LB-0046",
+            "index_order": [
+              6,
+              3,
+              1,
+              5,
+              2,
+              4
+            ],
+            "radius_order": [
+              36,
+              9,
+              1,
+              25,
+              4,
+              16
+            ],
+            "lower_radius_decimal": "8.6649065699016194486148378928191959857940673828125",
+            "upper_radius_decimal": "8.6651065699016189824988032341934740543365478515625",
+            "lower_minus_global_upper_decimal": "0.1968714938132478664556401781737804412841796875000"
+          },
+          {
+            "source_check_id": "LB-0047",
+            "index_order": [
+              6,
+              3,
+              2,
+              1,
+              4,
+              5
+            ],
+            "radius_order": [
+              36,
+              9,
+              4,
+              1,
+              16,
+              25
+            ],
+            "lower_radius_decimal": "9.2394704168493202445233691832982003688812255859375",
+            "upper_radius_decimal": "9.2396704168493197784073345246724784374237060546875",
+            "lower_minus_global_upper_decimal": "0.7714353407609486623641714686527848243713378906250"
+          },
+          {
+            "source_check_id": "LB-0048",
+            "index_order": [
+              6,
+              3,
+              2,
+              1,
+              5,
+              4
+            ],
+            "radius_order": [
+              36,
+              9,
+              4,
+              1,
+              25,
+              16
+            ],
+            "lower_radius_decimal": "8.96902255347639965066264267079532146453857421875",
+            "upper_radius_decimal": "8.9692225534764009609034474124200642108917236328125",
+            "lower_minus_global_upper_decimal": "0.5009874773880280685034449561499059200286865234375"
+          },
+          {
+            "source_check_id": "LB-0049",
+            "index_order": [
+              6,
+              3,
+              2,
+              4,
+              1,
+              5
+            ],
+            "radius_order": [
+              36,
+              9,
+              4,
+              16,
+              1,
+              25
+            ],
+            "lower_radius_decimal": "9.2394704168493202445233691832982003688812255859375",
+            "upper_radius_decimal": "9.2396704168493197784073345246724784374237060546875",
+            "lower_minus_global_upper_decimal": "0.7714353407609486623641714686527848243713378906250"
+          },
+          {
+            "source_check_id": "LB-0050",
+            "index_order": [
+              6,
+              3,
+              2,
+              5,
+              1,
+              4
+            ],
+            "radius_order": [
+              36,
+              9,
+              4,
+              25,
+              1,
+              16
+            ],
+            "lower_radius_decimal": "8.96902255347639965066264267079532146453857421875",
+            "upper_radius_decimal": "8.9692225534764009609034474124200642108917236328125",
+            "lower_minus_global_upper_decimal": "0.5009874773880280685034449561499059200286865234375"
+          },
+          {
+            "source_check_id": "LB-0051",
+            "index_order": [
+              6,
+              3,
+              4,
+              1,
+              2,
+              5
+            ],
+            "radius_order": [
+              36,
+              9,
+              16,
+              1,
+              4,
+              25
+            ],
+            "lower_radius_decimal": "8.831630574986558457339924643747508525848388671875",
+            "upper_radius_decimal": "8.8318305749865597675807293853722512722015380859375",
+            "lower_minus_global_upper_decimal": "0.3635954988981868751807269291020929813385009765625"
+          },
+          {
+            "source_check_id": "LB-0052",
+            "index_order": [
+              6,
+              3,
+              4,
+              2,
+              1,
+              5
+            ],
+            "radius_order": [
+              36,
+              9,
+              16,
+              4,
+              1,
+              25
+            ],
+            "lower_radius_decimal": "8.831630574986558457339924643747508525848388671875",
+            "upper_radius_decimal": "8.8318305749865597675807293853722512722015380859375",
+            "lower_minus_global_upper_decimal": "0.3635954988981868751807269291020929813385009765625"
+          },
+          {
+            "source_check_id": "LB-0053",
+            "index_order": [
+              6,
+              3,
+              5,
+              1,
+              2,
+              4
+            ],
+            "radius_order": [
+              36,
+              9,
+              25,
+              1,
+              4,
+              16
+            ],
+            "lower_radius_decimal": "8.6649065699016194486148378928191959857940673828125",
+            "upper_radius_decimal": "8.6651065699016189824988032341934740543365478515625",
+            "lower_minus_global_upper_decimal": "0.1968714938132478664556401781737804412841796875000"
+          },
+          {
+            "source_check_id": "LB-0054",
+            "index_order": [
+              6,
+              3,
+              5,
+              2,
+              1,
+              4
+            ],
+            "radius_order": [
+              36,
+              9,
+              25,
+              4,
+              1,
+              16
+            ],
+            "lower_radius_decimal": "8.6649065699016194486148378928191959857940673828125",
+            "upper_radius_decimal": "8.6651065699016189824988032341934740543365478515625",
+            "lower_minus_global_upper_decimal": "0.1968714938132478664556401781737804412841796875000"
+          },
+          {
+            "source_check_id": "LB-0055",
+            "index_order": [
+              6,
+              4,
+              1,
+              2,
+              3,
+              5
+            ],
+            "radius_order": [
+              36,
+              16,
+              1,
+              4,
+              9,
+              25
+            ],
+            "lower_radius_decimal": "9.29504388425279870489248423837125301361083984375",
+            "upper_radius_decimal": "9.2952438842528000151332889799959957599639892578125",
+            "lower_minus_global_upper_decimal": "0.8270088081644271227332865237258374691009521484375"
+          },
+          {
+            "source_check_id": "LB-0056",
+            "index_order": [
+              6,
+              4,
+              1,
+              3,
+              2,
+              5
+            ],
+            "radius_order": [
+              36,
+              16,
+              1,
+              9,
+              4,
+              25
+            ],
+            "lower_radius_decimal": "9.1984310185626423361782144638709723949432373046875",
+            "upper_radius_decimal": "9.1986310185626418700621798052452504634857177734375",
+            "lower_minus_global_upper_decimal": "0.7303959424742707540190167492255568504333496093750"
+          },
+          {
+            "source_check_id": "LB-0057",
+            "index_order": [
+              6,
+              4,
+              2,
+              1,
+              3,
+              5
+            ],
+            "radius_order": [
+              36,
+              16,
+              4,
+              1,
+              9,
+              25
+            ],
+            "lower_radius_decimal": "9.29504388425279870489248423837125301361083984375",
+            "upper_radius_decimal": "9.2952438842528000151332889799959957599639892578125",
+            "lower_minus_global_upper_decimal": "0.8270088081644271227332865237258374691009521484375"
+          },
+          {
+            "source_check_id": "LB-0058",
+            "index_order": [
+              6,
+              4,
+              2,
+              3,
+              1,
+              5
+            ],
+            "radius_order": [
+              36,
+              16,
+              4,
+              9,
+              1,
+              25
+            ],
+            "lower_radius_decimal": "9.29504388425279870489248423837125301361083984375",
+            "upper_radius_decimal": "9.2952438842528000151332889799959957599639892578125",
+            "lower_minus_global_upper_decimal": "0.8270088081644271227332865237258374691009521484375"
+          },
+          {
+            "source_check_id": "LB-0059",
+            "index_order": [
+              6,
+              4,
+              3,
+              1,
+              2,
+              5
+            ],
+            "radius_order": [
+              36,
+              16,
+              9,
+              1,
+              4,
+              25
+            ],
+            "lower_radius_decimal": "9.1984310185626423361782144638709723949432373046875",
+            "upper_radius_decimal": "9.1986310185626418700621798052452504634857177734375",
+            "lower_minus_global_upper_decimal": "0.7303959424742707540190167492255568504333496093750"
+          },
+          {
+            "source_check_id": "LB-0060",
+            "index_order": [
+              6,
+              4,
+              3,
+              2,
+              1,
+              5
+            ],
+            "radius_order": [
+              36,
+              16,
+              9,
+              4,
+              1,
+              25
+            ],
+            "lower_radius_decimal": "9.1984310185626423361782144638709723949432373046875",
+            "upper_radius_decimal": "9.1986310185626418700621798052452504634857177734375",
+            "lower_minus_global_upper_decimal": "0.7303959424742707540190167492255568504333496093750"
+          }
+        ],
+        "exclusion_gap": {
+          "classification": "computer_certified_result",
+          "defined": true,
+          "gap_decimal": "0.0488707956703002821541304001584649085998535156250",
+          "orders": [
+            {
+              "index_order": [
+                6,
+                1,
+                2,
+                5,
+                3,
+                4
+              ],
+              "radius_order": [
+                36,
+                1,
+                4,
+                25,
+                9,
+                16
+              ],
+              "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+              "lower_minus_global_upper_decimal": "0.0488707956703002821541304001584649085998535156250"
+            },
+            {
+              "index_order": [
+                6,
+                1,
+                4,
+                3,
+                5,
+                2
+              ],
+              "radius_order": [
+                36,
+                1,
+                16,
+                9,
+                25,
+                4
+              ],
+              "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+              "lower_minus_global_upper_decimal": "0.0488707956703002821541304001584649085998535156250"
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                1,
+                5,
+                3,
+                4
+              ],
+              "radius_order": [
+                36,
+                4,
+                1,
+                25,
+                9,
+                16
+              ],
+              "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+              "lower_minus_global_upper_decimal": "0.0488707956703002821541304001584649085998535156250"
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                5,
+                1,
+                3,
+                4
+              ],
+              "radius_order": [
+                36,
+                4,
+                25,
+                1,
+                9,
+                16
+              ],
+              "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+              "lower_minus_global_upper_decimal": "0.0488707956703002821541304001584649085998535156250"
+            },
+            {
+              "index_order": [
+                6,
+                2,
+                5,
+                3,
+                1,
+                4
+              ],
+              "radius_order": [
+                36,
+                4,
+                25,
+                9,
+                1,
+                16
+              ],
+              "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+              "lower_minus_global_upper_decimal": "0.0488707956703002821541304001584649085998535156250"
+            }
+          ]
+        }
+      },
+      "identical_serialized_bracket_groups": {
+        "classification": "verified_fact",
+        "warning": "Identical serialized bracket endpoints are not an exact equality claim for fixed-order optima.",
+        "groups": [
+          {
+            "lower_radius_decimal": "9.0783473292937681975445229909382760524749755859375",
+            "upper_radius_decimal": "9.0785473292937677314284883323125541210174560546875",
+            "size": 5,
+            "orders": [
+              {
+                "source_check_id": "LB-0001",
+                "index_order": [
+                  6,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  4,
+                  9,
+                  16,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0024",
+                "index_order": [
+                  6,
+                  1,
+                  5,
+                  4,
+                  3,
+                  2
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  25,
+                  16,
+                  9,
+                  4
+                ]
+              },
+              {
+                "source_check_id": "LB-0025",
+                "index_order": [
+                  6,
+                  2,
+                  1,
+                  3,
+                  4,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  1,
+                  9,
+                  16,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0031",
+                "index_order": [
+                  6,
+                  2,
+                  3,
+                  1,
+                  4,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  9,
+                  1,
+                  16,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0033",
+                "index_order": [
+                  6,
+                  2,
+                  3,
+                  4,
+                  1,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  9,
+                  16,
+                  1,
+                  25
+                ]
+              }
+            ]
+          },
+          {
+            "lower_radius_decimal": "8.905524099653945313548319973051548004150390625",
+            "upper_radius_decimal": "8.9057240996539466237891247146762907505035400390625",
+            "size": 5,
+            "orders": [
+              {
+                "source_check_id": "LB-0002",
+                "index_order": [
+                  6,
+                  1,
+                  2,
+                  3,
+                  5,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  4,
+                  9,
+                  25,
+                  16
+                ]
+              },
+              {
+                "source_check_id": "LB-0018",
+                "index_order": [
+                  6,
+                  1,
+                  4,
+                  5,
+                  3,
+                  2
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  16,
+                  25,
+                  9,
+                  4
+                ]
+              },
+              {
+                "source_check_id": "LB-0026",
+                "index_order": [
+                  6,
+                  2,
+                  1,
+                  3,
+                  5,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  1,
+                  9,
+                  25,
+                  16
+                ]
+              },
+              {
+                "source_check_id": "LB-0032",
+                "index_order": [
+                  6,
+                  2,
+                  3,
+                  1,
+                  5,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  9,
+                  1,
+                  25,
+                  16
+                ]
+              },
+              {
+                "source_check_id": "LB-0034",
+                "index_order": [
+                  6,
+                  2,
+                  3,
+                  5,
+                  1,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  9,
+                  25,
+                  1,
+                  16
+                ]
+              }
+            ]
+          },
+          {
+            "lower_radius_decimal": "8.769251709106651304637125576846301555633544921875",
+            "upper_radius_decimal": "8.769451709106650838521090918220579624176025390625",
+            "size": 5,
+            "orders": [
+              {
+                "source_check_id": "LB-0003",
+                "index_order": [
+                  6,
+                  1,
+                  2,
+                  4,
+                  3,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  4,
+                  16,
+                  9,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0022",
+                "index_order": [
+                  6,
+                  1,
+                  5,
+                  3,
+                  4,
+                  2
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  25,
+                  9,
+                  16,
+                  4
+                ]
+              },
+              {
+                "source_check_id": "LB-0027",
+                "index_order": [
+                  6,
+                  2,
+                  1,
+                  4,
+                  3,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  1,
+                  16,
+                  9,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0035",
+                "index_order": [
+                  6,
+                  2,
+                  4,
+                  1,
+                  3,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  16,
+                  1,
+                  9,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0037",
+                "index_order": [
+                  6,
+                  2,
+                  4,
+                  3,
+                  1,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  16,
+                  9,
+                  1,
+                  25
+                ]
+              }
+            ]
+          },
+          {
+            "lower_radius_decimal": "8.554468633373215169513059663586318492889404296875",
+            "upper_radius_decimal": "8.554668633373214703397025004960596561431884765625",
+            "size": 5,
+            "orders": [
+              {
+                "source_check_id": "LB-0004",
+                "index_order": [
+                  6,
+                  1,
+                  2,
+                  4,
+                  5,
+                  3
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  4,
+                  16,
+                  25,
+                  9
+                ]
+              },
+              {
+                "source_check_id": "LB-0012",
+                "index_order": [
+                  6,
+                  1,
+                  3,
+                  5,
+                  4,
+                  2
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  9,
+                  25,
+                  16,
+                  4
+                ]
+              },
+              {
+                "source_check_id": "LB-0028",
+                "index_order": [
+                  6,
+                  2,
+                  1,
+                  4,
+                  5,
+                  3
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  1,
+                  16,
+                  25,
+                  9
+                ]
+              },
+              {
+                "source_check_id": "LB-0036",
+                "index_order": [
+                  6,
+                  2,
+                  4,
+                  1,
+                  5,
+                  3
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  16,
+                  1,
+                  25,
+                  9
+                ]
+              },
+              {
+                "source_check_id": "LB-0038",
+                "index_order": [
+                  6,
+                  2,
+                  4,
+                  5,
+                  1,
+                  3
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  16,
+                  25,
+                  1,
+                  9
+                ]
+              }
+            ]
+          },
+          {
+            "lower_radius_decimal": "8.5169058717586718643133281148038804531097412109375",
+            "upper_radius_decimal": "8.5171058717586713981972934561781585216522216796875",
+            "size": 5,
+            "orders": [
+              {
+                "source_check_id": "LB-0005",
+                "index_order": [
+                  6,
+                  1,
+                  2,
+                  5,
+                  3,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  4,
+                  25,
+                  9,
+                  16
+                ]
+              },
+              {
+                "source_check_id": "LB-0016",
+                "index_order": [
+                  6,
+                  1,
+                  4,
+                  3,
+                  5,
+                  2
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  16,
+                  9,
+                  25,
+                  4
+                ]
+              },
+              {
+                "source_check_id": "LB-0029",
+                "index_order": [
+                  6,
+                  2,
+                  1,
+                  5,
+                  3,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  1,
+                  25,
+                  9,
+                  16
+                ]
+              },
+              {
+                "source_check_id": "LB-0039",
+                "index_order": [
+                  6,
+                  2,
+                  5,
+                  1,
+                  3,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  25,
+                  1,
+                  9,
+                  16
+                ]
+              },
+              {
+                "source_check_id": "LB-0041",
+                "index_order": [
+                  6,
+                  2,
+                  5,
+                  3,
+                  1,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  25,
+                  9,
+                  1,
+                  16
+                ]
+              }
+            ]
+          },
+          {
+            "lower_radius_decimal": "8.4678350760883720482752323732711374759674072265625",
+            "upper_radius_decimal": "8.4680350760883715821591977146454155445098876953125",
+            "size": 5,
+            "orders": [
+              {
+                "source_check_id": "LB-0006",
+                "index_order": [
+                  6,
+                  1,
+                  2,
+                  5,
+                  4,
+                  3
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  4,
+                  25,
+                  16,
+                  9
+                ]
+              },
+              {
+                "source_check_id": "LB-0010",
+                "index_order": [
+                  6,
+                  1,
+                  3,
+                  4,
+                  5,
+                  2
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  9,
+                  16,
+                  25,
+                  4
+                ]
+              },
+              {
+                "source_check_id": "LB-0030",
+                "index_order": [
+                  6,
+                  2,
+                  1,
+                  5,
+                  4,
+                  3
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  1,
+                  25,
+                  16,
+                  9
+                ]
+              },
+              {
+                "source_check_id": "LB-0040",
+                "index_order": [
+                  6,
+                  2,
+                  5,
+                  1,
+                  4,
+                  3
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  25,
+                  1,
+                  16,
+                  9
+                ]
+              },
+              {
+                "source_check_id": "LB-0042",
+                "index_order": [
+                  6,
+                  2,
+                  5,
+                  4,
+                  1,
+                  3
+                ],
+                "radius_order": [
+                  36,
+                  4,
+                  25,
+                  16,
+                  1,
+                  9
+                ]
+              }
+            ]
+          },
+          {
+            "lower_radius_decimal": "9.2394704168493202445233691832982003688812255859375",
+            "upper_radius_decimal": "9.2396704168493197784073345246724784374237060546875",
+            "size": 5,
+            "orders": [
+              {
+                "source_check_id": "LB-0007",
+                "index_order": [
+                  6,
+                  1,
+                  3,
+                  2,
+                  4,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  9,
+                  4,
+                  16,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0023",
+                "index_order": [
+                  6,
+                  1,
+                  5,
+                  4,
+                  2,
+                  3
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  25,
+                  16,
+                  4,
+                  9
+                ]
+              },
+              {
+                "source_check_id": "LB-0043",
+                "index_order": [
+                  6,
+                  3,
+                  1,
+                  2,
+                  4,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  9,
+                  1,
+                  4,
+                  16,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0047",
+                "index_order": [
+                  6,
+                  3,
+                  2,
+                  1,
+                  4,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  9,
+                  4,
+                  1,
+                  16,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0049",
+                "index_order": [
+                  6,
+                  3,
+                  2,
+                  4,
+                  1,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  9,
+                  4,
+                  16,
+                  1,
+                  25
+                ]
+              }
+            ]
+          },
+          {
+            "lower_radius_decimal": "8.96902255347639965066264267079532146453857421875",
+            "upper_radius_decimal": "8.9692225534764009609034474124200642108917236328125",
+            "size": 5,
+            "orders": [
+              {
+                "source_check_id": "LB-0008",
+                "index_order": [
+                  6,
+                  1,
+                  3,
+                  2,
+                  5,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  9,
+                  4,
+                  25,
+                  16
+                ]
+              },
+              {
+                "source_check_id": "LB-0017",
+                "index_order": [
+                  6,
+                  1,
+                  4,
+                  5,
+                  2,
+                  3
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  16,
+                  25,
+                  4,
+                  9
+                ]
+              },
+              {
+                "source_check_id": "LB-0044",
+                "index_order": [
+                  6,
+                  3,
+                  1,
+                  2,
+                  5,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  9,
+                  1,
+                  4,
+                  25,
+                  16
+                ]
+              },
+              {
+                "source_check_id": "LB-0048",
+                "index_order": [
+                  6,
+                  3,
+                  2,
+                  1,
+                  5,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  9,
+                  4,
+                  1,
+                  25,
+                  16
+                ]
+              },
+              {
+                "source_check_id": "LB-0050",
+                "index_order": [
+                  6,
+                  3,
+                  2,
+                  5,
+                  1,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  9,
+                  4,
+                  25,
+                  1,
+                  16
+                ]
+              }
+            ]
+          },
+          {
+            "lower_radius_decimal": "8.831630574986558457339924643747508525848388671875",
+            "upper_radius_decimal": "8.8318305749865597675807293853722512722015380859375",
+            "size": 5,
+            "orders": [
+              {
+                "source_check_id": "LB-0009",
+                "index_order": [
+                  6,
+                  1,
+                  3,
+                  4,
+                  2,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  9,
+                  16,
+                  4,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0020",
+                "index_order": [
+                  6,
+                  1,
+                  5,
+                  2,
+                  4,
+                  3
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  25,
+                  4,
+                  16,
+                  9
+                ]
+              },
+              {
+                "source_check_id": "LB-0045",
+                "index_order": [
+                  6,
+                  3,
+                  1,
+                  4,
+                  2,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  9,
+                  1,
+                  16,
+                  4,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0051",
+                "index_order": [
+                  6,
+                  3,
+                  4,
+                  1,
+                  2,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  9,
+                  16,
+                  1,
+                  4,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0052",
+                "index_order": [
+                  6,
+                  3,
+                  4,
+                  2,
+                  1,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  9,
+                  16,
+                  4,
+                  1,
+                  25
+                ]
+              }
+            ]
+          },
+          {
+            "lower_radius_decimal": "8.6649065699016194486148378928191959857940673828125",
+            "upper_radius_decimal": "8.6651065699016189824988032341934740543365478515625",
+            "size": 5,
+            "orders": [
+              {
+                "source_check_id": "LB-0011",
+                "index_order": [
+                  6,
+                  1,
+                  3,
+                  5,
+                  2,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  9,
+                  25,
+                  4,
+                  16
+                ]
+              },
+              {
+                "source_check_id": "LB-0014",
+                "index_order": [
+                  6,
+                  1,
+                  4,
+                  2,
+                  5,
+                  3
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  16,
+                  4,
+                  25,
+                  9
+                ]
+              },
+              {
+                "source_check_id": "LB-0046",
+                "index_order": [
+                  6,
+                  3,
+                  1,
+                  5,
+                  2,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  9,
+                  1,
+                  25,
+                  4,
+                  16
+                ]
+              },
+              {
+                "source_check_id": "LB-0053",
+                "index_order": [
+                  6,
+                  3,
+                  5,
+                  1,
+                  2,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  9,
+                  25,
+                  1,
+                  4,
+                  16
+                ]
+              },
+              {
+                "source_check_id": "LB-0054",
+                "index_order": [
+                  6,
+                  3,
+                  5,
+                  2,
+                  1,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  9,
+                  25,
+                  4,
+                  1,
+                  16
+                ]
+              }
+            ]
+          },
+          {
+            "lower_radius_decimal": "9.29504388425279870489248423837125301361083984375",
+            "upper_radius_decimal": "9.2952438842528000151332889799959957599639892578125",
+            "size": 5,
+            "orders": [
+              {
+                "source_check_id": "LB-0013",
+                "index_order": [
+                  6,
+                  1,
+                  4,
+                  2,
+                  3,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  16,
+                  4,
+                  9,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0021",
+                "index_order": [
+                  6,
+                  1,
+                  5,
+                  3,
+                  2,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  25,
+                  9,
+                  4,
+                  16
+                ]
+              },
+              {
+                "source_check_id": "LB-0055",
+                "index_order": [
+                  6,
+                  4,
+                  1,
+                  2,
+                  3,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  16,
+                  1,
+                  4,
+                  9,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0057",
+                "index_order": [
+                  6,
+                  4,
+                  2,
+                  1,
+                  3,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  16,
+                  4,
+                  1,
+                  9,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0058",
+                "index_order": [
+                  6,
+                  4,
+                  2,
+                  3,
+                  1,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  16,
+                  4,
+                  9,
+                  1,
+                  25
+                ]
+              }
+            ]
+          },
+          {
+            "lower_radius_decimal": "9.1984310185626423361782144638709723949432373046875",
+            "upper_radius_decimal": "9.1986310185626418700621798052452504634857177734375",
+            "size": 5,
+            "orders": [
+              {
+                "source_check_id": "LB-0015",
+                "index_order": [
+                  6,
+                  1,
+                  4,
+                  3,
+                  2,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  16,
+                  9,
+                  4,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0019",
+                "index_order": [
+                  6,
+                  1,
+                  5,
+                  2,
+                  3,
+                  4
+                ],
+                "radius_order": [
+                  36,
+                  1,
+                  25,
+                  4,
+                  9,
+                  16
+                ]
+              },
+              {
+                "source_check_id": "LB-0056",
+                "index_order": [
+                  6,
+                  4,
+                  1,
+                  3,
+                  2,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  16,
+                  1,
+                  9,
+                  4,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0059",
+                "index_order": [
+                  6,
+                  4,
+                  3,
+                  1,
+                  2,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  16,
+                  9,
+                  1,
+                  4,
+                  25
+                ]
+              },
+              {
+                "source_check_id": "LB-0060",
+                "index_order": [
+                  6,
+                  4,
+                  3,
+                  2,
+                  1,
+                  5
+                ],
+                "radius_order": [
+                  36,
+                  16,
+                  9,
+                  4,
+                  1,
+                  25
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "exploratory_asymptotic_ratios": {
+        "classification": "numerical_observation",
+        "reference": "n^3/(6*pi)",
+        "reference_value_decimal": "11.459155902616464175359630962821034066481094493313",
+        "midpoint_decimal": "8.4679350760883718152172150439582765102386474609375",
+        "lower_ratio_decimal": "0.73895801296803326327460434830254644072598693435891",
+        "midpoint_ratio_decimal": "0.73896673961429321458434021392383309660393607393622",
+        "upper_ratio_decimal": "0.73897546626055316589407607954511975248188521351353",
+        "warning": "These finite-n diagnostics are numerical observations only.",
+        "additive_difference_from_reference": {
+          "lower_minus_reference_decimal": "-2.9913208265280921270843985895498965905136872667504",
+          "midpoint_minus_reference_decimal": "-2.9912208265280923601424159188627575562424470323754",
+          "upper_minus_reference_decimal": "-2.9911208265280925932004332481756185219712067980004"
+        }
+      },
+      "limitations": [
+        "Finite checked certificate evidence for this n only.",
+        "Candidate multiplicity is not an exact tie claim.",
+        "Identical serialized brackets are not exact optimum equality claims."
+      ]
+    }
+  ],
+  "cross_n_analysis": {
+    "classification": "empirical_pattern",
+    "n_values": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "finite_sequences": {
+      "candidate_set_sizes": [
+        1,
+        1,
+        2,
+        5
+      ],
+      "excluded_order_counts": [
+        0,
+        2,
+        10,
+        55
+      ],
+      "midpoint_ratios_to_reference": [
+        "0.26765464360377962623207969638536051054269711953714",
+        "0.44049892792937443214095096407513696627716047627377",
+        "0.59328264254399693220972289588517333219782366820764",
+        "0.73896673961429321458434021392383309660393607393622"
+      ],
+      "upper_ratios_to_reference": [
+        "0.26772445677385941110339152178724873152833546580424",
+        "0.44052838036050183320884384820882754510100578346542",
+        "0.59329772218873416155648405256162290855563246548977",
+        "0.73897546626055316589407607954511975248188521351353"
+      ]
+    },
+    "observed_patterns": [
+      {
+        "name": "candidate_set_size_nondecreasing_on_checked_range",
+        "classification": "empirical_pattern",
+        "n_values": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "values": [
+          1,
+          1,
+          2,
+          5
+        ],
+        "statement": "Candidate-set size is nondecreasing across these checked finite inputs."
+      }
+    ],
+    "warning": "Cross-n entries describe the listed checked finite inputs only."
+  },
+  "provenance": {
+    "created_at_utc": "2026-07-12T00:00:00Z",
+    "repository": {
+      "name": "power-ringmin",
+      "git_commit": "97bc6327209a98b9e0a6777d121b6e9391fb1da6",
+      "git_dirty": true
+    },
+    "software": [
+      {
+        "name": "Python",
+        "version": "3.14.3",
+        "role": "runtime"
+      },
+      {
+        "name": "mpmath",
+        "version": "1.3.0",
+        "role": "finite-n ratio arithmetic"
+      },
+      {
+        "name": "power-ringmin",
+        "version": "0.1.0",
+        "role": "finite-results summary generator"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "src/power_ringmin/finite_results.py",
+        "role": "derived finite-results summary contract"
+      },
+      {
+        "path": "src/power_ringmin/small_n_interval_certificate.py",
+        "role": "source certificate semantic loader"
+      },
+      {
+        "path": "src/power_ringmin/interval_verifier.py",
+        "role": "source certificate local interval verifier"
+      },
+      {
+        "path": "src/power_ringmin/search_small_n.py",
+        "role": "source certificate canonical order-space regeneration"
+      }
+    ],
+    "commands": [
+      {
+        "command": "power-ringmin-analyze-finite-results --created-at-utc 2026-07-12T00:00:00Z --output examples/finite_results_summary_n3_n6.json",
+        "cwd": "C:\\Users\\Falker\\Desktop\\Code\\circle\\ringmin-squared",
+        "result": "pass",
+        "output_summary": "Built derived finite-results summary from 4 semantically validated source certificate artifact(s)."
+      }
+    ],
+    "randomness": {
+      "used": false,
+      "seeds": []
+    }
+  },
+  "limitations": [
+    "Derived from checked finite certificates for n=3,4,5,6 only.",
+    "Does not establish exact optimum values.",
+    "Does not establish exact ties between multiple candidate orders.",
+    "Ratios and cross-n sequences do not establish behavior beyond the listed inputs.",
+    "Depends on the documented guarded mpmath.iv interval-backend contract of the source certificates."
+  ]
+}

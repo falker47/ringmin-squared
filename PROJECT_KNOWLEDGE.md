@@ -74,7 +74,10 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - VERIFIED FACT: `src/power_ringmin/small_n_interval_certificate.py` provides a finite small-`n` interval certificate aggregator that embeds local fixed-order interval bracket records, independently regenerates the canonical cyclic index-order space, verifies exactly one local bracket per canonical order, and computes a finite global radius bracket from verified local endpoints.
 - VERIFIED FACT: `schemas/small_n_interval_certificate.schema.json` defines the v1 structural JSON Schema for finite small-`n` interval certificate artifacts.
 - VERIFIED FACT: `power-ringmin-export-small-n-interval-certificate` is a bounded general finite small-`n` certificate CLI that requires an explicit `--max-canonical-orders` ceiling and supports `--dry-run` preflight.
-- VERIFIED FACT: `pyproject.toml` registers console scripts for fixed-order export, batch fixed-order export, fixed-order interval bracket export, checked `n=3`/`n=4` interval certificate export, general small-`n` interval certificate export, fixed-order artifact verification, and small-`n` float64 search.
+- VERIFIED FACT: `schemas/finite_results_summary.schema.json` defines the v1 structural JSON Schema for a separate derived finite-results summary artifact, `power-ringmin.finite_results_summary.v1`.
+- VERIFIED FACT: `src/power_ringmin/finite_results.py` provides the derived finite-results summary builder, dump/load helpers, CLI, and semantic validator for checked source certificates.
+- VERIFIED FACT: finite-results summary validation reloads every source small-`n` interval certificate through the semantic certificate loader, recomputes source SHA-256 hashes, rederives candidate sets and exclusion gaps, and rejects stale summaries when source bytes or derived content no longer match.
+- VERIFIED FACT: `pyproject.toml` registers console scripts for fixed-order export, batch fixed-order export, fixed-order interval bracket export, checked `n=3`/`n=4` interval certificate export, general small-`n` interval certificate export, fixed-order artifact verification, small-`n` float64 search, and derived finite-results summary generation.
 - INTERPRETATION: float64 and high-precision numerical search/recheck artifacts are numerical observations unless interval evidence covers the relevant finite order space.
 
 ## Certified Finite Results
@@ -108,6 +111,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - INTERPRETATION: candidate-set size `1` means there is a unique certified candidate order modulo the current rotation/reflection convention.
 - WARNING: candidate-set size greater than `1` does not prove an exact tie between the candidate orders.
 - WARNING: identical serialized local brackets must not be described as exact equality of the corresponding fixed-order optima.
+- VERIFIED FACT: the checked derived summary artifact `examples/finite_results_summary_n3_n6.json` records the `n=3..6` certified finite brackets, candidate sets, exclusion gaps, identical serialized bracket groups, source certificate SHA-256 hashes, and finite-`n` ratios under `power-ringmin.finite_results_summary.v1`.
+- INTERPRETATION: `examples/finite_results_summary_n3_n6.json` is derived analysis over checked source certificates. It does not replace the primary certificate artifacts and does not change `power-ringmin.small_n_interval_certificate.v1`.
 
 ## Empirical Structural Questions
 
