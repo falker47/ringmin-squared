@@ -2,15 +2,35 @@
 
 Last update: 2026-07-12
 
-- **Current phase:** synthesis and structural proof planning after checked-artifact CI stabilization.
-- **Current task:** Create a concise next-research roadmap from checked `n=3..6` certificates, candidate/critical-structure evidence, verifier limitations, CI status, combinatorial growth, and the asymptotic conjecture.
-- **Task dossier:** `ops/TASK-20260712__research_roadmap/`.
+- **Current phase:** all-`n` lower-bound proof integrated; matching upper-bound proof work remains open.
+- **Current task:** Formalize and integrate the all-`n` Power-Ringmin lower bound from adjacent product sums.
+- **Task dossier:** `ops/TASK-20260712__all_n_lower_bound/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
-- **Current next atomic action:** prove or disprove the reduced-core insertion hypothesis on the existing checked `n=5,6` candidate orders, without generating `n=7`.
+- **Current next atomic action:** formulate and test a candidate all-pairs upper-bound inequality family for one explicit structured cyclic order, without generating `n=7`.
 - **Awaiting user review:** yes.
 
 ## Current Stable Artifacts
+
+`research/ALL_N_LOWER_BOUND.md` records the self-contained exact theorem:
+for every `n>=3`,
+
+\[
+R_2^*(n)\ge \frac{n(n+1)(n+2)}{6\pi}-n^2,
+\]
+
+and therefore
+
+\[
+\liminf_{n\to\infty}\frac{6\pi R_2^*(n)}{n^3}\ge 1.
+\]
+
+The proof uses a rearrangement-pairing lower bound for
+\(\sum_k\sigma_k\sigma_{k+1}\), the adjacent-gap consequence of all-pairs
+feasibility, and the inequality
+\(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\). It does not require non-adjacent
+constraint control; non-adjacent control remains necessary for a matching
+upper-bound construction.
 
 `examples/finite_results_summary_n3_n6.json` is the checked derived finite-results summary under `power-ringmin.finite_results_summary.v1`. Its source certificate `content_sha256` values are line-ending-normalized source-content SHA-256 digests: CRLF and lone CR are normalized to LF before hashing, while all other byte changes remain digest-sensitive.
 
@@ -18,7 +38,7 @@ Last update: 2026-07-12
 
 `research/FINITE_RESULTS.md` summarizes the checked finite results, critical-cycle cores, upper-witness slack observations, weak-constraint proxy labels, conjectures, open questions, and warnings.
 
-`research/NEXT_RESEARCH_STEPS.md` is the current research roadmap. It ranks reduced-core fixed-order analysis and all-pairs proof work ahead of larger exhaustive enumeration.
+`research/NEXT_RESEARCH_STEPS.md` is the current research roadmap. It now treats the lower-bound constant as proved and ranks all-pairs upper-bound domination work ahead of larger exhaustive enumeration.
 
 `docs/INTERVAL_BACKEND_TRUST.md` records the current guarded `mpmath.iv` interval-backend trust contract, tested coverage, unproved/audited gaps, classification implications, and future stronger trust paths.
 
@@ -28,27 +48,34 @@ Last update: 2026-07-12
 
 ## Current Research Finding
 
-The checked `n=5` and `n=6` multiple-candidate cases point to a reduced lower-cycle core on indices `2..n`, with index `1` absent from the lower-core proxy but still present in some upper-witness near-critical constraints. This is a heuristic structural direction, not a certified floating-circle or all-`n` theorem.
+The all-`n` lower-bound side of the conjectured leading constant is proved:
 
-The recommended next step is to test a precise reduced-core insertion hypothesis on the existing checked `n=5,6` candidates. This has higher research value than automatic `n=7` enumeration because it tries to explain the current candidate multiplicities and targets the all-pairs proof bottleneck behind the asymptotic conjecture.
+\[
+\liminf_{n\to\infty}\frac{6\pi R_2^*(n)}{n^3}\ge 1.
+\]
+
+This is independent of the checked finite certificates and should not be
+described as an exact optimum result or as the full asymptotic conjecture. The
+remaining mathematical bottleneck is the matching upper-bound direction, where
+every non-adjacent pair constraint must be controlled for a proposed structured
+order and gap allocation.
 
 ## Proposed Next Task
 
-Prove or disprove the reduced-core insertion hypothesis on the existing checked `n=5,6` candidate orders.
+Formulate and test a candidate all-pairs upper-bound inequality family for one
+explicit structured cyclic order.
 
 Acceptance criteria:
 
-- define the fixed-order reduced-subsystem statement and endpoint semantics;
-- compare each full candidate with its induced subsystem on indices `2..n`;
-- report all constraints incident to index `1` with slack margins and evidence classifications;
-- state whether the hypothesis is supported, falsified, or unresolved;
+- state one explicit order family and gap-allocation rule;
+- prove or diagnose the adjacent leading sum at the target radius;
+- translate every non-adjacent pair into a symbolic interval-sum inequality;
+- use finite checks only as diagnostics, not as all-`n` proof;
 - update durable memory without generating `n=7`.
 
 Stopping conditions:
 
-- fixed-order STN equivalence has an unresolved wrap or endpoint-semantics gap;
-- reduced systems do not reproduce the observed shared lower cores;
-- constraints incident to index `1` are active or too close to classify under current precision;
-- the only reason to continue would be that `n=7` is next.
-
-Explicitly not next: `n=7` generation, `n=7` preflight, or larger exhaustive enumeration.
+- fixed-order STN/geometric equivalence has an unresolved endpoint or wrap semantics gap;
+- non-adjacent inequalities fail for small symbolic subfamilies or checked finite diagnostics;
+- angular error terms cannot be made uniform in the target radius regime;
+- the only reason to continue would be that `n=7` is the next integer.

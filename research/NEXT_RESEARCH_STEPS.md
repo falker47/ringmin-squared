@@ -8,6 +8,17 @@ pipeline, and the target conjecture
 R_2^*(n)=\frac{n^3}{6\pi}(1+o(1)).
 \]
 
+As of 2026-07-12, the lower-bound half of the leading constant is proved:
+\[
+R_2^*(n)\ge \frac{n(n+1)(n+2)}{6\pi}-n^2
+\quad(n\ge 3),
+\]
+and therefore
+\[
+\liminf_{n\to\infty}\frac{6\pi R_2^*(n)}{n^3}\ge 1.
+\]
+The matching upper-bound direction remains open.
+
 No `n=7` certificate, preflight artifact, or exhaustive enumeration was
 generated for this roadmap.
 
@@ -16,6 +27,9 @@ generated for this roadmap.
 - COMPUTER-CERTIFIED RESULT: checked finite interval certificates exist for
   `n=3,4,5,6` under the documented local interval-verifier semantics and
   guarded `mpmath.iv` backend contract.
+- EXACT THEOREM: `research/ALL_N_LOWER_BOUND.md` proves the all-`n`
+  adjacent-product lower bound and its consequence
+  \(\liminf 6\pi R_2^*(n)/n^3\ge 1\).
 - VERIFIED FACT: `examples/finite_results_summary_n3_n6.json` derives
   candidate sets, exclusion gaps, repeated serialized bracket groups, and
   small-`n` ratios from those checked certificates.
@@ -24,12 +38,24 @@ generated for this roadmap.
   orders only.
 - USER-REPORTED STATUS: after the cross-platform CI fix, hosted GitHub Actions
   is green. This roadmap did not independently query GitHub.
-- LIMITATION: none of the finite certificates proves an exact optimum, an
-  all-`n` theorem, or the asymptotic conjecture.
+- LIMITATION: none of the finite certificates proves an exact optimum, a
+  matching upper bound, or the asymptotic conjecture.
 
 ## Answers
 
 1. Mathematical facts now established.
+
+   The all-`n` exact theorem now established is:
+   \[
+   R_2^*(n)\ge \frac{n(n+1)(n+2)}{6\pi}-n^2
+   \quad(n\ge 3),
+   \qquad
+   \liminf_{n\to\infty}\frac{6\pi R_2^*(n)}{n^3}\ge 1.
+   \]
+   It follows from a rearrangement-pairing bound
+   \(\sum_k\sigma_k\sigma_{k+1}\ge n(n+1)(n+2)/6\), the adjacent-gap
+   consequence of all-pairs feasibility, and
+   \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\).
 
    The finite checked facts are:
 
@@ -114,11 +140,11 @@ generated for this roadmap.
 
 6. What is required to derive the `n^3/(6*pi)` leading term.
 
-   A plausible route has three pieces:
+   The lower-bound half is now complete. A plausible route to the full
+   asymptotic equality has the remaining pieces:
 
-   - prove a product-weight Hamiltonian-cycle lower bound
-     \(\min_\sigma \sum_k \sigma_k\sigma_{k+1}=n^3/6+O(n^2)\), with the
-     appropriate alternating/Supnick-type order family attaining it;
+   - identify a structured order family and adjacent gap allocation whose
+     leading adjacent product weight is \(n^3/6+O(n^2)\);
    - convert the angular formula to
      \(\theta_R(i^2,j^2)=2ij/R+O((ij/R)^3+n^2ij/R^2)\) uniformly in the regime
      \(R\asymp n^3\);
@@ -127,19 +153,22 @@ generated for this roadmap.
      \(R=n^3/(6\pi)+O(n^2)\) or at least
      \(R=(1+o(1))n^3/(6\pi)\).
 
-   The lower bound alone is insufficient unless non-adjacent constraints are
-   also shown not to force a larger leading constant.
+   The lower bound does not require separate non-adjacent control because it
+   relaxes the full feasible set to adjacent constraints. Non-adjacent control
+   is required for the matching upper-bound direction, where a proposed
+   placement or fixed-order angle assignment must satisfy every pair.
 
 7. Realistic role for Supnick or anti-Monge reasoning.
 
-   Supnick/anti-Monge reasoning can realistically solve the leading adjacent
-   product-tour problem and identify the correct alternating order family. It
-   may also provide interval domination inequalities for structured arcs.
+   The lower-bound product inequality no longer needs upstream Supnick input:
+   it follows locally from a rearrangement pairing relaxation on two copies of
+   each index. Supnick/anti-Monge reasoning may still help identify an
+   upper-bound order family and prove interval domination inequalities for
+   structured arcs.
 
    It should not be treated as a complete proof of the quadratic-radii problem
-   until it is imported or reproved locally and extended from adjacent-chain
-   relaxation to the all-pairs STN constraints. Existing upstream claims remain
-   proof assets to review, not Power-Ringmin theorems.
+   unless it yields a local all-pairs upper-bound construction. Existing
+   upstream claims remain proof assets to review, not Power-Ringmin theorems.
 
 8. Evidence for floating or weakly constrained circles.
 
@@ -195,8 +224,9 @@ Immediate:
   endpoint semantics.
 - Run the reduced-subsystem experiment on checked `n=5,6` candidate orders,
   including reinsertion of index `1` and all-pairs slack reporting.
-- Formalize the product-weight alternating tour lemma needed for the
-  \(n^3/(6\pi)\) lower-bound constant.
+- Formulate a symbolic all-pairs domination target for a candidate
+  upper-bound order family at radius \(n^3/(6\pi)+O(n^2)\) or
+  \((1+o(1))n^3/(6\pi)\).
 
 Next:
 
@@ -204,8 +234,8 @@ Next:
   hypotheses, not just a pattern note.
 - Derive symbolic non-adjacent domination inequalities for the leading
   alternating order family.
-- Review the upstream Supnick/anti-Monge proof assets and restate any imported
-  theorem locally with quadratic-radii hypotheses and limitations.
+- Review the upstream Supnick/anti-Monge proof assets only if they are needed
+  for a candidate upper-bound family; the all-`n` lower bound is already local.
 
 Later:
 
@@ -225,39 +255,39 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: prove or disprove the reduced-core insertion hypothesis on the existing
-checked `n=5,6` candidate orders.
+Task: formulate and test a candidate all-pairs upper-bound inequality family
+for one explicit structured cyclic order.
 
-Why this beats automatic enumeration: it tests the mechanism suggested by the
-current certificates, attacks the main proof bottleneck, and can produce a
-reusable structural lemma. Enumeration would mostly add another finite row
-unless it is tied to a specific prediction.
+Why this beats automatic enumeration: the lower-bound constant is now proved,
+so the proof bottleneck is whether a concrete order and gap allocation can
+satisfy every non-adjacent pair at the same leading radius. Enumeration would
+mostly add another finite row unless it is tied to a specific upper-bound
+prediction.
 
 Acceptance criteria:
 
-- a precise fixed-order reduced-subsystem statement is written;
-- an independent script or documented calculation compares full candidates with
-  their `2..n` reduced systems for `n=5,6`;
-- all constraints incident to index `1` are reported with classifications and
-  slack margins;
-- the result explicitly says whether the reduced-core insertion hypothesis is
-  supported, falsified, or still unresolved;
+- one explicit order family and gap-allocation rule is stated;
+- adjacent gap sums are shown to fit the target radius to leading order;
+- every non-adjacent pair is translated into a symbolic interval-sum inequality;
+- finite checks are used only as diagnostics, not as an all-`n` proof;
+- the result explicitly says whether the candidate upper-bound family is
+  supported, falsified, or unresolved;
 - durable memory and task evidence are updated without generating `n=7`.
 
 Stopping conditions:
 
 - the fixed-order STN equivalence proof has an unresolved endpoint or wrap
   semantics gap;
-- reduced systems fail to reproduce the observed shared lower cores;
-- constraints incident to index `1` are active or too close to classify under
-  current precision;
+- the proposed non-adjacent interval inequalities fail for small symbolic
+  subfamilies or checked finite diagnostics;
+- angular error terms cannot be made uniform in the target radius regime;
 - the only proposed reason to continue is that `n=7` is the next integer.
 
 Remaining risks:
 
 - finite `n=5,6` behavior may not persist asymptotically;
 - upper-witness slack proxies may not match exact active constraints;
-- the product-tour leading constant may be correct for adjacent relaxation but
-  insufficient for all-pairs feasibility;
+- the adjacent leading constant may be attainable by a tour but insufficient for
+  all-pairs feasibility;
 - interval-backend provenance remains a trust limitation for public
   certification claims.

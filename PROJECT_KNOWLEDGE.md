@@ -52,6 +52,27 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - HEURISTIC: a Supnick-type or alternating chain may suggest a leading adjacent weight of order \(\sum ij\sim n^3/6\).
 - RULE: all-pairs non-overlap constraints are part of the problem, not merely adjacent-pair constraints.
 
+## All-n Lower Bound
+
+- EXACT THEOREM: for every cyclic order \(\sigma\) of \(\{1,\dots,n\}\),
+  \[
+  \sum_{k=1}^n \sigma_k\sigma_{k+1}
+  \ge
+  \frac{n(n+1)(n+2)}{6},
+  \]
+  with indices read cyclically. The proof is the rearrangement pairing lower bound applied to the multiset with two copies of each index.
+- EXACT THEOREM: for every \(n\ge 3\),
+  \[
+  R_2^*(n)\ge \frac{n(n+1)(n+2)}{6\pi}-n^2.
+  \]
+- EXACT THEOREM:
+  \[
+  \liminf_{n\to\infty}\frac{6\pi R_2^*(n)}{n^3}\ge 1.
+  \]
+- VERIFIED FACT: `research/ALL_N_LOWER_BOUND.md` records the self-contained proof, including the domain \(n\ge 3\), the geometry-to-adjacent-gap passage, the angular inequality \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\), and the role of non-adjacent constraints.
+- INTERPRETATION: the lower bound uses only adjacent consequences of all-pairs feasibility. Non-adjacent constraints are not needed for this lower bound, but they remain necessary for any matching upper-bound construction.
+- INTERPRETATION: this proves the lower asymptotic inequality only; it does not prove exact optima, a matching upper bound, or \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
+
 ## Verified Computational Machinery
 
 - VERIFIED FACT: the Python package import name is `power_ringmin`; package source is under `src/power_ringmin/`; tests are under `tests/`.
@@ -145,7 +166,7 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate sets and exclusion gaps, critical-cycle diagnostics, weak-constraint observations, verifier limitations, CI status, combinatorial growth, and the target asymptotic conjecture.
 - INTERPRETATION: the highest-value next task is a reduced-core fixed-order analysis on the existing checked `n=5,6` candidate orders, not automatic `n=7` enumeration.
 - CONJECTURE: the most promising structural lemma is a reduced-core insertion statement: a leading all-pairs fixed-order subsystem is supported on indices `2..n`, while index `1` can be inserted with only lower-order or slack constraints.
-- OPEN QUESTION: can the product-weight alternating/Supnick-type tour bound \(\min_\sigma\sum_k \sigma_k\sigma_{k+1}=n^3/6+O(n^2)\) be proved locally and extended from adjacent-chain relaxation to all-pairs feasibility?
+- OPEN QUESTION: can a structured order family and gap allocation satisfy all non-adjacent constraints at radius \(n^3/(6\pi)+O(n^2)\) or \((1+o(1))n^3/(6\pi)\), giving a matching upper bound?
 - RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
 
 ## Open Proof Obligations And Limitations
@@ -154,8 +175,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: the current certified finite results depend on the documented guarded `mpmath.iv` interval-backend contract; backend trust/provenance remains a production-review item.
 - LIMITATION: finite computation for `n=3..6` is not proof for all `n`.
 - LIMITATION: no exact optimum value has been proved in this repository.
-- LIMITATION: no theorem for all `n` has been proved in this repository.
-- LIMITATION: no asymptotic theorem has been proved in this repository.
+- LIMITATION: no matching upper bound has been proved in this repository.
+- LIMITATION: no asymptotic equality theorem has been proved in this repository.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.
 
 ## Evidence Classification Rules

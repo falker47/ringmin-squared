@@ -38,6 +38,32 @@ def test_canonical_index_orders_have_expected_counts_and_shape() -> None:
             assert canonicalize_index_order(order) == order
 
 
+def test_adjacent_product_lower_bound_on_all_canonical_orders_n3_to_n9() -> None:
+    expected_minima = {
+        3: 11,
+        4: 21,
+        5: 37,
+        6: 58,
+        7: 87,
+        8: 123,
+        9: 169,
+    }
+
+    for n, expected_minimum in expected_minima.items():
+        lower_bound = n * (n + 1) * (n + 2) // 6
+        orders = tuple(canonical_index_orders(n))
+        product_sums = []
+
+        assert len(orders) == canonical_index_order_count(n)
+        for order in orders:
+            product_sum = sum(order[i] * order[(i + 1) % n] for i in range(n))
+            product_sums.append(product_sum)
+            assert product_sum >= lower_bound
+
+        assert min(product_sums) == expected_minimum
+        assert expected_minimum > lower_bound
+
+
 def test_canonicalize_index_order_collapses_rotation_and_reflection() -> None:
     base = (6, 1, 5, 2, 4, 3)
     rotated = (5, 2, 4, 3, 6, 1)
