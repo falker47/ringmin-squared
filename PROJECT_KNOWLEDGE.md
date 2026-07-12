@@ -83,13 +83,37 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   =
   \frac{(n-m+1)(m^2+4mn+m+n^2-n)}{6}.
   \]
+- EXACT THEOREM: for \(S=\{s_1<\cdots<s_q\}\), the duplicated-multiset
+  pairing bound has the explicit form
+  \[
+  A(S)=2\sum_{a=1}^t s_a s_{2t+1-a}\quad(q=2t),
+  \]
+  and
+  \[
+  A(S)=2\sum_{a=1}^t s_a s_{2t+2-a}+s_{t+1}^2\quad(q=2t+1).
+  \]
+- EXACT THEOREM: at fixed cardinality \(q\), \(A(S)\) is uniquely maximized
+  over \(S\subseteq\{1,\dots,n\}\) by the tail \(\{n-q+1,\dots,n\}\). Hence no
+  nonconsecutive subset improves \(P_{m,n}\) inside the induced-subset plus
+  duplicated-pairing plus \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\) relaxation.
+- EXACT THEOREM: the discrete maximizers of \(P_{m,n}\) over
+  \(1\le m\le n-2\) are characterized by
+  \[
+  \rho_n=\frac{\sqrt{8n^2+8n+1}-(2n+1)}2.
+  \]
+  For \(n\ge4\), the unique maximizer is \(\lfloor\rho_n\rfloor+1\) unless
+  \(\rho_n\in\mathbb Z\), in which case the two maximizers are
+  \(\rho_n,\rho_n+1\). For \(n=3\), the domain is the singleton \(m=1\).
 - EXACT THEOREM:
   \[
   \liminf_{n\to\infty}\frac{6\pi R_2^*(n)}{n^3}\ge 4(\sqrt2-1)>1.
   \]
-- VERIFIED FACT: `research/ALL_N_LOWER_BOUND.md` records the self-contained proof, including the subset-induced cyclic-gap passage, the consecutive-subset formula \(P_{m,n}\), the rounded asymptotic choice \(m=\lceil(\sqrt2-1)n\rceil\), the angular inequality \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\), and a gap/counterexample audit.
+- VERIFIED FACT: `research/ALL_N_LOWER_BOUND.md` records the self-contained proof, including the subset-induced cyclic-gap passage, the explicit \(A(S)\) formula, the tail optimality theorem, the consecutive-subset formula \(P_{m,n}\), the exact discrete maximizer characterization by \(\rho_n\), the rounded asymptotic choice \(m=\lceil(\sqrt2-1)n\rceil\), the angular inequality \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\), and a gap/counterexample audit.
 - INTERPRETATION: the induced-subset lower bound uses only necessary consequences of all-pairs feasibility; it does not require constructing a feasible order or controlling all non-adjacent constraints for an upper bound.
 - INTERPRETATION: this proves a strict lower obstruction above the former \(n^3/(6\pi)\) target; it does not prove exact optima, a matching upper bound, or an exact asymptotic constant.
+- INTERPRETATION: the coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal only
+  within the specific relaxation named above, not necessarily for
+  Power-Ringmin.
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 

@@ -20,6 +20,21 @@ Date: 2026-07-12
   =
   {(n-m+1)(m^2+4mn+m+n^2-n)\over 6}.
   \]
+- EXACT THEOREM: within the specific relaxation "induced subset plus
+  duplicated-multiset pairing plus
+  \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\)", the best bound over all subsets of
+  fixed cardinality \(q\) is achieved uniquely by the tail
+  \(\{n-q+1,\dots,n\}\). Therefore no nonconsecutive subset improves the
+  corresponding \(P_{m,n}\) bound inside this method.
+- EXACT THEOREM: the discrete maximum of \(P_{m,n}\) over
+  \(1\le m\le n-2\) is characterized exactly by
+  \[
+  \rho_n={\sqrt{8n^2+8n+1}-(2n+1)\over 2}.
+  \]
+  For \(n\ge 4\), if \(\rho_n\notin\mathbb Z\) the unique maximizer is
+  \(m=\lfloor\rho_n\rfloor+1\); if \(\rho_n\in\mathbb Z\), the two maximizers
+  are \(m=\rho_n\) and \(m=\rho_n+1\). For \(n=3\), the admissible set is the
+  singleton \(m=1\).
 - EXACT THEOREM:
   \[
   \liminf_{n\to\infty}{6\pi R_2^*(n)\over n^3}
@@ -36,7 +51,9 @@ Date: 2026-07-12
   \]
 
 The lower-bound proof uses only necessary consequences of all-pairs feasibility.
-It does not prove an exact leading constant or any matching upper bound.
+The coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal for the specific relaxation
+analyzed here. This does not prove an exact leading constant, a matching upper
+bound, or optimality for Power-Ringmin itself.
 
 ## Domain And Definitions
 
@@ -238,6 +255,23 @@ R\ge {A(S)\over\pi}-n^2.
 \]
 Taking the infimum over feasible \(R\) gives the same bound for \(R_2^*(n)\).
 
+The pairing bound has the following explicit form. Write
+\[
+S=\{s_1<s_2<\cdots<s_q\}.
+\]
+If \(q=2t\) is even, then
+\[
+A(S)=2\sum_{a=1}^t s_a s_{2t+1-a}.
+\]
+If \(q=2t+1\) is odd, then
+\[
+A(S)=2\sum_{a=1}^t s_a s_{2t+2-a}+s_{t+1}^2.
+\]
+Indeed, in the duplicated sorted multiset, the two copies of each of the first
+\(t\) indices are paired anti-sortingly with the two copies of the
+corresponding last \(t\) indices. In the odd case one additional middle copy is
+paired with the other middle copy, producing \(s_{t+1}^2\).
+
 For \(S=\{1,\dots,n\}\), \(A(S)=n(n+1)(n+2)/6\), recovering
 \[
 R_2^*(n)\ge {n(n+1)(n+2)\over 6\pi}-n^2
@@ -247,6 +281,44 @@ and therefore the older consequence
 \[
 \liminf_{n\to\infty}{6\pi R_2^*(n)\over n^3}\ge 1.
 \]
+
+## Optimal Fixed-Cardinality Subsets In This Relaxation
+
+Fix \(q\) with \(3\le q\le n\), and let
+\[
+T_q=\{n-q+1,n-q+2,\dots,n\}
+\]
+be the tail subset of cardinality \(q\). If
+\[
+S=\{s_1<s_2<\cdots<s_q\}\subseteq\{1,\dots,n\},
+\]
+then
+\[
+s_a\le n-q+a
+\qquad(a=1,\dots,q).
+\]
+The explicit even and odd formulas for \(A(S)\) show that \(A\) is
+coordinatewise nondecreasing for positive coordinates: each coordinate appears
+in exactly one positive product, except for the odd middle coordinate, where it
+appears as a positive square. Therefore
+\[
+A(S)\le A(T_q).
+\]
+The inequality is strict unless \(S=T_q\), because if \(S\ne T_q\) at least one
+coordinate is strictly smaller than the corresponding tail coordinate and all
+partner coordinates are positive.
+
+Thus, among all subsets of a fixed cardinality \(q\), the method's best lower
+bound is obtained uniquely by the consecutive tail. Writing
+\[
+m=n-q+1,
+\]
+this best fixed-cardinality pairing value is
+\[
+A(T_q)=A(\{m,m+1,\dots,n\})=P_{m,n}.
+\]
+Consequently, no nonconsecutive subset of \(\{1,\dots,n\}\) can improve on the
+corresponding tail bound within the specific relaxation used here.
 
 ## Consecutive Large-Index Subsets
 
@@ -294,6 +366,62 @@ Therefore, for \(n\ge 4\) and \(1\le m\le n-2\),
 \[
 R_2^*(n)\ge {P_{m,n}\over \pi}-n^2.
 \]
+
+## Exact Discrete Optimization Over Tails
+
+For fixed \(n\), the best lower bound obtainable from this relaxation is
+\[
+{1\over\pi}\max_{1\le m\le n-2}P_{m,n}-n^2,
+\]
+with the trivial singleton domain \(m=1\) when \(n=3\). For \(n\ge 4\), the
+discrete maximizers can be characterized exactly.
+
+From the closed form, or directly by subtracting the tail sums,
+\[
+P_{m+1,n}-P_{m,n}
+=
+{n^2+n-m^2-(2n+1)m\over 2}.
+\]
+Denote this difference by \(D_{m,n}\). It is strictly decreasing in \(m\), since
+\[
+D_{m+1,n}-D_{m,n}=-(m+n+1)<0.
+\]
+Thus \(P_{m,n}\) is a discrete concave, unimodal sequence in \(m\).
+
+The positive real root of \(D_{m,n}=0\) is
+\[
+\rho_n={\sqrt{8n^2+8n+1}-(2n+1)\over 2}.
+\]
+For \(n\ge 4\), one has \(1<\rho_n<n-2\), so the root lies inside the
+admissible interval. The two inequalities follow by squaring the equivalent
+positive comparisons
+\[
+\sqrt{8n^2+8n+1}>2n+3
+\]
+and
+\[
+\sqrt{8n^2+8n+1}<4n-3.
+\]
+They reduce respectively to \(4(n-2)(n+1)>0\) and
+\(8(n^2-4n+1)>0\), both valid for \(n\ge 4\). Since \(D_{m,n}\ge 0\) exactly
+when \(m\le\rho_n\), the maximizers are:
+
+- if \(\rho_n\notin\mathbb Z\), the unique maximizer is
+  \[
+  m=\lfloor\rho_n\rfloor+1=\lceil\rho_n\rceil;
+  \]
+- if \(\rho_n\in\mathbb Z\), then \(D_{\rho_n,n}=0\), so
+  \[
+  P_{\rho_n,n}=P_{\rho_n+1,n},
+  \]
+  and the two maximizers are \(m=\rho_n\) and \(m=\rho_n+1\).
+
+The tie cases are exactly those for which \(8n^2+8n+1\) is a square,
+equivalently the Pell-type condition
+\[
+y^2-8r^2=1,\qquad r=\rho_n,\qquad n={2r-1+y\over 2}.
+\]
+No tie occurs otherwise.
 
 ## Asymptotic Optimization
 
@@ -377,6 +505,17 @@ Consequently,
 4(\sqrt2-1)>1.
 \]
 
+The preceding fixed-cardinality and discrete-optimization results show a
+method-specific optimality statement: the coefficient
+\[
+{2(\sqrt2-1)\over 3\pi}
+\]
+is the largest leading coefficient obtainable from the relaxation consisting
+only of induced subsets, duplicated-multiset pairing, and
+\(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\). This is not an upper bound and does not
+assert that the same coefficient is the exact asymptotic leading constant for
+Power-Ringmin.
+
 This contradicts any asymptotic formula whose normalized ratio
 \(6\pi R_2^*(n)/n^3\) tends to \(1\). Therefore
 \[
@@ -409,8 +548,15 @@ tend to \(1\).
   \(n\)-circle instance. This is weaker than using the maximum index in a
   smaller subset, but it is valid for all \(i,j\le n\) and is exactly what is
   needed for \(S=\{m,\dots,n\}\).
+- The fixed-cardinality extremal result is a theorem about the pairing
+  relaxation \(A(S)\), not about cyclic orders themselves. It proves that no
+  nonconsecutive subset improves this method's bound, but it does not rule out
+  stronger lower-bound methods.
 - The asymptotic optimization uses an integer choice
   \(m_n=\lceil(\sqrt2-1)n\rceil\) with an explicit bounded rounding parameter
-  \(\varepsilon_n\). No real-valued \(m\) is used as an index.
+  \(\varepsilon_n\). The exact finite maximizers are characterized separately
+  by \(\rho_n\), so no real-valued \(m\) is used as an index.
 - This proof does not supply a matching upper bound and must not be described
-  as identifying the exact asymptotic leading constant.
+  as identifying the exact asymptotic leading constant for Power-Ringmin. The
+  coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal only inside the relaxation
+  explicitly analyzed above.

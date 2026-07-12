@@ -51,6 +51,16 @@ and therefore
 4(\sqrt2-1)>1.
 \]
 
+The method has now been characterized exactly: for a fixed subset cardinality,
+the duplicated-multiset pairing bound is uniquely maximized by the largest
+indices \(\{n-q+1,\dots,n\}\), and the remaining discrete maximum over tails is
+governed by
+\[
+\rho_n=\frac{\sqrt{8n^2+8n+1}-(2n+1)}2.
+\]
+Thus \(2(\sqrt2-1)/(3\pi)\) is optimal only within this specific lower-bound
+relaxation, not necessarily for Power-Ringmin itself.
+
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also a disproved claim.
@@ -149,10 +159,18 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \ge
   4(\sqrt2-1)>1.
   \]
+- EXACT THEOREM: within the induced-subset plus duplicated-pairing plus
+  \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\) relaxation, no nonconsecutive subset
+  improves the tail bounds \(P_{m,n}\); the best discrete tail is characterized
+  by \(\rho_n=(\sqrt{8n^2+8n+1}-(2n+1))/2\), with adjacent ties exactly when
+  \(\rho_n\) is an integer.
 - VERIFIED FACT: checked-artifact verification is wired into local review and GitHub Actions.
 - USER-REPORTED STATUS: current task context reports the hosted run is green after the CI fix.
 - INTERPRETATION: these are finite certificates only; they are not exact optimum proofs, all-`n` theorems, or asymptotic results.
 - INTERPRETATION: the all-`n` induced-subset lower-bound theorem is independent of the finite certificates and does not provide a matching upper bound.
+- INTERPRETATION: the coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal for the
+  documented relaxation only; it is not a proved exact asymptotic coefficient
+  for Power-Ringmin.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit and unresolved for public production claims.
 - DISPROVED CLAIM: \(R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=\frac{n^3}{6\pi}+O(n^2)\).

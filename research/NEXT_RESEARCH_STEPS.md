@@ -14,6 +14,15 @@ R_2^*(n)=\frac{n^3}{6\pi}+O(n^2)
 \]
 is also a DISPROVED CLAIM.
 
+The best leading coefficient obtainable from the specific relaxation
+"induced subset plus duplicated-multiset pairing plus
+\(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\)" is exactly
+\[
+\frac{2(\sqrt2-1)}{3\pi}.
+\]
+This is a method-specific optimality statement, not a matching upper bound and
+not a proved exact asymptotic constant for Power-Ringmin.
+
 No upper-bound construction, leading-order LP, new finite certificate, `n=7`
 certificate, preflight artifact, or exhaustive enumeration was generated for
 this roadmap update.
@@ -46,6 +55,28 @@ this roadmap update.
   \ge
   4(\sqrt2-1)>1.
   \]
+- EXACT THEOREM: for \(S=\{s_1<\cdots<s_q\}\), the duplicated-multiset pairing
+  bound is
+  \[
+  A(S)=2\sum_{a=1}^t s_a s_{2t+1-a}
+  \quad(q=2t),
+  \]
+  and
+  \[
+  A(S)=2\sum_{a=1}^t s_a s_{2t+2-a}+s_{t+1}^2
+  \quad(q=2t+1).
+  \]
+  At fixed \(q\), this is uniquely maximized by the tail
+  \(\{n-q+1,\dots,n\}\), so nonconsecutive subsets do not improve this
+  relaxation.
+- EXACT THEOREM: the discrete maximizers of \(P_{m,n}\) over
+  \(1\le m\le n-2\) are characterized by
+  \[
+  \rho_n=\frac{\sqrt{8n^2+8n+1}-(2n+1)}2.
+  \]
+  For \(n\ge4\), the unique maximizer is \(\lfloor\rho_n\rfloor+1\) unless
+  \(\rho_n\) is an integer, in which case the two maximizers are
+  \(\rho_n\) and \(\rho_n+1\).
 - VERIFIED FACT: `examples/finite_results_summary_n3_n6.json` derives
   candidate sets, exclusion gaps, repeated serialized bracket groups, and
   small-`n` ratios from the checked finite certificates.
@@ -78,9 +109,10 @@ this roadmap update.
    the product lower bound.
 
 4. The finite tests added with the proof are diagnostic checks only: they
-   verify the formula for \(P_{m,n}\), the moderate-`n` discrete maximizer over
-   \(m\), and pairing bounds on some nonconsecutive subsets. They are not the
-   all-\(n\) proof.
+   verify the formula for \(P_{m,n}\), the explicit formula for \(A(S)\), the
+   fixed-cardinality optimality of tails by exhaustive small-`n` subset
+   enumeration, and the integer characterization of the discrete maximizers.
+   They are not the all-\(n\) proof.
 
 ## Updated Research Questions
 
@@ -92,9 +124,6 @@ this roadmap update.
 - OPEN QUESTION: can one identify a structured order family and gap allocation
   whose all-pairs constraints are feasible at a radius scale consistent with
   the new lower bound?
-- OPEN QUESTION: do the checked finite brackets for `n=3..6` contain useful
-  diagnostics when compared to the best finite induced-subset lower bound
-  \(\max_m(P_{m,n}/\pi-n^2)\)?
 - OPEN QUESTION: can the fixed-order STN/geometric equivalence, endpoint
   semantics, and negative-cycle proof obligations be recorded independently of
   any particular asymptotic constant?
@@ -103,9 +132,6 @@ this roadmap update.
 
 Immediate:
 
-- Compare the checked finite `n=3..6` brackets against the best finite
-  induced-subset lower bound as a diagnostic table, without changing their
-  certificate classification.
 - Revisit the reduced-core fixed-order observations only as structural
   diagnostics, no longer as evidence for the disproved \(n^3/(6\pi)\) target.
 - Prove and document the fixed-order STN/geometric equivalence with certificate
@@ -137,19 +163,20 @@ Deliberately deferred:
 - Leading-order LP work in the induced-subset proof task.
 - Any claim that the new lower-bound coefficient is the exact asymptotic
   constant.
+- Diagnostic `n=3..6` comparison tables unless explicitly requested in a fresh
+  task.
 
 ## Recommended Next Atomic Task
 
-Task: build a small diagnostic comparison between the checked finite `n=3..6`
-brackets and the best finite induced-subset lower bound
-\(\max_{1\le m\le n-2}(P_{m,n}/\pi-n^2)\).
+Task: document the fixed-order STN/geometric equivalence and endpoint semantics
+used by the verifier, independently of any particular asymptotic constant.
 
 Acceptance criteria:
 
-- compute the best induced-subset lower bound for `n=3..6` using exact integer
-  \(P_{m,n}\) arithmetic and high-precision decimal output;
-- compare it with the checked finite lower and upper endpoints without changing
-  any finite-certificate classification;
-- state clearly that the table is a finite diagnostic, not an all-\(n\) proof
-  or an upper-bound construction;
-- update durable memory and task evidence without generating new certificates.
+- state the angular/STN feasibility equivalence for a fixed cyclic order;
+- state lower-endpoint negative-cycle and upper-endpoint witness semantics;
+- separate exact mathematical implications from current interval-backend trust
+  assumptions;
+- update durable memory and task evidence without generating certificates,
+  running exhaustive enumeration, starting upper-bound construction, or doing
+  leading-order LP work.

@@ -96,7 +96,14 @@ The repository has not formally proved or independently audited:
 - a machine-checkable proof that the guard magnitude compensates for every
   possible backend issue;
 - an independent interval-backend re-verification of the checked artifacts;
-- exact optimum values, all-`n` theorems, or asymptotic theorems.
+- exact optimum values, matching upper bounds, or asymptotic equality
+  theorems.
+
+The all-\(n\) induced-subset lower theorem in
+`research/ALL_N_LOWER_BOUND.md` is independent of this interval backend. Its
+coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal only inside that theorem's
+explicit relaxation, not a backend-certified finite result and not a proved
+Power-Ringmin asymptotic constant.
 
 ## Classification Implication
 
@@ -104,7 +111,8 @@ The checked finite brackets are therefore phrased as computer-certified results
 under the repository's documented guarded `mpmath.iv` backend contract. They are
 finite `n=3,4,5,6` certificates only. They are not exact optimum values, not
 publication-grade independently audited certificates, and not evidence strong
-enough to change any all-`n` or asymptotic classification.
+enough to prove a matching upper bound, an asymptotic equality theorem, or an
+exact leading constant.
 
 ## Stronger Trust Requirements
 

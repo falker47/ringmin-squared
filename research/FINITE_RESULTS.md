@@ -8,13 +8,20 @@ Primary machine-readable inputs:
 - `examples/finite_results_summary_n3_n6.json`
 - `ops/TASK-20260712__critical_constraints_order_structure/critical_structure_n3_n6.json`
 
+All-\(n\) lower-bound context is recorded separately in
+`research/ALL_N_LOWER_BOUND.md`. In particular, the coefficient
+\(2(\sqrt2-1)/(3\pi)\) is now known to be optimal only for the specific
+relaxation based on induced subsets, duplicated-multiset pairing, and
+\(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\). It is not an exact asymptotic constant
+for Power-Ringmin.
+
 Terminology guardrail: see `ops/TASK-20260712__critical_constraints_order_structure/TERMINOLOGY.md`. This note does not use "floating" as a certified geometric statement.
 
 ## Computer-Certified Finite Facts
 
 The following facts are certified only under the repository's documented finite interval-verifier semantics and guarded `mpmath.iv` backend contract.
 
-| `n` | canonical orders | certified global bracket `(L, U]` | candidates | excluded | exclusion gap | midpoint ratio to `n^3/(6*pi)` |
+| `n` | canonical orders | certified global bracket `(L, U]` | candidates | excluded | exclusion gap | legacy midpoint ratio to `n^3/(6*pi)` |
 |---:|---:|---|---:|---:|---:|---:|
 | 3 | 1 | `(0.3832870361393696523322205393924377858638763427734375, 0.383487036139369685816546962087159045040607452392578125]` | 1 | 0 | undefined | 0.26765464360377962623207969638536051054269711953714 |
 | 4 | 3 | `(1.4955284118749971877804227915476076304912567138671875, 1.4957284118749971657535979829845018684864044189453125]` | 1 | 2 | 0.1171644705802874497635457373689860105514526367187500 | 0.44049892792937443214095096407513696627716047627377 |
@@ -31,6 +38,8 @@ Certified candidate orders, modulo the current rotation/reflection convention:
 | 6 | `[6,1,2,5,4,3]`; `[6,1,3,4,5,2]`; `[6,2,1,5,4,3]`; `[6,2,5,1,4,3]`; `[6,2,5,4,1,3]` |
 
 Interpretation: candidate membership and exclusion gaps are computer-certified finite facts. Multiple candidates and identical serialized brackets are not exact tie claims.
+The ratio column is retained only as a legacy finite diagnostic against the
+former baseline; it is not an active asymptotic target.
 
 ## Verified Structural Data
 
@@ -117,7 +126,10 @@ Falsification: a later checked case has index `1` absent from the lower core and
 
 - No exact optimum value has been proved for any `n`.
 - No exact tie has been proved between candidate orders.
-- No theorem for all `n` or asymptotic theorem has been proved.
+- The finite artifacts summarized here do not prove any all-`n` theorem,
+  asymptotic equality theorem, matching upper bound, or exact leading constant.
+  The all-`n` induced-subset lower theorem is independent of these finite
+  certificates.
 - Lower negative cycles certify lower-endpoint infeasibility; they are not exact active contact graphs.
 - Upper-witness slacks are diagnostics at certified upper endpoints; positive slack is expected at finite bracket width.
 - The word "floating" is deliberately avoided as a certified claim.
