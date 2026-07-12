@@ -181,6 +181,36 @@ def test_small_n_interval_certificate_validation_rechecks_embedded_local_bracket
         validate_small_n_interval_certificate_artifact(broken_method)
 
 
+def test_small_n_interval_certificate_rejects_embedded_local_artifact_type_tampering() -> None:
+    artifact = build_n3_interval_certificate_fixture(
+        digits=80,
+        guard_decimal="1e-70",
+        radius_eta="1e-4",
+        created_at_utc="2026-07-11T00:00:00Z",
+    )
+    broken = copy.deepcopy(artifact)
+    broken["local_brackets"][0]["artifact_type"] = "fixed_order_numerical_result"
+
+    with pytest.raises(ValueError, match="artifact_type"):
+        validate_small_n_interval_certificate_artifact(broken)
+
+
+def test_small_n_interval_certificate_rejects_embedded_backend_policy_tampering() -> None:
+    artifact = build_n3_interval_certificate_fixture(
+        digits=80,
+        guard_decimal="1e-70",
+        radius_eta="1e-4",
+        created_at_utc="2026-07-11T00:00:00Z",
+    )
+    broken = copy.deepcopy(artifact)
+    broken["local_brackets"][0]["theta_interval_backend"]["rounding_policy"] = (
+        "mpmath.iv interval arithmetic"
+    )
+
+    with pytest.raises(ValueError, match="rounding_policy"):
+        validate_small_n_interval_certificate_artifact(broken)
+
+
 def test_n3_interval_certificate_cli_writes_checked_finite_artifact(
     tmp_path: Path,
     capsys: pytest.CaptureFixture[str],

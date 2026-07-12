@@ -16,7 +16,7 @@ dependencies = [
 
 [project.optional-dependencies]
 crosscheck = ["numpy>=2", "scipy>=1.14"]
-test = ["pytest>=8"]
+test = ["pytest>=8", "jsonschema>=4.22"]
 
 [project.scripts]
 power-ringmin-export-fixed-order = "power_ringmin.export_fixed_order_cli:main"
@@ -29,6 +29,7 @@ power-ringmin-verify-fixed-order-artifacts = "power_ringmin.verify_fixed_order_a
 power-ringmin-search-small-n = "power_ringmin.search_small_n:main"
 power-ringmin-analyze-finite-results = "power_ringmin.finite_results:main"
 power-ringmin-analyze-critical-structure = "power_ringmin.critical_structure:main"
+power-ringmin-verify-checked-artifacts = "power_ringmin.verify_checked_artifacts:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

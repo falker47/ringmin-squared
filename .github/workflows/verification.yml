@@ -1,0 +1,81 @@
+name: Verification
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - "3.11"
+          - "3.12"
+          - "3.13"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install package and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[test]"
+
+      - name: Run full test suite
+        run: python -m pytest
+
+      - name: Run checked-artifact semantic verification
+        run: power-ringmin-verify-checked-artifacts
+
+      - name: Run checked-artifact schema validation tests
+        run: python -m pytest tests/test_checked_artifact_schema_validation.py
+
+      - name: Check diff whitespace
+        run: git diff --check
+
+      - name: Check tracked text trailing whitespace
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+          import sys
+
+          text_suffixes = {
+              ".cfg",
+              ".ini",
+              ".json",
+              ".md",
+              ".py",
+              ".toml",
+              ".txt",
+              ".yml",
+              ".yaml",
+          }
+          tracked = subprocess.check_output(["git", "ls-files"], text=True).splitlines()
+          failures = []
+          for name in tracked:
+              path = Path(name)
+              if path.suffix.lower() not in text_suffixes:
+                  continue
+              try:
+                  lines = path.read_text(encoding="utf-8").splitlines()
+              except UnicodeDecodeError:
+                  continue
+              for line_number, line in enumerate(lines, start=1):
+                  if line.rstrip(" \t") != line:
+                      failures.append(f"{name}:{line_number}")
+          if failures:
+              print("Trailing whitespace found:")
+              print("\n".join(failures))
+              sys.exit(1)
+          PY

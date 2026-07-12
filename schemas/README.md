@@ -71,6 +71,8 @@ The schema requires:
 - one human-readable local bracket summary per embedded local bracket;
 - provenance and evidence blocks classified as `computer_certified_result`.
 
+The JSON Schema is a structural contract only. It checks shape, required fields, value encodings, and selected constants; it does not prove interval enclosure, order-space coverage, source freshness, or aggregate correctness.
+
 The package validator `power_ringmin.small_n_interval_certificate.validate_small_n_interval_certificate_artifact` is the semantic authority. It independently regenerates the canonical order space, re-verifies every embedded local fixed-order interval bracket with its recorded guarded interval backend metadata, recomputes summary diagnostics and aggregate bounds, and rejects artifacts whose evidence or aggregation metadata drift from the implemented verifier contract.
 
 Before attempting `n=5` or larger certificate production, use the bounded general exporter in dry-run mode to record the canonical order-space size:
@@ -85,7 +87,7 @@ Actual generation requires both `--output` and an explicit `--max-canonical-orde
 power-ringmin-export-small-n-interval-certificate --n 5 --max-canonical-orders 12 --output artifact.json
 ```
 
-This command still produces finite-`n` evidence only. It does not prove an exact optimum, an asymptotic result, or a theorem for all `n`.
+This command is work-count bounded by the canonical-order ceiling and local retry count. It has no wall-clock timeout. It still produces finite-`n` evidence only and does not prove an exact optimum, an asymptotic result, or a theorem for all `n`.
 
 ## Finite Results Summaries
 
@@ -97,7 +99,7 @@ This is a separate contract from `small_n_interval_certificate.schema.json`:
 - finite-results summaries are derived analysis artifacts;
 - candidate sets, excluded-order counts, exclusion gaps, identical serialized bracket groups, cross-`n` comparisons, and ratios to `n^3/(6*pi)` belong in the derived summary, not in the primary certificate schema.
 
-The package validator `power_ringmin.finite_results.validate_finite_results_summary_artifact` is the semantic authority. It reloads every source certificate through `power_ringmin.small_n_interval_certificate.load_small_n_interval_certificate_artifact`, recomputes source SHA-256 hashes, rederives all candidate sets and exclusion gaps, and rejects stale summaries when source bytes or derived content no longer match.
+The JSON Schema is structural only. The package validator `power_ringmin.finite_results.validate_finite_results_summary_artifact` is the semantic authority. It reloads every source certificate through `power_ringmin.small_n_interval_certificate.load_small_n_interval_certificate_artifact`, recomputes source SHA-256 hashes, rederives all candidate sets and exclusion gaps, and rejects stale summaries when source bytes or derived content no longer match.
 
 Evidence classifications in v1 are:
 
@@ -120,6 +122,16 @@ power-ringmin-analyze-finite-results --created-at-utc 2026-07-12T00:00:00Z --out
 ```
 
 The summary remains finite checked evidence only. Multiple candidate orders are not exact ties, identical serialized brackets are not exact equality claims, and ratio sequences do not establish behavior outside the listed inputs.
+
+## Checked Artifact Verification
+
+The package entry point `power-ringmin-verify-checked-artifacts` is the CI/local review path for checked finite certificate artifacts:
+
+```powershell
+power-ringmin-verify-checked-artifacts
+```
+
+It discovers `examples/small_n_interval_certificate_n*.json`, validates their JSON Schema structure, reloads them through semantic certificate validators, explicitly re-verifies embedded local interval brackets, validates `examples/finite_results_summary_n3_n6.json`, and fails if the summary sources do not match the discovered checked certificates. It does not generate certificates.
 
 ## Batch Standalone Verification
 

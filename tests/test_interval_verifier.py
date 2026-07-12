@@ -7,6 +7,7 @@ import pytest
 
 from power_ringmin.highprec import full_radius_mp, theta_mp
 from power_ringmin.interval_verifier import (
+    FIXED_ORDER_INTERVAL_BRACKET_ARTIFACT_TYPE,
     FIXED_ORDER_INTERVAL_BRACKET_SCHEMA_VERSION,
     MPMathIntervalAngularOracle,
     assert_fixed_order_interval_bracket_verified,
@@ -62,6 +63,62 @@ def test_local_interval_bracket_parses_decimals_at_oracle_precision() -> None:
         assert result.lower_radius == expected_lower
 
 
+def test_local_interval_bracket_rejects_artifact_type_tampering() -> None:
+    oracle = MPMathIntervalAngularOracle(digits=90, guard_decimal="1e-80")
+    record = _strict_n3_bracket_record(oracle)
+    record["artifact_type"] = "fixed_order_numerical_result"
+
+    result = verify_fixed_order_interval_bracket(record, oracle=oracle)
+
+    assert not result.verified
+    assert any("artifact_type" in message for message in result.messages)
+
+
+@pytest.mark.parametrize(
+    ("field", "tampered_value"),
+    [
+        ("backend", "mpmath_iv_unguarded"),
+        ("precision_digits", 89),
+        ("rounding_policy", "some non-empty but untrusted policy"),
+        ("outward_enclosure", False),
+        ("certification_capable", False),
+        ("tolerance_based", True),
+        ("guard_decimal", "1e-79"),
+    ],
+)
+def test_local_interval_bracket_rejects_tampered_backend_metadata(
+    field: str,
+    tampered_value: object,
+) -> None:
+    oracle = MPMathIntervalAngularOracle(digits=90, guard_decimal="1e-80")
+    record = _strict_n3_bracket_record(oracle)
+    record["theta_interval_backend"][field] = tampered_value
+
+    result = verify_fixed_order_interval_bracket(record, oracle=oracle)
+
+    assert not result.verified
+    assert any(f"theta_interval_backend.{field}" in message for message in result.messages)
+
+
+def test_local_interval_bracket_rejects_backend_metadata_key_tampering() -> None:
+    oracle = MPMathIntervalAngularOracle(digits=90, guard_decimal="1e-80")
+    record = _strict_n3_bracket_record(oracle)
+    del record["theta_interval_backend"]["rounding_policy"]
+
+    missing_result = verify_fixed_order_interval_bracket(record, oracle=oracle)
+
+    assert not missing_result.verified
+    assert any("keys must exactly match" in message for message in missing_result.messages)
+
+    record = _strict_n3_bracket_record(oracle)
+    record["theta_interval_backend"]["unreviewed_backend_claim"] = "trusted"
+
+    extra_result = verify_fixed_order_interval_bracket(record, oracle=oracle)
+
+    assert not extra_result.verified
+    assert any("keys must exactly match" in message for message in extra_result.messages)
+
+
 def test_local_interval_bracket_rejects_tolerance_based_backend_metadata() -> None:
     oracle = MPMathIntervalAngularOracle(digits=90, guard_decimal="1e-80")
     record = _strict_n3_bracket_record(oracle)
@@ -70,7 +127,7 @@ def test_local_interval_bracket_rejects_tolerance_based_backend_metadata() -> No
     result = verify_fixed_order_interval_bracket(record, oracle=oracle)
 
     assert not result.verified
-    assert any("tolerance_based=false" in message for message in result.messages)
+    assert any("theta_interval_backend.tolerance_based" in message for message in result.messages)
 
 
 def test_local_interval_bracket_rejects_bad_witness_position() -> None:
@@ -124,6 +181,7 @@ def _strict_n3_bracket_record(oracle: MPMathIntervalAngularOracle) -> dict[str, 
 
     return {
         "schema_version": FIXED_ORDER_INTERVAL_BRACKET_SCHEMA_VERSION,
+        "artifact_type": FIXED_ORDER_INTERVAL_BRACKET_ARTIFACT_TYPE,
         "index_order": [3, 1, 2],
         "radius_order": [9, 1, 4],
         "lower_radius_decimal": mp.nstr(lower, digits),

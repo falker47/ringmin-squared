@@ -17,6 +17,7 @@ import mpmath as mp
 from power_ringmin.search_small_n import canonicalize_index_order, index_order_to_radius_order
 
 FIXED_ORDER_INTERVAL_BRACKET_SCHEMA_VERSION = "power-ringmin.fixed_order_interval_bracket.v1"
+FIXED_ORDER_INTERVAL_BRACKET_ARTIFACT_TYPE = "fixed_order_interval_bracket"
 EDGE_KINDS = frozenset({"forward_lower", "wrap_upper"})
 DEFAULT_INTERVAL_DIGITS = 100
 
@@ -211,6 +212,8 @@ def _verify_fixed_order_interval_bracket_at_precision(
 
     if source.get("schema_version") != FIXED_ORDER_INTERVAL_BRACKET_SCHEMA_VERSION:
         messages.append("schema_version is missing or unsupported")
+    if source.get("artifact_type") != FIXED_ORDER_INTERVAL_BRACKET_ARTIFACT_TYPE:
+        messages.append("artifact_type is missing or unsupported")
     if radius_order != index_order_to_radius_order(index_order):
         messages.append("radius_order must match the quadratic square of index_order")
     if canonicalize_index_order(index_order) != index_order:
@@ -391,25 +394,19 @@ def _backend_metadata_matches(
     metadata = _expect_mapping(value, "theta_interval_backend")
     ok = True
     expected = info.to_record()
-    for key in ("backend", "precision_digits", "guard_decimal"):
-        if key in expected and metadata.get(key) != expected[key]:
+    if set(metadata) != set(expected):
+        ok = False
+        messages.append(
+            "theta_interval_backend keys must exactly match oracle metadata "
+            f"{sorted(expected)}"
+        )
+    for key, expected_value in expected.items():
+        if metadata.get(key) != expected_value:
             ok = False
             messages.append(
                 f"theta_interval_backend.{key} must match oracle metadata "
-                f"{expected[key]!r}"
+                f"{expected_value!r}"
             )
-    if not isinstance(metadata.get("rounding_policy"), str) or not metadata["rounding_policy"]:
-        ok = False
-        messages.append("theta_interval_backend.rounding_policy must be non-empty")
-    if metadata.get("outward_enclosure") is not True:
-        ok = False
-        messages.append("theta_interval_backend must declare outward_enclosure=true")
-    if metadata.get("certification_capable") is not True:
-        ok = False
-        messages.append("theta_interval_backend must declare certification_capable=true")
-    if metadata.get("tolerance_based") is not False:
-        ok = False
-        messages.append("theta_interval_backend must declare tolerance_based=false")
     if info.tolerance_based:
         ok = False
         messages.append("oracle backend is tolerance-based and cannot certify interval brackets")
@@ -574,6 +571,7 @@ __all__ = [
     "AngularIntervalOracle",
     "CycleEdge",
     "DecimalInterval",
+    "FIXED_ORDER_INTERVAL_BRACKET_ARTIFACT_TYPE",
     "FIXED_ORDER_INTERVAL_BRACKET_SCHEMA_VERSION",
     "FixedOrderIntervalVerification",
     "IntervalBackendInfo",
