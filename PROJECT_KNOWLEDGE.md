@@ -84,7 +84,7 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - VERIFIED FACT: `docs/INTERVAL_BACKEND_TRUST.md` documents the current guarded `mpmath.iv` backend trust contract, guards, tested coverage, unproved/audited gaps, classification implications, and possible stronger future trust paths.
 - VERIFIED FACT: `.github/workflows/verification.yml` defines a GitHub Actions workflow for Python `3.11`, `3.12`, and `3.13` that installs package test and crosscheck extras, runs the full test suite, runs checked-artifact semantic verification, runs schema validation tests, and runs diff/trailing-whitespace hygiene checks.
 - VERIFIED FACT: `pyproject.toml` registers console scripts for fixed-order export, batch fixed-order export, fixed-order interval bracket export, checked `n=3`/`n=4` interval certificate export, general small-`n` interval certificate export, fixed-order artifact verification, small-`n` float64 search, derived finite-results summary generation, critical-structure analysis, and checked-artifact verification.
-- LIMITATION: hosted GitHub Actions results have not been observed in this repository until GitHub runs the workflow after review/commit.
+- USER-REPORTED STATUS: the 2026-07-12 research-roadmap task started from a successful CI fix and green hosted GitHub Actions run. Codex did not independently query GitHub during that task.
 - INTERPRETATION: float64 and high-precision numerical search/recheck artifacts are numerical observations unless interval evidence covers the relevant finite order space.
 
 ## Certified Finite Results
@@ -139,6 +139,14 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - WARNING: lower negative cycles are lower-endpoint infeasibility certificates, not exact active contact graphs; upper-witness slack rankings are finite numerical diagnostics at certified upper endpoints.
 - OPEN QUESTION: can the shared lower-cycle core on indices `2..n` be formulated as a smaller exact reduced subsystem, or is it an artifact of the current bracket generator and resolution?
 - OPEN QUESTION: can tighter brackets or independent fixed-order analysis determine whether repeated serialized brackets at `n=5` and `n=6` reflect exact ties, hidden symmetry, or numerical coincidence?
+
+## Current Research Roadmap
+
+- VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate sets and exclusion gaps, critical-cycle diagnostics, weak-constraint observations, verifier limitations, CI status, combinatorial growth, and the target asymptotic conjecture.
+- INTERPRETATION: the highest-value next task is a reduced-core fixed-order analysis on the existing checked `n=5,6` candidate orders, not automatic `n=7` enumeration.
+- CONJECTURE: the most promising structural lemma is a reduced-core insertion statement: a leading all-pairs fixed-order subsystem is supported on indices `2..n`, while index `1` can be inserted with only lower-order or slack constraints.
+- OPEN QUESTION: can the product-weight alternating/Supnick-type tour bound \(\min_\sigma\sum_k \sigma_k\sigma_{k+1}=n^3/6+O(n^2)\) be proved locally and extended from adjacent-chain relaxation to all-pairs feasibility?
+- RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
 
 ## Open Proof Obligations And Limitations
 

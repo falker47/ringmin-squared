@@ -22,6 +22,8 @@ Definition: \(R_2^*(n)\) is the minimum feasible central radius.
 
 The quadratic-radii computational foundation has been implemented. Checked finite interval certificate artifacts currently exist for `n=3,4,5,6`; they provide finite global radius brackets under the documented guarded `mpmath.iv` interval-backend contract.
 
+The checked-artifact verification path is now a project foundation: the repository has a GitHub Actions matrix for tests, checked-artifact semantic verification, schema checks, and whitespace hygiene. Current task context reports the hosted workflow is green after the cross-platform finite-summary hash fix; this hosted status was not independently queried in the roadmap task.
+
 ## Main Research Target
 
 Conjecture:
@@ -93,6 +95,8 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
 ## Current Knowledge Status
 
 - COMPUTER-CERTIFIED RESULT: checked finite global interval brackets exist for `n=3,4,5,6` under the repository's documented local interval-verifier semantics and guarded `mpmath.iv` backend contract.
+- VERIFIED FACT: checked-artifact verification is wired into local review and GitHub Actions.
+- USER-REPORTED STATUS: current task context reports the hosted run is green after the CI fix.
 - INTERPRETATION: these are finite certificates only; they are not exact optimum proofs, all-`n` theorems, or asymptotic results.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit and unresolved for public production claims.
 - CONJECTURE: \(R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))\) remains open.
