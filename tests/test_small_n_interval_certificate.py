@@ -394,6 +394,23 @@ def test_checked_n5_interval_certificate_artifact_loads() -> None:
     assert "No theorem for all n." in artifact["evidence"]["limitations"]
 
 
+def test_checked_n6_interval_certificate_artifact_loads() -> None:
+    path = Path("examples/small_n_interval_certificate_n6.json")
+
+    loaded = load_small_n_interval_certificate_artifact(path)
+    artifact = loaded.to_dict()
+
+    assert loaded.n == 6
+    assert loaded.covered_canonical_count == 60
+    assert artifact["order_space"]["expected_canonical_count"] == 60
+    assert artifact["provenance"]["repository"]["git_dirty"] is False
+    assert artifact["result"]["global_lower_bound"]["source_index_order"] == [6, 1, 2, 5, 4, 3]
+    assert artifact["result"]["global_upper_bound"]["source_index_order"] == [6, 1, 2, 5, 4, 3]
+    assert artifact["evidence"]["classification"] == "computer_certified_result"
+    assert artifact["evidence"]["claim"]["scope"] == "finite_global_small_n_interval_bracket"
+    assert "No theorem for all n." in artifact["evidence"]["limitations"]
+
+
 def test_n3_interval_certificate_console_script_entry_point_is_registered() -> None:
     pyproject = tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))
 
