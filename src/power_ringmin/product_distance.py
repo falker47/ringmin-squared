@@ -60,6 +60,24 @@ class TruncatedProductDistanceEnumeration:
     representative: tuple[int, ...]
 
 
+@dataclass(frozen=True)
+class AdjacentEqualityStructure:
+    """Parity-specific structure of one adjacent-optimal core cycle.
+
+    ``active_high_path`` lists the high vertices separated by the low vertices
+    in ``low_neighbor_high_pairs``.  Each triple in the latter field is
+    ``(low, left_high, right_high)`` in path order.
+    """
+
+    n: int
+    optimum: int
+    low_vertices: tuple[int, ...]
+    high_vertices: tuple[int, ...]
+    forced_high_high_edges: tuple[tuple[int, int], ...]
+    active_high_path: tuple[int, ...]
+    low_neighbor_high_pairs: tuple[tuple[int, int, int], ...]
+
+
 def circular_position_distance(
     left_position: int,
     right_position: int,
@@ -144,6 +162,100 @@ def adjacent_product_optimum(n: int) -> int:
     if n == 3:
         return 6
     return (n // 2 + 1) * ((n + 1) // 2 + 2)
+
+
+def adjacent_equality_structure(
+    order: Sequence[int],
+) -> AdjacentEqualityStructure | None:
+    """Return the exact high/low equality structure, or ``None``.
+
+    This is the parity-specific characterization of orders attaining ``A_n``
+    for ``n >= 4``.  It checks the forced high-high edges, absence of low-low
+    edges, and every crossing product directly; it does not decide equality by
+    calling the adjacent scorer.  The exceptional two-vertex core at ``n=3``
+    is outside this simple-cycle characterization.
+    """
+    core_order = _normalize_core_order(order)
+    n = len(core_order) + 1
+    if n == 3:
+        raise ValueError(
+            "adjacent equality structure requires n >= 4; "
+            "the n=3 core has two vertices"
+        )
+
+    t = n // 2
+    optimum = adjacent_product_optimum(n)
+    if n % 2 == 0:
+        low_vertices = tuple(range(2, t + 1))
+        high_vertices = tuple(range(t + 1, n + 1))
+        forced_edges = ((t + 1, t + 2),)
+        path_start = t + 1
+        blocked_neighbor = t + 2
+        path_end = t + 2
+        path_length = len(core_order)
+    else:
+        low_vertices = tuple(range(2, t + 1))
+        high_vertices = tuple(range(t + 1, n + 1))
+        forced_edges = ((t + 1, t + 2), (t + 1, t + 3))
+        path_start = t + 2
+        blocked_neighbor = t + 1
+        path_end = t + 3
+        path_length = len(core_order) - 1
+
+    low_set = set(low_vertices)
+    high_set = set(high_vertices)
+    cycle_edges = {
+        tuple(
+            sorted(
+                (
+                    core_order[position],
+                    core_order[(position + 1) % len(core_order)],
+                )
+            )
+        )
+        for position in range(len(core_order))
+    }
+    high_high_edges = {
+        edge for edge in cycle_edges if edge[0] in high_set and edge[1] in high_set
+    }
+    low_low_edges = {
+        edge for edge in cycle_edges if edge[0] in low_set and edge[1] in low_set
+    }
+    crossing_edges = cycle_edges - high_high_edges - low_low_edges
+
+    if high_high_edges != set(forced_edges) or low_low_edges:
+        return None
+    if any(left * right > optimum for left, right in crossing_edges):
+        return None
+
+    path = _cycle_path_away_from_neighbor(
+        core_order,
+        start=path_start,
+        blocked_neighbor=blocked_neighbor,
+        end=path_end,
+        length=path_length,
+    )
+    if path is None:
+        raise AssertionError("forced equality edges did not determine the active path")
+    if any(vertex not in high_set for vertex in path[::2]):
+        raise AssertionError("equality path has a non-high vertex in a high position")
+    if any(vertex not in low_set for vertex in path[1::2]):
+        raise AssertionError("equality path has a non-low vertex in a low position")
+
+    active_high_path = path[::2]
+    low_neighbor_high_pairs = tuple(
+        (path[position], path[position - 1], path[position + 1])
+        for position in range(1, len(path), 2)
+    )
+    return AdjacentEqualityStructure(
+        n=n,
+        optimum=optimum,
+        low_vertices=low_vertices,
+        high_vertices=high_vertices,
+        forced_high_high_edges=forced_edges,
+        active_high_path=active_high_path,
+        low_neighbor_high_pairs=low_neighbor_high_pairs,
+    )
 
 
 def canonicalize_core_order(order: Sequence[int]) -> tuple[int, ...]:
@@ -420,6 +532,34 @@ def _rotate_to_front(order: tuple[int, ...], value: int) -> tuple[int, ...]:
     return order[index:] + order[:index]
 
 
+def _cycle_path_away_from_neighbor(
+    order: tuple[int, ...],
+    *,
+    start: int,
+    blocked_neighbor: int,
+    end: int,
+    length: int,
+) -> tuple[int, ...] | None:
+    start_position = order.index(start)
+    next_value = order[(start_position + 1) % len(order)]
+    previous_value = order[(start_position - 1) % len(order)]
+    if next_value == blocked_neighbor:
+        step = -1
+    elif previous_value == blocked_neighbor:
+        step = 1
+    else:
+        return None
+
+    path = tuple(
+        order[(start_position + offset * step) % len(order)]
+        for offset in range(length)
+    )
+    blocked_range = path[1:-1] if blocked_neighbor == end else path[1:]
+    if path[-1] != end or blocked_neighbor in blocked_range:
+        return None
+    return path
+
+
 def _position_pairs(vertex_count: int) -> tuple[tuple[int, int, int], ...]:
     return tuple(
         (
@@ -477,12 +617,14 @@ def _score_with_cutoff(
 
 
 __all__ = [
+    "AdjacentEqualityStructure",
     "MAX_CANONICAL_ORDERS",
     "MAX_ENUMERATION_N",
     "MIN_ENUMERATION_N",
     "ProductDistanceEnumeration",
     "ProductDistancePairScore",
     "TruncatedProductDistanceEnumeration",
+    "adjacent_equality_structure",
     "adjacent_product_optimum",
     "best_tail_lower_obstruction",
     "canonical_core_order_count",

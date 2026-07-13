@@ -21,6 +21,21 @@
   \]
   The generic `patterns.interleave` order realizes this bound for every
   \(n\).
+- **EXACT THEOREM (adjacent equality cases):** for even \(n=2t\), every
+  minimizing cycle has the unique high-high edge \(\{t+1,t+2\}\); for odd
+  \(n=2t+1\), it has exactly the two high-high edges
+  \(\{t+1,t+2\}\) and \(\{t+1,t+3\}\). In both cases there is no low-low
+  edge, and removing the forced high-high edge or segment leaves the
+  alternating path characterized below.
+- **EXACT THEOREM (distance-two relaxation):** writing
+  \(B_n=W_n^{(\le2)}\),
+  \[
+  B_n=A_n\quad(3\le n\le8),
+  \qquad
+  B_n>A_n\quad(n\ge9).
+  \]
+  Hence the adjacent relaxation is strict for the full surrogate for every
+  \(n\ge9\), not only for the formerly covered bounded and asymptotic ranges.
 - **VERIFIED FACT (finite exhaustive exact computation):** the table below
   gives the objectives truncated at positional distances at most one and two,
   as well as \(W_n\), for \(3\le n\le11\). Non-adjacent constraints first
@@ -85,6 +100,13 @@ A(\sigma)=\max_k\sigma_k\sigma_{k+1}
 \qquad
 A_n=W_n^{(\le1)}.
 \tag{3}
+\]
+
+We abbreviate
+
+\[
+B_n=W_n^{(\le2)}.
+\tag{DT1}
 \]
 
 Both extrema exist because the order space and the pair set are finite. The
@@ -219,6 +241,281 @@ A_n=
 }
 \tag{8}
 \]
+
+### Necessary and sufficient equality structure
+
+The internal-edge count contains more information than the value alone. Let
+\(e_L\) be the number of low-low edges. Degree counting on both blocks gives
+
+\[
+e_H-e_L=|H|-|L|.
+\tag{E1}
+\]
+
+Suppose first that \(n=2t\). At the optimum
+\(T=A_{2t}=(t+1)(t+2)\), the only high-high pair whose product is at most
+\(T\) is
+
+\[
+\{t+1,t+2\}.
+\]
+
+Equation (E1) says \(e_H-e_L=1\). Thus an equality cycle must have
+\(e_H=1\), \(e_L=0\), and its unique high-high edge is
+\(\{t+1,t+2\}\). Deleting this edge leaves an alternating Hamilton path
+
+\[
+t+1,\ \ell_1,\ h_1,\ \ell_2,\ldots,
+\ell_{t-1},\ t+2,
+\tag{E2}
+\]
+
+through
+
+\[
+K=\{t+1,\dots,2t\},
+\qquad
+L=\{2,\dots,t\}.
+\]
+
+Conversely, every such path closes with \(\{t+1,t+2\}\) to an equality
+cycle exactly when every crossing edge satisfies \(\ell h\le T\). This is a
+necessary and sufficient characterization, not merely a property of the
+displayed interleave construction.
+
+Now suppose that \(n=2t+1\). At
+\(T=A_{2t+1}=(t+1)(t+3)\), the only high-high pairs with product at most
+\(T\) are
+
+\[
+\{t+1,t+2\},
+\qquad
+\{t+1,t+3\}.
+\]
+
+Here (E1) says \(e_H-e_L=2\). Both allowed edges are therefore forced,
+there is no low-low edge, and the cycle contains the segment
+
+\[
+t+2,\ t+1,\ t+3.
+\]
+
+Deleting its middle vertex \(t+1\) leaves the alternating Hamilton path
+
+\[
+t+2,\ \ell_1,\ h_1,\ \ell_2,\ldots,
+\ell_{t-1},\ t+3,
+\tag{E3}
+\]
+
+through
+
+\[
+K=\{t+2,\dots,2t+1\},
+\qquad
+L=\{2,\dots,t\}.
+\]
+
+Again the converse holds exactly when every crossing edge has product at most
+\(T\). The implementation function `adjacent_equality_structure` checks
+these parity-specific structural conditions directly and returns the active
+high path together with the two high neighbors of every low.
+
+## Exact Strictness Of The Distance-Two Relaxation
+
+We now decide the equality question for \(B_n\) without extending cyclic-order
+enumeration.
+
+### Equality through \(n=8\)
+
+Always \(B_n\ge A_n\). For \(3\le n\le8\), direct exact scoring of the
+following `patterns.interleave` witnesses gives the reverse inequality:
+
+| \(n\) | witness | \(W^{(\le1)}\) | \(W^{(\le2)}\) |
+|---:|---|---:|---:|
+| 3 | `(3, 2)` | \(6\) | \(6\) |
+| 4 | `(4, 2, 3)` | \(12\) | \(12\) |
+| 5 | `(5, 2, 4, 3)` | \(15\) | \(15\) |
+| 6 | `(6, 2, 5, 4, 3)` | \(20\) | \(20\) |
+| 7 | `(7, 2, 6, 4, 5, 3)` | \(24\) | \(24\) |
+| 8 | `(8, 2, 7, 4, 5, 6, 3)` | \(30\) | \(30\) |
+
+Thus \(B_n=A_n\) throughout this range. This uses explicit witnesses, not
+optimal-order enumeration.
+
+### Terminal-high incidence obstruction
+
+Assume \(n\ge9\) and, for contradiction, that a cycle has distance-two
+score at most \(T=A_n\). Its adjacent score is at least \(A_n\), hence equals
+\(T\), so the equality classification applies. Use the active high path
+\(K\) from (E2) or (E3). Every low \(\ell\) lies between two consecutive
+active highs \(x,y\). They are at smaller circular positional distance two,
+and therefore
+
+\[
+\ell x\le T,
+\qquad
+\ell y\le T,
+\qquad
+xy\le2T.
+\tag{DT2}
+\]
+
+Let \(r\) be the least positive integer satisfying
+
+\[
+r(r+1)>2T,
+\tag{DT3}
+\]
+
+and let \(V\) be the terminal block of active highs from \(r\) to the largest
+high. For even \(n=2t\ge10\), one has \(r\ge t+3\) and \(V\ne\varnothing\);
+for odd \(n=2t+1\ge9\), one has \(r\ge t+4\) and
+\(V\ne\varnothing\). Indeed, the products at the claimed lower predecessor
+are at most \(2T\), while \((2t)(2t+1)>2T\) in the even case and
+\((2t+1)(2t+2)>2T\) in the odd case. In particular, every vertex of \(V\) is
+internal in the active high path.
+
+Any two distinct vertices of \(V\) have product at least
+\(r(r+1)>2T\), so (DT2) permits at most one \(V\)-neighbor at any low.
+Every vertex of \(V\) has two low neighbors. Their \(2|V|\) incidences must
+therefore occupy \(2|V|\) distinct lows. But a low incident to \(V\) must
+satisfy \(\ell r\le T\). The number of compatible lows is exactly
+
+\[
+C=\left\lfloor{T\over r}\right\rfloor-1,
+\]
+
+because the preceding lower bounds on \(r\) also give
+\(\lfloor T/r\rfloor\le t\) in both parities. Thus the displayed count stays
+inside the low domain \(\{2,\dots,t\}\).
+
+Therefore equality at distance two would require
+
+\[
+2|V|\le C.
+\tag{DT4}
+\]
+
+Minimality of \(r\) gives
+
+\[
+(r-1)r\le2T<r(r+1).
+\tag{DT5}
+\]
+
+The strict right inequality implies
+
+\[
+\left\lfloor{T\over r}\right\rfloor
+\le\left\lfloor{r\over2}\right\rfloor,
+\qquad
+C\le\left\lfloor{r\over2}\right\rfloor-1.
+\tag{DT6}
+\]
+
+It remains to compare this capacity with the terminal-block size.
+
+For even \(n=2t\), \(|V|=2t-r+1\). If \(t\ge8\), then
+\(5r\le8t+5\). Otherwise, using the left inequality in (DT5),
+
+\[
+2T\ge(r-1)r
+\ge{(8t+1)(8t+6)\over25}
+=2T+{14t^2-94t-94\over25}>2T,
+\]
+
+a contradiction; the final polynomial is positive at \(t=8\) and strictly
+increasing thereafter. Hence
+
+\[
+2|V|=4t-2r+2>{r\over2}-1\ge C.
+\tag{DT7}
+\]
+
+The remaining nonexceptional even parameters are exact boundary checks:
+
+| \(t\) | \(T\) | \(r\) | \(|V|\) | \(C\) | \(2|V|>C\) |
+|---:|---:|---:|---:|---:|---:|
+| 5 | 42 | 9 | 2 | 3 | \(4>3\) |
+| 7 | 72 | 12 | 3 | 5 | \(6>5\) |
+
+For odd \(n=2t+1\), \(|V|=2t-r+2\). If \(t\ge7\), the analogous bound
+is \(5r\le8t+9\). Indeed, the contrary inequality and (DT5) would give
+
+\[
+2T\ge(r-1)r
+\ge{(8t+5)(8t+10)\over25}
+=2T+{14t^2-80t-100\over25}>2T.
+\]
+
+The last polynomial is positive at \(t=7\) and strictly increasing. It
+follows that
+
+\[
+2|V|=4t-2r+4>{r\over2}-1\ge C.
+\tag{DT8}
+\]
+
+The three smaller odd parameters give:
+
+| \(t\) | \(T\) | \(r\) | \(|V|\) | \(C\) | \(2|V|>C\) |
+|---:|---:|---:|---:|---:|---:|
+| 4 | 35 | 8 | 2 | 3 | \(4>3\) |
+| 5 | 48 | 10 | 2 | 3 | \(4>3\) |
+| 6 | 63 | 11 | 3 | 4 | \(6>4\) |
+
+Thus (DT4) is impossible in every odd case and every even case except the
+single parameter \(t=6\), namely \(n=12\).
+
+### The exceptional parameter \(n=12\)
+
+Here \(T=56\), the active high path has vertex set
+\(K=\{7,8,9,10,11,12\}\), and its endpoints are \(7,8\). Under (DT2), both
+neighbors of high \(12\) must lie in
+
+\[
+S=\{7,8,9\},
+\]
+
+because \(12\cdot10>112=2T\). The low vertex \(6\) also has both high
+neighbors in \(S\), because \(6\cdot10>56=T\). Thus the active high path
+would contain two \(12\)-to-\(S\) edges and one \(S\)-to-\(S\) edge.
+
+The total degree of \(S\) in this path is
+
+\[
+\deg(7)+\deg(8)+\deg(9)=1+1+2=4.
+\]
+
+The two edges incident to \(12\) consume two of these degree units, and the
+edge belonging to low \(6\) consumes the other two. Vertex \(12\) also has
+both of its degrees consumed. Hence \(S\cup\{12\}\) has no path edge to
+\(\{10,11\}\), contradicting connectedness of the active Hamilton path.
+
+This handles the only parameter not covered by the incidence inequality.
+Consequently no cycle can have distance-two score at most \(A_n\) once
+\(n\ge9\). Since the finite order space attains its minimum,
+
+\[
+\boxed{
+B_n=A_n\quad(3\le n\le8),
+\qquad
+B_n>A_n\quad(n\ge9).
+}
+\tag{DT9}
+\]
+
+Because \(W_n\ge B_n\), this also proves
+
+\[
+W_n>A_n\qquad(n\ge9).
+\tag{DT10}
+\]
+
+This conclusion is purely combinatorial. It does not give a formula for
+\(B_n\) or \(W_n\), does not show that \(B_n=W_n\) beyond the bounded table,
+and does not by itself improve a geometric radius bound for Power-Ringmin.
 
 ## Exact Core Feasibility
 
@@ -476,7 +773,9 @@ maximizer gives \(L_n\le A_n\) for every \(4\le n\le32\). Hence \(33\) is the
 first \(n\) at which this particular tail obstruction alone proves that the
 adjacent relaxation is strict. Because \(W_n\ge L_n\), non-adjacent
 constraints are necessarily essential to the full surrogate for every
-\(n\ge33\). This does not decide the full values \(W_n\) for \(12\le n\le32\).
+\(n\ge33\). This tail argument does not decide the full values \(W_n\) for
+\(12\le n\le32\); the independent distance-two theorem (DT9)--(DT10) now
+proves strictness throughout that interval without determining those values.
 
 ## Zigzag Benchmark
 
@@ -536,8 +835,8 @@ The exact truncated objectives are:
 | 10 | \(42\) | \(45\) | \(45\) | \(3\) | \(0\) | \(24,72\) |
 | 11 | \(48\) | \(50\) | \(50\) | \(2\) | \(0\) | \(24,24\) |
 
-Thus the first exact gap between the adjacent relaxation and the full
-surrogate occurs at \(n=9\):
+Thus the bounded regression agrees with the all-\(n\) theorem: the first exact
+gap between the adjacent relaxation and the full surrogate occurs at \(n=9\):
 
 \[
 W_9^{(\le1)}=A_9=35<36=W_9^{(\le2)}=W_9.
@@ -577,8 +876,11 @@ enumerated case where it is defined. These are finite exact facts only.
 counts, every pair rather than only adjacent pairs, an independent full
 permutation calculation for the smallest cases, deterministic work bounds,
 the all-\(n\) adjacent formula against the explicit interleave construction,
+the parity-specific equality classifier on the bounded `n=4..11` regression,
+the exact incidence-lemma boundary arithmetic, the `n=12` local degree data,
 the effective tail comparison, zigzag and tail values, and exact reproduction
-of both the truncated and full tables.
+of both truncated and full `n=3..11` tables. No cyclic-order enumeration is
+performed beyond `n=11`.
 
 The following remain unresolved.
 
@@ -588,9 +890,8 @@ The following remain unresolved.
   coefficient while approaching the tail obstruction?
 - **OPEN QUESTION:** can stronger combinatorial obstructions narrow the finite
   and asymptotic gap between \(L_n\) and \(W_n\)?
-- **OPEN QUESTION:** are non-adjacent constraints strict for every
-  \(12\le n\le32\)? The bounded enumeration stops at \(11\), while the tail
-  theorem proves strictness for every \(n\ge33\).
+- **OPEN QUESTION:** what are exact formulas or sharper bounds for \(B_n\) and
+  \(W_n\)? The theorem here decides only \(B_n>A_n\) for \(n\ge9\).
 - **OPEN QUESTION:** at what \(n\), if any, do positional distances at least
   three first change the optimum? They do not do so for \(3\le n\le11\).
 

@@ -54,7 +54,11 @@ A_n=
 \qquad(n\ge4).
 \]
 The existing `patterns.interleave` constructor realizes the formula for all
-\(n\). The comparison with the tail obstruction is strict asymptotically:
+\(n\). Equality cycles are also characterized exactly: even cycles have the
+single forced high-high edge \(\{t+1,t+2\}\), while odd cycles have the
+forced segment \(t+2,t+1,t+3\); removing it leaves an alternating active
+high path in both cases. The comparison with the tail obstruction is strict
+asymptotically:
 \[
 \lim_{n\to\infty} {A_n\over n^2}={1\over4}
 < {2(\sqrt2-1)\over3}
@@ -64,11 +68,17 @@ In fact, the explicit tail \(m=\lceil2n/5\rceil\) proves \(L_n>A_n\) for
 every \(n\ge33\), while exact rational formula evaluation gives
 \(L_n\le A_n\) through \(n=32\).
 
-Within the existing bounded enumeration only, the first non-adjacent gap is
-\(A_9=35<36=W_9\). Positional-distance-two objectives already equal \(W_n\)
-for every `n=3..11`; distances at least three do not change those finite
-optima or minimizer sets. No conclusion for the full surrogate at
-\(12\le n\le32\) is inferred.
+Writing \(B_n=W_n^{(\le2)}\), the equality structure gives the exact theorem
+\[
+B_n=A_n\quad(3\le n\le8),
+\qquad
+B_n>A_n\quad(n\ge9).
+\]
+The proof uses terminal-high incidences and a separate degree obstruction at
+`n=12`, with no cyclic-order enumeration beyond `n=11`. Consequently
+\(W_n>A_n\) for every \(n\ge9\). Within the bounded regression,
+\(B_n=W_n\) for every `n=3..11`; distances at least three do not change those
+finite optima or minimizer sets.
 
 ## Evidence Basis
 
@@ -171,6 +181,12 @@ optima or minimizer sets. No conclusion for the full surrogate at
   high/low internal-edge count and an explicit all-`n` cycle whose edges have
   endpoint sums at most \(n+3\); source inspection identifies that cycle with
   `patterns.interleave`.
+- EXACT THEOREM: the equality cases force one high-high edge for even `n` and
+  the two-edge high segment for odd `n`, with no low-low edges. The resulting
+  active high path and a terminal-high incidence count prove
+  \(B_n=A_n\) exactly for `3<=n<=8` and \(B_n>A_n\) for every `n>=9`; the
+  exceptional incidence parameter `n=12` is covered by a separate exact
+  four-degree argument.
 - EXACT THEOREM: \(A_n/n^2\to1/4\), while
   \(L_n/n^2\to2(\sqrt2-1)/3\). A residue-class proof with
   \(m=\lceil2n/5\rceil\) gives \(L_n>A_n\) for every \(n\ge33\).
@@ -261,10 +277,10 @@ optima or minimizer sets. No conclusion for the full surrogate at
    where it is defined, so neither comparison identifies an all-`n` optimum.
 
 8. The adjacent relaxation by itself has coefficient \(1/4\), strictly below
-   the tail-obstruction coefficient. Non-adjacent constraints first change the
-   bounded exact optimum at `n=9`, and the tail theorem forces them to remain
-   essential for every \(n\ge33\). The interval `n=12..32` remains open for
-   the full surrogate; order enumeration was not extended.
+   the tail-obstruction coefficient. Distance-two constraints leave it exact
+   through `n=8` and make it strict for every `n>=9`. This resolves the former
+   `n=12..32` strictness gap without extending order enumeration. It does not
+   determine exact \(B_n\) or \(W_n\) values there.
 
 ## Updated Research Questions
 
@@ -280,8 +296,8 @@ optima or minimizer sets. No conclusion for the full surrogate at
   symbolic regular-direction order family improve the zigzag coefficient?
 - OPEN QUESTION: what stronger combinatorial obstruction can narrow the gap
   between the best tail lower obstruction and \(W_n\)?
-- OPEN QUESTION: can strictness \(W_n>A_n\) be proved or refuted throughout
-  `n=12..32` without extending the bounded cyclic-order enumeration?
+- OPEN QUESTION: what exact formulas or sharper all-`n` bounds hold for
+  \(B_n\) and \(W_n\) beyond the strict inequality over \(A_n\)?
 - OPEN QUESTION: at what first index, if any, do positional distances at least
   three change \(W_n\)? They do not change it in the exact `n=3..11` table.
 - OPEN QUESTION: can the fixed-order STN/geometric equivalence, endpoint
@@ -299,8 +315,8 @@ Immediate:
 Next:
 
 - Seek a symbolic order family or stronger obstruction for the
-  product-distance surrogate, including the unresolved `n=12..32` adjacent
-  gap; do not extrapolate a formula from `n<=11` or extend enumeration by
+  product-distance surrogate, including sharper bounds for \(B_n\) and
+  \(W_n\); do not extrapolate a formula from `n<=11` or extend enumeration by
   default.
 - Keep the exact radius-one theorem separate from finite critical-cycle proxy
   claims and from any assumption that an optimum is attained.

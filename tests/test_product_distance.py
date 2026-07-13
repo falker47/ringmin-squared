@@ -8,6 +8,7 @@ import pytest
 
 from power_ringmin.product_distance import (
     MAX_CANONICAL_ORDERS,
+    adjacent_equality_structure,
     adjacent_product_optimum,
     best_tail_lower_obstruction,
     canonical_core_order_count,
@@ -205,6 +206,106 @@ def test_adjacent_optimum_formula_and_interleave_construction_are_exact() -> Non
 
     with pytest.raises(ValueError):
         adjacent_product_optimum(2)
+
+
+def test_adjacent_equality_structure_is_exact_on_bounded_regression() -> None:
+    for n in range(4, 12):
+        optimum = Fraction(adjacent_product_optimum(n))
+        t = n // 2
+        expected_forced_edges = (
+            ((t + 1, t + 2),)
+            if n % 2 == 0
+            else ((t + 1, t + 2), (t + 1, t + 3))
+        )
+
+        for order in canonical_core_orders(n):
+            structure = adjacent_equality_structure(order)
+            is_optimal = truncated_product_distance_score(order, 1) == optimum
+            assert (structure is not None) == is_optimal
+            if structure is None:
+                continue
+
+            assert structure.optimum == optimum
+            assert structure.forced_high_high_edges == expected_forced_edges
+            assert {triple[0] for triple in structure.low_neighbor_high_pairs} == set(
+                structure.low_vertices
+            )
+            assert len(structure.active_high_path) == len(
+                structure.low_neighbor_high_pairs
+            ) + 1
+            for low, left_high, right_high in structure.low_neighbor_high_pairs:
+                assert low * left_high <= optimum
+                assert low * right_high <= optimum
+
+    with pytest.raises(ValueError, match="n >= 4"):
+        adjacent_equality_structure((3, 2))
+
+
+def test_distance_two_equals_adjacent_exactly_through_n8_by_witness() -> None:
+    for n in range(3, 9):
+        order = tuple(int(value) for value in interleave(range(2, n + 1)))
+        assert (
+            truncated_product_distance_score(order, 2)
+            == adjacent_product_optimum(n)
+        )
+
+
+def test_terminal_high_clique_incidence_lemma_boundary_arithmetic() -> None:
+    def counts(n: int) -> tuple[int, int, int]:
+        t = n // 2
+        optimum = adjacent_product_optimum(n)
+        high_maximum = n
+        discriminant_root = math.isqrt(1 + 8 * optimum)
+        first_high = (discriminant_root - 1) // 2
+        while first_high * (first_high + 1) <= 2 * optimum:
+            first_high += 1
+        clique_size = high_maximum - first_high + 1
+        compatible_lows = optimum // first_high - 1
+        return first_high, clique_size, compatible_lows
+
+    # These are the exact boundary cases outside the monotone polynomial
+    # ranges in the all-n proof.  This is formula evaluation, not order
+    # enumeration.
+    assert counts(10) == (9, 2, 3)
+    assert counts(14) == (12, 3, 5)
+    assert counts(9) == (8, 2, 3)
+    assert counts(11) == (10, 2, 3)
+    assert counts(13) == (11, 3, 4)
+
+    for n in (9, 10, 11, 13, 14, 15, 16):
+        _first_high, clique_size, compatible_lows = counts(n)
+        assert 2 * clique_size > compatible_lows
+
+    even_boundary = 14 * 8**2 - 94 * 8 - 94
+    odd_boundary = 14 * 7**2 - 80 * 7 - 100
+    assert even_boundary > 0
+    assert odd_boundary > 0
+    assert 28 * 8 - 94 > 0
+    assert 28 * 7 - 80 > 0
+
+
+def test_n12_exceptional_degree_obstruction_parameters_are_exact() -> None:
+    optimum = adjacent_product_optimum(12)
+    active_highs = tuple(range(7, 13))
+    small_highs = (7, 8, 9)
+
+    assert optimum == 56
+    assert tuple(
+        high
+        for high in active_highs
+        if high != 12 and 12 * high <= 2 * optimum
+    ) == small_highs
+    assert tuple(high for high in active_highs if 6 * high <= optimum) == small_highs
+
+    # In the active high path, 7 and 8 are endpoints and 9 is internal.
+    # Their four degree units would all be consumed by the two edges to 12
+    # and the edge labelled by low 6, leaving no connection to 10 or 11.
+    available_small_high_degree = 1 + 1 + 2
+    consumed_by_high_12 = 2
+    consumed_by_low_6_edge = 2
+    assert available_small_high_degree == (
+        consumed_by_high_12 + consumed_by_low_6_edge
+    )
 
 
 def test_fraction_comparisons_do_not_use_float_rounding() -> None:

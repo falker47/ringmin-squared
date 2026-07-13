@@ -147,6 +147,21 @@ A rigorous high/low internal-edge count proves the lower bound, and
 \]
 The explicit tail \(m=\lceil2n/5\rceil\) proves \(L_n>A_n\) for every
 \(n\ge33\); exact rational evaluation gives \(L_n\le A_n\) through \(n=32\).
+The equality cases are now characterized exactly. For even \(n=2t\), the
+only high-high edge is \(\{t+1,t+2\}\); for odd \(n=2t+1\), the only
+high-high edges form the forced segment \(t+2,t+1,t+3\). There are no
+low-low edges, and removing the forced edge or segment leaves an alternating
+path whose gaps are labelled by the low vertices.
+
+Writing \(B_n=W_n^{(\le2)}\), a terminal-high incidence theorem, plus a
+separate exact degree argument for `n=12`, proves
+\[
+B_n=A_n\quad(3\le n\le8),
+\qquad
+B_n>A_n\quad(n\ge9).
+\]
+Thus \(W_n>A_n\) for every \(n\ge9\), with no cyclic-order enumeration beyond
+the existing `n=3..11` regression.
 An exact, no-floating-point canonical enumeration bounded to `n=3..11` gives
 \[
 (W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50),
@@ -158,10 +173,10 @@ For the same bounded cases, the distance-one objectives are
 \[
 (6,12,15,20,24,30,35,42,48),
 \]
-and the distance-two objectives equal \(W_n\) in every row. Thus the first
-non-adjacent gap is \(A_9=35<36=W_9\), already accounted for by positional
-distance two. No conclusion for the full surrogate at \(12\le n\le32\) is
-inferred.
+and the distance-two objectives equal \(W_n\) in every row. This finite table
+agrees with the theorem: the first non-adjacent gap is
+\(A_9=35<36=W_9\), already accounted for by positional distance two. Exact
+values of \(B_n\) and \(W_n\) beyond the bounded table remain unresolved.
 
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
@@ -313,6 +328,18 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \quad(n\ge4),
   \]
   and `patterns.interleave` realizes the formula for every \(n\).
+- EXACT THEOREM: adjacent equality cycles have no low-low edges. For even
+  `n=2t`, their only high-high edge is `{t+1,t+2}`; for odd `n=2t+1`, their
+  only high-high edges are `{t+1,t+2}` and `{t+1,t+3}`. Removing the forced
+  edge or segment leaves the parity-specific alternating active high path.
+- EXACT THEOREM: with \(B_n=W_n^{(\le2)}\),
+  \[
+  B_n=A_n\quad(3\le n\le8),
+  \qquad
+  B_n>A_n\quad(n\ge9).
+  \]
+  Consequently \(W_n>A_n\) for every \(n\ge9\). The proof uses no
+  cyclic-order enumeration beyond `n=11`.
 - EXACT THEOREM:
   \[
   \lim_{n\to\infty} A_n/n^2
@@ -334,7 +361,8 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   =(6,12,15,20,24,30,35,42,48),
   \]
   and \(W_n^{(\le2)}=W_n\) in every case. The first non-adjacent gap is
-  \(A_9=35<36=W_9\); no full-surrogate claim is made for `n=12..32`.
+  \(A_9=35<36=W_9\). Equality of the distance-two and full objectives beyond
+  `n=11` is not claimed.
 - EXACT THEOREM: within the induced-subset plus duplicated-pairing plus
   \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\) relaxation, no nonconsecutive subset
   improves the tail bounds \(P_{m,n}\); the best discrete tail is characterized

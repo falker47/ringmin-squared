@@ -244,6 +244,22 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   low index blocks. The existing `patterns.interleave` construction attains the
   bound for every \(n\): its cycle edges have endpoint sums among
   \(n+1,n+2,n+3\).
+- EXACT THEOREM: the equality cases are parity-specific. If `n=2t`, the
+  unique high-high edge is \(\{t+1,t+2\}\); if `n=2t+1`, the two high-high
+  edges are \(\{t+1,t+2\}\) and \(\{t+1,t+3\}\). There is no low-low edge,
+  and removing the forced edge or high segment leaves an alternating active
+  high path. Conversely, this structure is sufficient exactly when every
+  crossing product is at most \(A_n\).
+- EXACT THEOREM: defining \(B_n=W_n^{(\le2)}\),
+  \[
+  B_n=A_n\quad(3\le n\le8),
+  \qquad
+  B_n>A_n\quad(n\ge9).
+  \]
+  The proof counts incidences from a terminal high block to compatible lows;
+  `n=12` is covered by a separate exact degree obstruction. Therefore
+  \(W_n>A_n\) for every \(n\ge9\), without cyclic-order enumeration beyond
+  `n=11`.
 - EXACT THEOREM: assigning \(\sigma\) to equally spaced polar directions
   makes the core strictly all-pairs feasible at
   \[
@@ -287,9 +303,10 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   gives the upper bound and the closing pair attains it.
 - VERIFIED FACT: `src/power_ringmin/product_distance.py` provides exact
   all-pairs `Fraction` scoring, core-cycle canonicalization, explicit `n=3`
-  handling, the exact adjacent formula, tail obstructions, and deterministic
-  full and truncated enumeration with the hard domain `3<=n<=11` and a
-  preflight canonical-order ceiling. It creates no CLI or serialized artifact.
+  handling, the exact adjacent formula, a direct parity-specific adjacent
+  equality classifier, tail obstructions, and deterministic full and truncated
+  enumeration with the hard domain `3<=n<=11` and a preflight canonical-order
+  ceiling. It creates no CLI or serialized artifact.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): enumeration of all
   `204557` canonical rotation/reflection classes for `n=3..11` gives
   \[
@@ -314,9 +331,9 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - INTERPRETATION: the finite table is not an all-`n` formula, a geometric
   certificate, or proof that the surrogate radius is geometrically optimal
   for a fixed order. No conjecture is promoted from these nine cases.
-- OPEN QUESTION: strictness of the adjacent relaxation for
-  \(12\le n\le32\) is unresolved; bounded order enumeration stops at \(11\),
-  and the tail theorem supplies strictness only from \(33\) onward.
+- OPEN QUESTION: exact formulas or sharper all-`n` bounds for \(B_n\) and
+  \(W_n\) remain unresolved; the distance-two theorem decides strictness over
+  \(A_n\), not either optimum value.
 - OPEN QUESTION: positional distances at least three do not change the exact
   objective or minimizer set for \(3\le n\le11\); their first essential index,
   if one exists, is unresolved.
