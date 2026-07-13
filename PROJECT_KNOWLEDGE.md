@@ -153,7 +153,7 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   candidate structures and does not turn lower negative cycles into exact
   contact graphs.
 
-## Regular-Core Cubic Upper Bound
+## Regular-Direction Core Cubic Upper Bounds
 
 - EXACT THEOREM: for every \(n\ge12\) and fixed \(R>0\), the largest value of
   \(\theta_R(i^2,j^2)\) over distinct core indices \(2\le i<j\le n\) is
@@ -176,17 +176,41 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   R_2^*(n)\le U_n\qquad(n\ge12),
   \]
   without an attainment assumption.
+- EXACT THEOREM: for every \(R>0\) and positive indices \(i,j\),
+  \[
+  \theta_R(i^2,j^2)<{2ij\over R}.
+  \]
+- EXACT THEOREM: let
+  \[
+  M_n=n\left(\left\lfloor{n\over2}\right\rfloor+1\right).
+  \]
+  In the zigzag core order \((n,2,n-1,3,\dots)\), every pair at smaller
+  circular positional distance \(q\) satisfies \(ij\le qM_n\). The closing
+  arc has the maximum adjacent product, exactly \(M_n\), and all pairs with
+  \(q\ge2\) are covered by \(ij\le n(n-1)<2M_n\le qM_n\).
+- EXACT THEOREM: assigning that zigzag order to regular \((n-1)\)-gon polar
+  directions is all-pairs feasible at
+  \[
+  V_n={(n-1)M_n\over\pi}.
+  \]
+  The radius-one insertion theorem gives
+  \[
+  R_2^*(n)\le V_n\qquad(n\ge12),
+  \]
+  without an attainment assumption.
 - EXACT THEOREM:
   \[
-  \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{1\over\pi},
+  \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{1\over2\pi},
   \qquad
   R_2^*(n)=\Theta(n^3).
   \]
 - VERIFIED FACT: `research/ALL_N_LOWER_BOUND.md` records the self-contained
-  proof of the worst-pair reduction, closed formula, all-pairs feasibility,
-  insertion step, and asymptotic conclusions.
+  proof of the order-independent baseline, general angular upper bound,
+  zigzag product lemma, all-pairs feasibility, insertion step, and improved
+  asymptotic conclusion.
 - INTERPRETATION: the known lower and upper leading coefficients do not match.
-  No limit or exact leading constant has been proved.
+  The value \(1/(2\pi)\) is a proved limsup upper coefficient, not an exact
+  leading constant; no limit has been proved.
 
 ## Verified Computational Machinery
 
@@ -278,17 +302,18 @@ Candidate-set extraction uses the following finite-certificate semantics.
 
 ## Current Research Roadmap
 
-- VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate sets and exclusion gaps, critical-cycle diagnostics, weak-constraint observations, verifier limitations, CI status, combinatorial growth, the induced-subset lower-bound disproof of the former \(n^3/(6\pi)\) target, the exact eventual radius-one insertion theorem, and the regular-core cubic upper bound.
-- INTERPRETATION: the cubic order is settled; improving the regular-core
-  coefficient or finding a different construction that narrows the exact
-  coefficient gap is now more valuable than automatic `n=7` enumeration.
+- VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate sets and exclusion gaps, critical-cycle diagnostics, weak-constraint observations, verifier limitations, CI status, combinatorial growth, the induced-subset lower-bound disproof of the former \(n^3/(6\pi)\) target, the exact eventual radius-one insertion theorem, and the regular-direction baseline plus zigzag upper bound.
+- INTERPRETATION: the cubic order is settled; the zigzag construction improves
+  the regular-direction upper coefficient from \(1/\pi\) to \(1/(2\pi)\).
+  Further narrowing the coefficient gap is more valuable than automatic
+  `n=7` enumeration.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
   active-subsystem description or settle `n<=11`.
-- OPEN QUESTION: can the regular-core coefficient \(1/\pi\) be lowered toward
-  the induced-subset coefficient \(2(\sqrt2-1)/(3\pi)\), while retaining a
-  symbolic all-pairs proof?
+- OPEN QUESTION: can the zigzag upper coefficient \(1/(2\pi)\) be lowered
+  toward the induced-subset coefficient \(2(\sqrt2-1)/(3\pi)\), while
+  retaining a symbolic all-pairs proof?
 - RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
 
 ## Open Proof Obligations And Limitations

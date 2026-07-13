@@ -2,9 +2,9 @@
 
 Last update: 2026-07-13
 
-- **Current phase:** cubic order proved by induced-subset lower and regular-core upper bounds; exact leading constant, coefficient matching, and the minimal insertion threshold remain open.
-- **Current task:** Prove a constructive cubic upper bound using a regular core configuration.
-- **Task dossier:** `ops/TASK-20260713__regular_core_cubic_upper_bound/`.
+- **Current phase:** cubic order proved; the zigzag regular-direction construction now gives the best proved limsup upper coefficient, while coefficient matching and the minimal insertion threshold remain open.
+- **Current task:** Prove and integrate the improved zigzag cubic upper bound.
+- **Task dossier:** `ops/TASK-20260713__zigzag_core_improved_upper_bound/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
@@ -12,74 +12,66 @@ Last update: 2026-07-13
 
 ## Current Stable Result
 
-EXACT THEOREM: for every \(n\ge12\) and fixed \(R>0\), the largest required
-angular separation among distinct core radii \(2^2,\dots,n^2\) is attained by
-\(((n-1)^2,n^2)\). Assigning the core centers to the equally spaced polar
-directions of a regular \((n-1)\)-gon is all-pairs feasible at
+EXACT THEOREM: for every \(R>0\) and positive indices \(i,j\),
 \[
-U_n
-=
-\sqrt{
-n^2(n-1)^2\csc^2\!\left({\pi\over n-1}\right)
-+{(2n-1)^2\over4}}
--{n^2+(n-1)^2\over2}.
+\theta_R(i^2,j^2)<\frac{2ij}{R}.
 \]
-Every non-adjacent vertex pair is included: its smaller angular separation is
-at least one polygon edge, while every required separation is at most the
-tight worst-pair edge angle.
+For
+\[
+M_n=n\left(\left\lfloor\frac n2\right\rfloor+1\right),
+\]
+the core zigzag order
+\[
+z_n=(n,2,n-1,3,\dots)
+\]
+has the exact all-pairs property \(ij\le qM_n\) whenever \(i,j\) are at
+smaller circular positional distance \(q\). The closing arc has the maximum
+adjacent product, exactly \(M_n\); every other adjacent product is smaller for
+\(n\ge4\), and every \(q\ge2\) pair follows from
+\[
+ij\le n(n-1)<2M_n\le qM_n.
+\]
 
-The accepted radius-one theorem gives
+Assigning this order to the polar directions of a regular \((n-1)\)-gon is
+strictly all-pairs feasible at
 \[
-R_2^*(n)\le U_n\qquad(n\ge12).
+V_n=\frac{(n-1)M_n}{\pi}.
 \]
-Moreover,
+The accepted radius-one insertion theorem therefore gives
 \[
-\limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{1\over\pi}.
+R_2^*(n)\le V_n\qquad(n\ge12),
 \]
-Combining this with the existing induced-subset lower bound proves
+without assuming attainment. Consequently,
 \[
-R_2^*(n)=\Theta(n^3).
+\limsup_{n\to\infty}\frac{R_2^*(n)}{n^3}\le\frac1{2\pi}.
 \]
-The self-contained proof is in `research/ALL_N_LOWER_BOUND.md`. It does not
-claim an exact leading constant or assume that an infimum is attained.
+This is a limsup upper coefficient, not an exact leading constant.
 
 ## Other Stable Context
 
-`research/ALL_N_LOWER_BOUND.md` also retains the exact induced-subset lower
-bound and its extremal characterization. In particular,
+The prior order-independent regular-direction radius \(U_n\) remains a valid
+baseline with coefficient \(1/\pi\). The induced-subset lower theorem still
+gives
 \[
-R_2^*(n)\ge\frac{P_{m,n}}\pi-n^2
+\frac{2(\sqrt2-1)}{3\pi}
+\le
+\liminf_{n\to\infty}\frac{R_2^*(n)}{n^3}.
 \]
-for the documented range, and the best leading coefficient within that
-specific relaxation is \(2(\sqrt2-1)/(3\pi)\). This does not match the regular
-core's \(1/\pi\) upper coefficient, so existence and value of any limiting
-coefficient remain open.
+Thus the exact leading coefficient, existence of a limit, and a
+coefficient-matching construction remain open.
 
-The full and core feasible-radius sets remain exactly equal for every
-\(n\ge12\), by the accepted forbidden-arc insertion theorem. The threshold
-`12` is sufficient, not claimed minimal, and the theorem assumes no minimizer.
-
-The former targets
-\[
-R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))
-\quad\text{and}\quad
-R_2^*(n)=\frac{n^3}{6\pi}+O(n^2)
-\]
-remain DISPROVED CLAIMS.
-
-`research/FINITE_RESULTS.md` keeps the checked `n=3..6` results and finite
-critical-structure diagnostics separate from the exact eventual insertion
-theorem. `research/NEXT_RESEARCH_STEPS.md` is the aligned research roadmap.
+The full and core feasible-radius sets remain equal for every \(n\ge12\) by
+the accepted insertion theorem. The threshold `12` is sufficient, not claimed
+minimal. The former \(n^3/(6\pi)\) asymptotic targets remain disproved.
 
 ## Verification
 
-- Focused regular-core diagnostics passed: 3 tests.
-- `python -m pytest` passed: 125 tests.
+- Focused zigzag, prior-upper-bound, and insertion diagnostics passed: 11 tests.
+- `python -m pytest` passed: 128 tests.
 - `$env:PYTHONPATH='src'; python -m power_ringmin.verify_checked_artifacts`
-  passed: 4 checked certificates, 76 embedded local brackets, and summary
-  `examples/finite_results_summary_n3_n6.json` for `n=3,4,5,6`.
-- Independent final proof review found no mathematical or test defect after
-  clarifying that the construction uses regular-polygon polar directions.
+  passed: 4 checked certificates, 76 embedded local brackets, and the
+  `n=3..6` derived summary.
+- Independent final mathematical and diagnostic review passed.
 - Final Git status, diff, whitespace, and trailing-whitespace checks passed.
 
 ## Proposed Next Task
@@ -94,4 +86,4 @@ Acceptance criteria:
 - separate exact mathematical implications from interval-backend trust
   assumptions;
 - do not generate certificates, begin exhaustive enumeration, optimize the
-  regular-core bound, or claim that the insertion threshold is minimal.
+  zigzag upper bound, or claim that the insertion threshold is minimal.

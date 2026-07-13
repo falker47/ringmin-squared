@@ -3,8 +3,8 @@
 This roadmap synthesizes the checked `n=3..6` certificates, candidate-set
 diagnostics, critical-structure analysis, the checked-artifact verification
 pipeline, the induced-subset all-\(n\) lower bound, and the exact eventual
-radius-one insertion theorem. It now also includes the constructive regular-core
-cubic upper bound.
+radius-one insertion theorem. It now also includes the regular-direction
+baseline and its sharper zigzag cubic upper bound.
 
 As of 2026-07-13, the former asymptotic target
 \[
@@ -25,10 +25,11 @@ The best leading coefficient obtainable from the specific relaxation
 This is a method-specific optimality statement, not a matching upper bound and
 not a proved exact asymptotic constant for Power-Ringmin.
 
-The regular-core construction proves a cubic upper bound but does not match the
-induced-subset leading coefficient. No leading-order LP, new finite
-certificate, `n=7` certificate, preflight artifact, or exhaustive enumeration
-was generated for this theorem.
+The zigzag regular-direction construction improves the proved upper coefficient
+from \(1/\pi\) to \(1/(2\pi)\), but it still does not match the induced-subset
+leading coefficient. No leading-order LP, new finite certificate, `n=7`
+certificate, preflight artifact, permutation optimization, or exhaustive
+enumeration was generated for this theorem.
 
 ## Evidence Basis
 
@@ -90,8 +91,8 @@ was generated for this theorem.
   configuration-level induced-subset lower bound. It proves equality of the
   full and core feasible-radius sets and does not assume a minimizer.
 - EXACT THEOREM: for every \(n\ge12\), `research/ALL_N_LOWER_BOUND.md` proves
-  that the core using regular \((n-1)\)-gon polar directions is all-pairs
-  feasible at
+  the order-independent baseline in which the core uses regular
+  \((n-1)\)-gon polar directions and is all-pairs feasible at
   \[
   U_n
   =
@@ -101,9 +102,20 @@ was generated for this theorem.
   -{n^2+(n-1)^2\over2}.
   \]
   The accepted insertion theorem gives \(R_2^*(n)\le U_n\) for \(n\ge12\),
+  with \(U_n/n^3\to1/\pi\).
+- EXACT THEOREM: for every \(R>0\) and positive \(i,j\),
+  \(\theta_R(i^2,j^2)<2ij/R\). For
+  \[
+  M_n=n\left(\left\lfloor{n\over2}\right\rfloor+1\right),
+  \qquad
+  V_n={(n-1)M_n\over\pi},
+  \]
+  the core indices in zigzag order \((n,2,n-1,3,\dots)\) satisfy
+  \(ij\le qM_n\) at circular distance \(q\). Thus all core pairs are feasible
+  at \(V_n\), the insertion theorem gives \(R_2^*(n)\le V_n\) for \(n\ge12\),
   and
   \[
-  \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over\pi},
+  \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over2\pi},
   \qquad
   R_2^*(n)=\Theta(n^3).
   \]
@@ -141,8 +153,9 @@ was generated for this theorem.
 4. The finite tests added with the proof are diagnostic checks only: they
    verify the formula for \(P_{m,n}\), the explicit formula for \(A(S)\), the
    fixed-cardinality optimality of tails by exhaustive small-`n` subset
-   enumeration, and the integer characterization of the discrete maximizers.
-   They are not the all-\(n\) proof.
+   enumeration, the integer characterization of the discrete maximizers, the
+   zigzag product lemma on a substantial finite interval, and sampled
+   geometric all-pairs feasibility. They are not the all-\(n\) proofs.
 
 5. The former reduced-core observation now has an exact eventual consequence:
    for \(n\ge12\), adding radius \(1\) does not change any feasible central
@@ -150,17 +163,18 @@ was generated for this theorem.
    contact graph, does not settle \(n\le11\), and is not based on the checked
    cases \(n=5,6\).
 
-6. The regular-core construction settles the order of growth and gives the
-   rigorous liminf/limsup bracket
+6. The zigzag regular-direction construction sharpens the prior baseline and
+   gives the rigorous liminf/limsup bracket
    \[
    {2(\sqrt2-1)\over3\pi}
    \le
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
    \le
    \limsup_{n\to\infty}{R_2^*(n)\over n^3}
-   \le {1\over\pi}.
+   \le {1\over2\pi}.
    \]
-   It does not prove convergence or an exact leading constant.
+   The upper value is a limsup coefficient, not an exact leading constant; the
+   construction does not prove convergence.
 
 ## Updated Research Questions
 
@@ -172,7 +186,7 @@ was generated for this theorem.
 - OPEN QUESTION: is \(12\) the least threshold for
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
-- OPEN QUESTION: can the regular-core coefficient \(1/\pi\) be lowered toward
+- OPEN QUESTION: can the zigzag coefficient \(1/(2\pi)\) be lowered toward
   \(2(\sqrt2-1)/(3\pi)\), or can a different structured construction narrow
   the coefficient gap while retaining symbolic all-pairs control?
 - OPEN QUESTION: can the fixed-order STN/geometric equivalence, endpoint
@@ -190,8 +204,8 @@ Immediate:
 
 Next:
 
-- Seek a sharper structured construction than the regular core, with a precise
-  proposed coefficient improvement.
+- Seek a sharper structured construction than the zigzag regular-direction
+  core, with a precise proposed coefficient improvement.
 - Preserve explicit symbolic control of every non-adjacent constraint.
 - Use finite checks only as diagnostics, not as an all-\(n\) proof.
 

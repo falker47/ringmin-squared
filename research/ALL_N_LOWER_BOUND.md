@@ -72,11 +72,26 @@ Date: 2026-07-13
   -{n^2+(n-1)^2\over2}.
   \]
   The construction verifies every core pair, including non-adjacent
-  regular-polygon vertices, and then uses the exact radius-one insertion
+  regular-polygon directions, and then uses the exact radius-one insertion
   theorem.
+- EXACT THEOREM: define
+  \[
+  M_n=n\left(\left\lfloor{n\over2}\right\rfloor+1\right),
+  \qquad
+  V_n={(n-1)M_n\over\pi}.
+  \]
+  Assigning the core indices to the same regular-polygon directions in the
+  zigzag order
+  \[
+  z_n=(n,2,n-1,3,\dots)
+  \]
+  is all-pairs feasible at \(V_n\). Hence
+  \[
+  R_2^*(n)\le V_n\qquad(n\ge12).
+  \]
 - EXACT THEOREM:
   \[
-  \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over\pi},
+  \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over2\pi},
   \qquad
   R_2^*(n)=\Theta(n^3).
   \]
@@ -93,10 +108,11 @@ Date: 2026-07-13
 
 The lower-bound proof uses only necessary consequences of all-pairs feasibility.
 The coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal for the specific relaxation
-analyzed here. The regular-core construction gives a cubic upper bound with
-coefficient \(1/\pi\), but the two coefficients do not match. Thus no exact
-leading constant, limiting coefficient, or leading-term asymptotic formula is
-proved.
+analyzed here. The order-independent regular-core baseline has upper
+coefficient \(1/\pi\), while the zigzag refinement improves the proved
+limsup coefficient to \(1/(2\pi)\). This still does not match the lower
+coefficient. Thus no exact leading constant, limiting coefficient, or
+leading-term asymptotic formula is proved.
 
 ## Domain And Definitions
 
@@ -856,11 +872,12 @@ argument does not prove that \(12\) is the least possible threshold. The same
 chain of lower and upper bounds does not close \(n=11\), which is a limitation
 of this proof and not a counterexample to equality at \(n=11\).
 
-## Regular-Core Cubic Upper Bound
+## Regular-Direction Core Cubic Upper Bounds
 
-We now give an explicit feasible construction. This section checks every
-pairwise constraint directly; checking only neighboring vertices would not be
-sufficient.
+We first record an order-independent regular-direction baseline, and then
+sharpen it by assigning the core indices in zigzag order. Both constructions
+check every pairwise constraint directly; checking only neighboring directions
+would not be sufficient.
 
 ### Worst pair at fixed radius
 
@@ -961,20 +978,20 @@ and therefore
 \delta\ge {2\pi\over n-1}.
 \tag{13}
 \]
-For peripheral radii \(a,b>0\) at smaller central angle
-\(\delta\in[0,\pi]\), the squared center distance is
+For peripheral radii \(a,b>0\), central radius \(R>0\), and smaller central
+angle \(\delta\in[0,\pi]\), the squared center distance is
 \[
 d^2
-=(a-b)^2+4(U_n+a)(U_n+b)\sin^2(\delta/2).
+=(a-b)^2+4(R+a)(R+b)\sin^2(\delta/2).
 \]
 Consequently,
 \[
 d^2\ge(a+b)^2
 \quad\Longleftrightarrow\quad
 \sin^2(\delta/2)
-\ge {ab\over(U_n+a)(U_n+b)}
+\ge {ab\over(R+a)(R+b)}
 \quad\Longleftrightarrow\quad
-\delta\ge\theta_{U_n}(a,b).
+\delta\ge\theta_R(a,b).
 \tag{14}
 \]
 By (9), (12), and (13), every pair \(2\le i<j\le n\) satisfies
@@ -989,19 +1006,12 @@ This explicitly includes non-adjacent vertex pairs \(q>1\); they have more
 available angular separation than an edge pair. Equality is allowed because
 external tangency gives disjoint interiors. Hence \(U_n\in\mathcal C_n\).
 
-### Insertion and asymptotic consequences
-
-For \(n\ge12\), the exact radius-one theorem above proves
-\(\mathcal C_n=\mathcal F_n\). Since the regular core is actually feasible at
-\(U_n\), it follows directly that \(U_n\in\mathcal F_n\), and thus
+For \(n\ge12\), the already-proved equality
+\(\mathcal C_n=\mathcal F_n\) therefore also gives
 \[
-\boxed{R_2^*(n)\le U_n\qquad(n\ge12)}.
-\tag{15}
+R_2^*(n)\le U_n.
 \]
-This implication uses equality of feasible-radius sets and does not assume
-that either infimum is attained.
-
-To evaluate (11), write
+For reference, this baseline has \(U_n/n^3\to1/\pi\). Indeed, if
 \[
 X_n=n(n-1)\csc\!\left({\pi\over n-1}\right),
 \quad
@@ -1009,23 +1019,179 @@ Y_n={2n-1\over2},
 \quad
 Z_n={n^2+(n-1)^2\over2},
 \]
-so that \(U_n=\sqrt{X_n^2+Y_n^2}-Z_n\). The standard limit
-\(x/\sin x\to1\) gives
+then \(U_n=\sqrt{X_n^2+Y_n^2}-Z_n\), while
 \[
 {X_n\over n^3}
 =
 {(n-1)^2\over n^2}
-{1\over (n-1)\sin(\pi/(n-1))}
-\longrightarrow {1\over\pi},
+{1\over(n-1)\sin(\pi/(n-1))}
+\longrightarrow{1\over\pi},
 \]
-whereas \(Y_n/n^3\to0\) and \(Z_n/n^3\to0\). Therefore
+and \(Y_n/n^3,Z_n/n^3\to0\). The next construction improves this
+coefficient by exploiting the order of the indices.
+
+### General angular upper bound
+
+The zigzag refinement starts from an upper bound valid for every \(R>0\) and
+all positive indices \(i,j\):
 \[
-{U_n\over n^3}\longrightarrow {1\over\pi},
+\boxed{
+\theta_R(i^2,j^2)<{2ij\over R}
+}.
+\tag{15}
+\]
+Indeed, put
+\[
+x={ij\over\sqrt{(R+i^2)(R+j^2)}},
 \qquad
-\limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over\pi}.
+y=\arcsin x.
+\]
+Here \(0<x<1\) and \(0<y<\pi/2\). The strict inequality \(y<\tan y\) gives
+\[
+\begin{aligned}
+\theta_R(i^2,j^2)
+&=2y
+< {2x\over\sqrt{1-x^2}}\\
+&={2ij\over\sqrt{(R+i^2)(R+j^2)-i^2j^2}}
+={2ij\over\sqrt{R(R+i^2+j^2)}}
+<{2ij\over R}.
+\end{aligned}
+\]
+The hypothesis \(R>0\) is essential to this formula and to both strict
+inequalities.
+
+### Zigzag product lemma
+
+For \(n\ge3\), let
+\[
+N=n-1,
+\qquad
+h=\left\lfloor{n\over2}\right\rfloor,
+\qquad
+M_n=n(h+1),
 \tag{16}
 \]
-Combining (16) with the exact induced-subset lower bound already proved in
+and place the core indices \(2,\dots,n\) in the cyclic zigzag order
+\[
+z_n=(z_0,\dots,z_{N-1})=(n,2,n-1,3,\dots).
+\]
+This is exactly the order returned by `patterns.zigzag(range(2, n + 1))`.
+
+Lemma. If distinct indices \(i,j\) have smaller circular positional distance
+\[
+q\in\left\{1,\dots,\left\lfloor{N\over2}\right\rfloor\right\}
+\]
+in \(z_n\), then
+\[
+ij\le qM_n.
+\tag{17}
+\]
+
+Proof. The first entry of \(z_n\) is \(n\), and its last entry is always
+\(h+1\). Thus the closing arc has product
+\[
+z_{N-1}z_0=n(h+1)=M_n.
+\]
+This is the maximum adjacent product. To check all other adjacent arcs
+explicitly, separate the two parities.
+
+If \(n=2h\), then
+\[
+z_{2t}=2h-t\quad(0\le t\le h-1),
+\qquad
+z_{2t+1}=t+2\quad(0\le t\le h-2).
+\]
+Every non-closing adjacent arc therefore contains a low entry at most \(h\)
+and an entry at most \(n\), so its product is at most
+\(nh<M_n\).
+
+If \(n=2h+1\ge5\), then
+\[
+z_{2t}=2h+1-t,
+\qquad
+z_{2t+1}=t+2
+\quad(0\le t\le h-1).
+\]
+Every non-closing adjacent arc joins a low entry at most \(h+1\) to a high
+entry at most \(n\), so its product is at most \(M_n\). Equality would require
+the pair \(\{h+1,n\}\), but these are the last and first entries and hence form
+the closing arc, not a non-closing one. Thus all other adjacent products are
+strictly smaller. For \(n=3\), the two directions determine the same unordered
+pair on both sides of the two-vertex cycle; its product is still \(M_3\).
+
+This proves (17) when \(q=1\), including the closing arc. For every \(q\ge2\),
+distinctness of the indices gives the exact elementary chain
+\[
+ij\le n(n-1)<2n(h+1)=2M_n\le qM_n.
+\]
+This covers every remaining pair and proves the lemma.
+
+### All-pairs feasibility of the zigzag core
+
+Define
+\[
+\boxed{
+V_n={(n-1)M_n\over\pi}
+=
+{n(n-1)(\lfloor n/2\rfloor+1)\over\pi}
+}.
+\tag{18}
+\]
+Assign \(z_k\) to polar direction \(2\pi k/N\), and place its center at
+radial distance \(V_n+z_k^2\). These are the directions of a regular
+\((n-1)\)-gon; the centers themselves have different radial distances because
+the peripheral radii differ.
+
+Take any two distinct core indices \(i,j\), and let \(q\) be their smaller
+circular positional distance in the zigzag order. Their smaller central angle
+is
+\[
+\delta_q={2\pi q\over n-1}\in(0,\pi].
+\]
+By (15), the product lemma, and (18),
+\[
+\theta_{V_n}(i^2,j^2)
+<{2ij\over V_n}
+\le {2qM_n\over V_n}
+={2\pi q\over n-1}
+=\delta_q.
+\tag{19}
+\]
+The pairwise distance equivalence (14) therefore gives strict non-overlap for
+this pair. Since the choice was arbitrary, all \(\binom{n-1}{2}\) core pairs
+are feasible at once. This argument includes the maximal adjacent product, the
+closing arc, and every non-adjacent pair \(q\ge2\). Hence
+\[
+V_n\in\mathcal C_n.
+\]
+
+### Insertion and improved asymptotic consequences
+
+For \(n\ge12\), the exact radius-one theorem above proves
+\(\mathcal C_n=\mathcal F_n\). Since the zigzag core is actually feasible at
+\(V_n\), it follows directly that \(V_n\in\mathcal F_n\), and thus
+\[
+\boxed{R_2^*(n)\le V_n\qquad(n\ge12)}.
+\tag{20}
+\]
+This implication uses equality of feasible-radius sets and does not assume
+that either infimum is attained.
+
+From the exact formula (18),
+\[
+{V_n\over n^3}
+=
+{n-1\over n}
+{\lfloor n/2\rfloor+1\over n}
+{1\over\pi}
+\longrightarrow {1\over2\pi}.
+\]
+Therefore
+\[
+\limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over2\pi}.
+\tag{21}
+\]
+Combining (21) with the exact induced-subset lower bound already proved in
 this note yields
 \[
 {2(\sqrt2-1)\over3\pi}
@@ -1033,16 +1199,17 @@ this note yields
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
 \limsup_{n\to\infty}{R_2^*(n)\over n^3}
-\le {1\over\pi}.
-\tag{17}
+\le {1\over2\pi}.
+\tag{22}
 \]
 In particular,
 \[
 \boxed{R_2^*(n)=\Theta(n^3)}.
 \]
-The coefficient gap in (17) remains open. Neither this construction nor the
-lower bound proves that \(R_2^*(n)/n^3\) has a limit, and no exact leading
-constant is claimed.
+The coefficient gap in (22) remains open. The value \(1/(2\pi)\) is only the
+proved limsup coefficient of this construction. Neither the zigzag upper bound
+nor the lower bound proves that \(R_2^*(n)/n^3\) has a limit, and no exact
+leading constant is claimed.
 
 ## Gap And Counterexample Audit
 
@@ -1072,11 +1239,13 @@ constant is claimed.
   \(m_n=\lceil(\sqrt2-1)n\rceil\) with an explicit bounded rounding parameter
   \(\varepsilon_n\). The exact finite maximizers are characterized separately
   by \(\rho_n\), so no real-valued \(m\) is used as an index.
-- The regular-core construction supplies a cubic upper bound, but not one
-  matching the induced-subset lower coefficient. It must not be described as
-  identifying the exact asymptotic leading constant for Power-Ringmin. The
-  coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal only inside the lower-bound
-  relaxation explicitly analyzed above.
+- The order-independent radius \(U_n\) remains a valid regular-direction
+  baseline. The zigzag radius \(V_n\) improves its asymptotic upper coefficient
+  from \(1/\pi\) to \(1/(2\pi)\), but still does not match the induced-subset
+  lower coefficient. Neither value may be described as the exact asymptotic
+  leading constant for Power-Ringmin. The coefficient
+  \(2(\sqrt2-1)/(3\pi)\) is optimal only inside the lower-bound relaxation
+  explicitly analyzed above.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower
   bound only from the scalar full-problem lower bound would reverse the useful
@@ -1095,3 +1264,15 @@ constant is claimed.
   constraints; they are checked directly through (13)--(14).
 - The formula \(U_n\) is a feasible radius, not a claim that the regular core
   is optimal or that the full infimum is attained there.
+- The angular upper bound (15) is strict and assumes \(R>0\). Its stronger
+  intermediate denominator \(\sqrt{R(R+i^2+j^2)}\) is what makes the strict
+  inequality valid even when the product lemma is tight on the closing arc.
+- The zigzag product lemma checks three distinct regimes: the maximum adjacent
+  product is \(M_n\), attained on the closing arc; all other adjacent products
+  are smaller (apart from the duplicate two-vertex description at \(n=3\));
+  and every pair with \(q\ge2\) follows from
+  \(ij\le n(n-1)<2M_n\le qM_n\).
+- The zigzag construction assigns unequal-radius centers to regular-polygon
+  directions, not to a common circumcircle. Equation (19) checks every pair at
+  its own smaller circular distance. The formula \(V_n\) is a feasible radius,
+  not a claim that the zigzag core is optimal or that \(1/(2\pi)\) is exact.

@@ -79,8 +79,8 @@ threshold \(12\) is sufficient and is not claimed minimal; the proof is
 independent of the checked cases \(n=5,6\).
 
 For every \(n\ge12\), assigning the core centers to the equally spaced polar
-directions of a regular \((n-1)\)-gon gives the explicit all-pairs feasible
-radius
+directions of a regular \((n-1)\)-gon gives the order-independent all-pairs
+feasible baseline
 \[
 U_n
 =
@@ -89,14 +89,25 @@ n^2(n-1)^2\csc^2\!\left(\frac{\pi}{n-1}\right)
 +\frac{(2n-1)^2}{4}}
 -\frac{n^2+(n-1)^2}{2}.
 \]
-The insertion theorem therefore proves \(R_2^*(n)\le U_n\) for \(n\ge12\),
-and \(U_n/n^3\to1/\pi\). Combined with the induced-subset lower bound, this
-settles the order of growth:
+The zigzag assignment \((n,2,n-1,3,\dots)\) sharpens this baseline. Defining
+\[
+M_n=n\left(\left\lfloor\frac n2\right\rfloor+1\right),
+\qquad
+V_n=\frac{(n-1)M_n}{\pi},
+\]
+an exact product-distance lemma proves that every core pair is feasible at
+\(V_n\). The insertion theorem therefore gives
+\[
+R_2^*(n)\le V_n\qquad(n\ge12),
+\]
+and \(V_n/n^3\to1/(2\pi)\). Combined with the induced-subset lower bound,
+this settles the order of growth:
 \[
 R_2^*(n)=\Theta(n^3).
 \]
-The proof, including the worst-pair reduction and every non-adjacent
-constraint, is recorded in `research/ALL_N_LOWER_BOUND.md`.
+The proof, including the general angular majorant, zigzag closing arc, every
+non-adjacent constraint, and the earlier baseline, is recorded in
+`research/ALL_N_LOWER_BOUND.md`.
 
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
@@ -131,7 +142,7 @@ lower coefficient remain unresolved. Current exact bounds give
 \liminf_{n\to\infty}\frac{R_2^*(n)}{n^3}
 \le
 \limsup_{n\to\infty}\frac{R_2^*(n)}{n^3}
-\le\frac1\pi.
+\le\frac1{2\pi}.
 \]
 
 ## Scope And Guardrails
@@ -210,9 +221,16 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \((n-1)\)-gon is all-pairs feasible at the displayed radius \(U_n\),
   including all non-adjacent direction pairs, and the radius-one theorem gives
   \(R_2^*(n)\le U_n\) for every \(n\ge12\).
+- EXACT THEOREM: for \(R>0\) and positive indices \(i,j\),
+  \(\theta_R(i^2,j^2)<2ij/R\). In the zigzag core order
+  \((n,2,n-1,3,\dots)\), indices at circular distance \(q\) satisfy
+  \(ij\le qM_n\), where
+  \(M_n=n(\lfloor n/2\rfloor+1)\). Hence the regular-direction core is
+  all-pairs feasible at \(V_n=(n-1)M_n/\pi\), and
+  \(R_2^*(n)\le V_n\) for every \(n\ge12\).
 - EXACT THEOREM:
   \[
-  \limsup_{n\to\infty}\frac{R_2^*(n)}{n^3}\le\frac1\pi,
+  \limsup_{n\to\infty}\frac{R_2^*(n)}{n^3}\le\frac1{2\pi},
   \qquad
   R_2^*(n)=\Theta(n^3).
   \]
@@ -224,7 +242,7 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
 - VERIFIED FACT: checked-artifact verification is wired into local review and GitHub Actions.
 - USER-REPORTED STATUS: current task context reports the hosted run is green after the CI fix.
 - INTERPRETATION: these are finite certificates only; they are not exact optimum proofs, all-`n` theorems, or asymptotic results.
-- INTERPRETATION: the all-`n` theorems and regular-core construction are
+- INTERPRETATION: the all-`n` theorems and regular-direction constructions are
   independent of the finite certificates; the upper and lower leading
   coefficients do not currently match.
 - INTERPRETATION: the coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal for the
