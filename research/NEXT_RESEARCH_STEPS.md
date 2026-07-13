@@ -80,6 +80,23 @@ The proof uses terminal-high incidences and a separate degree obstruction at
 \(B_n=W_n\) for every `n=3..11`; distances at least three do not change those
 finite optima or minimizer sets.
 
+A separate two-threshold cyclic packing theorem now gives a quantitative
+lower obstruction for \(B_n\). Exact tails at product thresholds \(T\) and
+\(2T\) yield a finite half-integer bound \(Q_n\le B_n\), and for every
+\(n\ge9\),
+\[
+B_n\ge Q_n\ge
+{36-16\sqrt2\over49}\left(n+{1\over2}\right)^2.
+\]
+Therefore
+\[
+\liminf_{n\to\infty}{B_n\over n^2}
+\ge {36-16\sqrt2\over49}>{1\over4}.
+\]
+The full-distance tail obstruction remains logically separate:
+\(L_n\le W_n\) is not a lower bound for \(B_n\), and its limiting coefficient
+\(2(\sqrt2-1)/3\) is slightly larger than the new distance-two coefficient.
+
 ## Evidence Basis
 
 - COMPUTER-CERTIFIED RESULT: checked finite interval certificates exist for
@@ -187,6 +204,10 @@ finite optima or minimizer sets.
   \(B_n=A_n\) exactly for `3<=n<=8` and \(B_n>A_n\) for every `n>=9`; the
   exceptional incidence parameter `n=12` is covered by a separate exact
   four-degree argument.
+- EXACT THEOREM: the exact two-threshold tails satisfy the cyclic packing
+  obstruction \(n-1\ge2u+\max(0,2v-u)\). Its finite half-integer inversion
+  \(Q_n\) lower-bounds \(B_n\) and proves the explicit quadratic bound and
+  liminf coefficient strictly above \(1/4\).
 - EXACT THEOREM: \(A_n/n^2\to1/4\), while
   \(L_n/n^2\to2(\sqrt2-1)/3\). A residue-class proof with
   \(m=\lceil2n/5\rceil\) gives \(L_n>A_n\) for every \(n\ge33\).
@@ -277,10 +298,12 @@ finite optima or minimizer sets.
    where it is defined, so neither comparison identifies an all-`n` optimum.
 
 8. The adjacent relaxation by itself has coefficient \(1/4\), strictly below
-   the tail-obstruction coefficient. Distance-two constraints leave it exact
-   through `n=8` and make it strict for every `n>=9`. This resolves the former
-   `n=12..32` strictness gap without extending order enumeration. It does not
-   determine exact \(B_n\) or \(W_n\) values there.
+   both the quantitative distance-two coefficient
+   \((36-16\sqrt2)/49\) and the full-distance tail coefficient. Distance-two
+   constraints leave it exact through `n=8`, make it strict for every
+   `n>=9`, and obey the new explicit lower bound. The theorem does not
+   determine exact \(B_n\) or \(W_n\) values or provide a matching upper
+   construction.
 
 ## Updated Research Questions
 
@@ -296,8 +319,9 @@ finite optima or minimizer sets.
   symbolic regular-direction order family improve the zigzag coefficient?
 - OPEN QUESTION: what stronger combinatorial obstruction can narrow the gap
   between the best tail lower obstruction and \(W_n\)?
-- OPEN QUESTION: what exact formulas or sharper all-`n` bounds hold for
-  \(B_n\) and \(W_n\) beyond the strict inequality over \(A_n\)?
+- OPEN QUESTION: what exact formulas, matching upper constructions, or sharper
+  all-`n` bounds hold for \(B_n\) and \(W_n\) beyond the new quantitative
+  lower obstruction?
 - OPEN QUESTION: at what first index, if any, do positional distances at least
   three change \(W_n\)? They do not change it in the exact `n=3..11` table.
 - OPEN QUESTION: can the fixed-order STN/geometric equivalence, endpoint

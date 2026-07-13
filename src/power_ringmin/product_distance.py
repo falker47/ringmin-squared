@@ -78,6 +78,27 @@ class AdjacentEqualityStructure:
     low_neighbor_high_pairs: tuple[tuple[int, int, int], ...]
 
 
+@dataclass(frozen=True)
+class TwoThresholdTailPacking:
+    """Exact tail data for the distance-two cyclic packing obstruction.
+
+    ``a_threshold`` and ``b_threshold`` are the least integers at least two
+    whose consecutive products are strictly greater than ``threshold`` and
+    ``2 * threshold``, respectively.  Intersecting the corresponding integer
+    tails with ``{2, ..., n}`` gives sizes ``u_size`` and ``v_size``.
+    ``required_positions`` is the proved packing requirement
+    ``2*u + max(0, 2*v-u)``.
+    """
+
+    n: int
+    threshold: Fraction
+    a_threshold: int
+    b_threshold: int
+    u_size: int
+    v_size: int
+    required_positions: int
+
+
 def circular_position_distance(
     left_position: int,
     right_position: int,
@@ -318,6 +339,57 @@ def best_tail_lower_obstruction(n: int) -> tuple[Fraction | None, tuple[int, ...
     return best, tuple(m for value, m in values if value == best)
 
 
+def two_threshold_tail_packing(
+    n: int,
+    threshold: int | Fraction,
+) -> TwoThresholdTailPacking:
+    """Return exact ``U_T``/``V_T`` sizes and their packing requirement.
+
+    The threshold must be a nonnegative integer or
+    :class:`fractions.Fraction`; floating-point inputs are rejected.  Tail
+    starts are not clamped to ``n``, so the returned sizes distinguish
+    singleton and empty tails exactly.
+    """
+    _validate_problem_n(n)
+    exact_threshold = _normalize_nonnegative_threshold(threshold)
+    a_threshold = _strict_product_tail_start(exact_threshold)
+    b_threshold = _strict_product_tail_start(2 * exact_threshold)
+    u_size = max(0, n - a_threshold + 1)
+    v_size = max(0, n - b_threshold + 1)
+    required_positions = 2 * u_size + max(0, 2 * v_size - u_size)
+    return TwoThresholdTailPacking(
+        n=n,
+        threshold=exact_threshold,
+        a_threshold=a_threshold,
+        b_threshold=b_threshold,
+        u_size=u_size,
+        v_size=v_size,
+        required_positions=required_positions,
+    )
+
+
+def two_threshold_lower_obstruction(n: int) -> Fraction:
+    """Return the exact finite two-threshold lower obstruction ``Q_n``.
+
+    ``Q_n`` is the least nonnegative half-integer threshold whose tail
+    packing requirement fits in the ``n-1`` core positions.  The requirement
+    changes only at ``k(k+1)/2`` or ``k(k+1)``, so checking the finite event
+    set is equivalent to minimizing over all nonnegative half-integers.
+    """
+    _validate_problem_n(n)
+    event_thresholds = {Fraction(0)}
+    for k in range(2, n):
+        product = k * (k + 1)
+        event_thresholds.add(Fraction(product, 2))
+        event_thresholds.add(Fraction(product))
+
+    for threshold in sorted(event_thresholds):
+        packing = two_threshold_tail_packing(n, threshold)
+        if packing.required_positions <= n - 1:
+            return threshold
+    raise AssertionError("finite two-threshold event set was not exhaustive")
+
+
 def enumerate_product_distance(
     n: int,
     *,
@@ -498,6 +570,27 @@ def _normalize_core_order(order: Sequence[int]) -> tuple[int, ...]:
     return values
 
 
+def _normalize_nonnegative_threshold(value: int | Fraction) -> Fraction:
+    if isinstance(value, bool) or not isinstance(value, (int, Fraction)):
+        raise ValueError(
+            "threshold must be a nonnegative integer or Fraction, "
+            f"got {value!r}"
+        )
+    threshold = Fraction(value)
+    if threshold < 0:
+        raise ValueError(f"threshold must be nonnegative, got {value!r}")
+    return threshold
+
+
+def _strict_product_tail_start(threshold: Fraction) -> int:
+    """Return the least integer ``k >= 2`` with ``k(k+1) > threshold``."""
+    numerator = threshold.numerator
+    denominator = threshold.denominator
+    discriminant_floor = (denominator + 4 * numerator) // denominator
+    weak_root = (math.isqrt(discriminant_floor) - 1) // 2
+    return max(2, weak_root + 1)
+
+
 def _validate_enumeration_n(n: int) -> None:
     if (
         isinstance(n, bool)
@@ -624,6 +717,7 @@ __all__ = [
     "ProductDistanceEnumeration",
     "ProductDistancePairScore",
     "TruncatedProductDistanceEnumeration",
+    "TwoThresholdTailPacking",
     "adjacent_equality_structure",
     "adjacent_product_optimum",
     "best_tail_lower_obstruction",
@@ -637,4 +731,6 @@ __all__ = [
     "product_distance_score",
     "tail_pairing_sum",
     "truncated_product_distance_score",
+    "two_threshold_lower_obstruction",
+    "two_threshold_tail_packing",
 ]

@@ -36,6 +36,18 @@
   \]
   Hence the adjacent relaxation is strict for the full surrogate for every
   \(n\ge9\), not only for the formerly covered bounded and asymptotic ranges.
+- **EXACT THEOREM (quantitative distance-two obstruction):** exact
+  threshold tails \(U_T,V_T\) and cyclic gap packing give a finite
+  obstruction \(Q_n\le B_n\). For every \(n\ge9\),
+  \[
+  B_n\ge Q_n\ge
+  {36-16\sqrt2\over49}\left(n+{1\over2}\right)^2,
+  \]
+  and therefore
+  \[
+  \liminf_{n\to\infty}{B_n\over n^2}
+  \ge {36-16\sqrt2\over49}>{1\over4}.
+  \]
 - **VERIFIED FACT (finite exhaustive exact computation):** the table below
   gives the objectives truncated at positional distances at most one and two,
   as well as \(W_n\), for \(3\le n\le11\). Non-adjacent constraints first
@@ -517,6 +529,359 @@ This conclusion is purely combinatorial. It does not give a formula for
 \(B_n\) or \(W_n\), does not show that \(B_n=W_n\) beyond the bounded table,
 and does not by itself improve a geometric radius bound for Power-Ringmin.
 
+## Quantitative Two-Threshold Obstruction For \(B_n\)
+
+The preceding strictness theorem compares \(B_n\) with \(A_n\), but gives no
+size for the gap. We now prove an independent quantitative obstruction using
+only positional distances one and two.
+
+### Exact integer thresholds and degenerate tails
+
+Fix \(n\ge3\) and an exact real threshold \(T\ge0\). Define
+
+\[
+a_T
+=
+\min\{k\in\mathbb Z:k\ge2,\ k(k+1)>T\}
+=
+\max\left\{
+2,
+1+\left\lfloor{\sqrt{1+4T}-1\over2}\right\rfloor
+\right\},
+\tag{TT1}
+\]
+
+and
+
+\[
+b_T
+=
+\min\{k\in\mathbb Z:k\ge2,\ k(k+1)>2T\}
+=
+\max\left\{
+2,
+1+\left\lfloor{\sqrt{1+8T}-1\over2}\right\rfloor
+\right\}.
+\tag{TT2}
+\]
+
+The added one after the floor is essential at equality: if
+\(k(k+1)=T\), then the strict inequality in (TT1) starts at \(k+1\), and
+similarly for (TT2). Put
+
+\[
+U_T=\{a_T,a_T+1,\dots,n\},
+\qquad
+V_T=\{b_T,b_T+1,\dots,n\},
+\tag{TT3}
+\]
+
+where either displayed set means its intersection with the core
+\(C_n=\{2,\dots,n\}\). Thus
+
+\[
+u=|U_T|=\max(0,n-a_T+1),
+\qquad
+v=|V_T|=\max(0,n-b_T+1).
+\tag{TT4}
+\]
+
+Because \(2T\ge T\), one has \(b_T\ge a_T\), hence \(V_T\subseteq U_T\)
+and \(0\le v\le u\). If \(u\ge2\), the least product of two distinct
+elements of \(U_T\) is \(a_T(a_T+1)>T\); if \(v\ge2\), the corresponding
+least product in \(V_T\) is \(b_T(b_T+1)>2T\).
+
+The definitions also fix all vacuous cases without silently replacing an
+empty threshold tail by a singleton:
+
+- \(a_T\le n-1\) gives \(u=n-a_T+1\ge2\);
+- \(a_T=n\) gives the singleton \(U_T=\{n\}\);
+- \(a_T\ge n+1\) gives \(U_T=\varnothing\);
+- the identical alternatives with \(b_T,v,V_T\) hold at the second
+  threshold.
+
+If \(u=0\), then \(v=0\). If \(u=1\), then in fact \(v=0\) for every
+\(n\ge3\). Indeed, \(u=1\) means \(a_T=n\), so
+
+\[
+(n-1)n\le T<n(n+1).
+\]
+
+If also \(v=1\), then \(b_T=n\) and
+\((n-1)n\le2T<n(n+1)\). The lower bound on \(T\) would force
+\(2n(n-1)<n(n+1)\), or \(n<3\), a contradiction. This verifies the
+singleton and empty cases separately from the gap argument below.
+
+### Cyclic gap lemma
+
+Let \(S_2(\sigma)=W^{(\le2)}(\sigma)\). Suppose that a cyclic core order
+\(\sigma\) satisfies
+
+\[
+S_2(\sigma)\le T
+\tag{TT5}
+\]
+
+and first assume \(u\ge2\). Filter the oriented \(N=n-1\) position cycle to
+\(U_T\), write its induced cyclic word as
+\(x_1,\dots,x_u\), and let \(g_i\) be the positive forward positional gap
+from \(x_i\) to \(x_{i+1}\), with \(x_{u+1}=x_1\). These induced gaps
+partition the full position cycle:
+
+\[
+g_i\ge1,
+\qquad
+\sum_{i=1}^u g_i=N.
+\tag{TT6}
+\]
+
+Every distinct pair in \(U_T\) has product greater than \(T\). Therefore
+\(g_i=1\) would give a distance-one score greater than \(T\), contradicting
+(TT5). Hence every \(g_i\ge2\).
+
+If both endpoints of a gap lie in \(V_T\), their product is greater than
+\(2T\). If that gap were at most two, their smaller circular distance would
+also be at most two and their score would be at least their product divided
+by two, again greater than \(T\). Thus a \(V_T\)-to-\(V_T\) induced gap is
+at least three.
+
+It remains to count how many such gaps are forced. Mark the \(v\) positions
+of the cyclic \(U_T\)-word that belong to \(V_T\), and let \(e_{VV}\) be
+the number of cyclic marked-marked adjacencies, counting the two directed
+cyclic gaps separately when \(u=2\). If \(e_{V\bar V}\) is the number of
+mixed adjacencies, incidence counting gives
+
+\[
+2v=2e_{VV}+e_{V\bar V},
+\qquad
+e_{V\bar V}\le2(u-v).
+\]
+
+Consequently
+
+\[
+e_{VV}\ge\max(0,2v-u).
+\tag{TT7}
+\]
+
+This is the exact minimum. If \(v\le u-v\), place at least one unmarked
+position between consecutive marked positions and obtain no marked-marked
+adjacency. If \(v>u-v\), isolate every unmarked position between marked
+positions; the remaining marked runs have exactly
+\(v-(u-v)=2v-u\) marked-marked cyclic edges.
+
+Using the baseline cost two for every induced gap and one additional position
+for each marked-marked gap, (TT6)--(TT7) prove the candidate lemma:
+
+\[
+\boxed{
+n-1\ge2u+\max(0,2v-u)
+}
+\qquad(u\ge2).
+\tag{TT8}
+\]
+
+There is no exceptional small cycle hidden in this proof. For \(u=2\), the
+two induced oriented gaps still sum to \(N\), and if both positions are
+marked, (TT7) correctly counts both gaps as marked-marked.
+
+Define
+
+\[
+\Phi_n(T)=2u+\max(0,2v-u)=\max(2u,u+2v).
+\tag{TT9}
+\]
+
+The degenerate cases extend the necessary inequality to every \(u\): for
+\(u=0\), both sides contributed by the tails are zero; for \(u=1\), the
+result above gives \(v=0\), so \(\Phi_n(T)=2\le n-1\). Therefore
+
+\[
+S_2(\sigma)\le T
+\quad\Longrightarrow\quad
+n-1\ge\Phi_n(T)
+\tag{TT10}
+\]
+
+for every \(n\ge3\) and every exact \(T\ge0\). Equivalently, the exact
+finite condition \(\Phi_n(T)>n-1\) certifies \(B_n>T\).
+
+### Finite exact obstruction
+
+Every distance-at-most-two pair score has denominator one or two. Hence
+\(B_n\in\tfrac12\mathbb Z_{\ge0}\). Define
+
+\[
+Q_n
+=
+\min\left\{
+{q\over2}:q\in\mathbb Z_{\ge0},\quad
+\Phi_n(q/2)\le n-1
+\right\}.
+\tag{TT11}
+\]
+
+This set is nonempty: at \(T=n(n-1)\), one has \(u=1,v=0\). Moreover the
+minimum is a genuinely finite calculation. The tails change only when
+\(T=k(k+1)\) or \(2T=k(k+1)\), and strictness makes the change occur at
+the equality itself. Thus (TT11) is equivalently the minimum over
+
+\[
+E_n
+=
+\{0\}\cup
+\left\{
+{k(k+1)\over2},\ k(k+1):2\le k\le n-1
+\right\}.
+\tag{TT12}
+\]
+
+The finite order space attains \(B_n\). Applying (TT10) at \(T=B_n\) shows
+that \(B_n\) belongs to the admissible half-integer set in (TT11), so
+
+\[
+\boxed{B_n\ge Q_n},
+\qquad
+\boxed{B_n\ge\max(A_n,Q_n)}.
+\tag{TT13}
+\]
+
+The implementation functions `two_threshold_tail_packing` and
+`two_threshold_lower_obstruction` evaluate (TT1)--(TT4), (TT9), and
+(TT11)--(TT12) with integers and `Fraction` only.
+
+### Explicit all-\(n\) lower bound
+
+We next extract a closed bound from the exact obstruction. For \(n\ge9\),
+take any adjacent-optimal order. Its adjacent scores are at most \(A_n\),
+and every distance-two score is at most \(n(n-1)/2\). Directly from (8),
+
+\[
+{n(n-1)\over2}-A_n
+=
+\begin{cases}
+t^2-4t-2,&n=2t,\ t\ge5,\\
+t^2-3t-3,&n=2t+1,\ t\ge4,
+\end{cases}
+\]
+
+which is positive in both domains. Therefore
+
+\[
+Q_n\le B_n\le {n(n-1)\over2}
+\qquad(n\ge9).
+\tag{TT14}
+\]
+
+Put \(T=Q_n\), \(a=a_T\), and \(b=b_T\). The upper bound in (TT14) gives
+\(a\le n-1\) and \(b\le n\), so \(u=n-a+1\ge2\) and
+\(v=n-b+1\ge1\). Since \(\Phi_n(Q_n)\le n-1\), (TT9) yields both
+\(2u\le n-1\) and \(u+2v\le n-1\). In particular,
+
+\[
+a\ge{n+3\over2}>2,
+\qquad
+a+2b\ge2n+4.
+\tag{TT15}
+\]
+
+Minimality in (TT1)--(TT2), now with valid predecessors at least two, gives
+
+\[
+(a-1)a\le Q_n,
+\qquad
+(b-1)b\le2Q_n.
+\]
+
+Hence \(a\le1+\sqrt{Q_n}\) and
+\(b\le1+\sqrt{2Q_n}\). Combining these estimates with (TT15),
+
+\[
+2n+4
+\le a+2b
+\le3+(1+2\sqrt2)\sqrt{Q_n}.
+\]
+
+It follows that
+
+\[
+\boxed{
+B_n\ge Q_n
+\ge
+\left({2n+1\over1+2\sqrt2}\right)^2
+=
+{36-16\sqrt2\over49}
+\left(n+{1\over2}\right)^2
+}
+\qquad(n\ge9).
+\tag{TT16}
+\]
+
+This is stronger than the requested form
+\(B_n\ge c n^2-O(n)\): with
+
+\[
+c={36-16\sqrt2\over49},
+\]
+
+(TT16) gives \(B_n\ge c n^2+c n+c/4\). In particular,
+
+\[
+\boxed{
+\liminf_{n\to\infty}{B_n\over n^2}
+\ge {36-16\sqrt2\over49}>{1\over4}
+}.
+\tag{TT17}
+\]
+
+The strict comparison is exact:
+
+\[
+{36-16\sqrt2\over49}-{1\over4}
+={95-64\sqrt2\over196}>0,
+\]
+
+because \(95^2=9025>8192=2\cdot64^2\).
+
+### Relation to the full-distance tail obstruction
+
+The domains of the two lower obstructions must not be conflated:
+
+\[
+A_n\le B_n\le W_n,
+\qquad
+Q_n\le B_n,
+\qquad
+L_n\le W_n.
+\tag{TT18}
+\]
+
+The proof of \(L_n\le W_n\) later in this note uses induced gaps of every
+possible positional length, so it does not imply \(L_n\le B_n\). Its known
+asymptotic constant is slightly larger than the new distance-two constant:
+
+\[
+{1\over4}
+<
+{36-16\sqrt2\over49}
+<
+{2(\sqrt2-1)\over3}.
+\tag{TT19}
+\]
+
+For the second strict inequality, the right difference is
+
+\[
+{2(\sqrt2-1)\over3}
+-{36-16\sqrt2\over49}
+={2(73\sqrt2-103)\over147}>0,
+\]
+
+because \(2\cdot73^2=10658>10609=103^2\). Thus the two-threshold result
+strictly improves the adjacent asymptotic obstruction for \(B_n\), while the
+slightly stronger tail coefficient remains a statement about the full
+surrogate \(W_n\).
+
 ## Exact Core Feasibility
 
 For \(n\ge4\), assign the entry in position \(k\) of \(\sigma\) to polar
@@ -821,19 +1186,27 @@ The implementation is `src/power_ringmin/product_distance.py`.
 - A strict integer cutoff discards an order only when a pair already exceeds
   the incumbent. Equality is retained, so minimizer counts are exact.
 
-The exact truncated objectives are:
+The exact comparison table is below. The \(A_n,Q_n,L_n\) columns are exact
+formula evaluations; the \(B_n,W_n\) columns and minimizer counts are the
+bounded exhaustive results.
 
-| \(n\) | \(W_n^{(\le1)}=A_n\) | \(W_n^{(\le2)}\) | \(W_n\) | \(W_n-A_n\) | \(W_n-W_n^{(\le2)}\) | minimizers \((\le1,\le2)\) |
-|---:|---:|---:|---:|---:|---:|---:|
-| 3 | \(6\) | \(6\) | \(6\) | \(0\) | \(0\) | \(1,1\) |
-| 4 | \(12\) | \(12\) | \(12\) | \(0\) | \(0\) | \(1,1\) |
-| 5 | \(15\) | \(15\) | \(15\) | \(0\) | \(0\) | \(1,1\) |
-| 6 | \(20\) | \(20\) | \(20\) | \(0\) | \(0\) | \(2,2\) |
-| 7 | \(24\) | \(24\) | \(24\) | \(0\) | \(0\) | \(2,2\) |
-| 8 | \(30\) | \(30\) | \(30\) | \(0\) | \(0\) | \(4,4\) |
-| 9 | \(35\) | \(36\) | \(36\) | \(1\) | \(0\) | \(4,12\) |
-| 10 | \(42\) | \(45\) | \(45\) | \(3\) | \(0\) | \(24,72\) |
-| 11 | \(48\) | \(50\) | \(50\) | \(2\) | \(0\) | \(24,24\) |
+| \(n\) | \(A_n\) | \(Q_n\) | \(\max(A_n,Q_n)\) | \(B_n=W_n^{(\le2)}\) | \(L_n\) | \(W_n\) | minimizers \((\le1,\le2)\) |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 3 | \(6\) | \(6\) | \(6\) | \(6\) | -- | \(6\) | \(1,1\) |
+| 4 | \(12\) | \(12\) | \(12\) | \(12\) | \(25/3\) | \(12\) | \(1,1\) |
+| 5 | \(15\) | \(12\) | \(15\) | \(15\) | \(23/2\) | \(15\) | \(1,1\) |
+| 6 | \(20\) | \(20\) | \(20\) | \(20\) | \(76/5\) | \(20\) | \(2,2\) |
+| 7 | \(24\) | \(21\) | \(24\) | \(24\) | \(58/3\) | \(24\) | \(2,2\) |
+| 8 | \(30\) | \(30\) | \(30\) | \(30\) | \(170/7\) | \(30\) | \(4,4\) |
+| 9 | \(35\) | \(30\) | \(35\) | \(36\) | \(59/2\) | \(36\) | \(4,12\) |
+| 10 | \(42\) | \(42\) | \(42\) | \(45\) | \(320/9\) | \(45\) | \(24,72\) |
+| 11 | \(48\) | \(45\) | \(48\) | \(50\) | \(42\) | \(50\) | \(24,24\) |
+
+Thus the new obstruction does not improve the already exact adjacent lower
+bound within this bounded table, even though (TT17) proves a strictly larger
+asymptotic lower coefficient. The \(L_n\) values happen to be below \(Q_n\)
+in every displayed admissible case, but only \(Q_n\) is proved to lower-bound
+\(B_n\); \(L_n\) remains a full-distance obstruction as stated in (TT18).
 
 Thus the bounded regression agrees with the all-\(n\) theorem: the first exact
 gap between the adjacent relaxation and the full surrogate occurs at \(n=9\):
@@ -878,9 +1251,10 @@ permutation calculation for the smallest cases, deterministic work bounds,
 the all-\(n\) adjacent formula against the explicit interleave construction,
 the parity-specific equality classifier on the bounded `n=4..11` regression,
 the exact incidence-lemma boundary arithmetic, the `n=12` local degree data,
-the effective tail comparison, zigzag and tail values, and exact reproduction
-of both truncated and full `n=3..11` tables. No cyclic-order enumeration is
-performed beyond `n=11`.
+the strict two-threshold floor boundaries and empty/singleton tails, the exact
+finite \(Q_n\) obstruction, the effective full-distance tail comparison,
+zigzag and tail values, and exact reproduction of both truncated and full
+`n=3..11` tables. No cyclic-order enumeration is performed beyond `n=11`.
 
 The following remain unresolved.
 
@@ -891,7 +1265,8 @@ The following remain unresolved.
 - **OPEN QUESTION:** can stronger combinatorial obstructions narrow the finite
   and asymptotic gap between \(L_n\) and \(W_n\)?
 - **OPEN QUESTION:** what are exact formulas or sharper bounds for \(B_n\) and
-  \(W_n\)? The theorem here decides only \(B_n>A_n\) for \(n\ge9\).
+  \(W_n\)? The theorem here gives a quantitative all-\(n\) lower bound for
+  \(B_n\), but not its exact value or a matching upper construction.
 - **OPEN QUESTION:** at what \(n\), if any, do positional distances at least
   three first change the optimum? They do not do so for \(3\le n\le11\).
 

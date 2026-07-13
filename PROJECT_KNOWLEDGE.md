@@ -260,6 +260,40 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   `n=12` is covered by a separate exact degree obstruction. Therefore
   \(W_n>A_n\) for every \(n\ge9\), without cyclic-order enumeration beyond
   `n=11`.
+- DEFINITION: for exact \(T\ge0\), let \(a_T\) and \(b_T\) be the least
+  integers at least two satisfying \(a_T(a_T+1)>T\) and
+  \(b_T(b_T+1)>2T\). The threshold tails have sizes
+  \(u=\max(0,n-a_T+1)\) and \(v=\max(0,n-b_T+1)\).
+- EXACT THEOREM: if a cyclic core order has distance-at-most-two score at
+  most \(T\) and \(u\ge2\), its induced \(U_T\)-gaps and the exact minimum
+  number of \(V_T\)-to-\(V_T\) adjacencies in a cyclic binary word give
+  \[
+  n-1\ge2u+\max(0,2v-u).
+  \]
+  Empty and singleton tails satisfy the same necessary inequality separately:
+  \(u=0\) forces \(v=0\), while \(u=1\) forces \(v=0\) for \(n\ge3\).
+- DEFINITION / EXACT FINITE OBSTRUCTION: let \(Q_n\) be the least
+  nonnegative half-integer \(T\) for which the displayed packing requirement
+  is at most \(n-1\). It is computed exactly from the finite event set
+  \(\{0\}\cup\{k(k+1)/2,k(k+1):2\le k\le n-1\}\), and
+  \[
+  B_n\ge Q_n,
+  \qquad
+  B_n\ge\max(A_n,Q_n).
+  \]
+- EXACT THEOREM: for every \(n\ge9\),
+  \[
+  B_n\ge Q_n\ge
+  {36-16\sqrt2\over49}\left(n+{1\over2}\right)^2,
+  \]
+  so
+  \[
+  \liminf_{n\to\infty}{B_n\over n^2}
+  \ge {36-16\sqrt2\over49}>{1\over4}.
+  \]
+  This distance-two coefficient is strictly below the full-distance tail
+  coefficient \(2(\sqrt2-1)/3\); \(L_n\le W_n\) does not imply
+  \(L_n\le B_n\).
 - EXACT THEOREM: assigning \(\sigma\) to equally spaced polar directions
   makes the core strictly all-pairs feasible at
   \[
@@ -304,7 +338,8 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - VERIFIED FACT: `src/power_ringmin/product_distance.py` provides exact
   all-pairs `Fraction` scoring, core-cycle canonicalization, explicit `n=3`
   handling, the exact adjacent formula, a direct parity-specific adjacent
-  equality classifier, tail obstructions, and deterministic full and truncated
+  equality classifier, exact two-threshold tail packing and finite obstruction,
+  full-distance tail obstructions, and deterministic full and truncated
   enumeration with the hard domain `3<=n<=11` and a preflight canonical-order
   ceiling. It creates no CLI or serialized artifact.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): enumeration of all
@@ -325,15 +360,24 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   The first gap from the adjacent relaxation is
   \(A_9=35<36=W_9^{(\le2)}=W_9\). The distance-two and full canonical
   minimizer sets also coincide throughout this bounded range.
+- VERIFIED FACT (FINITE EXACT FORMULA EVALUATION): the new finite obstruction
+  gives
+  \[
+  (Q_3,\dots,Q_{11})=(6,12,12,20,21,30,30,42,45).
+  \]
+  Thus \(\max(A_n,Q_n)=A_n\) throughout this bounded table. This formula
+  evaluation is not cyclic-order enumeration and does not weaken the all-\(n\)
+  asymptotic improvement over \(A_n\).
 - INTERPRETATION: zigzag is surrogate-optimal for `n=3,4,5` and strictly
   suboptimal for every enumerated `n=6..11`; the best tail obstruction is
   strict for every enumerated case where it is defined.
 - INTERPRETATION: the finite table is not an all-`n` formula, a geometric
   certificate, or proof that the surrogate radius is geometrically optimal
   for a fixed order. No conjecture is promoted from these nine cases.
-- OPEN QUESTION: exact formulas or sharper all-`n` bounds for \(B_n\) and
-  \(W_n\) remain unresolved; the distance-two theorem decides strictness over
-  \(A_n\), not either optimum value.
+- OPEN QUESTION: exact formulas, matching upper constructions, or sharper
+  all-`n` bounds for \(B_n\) and \(W_n\) remain unresolved; the
+  two-threshold theorem gives a quantitative lower bound for \(B_n\), not its
+  exact value.
 - OPEN QUESTION: positional distances at least three do not change the exact
   objective or minimizer set for \(3\le n\le11\); their first essential index,
   if one exists, is unresolved.

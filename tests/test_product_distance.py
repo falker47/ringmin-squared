@@ -21,6 +21,8 @@ from power_ringmin.product_distance import (
     product_distance_score,
     tail_pairing_sum,
     truncated_product_distance_score,
+    two_threshold_lower_obstruction,
+    two_threshold_tail_packing,
 )
 from power_ringmin.patterns import interleave
 
@@ -306,6 +308,96 @@ def test_n12_exceptional_degree_obstruction_parameters_are_exact() -> None:
     assert available_small_high_degree == (
         consumed_by_high_12 + consumed_by_low_6_edge
     )
+
+
+def test_two_threshold_tail_starts_and_degenerate_sizes_are_exact() -> None:
+    below_first_boundary = two_threshold_tail_packing(5, Fraction(11, 2))
+    at_first_boundary = two_threshold_tail_packing(5, 6)
+    marked_singleton = two_threshold_tail_packing(5, 12)
+    marked_empty = two_threshold_tail_packing(5, 15)
+    first_tail_singleton = two_threshold_tail_packing(5, 20)
+    first_tail_empty = two_threshold_tail_packing(5, 30)
+
+    assert below_first_boundary.a_threshold == 2
+    assert at_first_boundary.a_threshold == 3
+    assert (
+        marked_singleton.a_threshold,
+        marked_singleton.b_threshold,
+        marked_singleton.u_size,
+        marked_singleton.v_size,
+        marked_singleton.required_positions,
+    ) == (4, 5, 2, 1, 4)
+    assert (
+        marked_empty.a_threshold,
+        marked_empty.b_threshold,
+        marked_empty.u_size,
+        marked_empty.v_size,
+        marked_empty.required_positions,
+    ) == (4, 6, 2, 0, 4)
+    assert (
+        first_tail_singleton.a_threshold,
+        first_tail_singleton.b_threshold,
+        first_tail_singleton.u_size,
+        first_tail_singleton.v_size,
+        first_tail_singleton.required_positions,
+    ) == (5, 6, 1, 0, 2)
+    assert (
+        first_tail_empty.a_threshold,
+        first_tail_empty.u_size,
+        first_tail_empty.v_size,
+        first_tail_empty.required_positions,
+    ) == (6, 0, 0, 0)
+
+    for threshold in (
+        Fraction(0),
+        Fraction(11, 2),
+        Fraction(6),
+        Fraction(59, 2),
+        Fraction(1000),
+    ):
+        packing = two_threshold_tail_packing(11, threshold)
+        direct_a = next(
+            k for k in itertools.count(2) if k * (k + 1) > threshold
+        )
+        direct_b = next(
+            k for k in itertools.count(2) if k * (k + 1) > 2 * threshold
+        )
+        assert packing.a_threshold == direct_a
+        assert packing.b_threshold == direct_b
+        assert 0 <= packing.v_size <= packing.u_size
+
+    with pytest.raises(ValueError, match="nonnegative"):
+        two_threshold_tail_packing(5, -1)
+    with pytest.raises(ValueError, match="integer or Fraction"):
+        two_threshold_tail_packing(5, 1.0)
+
+
+def test_two_threshold_finite_obstruction_and_bounded_table_are_exact(
+    exact_truncated_enumerations,
+) -> None:
+    expected = {
+        3: Fraction(6),
+        4: Fraction(12),
+        5: Fraction(12),
+        6: Fraction(20),
+        7: Fraction(21),
+        8: Fraction(30),
+        9: Fraction(30),
+        10: Fraction(42),
+        11: Fraction(45),
+    }
+
+    for n, obstruction in expected.items():
+        assert two_threshold_lower_obstruction(n) == obstruction
+        assert two_threshold_tail_packing(
+            n,
+            obstruction,
+        ).required_positions <= n - 1
+        assert two_threshold_tail_packing(
+            n,
+            obstruction - Fraction(1, 2),
+        ).required_positions > n - 1
+        assert obstruction <= exact_truncated_enumerations[n, 2].optimum
 
 
 def test_fraction_comparisons_do_not_use_float_rounding() -> None:

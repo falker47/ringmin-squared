@@ -2,9 +2,12 @@
 
 Last update: 2026-07-13
 
-- **Current phase:** positional-distance-two constraints are proved to make the adjacent product-distance relaxation strict exactly from `n=9` onward.
-- **Current task:** Characterize adjacent equality cycles and decide `B_n=W_n^(<=2)` versus `A_n` for all `n>=9`.
-- **Task dossier:** `ops/TASK-20260713__distance_two_adjacent_strictness/`.
+- **Current phase:** quantitative all-`n` lower obstruction for the
+  distance-two product-distance relaxation.
+- **Current task:** prove and invert the two-threshold cyclic packing lemma for
+  `B_n=W_n^(<=2)`.
+- **Task dossier:**
+  `ops/TASK-20260713__two_threshold_distance_two_obstruction/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
@@ -12,139 +15,162 @@ Last update: 2026-07-13
 
 ## Current Exact Result
 
-For
+Fix `n>=3` and an exact threshold `T>=0`. Let `a_T` and `b_T` be the least
+integers at least two satisfying
+
 \[
-A_n=\min_\sigma\max_k\sigma_k\sigma_{k+1},
+a_T(a_T+1)>T,
 \qquad
-B_n=W_n^{(\le2)},
-\]
-the adjacent optimum remains
-\[
-A_3=6,
-\qquad
-A_n=
-\left(\left\lfloor{n\over2}\right\rfloor+1\right)
-\left(\left\lceil{n\over2}\right\rceil+2\right)
-\quad(n\ge4).
+b_T(b_T+1)>2T,
 \]
 
-The equality cases are now necessary and sufficient.
+and set
 
-- For even `n=2t`, an `A_n`-optimal cycle has no low-low edge and its unique
-  high-high edge is `{t+1,t+2}`. Removing that edge leaves an alternating
-  Hamilton path on highs `{t+1,...,2t}` and lows `{2,...,t}`, with endpoints
-  `t+1,t+2`; every crossing product is at most `A_n`.
-- For odd `n=2t+1`, an `A_n`-optimal cycle has no low-low edge and its only
-  high-high edges are `{t+1,t+2}` and `{t+1,t+3}`. Removing the middle high
-  `t+1` from the forced segment leaves an alternating Hamilton path on highs
-  `{t+2,...,2t+1}` and lows `{2,...,t}`, with endpoints `t+2,t+3`; every
-  crossing product is at most `A_n`.
+\[
+u=\max(0,n-a_T+1),
+\qquad
+v=\max(0,n-b_T+1).
+\]
 
-EXACT THEOREM:
+EXACT THEOREM: if a cyclic core order has distance-at-most-two score at most
+`T` and `u>=2`, then induced `U_T` gaps and the exact cyclic marked-word count
+give
+
+\[
+\boxed{n-1\ge2u+\max(0,2v-u)}.
+\]
+
+Every induced `U_T` gap costs at least two positions. A `V_T-V_T` gap costs
+at least three, and a cyclic word with `u` positions and `v` marked has
+minimum exactly `max(0,2v-u)` marked-marked adjacencies. The two oriented gaps
+when `u=2` are counted separately. Degenerate tails are explicit: `u=0`
+forces `v=0`, while `u=1` forces `v=0` for every `n>=3`, so the same necessary
+numerical inequality remains valid.
+
+Define the exact finite obstruction
+
+\[
+Q_n=
+\min\left\{
+{q\over2}:q\in\mathbb Z_{\ge0},\quad
+2u_{q/2}+\max(0,2v_{q/2}-u_{q/2})\le n-1
+\right\}.
+\]
+
+It is enough to inspect the finite event set
+
+\[
+\{0\}\cup
+\{k(k+1)/2,k(k+1):2\le k\le n-1\}.
+\]
+
+Because every distance-two objective is a half-integer,
+
+\[
+B_n\ge Q_n,
+\qquad
+B_n\ge\max(A_n,Q_n).
+\]
+
+For every `n>=9`, the explicit all-`n` consequence is
+
 \[
 \boxed{
-B_n=A_n\quad(3\le n\le8),
+B_n\ge Q_n\ge
+{36-16\sqrt2\over49}\left(n+{1\over2}\right)^2
+}.
+\]
+
+Therefore
+
+\[
+\boxed{
+\liminf_{n\to\infty}{B_n\over n^2}
+\ge {36-16\sqrt2\over49}>{1\over4}
+}.
+\]
+
+This is stronger than `B_n>=c*n^2-O(n)`: it gives
+`B_n>=c*n^2+c*n+c/4` for the displayed `c` and `n>=9`.
+
+## Comparison With Existing Obstructions
+
+The rigorous domains are
+
+\[
+A_n\le B_n\le W_n,
 \qquad
-B_n>A_n\quad(n\ge9).
-}
+Q_n\le B_n,
+\qquad
+L_n\le W_n.
 \]
 
-The equality side uses explicit `patterns.interleave` witnesses. For
-strictness, each low labels an active-high path edge `xy` and distance two
-would require `xy<=2A_n`. A terminal block of mutually incompatible highs
-requires more distinct compatible lows than exist. The only incidence-count
-exception is `n=12`; there, the degree budget of `{7,8,9}` is exhausted by
-the two edges to high `12` and the edge labelled by low `6`, disconnecting
-`{10,11}`.
+The full-distance tail argument for `L_n` uses induced gaps of arbitrary
+length and does not prove `L_n<=B_n`. The constants satisfy
 
-No cyclic-order enumeration beyond `n=11` is used in this theorem.
-
-## Consequences For The Full Surrogate And Power-Ringmin
-
-Because `W_n>=B_n`,
 \[
-W_n>A_n\qquad(n\ge9).
+{1\over4}
+<
+{36-16\sqrt2\over49}
+<
+{2(\sqrt2-1)\over3}.
 \]
-This resolves the former strictness gap `n=12..32`; the tail obstruction is no
-longer needed to prove strictness there. It remains useful as a quantitative
-lower bound and still first exceeds `A_n` at `n=33`.
 
-The theorem does not give a formula for `B_n` or `W_n`, does not prove
-`B_n=W_n` beyond `n=11`, and does not determine when positional distances at
-least three first become essential.
-
-For regular-direction constructions, the accepted implications remain
-\[
-R_2^*(n)\le{(n-1)W_n\over\pi}\qquad(n\ge12),
-\]
-and the zigzag construction retains coefficient `1/(2*pi)`. Strictness of a
-lower relaxation does not by itself sharpen this feasible-radius upper bound
-or prove any exact geometric optimum.
+Thus the two-threshold obstruction strictly improves the adjacent coefficient
+for `B_n`, while the slightly larger tail coefficient remains a statement
+about `W_n`.
 
 ## Finite Exact Regression
 
-VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): the bounded canonical,
-no-floating-point enumeration remains restricted to `n=3..11`. Its
-distance-one objectives are
-\[
-(6,12,15,20,24,30,35,42,48),
-\]
-and its distance-two objectives are
-\[
-(6,12,15,20,24,30,36,45,50).
-\]
-The latter equal the full `W_n` values and minimizer sets throughout this
-bounded range. This is regression evidence only; the all-`n` strictness proof
-is the high/low incidence theorem above.
+VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
 
-The full bounded values remain
 \[
-(W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50)
-\]
-with canonical minimizer counts
-\[
-(1,1,1,2,2,4,12,72,24).
+(Q_3,\dots,Q_{11})=(6,12,12,20,21,30,30,42,45).
 \]
 
-## Other Stable Context
+Combined with the existing bounded exact table:
 
-The induced-subset lower bound and zigzag upper construction still give
-\[
-{2(\sqrt2-1)\over3\pi}
-\le
-\liminf_{n\to\infty}{R_2^*(n)\over n^3}
-\le
-\limsup_{n\to\infty}{R_2^*(n)\over n^3}
-\le{1\over2\pi}.
-\]
-The exact leading coefficient and existence of a limit remain open. The full
-and core feasible-radius sets remain equal for every `n>=12`; the threshold
-is sufficient, not known minimal. The former `n^3/(6*pi)` asymptotic targets
-remain disproved.
+| `n` | `A_n` | `Q_n` | `max(A_n,Q_n)` | `B_n` | `L_n` | `W_n` |
+|---:|---:|---:|---:|---:|---:|---:|
+| 3 | 6 | 6 | 6 | 6 | -- | 6 |
+| 4 | 12 | 12 | 12 | 12 | 25/3 | 12 |
+| 5 | 15 | 12 | 15 | 15 | 23/2 | 15 |
+| 6 | 20 | 20 | 20 | 20 | 76/5 | 20 |
+| 7 | 24 | 21 | 24 | 24 | 58/3 | 24 |
+| 8 | 30 | 30 | 30 | 30 | 170/7 | 30 |
+| 9 | 35 | 30 | 35 | 36 | 59/2 | 36 |
+| 10 | 42 | 42 | 42 | 45 | 320/9 | 45 |
+| 11 | 48 | 45 | 48 | 50 | 42 | 50 |
+
+The `A_n,Q_n,L_n` columns are exact formula evaluations. The `B_n,W_n`
+columns are the existing finite exhaustive exact computation, still bounded
+to `n=3..11`. No cyclic-order enumeration was extended beyond `n=11`.
 
 ## Verification And CI Provenance
 
-- CURRENT LOCAL VERIFIED FACT: Python compilation passes for the changed
-  source and test files.
-- CURRENT LOCAL VERIFIED FACT: focused product-distance tests pass `16/16`,
-  and integrated product-distance/zigzag/tail/insertion tests pass `31/31`.
-- CURRENT LOCAL VERIFIED FACT: the adjacent equality classifier accepts the
-  `patterns.interleave` construction for `n=4..1000`.
-- CURRENT LOCAL VERIFIED FACT: exact parameter-only incidence checks pass for
-  `199991` values in `n=9..200000`, excluding the separately proved `n=12`;
-  this is diagnostic formula verification, not cyclic-order enumeration or
-  the all-`n` proof.
-- CURRENT LOCAL VERIFIED FACT: the bounded equality classifier was checked
-  against every canonical adjacent score for `n=4..11`; no order enumeration
-  beyond `n=11` was run.
-- CURRENT LOCAL VERIFIED FACT: full pytest passes `144/144`.
+- CURRENT LOCAL VERIFIED FACT: changed source and tests compile.
+- CURRENT LOCAL VERIFIED FACT: focused product-distance tests pass `18/18`.
+- CURRENT LOCAL VERIFIED FACT: integrated
+  product-distance/zigzag/tail/insertion tests pass `33/33`.
+- CURRENT LOCAL VERIFIED FACT: exact formula diagnostics pass for all 992
+  values `n=9..1000`; this is parameter evaluation, not order enumeration or
+  a substitute for the symbolic proof.
+- CURRENT LOCAL VERIFIED FACT: full pytest passes `146/146`.
 - CURRENT LOCAL VERIFIED FACT: checked-artifact semantic verification accepts
   4 certificates, 76 local brackets, and the `n=3..6` summary.
-- CURRENT LOCAL VERIFIED FACT: exact ten-path scope, strict UTF-8, trailing
-  whitespace, 32 unique equation tags, complete diff, and `git diff --check`
-  inspections pass.
+- CURRENT LOCAL VERIFIED FACT: exact ten-path scope, strict UTF-8, corrected
+  trailing-whitespace scan, 51 unique equation tags, complete diff review, and
+  `git diff --check` pass.
 - CURRENT HOSTED STATUS: GitHub Actions for the current `HEAD` has not been
   independently verified.
+
+## Residual Limitations
+
+- No exact formula or matching upper construction for `B_n` is proved.
+- No equality `B_n=W_n` beyond the bounded `n=3..11` table is claimed.
+- The coefficient `(36-16*sqrt(2))/49` is a proved lower coefficient, not an
+  exact asymptotic constant or a claim that a limit exists.
+- The full-distance tail coefficient is not silently transferred to `B_n`.
 
 ## Proposed Next Task
 
