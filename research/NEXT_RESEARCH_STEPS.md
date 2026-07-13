@@ -3,8 +3,9 @@
 This roadmap synthesizes the checked `n=3..6` certificates, candidate-set
 diagnostics, critical-structure analysis, checked-artifact verification tooling
 and workflow configuration, the induced-subset all-\(n\) lower bound, and the
-exact eventual radius-one insertion theorem. It now also includes the
-regular-direction baseline and its sharper zigzag cubic upper bound.
+exact eventual radius-one insertion theorem, the regular-direction baseline
+and zigzag cubic upper bound, and the exact bounded product-distance surrogate
+analysis through `n=11`.
 
 As of 2026-07-13, the former asymptotic target
 \[
@@ -27,9 +28,19 @@ not a proved exact asymptotic constant for Power-Ringmin.
 
 The zigzag regular-direction construction improves the proved upper coefficient
 from \(1/\pi\) to \(1/(2\pi)\), but it still does not match the induced-subset
-leading coefficient. No leading-order LP, new finite certificate, `n=7`
-certificate, preflight artifact, permutation optimization, or exhaustive
-enumeration was generated for this theorem.
+leading coefficient. That zigzag theorem itself generated no leading-order LP,
+new finite certificate, `n=7` certificate, preflight artifact, permutation
+optimization, or exhaustive enumeration.
+
+The product-distance surrogate now optimizes the regular-direction sufficient
+radius combinatorially. Exact canonical enumeration, deliberately bounded to
+`n=3..11`, gives
+\[
+(W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50).
+\]
+This finite exact result improves on zigzag for every enumerated `n=6..11`,
+but it is not an all-`n` formula, a geometric certificate, or a new asymptotic
+upper bound without a symbolic order family.
 
 ## Evidence Basis
 
@@ -119,6 +130,21 @@ enumeration was generated for this theorem.
   \qquad
   R_2^*(n)=\Theta(n^3).
   \]
+- EXACT THEOREM: `research/PRODUCT_DISTANCE_SURROGATE.md` defines
+  \(W(\sigma)=\max ij/d_\sigma(i,j)\), proves strict all-pairs core
+  feasibility at \((n-1)W(\sigma)/\pi\), transfers it to the full problem for
+  `n>=12`, and proves the tail obstruction
+  \[
+  W(\sigma)\ge {P_{m,n}\over n-1}
+  \qquad(2\le m\le n-2)
+  \]
+  using induced oriented positional gaps that sum to `n-1`.
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): exact canonical
+  enumeration of `204557` rotation/reflection classes for `n=3..11` gives
+  the displayed \(W_n\) values and minimizer counts
+  \((1,1,1,2,2,4,12,72,24)\), with representatives and comparisons recorded
+  in `research/PRODUCT_DISTANCE_SURROGATE.md`. No floating point, serialized
+  artifact, schema, CLI, or geometric certificate is involved.
 - VERIFIED FACT: `examples/finite_results_summary_n3_n6.json` derives
   candidate sets, exclusion gaps, repeated serialized bracket groups, and
   small-`n` ratios from the checked finite certificates.
@@ -185,6 +211,12 @@ enumeration was generated for this theorem.
    The upper value is a limsup coefficient, not an exact leading constant; the
    construction does not prove convergence.
 
+7. The product-distance surrogate isolates exactly what the angular majorant
+   needs from a regular-direction order. Zigzag has exact surrogate score
+   \(M_n\), but bounded enumeration finds strictly smaller scores for every
+   `n=6..11`. The best tail obstruction remains strict in all enumerated cases
+   where it is defined, so neither comparison identifies an all-`n` optimum.
+
 ## Updated Research Questions
 
 - OPEN QUESTION: what upper-bound construction, if any, matches the new
@@ -195,9 +227,10 @@ enumeration was generated for this theorem.
 - OPEN QUESTION: is \(12\) the least threshold for
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
-- OPEN QUESTION: after formalizing the product-distance combinatorial surrogate
-  induced by assigning indices to regular directions, what exact obstruction
-  or improvement does it give for zigzag and other structured assignments?
+- OPEN QUESTION: what is the asymptotic behavior of \(W_n/n^2\), and can a
+  symbolic regular-direction order family improve the zigzag coefficient?
+- OPEN QUESTION: what stronger combinatorial obstruction can narrow the gap
+  between the best tail lower obstruction and \(W_n\)?
 - OPEN QUESTION: can the fixed-order STN/geometric equivalence, endpoint
   semantics, and negative-cycle proof obligations be recorded independently of
   any particular asymptotic constant?
@@ -206,19 +239,14 @@ enumeration was generated for this theorem.
 
 Immediate:
 
-- Formalize the product-distance combinatorial surrogate for cyclic assignments
-  of core indices to regular directions, determine its precise implications and
-  limits for all-pairs geometric feasibility, and prove every claimed
-  implication.
-- Analyze the zigzag assignment and structured alternatives within that
-  surrogate, keeping exact deductions, finite diagnostics, conjectures, and
-  open questions separate.
+- Document fixed-order angular/STN equivalence and certificate endpoint
+  semantics, including monotonicity in `R`, negative-cycle infeasibility,
+  upper-witness meaning, and the interval-backend trust boundary.
 
 Next:
 
-- Treat fixed-order STN/geometric equivalence and certificate endpoint semantics
-  as the subsequent certification-debt task, independently of any asymptotic
-  constant.
+- Seek a symbolic order family or stronger obstruction for the
+  product-distance surrogate; do not extrapolate a formula from `n<=11`.
 - Keep the exact radius-one theorem separate from finite critical-cycle proxy
   claims and from any assumption that an optimum is attained.
 
@@ -238,27 +266,23 @@ Deliberately deferred:
 
 - `n=7` exhaustive certificate generation.
 - Larger exhaustive enumeration without a precise discriminator.
+- Product-distance enumeration beyond the explicit `n=11` boundary.
 - Leading-order LP work in the induced-subset proof task.
 - Any claim that the new lower-bound coefficient is the exact asymptotic
   constant.
-- Diagnostic `n=3..6` comparison tables unless explicitly requested in a fresh
-  task.
 - Any claim that the radius-one threshold \(12\) is minimal.
 
 ## Recommended Next Atomic Task
 
-Task: formalize and analyze the product-distance combinatorial surrogate
-induced by assigning the core indices to regular directions.
+Task: document fixed-order angular/STN equivalence and endpoint semantics.
 
 Acceptance criteria:
 
-- define the cyclic product-distance objective and its domain precisely;
-- determine its precise implications and limitations for all-pairs feasibility
-  within the regular-direction construction class, and prove every claimed
-  implication;
-- analyze the zigzag assignment and structured alternatives while separating
-  exact results, finite diagnostics, conjectures, and open questions;
-- update durable memory and task evidence without generating certificates or
-  beginning unrestricted exhaustive permutation enumeration;
-- leave fixed-order STN/geometric equivalence and endpoint documentation as a
-  separate subsequent certification-debt task.
+- state the fixed-order angular constraints and monotonicity in `R` precisely;
+- prove the equivalence between geometric feasibility and the STN formulation
+  used by the current code;
+- document strict lower-endpoint negative-cycle infeasibility and upper-witness
+  semantics without overstating endpoint inclusion;
+- preserve the local interval-backend trust boundary and evidence
+  classifications;
+- do not generate new certificates, artifacts, or surrogate enumerations.

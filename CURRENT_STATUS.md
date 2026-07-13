@@ -2,15 +2,15 @@
 
 Last update: 2026-07-13
 
-- **Current phase:** cubic order proved; the next research priority is the product-distance surrogate for regular-direction constructions, while coefficient matching and the minimal insertion threshold remain open.
-- **Current task:** Align the operating contract, CI-status provenance, and next-task roadmap.
-- **Task dossier:** `ops/TASK-20260713__align_contract_state_provenance/`.
+- **Current phase:** the regular-direction product-distance surrogate is formalized and exactly enumerated through `n=11`; coefficient matching and the minimal insertion threshold remain open.
+- **Current task:** Formalize and analyze the product-distance surrogate.
+- **Task dossier:** `ops/TASK-20260713__product_distance_surrogate/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
-## Current Stable Result
+## Current Exact Result
 
 EXACT THEOREM: for every \(R>0\) and positive indices \(i,j\),
 \[
@@ -47,6 +47,36 @@ without assuming attainment. Consequently,
 \]
 This is a limsup upper coefficient, not an exact leading constant.
 
+For a cyclic core order \(\sigma\), define
+\[
+W(\sigma)=\max_{2\le i<j\le n}{ij\over d_\sigma(i,j)},
+\qquad W_n=\min_\sigma W(\sigma).
+\]
+Assigning the order to regular directions is strictly all-pairs feasible at
+\[
+R={(n-1)W(\sigma)\over\pi}.
+\]
+For `n>=12`, insertion transfers this radius to the full problem. For every
+`2<=m<=n-2`, oriented induced-tail positional gaps sum to `n-1` and prove
+\[
+W(\sigma)\ge {P_{m,n}\over n-1}.
+\]
+
+## Finite Exact Enumeration
+
+VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): the bounded, canonical,
+no-floating-point enumeration for `n=3..11` gives
+\[
+(W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50)
+\]
+with canonical minimizer counts
+\[
+(1,1,1,2,2,4,12,72,24).
+\]
+The complete table, representatives, zigzag scores, and tail obstructions are
+in `research/PRODUCT_DISTANCE_SURROGATE.md`. No all-`n` formula or geometric
+optimality claim is inferred from this table.
+
 ## Other Stable Context
 
 The prior order-independent regular-direction radius \(U_n\) remains a valid
@@ -66,10 +96,11 @@ minimal. The former \(n^3/(6\pi)\) asymptotic targets remain disproved.
 
 ## Verification And CI Provenance
 
-- LOCAL VERIFIED FACT: the prior zigzag task's focused tests, full suite,
-  checked-artifact verification, and mathematical review are recorded in
-  `ops/TASK-20260713__zigzag_core_improved_upper_bound/`. This documentation
-  task did not rerun them and does not reinterpret them as hosted results.
+- HISTORICAL LOCAL VERIFIED FACT: the prior zigzag task's focused tests, full
+  suite, checked-artifact verification, and mathematical review are recorded
+  in `ops/TASK-20260713__zigzag_core_improved_upper_bound/`; those results are
+  not hosted-run evidence. The current task's new local checks are listed
+  separately below.
 - LOCAL VERIFIED FACT: the trust-layer and cross-platform hash CI dossiers
   record successful local tests, checked-artifact verification, workflow
   inspection, and hygiene checks.
@@ -82,24 +113,27 @@ minimal. The former \(n^3/(6\pi)\) asymptotic targets remain disproved.
   hosted status for a specific commit.
 - CURRENT HOSTED STATUS: GitHub Actions for the current `HEAD` has not been
   independently verified.
-- Current documentation checks passed: required wording, obsolete-wording
-  absence, referenced paths, UTF-8 reads, trailing whitespace,
-  `git diff --check`, independent review, and final scope/diff inspection.
+- PRIOR LOCAL VERIFIED FACT: the preceding documentation task recorded its own
+  wording, path, UTF-8, whitespace, diff, and independent-review checks.
+- CURRENT LOCAL VERIFIED FACT: focused product-distance/zigzag/tail/insertion
+  tests passed `24/24`; full pytest passed `137/137`; checked-artifact semantic
+  verification accepted 4 certificates, 76 local brackets, and the `n=3..6`
+  summary.
+- CURRENT LOCAL VERIFIED FACT: independent mathematical and code reviews found
+  no defect, and a second implementation reproduced every `n=3..11` table
+  entry without importing the new module or using its cutoff.
+- CURRENT LOCAL VERIFIED FACT: final ten-path scope, strict UTF-8, trailing
+  whitespace, complete diff, and `git diff --check` inspections passed.
 
 ## Proposed Next Task
 
-Formalize and analyze the product-distance combinatorial surrogate induced by
-assigning the core indices to regular directions.
+Document the fixed-order angular/STN equivalence and endpoint semantics.
 
 Acceptance criteria:
 
-- define the cyclic product-distance objective and its domain precisely;
-- determine its precise implications and limitations for all-pairs feasibility
-  within the regular-direction construction class, and prove every claimed
-  implication;
-- analyze the zigzag assignment and structured alternatives while separating
-  exact results, finite diagnostics, conjectures, and open questions;
-- do not generate certificates or begin unrestricted exhaustive permutation
-  enumeration;
-- keep fixed-order STN/geometric equivalence and endpoint documentation as a
-  separate subsequent certification-debt task.
+- record the exact angular constraints and their monotonicity in `R`;
+- prove the fixed-order STN/geometric feasibility equivalence used by current
+  evaluators and verifiers;
+- state lower negative-cycle and upper-witness endpoint semantics precisely;
+- preserve the documented interval-backend trust boundary;
+- do not begin another surrogate enumeration or generate new certificates.

@@ -109,6 +109,28 @@ The proof, including the general angular majorant, zigzag closing arc, every
 non-adjacent constraint, and the earlier baseline, is recorded in
 `research/ALL_N_LOWER_BOUND.md`.
 
+The regular-direction construction now has an exact combinatorial surrogate.
+For a cyclic core order \(\sigma\), let \(d_\sigma(i,j)\) be smaller circular
+positional distance and define
+\[
+W(\sigma)=\max_{2\le i<j\le n}{ij\over d_\sigma(i,j)},
+\qquad W_n=\min_\sigma W(\sigma).
+\]
+The core is strictly all-pairs feasible at \((n-1)W(\sigma)/\pi\), and the
+accepted insertion theorem transfers this radius to the full problem for
+\(n\ge12\). For every \(2\le m\le n-2\), oriented positional gaps on the
+induced tail prove the exact obstruction
+\[
+W(\sigma)\ge {P_{m,n}\over n-1}.
+\]
+An exact, no-floating-point canonical enumeration bounded to `n=3..11` gives
+\[
+(W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50),
+\]
+with canonical minimizer counts \((1,1,1,2,2,4,12,72,24)\). The proof,
+complete table, representatives, and finite/all-`n` classification are in
+`research/PRODUCT_DISTANCE_SURROGATE.md`.
+
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also a disproved claim.
@@ -241,6 +263,19 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \qquad
   R_2^*(n)=\Theta(n^3).
   \]
+- EXACT THEOREM: for every cyclic order \(\sigma\) of the core, the
+  product-distance score
+  \(W(\sigma)=\max_{i<j}ij/d_\sigma(i,j)\) gives strict all-pairs core
+  feasibility at \((n-1)W(\sigma)/\pi\). For `n>=12`, insertion gives
+  \(R_2^*(n)\le(n-1)W_n/\pi\), where \(W_n=\min_\sigma W(\sigma)\).
+- EXACT THEOREM: for every `2<=m<=n-2`, oriented positional gaps induced by
+  the tail \(\{m,\dots,n\}\) give
+  \(W(\sigma)\ge P_{m,n}/(n-1)\).
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): bounded canonical
+  enumeration with integer/Fraction scoring gives
+  \((W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50)\) and canonical
+  minimizer counts \((1,1,1,2,2,4,12,72,24)\). This is not an all-`n`
+  formula, a geometric certificate, or an exact geometric-optimum claim.
 - EXACT THEOREM: within the induced-subset plus duplicated-pairing plus
   \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\) relaxation, no nonconsecutive subset
   improves the tail bounds \(P_{m,n}\); the best discrete tail is characterized

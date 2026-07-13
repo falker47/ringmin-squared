@@ -212,6 +212,61 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   The value \(1/(2\pi)\) is a proved limsup upper coefficient, not an exact
   leading constant; no limit has been proved.
 
+## Product-Distance Surrogate
+
+- DEFINITION: for `n>=3`, put \(N=n-1\). For a cyclic order \(\sigma\) of
+  the core \(\{2,\dots,n\}\), let \(d_\sigma(i,j)\) be smaller circular
+  positional distance and define
+  \[
+  W(\sigma)=\max_{2\le i<j\le n}{ij\over d_\sigma(i,j)},
+  \qquad W_n=\min_\sigma W(\sigma).
+  \]
+- EXACT THEOREM: assigning \(\sigma\) to equally spaced polar directions
+  makes the core strictly all-pairs feasible at
+  \[
+  R={N W(\sigma)\over\pi}.
+  \]
+  For `n=3`, the two core directions are treated explicitly as antipodal.
+  The proof checks every pair using
+  \(\theta_R(i^2,j^2)<2ij/R\).
+- EXACT THEOREM: for `n>=12`, equality of the full and core feasible-radius
+  sets transfers the construction and gives
+  \[
+  R_2^*(n)\le {N W(\sigma)\over\pi},
+  \qquad
+  R_2^*(n)\le {N W_n\over\pi}.
+  \]
+- EXACT THEOREM: for every `2<=m<=n-2`, the induced oriented positional gaps
+  of the tail \(\{m,\dots,n\}\) are positive, sum to \(N\), and dominate the
+  corresponding smaller circular distances. Combined with the
+  duplicated-multiset pairing lemma, this proves
+  \[
+  W(\sigma)\ge {P_{m,n}\over N}.
+  \]
+- EXACT THEOREM: the zigzag score is exactly
+  \(W(z_n)=M_n=n(\lfloor n/2\rfloor+1)\), because the general zigzag lemma
+  gives the upper bound and the closing pair attains it.
+- VERIFIED FACT: `src/power_ringmin/product_distance.py` provides exact
+  all-pairs `Fraction` scoring, core-cycle canonicalization, explicit `n=3`
+  handling, tail obstructions, and deterministic bounded enumeration with the
+  hard domain `3<=n<=11` and a preflight canonical-order ceiling. It creates
+  no CLI or serialized artifact.
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): enumeration of all
+  `204557` canonical rotation/reflection classes for `n=3..11` gives
+  \[
+  (W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50)
+  \]
+  and canonical minimizer counts
+  \((1,1,1,2,2,4,12,72,24)\). Exact representatives, zigzag comparisons,
+  and tail lower obstructions are recorded in
+  `research/PRODUCT_DISTANCE_SURROGATE.md`.
+- INTERPRETATION: zigzag is surrogate-optimal for `n=3,4,5` and strictly
+  suboptimal for every enumerated `n=6..11`; the best tail obstruction is
+  strict for every enumerated case where it is defined.
+- INTERPRETATION: the finite table is not an all-`n` formula, a geometric
+  certificate, or proof that the surrogate radius is geometrically optimal
+  for a fixed order. No conjecture is promoted from these nine cases.
+
 ## Verified Computational Machinery
 
 - VERIFIED FACT: the Python package import name is `power_ringmin`; package source is under `src/power_ringmin/`; tests are under `tests/`.
@@ -312,15 +367,14 @@ Candidate-set extraction uses the following finite-certificate semantics.
 
 ## Current Research Roadmap
 
-- VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate sets and exclusion gaps, critical-cycle diagnostics, weak-constraint observations, verifier limitations, workflow configuration, recorded local checks, hosted-status provenance, combinatorial growth, the induced-subset lower-bound disproof of the former \(n^3/(6\pi)\) target, the exact eventual radius-one insertion theorem, and the regular-direction baseline plus zigzag upper bound.
+- VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate-set and critical-structure diagnostics, verifier limitations, workflow provenance, the induced-subset lower bound, exact insertion theorem, regular-direction bounds, and the exact bounded product-distance analysis through `n=11`.
 - INTERPRETATION: the cubic order is settled; the zigzag construction improves
   the regular-direction upper coefficient from \(1/\pi\) to \(1/(2\pi)\).
   Further narrowing the coefficient gap is more valuable than automatic
   `n=7` enumeration.
-- RECOMMENDED NEXT TASK: formalize and analyze the product-distance
-  combinatorial surrogate induced by assigning the core indices to regular
-  directions, with exact claims separated from finite diagnostics,
-  conjectures, and open questions.
+- RECOMMENDED NEXT TASK: document the fixed-order angular/STN equivalence and
+  endpoint semantics, including monotonicity in `R`, negative-cycle
+  infeasibility, upper witnesses, and the interval-backend trust boundary.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
@@ -332,14 +386,15 @@ Candidate-set extraction uses the following finite-certificate semantics.
 
 ## Open Proof Obligations And Limitations
 
-- SUBSEQUENT CERTIFICATION DEBT: locally document the fixed-order angular/STN
+- CERTIFICATION DEBT: locally document the fixed-order angular/STN
   equivalence and endpoint semantics, including the relevant angular formula,
   monotonicity in `R`, negative-cycle infeasibility, upper-witness meaning, and
-  interval-backend trust boundary. This follows the product-distance surrogate
-  task rather than preceding it.
+  interval-backend trust boundary.
 - LIMITATION: the current certified finite results depend on the documented guarded `mpmath.iv` interval-backend contract; backend trust/provenance remains a production-review item.
 - LIMITATION: finite computation for `n=3..6` is not proof for all `n`.
-- LIMITATION: no exact optimum value has been proved in this repository.
+- LIMITATION: no exact geometric optimum value \(R_2^*(n)\) has been proved
+  in this repository; the finite exact values of the combinatorial surrogate
+  \(W_n\) are a different statement.
 - LIMITATION: no upper bound matching the induced-subset leading coefficient
   has been proved in this repository.
 - LIMITATION: neither existence of \(\lim R_2^*(n)/n^3\) nor a leading-term
