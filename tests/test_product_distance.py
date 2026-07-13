@@ -8,16 +8,20 @@ import pytest
 
 from power_ringmin.product_distance import (
     MAX_CANONICAL_ORDERS,
+    adjacent_product_optimum,
     best_tail_lower_obstruction,
     canonical_core_order_count,
     canonical_core_orders,
     canonicalize_core_order,
     circular_position_distance,
     enumerate_product_distance,
+    enumerate_truncated_product_distance,
     product_distance_pair_scores,
     product_distance_score,
     tail_pairing_sum,
+    truncated_product_distance_score,
 )
+from power_ringmin.patterns import interleave
 
 
 EXPECTED_TABLE = {
@@ -65,9 +69,73 @@ EXPECTED_TABLE = {
 }
 
 
+EXPECTED_TRUNCATED_TABLE = {
+    3: (Fraction(6), 1, (3, 2), Fraction(6), 1, (3, 2)),
+    4: (Fraction(12), 1, (4, 2, 3), Fraction(12), 1, (4, 2, 3)),
+    5: (Fraction(15), 1, (5, 2, 4, 3), Fraction(15), 1, (5, 2, 4, 3)),
+    6: (
+        Fraction(20),
+        2,
+        (6, 2, 4, 5, 3),
+        Fraction(20),
+        2,
+        (6, 2, 4, 5, 3),
+    ),
+    7: (
+        Fraction(24),
+        2,
+        (7, 2, 5, 4, 6, 3),
+        Fraction(24),
+        2,
+        (7, 2, 5, 4, 6, 3),
+    ),
+    8: (
+        Fraction(30),
+        4,
+        (8, 2, 5, 6, 4, 7, 3),
+        Fraction(30),
+        4,
+        (8, 2, 5, 6, 4, 7, 3),
+    ),
+    9: (
+        Fraction(35),
+        4,
+        (9, 2, 6, 5, 7, 4, 8, 3),
+        Fraction(36),
+        12,
+        (9, 2, 6, 5, 7, 3, 8, 4),
+    ),
+    10: (
+        Fraction(42),
+        24,
+        (10, 2, 6, 7, 5, 8, 3, 9, 4),
+        Fraction(45),
+        72,
+        (10, 2, 6, 7, 3, 8, 5, 9, 4),
+    ),
+    11: (
+        Fraction(48),
+        24,
+        (11, 2, 7, 6, 8, 5, 9, 3, 10, 4),
+        Fraction(50),
+        24,
+        (11, 2, 7, 6, 8, 3, 10, 5, 9, 4),
+    ),
+}
+
+
 @pytest.fixture(scope="module")
 def exact_enumerations():
     return {n: enumerate_product_distance(n) for n in range(3, 12)}
+
+
+@pytest.fixture(scope="module")
+def exact_truncated_enumerations():
+    return {
+        (n, max_distance): enumerate_truncated_product_distance(n, max_distance)
+        for n in range(3, 12)
+        for max_distance in (1, 2)
+    }
 
 
 def _independent_score(order: tuple[int, ...]) -> Fraction:
@@ -117,6 +185,26 @@ def test_rational_pair_scores_are_exact_and_cover_every_pair() -> None:
     assert {maximizers[0].left_index, maximizers[0].right_index} == {8, 9}
     assert maximizers[0].distance == 2
     assert product_distance_score(order) == maximum
+    assert truncated_product_distance_score(order, 1) == adjacent_maximum
+    assert truncated_product_distance_score(order, 2) == maximum
+
+
+def test_adjacent_optimum_formula_and_interleave_construction_are_exact() -> None:
+    assert adjacent_product_optimum(3) == 6
+    for n in range(4, 201):
+        expected = (n // 2 + 1) * ((n + 1) // 2 + 2)
+        order = tuple(int(value) for value in interleave(range(2, n + 1)))
+        adjacent_sums = tuple(
+            order[position] + order[(position + 1) % len(order)]
+            for position in range(len(order))
+        )
+
+        assert adjacent_product_optimum(n) == expected
+        assert truncated_product_distance_score(order, 1) == expected
+        assert set(adjacent_sums) <= {n + 1, n + 2, n + 3}
+
+    with pytest.raises(ValueError):
+        adjacent_product_optimum(2)
 
 
 def test_fraction_comparisons_do_not_use_float_rounding() -> None:
@@ -223,6 +311,23 @@ def test_tail_obstruction_and_zigzag_comparisons_are_exact(
             )
 
 
+def test_tail_obstruction_first_dominates_adjacent_formula_at_33() -> None:
+    for n in range(4, 33):
+        obstruction, _maximizers = best_tail_lower_obstruction(n)
+        assert obstruction is not None
+        assert obstruction <= adjacent_product_optimum(n)
+
+    assert adjacent_product_optimum(33) == 323
+    assert best_tail_lower_obstruction(33) == (Fraction(2595, 8), (14,))
+
+    # This checks the explicit all-n witness used in the symbolic residue proof;
+    # it is formula evaluation, not cyclic-order enumeration.
+    for n in range(33, 1001):
+        tail_start = (2 * n + 4) // 5
+        witness = Fraction(tail_pairing_sum(tail_start, n), n - 1)
+        assert witness > adjacent_product_optimum(n)
+
+
 def test_exact_enumeration_reproduces_reported_table(exact_enumerations) -> None:
     for n, expected in EXPECTED_TABLE.items():
         result = exact_enumerations[n]
@@ -238,6 +343,43 @@ def test_exact_enumeration_reproduces_reported_table(exact_enumerations) -> None
         assert observed == expected
 
 
+def test_truncated_enumeration_reproduces_exact_table_and_first_gap(
+    exact_enumerations,
+    exact_truncated_enumerations,
+) -> None:
+    for n, expected in EXPECTED_TRUNCATED_TABLE.items():
+        adjacent = exact_truncated_enumerations[n, 1]
+        distance_two = exact_truncated_enumerations[n, 2]
+        observed = (
+            adjacent.optimum,
+            adjacent.minimizer_count,
+            adjacent.representative,
+            distance_two.optimum,
+            distance_two.minimizer_count,
+            distance_two.representative,
+        )
+
+        assert observed == expected
+        assert adjacent.canonical_order_count == canonical_core_order_count(n)
+        assert adjacent.optimum == adjacent_product_optimum(n)
+        assert distance_two.canonical_order_count == canonical_core_order_count(n)
+        assert distance_two.optimum == exact_enumerations[n].optimum
+        assert distance_two.minimizer_count == exact_enumerations[n].minimizer_count
+        assert distance_two.representative == exact_enumerations[n].representative
+
+    assert [
+        n
+        for n in range(3, 12)
+        if exact_truncated_enumerations[n, 1].optimum
+        < exact_enumerations[n].optimum
+    ] == [9, 10, 11]
+    assert all(
+        exact_truncated_enumerations[n, 2].optimum
+        == exact_enumerations[n].optimum
+        for n in range(3, 12)
+    )
+
+
 def test_enumeration_is_deterministically_bounded() -> None:
     with pytest.raises(ValueError, match=r"\[3, 11\]"):
         enumerate_product_distance(12)
@@ -245,6 +387,16 @@ def test_enumeration_is_deterministically_bounded() -> None:
         enumerate_product_distance(11, max_canonical_orders=181439)
     with pytest.raises(ValueError, match="positive integer"):
         enumerate_product_distance(5, max_canonical_orders=True)
+    with pytest.raises(ValueError, match=r"\[3, 11\]"):
+        enumerate_truncated_product_distance(12, 2)
+    with pytest.raises(ValueError, match="requires 181440 orders"):
+        enumerate_truncated_product_distance(
+            11,
+            2,
+            max_canonical_orders=181439,
+        )
+    with pytest.raises(ValueError, match="max_position_distance"):
+        enumerate_truncated_product_distance(5, True)
 
 
 def test_core_order_validation_rejects_wrong_domain() -> None:

@@ -39,7 +39,12 @@ def zigzag(values: Iterable[int | float]) -> tuple[int | float, ...]:
 
 
 def interleave(values: Iterable[int | float]) -> tuple[int | float, ...]:
-    """Return the generic interleaved comparison order."""
+    """Return the generic interleaved comparison order.
+
+    On consecutive integer values ``2..n``, every cyclic edge has endpoint
+    sum in ``{n + 1, n + 2, n + 3}``; this realizes the exact adjacent
+    product-distance optimum proved in ``research/PRODUCT_DISTANCE_SURROGATE.md``.
+    """
     v = _sorted_values(values)
     m = len(v)
     used: set[int] = set()

@@ -221,6 +221,29 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   W(\sigma)=\max_{2\le i<j\le n}{ij\over d_\sigma(i,j)},
   \qquad W_n=\min_\sigma W(\sigma).
   \]
+- DEFINITION: for integer \(q\ge1\),
+  \[
+  W_n^{(\le q)}
+  =
+  \min_\sigma
+  \max_{\substack{i<j\\d_\sigma(i,j)\le q}}
+  {ij\over d_\sigma(i,j)}.
+  \]
+  The adjacent relaxation is
+  \(A_n=W_n^{(\le1)}=\min_\sigma\max_k\sigma_k\sigma_{k+1}\).
+- EXACT THEOREM:
+  \[
+  A_3=6,
+  \qquad
+  A_n=
+  \left(\left\lfloor{n\over2}\right\rfloor+1\right)
+  \left(\left\lceil{n\over2}\right\rceil+2\right)
+  \quad(n\ge4).
+  \]
+  The lower bound follows by counting forced internal cycle edges in high and
+  low index blocks. The existing `patterns.interleave` construction attains the
+  bound for every \(n\): its cycle edges have endpoint sums among
+  \(n+1,n+2,n+3\).
 - EXACT THEOREM: assigning \(\sigma\) to equally spaced polar directions
   makes the core strictly all-pairs feasible at
   \[
@@ -243,14 +266,30 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \[
   W(\sigma)\ge {P_{m,n}\over N}.
   \]
+- EXACT THEOREM:
+  \[
+  \lim_{n\to\infty}{A_n\over n^2}={1\over4}
+  <
+  {2(\sqrt2-1)\over3}
+  =
+  \lim_{n\to\infty}{L_n\over n^2},
+  \qquad
+  L_n=\max_{2\le m\le n-2}{P_{m,n}\over n-1}.
+  \]
+  The explicit tail \(m=\lceil2n/5\rceil\), checked symbolically by residue
+  class modulo \(10\), proves \(L_n>A_n\) for every \(n\ge33\).
+- VERIFIED FACT (FINITE EXACT COMPUTATION): exact rational evaluation of the
+  proved tail formula gives \(L_n\le A_n\) for every \(4\le n\le32\).
+  Therefore \(33\) is the first index at which this tail obstruction alone
+  proves that non-adjacent constraints are essential.
 - EXACT THEOREM: the zigzag score is exactly
   \(W(z_n)=M_n=n(\lfloor n/2\rfloor+1)\), because the general zigzag lemma
   gives the upper bound and the closing pair attains it.
 - VERIFIED FACT: `src/power_ringmin/product_distance.py` provides exact
   all-pairs `Fraction` scoring, core-cycle canonicalization, explicit `n=3`
-  handling, tail obstructions, and deterministic bounded enumeration with the
-  hard domain `3<=n<=11` and a preflight canonical-order ceiling. It creates
-  no CLI or serialized artifact.
+  handling, the exact adjacent formula, tail obstructions, and deterministic
+  full and truncated enumeration with the hard domain `3<=n<=11` and a
+  preflight canonical-order ceiling. It creates no CLI or serialized artifact.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): enumeration of all
   `204557` canonical rotation/reflection classes for `n=3..11` gives
   \[
@@ -260,12 +299,27 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \((1,1,1,2,2,4,12,72,24)\). Exact representatives, zigzag comparisons,
   and tail lower obstructions are recorded in
   `research/PRODUCT_DISTANCE_SURROGATE.md`.
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION):
+  \[
+  (W_3^{(\le1)},\dots,W_{11}^{(\le1)})
+  =(6,12,15,20,24,30,35,42,48),
+  \]
+  while \(W_n^{(\le2)}=W_n\) for every enumerated \(3\le n\le11\).
+  The first gap from the adjacent relaxation is
+  \(A_9=35<36=W_9^{(\le2)}=W_9\). The distance-two and full canonical
+  minimizer sets also coincide throughout this bounded range.
 - INTERPRETATION: zigzag is surrogate-optimal for `n=3,4,5` and strictly
   suboptimal for every enumerated `n=6..11`; the best tail obstruction is
   strict for every enumerated case where it is defined.
 - INTERPRETATION: the finite table is not an all-`n` formula, a geometric
   certificate, or proof that the surrogate radius is geometrically optimal
   for a fixed order. No conjecture is promoted from these nine cases.
+- OPEN QUESTION: strictness of the adjacent relaxation for
+  \(12\le n\le32\) is unresolved; bounded order enumeration stops at \(11\),
+  and the tail theorem supplies strictness only from \(33\) onward.
+- OPEN QUESTION: positional distances at least three do not change the exact
+  objective or minimizer set for \(3\le n\le11\); their first essential index,
+  if one exists, is unresolved.
 
 ## Verified Computational Machinery
 

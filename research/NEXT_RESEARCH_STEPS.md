@@ -42,6 +42,34 @@ This finite exact result improves on zigzag for every enumerated `n=6..11`,
 but it is not an all-`n` formula, a geometric certificate, or a new asymptotic
 upper bound without a symbolic order family.
 
+The adjacent relaxation is now fully characterized. If
+\[
+A_n=\min_\sigma\max_k\sigma_k\sigma_{k+1},
+\]
+then \(A_3=6\) and
+\[
+A_n=
+\left(\left\lfloor{n\over2}\right\rfloor+1\right)
+\left(\left\lceil{n\over2}\right\rceil+2\right)
+\qquad(n\ge4).
+\]
+The existing `patterns.interleave` constructor realizes the formula for all
+\(n\). The comparison with the tail obstruction is strict asymptotically:
+\[
+\lim_{n\to\infty} {A_n\over n^2}={1\over4}
+< {2(\sqrt2-1)\over3}
+=\lim_{n\to\infty} {L_n\over n^2}.
+\]
+In fact, the explicit tail \(m=\lceil2n/5\rceil\) proves \(L_n>A_n\) for
+every \(n\ge33\), while exact rational formula evaluation gives
+\(L_n\le A_n\) through \(n=32\).
+
+Within the existing bounded enumeration only, the first non-adjacent gap is
+\(A_9=35<36=W_9\). Positional-distance-two objectives already equal \(W_n\)
+for every `n=3..11`; distances at least three do not change those finite
+optima or minimizer sets. No conclusion for the full surrogate at
+\(12\le n\le32\) is inferred.
+
 ## Evidence Basis
 
 - COMPUTER-CERTIFIED RESULT: checked finite interval certificates exist for
@@ -139,12 +167,27 @@ upper bound without a symbolic order family.
   \qquad(2\le m\le n-2)
   \]
   using induced oriented positional gaps that sum to `n-1`.
+- EXACT THEOREM: the same note proves the adjacent formula for \(A_n\) by a
+  high/low internal-edge count and an explicit all-`n` cycle whose edges have
+  endpoint sums at most \(n+3\); source inspection identifies that cycle with
+  `patterns.interleave`.
+- EXACT THEOREM: \(A_n/n^2\to1/4\), while
+  \(L_n/n^2\to2(\sqrt2-1)/3\). A residue-class proof with
+  \(m=\lceil2n/5\rceil\) gives \(L_n>A_n\) for every \(n\ge33\).
+- VERIFIED FACT (FINITE EXACT COMPUTATION): exact rational tail-formula
+  evaluation gives \(L_n\le A_n\) for `n=4..32`; this is not cyclic-order
+  enumeration.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): exact canonical
   enumeration of `204557` rotation/reflection classes for `n=3..11` gives
   the displayed \(W_n\) values and minimizer counts
   \((1,1,1,2,2,4,12,72,24)\), with representatives and comparisons recorded
   in `research/PRODUCT_DISTANCE_SURROGATE.md`. No floating point, serialized
   artifact, schema, CLI, or geometric certificate is involved.
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): for `n=3..11`, the
+  distance-one objectives are
+  \((6,12,15,20,24,30,35,42,48)\), while every distance-two objective,
+  minimizer count, and minimizer set equals its full-surrogate counterpart.
+  The first adjacent/full gap is at `n=9`.
 - VERIFIED FACT: `examples/finite_results_summary_n3_n6.json` derives
   candidate sets, exclusion gaps, repeated serialized bracket groups, and
   small-`n` ratios from the checked finite certificates.
@@ -217,6 +260,12 @@ upper bound without a symbolic order family.
    `n=6..11`. The best tail obstruction remains strict in all enumerated cases
    where it is defined, so neither comparison identifies an all-`n` optimum.
 
+8. The adjacent relaxation by itself has coefficient \(1/4\), strictly below
+   the tail-obstruction coefficient. Non-adjacent constraints first change the
+   bounded exact optimum at `n=9`, and the tail theorem forces them to remain
+   essential for every \(n\ge33\). The interval `n=12..32` remains open for
+   the full surrogate; order enumeration was not extended.
+
 ## Updated Research Questions
 
 - OPEN QUESTION: what upper-bound construction, if any, matches the new
@@ -231,6 +280,10 @@ upper bound without a symbolic order family.
   symbolic regular-direction order family improve the zigzag coefficient?
 - OPEN QUESTION: what stronger combinatorial obstruction can narrow the gap
   between the best tail lower obstruction and \(W_n\)?
+- OPEN QUESTION: can strictness \(W_n>A_n\) be proved or refuted throughout
+  `n=12..32` without extending the bounded cyclic-order enumeration?
+- OPEN QUESTION: at what first index, if any, do positional distances at least
+  three change \(W_n\)? They do not change it in the exact `n=3..11` table.
 - OPEN QUESTION: can the fixed-order STN/geometric equivalence, endpoint
   semantics, and negative-cycle proof obligations be recorded independently of
   any particular asymptotic constant?
@@ -246,7 +299,9 @@ Immediate:
 Next:
 
 - Seek a symbolic order family or stronger obstruction for the
-  product-distance surrogate; do not extrapolate a formula from `n<=11`.
+  product-distance surrogate, including the unresolved `n=12..32` adjacent
+  gap; do not extrapolate a formula from `n<=11` or extend enumeration by
+  default.
 - Keep the exact radius-one theorem separate from finite critical-cycle proxy
   claims and from any assumption that an optimum is attained.
 

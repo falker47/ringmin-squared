@@ -2,15 +2,49 @@
 
 Last update: 2026-07-13
 
-- **Current phase:** the regular-direction product-distance surrogate is formalized and exactly enumerated through `n=11`; coefficient matching and the minimal insertion threshold remain open.
-- **Current task:** Formalize and analyze the product-distance surrogate.
-- **Task dossier:** `ops/TASK-20260713__product_distance_surrogate/`.
+- **Current phase:** the adjacent product-distance relaxation is characterized exactly; non-adjacent constraints first change the bounded optimum at `n=9` and are forced asymptotically.
+- **Current task:** Characterize the adjacent product-distance relaxation and locate the first non-adjacent gap.
+- **Task dossier:** `ops/TASK-20260713__adjacent_product_distance_relaxation/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
 ## Current Exact Result
+
+For
+\[
+A_n=\min_\sigma\max_k\sigma_k\sigma_{k+1}
+\]
+on core cycles \(\{2,\dots,n\}\), the target formula is proved:
+\[
+A_3=6,
+\qquad
+A_n=
+\left(\left\lfloor{n\over2}\right\rfloor+1\right)
+\left(\left\lceil{n\over2}\right\rceil+2\right)
+\quad(n\ge4).
+\]
+The lower bound counts internal edges between high and low blocks. The
+existing `patterns.interleave` order realizes the upper bound for every
+\(n\); its cyclic edge sums lie in \(\{n+1,n+2,n+3\}\).
+
+Writing
+\[
+L_n=\max_{2\le m\le n-2}{P_{m,n}\over n-1},
+\]
+one has
+\[
+\lim_{n\to\infty}{A_n\over n^2}={1\over4}
+< {2(\sqrt2-1)\over3}
+=\lim_{n\to\infty}{L_n\over n^2}.
+\]
+The explicit tail \(m=\lceil2n/5\rceil\) proves \(L_n>A_n\) for every
+\(n\ge33\). Exact rational formula evaluation gives \(L_n\le A_n\) for
+\(4\le n\le32\), so `33` is the first index where this tail obstruction
+alone forces a strict adjacent relaxation.
+
+## Retained Full-Surrogate Context
 
 EXACT THEOREM: for every \(R>0\) and positive indices \(i,j\),
 \[
@@ -64,6 +98,25 @@ W(\sigma)\ge {P_{m,n}\over n-1}.
 
 ## Finite Exact Enumeration
 
+VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): the distance-one and
+distance-two objectives for `n=3..11` are
+\[
+(W_3^{(\le1)},\dots,W_{11}^{(\le1)})
+=(6,12,15,20,24,30,35,42,48),
+\]
+and
+\[
+W_n^{(\le2)}=W_n
+\qquad(3\le n\le11).
+\]
+The first non-adjacent gap is
+\[
+A_9=35<36=W_9^{(\le2)}=W_9.
+\]
+The distance-two and full canonical minimizer sets also coincide in every
+enumerated row. This proves that distance two is first essential at `n=9`;
+distances at least three do not change the bounded values or minimizers.
+
 VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): the bounded, canonical,
 no-floating-point enumeration for `n=3..11` gives
 \[
@@ -76,6 +129,9 @@ with canonical minimizer counts
 The complete table, representatives, zigzag scores, and tail obstructions are
 in `research/PRODUCT_DISTANCE_SURROGATE.md`. No all-`n` formula or geometric
 optimality claim is inferred from this table.
+
+The full-surrogate strictness question for `n=12..32` remains unresolved;
+cyclic-order enumeration was not extended beyond `n=11`.
 
 ## Other Stable Context
 
@@ -115,15 +171,26 @@ minimal. The former \(n^3/(6\pi)\) asymptotic targets remain disproved.
   independently verified.
 - PRIOR LOCAL VERIFIED FACT: the preceding documentation task recorded its own
   wording, path, UTF-8, whitespace, diff, and independent-review checks.
-- CURRENT LOCAL VERIFIED FACT: focused product-distance/zigzag/tail/insertion
+- PRIOR LOCAL VERIFIED FACT: focused product-distance/zigzag/tail/insertion
   tests passed `24/24`; full pytest passed `137/137`; checked-artifact semantic
   verification accepted 4 certificates, 76 local brackets, and the `n=3..6`
   summary.
-- CURRENT LOCAL VERIFIED FACT: independent mathematical and code reviews found
+- PRIOR LOCAL VERIFIED FACT: independent mathematical and code reviews found
   no defect, and a second implementation reproduced every `n=3..11` table
   entry without importing the new module or using its cutoff.
-- CURRENT LOCAL VERIFIED FACT: final ten-path scope, strict UTF-8, trailing
+- PRIOR LOCAL VERIFIED FACT: final ten-path scope, strict UTF-8, trailing
   whitespace, complete diff, and `git diff --check` inspections passed.
+- CURRENT LOCAL VERIFIED FACT: focused adjacent/product-distance/zigzag/tail
+  tests passed `22/22`; the full suite passed `140/140`; checked-artifact
+  semantic verification accepted 4 certificates, 76 local brackets, and the
+  `n=3..6` summary.
+- CURRENT LOCAL VERIFIED FACT: an independent exact one-pass implementation
+  reproduced all distance-one and distance-two objectives, minimizer counts,
+  and representatives for `n=3..11`; 80 direct identities independently
+  matched the ten residue polynomials used in the `n>=33` proof.
+- CURRENT LOCAL VERIFIED FACT: the final 11-path scope, strict UTF-8,
+  trailing-whitespace, 19 unique equation-tag, complete diff, and
+  `git diff --check` inspections passed.
 
 ## Proposed Next Task
 

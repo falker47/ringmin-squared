@@ -13,7 +13,7 @@ from fractions import Fraction
 import itertools
 import math
 
-from power_ringmin.patterns import zigzag
+from power_ringmin.patterns import interleave, zigzag
 
 
 MIN_ENUMERATION_N = 3
@@ -46,6 +46,18 @@ class ProductDistanceEnumeration:
     zigzag_score: Fraction
     tail_lower_obstruction: Fraction | None
     tail_maximizers: tuple[int, ...]
+
+
+@dataclass(frozen=True)
+class TruncatedProductDistanceEnumeration:
+    """Exact result for one bounded positional-distance truncation."""
+
+    n: int
+    max_position_distance: int
+    canonical_order_count: int
+    optimum: Fraction
+    minimizer_count: int
+    representative: tuple[int, ...]
 
 
 def circular_position_distance(
@@ -105,6 +117,33 @@ def product_distance_score(order: Sequence[int]) -> Fraction:
         _position_pairs(len(core_order)),
     )
     return Fraction(numerator, denominator)
+
+
+def truncated_product_distance_score(
+    order: Sequence[int],
+    max_position_distance: int,
+) -> Fraction:
+    """Return the exact score restricted to pairs at distance at most ``q``."""
+    core_order = _normalize_core_order(order)
+    _validate_max_position_distance(max_position_distance)
+    numerator, denominator = _score_without_cutoff(
+        core_order,
+        _position_pairs_at_most(len(core_order), max_position_distance),
+    )
+    return Fraction(numerator, denominator)
+
+
+def adjacent_product_optimum(n: int) -> int:
+    """Return the exact adjacent relaxation optimum ``A_n``.
+
+    The all-``n`` proof is recorded in
+    ``research/PRODUCT_DISTANCE_SURROGATE.md``.  The exceptional two-vertex
+    core has value ``A_3 = 6``.
+    """
+    _validate_problem_n(n)
+    if n == 3:
+        return 6
+    return (n // 2 + 1) * ((n + 1) // 2 + 2)
 
 
 def canonicalize_core_order(order: Sequence[int]) -> tuple[int, ...]:
@@ -249,6 +288,88 @@ def enumerate_product_distance(
     )
 
 
+def enumerate_truncated_product_distance(
+    n: int,
+    max_position_distance: int,
+    *,
+    max_canonical_orders: int = MAX_CANONICAL_ORDERS,
+) -> TruncatedProductDistanceEnumeration:
+    """Minimize the exact score restricted to positional distances ``<= q``.
+
+    This uses the same canonical order space, hard ``n <= 11`` boundary, work
+    ceiling, integer cross-products, and strict incumbent cutoff as the full
+    product-distance enumeration.
+    """
+    _validate_enumeration_n(n)
+    _validate_max_position_distance(max_position_distance)
+    if (
+        isinstance(max_canonical_orders, bool)
+        or not isinstance(max_canonical_orders, int)
+        or max_canonical_orders < 1
+    ):
+        raise ValueError(
+            "max_canonical_orders must be a positive integer, "
+            f"got {max_canonical_orders!r}"
+        )
+
+    expected_count = canonical_core_order_count(n)
+    if expected_count > max_canonical_orders:
+        raise ValueError(
+            f"canonical enumeration for n={n} requires {expected_count} orders, "
+            f"exceeding max_canonical_orders={max_canonical_orders}"
+        )
+
+    raw_interleave = tuple(int(value) for value in interleave(range(2, n + 1)))
+    initial_order = canonicalize_core_order(raw_interleave)
+    best = truncated_product_distance_score(
+        initial_order,
+        max_position_distance,
+    )
+    representative = initial_order
+    minimizer_count = 0
+    enumerated_count = 0
+    position_pairs = _position_pairs_at_most(n - 1, max_position_distance)
+
+    for order in canonical_core_orders(n):
+        enumerated_count += 1
+        raw_score = _score_with_cutoff(
+            order,
+            position_pairs,
+            cutoff_numerator=best.numerator,
+            cutoff_denominator=best.denominator,
+        )
+        if raw_score is None:
+            continue
+
+        numerator, denominator = raw_score
+        comparison = numerator * best.denominator - best.numerator * denominator
+        if comparison < 0:
+            best = Fraction(numerator, denominator)
+            minimizer_count = 1
+            representative = order
+        elif comparison == 0:
+            minimizer_count += 1
+            if order < representative:
+                representative = order
+
+    if enumerated_count != expected_count:
+        raise AssertionError(
+            f"canonical enumeration count mismatch for n={n}: "
+            f"expected {expected_count}, got {enumerated_count}"
+        )
+    if minimizer_count < 1:
+        raise AssertionError(f"enumeration found no minimizer for n={n}")
+
+    return TruncatedProductDistanceEnumeration(
+        n=n,
+        max_position_distance=max_position_distance,
+        canonical_order_count=enumerated_count,
+        optimum=best,
+        minimizer_count=minimizer_count,
+        representative=representative,
+    )
+
+
 def _normalize_core_order(order: Sequence[int]) -> tuple[int, ...]:
     values = tuple(order)
     if len(values) < 2:
@@ -282,6 +403,18 @@ def _validate_problem_n(n: int) -> None:
         raise ValueError(f"n must be an integer at least 3, got {n!r}")
 
 
+def _validate_max_position_distance(max_position_distance: int) -> None:
+    if (
+        isinstance(max_position_distance, bool)
+        or not isinstance(max_position_distance, int)
+        or max_position_distance < 1
+    ):
+        raise ValueError(
+            "max_position_distance must be a positive integer, "
+            f"got {max_position_distance!r}"
+        )
+
+
 def _rotate_to_front(order: tuple[int, ...], value: int) -> tuple[int, ...]:
     index = order.index(value)
     return order[index:] + order[:index]
@@ -296,6 +429,17 @@ def _position_pairs(vertex_count: int) -> tuple[tuple[int, int, int], ...]:
         )
         for left in range(vertex_count)
         for right in range(left + 1, vertex_count)
+    )
+
+
+def _position_pairs_at_most(
+    vertex_count: int,
+    max_position_distance: int,
+) -> tuple[tuple[int, int, int], ...]:
+    return tuple(
+        pair
+        for pair in _position_pairs(vertex_count)
+        if pair[2] <= max_position_distance
     )
 
 
@@ -338,13 +482,17 @@ __all__ = [
     "MIN_ENUMERATION_N",
     "ProductDistanceEnumeration",
     "ProductDistancePairScore",
+    "TruncatedProductDistanceEnumeration",
+    "adjacent_product_optimum",
     "best_tail_lower_obstruction",
     "canonical_core_order_count",
     "canonical_core_orders",
     "canonicalize_core_order",
     "circular_position_distance",
     "enumerate_product_distance",
+    "enumerate_truncated_product_distance",
     "product_distance_pair_scores",
     "product_distance_score",
     "tail_pairing_sum",
+    "truncated_product_distance_score",
 ]

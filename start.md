@@ -123,6 +123,30 @@ induced tail prove the exact obstruction
 \[
 W(\sigma)\ge {P_{m,n}\over n-1}.
 \]
+The adjacent relaxation
+\[
+A_n=\min_\sigma\max_k\sigma_k\sigma_{k+1}
+\]
+is now characterized exactly:
+\[
+A_3=6,
+\qquad
+A_n=
+\left(\left\lfloor{n\over2}\right\rfloor+1\right)
+\left(\left\lceil{n\over2}\right\rceil+2\right)
+\quad(n\ge4).
+\]
+A rigorous high/low internal-edge count proves the lower bound, and
+`patterns.interleave` realizes it for every \(n\). Moreover,
+\[
+\lim_{n\to\infty}{A_n\over n^2}={1\over4}
+<
+{2(\sqrt2-1)\over3}
+=
+\lim_{n\to\infty}{L_n\over n^2}.
+\]
+The explicit tail \(m=\lceil2n/5\rceil\) proves \(L_n>A_n\) for every
+\(n\ge33\); exact rational evaluation gives \(L_n\le A_n\) through \(n=32\).
 An exact, no-floating-point canonical enumeration bounded to `n=3..11` gives
 \[
 (W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50),
@@ -130,6 +154,14 @@ An exact, no-floating-point canonical enumeration bounded to `n=3..11` gives
 with canonical minimizer counts \((1,1,1,2,2,4,12,72,24)\). The proof,
 complete table, representatives, and finite/all-`n` classification are in
 `research/PRODUCT_DISTANCE_SURROGATE.md`.
+For the same bounded cases, the distance-one objectives are
+\[
+(6,12,15,20,24,30,35,42,48),
+\]
+and the distance-two objectives equal \(W_n\) in every row. Thus the first
+non-adjacent gap is \(A_9=35<36=W_9\), already accounted for by positional
+distance two. No conclusion for the full surrogate at \(12\le n\le32\) is
+inferred.
 
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
@@ -271,11 +303,38 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
 - EXACT THEOREM: for every `2<=m<=n-2`, oriented positional gaps induced by
   the tail \(\{m,\dots,n\}\) give
   \(W(\sigma)\ge P_{m,n}/(n-1)\).
+- EXACT THEOREM: the adjacent relaxation satisfies
+  \[
+  A_3=6,
+  \qquad
+  A_n=
+  \left(\left\lfloor{n\over2}\right\rfloor+1\right)
+  \left(\left\lceil{n\over2}\right\rceil+2\right)
+  \quad(n\ge4),
+  \]
+  and `patterns.interleave` realizes the formula for every \(n\).
+- EXACT THEOREM:
+  \[
+  \lim_{n\to\infty} A_n/n^2
+  =1/4<2(\sqrt2-1)/3
+  =\lim_{n\to\infty} L_n/n^2.
+  \]
+  The tail obstruction proves \(L_n>A_n\) for every \(n\ge33\).
+- VERIFIED FACT (FINITE EXACT COMPUTATION): \(L_n\le A_n\) for
+  \(4\le n\le32\), so \(33\) is the first index where the tail obstruction
+  alone proves strictness of the adjacent relaxation.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): bounded canonical
   enumeration with integer/Fraction scoring gives
   \((W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50)\) and canonical
   minimizer counts \((1,1,1,2,2,4,12,72,24)\). This is not an all-`n`
   formula, a geometric certificate, or an exact geometric-optimum claim.
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): for `n=3..11`,
+  \[
+  (W_3^{(\le1)},\dots,W_{11}^{(\le1)})
+  =(6,12,15,20,24,30,35,42,48),
+  \]
+  and \(W_n^{(\le2)}=W_n\) in every case. The first non-adjacent gap is
+  \(A_9=35<36=W_9\); no full-surrogate claim is made for `n=12..32`.
 - EXACT THEOREM: within the induced-subset plus duplicated-pairing plus
   \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\) relaxation, no nonconsecutive subset
   improves the tail bounds \(P_{m,n}\); the best discrete tail is characterized
