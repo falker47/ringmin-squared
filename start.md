@@ -113,7 +113,14 @@ Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also a disproved claim.
 
-The checked-artifact verification path is now a project foundation: the repository has a GitHub Actions matrix for tests, checked-artifact semantic verification, schema checks, and whitespace hygiene. Current task context reports the hosted workflow is green after the cross-platform finite-summary hash fix; this hosted status was not independently queried in the roadmap task.
+The checked-artifact verification path is now a project foundation: the
+repository has a GitHub Actions matrix for tests, checked-artifact semantic
+verification, schema checks, and whitespace hygiene. Successful local checks
+are recorded in the trust-layer and cross-platform hash task dossiers. The
+later green hosted-run statement was user-reported without a commit SHA, run
+identifier, URL, or independent inspection, so it establishes no hosted
+status for a specific commit. GitHub Actions status for the current `HEAD` has
+not been independently verified.
 
 ## Asymptotic Status
 
@@ -239,8 +246,19 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   improves the tail bounds \(P_{m,n}\); the best discrete tail is characterized
   by \(\rho_n=(\sqrt{8n^2+8n+1}-(2n+1))/2\), with adjacent ties exactly when
   \(\rho_n\) is an integer.
-- VERIFIED FACT: checked-artifact verification is wired into local review and GitHub Actions.
-- USER-REPORTED STATUS: current task context reports the hosted run is green after the CI fix.
+- VERIFIED FACT (WORKFLOW CONFIGURATION): checked-artifact verification is
+  wired into local review and `.github/workflows/verification.yml`.
+- LOCAL VERIFIED FACT: successful local tests, checked-artifact verification,
+  workflow inspection, and hygiene checks are recorded in
+  `ops/TASK-20260712__verification_trust_layer_ci/` and
+  `ops/TASK-20260712__cross_platform_finite_hash_ci/`; these are not hosted-run
+  results.
+- HISTORICAL USER-REPORTED STATUS: the 2026-07-12 roadmap task recorded a green
+  hosted run after the cross-platform fix, but no commit SHA, run identifier,
+  URL, or independently inspected result was recorded; it establishes no
+  hosted status for a specific commit.
+- CURRENT HOSTED STATUS: GitHub Actions for the current `HEAD` has not been
+  independently verified.
 - INTERPRETATION: these are finite certificates only; they are not exact optimum proofs, all-`n` theorems, or asymptotic results.
 - INTERPRETATION: the all-`n` theorems and regular-direction constructions are
   independent of the finite certificates; the upper and lower leading

@@ -1,10 +1,10 @@
 # Next Research Steps
 
 This roadmap synthesizes the checked `n=3..6` certificates, candidate-set
-diagnostics, critical-structure analysis, the checked-artifact verification
-pipeline, the induced-subset all-\(n\) lower bound, and the exact eventual
-radius-one insertion theorem. It now also includes the regular-direction
-baseline and its sharper zigzag cubic upper bound.
+diagnostics, critical-structure analysis, checked-artifact verification tooling
+and workflow configuration, the induced-subset all-\(n\) lower bound, and the
+exact eventual radius-one insertion theorem. It now also includes the
+regular-direction baseline and its sharper zigzag cubic upper bound.
 
 As of 2026-07-13, the former asymptotic target
 \[
@@ -125,8 +125,17 @@ enumeration was generated for this theorem.
 - VERIFIED FACT: `ops/TASK-20260712__critical_constraints_order_structure/critical_structure_n3_n6.json`
   records deterministic critical-structure diagnostics for certified candidate
   orders only.
-- USER-REPORTED STATUS: after the cross-platform CI fix, hosted GitHub Actions
-  was green. This roadmap update did not independently query GitHub.
+- LOCAL VERIFIED FACT: successful local tests, checked-artifact verification,
+  workflow inspection, and hygiene checks are recorded in
+  `ops/TASK-20260712__verification_trust_layer_ci/` and
+  `ops/TASK-20260712__cross_platform_finite_hash_ci/`; they do not establish
+  hosted GitHub Actions status.
+- HISTORICAL USER-REPORTED STATUS: the 2026-07-12 roadmap task recorded a green
+  hosted run after the cross-platform fix, but no commit SHA, run identifier,
+  URL, or independently inspected result was recorded; it establishes no
+  hosted status for a specific commit.
+- CURRENT HOSTED STATUS: GitHub Actions for the current `HEAD` has not been
+  independently verified.
 - LIMITATION: none of the finite certificates proves an exact optimum, a
   coefficient-matching upper bound, or a leading-term asymptotic formula.
 
@@ -186,9 +195,9 @@ enumeration was generated for this theorem.
 - OPEN QUESTION: is \(12\) the least threshold for
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
-- OPEN QUESTION: can the zigzag coefficient \(1/(2\pi)\) be lowered toward
-  \(2(\sqrt2-1)/(3\pi)\), or can a different structured construction narrow
-  the coefficient gap while retaining symbolic all-pairs control?
+- OPEN QUESTION: after formalizing the product-distance combinatorial surrogate
+  induced by assigning indices to regular directions, what exact obstruction
+  or improvement does it give for zigzag and other structured assignments?
 - OPEN QUESTION: can the fixed-order STN/geometric equivalence, endpoint
   semantics, and negative-cycle proof obligations be recorded independently of
   any particular asymptotic constant?
@@ -197,17 +206,21 @@ enumeration was generated for this theorem.
 
 Immediate:
 
-- Prove and document the fixed-order STN/geometric equivalence with certificate
-  endpoint semantics.
-- Keep the exact radius-one theorem separate from finite critical-cycle proxy
-  claims and from any assumption that an optimum is attained.
+- Formalize the product-distance combinatorial surrogate for cyclic assignments
+  of core indices to regular directions, determine its precise implications and
+  limits for all-pairs geometric feasibility, and prove every claimed
+  implication.
+- Analyze the zigzag assignment and structured alternatives within that
+  surrogate, keeping exact deductions, finite diagnostics, conjectures, and
+  open questions separate.
 
 Next:
 
-- Seek a sharper structured construction than the zigzag regular-direction
-  core, with a precise proposed coefficient improvement.
-- Preserve explicit symbolic control of every non-adjacent constraint.
-- Use finite checks only as diagnostics, not as an all-\(n\) proof.
+- Treat fixed-order STN/geometric equivalence and certificate endpoint semantics
+  as the subsequent certification-debt task, independently of any asymptotic
+  constant.
+- Keep the exact radius-one theorem separate from finite critical-cycle proxy
+  claims and from any assumption that an optimum is attained.
 
 Later:
 
@@ -234,15 +247,18 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: document the fixed-order STN/geometric equivalence and endpoint semantics
-used by the verifier, independently of any particular asymptotic constant.
+Task: formalize and analyze the product-distance combinatorial surrogate
+induced by assigning the core indices to regular directions.
 
 Acceptance criteria:
 
-- state the angular/STN feasibility equivalence for a fixed cyclic order;
-- state lower-endpoint negative-cycle and upper-endpoint witness semantics;
-- separate exact mathematical implications from current interval-backend trust
-  assumptions;
-- update durable memory and task evidence without generating certificates,
-  running exhaustive enumeration, optimizing the regular-core upper bound, or
-  doing leading-order LP work.
+- define the cyclic product-distance objective and its domain precisely;
+- determine its precise implications and limitations for all-pairs feasibility
+  within the regular-direction construction class, and prove every claimed
+  implication;
+- analyze the zigzag assignment and structured alternatives while separating
+  exact results, finite diagnostics, conjectures, and open questions;
+- update durable memory and task evidence without generating certificates or
+  beginning unrestricted exhaustive permutation enumeration;
+- leave fixed-order STN/geometric equivalence and endpoint documentation as a
+  separate subsequent certification-debt task.

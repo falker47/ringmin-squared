@@ -9,7 +9,7 @@
 - **Primary outputs:** definitions, proofs, certified finite results where feasible, numerical experiments, reproducible code, figures, and research notes.
 - **Typical work:** mathematical formulation, code implementation, tests, optimization experiments, certificate generation, proof development, and documentation.
 - **Default work mode:** `STANDARD`; use `STRICT` for mathematical claims, certification, long experiments, or changes affecting reproducibility.
-- **Stack and tools:** `TO_DEFINE`; no project code has been imported or created yet.
+- **Stack and tools:** Python 3.11+ (`setuptools`, `src` layout); `mpmath` for high-precision and guarded interval arithmetic; optional NumPy/SciPy SLSQP cross-checks; `pytest` and `jsonschema` for verification; JSON artifact schemas, console CLIs, standalone `verify.py`, and a GitHub Actions Python 3.11-3.13 verification matrix.
 - **Canonical commands:** only record commands after they have been run in this repository.
 - **Authoritative sources:** `AGENTS.md`, `start.md`, `PROJECT_KNOWLEDGE.md`, `CURRENT_STATUS.md`, task dossiers under `ops/`, and verified source files once created.
 - **Protected paths/systems:** the upstream Ringmin repository at `C:\Users\Falker\Desktop\Code\circle\ringmin` is read-only; Git remotes, staging, commits, pushes, merges, rebases, resets, and history edits are not allowed for Codex.

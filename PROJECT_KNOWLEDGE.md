@@ -242,9 +242,19 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - VERIFIED FACT: JSON Schema validation is structural only; semantic Python validators remain authoritative for interval verification, checked-artifact source freshness, and derived summary consistency.
 - VERIFIED FACT: `src/power_ringmin/verify_checked_artifacts.py` provides `power-ringmin-verify-checked-artifacts`, a deterministic checked-artifact verification command that discovers checked finite certificates, validates JSON Schema structure, reloads semantic validators, explicitly re-verifies embedded local interval brackets, validates the finite-results summary, and rejects summary source mismatches.
 - VERIFIED FACT: `docs/INTERVAL_BACKEND_TRUST.md` documents the current guarded `mpmath.iv` backend trust contract, guards, tested coverage, unproved/audited gaps, classification implications, and possible stronger future trust paths.
-- VERIFIED FACT: `.github/workflows/verification.yml` defines a GitHub Actions workflow for Python `3.11`, `3.12`, and `3.13` that installs package test and crosscheck extras, runs the full test suite, runs checked-artifact semantic verification, runs schema validation tests, and runs diff/trailing-whitespace hygiene checks.
+- VERIFIED FACT (WORKFLOW CONFIGURATION): `.github/workflows/verification.yml` defines a GitHub Actions workflow for Python `3.11`, `3.12`, and `3.13` that installs package test and crosscheck extras, runs the full test suite, runs checked-artifact semantic verification, runs schema validation tests, and runs diff/trailing-whitespace hygiene checks.
 - VERIFIED FACT: `pyproject.toml` registers console scripts for fixed-order export, batch fixed-order export, fixed-order interval bracket export, checked `n=3`/`n=4` interval certificate export, general small-`n` interval certificate export, fixed-order artifact verification, small-`n` float64 search, derived finite-results summary generation, critical-structure analysis, and checked-artifact verification.
-- USER-REPORTED STATUS: the 2026-07-12 research-roadmap task started from a successful CI fix and green hosted GitHub Actions run. Codex did not independently query GitHub during that task.
+- LOCAL VERIFIED FACT: successful local tests, checked-artifact verification,
+  workflow inspection, and hygiene checks are recorded in
+  `ops/TASK-20260712__verification_trust_layer_ci/` and
+  `ops/TASK-20260712__cross_platform_finite_hash_ci/`; these checks do not
+  establish hosted GitHub Actions status.
+- HISTORICAL USER-REPORTED STATUS: the 2026-07-12 research-roadmap task
+  recorded a green hosted run after the cross-platform fix, but no commit SHA,
+  run identifier, URL, or independently inspected result was recorded. It
+  establishes no hosted status for a specific commit.
+- CURRENT HOSTED STATUS: GitHub Actions for the current `HEAD` has not been
+  independently verified.
 - INTERPRETATION: float64 and high-precision numerical search/recheck artifacts are numerical observations unless interval evidence covers the relevant finite order space.
 
 ## Certified Finite Results
@@ -302,11 +312,15 @@ Candidate-set extraction uses the following finite-certificate semantics.
 
 ## Current Research Roadmap
 
-- VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate sets and exclusion gaps, critical-cycle diagnostics, weak-constraint observations, verifier limitations, CI status, combinatorial growth, the induced-subset lower-bound disproof of the former \(n^3/(6\pi)\) target, the exact eventual radius-one insertion theorem, and the regular-direction baseline plus zigzag upper bound.
+- VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate sets and exclusion gaps, critical-cycle diagnostics, weak-constraint observations, verifier limitations, workflow configuration, recorded local checks, hosted-status provenance, combinatorial growth, the induced-subset lower-bound disproof of the former \(n^3/(6\pi)\) target, the exact eventual radius-one insertion theorem, and the regular-direction baseline plus zigzag upper bound.
 - INTERPRETATION: the cubic order is settled; the zigzag construction improves
   the regular-direction upper coefficient from \(1/\pi\) to \(1/(2\pi)\).
   Further narrowing the coefficient gap is more valuable than automatic
   `n=7` enumeration.
+- RECOMMENDED NEXT TASK: formalize and analyze the product-distance
+  combinatorial surrogate induced by assigning the core indices to regular
+  directions, with exact claims separated from finite diagnostics,
+  conjectures, and open questions.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
@@ -318,7 +332,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
 
 ## Open Proof Obligations And Limitations
 
-- PROOF OBLIGATION: locally record or prove the angular formula, monotonicity of \(\theta_R(a,b)\) in `R`, fixed-order angular/STN equivalence, and negative-cycle infeasibility.
+- SUBSEQUENT CERTIFICATION DEBT: locally document the fixed-order angular/STN
+  equivalence and endpoint semantics, including the relevant angular formula,
+  monotonicity in `R`, negative-cycle infeasibility, upper-witness meaning, and
+  interval-backend trust boundary. This follows the product-distance surrogate
+  task rather than preceding it.
 - LIMITATION: the current certified finite results depend on the documented guarded `mpmath.iv` interval-backend contract; backend trust/provenance remains a production-review item.
 - LIMITATION: finite computation for `n=3..6` is not proof for all `n`.
 - LIMITATION: no exact optimum value has been proved in this repository.

@@ -2,9 +2,9 @@
 
 Last update: 2026-07-13
 
-- **Current phase:** cubic order proved; the zigzag regular-direction construction now gives the best proved limsup upper coefficient, while coefficient matching and the minimal insertion threshold remain open.
-- **Current task:** Prove and integrate the improved zigzag cubic upper bound.
-- **Task dossier:** `ops/TASK-20260713__zigzag_core_improved_upper_bound/`.
+- **Current phase:** cubic order proved; the next research priority is the product-distance surrogate for regular-direction constructions, while coefficient matching and the minimal insertion threshold remain open.
+- **Current task:** Align the operating contract, CI-status provenance, and next-task roadmap.
+- **Task dossier:** `ops/TASK-20260713__align_contract_state_provenance/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
@@ -64,26 +64,42 @@ The full and core feasible-radius sets remain equal for every \(n\ge12\) by
 the accepted insertion theorem. The threshold `12` is sufficient, not claimed
 minimal. The former \(n^3/(6\pi)\) asymptotic targets remain disproved.
 
-## Verification
+## Verification And CI Provenance
 
-- Focused zigzag, prior-upper-bound, and insertion diagnostics passed: 11 tests.
-- `python -m pytest` passed: 128 tests.
-- `$env:PYTHONPATH='src'; python -m power_ringmin.verify_checked_artifacts`
-  passed: 4 checked certificates, 76 embedded local brackets, and the
-  `n=3..6` derived summary.
-- Independent final mathematical and diagnostic review passed.
-- Final Git status, diff, whitespace, and trailing-whitespace checks passed.
+- LOCAL VERIFIED FACT: the prior zigzag task's focused tests, full suite,
+  checked-artifact verification, and mathematical review are recorded in
+  `ops/TASK-20260713__zigzag_core_improved_upper_bound/`. This documentation
+  task did not rerun them and does not reinterpret them as hosted results.
+- LOCAL VERIFIED FACT: the trust-layer and cross-platform hash CI dossiers
+  record successful local tests, checked-artifact verification, workflow
+  inspection, and hygiene checks.
+- VERIFIED FACT (WORKFLOW CONFIGURATION):
+  `.github/workflows/verification.yml` defines the GitHub Actions verification
+  matrix.
+- HISTORICAL USER-REPORTED STATUS: the 2026-07-12 roadmap task recorded a green
+  hosted run after the cross-platform fix, but no commit SHA, run identifier,
+  URL, or independently inspected result was recorded; it establishes no
+  hosted status for a specific commit.
+- CURRENT HOSTED STATUS: GitHub Actions for the current `HEAD` has not been
+  independently verified.
+- Current documentation checks passed: required wording, obsolete-wording
+  absence, referenced paths, UTF-8 reads, trailing whitespace,
+  `git diff --check`, independent review, and final scope/diff inspection.
 
 ## Proposed Next Task
 
-Document the fixed-order STN/geometric equivalence and endpoint semantics used
-by the verifier, independently of any particular asymptotic constant.
+Formalize and analyze the product-distance combinatorial surrogate induced by
+assigning the core indices to regular directions.
 
 Acceptance criteria:
 
-- state the fixed-order angular/STN feasibility equivalence;
-- state lower-endpoint negative-cycle and upper-endpoint witness semantics;
-- separate exact mathematical implications from interval-backend trust
-  assumptions;
-- do not generate certificates, begin exhaustive enumeration, optimize the
-  zigzag upper bound, or claim that the insertion threshold is minimal.
+- define the cyclic product-distance objective and its domain precisely;
+- determine its precise implications and limitations for all-pairs feasibility
+  within the regular-direction construction class, and prove every claimed
+  implication;
+- analyze the zigzag assignment and structured alternatives while separating
+  exact results, finite diagnostics, conjectures, and open questions;
+- do not generate certificates or begin unrestricted exhaustive permutation
+  enumeration;
+- keep fixed-order STN/geometric equivalence and endpoint documentation as a
+  separate subsequent certification-debt task.
