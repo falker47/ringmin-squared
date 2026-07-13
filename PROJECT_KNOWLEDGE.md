@@ -153,6 +153,41 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   candidate structures and does not turn lower negative cycles into exact
   contact graphs.
 
+## Regular-Core Cubic Upper Bound
+
+- EXACT THEOREM: for every \(n\ge12\) and fixed \(R>0\), the largest value of
+  \(\theta_R(i^2,j^2)\) over distinct core indices \(2\le i<j\le n\) is
+  attained uniquely by \((i,j)=(n-1,n)\).
+- EXACT THEOREM: for every \(n\ge12\), assigning the core centers to the
+  equally spaced polar directions of a regular \((n-1)\)-gon is all-pairs
+  feasible at
+  \[
+  U_n
+  =
+  \sqrt{
+  n^2(n-1)^2\csc^2\!\left({\pi\over n-1}\right)
+  +{(2n-1)^2\over4}}
+  -{n^2+(n-1)^2\over2}.
+  \]
+  Every non-adjacent pair is checked through its smaller regular-polygon
+  separation, which is at least one edge angle.
+- EXACT THEOREM: the radius-one insertion theorem gives
+  \[
+  R_2^*(n)\le U_n\qquad(n\ge12),
+  \]
+  without an attainment assumption.
+- EXACT THEOREM:
+  \[
+  \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{1\over\pi},
+  \qquad
+  R_2^*(n)=\Theta(n^3).
+  \]
+- VERIFIED FACT: `research/ALL_N_LOWER_BOUND.md` records the self-contained
+  proof of the worst-pair reduction, closed formula, all-pairs feasibility,
+  insertion step, and asymptotic conclusions.
+- INTERPRETATION: the known lower and upper leading coefficients do not match.
+  No limit or exact leading constant has been proved.
+
 ## Verified Computational Machinery
 
 - VERIFIED FACT: the Python package import name is `power_ringmin`; package source is under `src/power_ringmin/`; tests are under `tests/`.
@@ -243,13 +278,17 @@ Candidate-set extraction uses the following finite-certificate semantics.
 
 ## Current Research Roadmap
 
-- VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate sets and exclusion gaps, critical-cycle diagnostics, weak-constraint observations, verifier limitations, CI status, combinatorial growth, the induced-subset lower-bound disproof of the former \(n^3/(6\pi)\) target, and the exact eventual radius-one insertion theorem.
-- INTERPRETATION: the highest-value next research direction is to understand possible upper-bound scales and structured feasible families above the new lower obstruction, not automatic `n=7` enumeration.
+- VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate sets and exclusion gaps, critical-cycle diagnostics, weak-constraint observations, verifier limitations, CI status, combinatorial growth, the induced-subset lower-bound disproof of the former \(n^3/(6\pi)\) target, the exact eventual radius-one insertion theorem, and the regular-core cubic upper bound.
+- INTERPRETATION: the cubic order is settled; improving the regular-core
+  coefficient or finding a different construction that narrows the exact
+  coefficient gap is now more valuable than automatic `n=7` enumeration.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
   active-subsystem description or settle `n<=11`.
-- OPEN QUESTION: can a structured order family and gap allocation satisfy all non-adjacent constraints at a radius scale compatible with the induced-subset lower obstruction, giving any matching upper bound?
+- OPEN QUESTION: can the regular-core coefficient \(1/\pi\) be lowered toward
+  the induced-subset coefficient \(2(\sqrt2-1)/(3\pi)\), while retaining a
+  symbolic all-pairs proof?
 - RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
 
 ## Open Proof Obligations And Limitations
@@ -258,8 +297,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: the current certified finite results depend on the documented guarded `mpmath.iv` interval-backend contract; backend trust/provenance remains a production-review item.
 - LIMITATION: finite computation for `n=3..6` is not proof for all `n`.
 - LIMITATION: no exact optimum value has been proved in this repository.
-- LIMITATION: no matching upper bound has been proved in this repository.
-- LIMITATION: no exact asymptotic leading constant or asymptotic equality theorem has been proved in this repository.
+- LIMITATION: no upper bound matching the induced-subset leading coefficient
+  has been proved in this repository.
+- LIMITATION: neither existence of \(\lim R_2^*(n)/n^3\) nor a leading-term
+  asymptotic formula has been proved in this repository.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.
 - LIMITATION: the sufficient radius-one threshold `12` is not known to be
   minimal, and the exact equality question remains open for `n<=11`.

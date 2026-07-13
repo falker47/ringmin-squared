@@ -3,7 +3,8 @@
 This roadmap synthesizes the checked `n=3..6` certificates, candidate-set
 diagnostics, critical-structure analysis, the checked-artifact verification
 pipeline, the induced-subset all-\(n\) lower bound, and the exact eventual
-radius-one insertion theorem.
+radius-one insertion theorem. It now also includes the constructive regular-core
+cubic upper bound.
 
 As of 2026-07-13, the former asymptotic target
 \[
@@ -24,9 +25,10 @@ The best leading coefficient obtainable from the specific relaxation
 This is a method-specific optimality statement, not a matching upper bound and
 not a proved exact asymptotic constant for Power-Ringmin.
 
-No upper-bound construction, leading-order LP, new finite certificate, `n=7`
-certificate, preflight artifact, or exhaustive enumeration was generated for
-the radius-one theorem task.
+The regular-core construction proves a cubic upper bound but does not match the
+induced-subset leading coefficient. No leading-order LP, new finite
+certificate, `n=7` certificate, preflight artifact, or exhaustive enumeration
+was generated for this theorem.
 
 ## Evidence Basis
 
@@ -87,6 +89,24 @@ the radius-one theorem task.
   \(\sum_{j=2}^n\theta_R(1,j^2)<\pi\), rigorous angular majorants, and the
   configuration-level induced-subset lower bound. It proves equality of the
   full and core feasible-radius sets and does not assume a minimizer.
+- EXACT THEOREM: for every \(n\ge12\), `research/ALL_N_LOWER_BOUND.md` proves
+  that the core using regular \((n-1)\)-gon polar directions is all-pairs
+  feasible at
+  \[
+  U_n
+  =
+  \sqrt{
+  n^2(n-1)^2\csc^2\!\left({\pi\over n-1}\right)
+  +{(2n-1)^2\over4}}
+  -{n^2+(n-1)^2\over2}.
+  \]
+  The accepted insertion theorem gives \(R_2^*(n)\le U_n\) for \(n\ge12\),
+  and
+  \[
+  \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over\pi},
+  \qquad
+  R_2^*(n)=\Theta(n^3).
+  \]
 - VERIFIED FACT: `examples/finite_results_summary_n3_n6.json` derives
   candidate sets, exclusion gaps, repeated serialized bracket groups, and
   small-`n` ratios from the checked finite certificates.
@@ -96,7 +116,7 @@ the radius-one theorem task.
 - USER-REPORTED STATUS: after the cross-platform CI fix, hosted GitHub Actions
   was green. This roadmap update did not independently query GitHub.
 - LIMITATION: none of the finite certificates proves an exact optimum, a
-  matching upper bound, or an asymptotic equality theorem.
+  coefficient-matching upper bound, or a leading-term asymptotic formula.
 
 ## Consequences
 
@@ -130,6 +150,18 @@ the radius-one theorem task.
    contact graph, does not settle \(n\le11\), and is not based on the checked
    cases \(n=5,6\).
 
+6. The regular-core construction settles the order of growth and gives the
+   rigorous liminf/limsup bracket
+   \[
+   {2(\sqrt2-1)\over3\pi}
+   \le
+   \liminf_{n\to\infty}{R_2^*(n)\over n^3}
+   \le
+   \limsup_{n\to\infty}{R_2^*(n)\over n^3}
+   \le {1\over\pi}.
+   \]
+   It does not prove convergence or an exact leading constant.
+
 ## Updated Research Questions
 
 - OPEN QUESTION: what upper-bound construction, if any, matches the new
@@ -140,9 +172,9 @@ the radius-one theorem task.
 - OPEN QUESTION: is \(12\) the least threshold for
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
-- OPEN QUESTION: can one identify a structured order family and gap allocation
-  whose all-pairs constraints are feasible at a radius scale consistent with
-  the new lower bound?
+- OPEN QUESTION: can the regular-core coefficient \(1/\pi\) be lowered toward
+  \(2(\sqrt2-1)/(3\pi)\), or can a different structured construction narrow
+  the coefficient gap while retaining symbolic all-pairs control?
 - OPEN QUESTION: can the fixed-order STN/geometric equivalence, endpoint
   semantics, and negative-cycle proof obligations be recorded independently of
   any particular asymptotic constant?
@@ -158,12 +190,10 @@ Immediate:
 
 Next:
 
-- Formulate one structured upper-bound order family and gap-allocation rule at
-  a radius scale compatible with the induced-subset obstruction.
-- Translate every non-adjacent pair for that family into symbolic interval-sum
-  inequalities.
-- Use finite checks only as diagnostics for those symbolic inequalities, not as
-  all-\(n\) proof.
+- Seek a sharper structured construction than the regular core, with a precise
+  proposed coefficient improvement.
+- Preserve explicit symbolic control of every non-adjacent constraint.
+- Use finite checks only as diagnostics, not as an all-\(n\) proof.
 
 Later:
 
@@ -181,7 +211,6 @@ Deliberately deferred:
 
 - `n=7` exhaustive certificate generation.
 - Larger exhaustive enumeration without a precise discriminator.
-- Upper-bound construction work in the induced-subset proof task.
 - Leading-order LP work in the induced-subset proof task.
 - Any claim that the new lower-bound coefficient is the exact asymptotic
   constant.
@@ -201,5 +230,5 @@ Acceptance criteria:
 - separate exact mathematical implications from current interval-backend trust
   assumptions;
 - update durable memory and task evidence without generating certificates,
-  running exhaustive enumeration, starting upper-bound construction, or doing
-  leading-order LP work.
+  running exhaustive enumeration, optimizing the regular-core upper bound, or
+  doing leading-order LP work.

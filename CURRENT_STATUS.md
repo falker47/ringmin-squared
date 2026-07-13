@@ -2,9 +2,9 @@
 
 Last update: 2026-07-13
 
-- **Current phase:** exact eventual radius-one insertion proved; exact asymptotic leading constant, matching upper bound, and minimal insertion threshold remain open.
-- **Current task:** Prove or disprove an exact radius-one insertion lemma and derive an explicit equality threshold for the full and core infima.
-- **Task dossier:** `ops/TASK-20260713__radius_one_insertion/`.
+- **Current phase:** cubic order proved by induced-subset lower and regular-core upper bounds; exact leading constant, coefficient matching, and the minimal insertion threshold remain open.
+- **Current task:** Prove a constructive cubic upper bound using a regular core configuration.
+- **Task dossier:** `ops/TASK-20260713__regular_core_cubic_upper_bound/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
@@ -12,53 +12,36 @@ Last update: 2026-07-13
 
 ## Current Stable Result
 
-Let
+EXACT THEOREM: for every \(n\ge12\) and fixed \(R>0\), the largest required
+angular separation among distinct core radii \(2^2,\dots,n^2\) is attained by
+\(((n-1)^2,n^2)\). Assigning the core centers to the equally spaced polar
+directions of a regular \((n-1)\)-gon is all-pairs feasible at
 \[
-\mathcal F_n
-=\{R>0:1^2,\dots,n^2\text{ are feasible at }R\}
+U_n
+=
+\sqrt{
+n^2(n-1)^2\csc^2\!\left({\pi\over n-1}\right)
++{(2n-1)^2\over4}}
+-{n^2+(n-1)^2\over2}.
 \]
-and
-\[
-\mathcal C_n
-=\{R>0:2^2,\dots,n^2\text{ are feasible at }R\}.
-\]
-Define
-\[
-R_2^*(n)=\inf\mathcal F_n,
-\qquad
-R^*_{2:n}=\inf\mathcal C_n.
-\]
+Every non-adjacent vertex pair is included: its smaller angular separation is
+at least one polygon edge, while every required separation is at most the
+tight worst-pair edge angle.
 
-EXACT THEOREM: a feasible core configuration at radius \(R>0\) admits a
-circle of radius \(1\) at the same central radius whenever
+The accepted radius-one theorem gives
 \[
-\sum_{j=2}^n\theta_R(1,j^2)<\pi.
+R_2^*(n)\le U_n\qquad(n\ge12).
 \]
-The proof assigns to every core circle an open forbidden angular arc of measure
-\(2\theta_R(1,j^2)\), uses subadditivity of arc measure, and explicitly checks
-all new pairs \((1,j^2)\), the new central tangency, and the unchanged core
-pairs.
-
-EXACT THEOREM: for every \(n\ge12\),
+Moreover,
 \[
-\mathcal F_n=\mathcal C_n
-\quad\text{and hence}\quad
-R_2^*(n)=R^*_{2:n}.
+\limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{1\over\pi}.
 \]
-The proof combines
+Combining this with the existing induced-subset lower bound proves
 \[
-\theta_R(1,j^2)
-<\frac{2j}{\sqrt{R(R+j^2+1)}}
-<\frac{2j}{R}
+R_2^*(n)=\Theta(n^3).
 \]
-with the already-proved configuration-level induced-subset lower bound.
-Exact rational estimates cover `n=12,13`; a symbolic parity inequality covers
-all `n>=14`.
-
-The threshold `12` is sufficient, not claimed minimal. Failure of the current
-bound chain to close `n<=11` is not a counterexample. The theorem does not use
-the checked `n=5,6` structures as evidence and assumes no minimizer: it proves
-equality of feasible-radius sets before taking infima.
+The self-contained proof is in `research/ALL_N_LOWER_BOUND.md`. It does not
+claim an exact leading constant or assume that an infimum is attained.
 
 ## Other Stable Context
 
@@ -68,8 +51,13 @@ bound and its extremal characterization. In particular,
 R_2^*(n)\ge\frac{P_{m,n}}\pi-n^2
 \]
 for the documented range, and the best leading coefficient within that
-specific relaxation is \(2(\sqrt2-1)/(3\pi)\). This is not a matching upper
-bound or an exact asymptotic coefficient.
+specific relaxation is \(2(\sqrt2-1)/(3\pi)\). This does not match the regular
+core's \(1/\pi\) upper coefficient, so existence and value of any limiting
+coefficient remain open.
+
+The full and core feasible-radius sets remain exactly equal for every
+\(n\ge12\), by the accepted forbidden-arc insertion theorem. The threshold
+`12` is sufficient, not claimed minimal, and the theorem assumes no minimizer.
 
 The former targets
 \[
@@ -85,14 +73,14 @@ theorem. `research/NEXT_RESEARCH_STEPS.md` is the aligned research roadmap.
 
 ## Verification
 
-- `python -m pytest tests\test_radius_one_insertion.py tests\test_induced_subset_lower_bound.py` passed: 12 tests.
-- `python -m pytest` passed: 122 tests.
+- Focused regular-core diagnostics passed: 3 tests.
+- `python -m pytest` passed: 125 tests.
 - `$env:PYTHONPATH='src'; python -m power_ringmin.verify_checked_artifacts`
   passed: 4 checked certificates, 76 embedded local brackets, and summary
   `examples/finite_results_summary_n3_n6.json` for `n=3,4,5,6`.
-- Independent proof review found no actionable defect in the geometry,
-  inequalities, threshold algebra, or infimum handling.
-- `git diff --check` passed; final status and diff were inspected.
+- Independent final proof review found no mathematical or test defect after
+  clarifying that the construction uses regular-polygon polar directions.
+- Final Git status, diff, whitespace, and trailing-whitespace checks passed.
 
 ## Proposed Next Task
 
@@ -105,5 +93,5 @@ Acceptance criteria:
 - state lower-endpoint negative-cycle and upper-endpoint witness semantics;
 - separate exact mathematical implications from interval-backend trust
   assumptions;
-- do not generate certificates, begin exhaustive enumeration, start an
-  upper-bound construction, or claim that the insertion threshold is minimal.
+- do not generate certificates, begin exhaustive enumeration, optimize the
+  regular-core bound, or claim that the insertion threshold is minimal.

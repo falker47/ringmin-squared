@@ -78,6 +78,26 @@ In fact, the full and core feasible-radius sets coincide in that range. The
 threshold \(12\) is sufficient and is not claimed minimal; the proof is
 independent of the checked cases \(n=5,6\).
 
+For every \(n\ge12\), assigning the core centers to the equally spaced polar
+directions of a regular \((n-1)\)-gon gives the explicit all-pairs feasible
+radius
+\[
+U_n
+=
+\sqrt{
+n^2(n-1)^2\csc^2\!\left(\frac{\pi}{n-1}\right)
++\frac{(2n-1)^2}{4}}
+-\frac{n^2+(n-1)^2}{2}.
+\]
+The insertion theorem therefore proves \(R_2^*(n)\le U_n\) for \(n\ge12\),
+and \(U_n/n^3\to1/\pi\). Combined with the induced-subset lower bound, this
+settles the order of growth:
+\[
+R_2^*(n)=\Theta(n^3).
+\]
+The proof, including the worst-pair reduction and every non-adjacent
+constraint, is recorded in `research/ALL_N_LOWER_BOUND.md`.
+
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also a disproved claim.
@@ -102,10 +122,17 @@ R_2^*(n)
 \frac{n^3}{6\pi}+O(n^2).
 \]
 
-The exact leading constant, any matching upper bound, and any asymptotic
-equality theorem remain unresolved. The induced-subset lower bound proves only
-a strict lower obstruction above the former \(1/(6\pi)\) coefficient; it does
-not identify the exact asymptotic constant.
+The cubic order is exact, but existence of a limiting coefficient, a
+leading-term asymptotic formula, and an upper bound matching the induced-subset
+lower coefficient remain unresolved. Current exact bounds give
+\[
+\frac{2(\sqrt2-1)}{3\pi}
+\le
+\liminf_{n\to\infty}\frac{R_2^*(n)}{n^3}
+\le
+\limsup_{n\to\infty}\frac{R_2^*(n)}{n^3}
+\le\frac1\pi.
+\]
 
 ## Scope And Guardrails
 
@@ -179,6 +206,16 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
 - EXACT THEOREM: if \(R^*_{2:n}\) denotes the core infimum, then
   \(R_2^*(n)=R^*_{2:n}\) for every \(n\ge12\), with equality already at the
   level of feasible-radius sets.
+- EXACT THEOREM: the core with polar directions from a regular
+  \((n-1)\)-gon is all-pairs feasible at the displayed radius \(U_n\),
+  including all non-adjacent direction pairs, and the radius-one theorem gives
+  \(R_2^*(n)\le U_n\) for every \(n\ge12\).
+- EXACT THEOREM:
+  \[
+  \limsup_{n\to\infty}\frac{R_2^*(n)}{n^3}\le\frac1\pi,
+  \qquad
+  R_2^*(n)=\Theta(n^3).
+  \]
 - EXACT THEOREM: within the induced-subset plus duplicated-pairing plus
   \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\) relaxation, no nonconsecutive subset
   improves the tail bounds \(P_{m,n}\); the best discrete tail is characterized
@@ -187,7 +224,9 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
 - VERIFIED FACT: checked-artifact verification is wired into local review and GitHub Actions.
 - USER-REPORTED STATUS: current task context reports the hosted run is green after the CI fix.
 - INTERPRETATION: these are finite certificates only; they are not exact optimum proofs, all-`n` theorems, or asymptotic results.
-- INTERPRETATION: the all-`n` induced-subset lower-bound theorem is independent of the finite certificates and does not provide a matching upper bound.
+- INTERPRETATION: the all-`n` theorems and regular-core construction are
+  independent of the finite certificates; the upper and lower leading
+  coefficients do not currently match.
 - INTERPRETATION: the coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal for the
   documented relaxation only; it is not a proved exact asymptotic coefficient
   for Power-Ringmin.

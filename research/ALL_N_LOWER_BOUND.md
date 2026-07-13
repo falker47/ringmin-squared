@@ -1,4 +1,4 @@
-# All-n Induced-Subset Lower Bound And Radius-One Insertion
+# All-n Bounds And Radius-One Insertion
 
 Date: 2026-07-13
 
@@ -57,6 +57,31 @@ Date: 2026-07-13
   In fact, for every \(n\ge12\), the full problem and the core problem have
   exactly the same set of feasible positive central radii. The threshold
   \(12\) is sufficient; no minimal-threshold claim is made.
+- EXACT THEOREM: for every \(n\ge12\), the regular \((n-1)\)-gon construction
+  for the core radii gives
+  \[
+  R_2^*(n)\le U_n,
+  \]
+  where
+  \[
+  U_n
+  =
+  \sqrt{
+  n^2(n-1)^2\csc^2\!\left({\pi\over n-1}\right)
+  +{(2n-1)^2\over4}}
+  -{n^2+(n-1)^2\over2}.
+  \]
+  The construction verifies every core pair, including non-adjacent
+  regular-polygon vertices, and then uses the exact radius-one insertion
+  theorem.
+- EXACT THEOREM:
+  \[
+  \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over\pi},
+  \qquad
+  R_2^*(n)=\Theta(n^3).
+  \]
+  The \(\Theta(n^3)\) conclusion combines this construction with the
+  induced-subset lower bound; it does not identify an exact leading constant.
 - DISPROVED CLAIM:
   \[
   R_2^*(n)= {n^3\over 6\pi}(1+o(1)).
@@ -68,8 +93,10 @@ Date: 2026-07-13
 
 The lower-bound proof uses only necessary consequences of all-pairs feasibility.
 The coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal for the specific relaxation
-analyzed here. This does not prove an exact leading constant, a matching upper
-bound, or optimality for Power-Ringmin itself.
+analyzed here. The regular-core construction gives a cubic upper bound with
+coefficient \(1/\pi\), but the two coefficients do not match. Thus no exact
+leading constant, limiting coefficient, or leading-term asymptotic formula is
+proved.
 
 ## Domain And Definitions
 
@@ -829,6 +856,194 @@ argument does not prove that \(12\) is the least possible threshold. The same
 chain of lower and upper bounds does not close \(n=11\), which is a limitation
 of this proof and not a counterexample to equality at \(n=11\).
 
+## Regular-Core Cubic Upper Bound
+
+We now give an explicit feasible construction. This section checks every
+pairwise constraint directly; checking only neighboring vertices would not be
+sufficient.
+
+### Worst pair at fixed radius
+
+Fix \(n\ge12\) and \(R>0\), and define
+\[
+h_R(x)={x\over\sqrt{R+x^2}}\qquad(x>0).
+\]
+Then
+\[
+h_R'(x)={R\over(R+x^2)^{3/2}}>0.
+\]
+For distinct core indices \(2\le i<j\le n\),
+\[
+\theta_R(i^2,j^2)
+=2\arcsin\bigl(h_R(i)h_R(j)\bigr).
+\]
+Both \(h_R\) and \(\arcsin\) are strictly increasing on the relevant
+domains. Therefore the unique largest required angular separation among
+distinct core radii is
+\[
+\theta_R((n-1)^2,n^2).
+\tag{9}
+\]
+This is an exact fixed-\(R\) monotonicity statement, not a finite numerical
+observation.
+
+### Solving for a sufficient radius
+
+Put
+\[
+\gamma_n={\pi\over n-1},\qquad A=(n-1)^2,\qquad B=n^2.
+\]
+For \(n\ge12\), one has \(0<\gamma_n<\pi/2\). Hence
+\[
+\theta_R(A,B)\le {2\pi\over n-1}
+\]
+is equivalent to
+\[
+{n(n-1)\over\sqrt{(R+A)(R+B)}}\le\sin\gamma_n,
+\]
+or
+\[
+(R+A)(R+B)\ge AB\csc^2\gamma_n.
+\tag{10}
+\]
+Completing the square in (10) gives
+\[
+\left(R+{A+B\over2}\right)^2
+\ge
+AB\csc^2\gamma_n+{(B-A)^2\over4}.
+\]
+The left side is strictly increasing for \(R\ge0\). Since
+\(\csc^2\gamma_n>1\), the unique nonnegative threshold is positive and equals
+\[
+\boxed{
+U_n
+=
+\sqrt{
+n^2(n-1)^2\csc^2\!\left({\pi\over n-1}\right)
++{(2n-1)^2\over4}}
+-{n^2+(n-1)^2\over2}
+}.
+\tag{11}
+\]
+At \(R=U_n\), equality holds in (10), so
+\[
+\theta_{U_n}((n-1)^2,n^2)={2\pi\over n-1}.
+\tag{12}
+\]
+
+### All-pairs feasibility of the regular core
+
+Use the vertex directions of a regular \((n-1)\)-gon centered at the central
+center. Explicitly, in one bijective assignment put
+\[
+\phi_i={2\pi(i-2)\over n-1}
+\qquad(i=2,\dots,n)
+\]
+and place the center of the radius-\(i^2\) circle at
+\[
+(U_n+i^2)(\cos\phi_i,\sin\phi_i).
+\]
+Thus all polar angles are equally spaced, while the differing radial distances
+correctly enforce external tangency to the central circle. Any permutation of
+the radii among these directions has the same argument below.
+
+Let two distinct vertices be separated by the smaller circular step \(q\),
+where
+\[
+1\le q\le\left\lfloor{n-1\over2}\right\rfloor.
+\]
+Their smaller central angle is
+\[
+\delta={2\pi q\over n-1}\in(0,\pi],
+\]
+and therefore
+\[
+\delta\ge {2\pi\over n-1}.
+\tag{13}
+\]
+For peripheral radii \(a,b>0\) at smaller central angle
+\(\delta\in[0,\pi]\), the squared center distance is
+\[
+d^2
+=(a-b)^2+4(U_n+a)(U_n+b)\sin^2(\delta/2).
+\]
+Consequently,
+\[
+d^2\ge(a+b)^2
+\quad\Longleftrightarrow\quad
+\sin^2(\delta/2)
+\ge {ab\over(U_n+a)(U_n+b)}
+\quad\Longleftrightarrow\quad
+\delta\ge\theta_{U_n}(a,b).
+\tag{14}
+\]
+By (9), (12), and (13), every pair \(2\le i<j\le n\) satisfies
+\[
+\delta
+\ge {2\pi\over n-1}
+=\theta_{U_n}((n-1)^2,n^2)
+\ge\theta_{U_n}(i^2,j^2).
+\]
+Equation (14) proves non-overlap for all \(\binom{n-1}{2}\) core pairs.
+This explicitly includes non-adjacent vertex pairs \(q>1\); they have more
+available angular separation than an edge pair. Equality is allowed because
+external tangency gives disjoint interiors. Hence \(U_n\in\mathcal C_n\).
+
+### Insertion and asymptotic consequences
+
+For \(n\ge12\), the exact radius-one theorem above proves
+\(\mathcal C_n=\mathcal F_n\). Since the regular core is actually feasible at
+\(U_n\), it follows directly that \(U_n\in\mathcal F_n\), and thus
+\[
+\boxed{R_2^*(n)\le U_n\qquad(n\ge12)}.
+\tag{15}
+\]
+This implication uses equality of feasible-radius sets and does not assume
+that either infimum is attained.
+
+To evaluate (11), write
+\[
+X_n=n(n-1)\csc\!\left({\pi\over n-1}\right),
+\quad
+Y_n={2n-1\over2},
+\quad
+Z_n={n^2+(n-1)^2\over2},
+\]
+so that \(U_n=\sqrt{X_n^2+Y_n^2}-Z_n\). The standard limit
+\(x/\sin x\to1\) gives
+\[
+{X_n\over n^3}
+=
+{(n-1)^2\over n^2}
+{1\over (n-1)\sin(\pi/(n-1))}
+\longrightarrow {1\over\pi},
+\]
+whereas \(Y_n/n^3\to0\) and \(Z_n/n^3\to0\). Therefore
+\[
+{U_n\over n^3}\longrightarrow {1\over\pi},
+\qquad
+\limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over\pi}.
+\tag{16}
+\]
+Combining (16) with the exact induced-subset lower bound already proved in
+this note yields
+\[
+{2(\sqrt2-1)\over3\pi}
+\le
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\le
+\limsup_{n\to\infty}{R_2^*(n)\over n^3}
+\le {1\over\pi}.
+\tag{17}
+\]
+In particular,
+\[
+\boxed{R_2^*(n)=\Theta(n^3)}.
+\]
+The coefficient gap in (17) remains open. Neither this construction nor the
+lower bound proves that \(R_2^*(n)/n^3\) has a limit, and no exact leading
+constant is claimed.
+
 ## Gap And Counterexample Audit
 
 - The induced gaps are valid even when skipped non-\(S\) centers lie inside
@@ -857,10 +1072,11 @@ of this proof and not a counterexample to equality at \(n=11\).
   \(m_n=\lceil(\sqrt2-1)n\rceil\) with an explicit bounded rounding parameter
   \(\varepsilon_n\). The exact finite maximizers are characterized separately
   by \(\rho_n\), so no real-valued \(m\) is used as an index.
-- This proof does not supply a matching upper bound and must not be described
-  as identifying the exact asymptotic leading constant for Power-Ringmin. The
-  coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal only inside the relaxation
-  explicitly analyzed above.
+- The regular-core construction supplies a cubic upper bound, but not one
+  matching the induced-subset lower coefficient. It must not be described as
+  identifying the exact asymptotic leading constant for Power-Ringmin. The
+  coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal only inside the lower-bound
+  relaxation explicitly analyzed above.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower
   bound only from the scalar full-problem lower bound would reverse the useful
@@ -872,3 +1088,10 @@ of this proof and not a counterexample to equality at \(n=11\).
   extrapolation from the checked cases \(n=5,6\).
 - The threshold \(12\) is sufficient and explicit, not claimed minimal. No
   conclusion for \(n\le11\) follows from the failure of this proof chain.
+- The worst-pair reduction assumes \(R>0\), as does the angular formulation.
+  At \(R=0\), the strict monotonicity used in (9) would fail.
+- The regular-core proof uses the smaller circular separation for every
+  unordered vertex pair. Non-adjacent pairs are not inferred from neighboring
+  constraints; they are checked directly through (13)--(14).
+- The formula \(U_n\) is a feasible radius, not a claim that the regular core
+  is optimal or that the full infimum is attained there.
