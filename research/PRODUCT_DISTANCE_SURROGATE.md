@@ -98,28 +98,28 @@
   \end{cases}
   \]
   while \(H_{12}=56\). The uniform construction gives
-  \(B_n=W_n=T_n\) in residues \(0,3,4\). A separate search-free order for
-  \(n=5k+1\), \(k\ge2\), has score exactly
-  \((d_n-1)^2/2=H_n\). Consequently
+  \(B_n=W_n=T_n\) in residues \(0,3,4\). Separate search-free orders attain
+  \((d_n-1)^2/2=H_n\) in residue one and
+  \(J_n=d_n(d_n-2)/2\) in residue two. Consequently
   \[
-  B_n=W_n=H_n
-  \qquad(n\equiv0,1,3,4\pmod5,\ n\ge9),
+  B_n=W_n=
+  \begin{cases}
+  d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
+  (d_n-1)^2/2,&n\equiv1\pmod5,\\
+  d_n(d_n-2)/2,&n\equiv2\pmod5
+  \end{cases}
+  \qquad(n\ge9),
   \]
-  with the residue-one class beginning at \(n=11\).
-- **EXACT THEOREM (residue-two saturation obstruction):** put
-  \(J_n=d_n(d_n-2)/2\). Then
-  \[
-  B_{12}\ge60=J_{12},
-  \qquad
-  B_n\ge J_n
-  \quad(n\equiv2\pmod5,\ n\ge17).
-  \]
-  Since \(W_n\ge B_n\), the same lower bound holds for \(W_n\). Combining it
-  with the uniform construction gives
-  \(J_n\le B_n\le W_n\le T_n\). The displayed proved-bound interval has
-  width \((2n+6)/5\) for \(n\ge17\), and width \(6\) at \(n=12\). Residue
-  two remains unresolved: none of these inequalities claims that either
-  objective equals \(J_n\), or that \(B_n=W_n\).
+  with the residue-one and residue-two branches beginning at \(n=11\) and
+  \(n=12\), respectively.
+- **EXACT THEOREM (residue-two matching):** the saturation obstruction gives
+  \(J_n\le B_n\le W_n\) at \(n=12\) and throughout residue two from
+  \(n=17\). A parity-aware symbolic order \(\sigma_n^{(2)}\), valid for every
+  \(n=5k+2\), \(k\ge2\), is a permutation and has
+  \(W(\sigma_n^{(2)})=J_n\). Its proof checks adjacency, distances two and
+  three, the closing cut, and all distances at least four separately. Hence
+  \(B_n=W_n=J_n\) on the stated domain. The finite \(n=7\) row remains
+  covered only by the bounded table.
 - **VERIFIED FACT (finite exhaustive exact computation):** the table below
   gives the objectives truncated at positional distances at most one and two,
   as well as \(W_n\), for \(3\le n\le11\). Non-adjacent constraints first
@@ -2272,6 +2272,307 @@ threshold \(X=B_{12}\) is one of those just excluded. Hence
 \tag{R2S12}
 \]
 
+### Exact matching construction in residue two
+
+The boundary deliberately left open by the saturation argument is attained by
+a search-free symbolic family. Keep
+
+\[
+n=5k+2,
+\qquad
+k\ge2,
+\qquad
+d=4k+4,
+\]
+
+and put
+
+\[
+D=d-1=4k+3,
+\qquad
+J=J_n={d(d-2)\over2}={D^2-1\over2},
+\qquad
+t=\left\lceil{k\over2}\right\rceil.
+\tag{R2C1}
+\]
+
+For \(0\le j<k\), define
+
+\[
+E_j=D+j,
+\qquad
+\lambda_j=2k-2j,
+\qquad
+\rho_j=2k+1-2j.
+\tag{R2C2}
+\]
+
+For \(0\le j<t\), let
+
+\[
+P_j=(D-1-2j,\ 2k+2+j,\ D-2-2j).
+\tag{R2C3}
+\]
+
+The residual middle interval has endpoints
+
+\[
+a=2k+t+2,
+\qquad
+b=D-2t-1.
+\tag{R2C4}
+\]
+
+There are two parity branches. If \(k=2m+1\), then \(t=m+1\) and set
+
+\[
+P_{t+r}=(a+r)
+\qquad(0\le r<m).
+\tag{R2C5}
+\]
+
+If \(k=2m\), then \(t=m\) and set
+
+\[
+P_t=(a,a+1),
+\qquad
+P_j=(a+j-t+1)
+\quad(t<j<k).
+\tag{R2C6}
+\]
+
+Expand these paths in the cyclic concatenation
+
+\[
+\boxed{
+\sigma_n^{(2)}
+=
+\bigoplus_{j=0}^{k-1}
+(E_j,\lambda_j,P_j,\rho_{j+1})
+},
+\tag{R2C7}
+\]
+
+where the subscript on \(\rho\) is read modulo \(k\). Thus \(E_j\) has
+neighbors \(\rho_j,\lambda_j\), and the oriented gap to \(E_{j+1}\) is
+
+\[
+E_j,\lambda_j,P_j,\rho_{j+1},E_{j+1}.
+\tag{R2C8}
+\]
+
+#### Permutation and parity branches
+
+The terminal labels \(E_j\) cover \([D,n]\), while the
+\(\lambda_j,\rho_j\) cover \([2,2k+1]\). The connectors in (R2C3) cover
+\([2k+2,2k+t+1]\), and the two outer labels of those triples cover
+\([D-2t,D-1]\). The only interval left between them is exactly
+\([a,b]\).
+
+If \(k=2m+1\), then \([a,b]\) has \(m\) labels, and (R2C5) places them in
+the \(m=k-t\) residual singleton paths. If \(k=2m\), then \([a,b]\) has
+\(m+1\) labels; (R2C6) places its first two labels in one doubleton and its
+remaining \(m-1\) labels in singleton paths. Hence the displayed sets are
+disjoint, exhaust \(\{2,\dots,n\}\), and give exactly \(k\) nonempty paths
+in both parity branches. Therefore (R2C7) is a cyclic core order for every
+\(k\ge2\).
+
+#### Adjacent products
+
+The larger of the two terminal-low products incident to \(E_j\) is
+
+\[
+f_j=(D+j)(2k+1-2j).
+\]
+
+This sequence is strictly decreasing, and
+
+\[
+J-f_0=J-D(2k+1)=2k+1>0.
+\tag{R2C9}
+\]
+
+Every low-middle edge obeys
+
+\[
+(2k+1)(D-1)=J-(4k+2)<J.
+\tag{R2C10}
+\]
+
+For the larger internal product in the triple \(P_j\), put
+
+\[
+F_j=(D-1-2j)(2k+2+j).
+\]
+
+Then
+
+\[
+F_0=J,
+\qquad
+F_{j+1}-F_j=-4(j+1)<0.
+\tag{R2C11}
+\]
+
+The other internal edge has the same connector and a smaller outer label. In
+the even branch \(k=2m\), the only remaining internal edge is the doubleton
+in (R2C6), and
+
+\[
+J-a(a+1)=7m^2-m-2>0
+\qquad(m\ge1).
+\tag{R2C12}
+\]
+
+There is no internal edge in a residual singleton. Thus every adjacent
+product is at most \(J\), and the edge
+\((D-1,2k+2)\) inside \(P_0\) has product exactly \(J\).
+
+#### Pairs at positional distance two
+
+Every \(P_j\) is nonempty, so consecutive terminal labels are at positional
+distance at least four. If neither endpoint at distance two is terminal, its
+product is at most \((D-1)^2<D(D-1)\). The remaining pairs join a terminal
+to the first or last label of a middle path.
+
+For the triple \(P_j\), direct subtraction gives
+
+\[
+D(D-1)-(D+j)(D-1-2j)
+=j(D+1+2j)\ge0
+\tag{R2C13}
+\]
+
+and
+
+\[
+D(D-1)-(D+j+1)(D-2-2j)
+=Dj+2(j+1)^2>0.
+\tag{R2C14}
+\]
+
+Every residual endpoint is at most \(b\), and every terminal is at most
+\(n\). The needed formal endpoint bound is strict. Indeed,
+
+\[
+D(D-1)-nb
+=
+\begin{cases}
+4m^2+8m+2,&k=2m,\\
+4m^2+22m+14,&k=2m+1,
+\end{cases}
+>0.
+\tag{R2C15}
+\]
+
+Consequently the exact maximum product at positional distance two is
+\(D(D-1)\), attained by \(E_0=D\) and the first label \(D-1\) of \(P_0\).
+Since
+
+\[
+D(D-1)<D^2-1=2J,
+\tag{R2C16}
+\]
+
+every distance-two score is strictly below \(J\).
+
+#### Pairs at positional distance three
+
+The nonempty \(P_j\) also exclude terminal-terminal pairs at positional
+distance three. Such a pair therefore has at most one terminal endpoint, and
+its other endpoint is at most \(D-1\). Hence
+
+\[
+xy\le n(D-1)<3J,
+\tag{R2C17}
+\]
+
+because
+
+\[
+3J-n(D-1)=4k^2+18k+8>0.
+\tag{R2C18}
+\]
+
+This verifies the distance-three class separately and cyclically.
+
+#### Closing pairs
+
+The part of (R2C7) surrounding its displayed cut is
+
+\[
+\cdots,E_{k-1},2,P_{k-1},2k+1
+\mid
+D,2k,P_0,\cdots,
+\tag{R2C19}
+\]
+
+and \(\operatorname{last}(P_{k-1})=b\). The products crossing the cut are
+
+\[
+q=1:\quad D(2k+1),
+\tag{R2C20}
+\]
+
+\[
+q=2:\quad Db,\quad 2k(2k+1),
+\tag{R2C21}
+\]
+
+and
+
+\[
+q=3:\quad Dz,\quad 2kb,\quad(2k+1)(D-1),
+\qquad
+z=
+\begin{cases}
+7,&k=2,\\
+2,&k\ge3.
+\end{cases}
+\tag{R2C22}
+\]
+
+Equation (R2C9) covers (R2C20). In (R2C21), \(b<D-1\), so
+\(Db<D(D-1)<2J\), while the low-low product is smaller still. Every product
+in (R2C22) is at most \(n(D-1)<3J\) by (R2C17). Thus all pairs crossing the
+displayed cut satisfy their respective distance bounds; none is hidden by the
+linear presentation.
+
+#### Distances at least four and exact consequence
+
+For every pair at smaller circular positional distance \(q\ge4\), distinctness
+of its labels and the identity required for this residue class give
+
+\[
+ij\le n(n-1)<4J\le qJ,
+\qquad
+4J-n(n-1)=7k^2+33k+14>0.
+\tag{R2C23}
+\]
+
+Together, (R2C9)--(R2C23) prove \(W(\sigma_n^{(2)})\le J_n\). The internal
+edge identified after (R2C12) proves equality:
+
+\[
+\boxed{W(\sigma_n^{(2)})=J_n}
+\qquad(n=5k+2,\ k\ge2).
+\tag{R2C24}
+\]
+
+Combining this upper construction with (R2S10) and (R2S12) yields
+
+\[
+\boxed{B_n=W_n=J_n={d_n(d_n-2)\over2}}
+\tag{R2C25}
+\]
+
+for \(n=12\) and for every \(n\equiv2\pmod5\), \(n\ge17\). The case \(n=7\)
+remains covered by the bounded exact table and is outside the stated generator
+domain. The supplied finite witnesses were used only to falsify candidate
+forms and identify this block structure; the production formula (R2C1)--
+(R2C7) performs no search, and canonical cyclic-order enumeration remains
+hard-bounded to \(n\le11\).
+
 ### Exact construction in residue one
 
 The smaller residue-one obstruction is also attained. Write
@@ -2582,35 +2883,26 @@ H_n\le B_n\le W_n
 \le W(\sigma_n^{(1)})=H_n.
 \]
 
-Combining the two constructions proves
+Combining all three constructions proves
 
 \[
 \boxed{
-B_n=W_n=H_n
+B_n=W_n
 =
 \begin{cases}
 d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
-(d_n-1)^2/2,&n\equiv1\pmod5
+(d_n-1)^2/2,&n\equiv1\pmod5,\\
+d_n(d_n-2)/2,&n\equiv2\pmod5
 \end{cases}
 }
 \qquad(n\ge9).
 \tag{RC5}
 \]
 
-The residue-one branch begins at \(n=11\). Its former uniform-construction
-slack
-\(T_n-H_n=(d_n-1)/2=(2n+3)/5\) is no longer an unresolved bound interval.
-Only residue two remains open beyond the bounded table. The saturation
-obstruction (R2S10)--(R2S12), together with \(B_n\le W_n\), sharpens (UC22)
-in that class to
-
-\[
-J_n\le B_n\le W_n\le T_n,
-\qquad
-J_n={d_n(d_n-2)\over2}.
-\]
-
-The width between these proved endpoints is now
+The residue-one branch begins at \(n=11\), and the residue-two branch begins
+at \(n=12\). Their separate matching squeezes are (R1C24) and (R2C25).
+The former uniform construction has positive slack in both classes, but that
+slack is no longer an unresolved objective interval. In residue two,
 
 \[
 T_n-J_n
@@ -2622,25 +2914,21 @@ d_n/2=(2n+6)/5,&n\equiv2\pmod5,\ n\ge17,\\
 \tag{RC6}
 \]
 
-At the exceptional index the three exact reference values are
+This is the score excess of the older uniform order threshold over the exact
+objective, not an optimality gap. At the exceptional index the exact reference
+values are
 
 \[
-H_{12}=56<J_{12}=60<T_{12}=66;
+H_{12}=56<B_{12}=W_{12}=J_{12}=60<T_{12}=66;
 \]
 
 for \(n=5k+2\), \(k\ge3\), one instead has
 
 \[
 H_n={(d_n-1)(d_n-2)\over2}
-<J_n={d_n(d_n-2)\over2}
+<B_n=W_n=J_n={d_n(d_n-2)\over2}
 <T_n={d_n(d_n-1)\over2}.
 \]
-
-These are widths of lower/upper bound intervals, not optimality gaps and not
-necessarily score gaps of individual exceptional witnesses. No all-\(n\)
-exact formula, or new exact value beyond the bounded \(n\le11\) table, is
-inferred for \(B_n\) or \(W_n\) in residue two; in particular neither
-objective is asserted to equal \(J_n\), and \(B_n=W_n\) is not asserted.
 
 Since
 
@@ -3066,7 +3354,9 @@ obstruction, the closed residue formula against both an independent
 polynomial evaluation and the unchanged exact event inversion, the
 residue-two saturation data at \(n=12,17,22\), every half-integer in the
 three corresponding intervals \([H_n,J_n)\), the strict endpoint arithmetic
-through a broad falsification sweep, the improved proved-bound widths, the
+through a broad falsification sweep, the exact residue-two generator, both
+parity branches, the separate distance-one through distance-three and
+closing maxima, two independent all-pairs scorers, the
 symbolic upper witness, the matching order generator, all fourteen
 exceptional orders, their exact
 distance-class and closing maxima, independent cyclic checks of the symbolic
@@ -3079,17 +3369,14 @@ two-terminal-high equality case at `n=11`. Exact reproduction of both
 truncated and full tables remains bounded to `n=3..11`; no cyclic-order
 enumeration is performed beyond `n=11`. Independent construction diagnostics
 checked the residue-one formula through `k=5000`; the repository regression
-checks every `2<=k<=1000` and selected full all-pairs scores. These finite
-diagnostics support but do not replace the symbolic proof above.
+checks every `2<=k<=1000` in both residue-two parity branches and selected
+full all-pairs scores. These finite diagnostics support but do not replace
+the symbolic proofs above.
 
 The following remain unresolved.
 
-- **OPEN QUESTION:** what are the exact finite values of \(B_n\) and \(W_n\)
-  beyond the bounded table in residue class two? Classes zero, one, three,
-  and four are settled by (RC5), but the sharpened residue-two bound interval
-  (RC6) need not be sharp.
-- **OPEN QUESTION:** can the explicit family be sharpened in residue class
-  two, or can optimal members be characterized structurally in any class?
+- **OPEN QUESTION:** can minimizing cyclic orders be characterized
+  structurally in any residue class, beyond the displayed witnesses?
 - **OPEN QUESTION:** at what \(n\), if any, do positional distances at least
   three first change the optimum? They do not do so for \(3\le n\le11\).
 

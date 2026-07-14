@@ -22,6 +22,7 @@ from power_ringmin.product_distance import (
     product_distance_pair_scores,
     product_distance_score,
     residue_one_product_distance_order,
+    residue_two_product_distance_order,
     tail_cycle_incompatibility_minimum,
     tail_pairing_sum,
     terminal_high_incidence_closed_form,
@@ -307,6 +308,7 @@ def exact_truncated_enumerations():
 
 
 def _independent_score(order: tuple[int, ...]) -> Fraction:
+    """Score all pairs by iterating positions, without production support."""
     vertex_count = len(order)
     ratios = []
     for left in range(vertex_count):
@@ -315,6 +317,18 @@ def _independent_score(order: tuple[int, ...]) -> Fraction:
             distance = min(step, vertex_count - step)
             ratios.append(Fraction(order[left] * order[right], distance))
     return max(ratios)
+
+
+def _independent_label_first_score(order: tuple[int, ...]) -> Fraction:
+    """Score all pairs from a label-to-position map via a separate traversal."""
+    positions = {label: position for position, label in enumerate(order)}
+    vertex_count = len(order)
+    return max(
+        Fraction(left * right, distance)
+        for left, right in itertools.combinations(sorted(positions), 2)
+        for separation in (abs(positions[left] - positions[right]),)
+        for distance in (min(separation, vertex_count - separation),)
+    )
 
 
 def _independent_truncated_score(
@@ -1258,6 +1272,96 @@ def test_residue_one_construction_validation_is_strict() -> None:
             match="integer congruent to 1 modulo 5 and at least 11",
         ):
             residue_one_product_distance_order(invalid)  # type: ignore[arg-type]
+
+
+@pytest.mark.parametrize(
+    ("k", "expected_order", "expected_scores", "expected_closing"),
+    (
+        (
+            2,
+            (11, 4, 10, 6, 9, 3, 12, 2, 7, 8, 5),
+            (Fraction(60), Fraction(55), Fraction(32)),
+            (Fraction(55), Fraction(44), Fraction(77, 3)),
+        ),
+        (
+            3,
+            (15, 6, 14, 8, 13, 5, 16, 4, 12, 9, 11, 3, 17, 2, 10, 7),
+            (Fraction(112), Fraction(105), Fraction(51)),
+            (Fraction(105), Fraction(75), Fraction(98, 3)),
+        ),
+    ),
+)
+def test_residue_two_construction_has_exact_local_scores_and_closing_arcs(
+    k: int,
+    expected_order: tuple[int, ...],
+    expected_scores: tuple[Fraction, ...],
+    expected_closing: tuple[Fraction, ...],
+) -> None:
+    n = 5 * k + 2
+    order = residue_two_product_distance_order(n)
+
+    assert order == expected_order
+    assert tuple(sorted(order)) == tuple(range(2, n + 1))
+    assert _independent_exact_distance_scores(order, 3) == expected_scores
+    assert _independent_closing_distance_scores(order, 3) == expected_closing
+
+
+@pytest.mark.parametrize("parity", (0, 1))
+def test_residue_two_construction_symbolic_parity_branches(parity: int) -> None:
+    first_k = 2 if parity == 0 else 3
+    for k in range(first_k, 1001, 2):
+        n = 5 * k + 2
+        d = 4 * k + 4
+        terminal_start = d - 1
+        triple_count = (k + 1) // 2
+        residual_end = terminal_start - 2 * triple_count - 1
+        threshold = Fraction(d * (d - 2), 2)
+        order = residue_two_product_distance_order(n)
+
+        assert tuple(sorted(order)) == tuple(range(2, n + 1))
+        expected_distance_three_product = (
+            (terminal_start + triple_count) * (2 * k + triple_count + 3)
+            if parity == 0
+            else (terminal_start + triple_count) * (2 * k + triple_count + 1)
+        )
+        assert _independent_exact_distance_scores(order, 3) == (
+            threshold,
+            Fraction(terminal_start * (terminal_start - 1), 2),
+            Fraction(expected_distance_three_product, 3),
+        )
+        closing_third_product = (
+            77
+            if k == 2
+            else (2 * k + 1) * (terminal_start - 1)
+        )
+        assert _independent_closing_distance_scores(order, 3) == (
+            Fraction(terminal_start * (2 * k + 1)),
+            Fraction(terminal_start * residual_end, 2),
+            Fraction(closing_third_product, 3),
+        )
+        assert 4 * threshold - n * (n - 1) == 7 * k * k + 33 * k + 14
+        assert 7 * k * k + 33 * k + 14 > 0
+
+
+def test_residue_two_construction_two_independent_all_pairs_scorers() -> None:
+    for k in (2, 3, 4, 5, 10, 11, 25, 26, 100, 101):
+        n = 5 * k + 2
+        d = 4 * k + 4
+        threshold = Fraction(d * (d - 2), 2)
+        order = residue_two_product_distance_order(n)
+
+        assert _independent_score(order) == threshold
+        assert _independent_label_first_score(order) == threshold
+        assert product_distance_score(order) == threshold
+
+
+def test_residue_two_construction_validation_is_strict() -> None:
+    for invalid in (True, 7, 8, 11, 13, Fraction(12), 12.0):
+        with pytest.raises(
+            ValueError,
+            match="integer congruent to 2 modulo 5 and at least 12",
+        ):
+            residue_two_product_distance_order(invalid)  # type: ignore[arg-type]
 
 
 def test_fraction_comparisons_do_not_use_float_rounding() -> None:

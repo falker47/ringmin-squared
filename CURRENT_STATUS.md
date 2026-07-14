@@ -2,149 +2,143 @@
 
 Last update: 2026-07-14
 
-- **Current phase:** symbolic all-\(n\) lower obstruction for the unresolved
-  residue-two product-distance surrogate.
-- **Current task:** prove a new saturation obstruction for
-  \(n\equiv2\pmod5\), without a matching upper construction or geometric
-  claim.
+- **Current phase:** exact residue-class classification of the product-distance
+  surrogates.
+- **Current task:** construct and prove a search-free matching order in the
+  class \(n\equiv2\pmod5\).
 - **Task dossier:**
-  `ops/TASK-20260714__residue_two_saturation_obstruction/`.
+  ops/TASK-20260714__residue_two_exact_construction/.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
-## Residue-Two Saturation Obstruction
+## Exact Residue-Two Construction
 
-Let
+Write
 
 \[
-n=5k+2,
-\qquad
-d=d_n=4k+4,
-\qquad
+n=5k+2,\qquad k\ge2,\qquad d=4k+4,\qquad
 J_n={d(d-2)\over2}.
 \]
 
-EXACT THEOREM: for \(k\ge3\),
+EXACT THEOREM: there is an explicit parity-aware cyclic core order
+\(\sigma_n^{(2)}\), generated with integer arithmetic and no search, such that
 
 \[
-\boxed{B_n\ge J_n}.
+W(\sigma_n^{(2)})=J_n.
 \]
 
-The proof starts from the existing exact lower obstruction
+With \(D=d-1=4k+3\) and \(t=\lceil k/2\rceil\), its terminal and low labels
+are
 
 \[
-H_n={(d-1)(d-2)\over2}
+E_j=D+j,\qquad
+\lambda_j=2k-2j,\qquad
+\rho_j=2k+1-2j.
 \]
 
-and excludes every exact threshold \(H_n\le T<J_n\). In that interval,
-strict threshold arithmetic gives
+The first \(t\) middle paths are
 
 \[
-b_T=d-1,
+P_j=(D-1-2j,\ 2k+2+j,\ D-2-2j),
+\]
+
+and the residual interval is partitioned into singleton paths when \(k\) is
+odd, or one doubleton followed by singleton paths when \(k\) is even. The
+cycle is
+
+\[
+\sigma_n^{(2)}
+=
+\bigoplus_{j=0}^{k-1}(E_j,\lambda_j,P_j,\rho_{j+1}),
+\]
+
+with the \(\rho\)-subscript read modulo \(k\).
+
+## Exact Consequence
+
+The accepted saturation obstruction gives
+
+\[
+B_{12}\ge60=J_{12},
 \qquad
-V_T=\{d-1,\dots,n\},
-\qquad
-v=k.
+B_n\ge J_n
+\quad(n\equiv2\pmod5,\ n\ge17).
 \]
 
-The usable lows are exactly \(2,\dots,2k+1\), so their number is
-\(2k=2v\) and the terminal-high incidence injection is saturated. After
-deleting the terminal highs, the component containing \(x=d-2\) must be
-low--\(x\)--low because
+The matching order supplies the reverse upper bound. Therefore
 
 \[
-x{d\over2}=J_n>T.
+\boxed{B_n=W_n=J_n}
 \]
 
-The two terminal extensions are at distinct positions \(p(x)-2\) and
-\(p(x)+2\) in a cycle of length \(n-1>4\). The distance-two constraint would
-force both labels to equal \(d-1\), contradicting that the order is a
-permutation.
-
-The exceptional case uses separate exact arithmetic:
+at \(n=12\) and for every \(n\equiv2\pmod5\), \(n\ge17\). Together with the
+previous residue-class constructions,
 
 \[
-H_{12}=56<J_{12}=60,
-\qquad
-\boxed{B_{12}\ge60}.
+B_n=W_n=
+\begin{cases}
+d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
+(d_n-1)^2/2,&n\equiv1\pmod5,\\
+d_n(d_n-2)/2,&n\equiv2\pmod5
+\end{cases}
+\qquad(n\ge9).
 \]
 
-Here the saturated lows are \(\{2,3,4,5\}\), the terminal highs are
-\(\{11,12\}\), and \(x=10\) cannot neighbor the intermediate block because
-\(10\cdot6=60>T\). Both distinct distance-two terminals would have to be
-\(11\).
+The \(n=7\) value remains covered by the bounded exact table.
 
-## Consequence For W And Bound Widths
+## Proof Separation
 
-Since \(B_n\le W_n\), the same lower bound transfers immediately. Combining
-it with the existing uniform construction gives
+- Permutation coverage is proved from five disjoint integer intervals and the
+  separate even/odd residual-path cardinalities.
+- The maximum adjacent product is exactly \(J_n\), attained by
+  \((D-1,2k+2)\).
+- The exact maximum product at positional distance two is \(D(D-1)<2J_n\).
+- No terminal-terminal pair occurs at positional distance three, and
+  \(3J_n-n(D-1)=4k^2+18k+8>0\).
+- Every pair crossing the displayed cut is listed separately at distances one,
+  two, and three.
+- For every distance \(q\ge4\),
+  \[
+  ij\le n(n-1)<4J_n\le qJ_n
+  \]
+  because
+  \[
+  4J_n-n(n-1)=7k^2+33k+14>0.
+  \]
 
-\[
-J_n\le B_n\le W_n\le T_n={d_n(d_n-1)\over2}.
-\]
+## Verification
 
-For \(n=5k+2\), \(k\ge3\), the width between the proved endpoints is
-
-\[
-T_n-J_n={d_n\over2}=2k+2={2n+6\over5}.
-\]
-
-At \(n=12\),
-
-\[
-56=H_{12}<60=J_{12}\le B_{12}\le W_{12}\le T_{12}=66,
-\]
-
-so the proved-bound width is \(6\). These widths are not optimality gaps;
-neither \(B_n=J_n\), \(W_n=J_n\), nor \(B_n=W_n\) is asserted.
-
-## Exact Support And Verification
-
-- CURRENT LOCAL VERIFIED FACT: three independent read-only audits agree on
-  the strict inequalities, floors, cardinalities, residual component, distinct
-  terminal positions, separate `n=12` arithmetic, and width consequences.
-- CURRENT LOCAL VERIFIED FACT: the four targeted residue-two test items, all
-  35 focused product-distance tests, 50 integrated tests, and the full 163-test
-  suite pass; the full suite required an unsandboxed rerun for temporary-path
-  access.
-- RETAINED FAILED CHECK: the first focused run had three test-body harness
-  failures when entering the threshold scan because `range` received integral
-  `Fraction` endpoints. Preliminary formula assertions ran, but no
-  per-threshold assertion ran in those rows; converting the already integral
-  doubled endpoints to integer numerators fixed the test harness.
-- CURRENT LOCAL VERIFIED FACT: independent tests inspect every half-integer
-  threshold in `[H_n,J_n)` for `n=12,17,22`, check the strict boundary
-  `T=J_n`, and falsify the symbolic endpoint arithmetic for every
-  `2<=k<=1000`.
-- RETAINED FAILED CHECK: sandboxed full pytest reported `132 passed, 31
-  errors`, all from denied temporary-directory creation. The identical
-  unsandboxed suite passed `163/163`.
+- CURRENT LOCAL VERIFIED FACT: two independent derivations and a third
+  mathematical audit agree on the formula and every symbolic inequality.
+- CURRENT LOCAL VERIFIED FACT: an independent implementation audit
+  reconstructed the generated tuple for every \(2\le k\le5000\).
+- CURRENT LOCAL VERIFIED FACT: two separate all-pairs scorers, one
+  position-first and one label-first, both return \(J_n\) on selected cases
+  from both parity branches.
+- CURRENT LOCAL VERIFIED FACT: the six new test items, all 41 focused
+  product-distance tests, 56 integrated tests, and the full 169-test suite
+  pass. The full suite ran outside the filesystem sandbox because pytest
+  requires its system temporary directory.
+- CURRENT LOCAL VERIFIED FACT: source/test compilation and Ruff pass.
 - CURRENT LOCAL VERIFIED FACT: checked-artifact semantic verification accepts
-  4 certificates, 76 local brackets, and the `n=3..6` summary.
-- CURRENT LOCAL VERIFIED FACT: the changed test module compiles; Ruff with the sole
-  pre-existing `F841` ignored passes. Unmodified Ruff reports only the
-  unchanged unused variable at test line 566, confirmed in `HEAD`.
-- CURRENT LOCAL VERIFIED FACT: all three final independent audits pass; all 9
-  intended paths pass strict UTF-8 and trailing-whitespace checks; the proof
-  has 130 unique equation tags and 243 balanced display pairs; complete diff
-  inspection and `git diff --check` pass.
+  4 certificates, 76 local brackets, and the \(n=3,\dots,6\) summary.
+- CURRENT LOCAL VERIFIED FACT: strict text hygiene, complete diff inspection,
+  and `git diff --check` pass for the intended ten-path delta.
 - CURRENT HOSTED STATUS: GitHub Actions for the current worktree has not been
   independently verified.
 
 ## Residual Limitations
 
-- Exact values of \(B_n\) and \(W_n\) beyond the bounded table remain open
-  only in residue class two.
-- The new theorem is a lower obstruction only; no matching residue-two order
-  was sought in this task.
-- Structural classifications of optimal orders remain open in every class.
-- The first index, if any, where distances at least three change \(W_n\)
-  remains open.
-- Canonical cyclic-order enumeration remains bounded to `n=3..11`; the new
-  larger-range checks evaluate formulas and threshold data only.
-- No geometric claim follows from this task.
+- This is an exact combinatorial surrogate result, not an exact value of the
+  geometric optimum \(R_2^*(n)\).
+- No new geometric claim, principal coefficient, or asymptotic coefficient is
+  asserted.
+- Structural classifications of minimizing cyclic orders remain open.
+- The first index, if any, where positional distances at least three change
+  the optimum remains open.
+- Canonical cyclic-order enumeration remains bounded to \(n=3,\dots,11\).
 
 ## Proposed Next Task
 

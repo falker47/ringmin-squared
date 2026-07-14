@@ -151,26 +151,31 @@ d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
 \]
 
 The uniform upper construction attains this value in residues zero, three,
-and four. A separate search-free order attains the smaller residue-one value
-for every \(n=5k+1\), \(k\ge2\). Therefore exact values of \(B_n\) and \(W_n\)
-are known in residues zero, one, three, and four. Only residue two remains
-unresolved beyond the bounded table. The former residue-one width
-\((2n+3)/5\) measures only slack in the superseded uniform order; it is no
-longer an open optimality interval. In residue two, define
+and four. Separate search-free orders attain the residue-one value for every
+\(n=5k+1\), \(k\ge2\), and the sharper residue-two value
 \[
 J_n={d_n(d_n-2)\over2}.
 \]
-A sharper saturation obstruction proves
+A saturation obstruction proves
 \[
 B_{12}\ge60=J_{12},
 \qquad
 B_n\ge J_n
 \quad(n\equiv2\pmod5,\ n\ge17),
 \]
-and hence \(J_n\le B_n\le W_n\le T_n\). The resulting proved-bound interval
-has width \((2n+6)/5\) for \(n\ge17\), and width \(6\) at \(n=12\), where
-\(H_{12}=56<J_{12}=60<T_{12}=66\). These widths do not assert exact values,
-optimality gaps, or equality of \(B_n\) and \(W_n\).
+while a parity-aware order \(\sigma_n^{(2)}\), valid for every
+\(n=5k+2\), \(k\ge2\), satisfies \(W(\sigma_n^{(2)})=J_n\). Therefore
+\[
+B_n=W_n=
+\begin{cases}
+d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
+(d_n-1)^2/2,&n\equiv1\pmod5,\\
+d_n(d_n-2)/2,&n\equiv2\pmod5
+\end{cases}
+\qquad(n\ge9).
+\]
+The former residue-one and residue-two widths now measure only slack in the
+superseded uniform order; they are not objective gaps.
 
 ## Evidence Basis
 
@@ -291,10 +296,8 @@ optimality gaps, or equality of \(B_n\) and \(W_n\).
   \]
   Its proof controls adjacent pairs, positional distances two and three, all
   pairs crossing the displayed cut, and distances at least four separately.
-  Consequently \(B_n=W_n=H_n\) in residue one. Together with the uniform
-  matching classes, this settles residues zero, one, three, and four; only
-  residue two remains unresolved beyond the bounded table. Canonical
-  factorial enumeration remains bounded to \(n\le11\).
+  Consequently \(B_n=W_n=H_n\) in residue one. Canonical factorial
+  enumeration remains bounded to \(n\le11\).
 - EXACT THEOREM: in residue two, every hypothetical threshold
   \(H_n\le T<J_n=d_n(d_n-2)/2\) saturates the injection of the \(2v\)
   terminal-high incidences into the compatible lows. The component containing
@@ -307,9 +310,13 @@ optimality gaps, or equality of \(B_n\) and \(W_n\).
   \qquad
   B_n\ge J_n\quad(n\equiv2\pmod5,\ n\ge17),
   \]
-  and \(W_n\ge B_n\) transfers the same lower bound. Combined with the
-  existing \(T_n\) construction, the proved-bound width is
-  \((2n+6)/5\), or \(6\) at \(n=12\). This is not an exact-value theorem.
+  A separate parity-aware symbolic order, valid for every \(n=5k+2\),
+  \(k\ge2\), has score exactly \(J_n\). Its proof separately checks
+  permutation, adjacency, positional distances two and three, all closing
+  pairs, and distances at least four using
+  \(4J_n-n(n-1)=7k^2+33k+14>0\). Thus \(B_n=W_n=J_n\) at \(n=12\) and
+  throughout residue two from \(n=17\), completing the exact residue-class
+  formula without extending canonical enumeration.
 - EXACT THEOREM: the same note proves the adjacent formula for \(A_n\) by a
   high/low internal-edge count and an explicit all-`n` cycle whose edges have
   endpoint sums at most \(n+3\); source inspection identifies that cycle with
@@ -431,13 +438,12 @@ optimality gaps, or equality of \(B_n\) and \(W_n\).
 7. The product-distance surrogate isolates exactly what the angular majorant
    needs from a regular-direction order. The explicit \(T_n\) family proves
    the exact leading coefficient \(8/25\) for both \(B_n\) and \(W_n\).
-   Matching constructions now determine their exact values in residues zero,
-   one, three, and four. In residue two the saturation theorem narrows both
-   objectives to \(J_n\le B_n\le W_n\le T_n\), with proved-endpoint width
-   \((2n+6)/5\), but does not determine either exact value. Global structural
-   classifications of minimizers and any geometric matching coefficient
-   remain open. The best tail obstruction remains strict in all enumerated
-   cases where it is defined.
+   Matching constructions now determine their exact values in every residue
+   class for \(n\ge9\); in residue two the value is
+   \(B_n=W_n=J_n=d_n(d_n-2)/2\). Global structural classifications of
+   minimizers and any geometric matching coefficient remain open. The best
+   tail obstruction remains strict in all enumerated cases where it is
+   defined.
 
 8. The adjacent relaxation by itself has coefficient \(1/4\), strictly below
    both the earlier two-threshold coefficient \((36-16\sqrt2)/49\) and the
@@ -446,11 +452,10 @@ optimality gaps, or equality of \(B_n\) and \(W_n\).
    `n>=9`, and obey the stronger explicit lower bound. The nested tail-cycle
    subproblem still has coefficient \((36-16\sqrt2)/49\), while the added
    incidence constraint raises the combined necessary coefficient to
-   \(8/25\), and the explicit order family matches it from above. This settles
-   the leading coefficients and four residue classes exactly. The additional
-   residue-two saturation argument improves the pointwise lower endpoint from
-   \(H_n\) to \(J_n\), but still does not prove exact \(B_n\) or \(W_n\)
-   values there.
+   \(8/25\), and the explicit order families match it from above. This settles
+   the leading coefficients and every residue class exactly for \(n\ge9\).
+   The residue-two saturation argument raises the lower endpoint from \(H_n\)
+   to \(J_n\), and the separate symbolic order attains that endpoint.
 
 ## Updated Research Questions
 
@@ -462,8 +467,6 @@ optimality gaps, or equality of \(B_n\) and \(W_n\).
 - OPEN QUESTION: is \(12\) the least threshold for
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
-- OPEN QUESTION: what exact formula holds for \(B_n\) and \(W_n\) in residue
-  class two, the only class not settled beyond the bounded table?
 - OPEN QUESTION: can the gap between the induced-subset geometric lower
   coefficient and the product-distance upper coefficient \(8/(25\pi)\) be
   narrowed by a sharper angular construction or a stronger lower bound?
@@ -483,9 +486,6 @@ Immediate:
 
 Next:
 
-- Seek a matching residue-two construction, an exact formula, or a further
-  sharpening of \(J_n\le B_n\le W_n\le T_n\), without extending factorial
-  enumeration by default.
 - Keep the exact radius-one theorem separate from finite critical-cycle proxy
   claims and from any assumption that an optimum is attained.
 

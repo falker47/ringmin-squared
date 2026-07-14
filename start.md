@@ -251,33 +251,36 @@ d(d-1)/2,&n\equiv0,3,4\pmod5,\\
 (d-1)(d-2)/2,&n\equiv2\pmod5,\ n\ge17,
 \end{cases}
 \]
-and \(H_{12}=56\). Combining this formula with the uniform construction and
-the separate residue-one construction proves
+and \(H_{12}=56\). Combining the uniform construction with separate
+search-free orders in residues one and two proves
 \[
-B_n=W_n=H_n
+B_n=W_n
 =
 \begin{cases}
 d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
-(d_n-1)^2/2,&n\equiv1\pmod5
+(d_n-1)^2/2,&n\equiv1\pmod5,\\
+d_n(d_n-2)/2,&n\equiv2\pmod5
 \end{cases}
 \qquad(n\ge9).
 \]
 The residue-one branch begins at \(n=11\) and is realized by a separate
 search-free cyclic order whose score is exactly \((d_n-1)^2/2\). Its proof
 checks adjacency, distances two and three, closing arcs, and automatic
-distances at least four separately. Only residue two remains unresolved
-beyond the bounded table. A separate saturation argument, without a matching
-construction, proves
+distances at least four separately. In residue two, put
+\(J_n=d_n(d_n-2)/2\). A saturation argument proves
 \[
 B_{12}\ge60=J_{12},
 \qquad
-B_n\ge J_n={d_n(d_n-2)\over2}
+B_n\ge J_n
 \quad(n\equiv2\pmod5,\ n\ge17).
 \]
-The same lower bounds hold for \(W_n\). Thus
-\(J_n\le B_n\le W_n\le T_n\), and the displayed proved-bound interval has
-width \((2n+6)/5\) for \(n\ge17\), with width \(6\) at \(n=12\). These are
-bound widths, not asserted optimality gaps or exact values.
+A parity-aware symbolic order \(\sigma_n^{(2)}\), valid for
+\(n=5k+2\), \(k\ge2\), is a permutation and has
+\(W(\sigma_n^{(2)})=J_n\). Its proof separately checks adjacency,
+distances two and three, the closing cut, and every distance at least four
+using \(4J_n-n(n-1)=7k^2+33k+14>0\). Hence the displayed lower bounds
+match and give \(B_n=W_n=J_n\) at \(n=12\) and throughout the class from
+\(n=17\). The \(n=7\) value remains supplied by the bounded exact table.
 An exact, no-floating-point canonical enumeration bounded to `n=3..11` gives
 \[
 (W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50),
@@ -299,8 +302,8 @@ also gives
 row by row. The last equality is a bounded exact comparison, not an all-\(n\)
 formula. The table agrees with the theorem: the first non-adjacent gap is
 \(A_9=35<36=W_9\), already accounted for by positional distance two. Exact
-values of \(B_n\) and \(W_n\) are now known in residue classes zero, one,
-three, and four; beyond the bounded table only class two remains unresolved.
+values of \(B_n\) and \(W_n\) are therefore known in every residue class for
+\(n\ge9\), with \(n=7\) separately covered by the bounded table.
 
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
@@ -535,17 +538,19 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \qquad H_{12}=56.
   \]
   The matching upper construction in residues zero, three, and four, together
-  with the separate search-free residue-one construction, gives
+  with separate search-free residue-one and residue-two constructions, gives
   \[
-  B_n=W_n=H_n
+  B_n=W_n
   =
   \begin{cases}
   d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
-  (d_n-1)^2/2,&n\equiv1\pmod5
+  (d_n-1)^2/2,&n\equiv1\pmod5,\\
+  d_n(d_n-2)/2,&n\equiv2\pmod5
   \end{cases}
   \qquad(n\ge9).
   \]
-  The residue-one branch starts at \(n=11\).
+  The residue-one and residue-two branches start at \(n=11\) and \(n=12\),
+  respectively.
 - EXACT THEOREM: in residue two, put
   \(J_n=d_n(d_n-2)/2\). Saturation of all terminal-high incidences below
   \(J_n\), followed by the forced low--\((d_n-2)\)--low component, proves
@@ -555,15 +560,15 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   B_n\ge J_n
   \quad(n\equiv2\pmod5,\ n\ge17).
   \]
-  Since \(W_n\ge B_n\),
+  A symbolic order \(\sigma_n^{(2)}\), generated without search for every
+  \(n=5k+2\), \(k\ge2\), satisfies
   \[
-  J_n\le B_n\le W_n\le T_n.
+  W(\sigma_n^{(2)})=J_n.
   \]
-  The width between these proved endpoints is \((2n+6)/5\) from \(n=17\)
-  and \(6\) at \(n=12\), where
-  \(H_{12}=56<J_{12}=60<T_{12}=66\). Residue two remains unresolved beyond
-  the bounded table: these bounds assert neither exactness nor
-  \(B_n=W_n\).
+  Therefore \(B_n=W_n=J_n\) at \(n=12\) and for every
+  \(n\equiv2\pmod5\), \(n\ge17\). The proof treats permutation, adjacency,
+  distances two and three, closing pairs, and distances at least four
+  separately. It introduces no new geometric claim or asymptotic coefficient.
 - EXACT THEOREM:
   \[
   \lim_{n\to\infty} A_n/n^2

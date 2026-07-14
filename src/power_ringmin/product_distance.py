@@ -724,6 +724,63 @@ def residue_one_product_distance_order(n: int) -> tuple[int, ...]:
     return result
 
 
+def residue_two_product_distance_order(n: int) -> tuple[int, ...]:
+    """Return the exact-threshold order for ``n == 2 (mod 5)``, ``n >= 12``.
+
+    Writing ``n = 5*k+2`` and ``d = 4*k+4``, this search-free construction
+    has product-distance score exactly ``d*(d-2)/2``.  Its two parity branches
+    partition the same symbolic middle interval; the proof is recorded in
+    ``research/PRODUCT_DISTANCE_SURROGATE.md``.
+    """
+    _validate_residue_two_n(n)
+    k = (n - 2) // 5
+    terminal_start = 4 * k + 3
+    triple_count = (k + 1) // 2
+
+    middle_paths: list[tuple[int, ...]] = [
+        (
+            terminal_start - 1 - 2 * block,
+            2 * k + 2 + block,
+            terminal_start - 2 - 2 * block,
+        )
+        for block in range(triple_count)
+    ]
+    residual_start = 2 * k + triple_count + 2
+    if k % 2 == 0:
+        middle_paths.append((residual_start, residual_start + 1))
+        middle_paths.extend(
+            (residual_start + block - triple_count + 1,)
+            for block in range(triple_count + 1, k)
+        )
+    else:
+        middle_paths.extend(
+            (residual_start + block - triple_count,)
+            for block in range(triple_count, k)
+        )
+    if len(middle_paths) != k:
+        raise AssertionError(
+            f"middle-path count mismatch for n={n}: "
+            f"expected {k}, got {len(middle_paths)}"
+        )
+
+    order: list[int] = []
+    for block, middle_path in enumerate(middle_paths):
+        next_block = (block + 1) % k
+        order.extend(
+            (
+                terminal_start + block,
+                2 * k - 2 * block,
+                *middle_path,
+                2 * k + 1 - 2 * next_block,
+            )
+        )
+
+    result = tuple(order)
+    if len(result) != n - 1 or set(result) != set(range(2, n + 1)):
+        raise AssertionError(f"residue-two construction is not a core order for n={n}")
+    return result
+
+
 def enumerate_product_distance(
     n: int,
     *,
@@ -960,6 +1017,19 @@ def _validate_residue_one_n(n: int) -> None:
         )
 
 
+def _validate_residue_two_n(n: int) -> None:
+    if (
+        isinstance(n, bool)
+        or not isinstance(n, int)
+        or n < 12
+        or n % 5 != 2
+    ):
+        raise ValueError(
+            "n must be an integer congruent to 2 modulo 5 and at least 12, "
+            f"got {n!r}"
+        )
+
+
 def _validate_max_position_distance(max_position_distance: int) -> None:
     if (
         isinstance(max_position_distance, bool)
@@ -1084,6 +1154,7 @@ __all__ = [
     "product_distance_pair_scores",
     "product_distance_score",
     "residue_one_product_distance_order",
+    "residue_two_product_distance_order",
     "tail_cycle_incompatibility_minimum",
     "tail_pairing_sum",
     "terminal_high_incidence_closed_form",

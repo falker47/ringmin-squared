@@ -398,14 +398,15 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \end{cases}
   \qquad H_{12}=56.
   \]
-  The uniform upper construction and a separate search-free residue-one
-  construction give
+  The uniform upper construction and separate search-free residue-one and
+  residue-two constructions give
   \[
-  B_n=W_n=H_n
+  B_n=W_n
   =
   \begin{cases}
   d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
-  (d_n-1)^2/2,&n\equiv1\pmod5
+  (d_n-1)^2/2,&n\equiv1\pmod5,\\
+  d_n(d_n-2)/2,&n\equiv2\pmod5
   \end{cases}
   \qquad(n\ge9).
   \]
@@ -428,22 +429,20 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   B_n\ge J_n
   \quad(n\equiv2\pmod5,\ n\ge17).
   \]
-  Since \(W_n\ge B_n\), the existing uniform upper construction gives
+  A separate parity-aware order \(\sigma_n^{(2)}\), generated without search
+  for every \(n=5k+2\), \(k\ge2\), is a permutation and satisfies
   \[
-  J_n\le B_n\le W_n\le T_n.
+  W(\sigma_n^{(2)})=J_n.
   \]
-  The width between these proved endpoints is
+  Its symbolic proof checks adjacency, distances two and three, the closing
+  cut, and all distances at least four through
+  \(4J_n-n(n-1)=7k^2+33k+14>0\). Therefore
   \[
-  T_n-J_n=
-  \begin{cases}
-  (2n+6)/5,&n\equiv2\pmod5,\ n\ge17,\\
-  6,&n=12.
-  \end{cases}
+  B_n=W_n=J_n
   \]
-  Residue two remains unresolved beyond the bounded table. These are widths
-  of proved bound intervals, not asserted optimality gaps; no exact value of
-  \(B_n\) or \(W_n\) beyond the bounded \(n\le11\) table, no equality
-  \(B_n=W_n\), and no all-\(n\) exact formula is proved in residue two.
+  at \(n=12\) and for every \(n\equiv2\pmod5\), \(n\ge17\). The case \(n=7\)
+  remains covered by the bounded exact table. The older uniform threshold has
+  slack \(T_n-J_n=d_n/2\), which is not an objective gap.
 - EXACT THEOREM: the matching lower and upper bounds give
   \[
   \lim_{n\to\infty}{B_n\over n^2}
@@ -506,8 +505,8 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   incompatibility, compatible-low capacity, unchanged finite two-threshold
   obstruction, joint terminal-high incidence obstruction, its constant-time
   exact residue-class formula, the explicit eight-twenty-fifths order and
-  threshold, the exact-threshold residue-one order, full-distance tail
-  obstructions,
+  threshold, the exact-threshold residue-one and residue-two orders,
+  full-distance tail obstructions,
   and deterministic full and truncated enumeration with the hard domain
   `3<=n<=11` and a preflight canonical-order ceiling. The explicit upper
   generators perform no search or enumeration. The module creates no CLI or
@@ -551,10 +550,9 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - INTERPRETATION: the finite table is not an all-`n` formula, a geometric
   certificate, or proof that the surrogate radius is geometrically optimal
   for a fixed order. No conjecture is promoted from these nine cases.
-- OPEN QUESTION: exact finite values of \(B_n\) and \(W_n\) beyond the bounded
-  table remain unresolved in residue class two; classes zero, one, three, and
-  four now have the exact formula above. Structural characterizations of
-  optimal orders remain open in every class.
+- EXACT THEOREM: the residue-class constructions above determine \(B_n=W_n\)
+  for every \(n\ge9\); the bounded table separately includes \(n=7\).
+  Structural characterizations of optimal orders remain open in every class.
 - OPEN QUESTION: positional distances at least three do not change the exact
   objective or minimizer set for \(3\le n\le11\); their first essential index,
   if one exists, is unresolved.
@@ -664,9 +662,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
   critical-structure diagnostics, verifier limitations, workflow provenance,
   the induced-subset lower bound, exact insertion theorem, regular-direction
   bounds, bounded product-distance enumeration through `n=11`, the all-\(n\)
-  matching construction, exact surrogate values in residues zero, one,
-  three, and four, and the sharpened residue-two saturation obstruction
-  \(J_n\le B_n\le W_n\le T_n\).
+  matching construction, and the exact residue-class formulas for both
+  surrogates, including the residue-two equality \(B_n=W_n=J_n\).
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
