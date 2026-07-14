@@ -133,9 +133,15 @@
   W_n^{(\le2)}=B_n=W_n\qquad(n\ge3).
   \]
   Thus positional distances at least three never change the optimum value.
-  The bounded enumeration also proves equality of the distance-two and full
-  minimizer sets through \(n=11\); that stronger set equality is not claimed
-  for \(n\ge12\).
+- **EXACT THEOREM (first minimizer restriction):** the distance-two and full
+  minimizer sets coincide for \(3\le n\le92\). At \(n=93\), relocating label
+  `54` in `eight_twenty_fifths_order(93)` from between `4` and `3` to
+  between `16` and `48` gives a distance-two minimizer with truncated score
+  \(2850\) but full score \(2852\), attained by \((92,93)\) at distance
+  three. Hence
+  \(93\) is the first index at which distances at least three restrict the
+  minimizer set. This uses no canonical enumeration beyond \(n=11\) and has no
+  geometric consequence.
 - **CONJECTURE:** none is proposed from nine finite cases.
 
 Fractions are oriented exactly as displayed below. The accepted angular
@@ -3398,10 +3404,134 @@ B_n
 
 and hence
 \(\mathcal M_n\subseteq\mathcal M_n^{(\le2)}\) for every \(n\ge3\).
-The bounded exact enumeration proves equality of the canonical minimizer sets
-for \(3\le n\le11\). It does not prove the reverse inclusion for
-\(n\ge12\), nor does (GC1) imply that every constraint at distance at least
-three is slack or inactive.
+
+Every pair omitted from the distance-two objective has circular positional
+distance \(q\ge3\). Since its two labels are distinct elements of
+\(\{2,\dots,n\}\),
+
+\[
+{ij\over q}\le {n(n-1)\over3}.
+\tag{MS1}
+\]
+
+Consequently,
+
+\[
+{n(n-1)\over3}\le B_n
+\quad\Longrightarrow\quad
+\mathcal M_n=\mathcal M_n^{(\le2)}.
+\tag{MS2}
+\]
+
+Indeed, if \(\sigma\in\mathcal M_n^{(\le2)}\), its retained-pair maximum is
+\(B_n\), while (MS1)--(MS2) bound every omitted pair by \(B_n\). Thus
+\(W(\sigma)=B_n=W_n\), where the last equality is (GC1), and the reverse
+inclusion follows. The forward inclusion was proved above.
+
+It remains to evaluate (MS2) exactly. For \(n=5k+r\ge9\), define
+
+\[
+\Delta_r(k)=3B_n-n(n-1).
+\tag{MS3}
+\]
+
+The exact residue-class formula (RC5) gives:
+
+| \(r\) | \(d_n\) | \(B_n\) | \(\Delta_r(k)\) | \(k\)-range for \(9\le n\le92\) | endpoint values |
+|---:|---:|---:|---:|---:|---:|
+| 0 | \(4k+2\) | \(8k^2+6k+1\) | \(-k^2+23k+3\) | \(2\le k\le18\) | \(45,93\) |
+| 1 | \(4k+3\) | \(8k^2+8k+2\) | \(-k^2+19k+6\) | \(2\le k\le18\) | \(40,24\) |
+| 2 | \(4k+4\) | \(8k^2+12k+4\) | \(-k^2+21k+10\) | \(2\le k\le18\) | \(48,64\) |
+| 3 | \(4k+4\) | \(8k^2+14k+6\) | \(-k^2+17k+12\) | \(2\le k\le17\) | \(42,12\) |
+| 4 | \(4k+5\) | \(8k^2+18k+10\) | \(-k^2+19k+18\) | \(1\le k\le17\) | \(36,52\) |
+
+Each quadratic is concave, so its minimum on the displayed integer interval
+occurs at an endpoint. Every listed endpoint value is positive. For
+\(3\le n\le8\), the exact values
+\((B_3,\dots,B_8)=(6,12,15,20,24,30)\) instead give
+
+\[
+(3B_n-n(n-1))_{n=3}^8=(12,24,25,30,30,34).
+\tag{MS4}
+\]
+
+Therefore (MS2) proves the exact initial range
+
+\[
+\boxed{
+\mathcal M_n=\mathcal M_n^{(\le2)}
+\qquad(3\le n\le92)
+}.
+\tag{MS5}
+\]
+
+The next index is \(93=5\cdot18+3\). Here \(d_{93}=76\), and (RC5) gives
+
+\[
+B_{93}=W_{93}={76\cdot75\over2}=2850,
+\qquad
+{93\cdot92\over3}=2852.
+\tag{MS6}
+\]
+
+The failure of (MS2) does not by itself prove strict inclusion, so an explicit
+witness is needed. Start from the already proved search-free order
+\(\sigma_{93}=\operatorname{eight\_twenty\_fifths\_order}(93)\). It contains
+the oriented fragments
+
+\[
+\ldots,86,16,48,15,\ldots,92,4,54,3,93,\ldots .
+\]
+
+Delete label \(54\) from the second fragment and insert it between \(16\) and
+\(48\), preserving the cyclic order of every other label. Call the result
+\(\tau_{93}\); its two changed fragments are
+
+\[
+\ldots,86,16,54,48,15,\ldots,92,4,3,93,\ldots .
+\]
+
+The base order has full score \(2850\). The only new adjacent scores are
+
+\[
+16\cdot54=864,
+\qquad54\cdot48=2592,
+\qquad4\cdot3=12,
+\]
+
+and the only new distance-two scores are
+
+\[
+{86\cdot54\over2}=2322,
+\quad {16\cdot48\over2}=384,
+\quad {54\cdot15\over2}=405,
+\quad {92\cdot3\over2}=138,
+\quad {4\cdot93\over2}=186.
+\]
+
+All are below \(2850\). The unaffected pairs \((38,75)\) at distance one and
+\((75,76)\) at distance two still attain \(2850\), so
+\(W^{(\le2)}(\tau_{93})=2850=B_{93}\). On the other hand, the second changed
+fragment places \((92,93)\) at distance three, and hence
+
+\[
+{92\cdot93\over3}=2852.
+\]
+
+By (MS1), no pair at distance at least three can exceed \(2852\). Therefore
+
+\[
+W^{(\le2)}(\tau_{93})=2850,
+\qquad
+W(\tau_{93})=2852,
+\qquad
+\boxed{\mathcal M_{93}\subsetneq\mathcal M_{93}^{(\le2)}}.
+\tag{MS7}
+\]
+
+Equations (MS5) and (MS7) prove that \(93\) is the first restriction index.
+No persistence for every later \(n\) is asserted: the sufficient criterion
+(MS2), for example, holds again at \(n=94\).
 
 ## Verification Boundary And Open Questions
 
@@ -3427,8 +3557,13 @@ exceptional orders, their exact
 distance-class and closing maxima, independent cyclic checks of the symbolic
 family, the exact residue-one generator, its two parity branches, its exact
 distance-one and distance-two maxima, its closing arcs, and the effective
-full-distance tail comparison. A separate verifier builds the tails and
-incidence endpoints without production support for all 872
+full-distance tail comparison. The same test module now also checks the exact
+residue formula against \(3B_n\ge n(n-1)\) through \(n=92\), its first
+failure at \(n=93\), the requested label relocation, every one of the
+\(\binom{92}{2}\) pair scores through two independent exact traversals, the
+unique score above \(2850\), and the production scorers as a cross-check. A
+separate verifier builds the tails and incidence endpoints without production
+support for all 872
 orders on `n=3..7` over 34,160 half-integer states, and directly checks the
 two-terminal-high equality case at `n=11`. Exact reproduction of both
 truncated and full tables remains bounded to `n=3..11`; no cyclic-order
@@ -3442,11 +3577,10 @@ The following remain unresolved.
 
 - **OPEN QUESTION:** can minimizing cyclic orders be characterized
   structurally in any residue class, beyond the displayed witnesses?
-- **OPEN QUESTION:** do positional distances at least three strictly restrict
-  the minimizer set for some \(n\ge12\)? Equivalently, can
-  \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\) occur? The optimum values
-  agree for every \(n\ge3\), and the minimizer sets agree for
-  \(3\le n\le11\).
+- **OPEN QUESTION:** for which \(n\ge94\) is
+  \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\)? Criterion (MS2)
+  certifies equality whenever it holds, including \(n=94\), but no complete
+  classification of subsequent indices is claimed.
 
 No formula suggested by the nine values of \(W_n\) is promoted to a
 conjecture. No geometric certificate, schema, serialized result artifact, or

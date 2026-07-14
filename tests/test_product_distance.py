@@ -487,6 +487,21 @@ def _independent_terminal_high_closed_form(n: int) -> Fraction:
     return Fraction(polynomial_by_residue[residue])
 
 
+def _independent_product_distance_optimum_closed_form(n: int) -> Fraction:
+    """Evaluate the exact ``B_n = W_n`` residue formula independently."""
+    if n < 9:
+        raise ValueError("the exact residue formula starts at n=9")
+    k, residue = divmod(n, 5)
+    polynomial_by_residue = (
+        8 * k * k + 6 * k + 1,
+        8 * k * k + 8 * k + 2,
+        8 * k * k + 12 * k + 4,
+        8 * k * k + 14 * k + 6,
+        8 * k * k + 18 * k + 10,
+    )
+    return Fraction(polynomial_by_residue[residue])
+
+
 def test_rational_pair_scores_are_exact_and_cover_every_pair() -> None:
     order = (9, 2, 6, 5, 7, 4, 8, 3)
     pair_scores = product_distance_pair_scores(order)
@@ -1196,6 +1211,90 @@ def test_eight_twenty_fifths_symbolic_family_is_exact() -> None:
         assert _independent_score(eight_twenty_fifths_order(n)) == (
             eight_twenty_fifths_threshold(n)
         )
+
+
+def test_long_distance_domination_holds_through_92_and_first_fails_at_93() -> None:
+    small_optima = (6, 12, 15, 20, 24, 30)
+    for n, optimum in enumerate(small_optima, start=3):
+        assert 3 * optimum >= n * (n - 1)
+
+    # This is exact residue-formula evaluation, not cyclic-order enumeration.
+    for n in range(9, 93):
+        optimum = _independent_product_distance_optimum_closed_form(n)
+        assert 3 * optimum >= n * (n - 1)
+
+    optimum_93 = _independent_product_distance_optimum_closed_form(93)
+    assert optimum_93 == 2850
+    assert 3 * optimum_93 == 93 * 92 - 6
+
+    # The failed sufficient inequality is not monotone beyond the first index.
+    optimum_94 = _independent_product_distance_optimum_closed_form(94)
+    assert optimum_94 == 2926
+    assert 3 * optimum_94 >= 94 * 93
+
+
+def test_n93_long_distance_minimizer_restriction_has_independent_exact_score() -> None:
+    base_order = eight_twenty_fifths_order(93)
+    source_position = base_order.index(92)
+    target_position = base_order.index(16)
+    assert base_order[source_position : source_position + 5] == (92, 4, 54, 3, 93)
+    assert base_order[target_position : target_position + 2] == (16, 48)
+    assert _independent_score(base_order) == 2850
+
+    moved_order = list(base_order)
+    moved_order.remove(54)
+    insertion_position = moved_order.index(48)
+    assert moved_order[insertion_position - 1] == 16
+    moved_order.insert(insertion_position, 54)
+    order = tuple(moved_order)
+
+    assert len(order) == 92
+    assert set(order) == set(range(2, 94))
+    assert order[order.index(16) : order.index(16) + 3] == (16, 54, 48)
+    assert order[order.index(92) : order.index(92) + 4] == (92, 4, 3, 93)
+
+    distance_scores = _independent_exact_distance_scores(order, 3)
+    truncated_score = _independent_truncated_score(order, 2)
+    full_score = _independent_score(order)
+    assert distance_scores == (Fraction(2850), Fraction(2850), Fraction(2852))
+    assert truncated_score == 2850
+    assert full_score == 2852
+    assert _independent_label_first_score(order) == full_score
+
+    positions = {label: position for position, label in enumerate(order)}
+    vertex_count = len(order)
+    pair_rows = tuple(
+        (
+            left,
+            right,
+            min(
+                abs(positions[left] - positions[right]),
+                vertex_count - abs(positions[left] - positions[right]),
+            ),
+        )
+        for left, right in itertools.combinations(range(2, 94), 2)
+    )
+    scored_rows = tuple(
+        (left, right, distance, Fraction(left * right, distance))
+        for left, right, distance in pair_rows
+    )
+    assert len(scored_rows) == math.comb(vertex_count, 2)
+    assert tuple(
+        row for row in scored_rows if row[2] <= 2 and row[3] == truncated_score
+    ) == (
+        (38, 75, 1, Fraction(2850)),
+        (75, 76, 2, Fraction(2850)),
+    )
+    assert tuple(row for row in scored_rows if row[3] > 2850) == (
+        (92, 93, 3, Fraction(2852)),
+    )
+    assert max(row[3] for row in scored_rows if row[2] >= 4) == 2093
+
+    optimum_93 = _independent_product_distance_optimum_closed_form(93)
+    assert truncated_score == optimum_93
+    assert full_score > optimum_93
+    assert truncated_product_distance_score(order, 2) == truncated_score
+    assert product_distance_score(order) == full_score
 
 
 def test_eight_twenty_fifths_construction_validation_is_strict() -> None:

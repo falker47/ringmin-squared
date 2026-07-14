@@ -308,10 +308,26 @@ gives the global classification
 \[
 W_n^{(\le2)}=B_n=W_n\qquad(n\ge3).
 \]
-Thus distances at least three never change the optimum value. The bounded
-enumeration additionally proves equality of the distance-two and full
-minimizer sets through \(n=11\); equality of those sets is not claimed for
-\(n\ge12\).
+Thus distances at least three never change the optimum value. Let
+\(\mathcal M_n\) and \(\mathcal M_n^{(\le2)}\) denote the full and
+distance-two minimizer sets. Every omitted pair has score at most
+\(n(n-1)/3\). Exact evaluation of the residue-class formula proves
+\[
+\mathcal M_n=\mathcal M_n^{(\le2)}
+\qquad(3\le n\le92).
+\]
+At \(n=93\), moving label \(54\) in
+\(\operatorname{eight\_twenty\_fifths\_order}(93)\) from the segment
+\((92,4,54,3,93)\) to between the consecutive labels \(16,48\) gives
+\[
+W^{(\le2)}=2850=B_{93},
+\qquad
+W=2852
+\]
+because \((92,93)\) is then at distance three. Hence
+\(\mathcal M_{93}\subsetneq\mathcal M_{93}^{(\le2)}\), so \(93\) is the
+first minimizer-restriction index. This is an exact combinatorial result,
+uses no canonical enumeration beyond \(n=11\), and makes no geometric claim.
 
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
@@ -605,8 +621,23 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \[
   W_n^{(\le2)}=B_n=W_n\qquad(n\ge3).
   \]
-  Hence distances at least three never change the optimum; it remains open
-  only whether they restrict the minimizer set for some \(n\ge12\).
+  Hence distances at least three never change the optimum value.
+- EXACT THEOREM: every pair omitted from the distance-two objective has score
+  at most \(n(n-1)/3\). Combining this bound with the exact values of \(B_n\)
+  proves
+  \[
+  \mathcal M_n=\mathcal M_n^{(\le2)}
+  \qquad(3\le n\le92).
+  \]
+  At \(n=93\), the requested relocation of label \(54\) in
+  \(\operatorname{eight\_twenty\_fifths\_order}(93)\) has
+  \(W^{(\le2)}=2850=B_{93}\) and \(W=2852\), uniquely above \(B_{93}\)
+  through the pair \((92,93)\) at distance three. Therefore
+  \[
+  \mathcal M_{93}\subsetneq\mathcal M_{93}^{(\le2)},
+  \]
+  and \(93\) is the first restriction index. No assertion is made that strict
+  inclusion persists at every later index.
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
   \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved

@@ -562,11 +562,28 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \(\mathcal M_n^{(\le2)}\) denote the full and distance-two minimizer sets,
   then
   \(\mathcal M_n\subseteq\mathcal M_n^{(\le2)}\) for every \(n\ge3\).
-  The bounded exact enumeration proves equality for \(3\le n\le11\).
-- OPEN QUESTION: is
-  \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\) for some \(n\ge12\)?
-  Equivalently, can distances at least three remove some distance-two
-  minimizers even though they never change the optimum value?
+  More sharply, every omitted pair has score at most \(n(n-1)/3\), so
+  \(n(n-1)/3\le B_n\) implies equality of the two sets.
+- EXACT THEOREM: exact residue-class evaluation of the preceding criterion,
+  together with the bounded exact values for \(3\le n\le8\), proves
+  \[
+  \mathcal M_n=\mathcal M_n^{(\le2)}
+  \qquad(3\le n\le92).
+  \]
+  At \(n=93\), move label \(54\) in
+  \(\operatorname{eight\_twenty\_fifths\_order}(93)\) from between \(4,3\)
+  to between \(16,48\). Exact all-pairs scoring gives
+  \(W^{(\le2)}=2850=B_{93}\) and \(W=2852\), with \((92,93)\) at distance
+  three. Hence
+  \[
+  \mathcal M_{93}\subsetneq\mathcal M_{93}^{(\le2)},
+  \]
+  and \(93\) is the first index where distances at least three restrict the
+  minimizer set. This uses no canonical enumeration beyond \(n=11\) and has
+  no geometric implication.
+- OPEN QUESTION: for which \(n\ge94\) is the minimizer inclusion strict? No
+  persistence from \(n=93\) onward is claimed; the sufficient equality
+  criterion already holds again at \(n=94\).
 - OPEN QUESTION: structural characterizations of minimizing orders remain
   open in every residue class.
 
@@ -674,9 +691,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   roadmap synthesizing checked `n=3..6` certificates, candidate-set and
   critical-structure diagnostics, verifier limitations, workflow provenance,
   the induced-subset lower bound, exact insertion theorem, regular-direction
-  bounds, bounded product-distance enumeration through `n=11`, the all-\(n\)
+  bounds, bounded product-distance enumeration through \(n=11\), the all-\(n\)
   matching construction, the exact residue-class formulas, and their global
-  consequence \(W_n^{(\le2)}=B_n=W_n\) for every \(n\ge3\).
+  consequence \(W_n^{(\le2)}=B_n=W_n\) for every \(n\ge3\), together with
+  minimizer-set equality through \(n=92\) and its first strict inclusion at
+  \(n=93\).
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -707,6 +726,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
   surrogate \(W_n\) is a different statement.
 - LIMITATION: no upper bound matching the induced-subset leading coefficient
   has been proved in this repository.
+- LIMITATION: the later indices \(n\ge94\) with strict distance-two/full
+  minimizer inclusion have not been classified.
 - LIMITATION: neither existence of \(\lim R_2^*(n)/n^3\) nor a leading-term
   asymptotic formula has been proved in this repository.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.

@@ -8,6 +8,9 @@ and zigzag cubic upper bound, the exact bounded product-distance surrogate
 analysis through `n=11`, the matching all-\(n\) symbolic surrogate
 constructions, and the global classification
 \(W_n^{(\le2)}=B_n=W_n\) for every \(n\ge3\).
+It also records the exact first minimizer-set restriction:
+\(\mathcal M_n=\mathcal M_n^{(\le2)}\) for \(3\le n\le92\), while
+\(\mathcal M_{93}\subsetneq\mathcal M_{93}^{(\le2)}\).
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -104,8 +107,12 @@ same equality for every \(n\ge9\). Since the two domains cover every
 W_n^{(\le2)}=B_n=W_n\qquad(n\ge3).
 \]
 Thus distances at least three never change the optimum value. The bounded
-regression additionally proves equality of the distance-two and full
-minimizer sets through \(n=11\); no all-\(n\) equality of those sets follows.
+table is no longer the endpoint of the minimizer-set result: the universal
+omitted-pair bound \(ij/q\le n(n-1)/3\), combined with the exact residue
+formula, proves equality of the distance-two and full minimizer sets through
+\(n=92\). The requested moved-label order at \(n=93\) has truncated score
+\(2850\) and full score \(2852\), so \(93\) is the first strict-inclusion
+index.
 
 A separate two-threshold cyclic packing theorem now gives a quantitative
 lower obstruction for \(B_n\). The graph of compatible products \(xy\le2T\)
@@ -382,8 +389,15 @@ saturation for every \(n\ge3\).
   equality and the residue-class formula on `n>=9` cover every `n>=3` and
   prove
   \(W_n^{(\le2)}=B_n=W_n\). For every integer \(q\ge2\), monotonicity also
-  gives \(W_n^{(\le q)}=W_n\). This does not extend the bounded equality of
-  minimizer sets beyond `n=11`.
+  gives \(W_n^{(\le q)}=W_n\).
+- EXACT THEOREM: every omitted pair has score at most \(n(n-1)/3\). Exact
+  residue arithmetic proves
+  \(\mathcal M_n=\mathcal M_n^{(\le2)}\) for \(3\le n\le92\). At \(n=93\),
+  relocating label \(54\) from between \(4,3\) to between \(16,48\) in
+  \(\operatorname{eight\_twenty\_fifths\_order}(93)\) gives
+  \(W^{(\le2)}=2850=B_{93}\) but \(W=2852\), attained by \((92,93)\) at
+  distance three. Thus \(93\) is the first minimizer-restriction index, with
+  no enumeration beyond \(n=11\) and no geometric conclusion.
 - VERIFIED FACT: `examples/finite_results_summary_n3_n6.json` derives
   candidate sets, exclusion gaps, repeated serialized bracket groups, and
   small-`n` ratios from the checked finite certificates.
@@ -458,9 +472,10 @@ saturation for every \(n\ge3\).
    class for \(n\ge9\); in residue two the value is
    \(B_n=W_n=J_n=d_n(d_n-2)/2\). Combined with the exact bounded table, this
    proves \(W_n^{(\le2)}=B_n=W_n\) for every \(n\ge3\). Global structural
-   classifications of minimizers and any geometric matching coefficient
-   remain open. The best tail obstruction remains strict in all enumerated
-   cases where it is defined.
+   classifications of minimizers remain open, but their first long-distance
+   restriction is now exact: the sets agree through \(n=92\) and differ at
+   \(n=93\). Any geometric matching coefficient remains open. The best tail
+   obstruction remains strict in all enumerated cases where it is defined.
 
 8. The adjacent relaxation by itself has coefficient \(1/4\), strictly below
    both the earlier two-threshold coefficient \((36-16\sqrt2)/49\) and the
@@ -487,10 +502,10 @@ saturation for every \(n\ge3\).
 - OPEN QUESTION: can the gap between the induced-subset geometric lower
   coefficient and the product-distance upper coefficient \(8/(25\pi)\) be
   narrowed by a sharper angular construction or a stronger lower bound?
-- OPEN QUESTION: do positional distances at least three strictly restrict the
-  minimizer set for some \(n\ge12\)? Equivalently, can a distance-two
-  minimizer have full score strictly greater than \(B_n\)? The optimum values
-  agree for every \(n\ge3\), and the minimizer sets agree through \(n=11\).
+- OPEN QUESTION: for which \(n\ge94\) do positional distances at least three
+  strictly restrict the minimizer set? The sufficient equality criterion
+  \(n(n-1)/3\le B_n\) holds again at \(n=94\), so no persistence from the
+  first strict index onward is asserted.
 - OPEN QUESTION: can the fixed-order STN/geometric equivalence, endpoint
   semantics, and negative-cycle proof obligations be recorded independently of
   any particular asymptotic constant?

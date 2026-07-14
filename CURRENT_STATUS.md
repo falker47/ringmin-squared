@@ -2,138 +2,115 @@
 
 Last update: 2026-07-14
 
-- **Current phase:** global exact classification of the product-distance
-  surrogates.
-- **Current task:** consolidate the exact bounded table and residue-class
-  theorem into the all-\(n\) distance-two saturation result.
+- **Current phase:** exact minimizer-set boundary for the product-distance
+  surrogate.
+- **Current task:** prove the first index at which positional distances at
+  least three restrict distance-two minimizers.
 - **Task dossier:**
-  ops/TASK-20260714__global_surrogate_classification/.
+  ops/TASK-20260714__first_long_distance_minimizer_restriction/.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
-## Global Exact Consequence
+## Exact Result
 
-By definition,
-
-\[
-B_n=W_n^{(\le2)}\le W_n.
-\]
-
-VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): the bounded table gives
+Let \(\mathcal M_n\) and \(\mathcal M_n^{(\le2)}\) denote the full and
+distance-two minimizer sets. The accepted global value theorem remains
 
 \[
-(B_3,\dots,B_{11})
-=
-(W_3,\dots,W_{11})
-=
-(6,12,15,20,24,30,36,45,50).
+W_n^{(\le2)}=B_n=W_n\qquad(n\ge3).
 \]
 
-EXACT THEOREM: the residue-class constructions give
+For any cyclic core order, every pair omitted from the distance-two objective
+has score
 
 \[
-B_n=W_n=
-\begin{cases}
-d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
-(d_n-1)^2/2,&n\equiv1\pmod5,\\
-d_n(d_n-2)/2,&n\equiv2\pmod5
-\end{cases}
-\qquad(n\ge9),
+{ij\over q}\le {n(n-1)\over3}
+\qquad(q\ge3).
 \]
 
-where \(d_n=\lceil(4n+8)/5\rceil\). On the overlap \(n=9,10,11\), this
-formula returns \(36,45,50\), matching the exact table.
-
-EXACT THEOREM (FINITE-EXHAUSTIVE PLUS SYMBOLIC): because
-\([3,11]\cup[9,\infty)=[3,\infty)\),
+Therefore \(n(n-1)/3\le B_n\) implies
+\(\mathcal M_n=\mathcal M_n^{(\le2)}\). Exact evaluation of the bounded
+values for \(3\le n\le8\) and the five residue-class formulas for
+\(9\le n\le92\) proves
 
 \[
-\boxed{W_n^{(\le2)}=B_n=W_n\qquad(n\ge3)}.
+\boxed{
+\mathcal M_n=\mathcal M_n^{(\le2)}
+\qquad(3\le n\le92)
+}.
 \]
 
-Consequently, for every integer \(q\ge2\),
+At \(n=93\), the exact formula gives
 
 \[
-B_n\le W_n^{(\le q)}\le W_n=B_n,
+d_{93}=76,
+\qquad
+B_{93}=W_{93}=2850,
+\qquad
+{93\cdot92\over3}=2852.
 \]
 
-so positional distances at least three never change the optimum value.
-
-## Minimizer-Set Boundary
-
-Let \(\mathcal M_n\) and \(\mathcal M_n^{(\le2)}\) be the full and
-distance-two minimizer sets. For any \(\sigma\in\mathcal M_n\),
+Starting from \(\operatorname{eight\_twenty\_fifths\_order}(93)\), delete
+label \(54\) from the segment \((92,4,54,3,93)\) and insert it between the
+consecutive labels \(16,48\). Exact scoring of the resulting order
+\(\tau_{93}\) gives
 
 \[
-B_n
-\le W^{(\le2)}(\sigma)
-\le W(\sigma)
-=W_n
-=B_n.
+W^{(\le2)}(\tau_{93})=2850,
+\qquad
+W(\tau_{93})=2852,
 \]
 
-Therefore
+with the full maximum uniquely attained by \((92,93)\) at circular distance
+three. Consequently,
 
 \[
-\mathcal M_n\subseteq\mathcal M_n^{(\le2)}
-\qquad(n\ge3).
+\boxed{\mathcal M_{93}\subsetneq\mathcal M_{93}^{(\le2)}}.
 \]
 
-The exact bounded enumeration proves equality of the canonical minimizer sets
-for \(3\le n\le11\). The correctly bounded open question is whether this
-inclusion is strict for some \(n\ge12\), equivalently whether distances at
-least three remove some distance-two minimizers without changing the optimum.
-
-## Ruff Provenance Correction
-
-The unused `t = n // 2` assignment in the terminal-high boundary test helper
-was removed. The identically named assignment in production source and the
-other assignment in the adjacent-equality test remain because both are used.
-
-- CURRENT LOCAL VERIFIED FACT: `python -m ruff --version` returned exactly
-  `ruff 0.11.12`.
-- CURRENT LOCAL VERIFIED FACT: default Ruff rules, no ignores, explicit
-  two-file provenance scope:
-  `python -m ruff check src\power_ringmin\product_distance.py
-  tests\test_product_distance.py` returned exactly
-  `All checks passed!` with exit code `0`.
-- LIMITATION: this is not a repository-wide Ruff claim.
+EXACT THEOREM: \(93\) is the first index at which distances at least three
+restrict the minimizers of the product-distance surrogate. No assertion is
+made that strict inclusion persists for every later index; the sufficient
+equality criterion holds again at \(n=94\).
 
 ## Verification
 
-- CURRENT LOCAL VERIFIED FACT: three independent read-only audits pass the
-  domain cover, residue squeezes, overlap values, all-\(q\ge2\) corollary,
-  minimizer inclusion, cross-document consistency, and Ruff provenance.
-- CURRENT LOCAL VERIFIED FACT:
-  `python -m pytest tests\test_product_distance.py` reports
-  `41 passed in 20.47s`.
-- CURRENT LOCAL VERIFIED FACT:
-  `python -m pytest --basetemp
-  C:\tmp\power-ringmin-pytest-global-surrogate-20260714-a` reports
-  `169 passed in 47.24s`.
+- CURRENT LOCAL VERIFIED FACT: the two new targeted exact tests pass 2/2.
+- CURRENT LOCAL VERIFIED FACT: the focused product-distance suite passes all
+  43 tests.
+- CURRENT LOCAL VERIFIED FACT: the complete suite passes all 171 tests
+  outside the filesystem sandbox. The first sandboxed full-suite attempt
+  reached collection and produced 31 setup errors only because pytest could
+  not create the requested temporary directory; no test body failed.
 - CURRENT LOCAL VERIFIED FACT: checked-artifact semantic verification accepts
   4 certificates, 76 local brackets, and the \(n=3,\dots,6\) summary.
-- CURRENT LOCAL VERIFIED FACT: no generator, residue formula, enumeration,
-  artifact, schema, CLI, certificate, or STN documentation was added or
-  changed.
-- CURRENT LOCAL VERIFIED FACT: final text, proof-tag, complete-diff, and Git
-  hygiene checks pass.
+- CURRENT LOCAL VERIFIED FACT: Ruff reports "All checks passed!" on
+  tests/test_product_distance.py, and Python compilation succeeds.
+- CURRENT LOCAL VERIFIED FACT: independent mathematical and implementation
+  audits reconstruct the five residue calculations, the moved-label order,
+  all \(\binom{92}{2}=4186\) exact pair scores, scorer independence, and the
+  unchanged enumeration boundary.
+- CURRENT LOCAL VERIFIED FACT: no production source, generator, canonical
+  enumerator, artifact, schema, CLI, certificate, or geometric proof changed.
+- CURRENT LOCAL VERIFIED FACT: the final cross-document audit, strict UTF-8
+  scan, whitespace checks, 163-tag uniqueness check, stale-claim scan,
+  complete-diff inspection, changed-path audit, and Git diff check pass.
 - CURRENT HOSTED STATUS: GitHub Actions for the current worktree has not been
   independently verified.
 
 ## Residual Limitations
 
-- This is an exact combinatorial surrogate theorem, not an exact value of the
-  geometric optimum \(R_2^*(n)\).
-- Equality of optimum values does not prove equality of minimizer sets for
-  \(n\ge12\), nor that every constraint at distance at least three is slack or
-  inactive.
+- This is an exact combinatorial surrogate theorem, not an exact value or new
+  bound for the geometric optimum \(R_2^*(n)\).
+- Subsequent indices \(n\ge94\) with strict minimizer inclusion have not been
+  classified; no monotone persistence is claimed.
 - Canonical cyclic-order enumeration remains bounded to \(n=3,\dots,11\).
+- The existing fixed-order interval-backend trust boundary is unchanged.
 
 ## Proposed Next Task
 
 In a fresh chat, document the fixed-order angular/STN equivalence and endpoint
-semantics, as already prioritized in `research/NEXT_RESEARCH_STEPS.md`. This
+semantics, as already prioritized in research/NEXT_RESEARCH_STEPS.md. This
 task did not begin or add that documentation.
