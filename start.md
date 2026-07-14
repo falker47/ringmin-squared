@@ -31,6 +31,27 @@ interval bracket has exact endpoint meaning \((L,U]\). The proof is real
 mathematics; applying it to checked artifacts remains conditional on the
 guarded `mpmath.iv` trust contract.
 
+For \(n\ge3\), the complete fixed-order STN now also has an exact maximum
+cyclic ratio. For a complete order \(\sigma\), let \(q(C)\) count `wrap_upper` edge
+occurrences, while \(S(C)\) sums endpoint-index products over all directed
+edge occurrences, with multiplicity. Then
+\[
+\Lambda(\sigma)=\max_C{S(C)\over q(C)}
+\]
+is well-defined because every directed cycle has \(q(C)\ge1\), and
+\[
+{\Lambda(\sigma)\over\pi}-n^2
+<\rho_\sigma
+<{\Lambda(\sigma)\over\pi}.
+\]
+For \(\Lambda_n=\min_\sigma\Lambda(\sigma)\), the same strict sandwich holds
+globally for \(n\ge3\) and gives
+\(0<\Lambda_n-\pi R_2^*(n)<\pi n^2\). An exact `Fraction` scorer uses
+descending-path compression and maximum-cycle-mean dynamic programming, not
+cycle enumeration. Bounded exhaustive computation for `n=3..8` gives
+\((12,26,47,77,118,172)\). This finite table is not an all-`n` formula, and
+\(\Lambda\) is distinct from the regular-direction core surrogate \(W\).
+
 A strengthened all-`n` mathematical lower bound has been proved from induced
 subsets of cyclic gaps. For every `n>=4` and `1<=m<=n-2`,
 
@@ -454,6 +475,40 @@ The same half-open semantics holds after exhaustive finite order aggregation.
 `research/FIXED_ORDER_ANGULAR_STN.md` contains the proof, and
 `docs/INTERVAL_BACKEND_TRUST.md` states the separate backend assumptions.
 
+## Fixed-Order Maximum Cyclic Ratio
+
+For a complete quadratic index order \(\sigma=(\sigma_0,\dots,\sigma_{n-1})\),
+an STN edge \(u\to v\) contributes \(\sigma_u\sigma_v\) to \(S(C)\), and it
+contributes one to \(q(C)\) exactly when \(u<v\). Edge occurrences are counted
+with multiplicity; a two-cycle on labels \(i,j\) therefore has
+\(S=2ij\) and \(q=1\). Lower-only edges strictly decrease position, so every
+closed walk has \(q\ge1\). Closed-walk decomposition reduces the maximum to
+the finite simple-cycle set.
+
+The exact angular comparisons
+\[
+{2ij\over R+n^2}<\theta_R(i^2,j^2)<{2ij\over R}
+\]
+and the fixed-order negative-cycle theorem give the requested weak sandwich
+and its strict refinement
+\[
+{\Lambda(\sigma)\over\pi}-n^2
+<\rho_\sigma
+<{\Lambda(\sigma)\over\pi}
+\qquad(n\ge3).
+\]
+Minimizing over complete orders gives
+\[
+{\Lambda_n\over\pi}-n^2
+<R_2^*(n)
+<{\Lambda_n\over\pi},
+\qquad
+0<\Lambda_n-\pi R_2^*(n)<\pi n^2.
+\]
+`research/FIXED_ORDER_CYCLE_RATIO.md` contains the definitions, proof,
+algorithm, bounded experiment, comparison with \(W\), and asymptotic
+limitations.
+
 ## Current Knowledge Status
 
 - COMPUTER-CERTIFIED RESULT: checked finite global interval brackets exist for `n=3,4,5,6` under the repository's documented local interval-verifier semantics and guarded `mpmath.iv` backend contract.
@@ -469,6 +524,19 @@ The same half-open semantics holds after exhaustive finite order aggregation.
   \((L,U]\): \(L\) is excluded and \(U\) is included.
 - CONDITIONAL COMPUTER-CERTIFIED RESULT: current checked artifacts instantiate
   that implication only under the documented guarded `mpmath.iv` contract.
+- EXACT THEOREM: the complete fixed-order maximum cyclic ratio satisfies
+  \[
+  {\Lambda(\sigma)\over\pi}-n^2
+  <\rho_\sigma
+  <{\Lambda(\sigma)\over\pi},
+  \]
+  and its global minimum satisfies the analogous strict sandwich with
+  \(R_2^*(n)\). Thus \(0<\Lambda_n-\pi R_2^*(n)<\pi n^2\).
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): the exact bounded
+  `Fraction` scorer gives
+  \((\Lambda_3,\dots,\Lambda_8)=(12,26,47,77,118,172)\) over all 2,956
+  canonical complete orders. This is not an all-`n` formula or a geometric
+  exact-optimum computation.
 - EXACT THEOREM: for every `n>=3`,
   \[
   R_2^*(n)\ge \frac{n(n+1)(n+2)}{6\pi}-n^2,

@@ -626,3 +626,9 @@ certificates.
   of thresholds for orders with identical serialized brackets.
 - **LIMITATION:** no result here is an all-\(n\) asymptotic theorem, a new
   finite certificate, or an independent interval-backend audit.
+- **EXACT DERIVED THEOREM:**
+  `research/FIXED_ORDER_CYCLE_RATIO.md` combines the cycle-weight semantics
+  proved here with the accepted angular lower and upper comparisons to define
+  \(\Lambda(\sigma)\), prove its strict \(n^2\)-width sandwich around
+  \(\rho_\sigma\), and derive the finite-order global version. That result
+  does not change the interval endpoint or backend-trust semantics above.

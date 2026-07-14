@@ -16,6 +16,15 @@ The fixed-order certification debt is now closed mathematically by
 equivalence, the negative-cycle criterion, potential recovery, radius
 dependence, and half-open bracket semantics while preserving the guarded
 `mpmath.iv` trust boundary.
+The complete fixed-order maximum cyclic ratio is now formalized separately in
+`research/FIXED_ORDER_CYCLE_RATIO.md`. Its exact global relation
+\[
+0<\Lambda_n-\pi R_2^*(n)<\pi n^2
+\]
+makes \(\Lambda_n/\pi\), for \(n\ge3\), an additive-\(n^2\) combinatorial approximation to
+the geometric infimum, while proving neither a new exact constant nor
+convergence. Exact canonical enumeration is deliberately bounded to
+`n=3..8` and gives \((12,26,47,77,118,172)\).
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -216,6 +225,24 @@ saturation for every \(n\ge3\).
 - CONDITIONAL COMPUTER-CERTIFIED RESULT: applying these implications to
   checked artifacts is conditional on the documented guarded `mpmath.iv`
   enclosure contract.
+- EXACT THEOREM: `research/FIXED_ORDER_CYCLE_RATIO.md` defines
+  \(q(C)\), \(S(C)\), and
+  \(\Lambda(\sigma)=\max_C S(C)/q(C)\), with edge multiplicity and two-cycles
+  included. Every cycle has \(q(C)\ge1\), and
+  \[
+  {\Lambda(\sigma)\over\pi}-n^2
+  <\rho_\sigma
+  <{\Lambda(\sigma)\over\pi}.
+  \]
+  Minimizing over complete orders gives, for \(n\ge3\), the analogous global
+  inequalities and \(0<\Lambda_n-\pi R_2^*(n)<\pi n^2\). Consequently normalized limit points
+  transfer after the factor \(\pi\), but existence of a limit does not.
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): a descending-path/Karp
+  `Fraction` scorer, independently checked by direct simple-cycle enumeration
+  on every canonical order through `n=6`, gives
+  \((\Lambda_3,\dots,\Lambda_8)=(12,26,47,77,118,172)\) over all 2,956
+  canonical complete orders. The production enumerator hard-rejects `n>8`.
+  This finite result is neither an all-`n` formula nor a geometric certificate.
 - EXACT THEOREM: `research/ALL_N_LOWER_BOUND.md` proves the induced-subset
   lower-bound theorem. In particular, for every `n>=4` and `1<=m<=n-2`,
   \[
@@ -527,6 +554,11 @@ saturation for every \(n\ge3\).
   semantics, and negative-cycle proof obligations are now recorded
   independently of every asymptotic claim in
   `research/FIXED_ORDER_ANGULAR_STN.md`.
+- CLOSED QUESTION: the complete fixed-order cyclic ratio, its exact
+  fixed/global sandwich, endpoint strictness, exact scorer, and bounded
+  `n=3..8` prediction are recorded in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`. Its distinction from \(W\) and its
+  asymptotic non-consequences remain explicit.
 
 ## Ranked Work
 
@@ -536,6 +568,9 @@ Completed:
   endpoint semantics, including monotonicity and continuity in `R`,
   negative-cycle infeasibility, feasible-potential recovery, upper-witness
   meaning, and the interval-backend trust boundary.
+- Formalized the complete fixed-order maximum cyclic ratio, proved the exact
+  additive-\(n^2\) fixed/global sandwich, implemented the independent exact
+  scorer, and bounded its canonical enumeration to `n=3..8`.
 
 Immediate:
 
@@ -566,6 +601,7 @@ Deliberately deferred:
 - `n=7` exhaustive certificate generation.
 - Larger exhaustive enumeration without a precise discriminator.
 - Product-distance enumeration beyond the explicit `n=11` boundary.
+- Fixed-order cyclic-ratio enumeration beyond the explicit `n=8` boundary.
 - Leading-order LP work in the induced-subset proof task.
 - Any claim that \(8/(25\pi)\) is the exact geometric asymptotic constant.
 - Any claim that the radius-one threshold \(12\) is minimal.

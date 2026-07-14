@@ -108,6 +108,81 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   `mp.mpf` bound arithmetic, or guard adequacy correct. Checked artifacts
   remain computer-certified finite results under that documented contract.
 
+## Fixed-Order Maximum Cyclic Ratio
+
+- DEFINITION: for `n>=3` and a complete order
+  \(\sigma=(\sigma_0,\dots,\sigma_{n-1})\) of \(\{1,\dots,n\}\), a directed
+  STN edge \(u\to v\) contributes
+  \(\varepsilon(u,v)=\mathbf1_{\{u<v\}}\) to its wrap count and
+  \(s_\sigma(u,v)=\sigma_u\sigma_v\) to its product sum.
+- DEFINITION: for a nonempty directed closed walk \(C\), with every edge
+  occurrence counted,
+  \[
+  q(C)=\sum_{e\in C}\varepsilon(e),
+  \qquad
+  S(C)=\sum_{e\in C}s_\sigma(e).
+  \]
+  In particular, a two-cycle on labels \(i,j\) has \(q=1\) and \(S=2ij\).
+- EXACT THEOREM: every nonempty directed closed walk has \(q(C)\ge1\), because
+  edges with zero wrap count strictly decrease position. Closed-walk
+  decomposition makes \(S/q\) a \(q\)-weighted average of simple-cycle
+  ratios. Therefore
+  \[
+  \Lambda(\sigma)=\max_C{S(C)\over q(C)}
+  \]
+  exists, is rational, and may be maximized over the finite simple-cycle set.
+- EXACT THEOREM: for every complete order and `n>=3`,
+  \[
+  {\Lambda(\sigma)\over\pi}-n^2
+  \le\rho_\sigma
+  \le{\Lambda(\sigma)\over\pi}.
+  \]
+  Both inequalities are actually strict. The lower strictness uses
+  \(\arcsin x>x\) and fixed-order threshold attainment; the upper strictness
+  uses the strict angular majorant, finite simple-cycle set, and continuity.
+- EXACT THEOREM: \(\Lambda\) is invariant under rotation and reflection of
+  the complete cyclic order. With
+  \(\Lambda_n=\min_\sigma\Lambda(\sigma)\),
+  \[
+  {\Lambda_n\over\pi}-n^2
+  <R_2^*(n)
+  <{\Lambda_n\over\pi},
+  \qquad
+  0<\Lambda_n-\pi R_2^*(n)<\pi n^2.
+  \]
+- EXACT THEOREM: the additive relation transfers normalized asymptotics:
+  \(\Lambda_n=\pi R_2^*(n)+O(n^2)=\Theta(n^3)\),
+  \(\Lambda_n/(\pi R_2^*(n))\to1\), and
+  \[
+  {2(\sqrt2-1)\over3}
+  \le\liminf{\Lambda_n\over n^3}
+  \le\limsup{\Lambda_n\over n^3}
+  \le{8\over25}.
+  \]
+  This proves neither convergence nor an exact leading constant.
+- EXACT THEOREM / DISTINCTION: \(\Lambda\) is a complete-order directed-cycle
+  objective, while repository \(W\) is a core-order single-pair objective for
+  equal regular directions. On the same cyclic order of `m` labels one has
+  only \(\Lambda_{\rm same}\le mW_{\rm same}\), not equality. The global
+  complete/core minima and their minimizing order sets must not be identified.
+- VERIFIED FACT: `src/power_ringmin/fixed_order_cycle_ratio.py` implements the
+  exact scorer by maximum descending-path closure, a one-wrap macro graph, and
+  Karp maximum-cycle-mean dynamic programming in integer/`Fraction`
+  arithmetic. Production code does not enumerate cycles. Its global enumerator
+  has the hard domain `3<=n<=8` and a preflight ceiling of 2,520 canonical
+  orders.
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): exact enumeration gives
+  \[
+  (\Lambda_3,\dots,\Lambda_8)=(12,26,47,77,118,172),
+  \]
+  canonical minimizer counts `(1,3,4,15,24,84)`, and no counterexample to the
+  supplied prediction. A test-only independent simple-cycle oracle agrees on
+  every canonical complete order through `n=6`. This finite result is not an
+  all-`n` formula, an exact geometric optimum, or an asymptotic theorem.
+- VERIFIED FACT: `research/FIXED_ORDER_CYCLE_RATIO.md` is the authoritative
+  proof, algorithm, bounded-experiment, \(W\)-comparison, and limitations
+  note.
+
 ## All-n Lower Bound
 
 - EXACT THEOREM: for every finite index set \(S\) with \(|S|\ge 3\), every cyclic order \(\tau\) of \(S\), and the sorted duplicated multiset \(M_S=\{x_1\le\cdots\le x_{2|S|}\}\),
