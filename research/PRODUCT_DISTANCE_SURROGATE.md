@@ -105,9 +105,21 @@
   B_n=W_n=H_n
   \qquad(n\equiv0,1,3,4\pmod5,\ n\ge9),
   \]
-  with the residue-one class beginning at \(n=11\). Only residue two remains
-  unresolved beyond the bounded table; its current width is
-  \((4n+7)/5\) for \(n\ge17\), with width \(10\) at \(n=12\).
+  with the residue-one class beginning at \(n=11\).
+- **EXACT THEOREM (residue-two saturation obstruction):** put
+  \(J_n=d_n(d_n-2)/2\). Then
+  \[
+  B_{12}\ge60=J_{12},
+  \qquad
+  B_n\ge J_n
+  \quad(n\equiv2\pmod5,\ n\ge17).
+  \]
+  Since \(W_n\ge B_n\), the same lower bound holds for \(W_n\). Combining it
+  with the uniform construction gives
+  \(J_n\le B_n\le W_n\le T_n\). The displayed proved-bound interval has
+  width \((2n+6)/5\) for \(n\ge17\), and width \(6\) at \(n=12\). Residue
+  two remains unresolved: none of these inequalities claims that either
+  objective equals \(J_n\), or that \(B_n=W_n\).
 - **VERIFIED FACT (finite exhaustive exact computation):** the table below
   gives the objectives truncated at positional distances at most one and two,
   as well as \(W_n\), for \(3\le n\le11\). Non-adjacent constraints first
@@ -2008,6 +2020,258 @@ H_n=
 \tag{RC4}
 \]
 
+### Sharper saturation obstruction in residue two
+
+The exact value of \(H_n\) in (RC3) is unchanged. We now use the structure
+behind (TH2), rather than only its aggregate inequality, to exclude a further
+interval of thresholds in residue two.
+
+First let
+
+\[
+n=5k+2,
+\qquad
+k\ge3,
+\qquad
+d=d_n=4k+4,
+\]
+
+and abbreviate
+
+\[
+H=H_n={(d-1)(d-2)\over2},
+\qquad
+J=J_n={d(d-2)\over2}.
+\tag{R2S1}
+\]
+
+The interval is nonempty because
+
+\[
+J-H={d-2\over2}=2k+1>0.
+\]
+
+Suppose for contradiction that a cyclic core order \(\sigma\) has
+\(S_2(\sigma)\le X\) at an exact threshold
+
+\[
+H\le X<J.
+\tag{R2S2}
+\]
+
+The strict definition of \(b_X\) is decisive. At the predecessor and
+candidate labels,
+
+\[
+(d-2)(d-1)=2H\le2X,
+\qquad
+2X<2J=d(d-2)<d(d-1).
+\]
+
+Thus \(d-2\) does not satisfy \(b(b+1)>2X\), while \(d-1\) does. Since
+\(b(b+1)\) is strictly increasing for \(b\ge2\),
+
+\[
+b_X=d-1,
+\qquad
+V_X=\{d-1,\dots,n\},
+\qquad
+v=n-d+2=k.
+\tag{R2S3}
+\]
+
+Put \(q=d/2-1=2k+1\). The lower and strict upper endpoints in (R2S2) give
+
+\[
+q={H\over d-1}
+\le {X\over d-1}
+<{J\over d-1}
+<{d\over2}=q+1.
+\]
+
+Therefore
+
+\[
+\left\lfloor{X\over b_X}\right\rfloor=2k+1.
+\tag{R2S4}
+\]
+
+There is no hidden \(a_X\)-cap in this floor. Indeed,
+
+\[
+q(q+1)={d(d-2)\over4}<H\le X,
+\]
+
+so the strict definition of \(a_X\) gives \(a_X\ge q+1=d/2\).
+At the other end, with \(x=d-2\),
+
+\[
+x(x+1)=2H>J>X,
+\qquad
+2H-J={(d-2)^2\over2}>0,
+\]
+
+so \(a_X\le x=d-2\). In particular
+\(d/2\le a_X\le d-2\), although its exact value need not be constant as
+\(X\) varies.
+
+Consequently the compatible lows in (TH1) are exactly
+
+\[
+L=\{2,\dots,2k+1\},
+\qquad
+|L|=2k=2v=C_n(X).
+\tag{R2S5}
+\]
+
+The injection proved in (TH2) is therefore a bijection: every terminal high
+has two distinct neighbors in \(L\), and every label in \(L\) is adjacent to
+exactly one terminal high.
+
+The remaining labels form the intermediate block
+
+\[
+M=\left\{{d\over2},\dots,d-2\right\},
+\qquad
+|M|=2k+1,
+\]
+
+and the cardinalities check the entire core:
+
+\[
+|L|+|M|+|V_X|=2k+(2k+1)+k=5k+1=n-1.
+\tag{R2S6}
+\]
+
+Delete the vertices of \(V_X\) from the position cycle. Saturation makes
+every low in \(L\) have residual degree one, while every intermediate label
+has residual degree two because terminal highs have no intermediate
+neighbors. Recall that \(x=d-2\in M\).
+
+For every possible distinct intermediate neighbor \(y\in M\),
+
+\[
+xy\ge x{d\over2}={(d-2)d\over2}=J>X.
+\tag{R2S7}
+\]
+
+The adjacent score constraint excludes such an edge. Hence the residual
+component containing \(x\) is exactly
+
+\[
+\ell_-\;--\;x\;--\;\ell_+,
+\qquad
+\ell_-,\ell_+\in L,
+\]
+
+and in the original cycle it extends to
+
+\[
+t_-\;--\;\ell_-\;--\;x\;--\;\ell_+\;--\;t_+,
+\qquad
+t_-,t_+\in V_X.
+\tag{R2S8}
+\]
+
+The two terminal positions are distinct. They occur at \(p(x)-2\) and
+\(p(x)+2\) in a simple cycle of length
+\(N=n-1=5k+1\ge16\); equality of the positions would require \(N\mid4\).
+Both positions are at smaller circular distance exactly two from \(x\).
+Thus \(S_2(\sigma)\le X\) requires
+
+\[
+{x t_\pm\over2}\le X<J={xd\over2}.
+\]
+
+It follows that \(t_\pm<d\). But (R2S8) also gives
+\(t_\pm\in V_X=\{d-1,\dots,n\}\), so integrality forces
+
+\[
+t_-=t_+=d-1.
+\tag{R2S9}
+\]
+
+This contradicts the distinctness of the two terminal positions, because a
+cyclic core order is a permutation.
+
+For completeness, the half-integer endpoint semantics contain no gap.
+Every truncated score is in \(\tfrac12\mathbb Z\), the finite order space
+attains \(B_n\), and (TH5) gives \(B_n\ge H_n\). Since \(J_n\) is an
+integer, an assumption \(B_n<J_n\) would put the exact threshold
+\(X=B_n\) among
+
+\[
+H_n,H_n+{1\over2},\dots,J_n-{1\over2},
+\]
+
+all of which were excluded above. Therefore
+
+\[
+\boxed{
+B_n\ge J_n={d_n(d_n-2)\over2}
+}
+\qquad(n\equiv2\pmod5,\ n\ge17).
+\tag{R2S10}
+\]
+
+The boundary \(X=J_n\) is deliberately not excluded: at equality the edge
+from \(x\) to \(d/2\) and the distance-two pair \((x,d)\) both become
+compatible. The strict inequality in (R2S2) is therefore essential, and
+(R2S10) is a lower bound, not an exact-value claim.
+
+The exceptional value \(n=12\) must start from the exact obstruction
+\(H_{12}=56\), not from the generic residue-two expression \(55\). Here
+
+\[
+d=12,
+\qquad
+H_{12}=56,
+\qquad
+J_{12}=60.
+\tag{R2S11}
+\]
+
+Suppose for contradiction that \(S_2(\sigma)\le X\) for some
+\(56\le X<60\). Strict threshold arithmetic gives
+
+\[
+7\cdot8\le X<8\cdot9,
+\qquad
+10\cdot11<2H_{12}\le2X<120<11\cdot12.
+\]
+
+Thus
+
+\[
+a_X=8,
+\qquad
+b_X=11,
+\qquad
+V_X=\{11,12\},
+\qquad
+v=2.
+\]
+
+Moreover \(\lfloor X/11\rfloor=5\), so the compatible lows are exactly
+\(L=\{2,3,4,5\}\), with \(|L|=4=2v\), and the incidence injection again
+saturates. The intermediate block is \(M=\{6,7,8,9,10\}\). With \(x=10\),
+
+\[
+x\cdot6=60=J_{12}>X,
+\]
+
+so the residual component is again low--\(x\)--low. Its two terminal
+extensions occupy the distinct positions \(p(x)-2,p(x)+2\) in the
+length-\(11\) cycle. Since \(10\cdot12/2=60>X\), each terminal would have
+to be \(11\), contradicting those distinct positions. Finally, if
+\(B_{12}<60\), then (TH5) gives \(56=H_{12}\le B_{12}\), and the attained
+threshold \(X=B_{12}\) is one of those just excluded. Hence
+
+\[
+\boxed{B_{12}\ge60=J_{12}}.
+\tag{R2S12}
+\]
+
 ### Exact construction in residue one
 
 The smaller residue-one obstruction is also attained. Write
@@ -2336,24 +2600,47 @@ d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
 The residue-one branch begins at \(n=11\). Its former uniform-construction
 slack
 \(T_n-H_n=(d_n-1)/2=(2n+3)/5\) is no longer an unresolved bound interval.
-Only residue two remains open beyond the bounded table. There the current
-exact width between the proved lower obstruction and the uniform theorem
-threshold is
+Only residue two remains open beyond the bounded table. The saturation
+obstruction (R2S10)--(R2S12), together with \(B_n\le W_n\), sharpens (UC22)
+in that class to
 
 \[
-T_n-H_n
+J_n\le B_n\le W_n\le T_n,
+\qquad
+J_n={d_n(d_n-2)\over2}.
+\]
+
+The width between these proved endpoints is now
+
+\[
+T_n-J_n
 =
 \begin{cases}
-d_n-1=(4n+7)/5,&n\equiv2\pmod5,\ n\ge17,\\
-10,&n=12.
+d_n/2=(2n+6)/5,&n\equiv2\pmod5,\ n\ge17,\\
+6,&n=12.
 \end{cases}
 \tag{RC6}
 \]
 
-These residue-two values are bound widths, not optimality gaps and not
+At the exceptional index the three exact reference values are
+
+\[
+H_{12}=56<J_{12}=60<T_{12}=66;
+\]
+
+for \(n=5k+2\), \(k\ge3\), one instead has
+
+\[
+H_n={(d_n-1)(d_n-2)\over2}
+<J_n={d_n(d_n-2)\over2}
+<T_n={d_n(d_n-1)\over2}.
+\]
+
+These are widths of lower/upper bound intervals, not optimality gaps and not
 necessarily score gaps of individual exceptional witnesses. No all-\(n\)
 exact formula, or new exact value beyond the bounded \(n\le11\) table, is
-inferred for \(B_n\) or \(W_n\) in residue two.
+inferred for \(B_n\) or \(W_n\) in residue two; in particular neither
+objective is asserted to equal \(J_n\), and \(B_n=W_n\) is not asserted.
 
 Since
 
@@ -2776,9 +3063,12 @@ one, and two, an independent brute-force cycle enumerator restricted to tail
 cardinality at most seven, the exact finite \(Q_n\) obstruction, the
 compatible-low floor and even-square equality, the joint finite \(H_n\)
 obstruction, the closed residue formula against both an independent
-polynomial evaluation and the unchanged exact event inversion, the exact
-linear widths through broad formula diagnostics, the symbolic upper witness,
-the matching order generator, all fourteen exceptional orders, their exact
+polynomial evaluation and the unchanged exact event inversion, the
+residue-two saturation data at \(n=12,17,22\), every half-integer in the
+three corresponding intervals \([H_n,J_n)\), the strict endpoint arithmetic
+through a broad falsification sweep, the improved proved-bound widths, the
+symbolic upper witness, the matching order generator, all fourteen
+exceptional orders, their exact
 distance-class and closing maxima, independent cyclic checks of the symbolic
 family, the exact residue-one generator, its two parity branches, its exact
 distance-one and distance-two maxima, its closing arcs, and the effective
@@ -2796,8 +3086,8 @@ The following remain unresolved.
 
 - **OPEN QUESTION:** what are the exact finite values of \(B_n\) and \(W_n\)
   beyond the bounded table in residue class two? Classes zero, one, three,
-  and four are settled by (RC5), but the residue-two widths (RC6) need not
-  be sharp.
+  and four are settled by (RC5), but the sharpened residue-two bound interval
+  (RC6) need not be sharp.
 - **OPEN QUESTION:** can the explicit family be sharpened in residue class
   two, or can optimal members be characterized structurally in any class?
 - **OPEN QUESTION:** at what \(n\), if any, do positional distances at least

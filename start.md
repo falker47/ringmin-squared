@@ -266,9 +266,18 @@ The residue-one branch begins at \(n=11\) and is realized by a separate
 search-free cyclic order whose score is exactly \((d_n-1)^2/2\). Its proof
 checks adjacency, distances two and three, closing arcs, and automatic
 distances at least four separately. Only residue two remains unresolved
-beyond the bounded table. Its current width to \(T_n\) is \((4n+7)/5\) for
-\(n\ge17\), with width \(10\) at \(n=12\); these are bound widths, not
-asserted optimality gaps.
+beyond the bounded table. A separate saturation argument, without a matching
+construction, proves
+\[
+B_{12}\ge60=J_{12},
+\qquad
+B_n\ge J_n={d_n(d_n-2)\over2}
+\quad(n\equiv2\pmod5,\ n\ge17).
+\]
+The same lower bounds hold for \(W_n\). Thus
+\(J_n\le B_n\le W_n\le T_n\), and the displayed proved-bound interval has
+width \((2n+6)/5\) for \(n\ge17\), with width \(6\) at \(n=12\). These are
+bound widths, not asserted optimality gaps or exact values.
 An exact, no-floating-point canonical enumeration bounded to `n=3..11` gives
 \[
 (W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50),
@@ -536,10 +545,25 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \end{cases}
   \qquad(n\ge9).
   \]
-  The residue-one branch starts at \(n=11\). Only residue two remains
-  unresolved beyond the bounded table; its exact width to the uniform
-  threshold is \((4n+7)/5\) from \(n=17\), with width \(10\) at \(n=12\).
-  These are not asserted optimality gaps.
+  The residue-one branch starts at \(n=11\).
+- EXACT THEOREM: in residue two, put
+  \(J_n=d_n(d_n-2)/2\). Saturation of all terminal-high incidences below
+  \(J_n\), followed by the forced low--\((d_n-2)\)--low component, proves
+  \[
+  B_{12}\ge60=J_{12},
+  \qquad
+  B_n\ge J_n
+  \quad(n\equiv2\pmod5,\ n\ge17).
+  \]
+  Since \(W_n\ge B_n\),
+  \[
+  J_n\le B_n\le W_n\le T_n.
+  \]
+  The width between these proved endpoints is \((2n+6)/5\) from \(n=17\)
+  and \(6\) at \(n=12\), where
+  \(H_{12}=56<J_{12}=60<T_{12}=66\). Residue two remains unresolved beyond
+  the bounded table: these bounds assert neither exactness nor
+  \(B_n=W_n\).
 - EXACT THEOREM:
   \[
   \lim_{n\to\infty} A_n/n^2

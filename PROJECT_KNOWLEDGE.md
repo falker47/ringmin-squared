@@ -412,19 +412,38 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   In residue one, writing \(n=5k+1\), \(D=d_n-1=4k+2\), the explicit order
   has score exactly \(D^2/2=H_n\) for every \(k\ge2\). Its proof separately
   checks adjacent products, distances two and three, the displayed closing
-  cut, and automatic distances at least four. Only residue two remains
-  unresolved beyond the bounded table. Its exact width to the uniform theorem
-  threshold is
+  cut, and automatic distances at least four.
+- EXACT THEOREM: in residue two, define
   \[
-  T_n-H_n=
+  J_n={d_n(d_n-2)\over2}.
+  \]
+  For every \(n=5k+2\) with \(k\ge3\), saturation of the terminal-high
+  incidence injection throughout \(H_n\le T<J_n\) forces a
+  low--\((d_n-2)\)--low component whose two distinct distance-two terminals
+  would both have to equal \(d_n-1\). The separate exact arithmetic
+  \(H_{12}=56\), \(J_{12}=60\) gives the same contradiction. Hence
+  \[
+  B_{12}\ge60,
+  \qquad
+  B_n\ge J_n
+  \quad(n\equiv2\pmod5,\ n\ge17).
+  \]
+  Since \(W_n\ge B_n\), the existing uniform upper construction gives
+  \[
+  J_n\le B_n\le W_n\le T_n.
+  \]
+  The width between these proved endpoints is
+  \[
+  T_n-J_n=
   \begin{cases}
-  (4n+7)/5,&n\equiv2\pmod5,\ n\ge17,\\
-  10,&n=12.
+  (2n+6)/5,&n\equiv2\pmod5,\ n\ge17,\\
+  6,&n=12.
   \end{cases}
   \]
-  These residue-two values are bound widths, not asserted optimality gaps; no
-  exact value of \(B_n\) or \(W_n\) beyond the bounded \(n\le11\) table, and
-  no all-\(n\) exact formula, is proved in residue two.
+  Residue two remains unresolved beyond the bounded table. These are widths
+  of proved bound intervals, not asserted optimality gaps; no exact value of
+  \(B_n\) or \(W_n\) beyond the bounded \(n\le11\) table, no equality
+  \(B_n=W_n\), and no all-\(n\) exact formula is proved in residue two.
 - EXACT THEOREM: the matching lower and upper bounds give
   \[
   \lim_{n\to\infty}{B_n\over n^2}
@@ -645,8 +664,9 @@ Candidate-set extraction uses the following finite-certificate semantics.
   critical-structure diagnostics, verifier limitations, workflow provenance,
   the induced-subset lower bound, exact insertion theorem, regular-direction
   bounds, bounded product-distance enumeration through `n=11`, the all-\(n\)
-  matching construction, and exact surrogate values in residues zero, one,
-  three, and four.
+  matching construction, exact surrogate values in residues zero, one,
+  three, and four, and the sharpened residue-two saturation obstruction
+  \(J_n\le B_n\le W_n\le T_n\).
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to

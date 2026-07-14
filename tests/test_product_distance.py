@@ -981,13 +981,142 @@ def test_terminal_high_incidence_closed_form_is_exact() -> None:
         if n % 5 in (0, 3, 4):
             assert obstruction == upper_threshold
         elif n % 5 == 1:
-            assert upper_threshold - obstruction == Fraction(2 * n + 3, 5)
+            assert obstruction == Fraction((d - 1) ** 2, 2)
         elif n == 12:
             assert obstruction == 56
-            assert upper_threshold - obstruction == 10
         else:
             assert n >= 17
-            assert upper_threshold - obstruction == Fraction(4 * n + 7, 5)
+            assert obstruction == Fraction((d - 1) * (d - 2), 2)
+
+
+@pytest.mark.parametrize(
+    ("n", "expected_h", "expected_j", "expected_upper"),
+    (
+        (12, Fraction(56), Fraction(60), Fraction(66)),
+        (17, Fraction(105), Fraction(112), Fraction(120)),
+        (22, Fraction(171), Fraction(180), Fraction(190)),
+    ),
+)
+def test_residue_two_saturation_obstruction_exact_cases(
+    n: int,
+    expected_h: Fraction,
+    expected_j: Fraction,
+    expected_upper: Fraction,
+) -> None:
+    """Rebuild every structural input without a production J helper."""
+    k = (n - 2) // 5
+    d = 4 * k + 4
+    x = d - 2
+    core = set(range(2, n + 1))
+    expected_lows = tuple(range(2, d // 2))
+    expected_intermediate = tuple(range(d // 2, d - 1))
+    expected_terminal = tuple(range(d - 1, n + 1))
+
+    assert n == 5 * k + 2
+    assert d == (4 * n + 12) // 5
+    assert terminal_high_incidence_closed_form(n) == expected_h
+    assert Fraction(d * (d - 2), 2) == expected_j
+    assert Fraction(eight_twenty_fifths_threshold(n)) == expected_upper
+    assert set(expected_lows).isdisjoint(expected_intermediate)
+    assert set(expected_lows).isdisjoint(expected_terminal)
+    assert set(expected_intermediate).isdisjoint(expected_terminal)
+    assert (
+        set(expected_lows) | set(expected_intermediate) | set(expected_terminal)
+        == core
+    )
+
+    assert expected_h.denominator == expected_j.denominator == 1
+    for doubled_threshold in range(
+        2 * expected_h.numerator,
+        2 * expected_j.numerator,
+    ):
+        threshold = Fraction(doubled_threshold, 2)
+        a, b, u_tail, v_tail, compatible_lows = (
+            _independent_threshold_tail_data(n, threshold)
+        )
+
+        assert d // 2 <= a <= x
+        assert b == d - 1
+        assert x in u_tail
+        assert v_tail == expected_terminal
+        assert compatible_lows == expected_lows
+        assert len(compatible_lows) == 2 * len(v_tail) == 2 * k
+
+        adjacent_candidates = tuple(
+            label
+            for label in range(2, n + 1)
+            if label != x and x * label <= threshold
+        )
+        distance_two_terminal_candidates = tuple(
+            high for high in v_tail if x * high <= 2 * threshold
+        )
+        assert adjacent_candidates == expected_lows
+        assert distance_two_terminal_candidates == (d - 1,)
+
+        cycle_size = n - 1
+        assert cycle_size > 4
+        assert (-2) % cycle_size != 2 % cycle_size
+
+    boundary_adjacent_intermediate = tuple(
+        label
+        for label in expected_intermediate
+        if x * label <= expected_j
+    )
+    boundary_terminal_candidates = tuple(
+        high
+        for high in expected_terminal
+        if x * high <= 2 * expected_j
+    )
+    assert boundary_adjacent_intermediate == (d // 2,)
+    assert boundary_terminal_candidates == (d - 1, d)
+    assert Fraction(x * (d // 2)) == expected_j
+    assert Fraction(x * d, 2) == expected_j
+
+
+def test_residue_two_saturation_endpoint_arithmetic_broad_falsification() -> None:
+    """Check the symbolic strict endpoints for 2 <= k <= 1000 exactly."""
+    for k in range(2, 1001):
+        n = 5 * k + 2
+        d = 4 * k + 4
+        q = d // 2 - 1
+        x = d - 2
+        h = (
+            Fraction(56)
+            if k == 2
+            else Fraction((d - 1) * (d - 2), 2)
+        )
+        j = Fraction(d * (d - 2), 2)
+        last_excluded = j - Fraction(1, 2)
+        upper = Fraction(d * (d - 1), 2)
+
+        assert d == (4 * n + 12) // 5
+        assert j == 8 * k * k + 12 * k + 4
+        assert h <= last_excluded
+
+        # These endpoint inequalities force b_X=d-1 throughout H<=X<J.
+        assert (d - 2) * (d - 1) <= 2 * h
+        assert 2 * last_excluded < (d - 1) * d
+
+        # They also keep the compatible-low floor equal to q=2k+1.
+        assert q == 2 * k + 1
+        assert q * (d - 1) <= h
+        assert last_excluded < (q + 1) * (d - 1)
+        assert q * (q + 1) < h
+        assert 2 * k == len(range(2, q + 1))
+        assert k == len(range(d - 1, n + 1))
+
+        # The two strict local incompatibilities disappear exactly at J.
+        assert x * (d // 2) == j
+        assert Fraction(x * (d - 1), 2) <= h
+        assert Fraction(x * d, 2) == j > last_excluded
+        assert (-2) % (n - 1) != 2 % (n - 1)
+
+        assert upper - j == Fraction(d, 2)
+        assert upper - j == Fraction(2 * n + 6, 5)
+        if k == 2:
+            assert (h, j, upper) == (56, 60, 66)
+        else:
+            assert j - h == 2 * k + 1
 
 
 def test_eight_twenty_fifths_exceptional_orders_include_closing_pairs() -> None:

@@ -156,7 +156,21 @@ for every \(n=5k+1\), \(k\ge2\). Therefore exact values of \(B_n\) and \(W_n\)
 are known in residues zero, one, three, and four. Only residue two remains
 unresolved beyond the bounded table. The former residue-one width
 \((2n+3)/5\) measures only slack in the superseded uniform order; it is no
-longer an open optimality interval.
+longer an open optimality interval. In residue two, define
+\[
+J_n={d_n(d_n-2)\over2}.
+\]
+A sharper saturation obstruction proves
+\[
+B_{12}\ge60=J_{12},
+\qquad
+B_n\ge J_n
+\quad(n\equiv2\pmod5,\ n\ge17),
+\]
+and hence \(J_n\le B_n\le W_n\le T_n\). The resulting proved-bound interval
+has width \((2n+6)/5\) for \(n\ge17\), and width \(6\) at \(n=12\), where
+\(H_{12}=56<J_{12}=60<T_{12}=66\). These widths do not assert exact values,
+optimality gaps, or equality of \(B_n\) and \(W_n\).
 
 ## Evidence Basis
 
@@ -281,6 +295,21 @@ longer an open optimality interval.
   matching classes, this settles residues zero, one, three, and four; only
   residue two remains unresolved beyond the bounded table. Canonical
   factorial enumeration remains bounded to \(n\le11\).
+- EXACT THEOREM: in residue two, every hypothetical threshold
+  \(H_n\le T<J_n=d_n(d_n-2)/2\) saturates the injection of the \(2v\)
+  terminal-high incidences into the compatible lows. The component containing
+  \(d_n-2\) is then low--\((d_n-2)\)--low, and its two distinct terminal
+  extensions would both have to carry the label \(d_n-1\), a contradiction.
+  The exceptional case uses the exact interval \(56=H_{12}\le T<60=J_{12}\).
+  Therefore
+  \[
+  B_{12}\ge60,
+  \qquad
+  B_n\ge J_n\quad(n\equiv2\pmod5,\ n\ge17),
+  \]
+  and \(W_n\ge B_n\) transfers the same lower bound. Combined with the
+  existing \(T_n\) construction, the proved-bound width is
+  \((2n+6)/5\), or \(6\) at \(n=12\). This is not an exact-value theorem.
 - EXACT THEOREM: the same note proves the adjacent formula for \(A_n\) by a
   high/low internal-edge count and an explicit all-`n` cycle whose edges have
   endpoint sums at most \(n+3\); source inspection identifies that cycle with
@@ -403,8 +432,10 @@ longer an open optimality interval.
    needs from a regular-direction order. The explicit \(T_n\) family proves
    the exact leading coefficient \(8/25\) for both \(B_n\) and \(W_n\).
    Matching constructions now determine their exact values in residues zero,
-   one, three, and four. Exact values in residue two, global structural
-   classifications of minimizers, and any geometric matching coefficient
+   one, three, and four. In residue two the saturation theorem narrows both
+   objectives to \(J_n\le B_n\le W_n\le T_n\), with proved-endpoint width
+   \((2n+6)/5\), but does not determine either exact value. Global structural
+   classifications of minimizers and any geometric matching coefficient
    remain open. The best tail obstruction remains strict in all enumerated
    cases where it is defined.
 
@@ -416,8 +447,10 @@ longer an open optimality interval.
    subproblem still has coefficient \((36-16\sqrt2)/49\), while the added
    incidence constraint raises the combined necessary coefficient to
    \(8/25\), and the explicit order family matches it from above. This settles
-   the leading coefficients and four residue classes exactly, but not exact
-   \(B_n\) or \(W_n\) values in residue two.
+   the leading coefficients and four residue classes exactly. The additional
+   residue-two saturation argument improves the pointwise lower endpoint from
+   \(H_n\) to \(J_n\), but still does not prove exact \(B_n\) or \(W_n\)
+   values there.
 
 ## Updated Research Questions
 
@@ -450,8 +483,9 @@ Immediate:
 
 Next:
 
-- Seek an exact residue-two formula or controlled bounds for \(B_n\) and
-  \(W_n\), without extending factorial enumeration by default.
+- Seek a matching residue-two construction, an exact formula, or a further
+  sharpening of \(J_n\le B_n\le W_n\le T_n\), without extending factorial
+  enumeration by default.
 - Keep the exact radius-one theorem separate from finite critical-cycle proxy
   claims and from any assumption that an optimum is attained.
 
