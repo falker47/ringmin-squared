@@ -15,6 +15,8 @@ from power_ringmin.product_distance import (
     canonical_core_orders,
     canonicalize_core_order,
     circular_position_distance,
+    eight_twenty_fifths_order,
+    eight_twenty_fifths_threshold,
     enumerate_product_distance,
     enumerate_truncated_product_distance,
     product_distance_pair_scores,
@@ -129,6 +131,165 @@ EXPECTED_TRUNCATED_TABLE = {
 }
 
 
+EXPECTED_EIGHT_TWENTY_FIFTHS_EXCEPTIONS = {
+    9: (
+        (9, 2, 8, 4, 6, 5, 7, 3),
+        (Fraction(35), Fraction(36), Fraction(15)),
+        (Fraction(27), Fraction(63, 2), Fraction(15)),
+    ),
+    10: (
+        (10, 2, 9, 4, 7, 6, 5, 8, 3),
+        (Fraction(42), Fraction(45), Fraction(56, 3)),
+        (Fraction(30), Fraction(40), Fraction(50, 3)),
+    ),
+    11: (
+        (11, 2, 10, 4, 8, 6, 7, 5, 9, 3),
+        (Fraction(48), Fraction(55), Fraction(20)),
+        (Fraction(33), Fraction(99, 2), Fraction(55, 3)),
+    ),
+    12: (
+        (12, 2, 11, 4, 9, 6, 7, 8, 5, 10, 3),
+        (Fraction(56), Fraction(66), Fraction(24)),
+        (Fraction(36), Fraction(60), Fraction(20)),
+    ),
+    14: (
+        (14, 3, 11, 2, 13, 4, 12, 6, 9, 8, 7, 10, 5),
+        (Fraction(72), Fraction(78), Fraction(98, 3)),
+        (Fraction(70), Fraction(70), Fraction(98, 3)),
+    ),
+    15: (
+        (15, 3, 12, 2, 14, 4, 13, 6, 10, 8, 9, 7, 11, 5),
+        (Fraction(80), Fraction(91), Fraction(35)),
+        (Fraction(75), Fraction(165, 2), Fraction(35)),
+    ),
+    16: (
+        (16, 2, 13, 4, 15, 6, 11, 8, 9, 10, 7, 14, 5, 12, 3),
+        (Fraction(98), Fraction(104), Fraction(42)),
+        (Fraction(48), Fraction(96), Fraction(80, 3)),
+    ),
+    17: (
+        (17, 5, 14, 3, 13, 2, 16, 4, 15, 6, 12, 8, 10, 9, 11, 7),
+        (Fraction(119), Fraction(120), Fraction(51)),
+        (Fraction(119), Fraction(187, 2), Fraction(51)),
+    ),
+    20: (
+        (20, 2, 13, 10, 11, 12, 9, 17, 7, 16, 5, 18, 3, 15, 8, 19, 4, 14, 6),
+        (Fraction(153), Fraction(144), Fraction(200, 3)),
+        (Fraction(120), Fraction(140), Fraction(80, 3)),
+    ),
+    21: (
+        (21, 6, 15, 4, 20, 2, 16, 3, 19, 5, 17, 7, 18, 9, 13, 11, 12, 10, 14, 8),
+        (Fraction(168), Fraction(323, 2), Fraction(70)),
+        (Fraction(168), Fraction(147), Fraction(70)),
+    ),
+    22: (
+        (22, 2, 16, 4, 19, 6, 20, 8, 15, 10, 13, 12, 11, 14, 9, 21, 7, 18, 5, 17, 3),
+        (Fraction(189), Fraction(190), Fraction(77)),
+        (Fraction(66), Fraction(187), Fraction(110, 3)),
+    ),
+    26: (
+        (
+            26,
+            2,
+            18,
+            4,
+            23,
+            11,
+            21,
+            8,
+            24,
+            10,
+            17,
+            12,
+            15,
+            14,
+            13,
+            16,
+            6,
+            25,
+            9,
+            20,
+            7,
+            22,
+            5,
+            19,
+            3,
+        ),
+        (Fraction(253), Fraction(252), Fraction(325, 3)),
+        (Fraction(78), Fraction(247), Fraction(130, 3)),
+    ),
+    27: (
+        (
+            27,
+            2,
+            18,
+            4,
+            24,
+            6,
+            22,
+            8,
+            20,
+            10,
+            23,
+            12,
+            16,
+            14,
+            15,
+            13,
+            17,
+            11,
+            25,
+            9,
+            21,
+            7,
+            26,
+            5,
+            19,
+            3,
+        ),
+        (Fraction(276), Fraction(273), Fraction(325, 3)),
+        (Fraction(81), Fraction(513, 2), Fraction(45)),
+    ),
+    32: (
+        (
+            32,
+            2,
+            22,
+            4,
+            29,
+            6,
+            26,
+            13,
+            25,
+            10,
+            30,
+            12,
+            21,
+            14,
+            19,
+            16,
+            17,
+            18,
+            15,
+            20,
+            8,
+            31,
+            11,
+            24,
+            9,
+            27,
+            7,
+            28,
+            5,
+            23,
+            3,
+        ),
+        (Fraction(360), Fraction(378), Fraction(155)),
+        (Fraction(96), Fraction(368), Fraction(160, 3)),
+    ),
+}
+
+
 @pytest.fixture(scope="module")
 def exact_enumerations():
     return {n: enumerate_product_distance(n) for n in range(3, 12)}
@@ -167,6 +328,41 @@ def _independent_truncated_score(
         for step in (right - left,)
         for distance in (min(step, vertex_count - step),)
         if distance <= max_position_distance
+    )
+
+
+def _independent_exact_distance_scores(
+    order: tuple[int, ...],
+    max_distance: int,
+) -> tuple[Fraction, ...]:
+    """Return exact maxima by distance without production scoring support."""
+    vertex_count = len(order)
+    return tuple(
+        max(
+            Fraction(
+                order[position] * order[(position + distance) % vertex_count], distance
+            )
+            for position in range(vertex_count)
+        )
+        for distance in range(1, max_distance + 1)
+    )
+
+
+def _independent_closing_distance_scores(
+    order: tuple[int, ...],
+    max_distance: int,
+) -> tuple[Fraction, ...]:
+    """Return exact maxima over local pairs crossing the displayed cut."""
+    vertex_count = len(order)
+    return tuple(
+        max(
+            Fraction(
+                order[position] * order[(position + distance) % vertex_count],
+                distance,
+            )
+            for position in range(vertex_count - distance, vertex_count)
+        )
+        for distance in range(1, max_distance + 1)
     )
 
 
@@ -750,6 +946,80 @@ def test_terminal_high_asymptotic_witness_is_exact() -> None:
     assert 32 > 25  # 4*sqrt(2)>5, so the first Psi branch is slack.
     assert 2 > 1  # sqrt(2)>1, so the second Psi branch is slack.
     assert 20000 > 16129  # 8/25 exceeds the unchanged Q_n coefficient.
+
+
+def test_eight_twenty_fifths_exceptional_orders_include_closing_pairs() -> None:
+    for n, (
+        expected_order,
+        expected_scores,
+        expected_closing,
+    ) in EXPECTED_EIGHT_TWENTY_FIFTHS_EXCEPTIONS.items():
+        order = eight_twenty_fifths_order(n)
+        threshold = Fraction(eight_twenty_fifths_threshold(n))
+
+        assert order == expected_order
+        assert tuple(sorted(order)) == tuple(range(2, n + 1))
+        assert _independent_exact_distance_scores(order, 3) == expected_scores
+        assert _independent_closing_distance_scores(order, 3) == expected_closing
+        assert _independent_score(order) == max(expected_scores)
+        assert _independent_score(order) <= threshold
+
+
+def test_eight_twenty_fifths_symbolic_family_is_exact() -> None:
+    exceptional_values = set(EXPECTED_EIGHT_TWENTY_FIFTHS_EXCEPTIONS)
+    formula_values_below_33 = {13, 18, 19, 23, 24, 25, 28, 29, 30, 31}
+
+    assert {
+        n for n in range(9, 33) if n not in exceptional_values
+    } == formula_values_below_33
+
+    for n in range(9, 1001):
+        order = eight_twenty_fifths_order(n)
+        threshold = eight_twenty_fifths_threshold(n)
+        vertex_count = n - 1
+
+        assert tuple(sorted(order)) == tuple(range(2, n + 1))
+        for distance in (1, 2, 3):
+            assert all(
+                order[position] * order[(position + distance) % vertex_count]
+                <= distance * threshold
+                for position in range(vertex_count)
+            )
+        assert n * (n - 1) < 4 * threshold
+
+        if n not in exceptional_values:
+            d = (4 * n + 12) // 5
+            positions = {value: position for position, value in enumerate(order)}
+            step = abs(positions[d] - positions[d - 1])
+            assert min(step, vertex_count - step) == 2
+            assert d * (d - 1) == 2 * threshold
+
+    full_score_values = (
+        *sorted(formula_values_below_33),
+        *range(33, 43),
+        98,
+        99,
+        100,
+        101,
+        102,
+        498,
+        499,
+        500,
+        501,
+        502,
+    )
+    for n in full_score_values:
+        assert _independent_score(eight_twenty_fifths_order(n)) == (
+            eight_twenty_fifths_threshold(n)
+        )
+
+
+def test_eight_twenty_fifths_construction_validation_is_strict() -> None:
+    for invalid in (True, 8, Fraction(9), 9.0):
+        with pytest.raises(ValueError, match="integer at least 9"):
+            eight_twenty_fifths_order(invalid)  # type: ignore[arg-type]
+        with pytest.raises(ValueError, match="integer at least 9"):
+            eight_twenty_fifths_threshold(invalid)  # type: ignore[arg-type]
 
 
 def test_fraction_comparisons_do_not_use_float_rounding() -> None:

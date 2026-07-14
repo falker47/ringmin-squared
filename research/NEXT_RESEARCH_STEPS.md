@@ -4,8 +4,9 @@ This roadmap synthesizes the checked `n=3..6` certificates, candidate-set
 diagnostics, critical-structure analysis, checked-artifact verification tooling
 and workflow configuration, the induced-subset all-\(n\) lower bound, and the
 exact eventual radius-one insertion theorem, the regular-direction baseline
-and zigzag cubic upper bound, and the exact bounded product-distance surrogate
-analysis through `n=11`.
+and zigzag cubic upper bound, the exact bounded product-distance surrogate
+analysis through `n=11`, and the matching all-\(n\) symbolic surrogate
+construction with coefficient \(8/25\).
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -26,11 +27,13 @@ The best leading coefficient obtainable from the specific relaxation
 This is a method-specific optimality statement, not a matching upper bound and
 not a proved exact asymptotic constant for Power-Ringmin.
 
-The zigzag regular-direction construction improves the proved upper coefficient
-from \(1/\pi\) to \(1/(2\pi)\), but it still does not match the induced-subset
-leading coefficient. That zigzag theorem itself generated no leading-order LP,
-new finite certificate, `n=7` certificate, preflight artifact, permutation
-optimization, or exhaustive enumeration.
+The zigzag regular-direction construction historically improved the proved
+upper coefficient from \(1/\pi\) to \(1/(2\pi)\). It is now superseded by the
+product-distance construction below, which gives \(8/(25\pi)\). Neither upper
+bound matches the induced-subset geometric lower coefficient. The zigzag
+theorem itself generated no leading-order LP, new finite certificate, `n=7`
+certificate, preflight artifact, permutation optimization, or exhaustive
+enumeration.
 
 The product-distance surrogate now optimizes the regular-direction sufficient
 radius combinatorially. Exact canonical enumeration, deliberately bounded to
@@ -39,8 +42,24 @@ radius combinatorially. Exact canonical enumeration, deliberately bounded to
 (W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50).
 \]
 This finite exact result improves on zigzag for every enumerated `n=6..11`,
-but it is not an all-`n` formula, a geometric certificate, or a new asymptotic
-upper bound without a symbolic order family.
+but the finite table alone is not an all-`n` formula or a geometric
+certificate. A separate symbolic theorem now supplies explicit orders for
+every \(n\ge9\): with
+\[
+d_n=\left\lceil{4n+8\over5}\right\rceil,
+\qquad
+T_n={d_n(d_n-1)\over2},
+\]
+the constructed order \(\sigma_n\) satisfies
+\(W(\sigma_n)\le T_n\). Consequently
+\[
+{B_n\over n^2}\longrightarrow{8\over25},
+\qquad
+{W_n\over n^2}\longrightarrow{8\over25},
+\qquad
+\limsup_{n\to\infty}{R_2^*(n)\over n^3}
+\le {8\over25\pi}.
+\]
 
 The adjacent relaxation is now fully characterized. If
 \[
@@ -113,10 +132,10 @@ H_n={8\over25}n^2+O(n),
 \liminf_{n\to\infty}{B_n\over n^2}\ge{8\over25}.
 \]
 The coefficient \(8/25\) follows from matching all-\(n\) inequalities and is
-not inferred from the bounded table. It is the coefficient of this necessary
-distance-two obstruction, not an exact coefficient of \(B_n\). The
-full-distance tail obstruction \(L_n\le W_n\) remains logically separate and
-is not redefined or transferred by this theorem.
+not inferred from the bounded table. Combined with the explicit upper
+construction, it is now the exact leading coefficient of both \(B_n\) and
+\(W_n\). The full-distance tail obstruction \(L_n\le W_n\) remains logically
+separate and is not redefined or transferred by this theorem.
 
 ## Evidence Basis
 
@@ -215,6 +234,21 @@ is not redefined or transferred by this theorem.
   \qquad(2\le m\le n-2)
   \]
   using induced oriented positional gaps that sum to `n-1`.
+- EXACT THEOREM: for every \(n\ge9\), the same note gives an explicit cyclic
+  core order \(\sigma_n\) satisfying
+  \[
+  W(\sigma_n)\le
+  T_n={d_n(d_n-1)\over2},
+  \qquad
+  d_n=\left\lceil{4n+8\over5}\right\rceil.
+  \]
+  The symbolic family covers all but 14 stated base cases; those cases use
+  explicit exact orders. Separate all-\(n\) arguments control adjacent pairs,
+  positional distances two and three, closing pairs, and automatic distances
+  at least four. Together with \(H_n\le B_n\le W_n\), this proves
+  \(B_n/n^2\to8/25\) and \(W_n/n^2\to8/25\). The regular-direction majorant
+  and radius-one insertion theorem then give the geometric upper coefficient
+  \(8/(25\pi)\), without asserting a matching geometric lower bound.
 - EXACT THEOREM: the same note proves the adjacent formula for \(A_n\) by a
   high/low internal-edge count and an explicit all-`n` cycle whose edges have
   endpoint sums at most \(n+3\); source inspection identifies that cycle with
@@ -246,8 +280,9 @@ is not redefined or transferred by this theorem.
   \liminf_{n\to\infty}{B_n\over n^2}\ge{8\over25}.
   \]
   The proof includes all strict/non-strict boundaries and degenerate tails;
-  it gives no exact \(B_n\) coefficient and no statement about \(L_n\) or the
-  geometric optimum.
+  By itself it gives no matching upper bound and no statement about \(L_n\) or
+  the geometric optimum; the separate explicit construction supplies the
+  matching upper coefficient for \(B_n\) and \(W_n\).
 - EXACT THEOREM: \(A_n/n^2\to1/4\), while
   \(L_n/n^2\to2(\sqrt2-1)/3\). A residue-class proof with
   \(m=\lceil2n/5\rceil\) gives \(L_n>A_n\) for every \(n\ge33\).
@@ -282,8 +317,9 @@ is not redefined or transferred by this theorem.
   hosted status for a specific commit.
 - CURRENT HOSTED STATUS: GitHub Actions for the current `HEAD` has not been
   independently verified.
-- LIMITATION: none of the finite certificates proves an exact optimum, a
-  coefficient-matching upper bound, or a leading-term asymptotic formula.
+- LIMITATION: none of the finite certificates proves an exact optimum,
+  coefficient-matching upper bound, or leading-term asymptotic formula; the
+  new asymptotic conclusions instead come from separate all-\(n\) theorems.
 
 ## Consequences
 
@@ -318,24 +354,25 @@ is not redefined or transferred by this theorem.
    contact graph, does not settle \(n\le11\), and is not based on the checked
    cases \(n=5,6\).
 
-6. The zigzag regular-direction construction sharpens the prior baseline and
-   gives the rigorous liminf/limsup bracket
+6. The symbolic product-distance construction supersedes zigzag and gives the
+   rigorous liminf/limsup bracket
    \[
    {2(\sqrt2-1)\over3\pi}
    \le
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
    \le
    \limsup_{n\to\infty}{R_2^*(n)\over n^3}
-   \le {1\over2\pi}.
+   \le {8\over25\pi}.
    \]
    The upper value is a limsup coefficient, not an exact leading constant; the
    construction does not prove convergence.
 
 7. The product-distance surrogate isolates exactly what the angular majorant
-   needs from a regular-direction order. Zigzag has exact surrogate score
-   \(M_n\), but bounded enumeration finds strictly smaller scores for every
-   `n=6..11`. The best tail obstruction remains strict in all enumerated cases
-   where it is defined, so neither comparison identifies an all-`n` optimum.
+   needs from a regular-direction order. The explicit \(T_n\) family proves
+   the exact leading coefficient \(8/25\) for both \(B_n\) and \(W_n\), but it
+   does not determine their exact finite values or second-order terms. The best
+   tail obstruction remains strict in all enumerated cases where it is
+   defined.
 
 8. The adjacent relaxation by itself has coefficient \(1/4\), strictly below
    both the earlier two-threshold coefficient \((36-16\sqrt2)/49\) and the
@@ -344,26 +381,24 @@ is not redefined or transferred by this theorem.
    `n>=9`, and obey the stronger explicit lower bound. The nested tail-cycle
    subproblem still has coefficient \((36-16\sqrt2)/49\), while the added
    incidence constraint raises the combined necessary coefficient to
-   \(8/25\). Neither result determines exact \(B_n\) or \(W_n\) values or
-   provides a matching upper construction.
+   \(8/25\), and the explicit order family matches it from above. This settles
+   the leading coefficients, but not exact \(B_n\) or \(W_n\) values.
 
 ## Updated Research Questions
 
-- OPEN QUESTION: what upper-bound construction, if any, matches the new
-  induced-subset lower obstruction up to lower-order terms?
+- OPEN QUESTION: what geometric upper-bound construction, if any, narrows or
+  matches the induced-subset lower coefficient up to lower-order terms?
 - OPEN QUESTION: can the previous reduced-core observations at checked
   `n=5,6` be related to the exact feasible-radius-set equality for
   \(n\ge12\), or are their lower-cycle proxies a separate finite phenomenon?
 - OPEN QUESTION: is \(12\) the least threshold for
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
-- OPEN QUESTION: what is the asymptotic behavior of \(W_n/n^2\), and can a
-  symbolic regular-direction order family improve the zigzag coefficient?
-- OPEN QUESTION: what stronger combinatorial obstruction can narrow the gap
-  between the best tail lower obstruction and \(W_n\)?
-- OPEN QUESTION: what exact formulas, matching upper constructions, or sharper
-  all-`n` bounds hold for \(B_n\) and \(W_n\) beyond the new quantitative
-  lower obstruction?
+- OPEN QUESTION: what exact formulas or second-order asymptotics hold for
+  \(B_n\) and \(W_n\) beyond their now-settled leading coefficient \(8/25\)?
+- OPEN QUESTION: can the gap between the induced-subset geometric lower
+  coefficient and the product-distance upper coefficient \(8/(25\pi)\) be
+  narrowed by a sharper angular construction or a stronger lower bound?
 - OPEN QUESTION: at what first index, if any, do positional distances at least
   three change \(W_n\)? They do not change it in the exact `n=3..11` table.
 - OPEN QUESTION: can the fixed-order STN/geometric equivalence, endpoint
@@ -380,10 +415,8 @@ Immediate:
 
 Next:
 
-- Seek a symbolic order family or stronger obstruction for the
-  product-distance surrogate, including sharper bounds for \(B_n\) and
-  \(W_n\); do not extrapolate a formula from `n<=11` or extend enumeration by
-  default.
+- Seek exact finite formulas or controlled second-order bounds for \(B_n\) and
+  \(W_n\), without extending factorial enumeration by default.
 - Keep the exact radius-one theorem separate from finite critical-cycle proxy
   claims and from any assumption that an optimum is attained.
 
@@ -405,8 +438,7 @@ Deliberately deferred:
 - Larger exhaustive enumeration without a precise discriminator.
 - Product-distance enumeration beyond the explicit `n=11` boundary.
 - Leading-order LP work in the induced-subset proof task.
-- Any claim that the new lower-bound coefficient is the exact asymptotic
-  constant.
+- Any claim that \(8/(25\pi)\) is the exact geometric asymptotic constant.
 - Any claim that the radius-one threshold \(12\) is minimal.
 
 ## Recommended Next Atomic Task

@@ -216,9 +216,31 @@ H_n={8\over25}n^2+O(n),
 \liminf_{n\to\infty}{B_n\over n^2}\ge{8\over25}.
 \]
 The coefficient \(8/25\) is proved by matching all-\(n\) inequalities; it is
-not inferred from finite data. It is the coefficient of the combined
-distance-two obstruction, not an exact asymptotic coefficient of \(B_n\), a
-statement about \(L_n\), or a geometric-optimum result.
+not inferred from finite data. A matching explicit construction now turns it
+into the exact asymptotic coefficient of both \(B_n\) and \(W_n\). With
+\[
+d_n=\left\lceil{4n+8\over5}\right\rceil,
+\qquad
+T_n={d_n(d_n-1)\over2},
+\]
+there is an explicit cyclic core order \(\sigma_n\) for every \(n\ge9\)
+such that \(W(\sigma_n)\le T_n\). The symbolic five-residue block family
+covers every \(n\ge33\) and ten earlier values; fourteen displayed initial
+witnesses cover the rest. Adjacent products, distances two and three,
+closing arcs, and automatic distances at least four are proved separately in
+`research/PRODUCT_DISTANCE_SURROGATE.md`. Therefore
+\[
+{B_n\over n^2}\longrightarrow{8\over25},
+\qquad
+{W_n\over n^2}\longrightarrow{8\over25}.
+\]
+For \(n\ge12\), the insertion theorem transfers the same construction and
+gives
+\[
+\limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{8\over25\pi}.
+\]
+This is a geometric upper coefficient, not an exact geometric asymptotic
+constant.
 An exact, no-floating-point canonical enumeration bounded to `n=3..11` gives
 \[
 (W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50),
@@ -282,7 +304,7 @@ lower coefficient remain unresolved. Current exact bounds give
 \liminf_{n\to\infty}\frac{R_2^*(n)}{n^3}
 \le
 \limsup_{n\to\infty}\frac{R_2^*(n)}{n^3}
-\le\frac1{2\pi}.
+\le\frac8{25\pi}.
 \]
 
 ## Scope And Guardrails
@@ -374,6 +396,8 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \qquad
   R_2^*(n)=\Theta(n^3).
   \]
+  The zigzag coefficient remains a valid historical bound; the matching
+  product-distance construction below improves the current upper coefficient.
 - EXACT THEOREM: for every cyclic order \(\sigma\) of the core, the
   product-distance score
   \(W(\sigma)=\max_{i<j}ij/d_\sigma(i,j)\) gives strict all-pairs core
@@ -444,8 +468,23 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \]
   The all-\(n\) proof treats \(n=3\), \(v=0\), \(v=1\), empty tails, strict
   tail thresholds, non-strict compatible equality, and the exact floor.
-  This does not prove a limit or exact coefficient for \(B_n\), and it has no
-  asserted implication for \(L_n\) or the geometric optimum.
+  By itself this is only a lower bound; the explicit matching construction
+  below supplies the reverse asymptotic inequality.
+- EXACT THEOREM: for every \(n\ge9\), the explicit cyclic order
+  \(\sigma_n\) with threshold \(T_n=d_n(d_n-1)/2\) satisfies
+  \(W(\sigma_n)\le T_n\). Consequently,
+  \[
+  \lim_{n\to\infty}{B_n\over n^2}
+  =\lim_{n\to\infty}{W_n\over n^2}
+  ={8\over25}.
+  \]
+  For \(n\ge12\), regular-direction core feasibility and insertion give
+  \[
+  R_2^*(n)\le{(n-1)T_n\over\pi},
+  \qquad
+  \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{8\over25\pi}.
+  \]
+  The geometric statement is an upper bound only.
 - EXACT THEOREM:
   \[
   \lim_{n\to\infty} A_n/n^2

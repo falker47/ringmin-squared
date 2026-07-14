@@ -21,6 +21,109 @@ MAX_ENUMERATION_N = 11
 MAX_CANONICAL_ORDERS = math.factorial(MAX_ENUMERATION_N - 2) // 2
 
 
+_EIGHT_TWENTY_FIFTHS_EXCEPTIONAL_ORDERS = {
+    9: (9, 2, 8, 4, 6, 5, 7, 3),
+    10: (10, 2, 9, 4, 7, 6, 5, 8, 3),
+    11: (11, 2, 10, 4, 8, 6, 7, 5, 9, 3),
+    12: (12, 2, 11, 4, 9, 6, 7, 8, 5, 10, 3),
+    14: (14, 3, 11, 2, 13, 4, 12, 6, 9, 8, 7, 10, 5),
+    15: (15, 3, 12, 2, 14, 4, 13, 6, 10, 8, 9, 7, 11, 5),
+    16: (16, 2, 13, 4, 15, 6, 11, 8, 9, 10, 7, 14, 5, 12, 3),
+    17: (17, 5, 14, 3, 13, 2, 16, 4, 15, 6, 12, 8, 10, 9, 11, 7),
+    20: (20, 2, 13, 10, 11, 12, 9, 17, 7, 16, 5, 18, 3, 15, 8, 19, 4, 14, 6),
+    21: (21, 6, 15, 4, 20, 2, 16, 3, 19, 5, 17, 7, 18, 9, 13, 11, 12, 10, 14, 8),
+    22: (22, 2, 16, 4, 19, 6, 20, 8, 15, 10, 13, 12, 11, 14, 9, 21, 7, 18, 5, 17, 3),
+    26: (
+        26,
+        2,
+        18,
+        4,
+        23,
+        11,
+        21,
+        8,
+        24,
+        10,
+        17,
+        12,
+        15,
+        14,
+        13,
+        16,
+        6,
+        25,
+        9,
+        20,
+        7,
+        22,
+        5,
+        19,
+        3,
+    ),
+    27: (
+        27,
+        2,
+        18,
+        4,
+        24,
+        6,
+        22,
+        8,
+        20,
+        10,
+        23,
+        12,
+        16,
+        14,
+        15,
+        13,
+        17,
+        11,
+        25,
+        9,
+        21,
+        7,
+        26,
+        5,
+        19,
+        3,
+    ),
+    32: (
+        32,
+        2,
+        22,
+        4,
+        29,
+        6,
+        26,
+        13,
+        25,
+        10,
+        30,
+        12,
+        21,
+        14,
+        19,
+        16,
+        17,
+        18,
+        15,
+        20,
+        8,
+        31,
+        11,
+        24,
+        9,
+        27,
+        7,
+        28,
+        5,
+        23,
+        3,
+    ),
+}
+
+
 @dataclass(frozen=True)
 class ProductDistancePairScore:
     """Exact score contribution of one unordered pair in a core order."""
@@ -469,6 +572,82 @@ def terminal_high_incidence_lower_obstruction(n: int) -> Fraction:
     raise AssertionError("finite terminal-high event set was not exhaustive")
 
 
+def eight_twenty_fifths_threshold(n: int) -> int:
+    """Return ``T_n = d_n(d_n-1)/2`` for the matching upper construction.
+
+    Here ``d_n = ceil((4*n+8)/5)``.  The construction theorem is stated for
+    ``n >= 9``, so this helper deliberately has the same domain.
+    """
+    _validate_eight_twenty_fifths_n(n)
+    d = (4 * n + 12) // 5
+    return d * (d - 1) // 2
+
+
+def eight_twenty_fifths_order(n: int) -> tuple[int, ...]:
+    """Return an explicit core order with score at most ``T_n``.
+
+    The fourteen small orders not covered by the uniform block parameters are
+    stored explicitly.  Every other ``n >= 9`` uses the exact block family
+    proved in ``research/PRODUCT_DISTANCE_SURROGATE.md``.  This routine does
+    not enumerate or search over cyclic orders.
+    """
+    _validate_eight_twenty_fifths_n(n)
+    exceptional = _EIGHT_TWENTY_FIFTHS_EXCEPTIONAL_ORDERS.get(n)
+    if exceptional is not None:
+        return exceptional
+
+    d = (4 * n + 12) // 5
+    v = n - d + 1
+    residue_slack = d - 4 * v - 2
+    if v < residue_slack:
+        raise AssertionError(
+            f"missing exceptional order for n={n}, v={v}, s={residue_slack}"
+        )
+
+    triple_count, has_doubleton = divmod(v + residue_slack, 2)
+    middle_paths: list[tuple[int, ...]] = [
+        (
+            d - 1 - 2 * block,
+            2 * v + 2 + block,
+            d - 2 - 2 * block,
+        )
+        for block in range(triple_count)
+    ]
+    remaining_middle = list(
+        range(
+            2 * v + triple_count + 2,
+            d - 2 * triple_count,
+        )
+    )
+    if has_doubleton:
+        middle_paths.append(tuple(remaining_middle[:2]))
+        remaining_middle = remaining_middle[2:]
+    middle_paths.extend((value,) for value in remaining_middle)
+    if len(middle_paths) != v:
+        raise AssertionError(
+            f"middle-path count mismatch for n={n}: "
+            f"expected {v}, got {len(middle_paths)}"
+        )
+
+    left_lows = tuple(2 * v + 1 - 2 * block for block in range(v))
+    right_lows = tuple(2 * v - 2 * block for block in range(v))
+    order: list[int] = []
+    for block, middle_path in enumerate(middle_paths):
+        order.extend(
+            (
+                d + block,
+                right_lows[block],
+                *middle_path,
+                left_lows[(block + 1) % v],
+            )
+        )
+
+    result = tuple(order)
+    if len(result) != n - 1 or set(result) != set(range(2, n + 1)):
+        raise AssertionError(f"block construction is not a core order for n={n}")
+    return result
+
+
 def enumerate_product_distance(
     n: int,
     *,
@@ -687,6 +866,11 @@ def _validate_problem_n(n: int) -> None:
         raise ValueError(f"n must be an integer at least 3, got {n!r}")
 
 
+def _validate_eight_twenty_fifths_n(n: int) -> None:
+    if isinstance(n, bool) or not isinstance(n, int) or n < 9:
+        raise ValueError(f"n must be an integer at least 9, got {n!r}")
+
+
 def _validate_max_position_distance(max_position_distance: int) -> None:
     if (
         isinstance(max_position_distance, bool)
@@ -804,6 +988,8 @@ __all__ = [
     "canonical_core_orders",
     "canonicalize_core_order",
     "circular_position_distance",
+    "eight_twenty_fifths_order",
+    "eight_twenty_fifths_threshold",
     "enumerate_product_distance",
     "enumerate_truncated_product_distance",
     "product_distance_pair_scores",

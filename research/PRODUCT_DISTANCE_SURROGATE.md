@@ -72,9 +72,22 @@
   \[
   \liminf_{n\to\infty}{B_n\over n^2}\ge{8\over25}.
   \]
-  This is a lower coefficient for the distance-two surrogate only, not an
-  exact asymptotic coefficient of \(B_n\); it makes no claim about \(L_n\) or
-  the geometric optimum.
+  By itself this is a lower coefficient for the distance-two surrogate; the
+  matching construction below upgrades it to an exact asymptotic coefficient.
+- **EXACT THEOREM (matching upper construction):** for every \(n\ge9\), with
+  \(d_n=\lceil(4n+8)/5\rceil\) and \(T_n=d_n(d_n-1)/2\), the explicit order
+  \(\sigma_n\) constructed below satisfies \(W(\sigma_n)\le T_n\). Hence
+  \[
+  {B_n\over n^2}\longrightarrow{8\over25},
+  \qquad
+  {W_n\over n^2}\longrightarrow{8\over25}.
+  \]
+  For \(n\ge12\), insertion transfers the same order and proves
+  \[
+  \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{8\over25\pi}.
+  \]
+  This last statement is an upper coefficient, not an exact geometric
+  asymptotic constant.
 - **VERIFIED FACT (finite exhaustive exact computation):** the table below
   gives the objectives truncated at positional distances at most one and two,
   as well as \(W_n\), for \(3\le n\le11\). Non-adjacent constraints first
@@ -1466,6 +1479,441 @@ and the resulting lower bound for \(B_n\) only. It does not determine a limit
 or exact coefficient for \(B_n\), does not lower-bound or redefine \(L_n\),
 and does not transfer to \(R_2^*(n)\) or the geometric optimum.
 
+## Matching Eight-Twenty-Fifths Upper Construction
+
+The preceding limitation can now be removed for the combinatorial surrogates.
+The threshold used only as an upper witness for \(H_n\) in (TH11) also admits
+an explicit cyclic order. Put
+
+\[
+d=d_n=\left\lceil{4n+8\over5}\right\rceil,
+\qquad
+T=T_n={d(d-1)\over2}.
+\tag{UC1}
+\]
+
+We prove that every \(n\ge9\) has an explicit core order \(\sigma_n\) with
+
+\[
+W(\sigma_n)\le T_n.
+\tag{UC2}
+\]
+
+The construction is symbolic on five residue-class tails and uses fourteen
+displayed witnesses before those tails begin. No canonical cyclic-order
+enumeration beyond \(n=11\) is used.
+
+### Parameters and symbolic domain
+
+Set
+
+\[
+v=n-d+1,
+\qquad
+e=d-4v.
+\tag{UC3}
+\]
+
+Exact evaluation by residue class gives
+
+| \(n\bmod5\) | \(e\) | \(d\) and \(n\) in terms of \(v\) |
+|---:|---:|---|
+| \(0\) | \(6\) | \(d=4v+6,\ n=5v+5\) |
+| \(1\) | \(7\) | \(d=4v+7,\ n=5v+6\) |
+| \(2\) | \(8\) | \(d=4v+8,\ n=5v+7\) |
+| \(3\) | \(4\) | \(d=4v+4,\ n=5v+3\) |
+| \(4\) | \(5\) | \(d=4v+5,\ n=5v+4\) |
+
+Thus always
+
+\[
+4\le e\le8,
+\qquad
+d=4v+e,
+\qquad
+n=5v+e-1.
+\tag{UC4}
+\]
+
+The \(v\) terminal labels are \(d,\dots,n\). Reserve the \(2v\) labels
+\(2,\dots,2v+1\) as their cyclic neighbors. The middle interval has size
+
+\[
+\mu=d-2v-2=2v+e-2.
+\]
+
+Define
+
+\[
+t=\left\lfloor{\mu-v\over2}\right\rfloor
+=\left\lfloor{v+e-2\over2}\right\rfloor,
+\qquad
+\varepsilon=\mu-v-2t\in\{0,1\},
+\qquad
+r=v-t-\varepsilon.
+\tag{UC5}
+\]
+
+The block formula below is valid exactly when \(r\ge0\), equivalently
+\(v\ge e-2\). Its first index in residue classes \(3,4,0,1,2\) is,
+respectively,
+
+\[
+13,\ 19,\ 25,\ 31,\ 37.
+\tag{UC6}
+\]
+
+It therefore covers every \(n\ge33\), as well as
+
+\[
+13,18,19,23,24,25,28,29,30,31.
+\tag{UC7}
+\]
+
+### The symbolic cycle
+
+For \(0\le j<v\), put
+
+\[
+E_j=d+j,
+\qquad
+\lambda_j=2v-2j,
+\qquad
+\rho_j=2v+1-2j.
+\tag{UC8}
+\]
+
+For \(0\le j<t\), define the three-element middle path
+
+\[
+P_j=(d-1-2j,\ 2v+2+j,\ d-2-2j).
+\tag{UC9}
+\]
+
+The still unused middle labels form the interval
+
+\[
+S=[a,b],
+\qquad
+a=2v+t+2,
+\qquad
+b=d-2t-1=3v+1+\varepsilon.
+\tag{UC10}
+\]
+
+If \(\varepsilon=1\), let \(P_t=(a,a+1)\). Turn every remaining
+member of \(S\), in increasing order, into a singleton path. If
+\(\varepsilon=0\), every member of \(S\) is a singleton path. Equation
+(UC5) gives exactly \(v\) paths \(P_0,\dots,P_{v-1}\). Moreover, the
+connector labels in (UC9), the interval (UC10), and the two outer labels in
+each triple partition \(\{2v+2,\dots,d-1\}\).
+
+Expand the paths in the cyclic sequence
+
+\[
+\boxed{
+\sigma_n=
+(E_0,\lambda_0,P_0,\rho_1,E_1,\lambda_1,P_1,\rho_2,
+\dots,
+E_{v-1},\lambda_{v-1},P_{v-1},\rho_0)
+}.
+\tag{UC11}
+\]
+
+Thus each \(E_j\) has the two neighbors \(\rho_j,\lambda_j\), and the
+oriented gap from \(E_j\) to \(E_{j+1}\) has the form
+
+\[
+E_j,\lambda_j,P_j,\rho_{j+1},E_{j+1},
+\]
+
+with subscripts read cyclically. Every \(P_j\) is nonempty, so consecutive
+terminal labels are at positional distance at least four.
+
+### Adjacent products
+
+The larger product at the two terminal-low edges incident to \(E_j\) is at
+most
+
+\[
+f_j=(d+j)(2v+1-2j).
+\]
+
+The sequence \(f_j\) is decreasing, and
+
+\[
+f_0=d(2v+1)\le {d(d-1)\over2}=T,
+\tag{UC12}
+\]
+
+because \(4v+2\le d-1=4v+e-1\). Every low-middle edge satisfies
+
+\[
+xy\le(2v+1)(d-1)\le {d(d-1)\over2}=T,
+\tag{UC13}
+\]
+
+because \(4v+2\le d\).
+
+It remains to check internal triple and doubleton edges. With one-based
+\(j=1,\dots,t\), the larger internal product of the \(j\)-th triple is
+
+\[
+F_j=(2v+1+j)(d-2j+1),
+\qquad
+F_{j+1}-F_j=e-4j-3.
+\]
+
+For \(e\le7\), the maximum is \(F_1\), while for \(e=8\) it is
+\(F_2=F_1+1\). Since
+
+\[
+T-F_1={(e-4)(d-1)\over2},
+\tag{UC14}
+\]
+
+all triple edges have product at most \(T\). When \(e=8\), the displayed
+slack is \(2(d-1)>1\), so the one-unit increase is harmless.
+
+If \(\varepsilon=1\), then \(a=(n+2)/2\) and \(a+1=(n+4)/2\). The only
+middle-middle edge outside a triple obeys
+
+\[
+a(a+1)\le T,
+\tag{UC15}
+\]
+
+because
+
+\[
+2d(d-1)-(n+2)(n+4)
+\ge {7n^2-62n-152\over25}\ge0
+\]
+
+for the symbolic domain, whose smallest index is \(13\). Equations
+(UC12)--(UC15) prove every adjacent product bound.
+
+### Pairs at positional distance two
+
+If neither endpoint is terminal, then
+
+\[
+xy\le(d-1)^2\le d(d-1)=2T.
+\tag{UC16}
+\]
+
+For the triple with one-based index \(j\), the terminal labels at its two
+ends give the exact differences
+
+\[
+d(d-1)-(d+j-1)(d-2j+1)
+=(j-1)(d+2j-1)\ge0,
+\]
+
+and
+
+\[
+d(d-1)-(d+j)(d-2j)
+=(j-1)d+2j^2\ge0.
+\tag{UC17}
+\]
+
+At \(j=1\), the first product is exactly \(d(d-1)=2T\): the pair
+\((d,d-1)\) is at positional distance two. For a singleton or doubleton
+endpoint, (UC10) and \(E_j\le n\) give
+
+\[
+d(d-1)-nb
+=v^2+(5e-6-5\varepsilon)v
+ +(e-1)(e-1-\varepsilon)>0.
+\tag{UC18}
+\]
+
+There is one separate closing form when \(t=v\), so the last path is also a
+triple. Its endpoint adjacent at distance two to \(E_{v-1}=n\) satisfies
+
+\[
+d(d-1)-n(d-2v+1)
+=d(v-1)+2v^2-3v+1\ge0,
+\]
+
+while the endpoint seen from \(E_0=d\) is \(d-2v<d-1\). This completes
+the distance-two proof, including its closing pairs.
+
+### Pairs at positional distance three
+
+Every terminal-terminal pair has distance at least four because every
+terminal gap contains a low, a nonempty \(P_j\), and another low. A pair at
+distance three therefore has at most one terminal endpoint. Its product is
+bounded by
+
+\[
+xy\le n(d-1)< {3d(d-1)\over2}=3T,
+\tag{UC19}
+\]
+
+since
+
+\[
+3d-2n=2v+e+2>0.
+\]
+
+This applies cyclically and hence includes every distance-three pair crossing
+the displayed cut in (UC11).
+
+### Closing arcs and distances at least four
+
+The displayed closing segment is
+
+\[
+E_{v-1},\lambda_{v-1},P_{v-1},\rho_0,E_0.
+\]
+
+The edge \(\rho_0E_0\) is the \(j=0\) case of (UC12), the preceding
+low-middle edge is covered by (UC13), and its distance-two endpoint is covered
+by (UC18) or by the explicit all-triple calculation following (UC17).
+There is no terminal-terminal closing pair at distance three. Thus no linear
+presentation endpoint has escaped the preceding cyclic checks.
+
+Finally, if \(q=d_{\sigma_n}(i,j)\ge4\), then
+
+\[
+ij\le n(n-1)<2d(d-1)=4T\le qT.
+\tag{UC20}
+\]
+
+The strict middle inequality follows directly from (UC4):
+
+\[
+2d(d-1)-n(n-1)
+=7v^2+(6e+7)v+(e-1)(e+2)>0.
+\]
+
+Hence every distance at least four is automatic at the chosen threshold.
+
+### The fourteen initial witnesses
+
+The symbolic condition \(v\ge e-2\) fails, for \(n\ge9\), exactly at
+
+\[
+\mathcal X
+=\{9,10,11,12,14,15,16,17,20,21,22,26,27,32\}.
+\tag{UC21}
+\]
+
+The following orders are explicit witnesses. Each is rotated to start with
+\(n\); they are not asserted to be minimizers.
+
+```text
+9:  (9,2,8,4,6,5,7,3)
+10: (10,2,9,4,7,6,5,8,3)
+11: (11,2,10,4,8,6,7,5,9,3)
+12: (12,2,11,4,9,6,7,8,5,10,3)
+14: (14,3,11,2,13,4,12,6,9,8,7,10,5)
+15: (15,3,12,2,14,4,13,6,10,8,9,7,11,5)
+16: (16,2,13,4,15,6,11,8,9,10,7,14,5,12,3)
+17: (17,5,14,3,13,2,16,4,15,6,12,8,10,9,11,7)
+20: (20,2,13,10,11,12,9,17,7,16,5,18,3,15,8,19,4,14,6)
+21: (21,6,15,4,20,2,16,3,19,5,17,7,18,9,13,11,12,10,14,8)
+22: (22,2,16,4,19,6,20,8,15,10,13,12,11,14,9,21,7,18,5,17,3)
+26: (26,2,18,4,23,11,21,8,24,10,17,12,15,14,13,16,6,25,9,20,7,22,5,19,3)
+27: (27,2,18,4,24,6,22,8,20,10,23,12,16,14,15,13,17,11,25,9,21,7,26,5,19,3)
+32: (32,2,22,4,29,6,26,13,25,10,30,12,21,14,19,16,17,18,15,20,8,31,11,24,9,27,7,28,5,23,3)
+```
+
+For an order displayed with this cut, let \(M_q\) be the maximum score
+\(xy/q\) over all pairs at positional distance \(q\), and let \(C_q\) be
+the same maximum restricted to pairs crossing the cut. Direct exact rational
+evaluation gives:
+
+| \(n\) | \(T_n\) | \(M_1\) | \(M_2\) | \(M_3\) | \(C_1\) | \(C_2\) | \(C_3\) | \(W(\sigma_n)\) |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 9 | 36 | 35 | 36 | 15 | 27 | \(63/2\) | 15 | 36 |
+| 10 | 45 | 42 | 45 | \(56/3\) | 30 | 40 | \(50/3\) | 45 |
+| 11 | 55 | 48 | 55 | 20 | 33 | \(99/2\) | \(55/3\) | 55 |
+| 12 | 66 | 56 | 66 | 24 | 36 | 60 | 20 | 66 |
+| 14 | 78 | 72 | 78 | \(98/3\) | 70 | 70 | \(98/3\) | 78 |
+| 15 | 91 | 80 | 91 | 35 | 75 | \(165/2\) | 35 | 91 |
+| 16 | 105 | 98 | 104 | 42 | 48 | 96 | \(80/3\) | 104 |
+| 17 | 120 | 119 | 120 | 51 | 119 | \(187/2\) | 51 | 120 |
+| 20 | 153 | 153 | 144 | \(200/3\) | 120 | 140 | \(80/3\) | 153 |
+| 21 | 171 | 168 | \(323/2\) | 70 | 168 | 147 | 70 | 168 |
+| 22 | 190 | 189 | 190 | 77 | 66 | 187 | \(110/3\) | 190 |
+| 26 | 253 | 253 | 252 | \(325/3\) | 78 | 247 | \(130/3\) | 253 |
+| 27 | 276 | 276 | 273 | \(325/3\) | 81 | \(513/2\) | 45 | 276 |
+| 32 | 378 | 360 | 378 | 155 | 96 | 368 | \(160/3\) | 378 |
+
+Every displayed \(M_q\) is at most \(T_n\), while its underlying product is
+at most \(qT_n\). The \(C_q\) columns separately check all local closing
+pairs. Equation (UC20), which also holds at these indices, covers every
+remaining distance. This proves (UC2) for the fourteen initial cases by exact
+finite substitution, not by an extrapolation from them.
+
+An exact positional constraint search was used only to falsify candidates and
+identify these witnesses. It used Boolean position-label assignments and
+forbidden local pairs for distances one, two, and three; it did not enumerate
+canonical cyclic orders. The production generator performs no search. The
+repository's canonical factorial enumerator remains hard-bounded to
+\(n\le11\).
+
+### Exact surrogate limits and geometric consequence
+
+The existing lower obstruction and the new construction give, for every
+\(n\ge9\),
+
+\[
+H_n\le B_n\le W_n\le W(\sigma_n)\le T_n.
+\tag{UC22}
+\]
+
+The first inequality is (TH5), the middle inequality follows from the
+definitions of the distance-two and full objectives, and the last two are
+the explicit construction. Since
+
+\[
+{H_n\over n^2}\longrightarrow{8\over25},
+\qquad
+{T_n\over n^2}
+={1\over2}{d_n\over n}\left({d_n\over n}-{1\over n}\right)
+\longrightarrow{8\over25},
+\]
+
+the squeeze theorem proves the exact combinatorial asymptotics
+
+\[
+\boxed{
+{B_n\over n^2}\longrightarrow{8\over25},
+\qquad
+{W_n\over n^2}\longrightarrow{8\over25}
+}.
+\tag{UC23}
+\]
+
+For \(n\ge12\), the exact core-feasibility result and the accepted
+radius-one insertion theorem apply to \(\sigma_n\) at the same explicit
+radius. Therefore
+
+\[
+R_2^*(n)
+\le{(n-1)W(\sigma_n)\over\pi}
+\le{(n-1)T_n\over\pi},
+\]
+
+and hence
+
+\[
+\boxed{
+\limsup_{n\to\infty}{R_2^*(n)\over n^3}
+\le {8\over25\pi}
+}.
+\tag{UC24}
+\]
+
+This is a geometric upper coefficient, not a proof that
+\(R_2^*(n)/n^3\) converges or that \(8/(25\pi)\) is its exact leading
+constant. The cases \(n=9,10,11\) establish the all-\(n\) combinatorial
+construction but are not used by the insertion theorem.
+
 ## Exact Core Feasibility
 
 For \(n\ge4\), assign the entry in position \(k\) of \(\sigma\) to polar
@@ -1841,24 +2289,24 @@ one, and two, an independent brute-force cycle enumerator restricted to tail
 cardinality at most seven, the exact finite \(Q_n\) obstruction, the
 compatible-low floor and even-square equality, the joint finite \(H_n\)
 obstruction, the symbolic upper witness through exact formula diagnostics,
-and the effective full-distance tail comparison. A separate verifier builds
+the matching order generator, all fourteen exceptional orders, their exact
+distance-class and closing maxima, independent cyclic checks of the symbolic
+family, and the effective full-distance tail comparison. A separate verifier builds
 the tails and incidence endpoints without production support for all 872
 orders on `n=3..7` over 34,160 half-integer states, and directly checks the
 two-terminal-high equality case at `n=11`. Exact reproduction of both
 truncated and full tables remains bounded to `n=3..11`; no cyclic-order
-enumeration is performed beyond `n=11`.
+enumeration is performed beyond `n=11`. Independent construction diagnostics
+checked every local distance and closing pair through `n=5000`; these finite
+diagnostics support but do not replace the symbolic proof above.
 
 The following remain unresolved.
 
-- **OPEN QUESTION:** what is the asymptotic behavior of \(W_n/n^2\), and does
-  a limit exist?
-- **OPEN QUESTION:** can a symbolic order family improve the zigzag
-  coefficient while approaching the tail obstruction?
-- **OPEN QUESTION:** can stronger combinatorial obstructions narrow the finite
-  and asymptotic gap between \(L_n\) and \(W_n\)?
-- **OPEN QUESTION:** what are exact formulas or sharper bounds for \(B_n\) and
-  \(W_n\)? The theorem here gives a quantitative all-\(n\) lower bound for
-  \(B_n\), but not its exact value or a matching upper construction.
+- **OPEN QUESTION:** what are exact finite formulas or second-order terms for
+  \(B_n\) and \(W_n\)? The leading coefficient is now exact, but the
+  construction need not minimize either objective at each finite \(n\).
+- **OPEN QUESTION:** can the explicit family be sharpened at finite order, or
+  can its optimal members be characterized structurally?
 - **OPEN QUESTION:** at what \(n\), if any, do positional distances at least
   three first change the optimum? They do not do so for \(3\le n\le11\).
 

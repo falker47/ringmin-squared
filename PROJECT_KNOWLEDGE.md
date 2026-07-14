@@ -209,8 +209,9 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   zigzag product lemma, all-pairs feasibility, insertion step, and improved
   asymptotic conclusion.
 - INTERPRETATION: the known lower and upper leading coefficients do not match.
-  The value \(1/(2\pi)\) is a proved limsup upper coefficient, not an exact
-  leading constant; no limit has been proved.
+  The value \(1/(2\pi)\) is the proved zigzag coefficient, while the later
+  matching product-distance construction improves the current limsup upper
+  coefficient to \(8/(25\pi)\). No geometric limit has been proved.
 
 ## Product-Distance Surrogate
 
@@ -371,9 +372,35 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \]
   The coefficient is proved by matching exact lower and upper inequalities.
   At that scale the two branches of \(\Psi_n(T)/n\) are strictly below one;
-  the incidence constraint is the active asymptotic obstruction. This does
-  not prove that \(B_n/n^2\) converges or transfer a result to \(L_n\) or the
-  geometric optimum.
+  the incidence constraint is the active asymptotic obstruction. By itself
+  this does not prove convergence; the explicit matching construction below
+  supplies the reverse asymptotic inequality.
+- EXACT THEOREM: let
+  \[
+  d_n=\left\lceil{4n+8\over5}\right\rceil,
+  \qquad
+  T_n={d_n(d_n-1)\over2}.
+  \]
+  For every \(n\ge9\), the explicit cyclic order \(\sigma_n\) in
+  `research/PRODUCT_DISTANCE_SURROGATE.md` satisfies
+  \(W(\sigma_n)\le T_n\). The symbolic five-residue family covers every
+  \(n\ge33\) and ten earlier indices; fourteen explicit initial witnesses
+  cover the rest. Its proof separately checks adjacent products, distances
+  two and three, closing arcs, and automatic distances at least four.
+- EXACT THEOREM: the matching lower and upper bounds give
+  \[
+  \lim_{n\to\infty}{B_n\over n^2}
+  =\lim_{n\to\infty}{W_n\over n^2}
+  ={8\over25}.
+  \]
+  For `n>=12`, exact core feasibility and radius-one insertion give
+  \[
+  R_2^*(n)\le{(n-1)T_n\over\pi},
+  \qquad
+  \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{8\over25\pi}.
+  \]
+  The geometric conclusion is an upper coefficient, not an exact leading
+  constant or a convergence theorem.
 - EXACT THEOREM: assigning \(\sigma\) to equally spaced polar directions
   makes the core strictly all-pairs feasible at
   \[
@@ -420,10 +447,12 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   handling, the exact adjacent formula, a direct parity-specific adjacent
   equality classifier, the exact nested-neighborhood tail-cycle
   incompatibility, compatible-low capacity, unchanged finite two-threshold
-  obstruction, joint terminal-high incidence obstruction, full-distance
-  tail obstructions, and deterministic full and truncated enumeration with the
-  hard domain `3<=n<=11` and a preflight canonical-order ceiling. It creates
-  no CLI or serialized artifact.
+  obstruction, joint terminal-high incidence obstruction, the explicit
+  eight-twenty-fifths order and threshold, full-distance tail obstructions,
+  and deterministic full and truncated enumeration with the hard domain
+  `3<=n<=11` and a preflight canonical-order ceiling. The explicit upper
+  generator performs no search or enumeration. The module creates no CLI or
+  serialized artifact.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): enumeration of all
   `204557` canonical rotation/reflection classes for `n=3..11` gives
   \[
@@ -463,10 +492,9 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - INTERPRETATION: the finite table is not an all-`n` formula, a geometric
   certificate, or proof that the surrogate radius is geometrically optimal
   for a fixed order. No conjecture is promoted from these nine cases.
-- OPEN QUESTION: exact formulas, matching upper constructions, or sharper
-  all-`n` bounds for \(B_n\) and \(W_n\) remain unresolved; the
-  combined terminal-high theorem gives a stronger quantitative lower bound
-  for \(B_n\), not its exact value.
+- OPEN QUESTION: exact finite formulas, second-order terms, and structural
+  characterizations of optimal orders for \(B_n\) and \(W_n\) remain
+  unresolved. Their leading asymptotic coefficient is now exact.
 - OPEN QUESTION: positional distances at least three do not change the exact
   objective or minimizer set for \(3\le n\le11\); their first essential index,
   if one exists, is unresolved.
@@ -572,10 +600,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
 ## Current Research Roadmap
 
 - VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate-set and critical-structure diagnostics, verifier limitations, workflow provenance, the induced-subset lower bound, exact insertion theorem, regular-direction bounds, and the exact bounded product-distance analysis through `n=11`.
-- INTERPRETATION: the cubic order is settled; the zigzag construction improves
-  the regular-direction upper coefficient from \(1/\pi\) to \(1/(2\pi)\).
-  Further narrowing the coefficient gap is more valuable than automatic
-  `n=7` enumeration.
+- INTERPRETATION: the cubic order is settled; after the zigzag improvement
+  from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
+  improves the current regular-direction upper coefficient to
+  \(8/(25\pi)\). Further narrowing the geometric coefficient gap is more
+  valuable than automatic `n=7` enumeration.
 - RECOMMENDED NEXT TASK: document the fixed-order angular/STN equivalence and
   endpoint semantics, including monotonicity in `R`, negative-cycle
   infeasibility, upper witnesses, and the interval-backend trust boundary.
@@ -583,9 +612,9 @@ Candidate-set extraction uses the following finite-certificate semantics.
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
   active-subsystem description or settle `n<=11`.
-- OPEN QUESTION: can the zigzag upper coefficient \(1/(2\pi)\) be lowered
-  toward the induced-subset coefficient \(2(\sqrt2-1)/(3\pi)\), while
-  retaining a symbolic all-pairs proof?
+- OPEN QUESTION: can the upper coefficient \(8/(25\pi)\) be lowered toward
+  the induced-subset coefficient \(2(\sqrt2-1)/(3\pi)\), while retaining a
+  symbolic all-pairs proof?
 - RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
 
 ## Open Proof Obligations And Limitations
