@@ -21,6 +21,7 @@ from power_ringmin.product_distance import (
     product_distance_score,
     tail_cycle_incompatibility_minimum,
     tail_pairing_sum,
+    terminal_high_incidence_lower_obstruction,
     truncated_product_distance_score,
     two_threshold_lower_obstruction,
     two_threshold_tail_packing,
@@ -153,6 +154,22 @@ def _independent_score(order: tuple[int, ...]) -> Fraction:
     return max(ratios)
 
 
+def _independent_truncated_score(
+    order: tuple[int, ...],
+    max_position_distance: int,
+) -> Fraction:
+    """Score a truncated order without production scoring support."""
+    vertex_count = len(order)
+    return max(
+        Fraction(order[left] * order[right], distance)
+        for left in range(vertex_count)
+        for right in range(left + 1, vertex_count)
+        for step in (right - left,)
+        for distance in (min(step, vertex_count - step),)
+        if distance <= max_position_distance
+    )
+
+
 def _independent_canonicalize(order: tuple[int, ...]) -> tuple[int, ...]:
     largest = max(order)
     forward_index = order.index(largest)
@@ -190,6 +207,57 @@ def _independent_tail_cycle_incompatibility(
         for suffix in itertools.permutations(tail[1:])
         for order in ((anchor, *suffix),)
     )
+
+
+def _independent_threshold_tail_data(
+    n: int,
+    threshold: Fraction,
+) -> tuple[int, int, tuple[int, ...], tuple[int, ...], tuple[int, ...]]:
+    """Construct ``a,b,U,V`` and compatible lows without production support."""
+    a_threshold = next(
+        k for k in itertools.count(2) if k * (k + 1) > threshold
+    )
+    b_threshold = next(
+        k for k in itertools.count(2) if k * (k + 1) > 2 * threshold
+    )
+    u_tail = tuple(
+        index
+        for index in range(2, n + 1)
+        if index * (index + 1) > threshold
+    )
+    v_tail = tuple(
+        index
+        for index in range(2, n + 1)
+        if index * (index + 1) > 2 * threshold
+    )
+    compatible_lows = tuple(
+        low
+        for low in range(2, a_threshold)
+        if low * b_threshold <= threshold
+    )
+    return a_threshold, b_threshold, u_tail, v_tail, compatible_lows
+
+
+def _independent_joint_threshold(n: int) -> Fraction:
+    """Invert both necessary conditions by direct half-integer scanning."""
+    for doubled_threshold in range(2 * n * (n - 1) + 1):
+        threshold = Fraction(doubled_threshold, 2)
+        _a, _b, u_tail, v_tail, compatible_lows = (
+            _independent_threshold_tail_data(n, threshold)
+        )
+        if 2 * len(u_tail) > n - 1:
+            continue
+        minimum_incompatibilities = _independent_tail_cycle_incompatibility(
+            n,
+            threshold,
+        )
+        required_positions = 2 * len(u_tail) + minimum_incompatibilities
+        if (
+            required_positions <= n - 1
+            and 2 * len(v_tail) <= len(compatible_lows)
+        ):
+            return threshold
+    raise AssertionError("independent half-integer scan was not exhaustive")
 
 
 def test_rational_pair_scores_are_exact_and_cover_every_pair() -> None:
@@ -338,6 +406,53 @@ def test_n12_exceptional_degree_obstruction_parameters_are_exact() -> None:
     )
 
 
+def test_terminal_high_incidence_injection_matches_independent_small_orders() -> None:
+    checked_states = 0
+    checked_orders = 0
+    for n in range(3, 8):
+        for order in itertools.permutations(range(2, n + 1)):
+            checked_orders += 1
+            score = _independent_truncated_score(order, 2)
+            for doubled_threshold in range(
+                2 * score.numerator // score.denominator,
+                2 * n * (n + 1) + 1,
+            ):
+                threshold = Fraction(doubled_threshold, 2)
+                if threshold < score:
+                    continue
+                _a, b, u_tail, v_tail, compatible_lows = (
+                    _independent_threshold_tail_data(n, threshold)
+                )
+                checked_states += 1
+
+                if n == 3:
+                    assert not v_tail
+                    continue
+
+                u_set = set(u_tail)
+                incidence_lows = []
+                for high in v_tail:
+                    position = order.index(high)
+                    neighbors = (
+                        order[(position - 1) % len(order)],
+                        order[(position + 1) % len(order)],
+                    )
+                    assert neighbors[0] != neighbors[1]
+                    for low in neighbors:
+                        assert low not in u_set
+                        assert low * high <= threshold
+                        assert low * b <= threshold
+                        incidence_lows.append(low)
+
+                assert len(incidence_lows) == 2 * len(v_tail)
+                assert len(set(incidence_lows)) == len(incidence_lows)
+                assert set(incidence_lows) <= set(compatible_lows)
+                assert 2 * len(v_tail) <= len(compatible_lows)
+
+    assert checked_orders == 872
+    assert checked_states == 34160
+
+
 def test_two_threshold_tail_starts_and_degenerate_sizes_are_exact() -> None:
     below_first_boundary = two_threshold_tail_packing(5, Fraction(11, 2))
     at_first_boundary = two_threshold_tail_packing(5, 6)
@@ -353,31 +468,35 @@ def test_two_threshold_tail_starts_and_degenerate_sizes_are_exact() -> None:
         marked_singleton.b_threshold,
         marked_singleton.u_size,
         marked_singleton.v_size,
+        marked_singleton.compatible_low_capacity,
         marked_singleton.minimum_incompatibilities,
         marked_singleton.required_positions,
-    ) == (4, 5, 2, 1, 0, 4)
+    ) == (4, 5, 2, 1, 1, 0, 4)
     assert (
         marked_empty.a_threshold,
         marked_empty.b_threshold,
         marked_empty.u_size,
         marked_empty.v_size,
+        marked_empty.compatible_low_capacity,
         marked_empty.minimum_incompatibilities,
         marked_empty.required_positions,
-    ) == (4, 6, 2, 0, 0, 4)
+    ) == (4, 6, 2, 0, 1, 0, 4)
     assert (
         first_tail_singleton.a_threshold,
         first_tail_singleton.b_threshold,
         first_tail_singleton.u_size,
         first_tail_singleton.v_size,
+        first_tail_singleton.compatible_low_capacity,
         first_tail_singleton.minimum_incompatibilities,
         first_tail_singleton.required_positions,
-    ) == (5, 6, 1, 0, 0, 2)
+    ) == (5, 6, 1, 0, 2, 0, 2)
     assert (
         first_tail_empty.a_threshold,
         first_tail_empty.u_size,
         first_tail_empty.v_size,
+        first_tail_empty.compatible_low_capacity,
         first_tail_empty.required_positions,
-    ) == (6, 0, 0, 0)
+    ) == (6, 0, 0, 2, 0)
 
     for threshold in (
         Fraction(0),
@@ -401,6 +520,77 @@ def test_two_threshold_tail_starts_and_degenerate_sizes_are_exact() -> None:
         two_threshold_tail_packing(5, -1)
     with pytest.raises(ValueError, match="integer or Fraction"):
         two_threshold_tail_packing(5, 1.0)
+
+
+def test_terminal_high_capacity_strict_and_nonstrict_boundaries_are_exact() -> None:
+    n3 = two_threshold_tail_packing(3, 6)
+    v_zero = two_threshold_tail_packing(5, 15)
+    v_one = two_threshold_tail_packing(7, 21)
+    before_even_square = two_threshold_tail_packing(11, Fraction(99, 2))
+    at_even_square = two_threshold_tail_packing(11, 50)
+    empty_tails = two_threshold_tail_packing(5, 30)
+
+    assert (
+        n3.a_threshold,
+        n3.b_threshold,
+        n3.u_size,
+        n3.v_size,
+        n3.required_positions,
+        n3.compatible_low_capacity,
+    ) == (3, 4, 1, 0, 2, 0)
+    assert (v_zero.v_size, v_zero.compatible_low_capacity) == (0, 1)
+    assert (v_one.v_size, v_one.compatible_low_capacity) == (1, 2)
+    assert (
+        before_even_square.a_threshold,
+        before_even_square.b_threshold,
+        before_even_square.u_size,
+        before_even_square.v_size,
+        before_even_square.required_positions,
+        before_even_square.compatible_low_capacity,
+    ) == (7, 10, 5, 2, 10, 3)
+    assert (
+        at_even_square.a_threshold,
+        at_even_square.b_threshold,
+        at_even_square.u_size,
+        at_even_square.v_size,
+        at_even_square.required_positions,
+        at_even_square.compatible_low_capacity,
+    ) == (7, 10, 5, 2, 10, 4)
+    assert 5 * at_even_square.b_threshold == at_even_square.threshold
+    assert (empty_tails.u_size, empty_tails.v_size) == (0, 0)
+
+    for packing in (
+        n3,
+        v_zero,
+        v_one,
+        before_even_square,
+        at_even_square,
+        empty_tails,
+    ):
+        _a, _b, _u, _v, compatible_lows = _independent_threshold_tail_data(
+            packing.n,
+            packing.threshold,
+        )
+        assert packing.compatible_low_capacity == len(compatible_lows)
+
+
+def test_terminal_high_incidences_are_distinct_at_n11_equality() -> None:
+    order = (11, 2, 7, 6, 8, 3, 10, 5, 9, 4)
+    threshold = Fraction(50)
+    assert _independent_truncated_score(order, 2) == threshold
+
+    _a, _b, u_tail, v_tail, compatible_lows = (
+        _independent_threshold_tail_data(11, threshold)
+    )
+    assert v_tail == (10, 11)
+    incidence_lows = tuple(
+        order[(order.index(high) + offset) % len(order)]
+        for high in v_tail
+        for offset in (-1, 1)
+    )
+    assert set(incidence_lows).isdisjoint(u_tail)
+    assert len(set(incidence_lows)) == 2 * len(v_tail)
+    assert set(incidence_lows) == set(compatible_lows) == {2, 3, 4, 5}
 
 
 def test_exact_tail_cycle_incompatibility_boundaries_and_strict_correction() -> None:
@@ -495,32 +685,71 @@ def test_exact_tail_cycle_formula_matches_independent_small_tail_enumerator() ->
     assert comparison_count >= 250
 
 
-def test_two_threshold_finite_obstruction_and_bounded_table_are_exact(
+def test_two_threshold_and_joint_finite_obstructions_are_exact(
     exact_truncated_enumerations,
 ) -> None:
     expected = {
-        3: Fraction(6),
-        4: Fraction(12),
-        5: Fraction(12),
-        6: Fraction(20),
-        7: Fraction(21),
-        8: Fraction(30),
-        9: Fraction(63, 2),
-        10: Fraction(42),
-        11: Fraction(45),
+        3: (Fraction(6), Fraction(6)),
+        4: (Fraction(12), Fraction(12)),
+        5: (Fraction(12), Fraction(15)),
+        6: (Fraction(20), Fraction(20)),
+        7: (Fraction(21), Fraction(21)),
+        8: (Fraction(30), Fraction(30)),
+        9: (Fraction(63, 2), Fraction(36)),
+        10: (Fraction(42), Fraction(45)),
+        11: (Fraction(45), Fraction(50)),
     }
 
-    for n, obstruction in expected.items():
-        assert two_threshold_lower_obstruction(n) == obstruction
+    for n, (q_obstruction, h_obstruction) in expected.items():
+        assert two_threshold_lower_obstruction(n) == q_obstruction
         assert two_threshold_tail_packing(
             n,
-            obstruction,
+            q_obstruction,
         ).required_positions <= n - 1
         assert two_threshold_tail_packing(
             n,
-            obstruction - Fraction(1, 2),
+            q_obstruction - Fraction(1, 2),
         ).required_positions > n - 1
-        assert obstruction <= exact_truncated_enumerations[n, 2].optimum
+        assert q_obstruction <= exact_truncated_enumerations[n, 2].optimum
+
+        assert (
+            terminal_high_incidence_lower_obstruction(n)
+            == _independent_joint_threshold(n)
+            == h_obstruction
+        )
+        packing = two_threshold_tail_packing(n, h_obstruction)
+        predecessor = two_threshold_tail_packing(
+            n,
+            h_obstruction - Fraction(1, 2),
+        )
+        assert packing.required_positions <= n - 1
+        assert 2 * packing.v_size <= packing.compatible_low_capacity
+        assert (
+            predecessor.required_positions > n - 1
+            or 2 * predecessor.v_size > predecessor.compatible_low_capacity
+        )
+        assert h_obstruction <= exact_truncated_enumerations[n, 2].optimum
+        assert max(adjacent_product_optimum(n), h_obstruction) == (
+            exact_truncated_enumerations[n, 2].optimum
+        )
+
+
+def test_terminal_high_asymptotic_witness_is_exact() -> None:
+    for n in range(11, 501):
+        d = (4 * n + 12) // 5
+        threshold = Fraction(d * (d - 1), 2)
+        packing = two_threshold_tail_packing(n, threshold)
+
+        assert packing.b_threshold == d
+        assert 2 * packing.v_size <= packing.compatible_low_capacity
+        assert packing.required_positions <= n - 1
+        assert Fraction(8 * n * n + 10 * n, 25) < threshold
+        assert threshold < Fraction(8 * n * n + 42 * n + 52, 25)
+
+    assert 7 * 11**2 - 62 * 11 - 152 > 0
+    assert 32 > 25  # 4*sqrt(2)>5, so the first Psi branch is slack.
+    assert 2 > 1  # sqrt(2)>1, so the second Psi branch is slack.
+    assert 20000 > 16129  # 8/25 exceeds the unchanged Q_n coefficient.
 
 
 def test_fraction_comparisons_do_not_use_float_rounding() -> None:

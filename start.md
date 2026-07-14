@@ -197,6 +197,28 @@ Q_n={36-16\sqrt2\over49}n^2+O(n),
 \]
 so the exact nested-neighborhood refinement can improve finite values but
 does not improve this subproblem's asymptotic coefficient.
+A stronger terminal-high incidence theorem applies at every exact threshold:
+if an order has distance-two score at most \(T\), then
+\[
+2v\le
+C_n(T)
+=
+\#\{\ell\in\{2,\dots,a_T-1\}:\ell b_T\le T\}.
+\]
+Keeping \(Q_n\) unchanged, combine this with
+\(\Psi_n(T)=2u+\eta_n(T)\le n-1\) and let \(H_n\) be the least admissible
+half-integer threshold. Then
+\[
+B_n\ge H_n\ge Q_n,
+\qquad
+H_n={8\over25}n^2+O(n),
+\qquad
+\liminf_{n\to\infty}{B_n\over n^2}\ge{8\over25}.
+\]
+The coefficient \(8/25\) is proved by matching all-\(n\) inequalities; it is
+not inferred from finite data. It is the coefficient of the combined
+distance-two obstruction, not an exact asymptotic coefficient of \(B_n\), a
+statement about \(L_n\), or a geometric-optimum result.
 An exact, no-floating-point canonical enumeration bounded to `n=3..11` gives
 \[
 (W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50),
@@ -209,7 +231,14 @@ For the same bounded cases, the distance-one objectives are
 (6,12,15,20,24,30,35,42,48),
 \]
 and the distance-two objectives equal \(W_n\) in every row. This finite table
-agrees with the theorem: the first non-adjacent gap is
+also gives
+\[
+(H_3,\dots,H_{11})=(6,12,15,20,21,30,36,45,50),
+\qquad
+\max(A_n,H_n)=B_n
+\]
+row by row. The last equality is a bounded exact comparison, not an all-\(n\)
+formula. The table agrees with the theorem: the first non-adjacent gap is
 \(A_9=35<36=W_9\), already accounted for by positional distance two. Exact
 values of \(B_n\) and \(W_n\) beyond the bounded table remain unresolved.
 
@@ -393,6 +422,30 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \]
   Moreover, \(Q_n=((36-16\sqrt2)/49)n^2+O(n)\), so this exact refinement
   leaves the leading obstruction coefficient unchanged.
+- EXACT THEOREM: every order with distance-at-most-two score at most \(T\)
+  satisfies the terminal-high compatible-low incidence bound
+  \[
+  2v\le
+  C_n(T)
+  =
+  \#\{\ell\in\{2,\dots,a_T-1\}:\ell b_T\le T\}
+  =
+  \max\left(0,\left\lfloor{T\over b_T}\right\rfloor-1\right).
+  \]
+  Keeping \(Q_n\) unchanged, let \(H_n\) be the least nonnegative
+  half-integer satisfying both this incidence bound and
+  \(\Psi_n(T)\le n-1\). Then
+  \[
+  B_n\ge H_n\ge Q_n,
+  \qquad
+  H_n={8\over25}n^2+O(n),
+  \qquad
+  \liminf_{n\to\infty}{B_n\over n^2}\ge{8\over25}.
+  \]
+  The all-\(n\) proof treats \(n=3\), \(v=0\), \(v=1\), empty tails, strict
+  tail thresholds, non-strict compatible equality, and the exact floor.
+  This does not prove a limit or exact coefficient for \(B_n\), and it has no
+  asserted implication for \(L_n\) or the geometric optimum.
 - EXACT THEOREM:
   \[
   \lim_{n\to\infty} A_n/n^2
@@ -420,6 +473,13 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved
   asymptotic lower coefficient for \(B_n\).
+- VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
+  \[
+  (H_3,\dots,H_{11})=(6,12,15,20,21,30,36,45,50).
+  \]
+  Combined with the existing finite exhaustive distance-two table,
+  \(\max(A_n,H_n)=B_n\) for every displayed \(3\le n\le11\). This is not an
+  all-\(n\) formula and uses no order enumeration beyond \(n=11\).
 - EXACT THEOREM: within the induced-subset plus duplicated-pairing plus
   \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\) relaxation, no nonconsecutive subset
   improves the tail bounds \(P_{m,n}\); the best discrete tail is characterized

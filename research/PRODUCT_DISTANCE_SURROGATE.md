@@ -57,6 +57,24 @@
   \]
   so the exact nested-neighborhood correction does not improve this
   subproblem's leading coefficient.
+- **EXACT THEOREM (terminal-high incidence obstruction):** every order with
+  distance-two score at most \(T\) also satisfies
+  \(2v\le C_n(T)\), where \(C_n(T)\) counts the lows below \(a_T\) compatible
+  at distance one with \(b_T\). Keeping \(Q_n\) unchanged and combining this
+  condition with \(\Psi_n(T)\le n-1\) defines a new half-integer obstruction
+  \(H_n\le B_n\). It has the exact asymptotic behavior
+  \[
+  H_n={8\over25}n^2+O(n),
+  \qquad
+  \lim_{n\to\infty}{H_n\over n^2}={8\over25},
+  \]
+  and therefore
+  \[
+  \liminf_{n\to\infty}{B_n\over n^2}\ge{8\over25}.
+  \]
+  This is a lower coefficient for the distance-two surrogate only, not an
+  exact asymptotic coefficient of \(B_n\); it makes no claim about \(L_n\) or
+  the geometric optimum.
 - **VERIFIED FACT (finite exhaustive exact computation):** the table below
   gives the objectives truncated at positional distances at most one and two,
   as well as \(W_n\), for \(3\le n\le11\). Non-adjacent constraints first
@@ -1080,7 +1098,7 @@ L_n\le W_n.
 
 The proof of \(L_n\le W_n\) later in this note uses induced gaps of every
 possible positional length, so it does not imply \(L_n\le B_n\). Its known
-asymptotic constant is slightly larger than the new distance-two constant:
+asymptotic constant is slightly larger than the \(Q_n\) tail-cycle constant:
 
 \[
 {1\over4}
@@ -1103,6 +1121,350 @@ because \(2\cdot73^2=10658>10609=103^2\). Thus the two-threshold result
 strictly improves the adjacent asymptotic obstruction for \(B_n\), while the
 slightly stronger tail coefficient remains a statement about the full
 surrogate \(W_n\).
+
+## Terminal-High Compatible-Low Incidence Obstruction
+
+The terminal-high incidence count used in the proof of \(B_n>A_n\) has an
+exact threshold form independent of adjacent optimality. Retain the notation
+\(a_T,b_T,U_T,V_T,u,v\) from (TT1)--(TT4), and define
+
+\[
+C_n(T)
+=
+\#\{\ell\in\{2,\dots,a_T-1\}:\ell b_T\le T\}.
+\tag{TH1}
+\]
+
+The subscript records the ambient problem even though the displayed set is
+determined by \(T\). If \(v>0\), then \(b_T\le n\) and
+\(a_T\le b_T\le n\), so every label counted here belongs to the core. If
+\(v=0\), possible labels above the core are irrelevant because the incidence
+condition below is vacuous.
+
+### Exact incidence injection and all boundary cases
+
+Suppose first that \(n\ge4\) and a cyclic core order \(\sigma\) satisfies
+
+\[
+S_2(\sigma)\le T.
+\]
+
+The position cycle has \(N=n-1\ge3\) vertices, so each \(x\in V_T\) has two
+distinct cyclic neighbors. Both are outside \(U_T\). Indeed, if a neighbor
+\(y\) also belonged to \(U_T\), then \(x,y\) would be distinct integers in
+that tail and hence
+
+\[
+xy\ge a_T(a_T+1)>T,
+\]
+
+contradicting the distance-one requirement \(xy\le T\). Thus every neighbor
+is a low label \(\ell\in\{2,\dots,a_T-1\}\). Since \(x\ge b_T\), adjacency
+also gives
+
+\[
+\ell b_T\le\ell x\le T,
+\]
+
+so the low is counted by \(C_n(T)\).
+
+No one low can serve two distinct vertices \(x,y\in V_T\). If it did, the
+two-edge walk \(x,\ell,y\) would give \(d_\sigma(x,y)\le2\); for the
+three-position cycle the smaller distance is even one. The score bound would
+then imply \(xy\le2T\), whereas distinct labels in \(V_T\) satisfy
+
+\[
+xy\ge b_T(b_T+1)>2T.
+\]
+
+The two incidences of one \(V_T\)-vertex also have different low endpoints
+because its two neighbors are distinct. Consequently all \(2v\) incidences
+inject into the compatible-low set:
+
+\[
+\boxed{2v\le C_n(T)}.
+\tag{TH2}
+\]
+
+The excluded small and degenerate cases are exact.
+
+- If \(n=3\), the two-position core has the single pair \(2,3\) at distance
+  one, so \(S_2(\sigma)=6\). The hypothesis forces \(T\ge6\), whence
+  \(3\cdot4\le2T\). Because the definition of \(b_T\) uses a strict
+  inequality, \(b_T\ge4>n\), so \(v=0\) and (TH2) is vacuous.
+- If \(v=0\), the left side of (TH2) is zero. This includes every empty
+  \(V_T\), whether or not \(U_T\) is empty.
+- If \(v=1\) and \(n\ge4\), the unique terminal high has two distinct low
+  neighbors, so the proof directly gives two different counted lows. No
+  sharing argument between different highs is needed.
+- If \(U_T=\varnothing\), then \(V_T=\varnothing\) because
+  \(V_T\subseteq U_T\). The earlier singleton result \(u=1\Rightarrow v=0\)
+  covers the remaining one-element first tail.
+
+The capacity has an exact floor form. Directly from (TH1),
+
+\[
+C_n(T)
+=
+\max\left(
+0,
+\min\left(a_T-1,\left\lfloor{T\over b_T}\right\rfloor\right)-1
+\right).
+\]
+
+The \(a_T-1\) cap is never active. If \(b_T>a_T\), then
+\(T<a_T(a_T+1)\le a_Tb_T\). If \(b_T=a_T\), then
+\(2T<a_T(a_T+1)\), so \(T/b_T<(a_T+1)/2<a_T\). In both cases
+\(\lfloor T/b_T\rfloor\le a_T-1\), and therefore
+
+\[
+\boxed{
+C_n(T)
+=
+\max\left(0,\left\lfloor{T\over b_T}\right\rfloor-1\right)
+}.
+\tag{TH3}
+\]
+
+All equality directions are essential. The definitions
+\(a_T(a_T+1)>T\) and \(b_T(b_T+1)>2T\) are strict, so equality advances the
+corresponding tail start. Compatible-low equality is non-strict:
+\(\ell b_T=T\) counts \(\ell\), exactly as the floor in (TH3) requires.
+
+### Joint half-integer obstruction and finite event set
+
+Do not redefine the existing \(\Psi_n\) or \(Q_n\). Introduce instead
+
+\[
+H_n
+=
+\min\left\{
+{q\over2}:q\in\mathbb Z_{\ge0},\quad
+\Psi_n(q/2)\le n-1,\quad
+2v(q/2)\le C_n(q/2)
+\right\}.
+\tag{TH4}
+\]
+
+The set is nonempty. At \(T=n(n-1)\), strictness gives \(a_T=n\), hence
+\(u=1\), while \(b_T\ge n+1\), hence \(v=0\). Thus
+\(\Psi_n(T)=2\le n-1\) and the incidence condition is vacuous.
+
+Every distance-two objective is a half-integer. Applying (TT12) and (TH2) at
+an order attaining \(B_n\) gives
+
+\[
+\boxed{B_n\ge H_n\ge Q_n},
+\qquad
+\boxed{B_n\ge\max(A_n,H_n)}.
+\tag{TH5}
+\]
+
+The second inequality in the first box follows because the admissible set in
+(TH4) is a subset of the unchanged admissible set defining \(Q_n\).
+
+Only one new type of finite event is required. With \(\widehat E_n\) from
+(TT14), put
+
+\[
+\widehat F_n
+=
+\widehat E_n
+\cup
+\left\{{k^2\over2}:4\le k\le n,\ k\text{ even}\right\}.
+\tag{TH6}
+\]
+
+This set is exhaustive for (TH4). While \(b_T=k>2\), predecessor minimality
+gives
+
+\[
+{k(k-1)\over2}\le T<{k(k+1)\over2}.
+\tag{TH7}
+\]
+
+For \(k=2\), the exact interval is instead \(0\le T<3\), because tail starts
+are constrained to be at least two; the positive-part capacity in (TH3) is
+zero throughout. For \(k=2h+1>2\) odd,
+\(\lfloor T/k\rfloor=h\) throughout the half-open interval (TH7), with its
+next change already at the upper \(b\)-event. If
+\(k=2h\ge4\) is even, the floor changes exactly once inside the interval,
+from \(h-1\) to \(h\) at \(T=k^2/2\). At equality the low \(h\) becomes
+compatible and must be counted. Once \(k>n\), one has \(v=0\), so further
+capacity events are irrelevant. The events in \(\widehat E_n\) already cover
+all changes of \(a_T,b_T,\Psi_n\), and \(\delta_n\). Thus the predicate in
+(TH4) is constant between consecutive members of \(\widehat F_n\), and
+\(H_n\) is equivalently the minimum over that finite set.
+
+Exact evaluation gives
+
+\[
+\boxed{
+(H_3,\dots,H_{11})
+=
+(6,12,15,20,21,30,36,45,50)
+}.
+\tag{TH8}
+\]
+
+The value \(H_{11}=50\) occurs at the genuinely new event \(10^2/2\): just
+below it the capacity is three, while at equality \(5\cdot10=50\) enters and
+the capacity becomes four, matching \(2v=4\).
+
+### Exact asymptotic coefficient
+
+We now determine the coefficient of \(H_n\), rather than assume it. Let \(T\)
+be any half-integer admissible in (TH4), and write \(b=b_T\). If \(v=0\),
+then \(b\ge n+1\), so \(5b>4n+5\). If \(v>0\), (TH2)--(TH3) give
+
+\[
+2v+1
+\le
+\left\lfloor{T\over b}\right\rfloor
+\le {T\over b}
+<{b+1\over2},
+\]
+
+where the last inequality is the strict threshold relation
+\(2T<b(b+1)\). Hence \(b>4v+1\). Substituting \(v=n-b+1\) again yields
+
+\[
+5b>4n+5.
+\tag{TH9}
+\]
+
+For \(n\ge3\), this also gives \(b>2\), so predecessor minimality is valid:
+\((b-1)b\le2T\). Since (TH9) implies both
+\(b>(4n+5)/5\) and \(b-1>4n/5\),
+
+\[
+T
+\ge {b(b-1)\over2}
+>
+{8\over25}n^2+{2\over5}n.
+\tag{TH10}
+\]
+
+This proves the lower coefficient for every admissible threshold, not only
+along a subsequence.
+
+For a matching all-\(n\) upper construction, let \(n\ge11\) and put
+
+\[
+d_n=\left\lceil{4n+8\over5}\right\rceil,
+\qquad
+T_n^*={d_n(d_n-1)\over2}.
+\tag{TH11}
+\]
+
+Here \(d_n\le n\), and the equality \(2T_n^*=d_n(d_n-1)\) gives
+\(b_{T_n^*}=d_n\). Write \(d=d_n\) and \(v=n-d+1\). Formula (TH3) becomes
+
+\[
+C_n(T_n^*)
+=
+\left\lfloor{d-1\over2}\right\rfloor-1
+=
+\begin{cases}
+(d-4)/2,&d\text{ even},\\
+(d-3)/2,&d\text{ odd}.
+\end{cases}
+\]
+
+Since \(5d\ge4n+8\), either parity gives \(C_n(T_n^*)\ge2v\).
+
+It remains to check the unchanged \(\Psi_n\) condition rather than assume it.
+Put \(r=\lceil(n+3)/2\rceil\). The bounds
+
+\[
+r(r-1)\le{(n+4)(n+2)\over4},
+\qquad
+T_n^*\ge{(4n+8)(4n+3)\over50}
+\]
+
+and
+
+\[
+{(4n+8)(4n+3)\over50}
+-{(n+4)(n+2)\over4}
+={7n^2-62n-152\over100}\ge0
+\]
+
+hold for \(n\ge11\); the last polynomial is positive at \(11\) and
+increasing thereafter. Thus \(r(r-1)\le T_n^*\), so \(a_{T_n^*}\ge r\) and
+\(2u\le n-1\). Moreover,
+
+\[
+a_{T_n^*}+2d_n
+\ge {n+3\over2}+{2(4n+8)\over5}
+={21n+47\over10}
+\ge2n+5.
+\]
+
+Also, since \(d\le n\),
+\[
+T_n^*\le {n(n-1)\over2}<n(n+1),
+\]
+so \(a_{T_n^*}\le n\) and \(u=n-a_{T_n^*}+1\); likewise
+\(v=n-d+1\). Since \(\delta_n(T_n^*)\le1\), the preceding bound now gives
+explicitly
+\[
+u+2v+\delta_n(T_n^*)
+=
+3n-a_{T_n^*}-2d+3+\delta_n(T_n^*)
+\le n-1.
+\]
+Both branches of (TT11) therefore fit, so
+\(\Psi_n(T_n^*)\le n-1\) and \(H_n\le T_n^*\). Finally,
+
+\[
+T_n^*
+<
+{(4n+13)(4n+8)\over50}
+=
+{8\over25}n^2+{42\over25}n+{52\over25}.
+\tag{TH12}
+\]
+
+Combining (TH10) and (TH12) proves the exact asymptotic decision
+
+\[
+\boxed{
+H_n={8\over25}n^2+O(n),
+\qquad
+\lim_{n\to\infty}{H_n\over n^2}={8\over25}
+},
+\qquad
+\boxed{
+\liminf_{n\to\infty}{B_n\over n^2}\ge{8\over25}
+}.
+\tag{TH13}
+\]
+
+The value \(8/25\) is verified by the inequalities, not inferred from finite
+data. At the scale \(T\sim(8/25)n^2\), one has
+\(a_T/n\to2\sqrt2/5\) and \(b_T/n\to4/5\). The incidence condition is tight:
+both \(2v/n\) and \(C_n(T)/n\) tend to \(2/5\). By contrast, the two branches
+of \(\Psi_n(T)/n\) tend to
+
+\[
+2-{4\sqrt2\over5}<1,
+\qquad
+{7-2\sqrt2\over5}<1,
+\]
+
+so the older packing condition is strictly slack at the new transition. The
+new coefficient also strictly exceeds the unchanged \(Q_n\) coefficient:
+
+\[
+{8\over25}-{36-16\sqrt2\over49}
+={400\sqrt2-508\over1225}>0,
+\]
+
+because \(20000=(100\sqrt2)^2>127^2=16129\). This theorem concerns \(H_n\)
+and the resulting lower bound for \(B_n\) only. It does not determine a limit
+or exact coefficient for \(B_n\), does not lower-bound or redefine \(L_n\),
+and does not transfer to \(R_2^*(n)\) or the geometric optimum.
 
 ## Exact Core Feasibility
 
@@ -1408,27 +1770,28 @@ The implementation is `src/power_ringmin/product_distance.py`.
 - A strict integer cutoff discards an order only when a pair already exceeds
   the incumbent. Equality is retained, so minimizer counts are exact.
 
-The exact comparison table is below. The \(A_n,Q_n,L_n\) columns are exact
-formula evaluations; the \(B_n,W_n\) columns and minimizer counts are the
-bounded exhaustive results.
+The exact comparison table is below. The \(A_n,Q_n,H_n,L_n\) columns are
+exact formula evaluations; the \(B_n,W_n\) columns and minimizer counts are
+the bounded exhaustive results.
 
-| \(n\) | \(A_n\) | \(Q_n\) | \(\max(A_n,Q_n)\) | \(B_n=W_n^{(\le2)}\) | \(L_n\) | \(W_n\) | minimizers \((\le1,\le2)\) |
-|---:|---:|---:|---:|---:|---:|---:|---:|
-| 3 | \(6\) | \(6\) | \(6\) | \(6\) | -- | \(6\) | \(1,1\) |
-| 4 | \(12\) | \(12\) | \(12\) | \(12\) | \(25/3\) | \(12\) | \(1,1\) |
-| 5 | \(15\) | \(12\) | \(15\) | \(15\) | \(23/2\) | \(15\) | \(1,1\) |
-| 6 | \(20\) | \(20\) | \(20\) | \(20\) | \(76/5\) | \(20\) | \(2,2\) |
-| 7 | \(24\) | \(21\) | \(24\) | \(24\) | \(58/3\) | \(24\) | \(2,2\) |
-| 8 | \(30\) | \(30\) | \(30\) | \(30\) | \(170/7\) | \(30\) | \(4,4\) |
-| 9 | \(35\) | \(63/2\) | \(35\) | \(36\) | \(59/2\) | \(36\) | \(4,12\) |
-| 10 | \(42\) | \(42\) | \(42\) | \(45\) | \(320/9\) | \(45\) | \(24,72\) |
-| 11 | \(48\) | \(45\) | \(48\) | \(50\) | \(42\) | \(50\) | \(24,24\) |
+| \(n\) | \(A_n\) | \(Q_n\) | \(H_n\) | \(\max(A_n,H_n)\) | \(B_n=W_n^{(\le2)}\) | \(L_n\) | \(W_n\) | minimizers \((\le1,\le2)\) |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 3 | \(6\) | \(6\) | \(6\) | \(6\) | \(6\) | -- | \(6\) | \(1,1\) |
+| 4 | \(12\) | \(12\) | \(12\) | \(12\) | \(12\) | \(25/3\) | \(12\) | \(1,1\) |
+| 5 | \(15\) | \(12\) | \(15\) | \(15\) | \(15\) | \(23/2\) | \(15\) | \(1,1\) |
+| 6 | \(20\) | \(20\) | \(20\) | \(20\) | \(20\) | \(76/5\) | \(20\) | \(2,2\) |
+| 7 | \(24\) | \(21\) | \(21\) | \(24\) | \(24\) | \(58/3\) | \(24\) | \(2,2\) |
+| 8 | \(30\) | \(30\) | \(30\) | \(30\) | \(30\) | \(170/7\) | \(30\) | \(4,4\) |
+| 9 | \(35\) | \(63/2\) | \(36\) | \(36\) | \(36\) | \(59/2\) | \(36\) | \(4,12\) |
+| 10 | \(42\) | \(42\) | \(45\) | \(45\) | \(45\) | \(320/9\) | \(45\) | \(24,72\) |
+| 11 | \(48\) | \(45\) | \(50\) | \(50\) | \(50\) | \(42\) | \(50\) | \(24,24\) |
 
-Thus the new obstruction does not improve the already exact adjacent lower
-bound within this bounded table, even though (TT17) proves a strictly larger
-asymptotic lower coefficient. The \(L_n\) values happen to be below \(Q_n\)
-in every displayed admissible case, but only \(Q_n\) is proved to lower-bound
-\(B_n\); \(L_n\) remains a full-distance obstruction as stated in (TT18).
+Thus \(\max(A_n,H_n)=B_n\) throughout this bounded table. The equality is a
+finite exact comparison with the already enumerated \(B_n\) values, not an
+all-\(n\) formula. The \(L_n\) values happen to be below both \(Q_n\) and
+\(H_n\) in every displayed admissible case, but only \(Q_n,H_n\) are proved
+to lower-bound \(B_n\); \(L_n\) remains a full-distance obstruction as stated
+in (TT18).
 
 Thus the bounded regression agrees with the all-\(n\) theorem: the first exact
 gap between the adjacent relaxation and the full surrogate occurs at \(n=9\):
@@ -1475,11 +1838,15 @@ the parity-specific equality classifier on the bounded `n=4..11` regression,
 the exact incidence-lemma boundary arithmetic, the `n=12` local degree data,
 the strict two-threshold floor and skip-one boundaries, cardinalities zero,
 one, and two, an independent brute-force cycle enumerator restricted to tail
-cardinality at most seven, the exact finite \(Q_n\) obstruction, the effective
-full-distance tail comparison, zigzag and tail values, and exact reproduction
-of both truncated and full `n=3..11` tables. The independent tail check does
-not enumerate full core orders. No cyclic-order enumeration is performed
-beyond `n=11`.
+cardinality at most seven, the exact finite \(Q_n\) obstruction, the
+compatible-low floor and even-square equality, the joint finite \(H_n\)
+obstruction, the symbolic upper witness through exact formula diagnostics,
+and the effective full-distance tail comparison. A separate verifier builds
+the tails and incidence endpoints without production support for all 872
+orders on `n=3..7` over 34,160 half-integer states, and directly checks the
+two-terminal-high equality case at `n=11`. Exact reproduction of both
+truncated and full tables remains bounded to `n=3..11`; no cyclic-order
+enumeration is performed beyond `n=11`.
 
 The following remain unresolved.
 

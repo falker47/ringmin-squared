@@ -7,7 +7,7 @@ exact eventual radius-one insertion theorem, the regular-direction baseline
 and zigzag cubic upper bound, and the exact bounded product-distance surrogate
 analysis through `n=11`.
 
-As of 2026-07-13, the former asymptotic target
+As of 2026-07-14, the former asymptotic target
 \[
 R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))
 \]
@@ -102,9 +102,21 @@ The inversion satisfies
 \(Q_n=((36-16\sqrt2)/49)n^2+O(n)\). Thus the exact graph theorem improves
 some finite thresholds but proves that the clique coefficient is already
 optimal for this tail-cycle subproblem.
-The full-distance tail obstruction remains logically separate:
-\(L_n\le W_n\) is not a lower bound for \(B_n\), and its limiting coefficient
-\(2(\sqrt2-1)/3\) is slightly larger than the new distance-two coefficient.
+A further terminal-high compatible-low incidence theorem applies at every
+exact threshold and gives \(2v\le C_n(T)\). Keeping \(Q_n\) unchanged, its
+combination with \(\Psi_n(T)\le n-1\) defines \(H_n\), with
+\[
+B_n\ge H_n\ge Q_n,
+\qquad
+H_n={8\over25}n^2+O(n),
+\qquad
+\liminf_{n\to\infty}{B_n\over n^2}\ge{8\over25}.
+\]
+The coefficient \(8/25\) follows from matching all-\(n\) inequalities and is
+not inferred from the bounded table. It is the coefficient of this necessary
+distance-two obstruction, not an exact coefficient of \(B_n\). The
+full-distance tail obstruction \(L_n\le W_n\) remains logically separate and
+is not redefined or transferred by this theorem.
 
 ## Evidence Basis
 
@@ -220,6 +232,22 @@ The full-distance tail obstruction remains logically separate:
   lower-bounds \(B_n\), proves the explicit quadratic bound and liminf
   coefficient strictly above \(1/4\), and satisfies
   \(Q_n=((36-16\sqrt2)/49)n^2+O(n)\).
+- EXACT THEOREM: every order with distance-two score at most \(T\) satisfies
+  \(2v\le C_n(T)\), with
+  \[
+  C_n(T)=\max\left(0,\left\lfloor{T\over b_T}\right\rfloor-1\right).
+  \]
+  The joint finite obstruction \(H_n\) preserves \(Q_n\) and combines this
+  incidence condition with \(\Psi_n(T)\le n-1\). It satisfies
+  \(B_n\ge H_n\ge Q_n\) and
+  \[
+  H_n={8\over25}n^2+O(n),
+  \qquad
+  \liminf_{n\to\infty}{B_n\over n^2}\ge{8\over25}.
+  \]
+  The proof includes all strict/non-strict boundaries and degenerate tails;
+  it gives no exact \(B_n\) coefficient and no statement about \(L_n\) or the
+  geometric optimum.
 - EXACT THEOREM: \(A_n/n^2\to1/4\), while
   \(L_n/n^2\to2(\sqrt2-1)/3\). A residue-class proof with
   \(m=\lceil2n/5\rceil\) gives \(L_n>A_n\) for every \(n\ge33\).
@@ -310,13 +338,14 @@ The full-distance tail obstruction remains logically separate:
    where it is defined, so neither comparison identifies an all-`n` optimum.
 
 8. The adjacent relaxation by itself has coefficient \(1/4\), strictly below
-   both the quantitative distance-two coefficient
-   \((36-16\sqrt2)/49\) and the full-distance tail coefficient. Distance-two
+   both the earlier two-threshold coefficient \((36-16\sqrt2)/49\) and the
+   stronger terminal-high incidence coefficient \(8/25\). Distance-two
    constraints leave it exact through `n=8`, make it strict for every
-   `n>=9`, and obey the new explicit lower bound. Exact characterization of
-   the nested tail graph shows that this particular obstruction still has
-   coefficient \((36-16\sqrt2)/49\); it does not determine exact \(B_n\) or
-   \(W_n\) values or provide a matching upper construction.
+   `n>=9`, and obey the stronger explicit lower bound. The nested tail-cycle
+   subproblem still has coefficient \((36-16\sqrt2)/49\), while the added
+   incidence constraint raises the combined necessary coefficient to
+   \(8/25\). Neither result determines exact \(B_n\) or \(W_n\) values or
+   provides a matching upper construction.
 
 ## Updated Research Questions
 

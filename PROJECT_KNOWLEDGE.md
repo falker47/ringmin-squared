@@ -1,6 +1,6 @@
 # PROJECT_KNOWLEDGE - power-ringmin
 
-Last reviewed: 2026-07-13
+Last reviewed: 2026-07-14
 
 This file is stable durable project memory. Chronology, command transcripts, failed attempts, and task-local evidence belong in `ops/`.
 
@@ -317,9 +317,63 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \]
   Hence the exact nested-neighborhood correction does not improve the leading
   coefficient furnished by this necessary condition.
-  This distance-two coefficient is strictly below the full-distance tail
+  This \(Q_n\) tail-cycle coefficient is strictly below the full-distance tail
   coefficient \(2(\sqrt2-1)/3\); \(L_n\le W_n\) does not imply
   \(L_n\le B_n\).
+- DEFINITION: for the same exact threshold data, put
+  \[
+  C_n(T)
+  =
+  \#\{\ell\in\{2,\dots,a_T-1\}:\ell b_T\le T\}
+  =
+  \max\left(0,\left\lfloor{T\over b_T}\right\rfloor-1\right).
+  \]
+- EXACT THEOREM: every cyclic core order with distance-at-most-two score at
+  most \(T\) satisfies
+  \[
+  2v\le C_n(T).
+  \]
+  For \(n\ge4\), the two neighbors of each \(V_T\)-vertex are distinct and
+  outside \(U_T\); no low can neighbor two distinct \(V_T\)-vertices because
+  those highs would lie at distance at most two but have product greater than
+  \(2T\). For \(n=3\), score at most \(T\) forces \(T\ge6\) and hence \(v=0\).
+  The theorem also covers \(v=0\), \(v=1\), singleton and empty tails, strict
+  tail equalities, non-strict compatible-low equality, and the exact floor.
+- DEFINITION / EXACT FINITE OBSTRUCTION: preserve \(Q_n\) unchanged and let
+  \[
+  H_n
+  =
+  \min\left\{
+  {q\over2}:q\in\mathbb Z_{\ge0},\quad
+  \Psi_n(q/2)\le n-1,\quad
+  2v(q/2)\le C_n(q/2)
+  \right\}.
+  \]
+  Its exhaustive finite event set is
+  \[
+  \widehat E_n
+  \cup
+  \{k^2/2:4\le k\le n,\ k\text{ even}\},
+  \]
+  where \(\widehat E_n\) is the unchanged event set for \(Q_n\). Then
+  \[
+  B_n\ge H_n\ge Q_n,
+  \qquad
+  B_n\ge\max(A_n,H_n).
+  \]
+- EXACT THEOREM:
+  \[
+  H_n={8\over25}n^2+O(n),
+  \qquad
+  \lim_{n\to\infty}{H_n\over n^2}={8\over25},
+  \qquad
+  \liminf_{n\to\infty}{B_n\over n^2}\ge{8\over25}.
+  \]
+  The coefficient is proved by matching exact lower and upper inequalities.
+  At that scale the two branches of \(\Psi_n(T)/n\) are strictly below one;
+  the incidence constraint is the active asymptotic obstruction. This does
+  not prove that \(B_n/n^2\) converges or transfer a result to \(L_n\) or the
+  geometric optimum.
 - EXACT THEOREM: assigning \(\sigma\) to equally spaced polar directions
   makes the core strictly all-pairs feasible at
   \[
@@ -365,8 +419,9 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   all-pairs `Fraction` scoring, core-cycle canonicalization, explicit `n=3`
   handling, the exact adjacent formula, a direct parity-specific adjacent
   equality classifier, the exact nested-neighborhood tail-cycle
-  incompatibility and finite two-threshold obstruction, full-distance tail
-  obstructions, and deterministic full and truncated enumeration with the
+  incompatibility, compatible-low capacity, unchanged finite two-threshold
+  obstruction, joint terminal-high incidence obstruction, full-distance
+  tail obstructions, and deterministic full and truncated enumeration with the
   hard domain `3<=n<=11` and a preflight canonical-order ceiling. It creates
   no CLI or serialized artifact.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): enumeration of all
@@ -395,6 +450,13 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   Thus \(\max(A_n,Q_n)=A_n\) throughout this bounded table. This formula
   evaluation is not cyclic-order enumeration and does not weaken the all-\(n\)
   asymptotic improvement over \(A_n\).
+- VERIFIED FACT (FINITE EXACT FORMULA EVALUATION): the joint obstruction gives
+  \[
+  (H_3,\dots,H_{11})=(6,12,15,20,21,30,36,45,50).
+  \]
+  Hence \(\max(A_n,H_n)=B_n\) throughout the existing bounded exact table.
+  This comparison does not assert an all-\(n\) formula and does not extend
+  cyclic-order enumeration beyond \(n=11\).
 - INTERPRETATION: zigzag is surrogate-optimal for `n=3,4,5` and strictly
   suboptimal for every enumerated `n=6..11`; the best tail obstruction is
   strict for every enumerated case where it is defined.
@@ -403,8 +465,8 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   for a fixed order. No conjecture is promoted from these nine cases.
 - OPEN QUESTION: exact formulas, matching upper constructions, or sharper
   all-`n` bounds for \(B_n\) and \(W_n\) remain unresolved; the
-  two-threshold theorem gives a quantitative lower bound for \(B_n\), not its
-  exact value.
+  combined terminal-high theorem gives a stronger quantitative lower bound
+  for \(B_n\), not its exact value.
 - OPEN QUESTION: positional distances at least three do not change the exact
   objective or minimizer set for \(3\le n\le11\); their first essential index,
   if one exists, is unresolved.

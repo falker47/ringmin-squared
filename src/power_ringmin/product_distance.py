@@ -90,7 +90,9 @@ class TwoThresholdTailPacking:
     ``minimum_incompatibilities`` is the exact minimum over cycles of the
     first tail, counting both oriented arcs when that tail has two vertices.
     ``required_positions`` is the exact proved packing requirement
-    ``2*u + minimum_incompatibilities``.
+    ``2*u + minimum_incompatibilities``.  ``compatible_low_capacity`` is the
+    number of labels ``ell`` with ``2 <= ell < a_threshold`` and
+    ``ell * b_threshold <= threshold``.
     """
 
     n: int
@@ -99,6 +101,7 @@ class TwoThresholdTailPacking:
     b_threshold: int
     u_size: int
     v_size: int
+    compatible_low_capacity: int
     clique_incompatibility_bound: int
     minimum_incompatibilities: int
     required_positions: int
@@ -361,6 +364,13 @@ def two_threshold_tail_packing(
     b_threshold = _strict_product_tail_start(2 * exact_threshold)
     u_size = max(0, n - a_threshold + 1)
     v_size = max(0, n - b_threshold + 1)
+    compatible_low_maximum = exact_threshold.numerator // (
+        exact_threshold.denominator * b_threshold
+    )
+    compatible_low_capacity = max(
+        0,
+        min(a_threshold - 1, compatible_low_maximum) - 1,
+    )
     clique_incompatibility_bound = max(0, 2 * v_size - u_size)
     if u_size <= 1:
         minimum_incompatibilities = 0
@@ -381,6 +391,7 @@ def two_threshold_tail_packing(
         b_threshold=b_threshold,
         u_size=u_size,
         v_size=v_size,
+        compatible_low_capacity=compatible_low_capacity,
         clique_incompatibility_bound=clique_incompatibility_bound,
         minimum_incompatibilities=minimum_incompatibilities,
         required_positions=required_positions,
@@ -404,6 +415,17 @@ def tail_cycle_incompatibility_minimum(
     ).minimum_incompatibilities
 
 
+def _two_threshold_event_thresholds(n: int) -> set[Fraction]:
+    """Return the exhaustive event set for the unchanged ``Q_n``."""
+    event_thresholds = {Fraction(0)}
+    for k in range(2, n + 1):
+        product = k * (k + 1)
+        event_thresholds.add(Fraction(product, 2))
+        event_thresholds.add(Fraction(product))
+        event_thresholds.add(Fraction(k * k - 1, 2))
+    return event_thresholds
+
+
 def two_threshold_lower_obstruction(n: int) -> Fraction:
     """Return the exact finite two-threshold lower obstruction ``Q_n``.
 
@@ -415,18 +437,36 @@ def two_threshold_lower_obstruction(n: int) -> Fraction:
     half-integers.
     """
     _validate_problem_n(n)
-    event_thresholds = {Fraction(0)}
-    for k in range(2, n + 1):
-        product = k * (k + 1)
-        event_thresholds.add(Fraction(product, 2))
-        event_thresholds.add(Fraction(product))
-        event_thresholds.add(Fraction(k * k - 1, 2))
-
-    for threshold in sorted(event_thresholds):
+    for threshold in sorted(_two_threshold_event_thresholds(n)):
         packing = two_threshold_tail_packing(n, threshold)
         if packing.required_positions <= n - 1:
             return threshold
     raise AssertionError("finite two-threshold event set was not exhaustive")
+
+
+def terminal_high_incidence_lower_obstruction(n: int) -> Fraction:
+    """Return the joint terminal-high incidence obstruction ``H_n``.
+
+    ``H_n`` is the least nonnegative half-integer threshold satisfying both
+    the exact cyclic tail-packing requirement used for ``Q_n`` and the
+    compatible-low incidence capacity ``2*v <= C_n(T)``.  The definition of
+    ``Q_n`` is unchanged.  Besides its events, the compatible-low floor can
+    change only at ``k^2/2`` for even ``4 <= k <= n``.
+    """
+    _validate_problem_n(n)
+    event_thresholds = _two_threshold_event_thresholds(n)
+    event_thresholds.update(
+        Fraction(k * k, 2) for k in range(4, n + 1, 2)
+    )
+
+    for threshold in sorted(event_thresholds):
+        packing = two_threshold_tail_packing(n, threshold)
+        if (
+            packing.required_positions <= n - 1
+            and 2 * packing.v_size <= packing.compatible_low_capacity
+        ):
+            return threshold
+    raise AssertionError("finite terminal-high event set was not exhaustive")
 
 
 def enumerate_product_distance(
@@ -770,6 +810,7 @@ __all__ = [
     "product_distance_score",
     "tail_cycle_incompatibility_minimum",
     "tail_pairing_sum",
+    "terminal_high_incidence_lower_obstruction",
     "truncated_product_distance_score",
     "two_threshold_lower_obstruction",
     "two_threshold_tail_packing",
