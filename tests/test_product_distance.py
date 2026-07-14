@@ -577,7 +577,6 @@ def test_distance_two_equals_adjacent_exactly_through_n8_by_witness() -> None:
 
 def test_terminal_high_clique_incidence_lemma_boundary_arithmetic() -> None:
     def counts(n: int) -> tuple[int, int, int]:
-        t = n // 2
         optimum = adjacent_product_optimum(n)
         high_maximum = n
         discriminant_root = math.isqrt(1 + 8 * optimum)

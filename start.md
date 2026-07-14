@@ -303,7 +303,15 @@ row by row. The last equality is a bounded exact comparison, not an all-\(n\)
 formula. The table agrees with the theorem: the first non-adjacent gap is
 \(A_9=35<36=W_9\), already accounted for by positional distance two. Exact
 values of \(B_n\) and \(W_n\) are therefore known in every residue class for
-\(n\ge9\), with \(n=7\) separately covered by the bounded table.
+\(n\ge9\). Combining that formula with the exact table for \(3\le n\le11\)
+gives the global classification
+\[
+W_n^{(\le2)}=B_n=W_n\qquad(n\ge3).
+\]
+Thus distances at least three never change the optimum value. The bounded
+enumeration additionally proves equality of the distance-two and full
+minimizer sets through \(n=11\); equality of those sets is not claimed for
+\(n\ge12\).
 
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
@@ -590,8 +598,15 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   =(6,12,15,20,24,30,35,42,48),
   \]
   and \(W_n^{(\le2)}=W_n\) in every case. The first non-adjacent gap is
-  \(A_9=35<36=W_9\). Equality of the distance-two and full objectives beyond
-  `n=11` is not claimed.
+  \(A_9=35<36=W_9\). The distance-two and full canonical minimizer sets also
+  coincide throughout this bounded range.
+- EXACT THEOREM (FINITE-EXHAUSTIVE PLUS SYMBOLIC): combining the preceding
+  table with the exact residue-class formula for every \(n\ge9\) proves
+  \[
+  W_n^{(\le2)}=B_n=W_n\qquad(n\ge3).
+  \]
+  Hence distances at least three never change the optimum; it remains open
+  only whether they restrict the minimizer set for some \(n\ge12\).
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
   \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved

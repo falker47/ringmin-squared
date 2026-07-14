@@ -5,8 +5,9 @@ diagnostics, critical-structure analysis, checked-artifact verification tooling
 and workflow configuration, the induced-subset all-\(n\) lower bound, and the
 exact eventual radius-one insertion theorem, the regular-direction baseline
 and zigzag cubic upper bound, the exact bounded product-distance surrogate
-analysis through `n=11`, and the matching all-\(n\) symbolic surrogate
-construction with coefficient \(8/25\).
+analysis through `n=11`, the matching all-\(n\) symbolic surrogate
+constructions, and the global classification
+\(W_n^{(\le2)}=B_n=W_n\) for every \(n\ge3\).
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -95,9 +96,16 @@ B_n>A_n\quad(n\ge9).
 \]
 The proof uses terminal-high incidences and a separate degree obstruction at
 `n=12`, with no cyclic-order enumeration beyond `n=11`. Consequently
-\(W_n>A_n\) for every \(n\ge9\). Within the bounded regression,
-\(B_n=W_n\) for every `n=3..11`; distances at least three do not change those
-finite optima or minimizer sets.
+\(W_n>A_n\) for every \(n\ge9\). The bounded exact table gives
+\(B_n=W_n\) for `n=3..11`, while the residue-class theorem below gives the
+same equality for every \(n\ge9\). Since the two domains cover every
+\(n\ge3\),
+\[
+W_n^{(\le2)}=B_n=W_n\qquad(n\ge3).
+\]
+Thus distances at least three never change the optimum value. The bounded
+regression additionally proves equality of the distance-two and full
+minimizer sets through \(n=11\); no all-\(n\) equality of those sets follows.
 
 A separate two-threshold cyclic packing theorem now gives a quantitative
 lower obstruction for \(B_n\). The graph of compatible products \(xy\le2T\)
@@ -175,7 +183,9 @@ d_n(d_n-2)/2,&n\equiv2\pmod5
 \qquad(n\ge9).
 \]
 The former residue-one and residue-two widths now measure only slack in the
-superseded uniform order; they are not objective gaps.
+superseded uniform order; they are not objective gaps. Together with the
+bounded exact table, this proves the displayed global distance-two
+saturation for every \(n\ge3\).
 
 ## Evidence Basis
 
@@ -368,6 +378,12 @@ superseded uniform order; they are not objective gaps.
   \((6,12,15,20,24,30,35,42,48)\), while every distance-two objective,
   minimizer count, and minimizer set equals its full-surrogate counterpart.
   The first adjacent/full gap is at `n=9`.
+- EXACT THEOREM (FINITE-EXHAUSTIVE PLUS SYMBOLIC): the preceding bounded
+  equality and the residue-class formula on `n>=9` cover every `n>=3` and
+  prove
+  \(W_n^{(\le2)}=B_n=W_n\). For every integer \(q\ge2\), monotonicity also
+  gives \(W_n^{(\le q)}=W_n\). This does not extend the bounded equality of
+  minimizer sets beyond `n=11`.
 - VERIFIED FACT: `examples/finite_results_summary_n3_n6.json` derives
   candidate sets, exclusion gaps, repeated serialized bracket groups, and
   small-`n` ratios from the checked finite certificates.
@@ -440,10 +456,11 @@ superseded uniform order; they are not objective gaps.
    the exact leading coefficient \(8/25\) for both \(B_n\) and \(W_n\).
    Matching constructions now determine their exact values in every residue
    class for \(n\ge9\); in residue two the value is
-   \(B_n=W_n=J_n=d_n(d_n-2)/2\). Global structural classifications of
-   minimizers and any geometric matching coefficient remain open. The best
-   tail obstruction remains strict in all enumerated cases where it is
-   defined.
+   \(B_n=W_n=J_n=d_n(d_n-2)/2\). Combined with the exact bounded table, this
+   proves \(W_n^{(\le2)}=B_n=W_n\) for every \(n\ge3\). Global structural
+   classifications of minimizers and any geometric matching coefficient
+   remain open. The best tail obstruction remains strict in all enumerated
+   cases where it is defined.
 
 8. The adjacent relaxation by itself has coefficient \(1/4\), strictly below
    both the earlier two-threshold coefficient \((36-16\sqrt2)/49\) and the
@@ -470,8 +487,10 @@ superseded uniform order; they are not objective gaps.
 - OPEN QUESTION: can the gap between the induced-subset geometric lower
   coefficient and the product-distance upper coefficient \(8/(25\pi)\) be
   narrowed by a sharper angular construction or a stronger lower bound?
-- OPEN QUESTION: at what first index, if any, do positional distances at least
-  three change \(W_n\)? They do not change it in the exact `n=3..11` table.
+- OPEN QUESTION: do positional distances at least three strictly restrict the
+  minimizer set for some \(n\ge12\)? Equivalently, can a distance-two
+  minimizer have full score strictly greater than \(B_n\)? The optimum values
+  agree for every \(n\ge3\), and the minimizer sets agree through \(n=11\).
 - OPEN QUESTION: can the fixed-order STN/geometric equivalence, endpoint
   semantics, and negative-cycle proof obligations be recorded independently of
   any particular asymptotic constant?

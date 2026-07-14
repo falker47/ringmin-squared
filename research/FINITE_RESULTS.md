@@ -52,7 +52,7 @@ The structural analysis translates lower negative-cycle edges from positional no
 | 5 | `{2-4, 2-5, 3-4, 3-5}` |
 | 6 | `{2-5, 2-6, 3-4, 3-6, 4-5}` |
 
-For `n=5` and `n=6`, every certified candidate order has the same lower-cycle pair set. This is a verified fact about the extracted certificate records. It is not a proof that these are the true active contact pairs at the exact optimum.
+For `n=5` and `n=6`, every certified candidate order has the same lower-cycle pair set. This is a verified fact about the extracted certificate records. It is not a proof that these are the true active contact pairs at the exact geometric optimum.
 
 ## Numerical Observations
 
@@ -121,8 +121,8 @@ all-configuration theorem.
   candidates. It reuses the exact configuration-level induced-subset lower
   bound and rigorous angular majorants.
 - WARNING: equality of the two infima does not prove that either infimum is
-  attained, identify an exact optimum value, or show that index \(1\) is absent
-  from every exact active-contact graph.
+  attained, identify an exact geometric optimum value, or show that index
+  \(1\) is absent from every exact active-contact graph.
 
 ## Conjectures
 
@@ -157,7 +157,7 @@ Falsification: a later checked case has index `1` absent from the lower core and
 
 ## Warnings
 
-- No exact optimum value has been proved for any `n`.
+- No exact geometric optimum value \(R_2^*(n)\) has been proved for any `n`.
 - No exact tie has been proved between candidate orders.
 - The finite artifacts summarized here do not prove any all-`n` theorem,
   asymptotic equality theorem, matching upper bound, or exact leading constant.

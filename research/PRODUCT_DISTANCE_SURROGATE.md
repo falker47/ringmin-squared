@@ -124,8 +124,18 @@
   gives the objectives truncated at positional distances at most one and two,
   as well as \(W_n\), for \(3\le n\le11\). Non-adjacent constraints first
   change the optimum at \(n=9\), while distance-two constraints already
-  recover \(W_n\) throughout this bounded range. This is not an all-\(n\)
-  theorem, a geometric certificate, or a claim of exact geometric optimality.
+  recover \(W_n\) throughout this bounded range. This computation is not by
+  itself an all-\(n\) theorem, a geometric certificate, or a claim of exact
+  geometric optimality.
+- **EXACT THEOREM (global distance-two saturation):** combining that exact
+  table with the residue-class theorem for every \(n\ge9\) gives
+  \[
+  W_n^{(\le2)}=B_n=W_n\qquad(n\ge3).
+  \]
+  Thus positional distances at least three never change the optimum value.
+  The bounded enumeration also proves equality of the distance-two and full
+  minimizer sets through \(n=11\); that stronger set equality is not claimed
+  for \(n\ge12\).
 - **CONJECTURE:** none is proposed from nine finite cases.
 
 Fractions are oriented exactly as displayed below. The accepted angular
@@ -597,9 +607,10 @@ W_n>A_n\qquad(n\ge9).
 \tag{DT10}
 \]
 
-This conclusion is purely combinatorial. It does not give a formula for
-\(B_n\) or \(W_n\), does not show that \(B_n=W_n\) beyond the bounded table,
-and does not by itself improve a geometric radius bound for Power-Ringmin.
+This conclusion is purely combinatorial. By itself it gives neither a formula
+for \(B_n,W_n\) nor their later global equality; those require the subsequent
+residue-class constructions together with the bounded exact table. It also
+does not by itself improve a geometric radius bound for Power-Ringmin.
 
 ## Quantitative Two-Threshold Obstruction For \(B_n\)
 
@@ -3232,9 +3243,9 @@ maximizer gives \(L_n\le A_n\) for every \(4\le n\le32\). Hence \(33\) is the
 first \(n\) at which this particular tail obstruction alone proves that the
 adjacent relaxation is strict. Because \(W_n\ge L_n\), non-adjacent
 constraints are necessarily essential to the full surrogate for every
-\(n\ge33\). This tail argument does not decide the full values \(W_n\) for
-\(12\le n\le32\); the independent distance-two theorem (DT9)--(DT10) now
-proves strictness throughout that interval without determining those values.
+\(n\ge33\). Neither this tail argument nor the independent distance-two
+strictness theorem (DT9)--(DT10) alone determines the full values \(W_n\) for
+\(12\le n\le32\); the later residue-class theorem (RC5) does determine them.
 
 ## Zigzag Benchmark
 
@@ -3338,6 +3349,60 @@ that zigzag is surrogate-optimal for \(n=3,4,5\) and strictly suboptimal for
 every enumerated \(n=6,\dots,11\). The tail obstruction is strict for every
 enumerated case where it is defined. These are finite exact facts only.
 
+## Global Distance-Two Saturation
+
+By definition, \(B_n=W_n^{(\le2)}\), and restriction of the pair set gives
+\(B_n\le W_n\). The bounded exhaustive table proves
+
+\[
+(B_3,\dots,B_{11})
+=
+(W_3,\dots,W_{11})
+=
+(6,12,15,20,24,30,36,45,50).
+\]
+
+Independently, the residue-class squeezes summarized in (RC5) prove
+\(B_n=W_n\) for every \(n\ge9\): residues zero, three, and four use the
+matching endpoints \(H_n=T_n\), residue one uses the order
+\(\sigma_n^{(1)}\), and residue two uses the saturation bound \(J_n\) and
+the order \(\sigma_n^{(2)}\). On the overlap \(n=9,10,11\), the formula gives
+\(36,45,50\), exactly matching the table. Since
+\([3,11]\cup[9,\infty)=[3,\infty)\), these two exact inputs prove
+
+\[
+\boxed{W_n^{(\le2)}=B_n=W_n\qquad(n\ge3)}.
+\tag{GC1}
+\]
+
+More generally, for every integer \(q\ge2\), monotonicity in the retained
+pair set gives
+
+\[
+B_n\le W_n^{(\le q)}\le W_n=B_n,
+\]
+
+so every such truncated objective has the same optimum value.
+
+This value theorem must be separated from a minimizer-set theorem. Let
+\(\mathcal M_n\) and \(\mathcal M_n^{(\le2)}\) be the cyclic orders minimizing
+the full and distance-two objectives. If \(\sigma\in\mathcal M_n\), then
+
+\[
+B_n
+\le W^{(\le2)}(\sigma)
+\le W(\sigma)
+=W_n
+=B_n,
+\]
+
+and hence
+\(\mathcal M_n\subseteq\mathcal M_n^{(\le2)}\) for every \(n\ge3\).
+The bounded exact enumeration proves equality of the canonical minimizer sets
+for \(3\le n\le11\). It does not prove the reverse inclusion for
+\(n\ge12\), nor does (GC1) imply that every constraint at distance at least
+three is slack or inactive.
+
 ## Verification Boundary And Open Questions
 
 `tests/test_product_distance.py` checks exact rational comparisons, canonical
@@ -3377,8 +3442,11 @@ The following remain unresolved.
 
 - **OPEN QUESTION:** can minimizing cyclic orders be characterized
   structurally in any residue class, beyond the displayed witnesses?
-- **OPEN QUESTION:** at what \(n\), if any, do positional distances at least
-  three first change the optimum? They do not do so for \(3\le n\le11\).
+- **OPEN QUESTION:** do positional distances at least three strictly restrict
+  the minimizer set for some \(n\ge12\)? Equivalently, can
+  \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\) occur? The optimum values
+  agree for every \(n\ge3\), and the minimizer sets agree for
+  \(3\le n\le11\).
 
 No formula suggested by the nine values of \(W_n\) is promoted to a
 conjecture. No geometric certificate, schema, serialized result artifact, or

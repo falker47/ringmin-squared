@@ -550,12 +550,25 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - INTERPRETATION: the finite table is not an all-`n` formula, a geometric
   certificate, or proof that the surrogate radius is geometrically optimal
   for a fixed order. No conjecture is promoted from these nine cases.
-- EXACT THEOREM: the residue-class constructions above determine \(B_n=W_n\)
-  for every \(n\ge9\); the bounded table separately includes \(n=7\).
-  Structural characterizations of optimal orders remain open in every class.
-- OPEN QUESTION: positional distances at least three do not change the exact
-  objective or minimizer set for \(3\le n\le11\); their first essential index,
-  if one exists, is unresolved.
+- EXACT THEOREM (FINITE-EXHAUSTIVE PLUS SYMBOLIC): the exact table proves
+  \(B_n=W_n\) for \(3\le n\le11\), while the residue-class theorem proves it
+  for every \(n\ge9\). These domains cover every \(n\ge3\), so
+  \[
+  W_n^{(\le2)}=B_n=W_n\qquad(n\ge3).
+  \]
+  Consequently \(W_n^{(\le q)}=W_n\) for every integer \(q\ge2\); positional
+  distances at least three never change the optimum value.
+- EXACT THEOREM: if \(\mathcal M_n\) and
+  \(\mathcal M_n^{(\le2)}\) denote the full and distance-two minimizer sets,
+  then
+  \(\mathcal M_n\subseteq\mathcal M_n^{(\le2)}\) for every \(n\ge3\).
+  The bounded exact enumeration proves equality for \(3\le n\le11\).
+- OPEN QUESTION: is
+  \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\) for some \(n\ge12\)?
+  Equivalently, can distances at least three remove some distance-two
+  minimizers even though they never change the optimum value?
+- OPEN QUESTION: structural characterizations of minimizing orders remain
+  open in every residue class.
 
 ## Verified Computational Machinery
 
@@ -662,8 +675,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
   critical-structure diagnostics, verifier limitations, workflow provenance,
   the induced-subset lower bound, exact insertion theorem, regular-direction
   bounds, bounded product-distance enumeration through `n=11`, the all-\(n\)
-  matching construction, and the exact residue-class formulas for both
-  surrogates, including the residue-two equality \(B_n=W_n=J_n\).
+  matching construction, the exact residue-class formulas, and their global
+  consequence \(W_n^{(\le2)}=B_n=W_n\) for every \(n\ge3\).
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -690,8 +703,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: the current certified finite results depend on the documented guarded `mpmath.iv` interval-backend contract; backend trust/provenance remains a production-review item.
 - LIMITATION: finite computation for `n=3..6` is not proof for all `n`.
 - LIMITATION: no exact geometric optimum value \(R_2^*(n)\) has been proved
-  in this repository; the finite exact values of the combinatorial surrogate
-  \(W_n\) are a different statement.
+  in this repository; the exact all-\(n\) classification of the combinatorial
+  surrogate \(W_n\) is a different statement.
 - LIMITATION: no upper bound matching the induced-subset leading coefficient
   has been proved in this repository.
 - LIMITATION: neither existence of \(\lim R_2^*(n)/n^3\) nor a leading-term
