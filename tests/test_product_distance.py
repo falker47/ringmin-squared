@@ -23,6 +23,7 @@ from power_ringmin.product_distance import (
     product_distance_score,
     tail_cycle_incompatibility_minimum,
     tail_pairing_sum,
+    terminal_high_incidence_closed_form,
     terminal_high_incidence_lower_obstruction,
     truncated_product_distance_score,
     two_threshold_lower_obstruction,
@@ -454,6 +455,21 @@ def _independent_joint_threshold(n: int) -> Fraction:
         ):
             return threshold
     raise AssertionError("independent half-integer scan was not exhaustive")
+
+
+def _independent_terminal_high_closed_form(n: int) -> Fraction:
+    """Evaluate the proposed residue formula without production helpers."""
+    k, residue = divmod(n, 5)
+    if n == 12:
+        return Fraction(56)
+    polynomial_by_residue = (
+        8 * k * k + 6 * k + 1,
+        8 * k * k + 8 * k + 2,
+        8 * k * k + 10 * k + 3,
+        8 * k * k + 14 * k + 6,
+        8 * k * k + 18 * k + 10,
+    )
+    return Fraction(polynomial_by_residue[residue])
 
 
 def test_rational_pair_scores_are_exact_and_cover_every_pair() -> None:
@@ -948,6 +964,31 @@ def test_terminal_high_asymptotic_witness_is_exact() -> None:
     assert 20000 > 16129  # 8/25 exceeds the unchanged Q_n coefficient.
 
 
+def test_terminal_high_incidence_closed_form_is_exact() -> None:
+    for n in range(9, 201):
+        expected = _independent_terminal_high_closed_form(n)
+        closed_form = terminal_high_incidence_closed_form(n)
+        assert isinstance(closed_form, Fraction)
+        assert closed_form == expected
+        assert terminal_high_incidence_lower_obstruction(n) == expected
+
+    for n in range(9, 5001):
+        d = (4 * n + 12) // 5
+        upper_threshold = Fraction(d * (d - 1), 2)
+        obstruction = terminal_high_incidence_closed_form(n)
+
+        if n % 5 in (0, 3, 4):
+            assert obstruction == upper_threshold
+        elif n % 5 == 1:
+            assert upper_threshold - obstruction == Fraction(2 * n + 3, 5)
+        elif n == 12:
+            assert obstruction == 56
+            assert upper_threshold - obstruction == 10
+        else:
+            assert n >= 17
+            assert upper_threshold - obstruction == Fraction(4 * n + 7, 5)
+
+
 def test_eight_twenty_fifths_exceptional_orders_include_closing_pairs() -> None:
     for n, (
         expected_order,
@@ -1016,6 +1057,8 @@ def test_eight_twenty_fifths_symbolic_family_is_exact() -> None:
 
 def test_eight_twenty_fifths_construction_validation_is_strict() -> None:
     for invalid in (True, 8, Fraction(9), 9.0):
+        with pytest.raises(ValueError, match="integer at least 9"):
+            terminal_high_incidence_closed_form(invalid)  # type: ignore[arg-type]
         with pytest.raises(ValueError, match="integer at least 9"):
             eight_twenty_fifths_order(invalid)  # type: ignore[arg-type]
         with pytest.raises(ValueError, match="integer at least 9"):

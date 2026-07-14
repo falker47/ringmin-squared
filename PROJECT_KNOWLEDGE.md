@@ -387,6 +387,35 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \(n\ge33\) and ten earlier indices; fourteen explicit initial witnesses
   cover the rest. Its proof separately checks adjacent products, distances
   two and three, closing arcs, and automatic distances at least four.
+- EXACT THEOREM: for every \(n\ge9\), the terminal-high obstruction has the
+  closed residue-class formula
+  \[
+  H_n=
+  \begin{cases}
+  d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
+  (d_n-1)^2/2,&n\equiv1\pmod5,\\
+  (d_n-1)(d_n-2)/2,&n\equiv2\pmod5,\ n\ge17,
+  \end{cases}
+  \qquad H_{12}=56.
+  \]
+  Combining this with \(H_n\le B_n\le W_n\le T_n\) gives
+  \[
+  B_n=W_n=T_n={d_n(d_n-1)\over2}
+  \qquad(n\ge9,\ n\equiv0,3,4\pmod5).
+  \]
+  In the two unresolved classes, the exact widths to the uniform theorem
+  threshold are
+  \[
+  T_n-H_n=
+  \begin{cases}
+  (2n+3)/5,&n\equiv1\pmod5,\\
+  (4n+7)/5,&n\equiv2\pmod5,\ n\ge17,\\
+  10,&n=12.
+  \end{cases}
+  \]
+  These are bound widths, not asserted optimality gaps; no exact value of
+  \(B_n\) or \(W_n\) beyond the bounded \(n\le11\) table, and no all-\(n\)
+  exact formula, is proved in residues one or two.
 - EXACT THEOREM: the matching lower and upper bounds give
   \[
   \lim_{n\to\infty}{B_n\over n^2}
@@ -447,8 +476,9 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   handling, the exact adjacent formula, a direct parity-specific adjacent
   equality classifier, the exact nested-neighborhood tail-cycle
   incompatibility, compatible-low capacity, unchanged finite two-threshold
-  obstruction, joint terminal-high incidence obstruction, the explicit
-  eight-twenty-fifths order and threshold, full-distance tail obstructions,
+  obstruction, joint terminal-high incidence obstruction, its constant-time
+  exact residue-class formula, the explicit eight-twenty-fifths order and
+  threshold, full-distance tail obstructions,
   and deterministic full and truncated enumeration with the hard domain
   `3<=n<=11` and a preflight canonical-order ceiling. The explicit upper
   generator performs no search or enumeration. The module creates no CLI or
@@ -492,9 +522,10 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - INTERPRETATION: the finite table is not an all-`n` formula, a geometric
   certificate, or proof that the surrogate radius is geometrically optimal
   for a fixed order. No conjecture is promoted from these nine cases.
-- OPEN QUESTION: exact finite formulas, second-order terms, and structural
-  characterizations of optimal orders for \(B_n\) and \(W_n\) remain
-  unresolved. Their leading asymptotic coefficient is now exact.
+- OPEN QUESTION: exact finite values of \(B_n\) and \(W_n\) beyond the bounded
+  table remain unresolved in residue classes one and two; classes zero, three,
+  and four now have the exact formula above. Structural characterizations of
+  optimal orders remain open in every class.
 - OPEN QUESTION: positional distances at least three do not change the exact
   objective or minimizer set for \(3\le n\le11\); their first essential index,
   if one exists, is unresolved.

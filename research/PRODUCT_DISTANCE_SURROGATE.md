@@ -88,6 +88,20 @@
   \]
   This last statement is an upper coefficient, not an exact geometric
   asymptotic constant.
+- **EXACT THEOREM (residue-class matching):** for \(n\ge9\),
+  \[
+  H_n=
+  \begin{cases}
+  d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
+  (d_n-1)^2/2,&n\equiv1\pmod5,\\
+  (d_n-1)(d_n-2)/2,&n\equiv2\pmod5,\ n\ge17,
+  \end{cases}
+  \]
+  while \(H_{12}=56\). Consequently
+  \(B_n=W_n=T_n\) in residues \(0,3,4\). In residues \(1,2\), the exact
+  widths from \(H_n\) to the uniform theorem threshold \(T_n\) are,
+  respectively, \((2n+3)/5\) and \((4n+7)/5\), with width \(10\) at
+  \(n=12\). These are bound widths, not asserted optimality gaps.
 - **VERIFIED FACT (finite exhaustive exact computation):** the table below
   gives the objectives truncated at positional distances at most one and two,
   as well as \(W_n\), for \(3\le n\le11\). Non-adjacent constraints first
@@ -1044,10 +1058,10 @@ A=\lceil\alpha n+1\rceil,
 \qquad
 D=\lceil\beta n+2\rceil,
 \qquad
-T_n=\max\left(A(A-1),{D(D-1)\over2}\right).
+S_n=\max\left(A(A-1),{D(D-1)\over2}\right).
 \]
 
-The threshold definitions give \(a_{T_n}\ge A\) and \(b_{T_n}\ge D\).
+The threshold definitions give \(a_{S_n}\ge A\) and \(b_{S_n}\ge D\).
 For \(n\ge45\), \(A\ge(n+4)/2\): the boundary reduces to
 \(133>94\sqrt2\), and \(133^2=17689>17672=2\cdot94^2\).
 Also \(A+2D\ge(\alpha+2\beta)n+5=2n+5\). Hence
@@ -1058,8 +1072,8 @@ Also \(A+2D\ge(\alpha+2\beta)n+5=2n+5\). Hence
 u+2v\le n-2.
 \]
 
-Since \(\delta_n(T_n)\le1\), (TT11) gives
-\(\Psi_n(T_n)\le n-1\), so \(Q_n\le T_n\). Both terms defining \(T_n\)
+Since \(\delta_n(S_n)\le1\), (TT11) gives
+\(\Psi_n(S_n)\le n-1\), so \(Q_n\le S_n\). Both terms defining \(S_n\)
 equal \(cn^2+O(n)\), while (TT16) gives the matching lower estimate.
 Consequently
 
@@ -1856,6 +1870,138 @@ canonical cyclic orders. The production generator performs no search. The
 repository's canonical factorial enumerator remains hard-bounded to
 \(n\le11\).
 
+### Exact residue-class formula for \(H_n\)
+
+The upper threshold in (UC1) also exposes the exact finite obstruction by
+residue class. Write \(n=5k+r\), with \(0\le r<5\). For any half-integer
+threshold \(X\) admissible in (TH4), put \(b=b_X\). The all-threshold lower
+argument (TH9) and integrality give the following minimum possible value of
+\(b\):
+
+| \(r\) | \(d_n\) | lower bound on \(b_X\) | candidate \(h_{k,r}\) |
+|---:|---:|---:|---:|
+| 0 | \(4k+2\) | \(d_n\) | \(d_n(d_n-1)/2\) |
+| 1 | \(4k+3\) | \(d_n-1\) | \((d_n-1)^2/2\) |
+| 2 | \(4k+4\) | \(d_n-1\) | \((d_n-1)(d_n-2)/2\) |
+| 3 | \(4k+4\) | \(d_n\) | \(d_n(d_n-1)/2\) |
+| 4 | \(4k+5\) | \(d_n\) | \(d_n(d_n-1)/2\) |
+
+Indeed, substituting \(n=5k+r\) into \(5b>4n+5\) gives exactly the third
+column. Predecessor minimality gives
+
+\[
+(b-1)b\le2X.
+\tag{RC1}
+\]
+
+Thus (RC1) proves \(X\ge h_{k,r}\) immediately in residues
+\(0,2,3,4\). In residue one, if \(b\ge d_n\), (RC1) is already stronger
+than the displayed candidate. If \(b=d_n-1=4k+2\), then
+\(v=n-b+1=k\), and (TH2)--(TH3) force
+
+\[
+2k\le\left\lfloor{X\over d_n-1}\right\rfloor-1.
+\]
+
+Hence \(X\ge(d_n-1)^2/2=h_{k,1}\). This is the even-square capacity event
+from (TH6), not an estimate from the asymptotic theorem.
+
+It remains to prove that the lower candidates are admissible. In residues
+\(0,3,4\), the candidate is \(T_n\). Equations (TH11)--(TH12) already prove
+its admissibility for \(n\ge11\). The two smaller boundary cases give the
+exact data
+
+\[
+(n,T_n,a,b,u,v,C_n(T_n),\Psi_n(T_n))
+=(9,36,6,9,4,1,3,8)
+\]
+
+and
+
+\[
+(n,T_n,a,b,u,v,C_n(T_n),\Psi_n(T_n))
+=(10,45,7,10,4,1,3,8),
+\]
+
+so they are admissible as well.
+
+For residues one and two, let \(h=h_{k,r}\) be the smaller candidate and
+put
+
+\[
+p=\left\lceil{n+3\over2}\right\rceil.
+\]
+
+In residue one, \(k\ge2\), while in residue two take \(k\ge3\), equivalently
+\(n\ge17\). Direct substitution gives
+
+\[
+h-{(n+4)(n+2)\over4}
+=
+\begin{cases}
+(7k^2-8k-7)/4,&r=1,\\
+(7k^2-10k-12)/4,&r=2.
+\end{cases}
+\tag{RC2}
+\]
+
+Both expressions are nonnegative on the stated domains. Since
+\(p(p-1)\le(n+4)(n+2)/4\), (RC2) gives \(a_h\ge p\) and hence
+\(2u\le n-1\). At either candidate, \(b_h=d_n-1\), \(v=k\), and (TH3)
+gives \(C_n(h)=2k=2v\). In residue one, \(2h=b_h^2\), so
+\(\delta_n(h)=0\), and \(p\ge2k+2\) gives
+
+\[
+u+2v+\delta_n(h)\le7k+2-(2k+2)=5k=n-1.
+\]
+
+In residue two, \(\delta_n(h)\le1\), and \(p\ge2k+3\) gives
+
+\[
+u+2v+\delta_n(h)\le7k+4-(2k+3)=5k+1=n-1.
+\]
+
+Both branches of (TT11) therefore fit, so these candidates are admissible.
+
+The excluded residue-two boundary is genuinely exceptional. The lower
+argument gives \(H_{12}\ge55\). At both \(X=55\) and \(X=111/2\), one has
+\(a=7,b=11,u=6,v=2,C_{12}(X)=4\), but
+\(\Psi_{12}(X)=12>11\). At \(X=56\), the exact data become
+
+\[
+a=8,\quad b=11,\quad u=5,\quad v=2,\quad C_{12}(56)=4,
+\quad\Psi_{12}(56)=10,
+\]
+
+so both conditions in (TH4) hold. Consequently
+
+\[
+\boxed{
+H_n=
+\begin{cases}
+d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
+(d_n-1)^2/2,&n\equiv1\pmod5,\\
+(d_n-1)(d_n-2)/2,&n\equiv2\pmod5,\ n\ge17,\\
+56,&n=12.
+\end{cases}
+}
+\tag{RC3}
+\]
+
+Equivalently, apart from the displayed exception,
+
+\[
+H_n=
+\begin{cases}
+(4n+10)(4n+5)/50,&n\equiv0\pmod5,\\
+(4n+6)^2/50,&n\equiv1\pmod5,\\
+(4n+7)(4n+2)/50,&n\equiv2\pmod5,\\
+(4n+8)(4n+3)/50,&n\equiv3\pmod5,\\
+(4n+9)(4n+4)/50,&n\equiv4\pmod5.
+\end{cases}
+\tag{RC4}
+\]
+
 ### Exact surrogate limits and geometric consequence
 
 The existing lower obstruction and the new construction give, for every
@@ -1868,7 +2014,37 @@ H_n\le B_n\le W_n\le W(\sigma_n)\le T_n.
 
 The first inequality is (TH5), the middle inequality follows from the
 definitions of the distance-two and full objectives, and the last two are
-the explicit construction. Since
+the explicit construction. In residues \(0,3,4\), (RC3) makes the two
+endpoints in (UC22) equal. Therefore, for every \(n\ge9\) in those classes,
+
+\[
+\boxed{
+H_n=B_n=W_n=T_n={d_n(d_n-1)\over2}
+}.
+\tag{RC5}
+\]
+
+In the remaining classes, the exact widths of the proved interval in (UC22)
+are
+
+\[
+T_n-H_n
+=
+\begin{cases}
+(d_n-1)/2=(2n+3)/5,&n\equiv1\pmod5,\\
+d_n-1=(4n+7)/5,&n\equiv2\pmod5,\ n\ge17,\\
+10,&n=12.
+\end{cases}
+\tag{RC6}
+\]
+
+These are exact widths between \(H_n\) and the uniform theorem threshold
+\(T_n\), not optimality gaps and not necessarily the score gaps of individual
+exceptional witnesses. No all-\(n\) exact formula, or new exact value beyond
+the bounded \(n\le11\) table, is inferred for \(B_n\) or \(W_n\) in residues
+one or two, and no new construction is proposed there.
+
+Since
 
 \[
 {H_n\over n^2}\longrightarrow{8\over25},
@@ -2288,7 +2464,9 @@ the strict two-threshold floor and skip-one boundaries, cardinalities zero,
 one, and two, an independent brute-force cycle enumerator restricted to tail
 cardinality at most seven, the exact finite \(Q_n\) obstruction, the
 compatible-low floor and even-square equality, the joint finite \(H_n\)
-obstruction, the symbolic upper witness through exact formula diagnostics,
+obstruction, the closed residue formula against both an independent
+polynomial evaluation and the unchanged exact event inversion, the exact
+linear widths through broad formula diagnostics, the symbolic upper witness,
 the matching order generator, all fourteen exceptional orders, their exact
 distance-class and closing maxima, independent cyclic checks of the symbolic
 family, and the effective full-distance tail comparison. A separate verifier builds
@@ -2302,11 +2480,13 @@ diagnostics support but do not replace the symbolic proof above.
 
 The following remain unresolved.
 
-- **OPEN QUESTION:** what are exact finite formulas or second-order terms for
-  \(B_n\) and \(W_n\)? The leading coefficient is now exact, but the
-  construction need not minimize either objective at each finite \(n\).
-- **OPEN QUESTION:** can the explicit family be sharpened at finite order, or
-  can its optimal members be characterized structurally?
+- **OPEN QUESTION:** what are the exact finite values of \(B_n\) and \(W_n\)
+  beyond the bounded table in residue classes one and two? Classes zero,
+  three, and four are settled by (RC5), but the intervals of widths (RC6)
+  need not be sharp.
+- **OPEN QUESTION:** can the explicit family be sharpened in the two
+  unresolved residue classes, or can optimal members be characterized
+  structurally in any class?
 - **OPEN QUESTION:** at what \(n\), if any, do positional distances at least
   three first change the optimum? They do not do so for \(3\le n\le11\).
 

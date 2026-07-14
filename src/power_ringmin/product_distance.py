@@ -572,6 +572,30 @@ def terminal_high_incidence_lower_obstruction(n: int) -> Fraction:
     raise AssertionError("finite terminal-high event set was not exhaustive")
 
 
+def terminal_high_incidence_closed_form(n: int) -> Fraction:
+    """Return the exact residue-class formula for ``H_n`` when ``n >= 9``.
+
+    With ``d_n = ceil((4*n+8)/5)``, residues zero, three, and four give
+    ``d_n(d_n-1)/2``; residue one gives ``(d_n-1)^2/2``; and residue two
+    gives ``(d_n-1)(d_n-2)/2`` except for the exact value ``H_12 = 56``.
+    The event-set inversion in :func:`terminal_high_incidence_lower_obstruction`
+    remains an independent exact implementation of the definition.
+    """
+    _validate_eight_twenty_fifths_n(n)
+    if n == 12:
+        return Fraction(56)
+
+    d = (4 * n + 12) // 5
+    residue = n % 5
+    if residue in (0, 3, 4):
+        numerator = d * (d - 1)
+    elif residue == 1:
+        numerator = (d - 1) ** 2
+    else:
+        numerator = (d - 1) * (d - 2)
+    return Fraction(numerator, 2)
+
+
 def eight_twenty_fifths_threshold(n: int) -> int:
     """Return ``T_n = d_n(d_n-1)/2`` for the matching upper construction.
 
@@ -996,6 +1020,7 @@ __all__ = [
     "product_distance_score",
     "tail_cycle_incompatibility_minimum",
     "tail_pairing_sum",
+    "terminal_high_incidence_closed_form",
     "terminal_high_incidence_lower_obstruction",
     "truncated_product_distance_score",
     "two_threshold_lower_obstruction",
