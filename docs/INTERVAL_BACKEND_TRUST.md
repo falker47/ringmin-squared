@@ -3,6 +3,13 @@
 This note records the current trust contract for checked finite interval
 certificate artifacts. It does not upgrade any result classification.
 
+The exact mathematical interface is proved independently in
+`research/FIXED_ORDER_ANGULAR_STN.md`: genuine angular and \(2\pi\)
+enclosures imply strict lower-endpoint exclusion through a negative cycle and
+closed upper-endpoint inclusion through an all-pairs witness. This trust note
+records the separate, unproved premise that the current backend and bound
+post-processing provide those genuine enclosures.
+
 ## Current Backend
 
 The local fixed-order interval verifier uses
@@ -24,7 +31,10 @@ The verifier currently trusts `mpmath.iv` to provide interval arithmetic whose
 computed interval endpoints enclose the real results of the operations used by
 the oracle at the requested precision. The project additionally assumes that
 the guarded `atan2` formulation encloses the mathematical angular separation
-used in the Power-Ringmin constraints.
+used in the Power-Ringmin constraints. The trust boundary continues through
+endpoint extraction, conversion to `mp.mpf`, decimal parsing, scalar bound
+arithmetic, and the final sign comparisons; these steps have not been replaced
+by a separately audited exact-arithmetic pipeline.
 
 ## Metadata Contract
 
@@ -39,10 +49,13 @@ the oracle that verifies them:
 - `tolerance_based`
 - `guard_decimal`
 
-The verifier rejects tolerance-based interval metadata, missing or extra backend
-metadata keys, backend strings other than the supported guarded `mpmath.iv`
-backend, and tampered `rounding_policy` text. The local artifact type must also
-be exactly `fixed_order_interval_bracket`.
+The checked-artifact and default production loading paths reject
+tolerance-based interval metadata, missing or extra backend metadata keys,
+backend strings other than the supported guarded `mpmath.iv` backend, and
+tampered `rounding_policy` text. The local artifact type must also be exactly
+`fixed_order_interval_bracket`. Unit tests may inject a protocol-compatible
+oracle with matching test metadata; that does not add a supported production
+backend.
 
 ## Guards
 
@@ -62,6 +75,8 @@ results under this backend contract, the project assumes:
 - endpoint widening by `guard_decimal` preserves enclosure;
 - decimal strings are parsed at the verifier's oracle precision, not at ambient
   global `mpmath` precision;
+- conversion of interval endpoints to `mp.mpf` and subsequent scalar sums and
+  differences preserve the conservative direction required by each bound;
 - the lower-endpoint negative-cycle check uses upper bounds that are genuinely
   outward with respect to the implemented STN inequalities;
 - the upper-endpoint witness check uses lower slack bounds that are genuinely
@@ -76,6 +91,9 @@ The repository tests check that:
 - local interval brackets reject noncanonical orders, bad witness positions,
   nonnegative lower cycles, tolerance-based backend metadata, local artifact
   type tampering, and backend metadata tampering;
+- a recomputed lower cycle-sum upper bound equal to zero is rejected, while a
+  recomputed upper witness slack lower bound equal to zero is accepted because
+  the geometric constraints are closed;
 - local decimal parsing is performed at oracle precision even when ambient
   global `mpmath` precision is lowered;
 - small-n certificate validation reloads embedded local brackets and rejects
@@ -93,6 +111,8 @@ The repository has not formally proved or independently audited:
 - the directed-rounding behavior of `mpmath.iv` on every platform and version;
 - the interval correctness of the `atan2(x, sqrt(1 - x*x))` inverse-sine
   formulation for all inputs in the certificate domain;
+- conservative rounding of interval endpoint extraction and the later scalar
+  `mp.mpf` bound arithmetic on every supported platform;
 - a machine-checkable proof that the guard magnitude compensates for every
   possible backend issue;
 - an independent interval-backend re-verification of the checked artifacts;
@@ -112,7 +132,9 @@ under the repository's documented guarded `mpmath.iv` backend contract. They are
 finite `n=3,4,5,6` certificates only. They are not exact optimum values, not
 publication-grade independently audited certificates, and not evidence strong
 enough to prove a matching upper bound, an asymptotic equality theorem, or an
-exact leading constant.
+exact leading constant. Their exact endpoint meaning is half-open: each strict
+lower endpoint is excluded and each upper witness endpoint is included, so the
+certified threshold infimum lies in \((L,U]\).
 
 ## Stronger Trust Requirements
 

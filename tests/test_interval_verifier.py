@@ -7,8 +7,10 @@ import pytest
 
 from power_ringmin.highprec import full_radius_mp, theta_mp
 from power_ringmin.interval_verifier import (
+    DecimalInterval,
     FIXED_ORDER_INTERVAL_BRACKET_ARTIFACT_TYPE,
     FIXED_ORDER_INTERVAL_BRACKET_SCHEMA_VERSION,
+    IntervalBackendInfo,
     MPMathIntervalAngularOracle,
     assert_fixed_order_interval_bracket_verified,
     verify_fixed_order_interval_bracket,
@@ -157,6 +159,30 @@ def test_local_interval_bracket_rejects_nonnegative_lower_cycle() -> None:
     assert any("strictly negative" in message for message in result.messages)
 
 
+def test_local_interval_bracket_uses_conservative_endpoints_and_accepts_zero_slack() -> None:
+    oracle = _EndpointSemanticsOracle(lower_cycle_sum_zero=False)
+    record = _endpoint_semantics_record(oracle, reported_cycle_sum="-0.25")
+
+    result = verify_fixed_order_interval_bracket(record, oracle=oracle)
+
+    assert result.verified
+    assert result.lower_negative_cycle_sum_upper == mp.mpf("-0.5")
+    assert result.min_upper_witness_slack_lower == 0
+
+
+def test_local_interval_bracket_rejects_zero_negative_cycle_sum() -> None:
+    oracle = _EndpointSemanticsOracle(lower_cycle_sum_zero=True)
+    record = _endpoint_semantics_record(oracle, reported_cycle_sum="-0.1")
+
+    result = verify_fixed_order_interval_bracket(record, oracle=oracle)
+
+    assert not result.verified
+    assert result.lower_negative_cycle_sum_upper == 0
+    assert result.min_upper_witness_slack_lower == 0
+    assert any("strictly negative" in message for message in result.messages)
+    assert not any("upper witness minimum slack" in message for message in result.messages)
+
+
 def test_local_interval_bracket_rejects_noncanonical_index_order() -> None:
     oracle = MPMathIntervalAngularOracle(digits=90, guard_decimal="1e-80")
     record = _strict_n3_bracket_record(oracle)
@@ -222,3 +248,72 @@ def _strict_n3_positions(
             theta_01 + gap + theta_12 + gap,
         )
         return [mp.nstr(position, digits) for position in positions]
+
+
+class _EndpointSemanticsOracle:
+    def __init__(self, *, lower_cycle_sum_zero: bool) -> None:
+        self.lower_cycle_sum_zero = lower_cycle_sum_zero
+
+    @property
+    def backend_info(self) -> IntervalBackendInfo:
+        return IntervalBackendInfo(
+            backend="test_hand_enclosed_endpoint_semantics",
+            precision_digits=80,
+            rounding_policy="hand-enclosed test intervals",
+            outward_enclosure=True,
+            certification_capable=True,
+            tolerance_based=False,
+        )
+
+    def theta(self, R: mp.mpf, a: mp.mpf, b: mp.mpf) -> DecimalInterval:
+        pair = tuple(sorted((int(a), int(b))))
+        if R == mp.mpf("0.01"):
+            lower_values = (
+                {(1, 9): "2", (4, 9): "3", (1, 4): "2"}
+                if self.lower_cycle_sum_zero
+                else {(1, 9): "2.5", (4, 9): "2.5", (1, 4): "2.5"}
+            )
+            lower = mp.mpf(lower_values[pair])
+            return DecimalInterval(lower=lower, upper=mp.mpf("3.125"))
+        if R == 10:
+            bounds = {
+                (1, 9): ("0.1", "1"),
+                (4, 9): ("0.1", "1.5"),
+                (1, 4): ("0.1", "1"),
+            }
+            lower, upper = bounds[pair]
+            return DecimalInterval(lower=mp.mpf(lower), upper=mp.mpf(upper))
+        raise AssertionError(f"unexpected test radius {R}")
+
+    def tau(self) -> DecimalInterval:
+        return DecimalInterval(lower=mp.mpf("6"), upper=mp.mpf("7"))
+
+
+def _endpoint_semantics_record(
+    oracle: _EndpointSemanticsOracle,
+    *,
+    reported_cycle_sum: str,
+) -> dict[str, object]:
+    return {
+        "schema_version": FIXED_ORDER_INTERVAL_BRACKET_SCHEMA_VERSION,
+        "artifact_type": FIXED_ORDER_INTERVAL_BRACKET_ARTIFACT_TYPE,
+        "index_order": [3, 1, 2],
+        "radius_order": [9, 1, 4],
+        "lower_radius_decimal": "0.01",
+        "upper_radius_decimal": "10",
+        "lower_certificate": {
+            "kind": "negative_cycle",
+            "cycle": [
+                {"source": 1, "target": 0, "edge_kind": "forward_lower"},
+                {"source": 0, "target": 2, "edge_kind": "wrap_upper"},
+                {"source": 2, "target": 1, "edge_kind": "forward_lower"},
+            ],
+        },
+        "upper_certificate": {
+            "kind": "witness_positions",
+            "positions_rad": ["0", "2", "4.5"],
+        },
+        "theta_interval_backend": oracle.backend_info.to_record(),
+        "min_upper_witness_slack_lower": "0",
+        "lower_negative_cycle_sum_upper": reported_cycle_sum,
+    }

@@ -55,6 +55,59 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - WARNING: any heuristic leading to the former \(n^3/(6\pi)\) scale is insufficient as an asymptotic target because the induced-subset lower bound proves \(\liminf 6\pi R_2^*(n)/n^3\ge 4(\sqrt2-1)>1\).
 - RULE: all-pairs non-overlap constraints are part of the problem, not merely adjacent-pair constraints.
 
+## Fixed-Order Angular And STN Semantics
+
+- EXACT THEOREM: for a fixed labelled cyclic order
+  \((r_0,\dots,r_{m-1})\), \(m\ge3\), with \(p_0=0\), exact all-pairs
+  geometric feasibility at \(R>0\) is equivalent to
+  \[
+  \theta_R(r_i,r_j)
+  \le p_j-p_i
+  \le2\pi-\theta_R(r_i,r_j)
+  \qquad(0\le i<j<m).
+  \]
+  These inequalities automatically realize the prescribed strict cyclic
+  order.
+- EXACT THEOREM: with an edge \(u\to v\) encoding
+  \(p_v-p_u\le w\), the implemented edges are \(j\to i\) of weight
+  \(-\theta_{ij}\), named `forward_lower`, and \(i\to j\) of weight
+  \(2\pi-\theta_{ij}\), named `wrap_upper`.
+- EXACT THEOREM: the fixed-order STN is feasible if and only if it has no
+  negative directed cycle. When it is feasible, shortest-path distances give
+  a potential \(p_k=\operatorname{dist}(0,k)\); subtracting the value at node
+  zero supplies the general anchored construction.
+- EXACT THEOREM: for positive radii, \(\theta_R(a,b)\) is continuous and
+  strictly decreasing in \(R>0\). Both STN edge weights and every directed
+  cycle weight are continuous and strictly increasing. The fixed-order
+  feasible-radius set has the form \([\rho_\sigma,\infty)\), with
+  \(\rho_\sigma>0\).
+- EXACT THEOREM (ABSTRACT ENCLOSURE IMPLICATION): if genuine oracle
+  enclosures are given, a lower cycle whose relaxed weight upper bound is
+  strictly negative excludes \(L\) and a right neighborhood, while an
+  all-pairs upper witness whose slack lower bounds are nonnegative includes
+  \(U\). Therefore
+  \[
+  \rho_\sigma\in(L_\sigma,U_\sigma].
+  \]
+  Zero lower cycle sum is undecided and rejected; zero upper witness slack is
+  valid because tangency is allowed.
+- EXACT THEOREM (FINITE ABSTRACT AGGREGATION): exhaustive coverage of the
+  finite canonical order space gives the same half-open global meaning
+  \(R_2^*(n)\in(L_{\mathrm{glob}},U_{\mathrm{glob}}]\). The current
+  candidate convention
+  \(\{\sigma:L_\sigma\le U_{\mathrm{glob}}\}\) is a conservative v1
+  superset and is not changed by this theorem.
+- CONDITIONAL COMPUTER-CERTIFIED RESULT: the checked \(n=3,4,5,6\)
+  artifacts instantiate these abstract implications only under the documented
+  guarded `mpmath.iv` enclosure contract.
+- VERIFIED FACT: `research/FIXED_ORDER_ANGULAR_STN.md` is the authoritative
+  proof; `docs/INTERVAL_BACKEND_TRUST.md` records the separate guarded
+  `mpmath.iv` trust premise.
+- LIMITATION: the exact real-arithmetic theorems do not prove `mpmath.iv`, its
+  interval `atan2` formulation, endpoint extraction, decimal parsing, scalar
+  `mp.mpf` bound arithmetic, or guard adequacy correct. Checked artifacts
+  remain computer-certified finite results under that documented contract.
+
 ## All-n Lower Bound
 
 - EXACT THEOREM: for every finite index set \(S\) with \(|S|\ge 3\), every cyclic order \(\tau\) of \(S\), and the sorted duplicated multiset \(M_S=\{x_1\le\cdots\le x_{2|S|}\}\),
@@ -601,6 +654,11 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - VERIFIED FACT: `src/power_ringmin/fixed_order_artifact.py`, `src/power_ringmin/export_fixed_order_cli.py`, `src/power_ringmin/export_fixed_order_batch_cli.py`, and `src/power_ringmin/verify_fixed_order_artifacts_cli.py` provide fixed-order artifact construction, export, batch export, and standalone-verifier checking.
 - VERIFIED FACT: `src/power_ringmin/search_small_n.py` provides canonical quadratic index-order enumeration modulo rotation and reflection, canonicalization, quadratic index-to-radius conversion, exhaustive float64 small-`n` search, and v1 small-`n` search JSON helpers.
 - VERIFIED FACT: `ops/TASK-20260711__interval_verifier_semantics/DESIGN.md` records the design semantics for finite small-`n` interval certification.
+- VERIFIED FACT: `research/FIXED_ORDER_ANGULAR_STN.md` discharges the
+  historical fixed-order proof obligations, including the exact angular/STN
+  equivalence, negative-cycle criterion, potential recovery, radius
+  monotonicity and continuity, half-open endpoint semantics, and finite global
+  aggregation.
 - VERIFIED FACT: `src/power_ringmin/interval_verifier.py` implements local fixed-order interval bracket verifier semantics for one canonical quadratic index order.
 - VERIFIED FACT: the local interval bracket verifier checks the radius order against the index-order squares, rejects noncanonical index orders, requires exact local `artifact_type`, requires exact backend metadata matching for every field declared by the oracle including `rounding_policy`, rejects tolerance-based interval metadata, checks a lower endpoint by an explicit negative cycle using relaxed interval edge upper weights, and checks an upper endpoint by explicit all-pairs witness slacks using theta upper bounds.
 - VERIFIED FACT: `MPMathIntervalAngularOracle` provides a guarded `mpmath.iv` angular interval backend using `atan2(x, sqrt(1-x^2))` for the inverse-sine step and records backend precision, guard, rounding policy, outward-enclosure, certification-capability, and no-tolerance metadata.
@@ -643,8 +701,13 @@ The following checked artifacts are classified as COMPUTER-CERTIFIED RESULT unde
 | 5 | 12 | `3.934227717145796443531935437931679189205169677734375` | `3.9344277171457964215051106293685734272003173828125` | `examples/small_n_interval_certificate_n5.json` | finite `n` only; no exact optimum, all-`n` theorem, or asymptotic claim; guarded `mpmath.iv` backend provenance remains a limitation |
 | 6 | 60 | `8.4678350760883720482752323732711374759674072265625` | `8.4680350760883715821591977146454155445098876953125` | `examples/small_n_interval_certificate_n6.json` | finite `n` only; no exact optimum, all-`n` theorem, or asymptotic claim; guarded `mpmath.iv` backend provenance remains a limitation |
 
-- INTERPRETATION: these finite brackets do not prove exact optimum values; each strict lower endpoint is excluded and each upper endpoint is certified feasible under the artifact semantics.
-- INTERPRETATION: these finite brackets do not prove exact optima or asymptotic claims; the disproof of the former \(n^3/(6\pi)\) target comes from the all-\(n\) induced-subset theorem, not from finite certificates.
+- INTERPRETATION: these finite brackets do not prove exact threshold values;
+  each strict lower endpoint is excluded, each upper endpoint is certified
+  feasible, and the threshold infimum lies in the displayed half-open interval
+  \((L,U]\) under the guarded backend contract.
+- INTERPRETATION: these finite brackets do not prove exact values or
+  asymptotic claims; the disproof of the former \(n^3/(6\pi)\) target comes
+  from the all-\(n\) induced-subset theorem, not from finite certificates.
 
 Candidate-set extraction uses the following finite-certificate semantics.
 
@@ -662,7 +725,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
 
 - INTERPRETATION: candidate-set size `1` means there is a unique certified candidate order modulo the current rotation/reflection convention.
 - WARNING: candidate-set size greater than `1` does not prove an exact tie between the candidate orders.
-- WARNING: identical serialized local brackets must not be described as exact equality of the corresponding fixed-order optima.
+- WARNING: identical serialized local brackets must not be described as exact
+  equality of the corresponding fixed-order threshold infima.
 - VERIFIED FACT: the checked derived summary artifact `examples/finite_results_summary_n3_n6.json` records the `n=3..6` certified finite brackets, candidate sets, exclusion gaps, identical serialized bracket groups, source certificate line-ending-normalized `content_sha256` values, and finite-`n` ratios under `power-ringmin.finite_results_summary.v1`.
 - INTERPRETATION: `examples/finite_results_summary_n3_n6.json` is derived analysis over checked source certificates. It does not replace the primary certificate artifacts and does not change `power-ringmin.small_n_interval_certificate.v1`.
 
@@ -701,9 +765,13 @@ Candidate-set extraction uses the following finite-certificate semantics.
   improves the current regular-direction upper coefficient to
   \(8/(25\pi)\). Further narrowing the geometric coefficient gap is more
   valuable than automatic `n=7` enumeration.
-- RECOMMENDED NEXT TASK: document the fixed-order angular/STN equivalence and
-  endpoint semantics, including monotonicity in `R`, negative-cycle
-  infeasibility, upper witnesses, and the interval-backend trust boundary.
+- COMPLETED PRIORITY: `research/FIXED_ORDER_ANGULAR_STN.md` now proves the
+  fixed-order angular/STN equivalence, negative-cycle and potential theorems,
+  radius dependence, half-open endpoint semantics, and explicit interval
+  trust boundary.
+- RECOMMENDED NEXT TASK: design a bounded independent interval-backend
+  cross-verification path for the existing checked artifacts, without
+  generating a larger finite certificate or changing current claims.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
@@ -713,12 +781,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   symbolic all-pairs proof?
 - RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
 
-## Open Proof Obligations And Limitations
+## Proof Obligations And Limitations
 
-- CERTIFICATION DEBT: locally document the fixed-order angular/STN
-  equivalence and endpoint semantics, including the relevant angular formula,
-  monotonicity in `R`, negative-cycle infeasibility, upper-witness meaning, and
-  interval-backend trust boundary.
+- CLOSED PROOF OBLIGATION: the fixed-order angular/STN equivalence and
+  endpoint semantics are proved in `research/FIXED_ORDER_ANGULAR_STN.md`.
 - LIMITATION: the current certified finite results depend on the documented guarded `mpmath.iv` interval-backend contract; backend trust/provenance remains a production-review item.
 - LIMITATION: finite computation for `n=3..6` is not proof for all `n`.
 - LIMITATION: no exact geometric optimum value \(R_2^*(n)\) has been proved

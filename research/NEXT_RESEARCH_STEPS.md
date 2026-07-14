@@ -11,6 +11,11 @@ constructions, and the global classification
 It also records the exact first minimizer-set restriction:
 \(\mathcal M_n=\mathcal M_n^{(\le2)}\) for \(3\le n\le92\), while
 \(\mathcal M_{93}\subsetneq\mathcal M_{93}^{(\le2)}\).
+The fixed-order certification debt is now closed mathematically by
+`research/FIXED_ORDER_ANGULAR_STN.md`, which proves exact angular/STN
+equivalence, the negative-cycle criterion, potential recovery, radius
+dependence, and half-open bracket semantics while preserving the guarded
+`mpmath.iv` trust boundary.
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -199,6 +204,18 @@ saturation for every \(n\ge3\).
 - COMPUTER-CERTIFIED RESULT: checked finite interval certificates exist for
   `n=3,4,5,6` under the documented local interval-verifier semantics and
   guarded `mpmath.iv` backend contract.
+- EXACT THEOREM (ABSTRACT ENCLOSURE IMPLICATION):
+  `research/FIXED_ORDER_ANGULAR_STN.md` proves that fixed-order
+  all-pairs geometry is equivalent to the implemented difference constraints,
+  an STN is feasible exactly when it has no negative directed cycle, and
+  shortest-path distances recover a feasible potential. It also proves that
+  \(\theta_R\) is continuous and strictly decreasing in \(R\). Given genuine
+  enclosures, a strict lower cycle and closed upper witness give
+  \(\rho_\sigma\in(L_\sigma,U_\sigma]\). Finite exhaustive order coverage
+  yields the same half-open global semantics.
+- CONDITIONAL COMPUTER-CERTIFIED RESULT: applying these implications to
+  checked artifacts is conditional on the documented guarded `mpmath.iv`
+  enclosure contract.
 - EXACT THEOREM: `research/ALL_N_LOWER_BOUND.md` proves the induced-subset
   lower-bound theorem. In particular, for every `n>=4` and `1<=m<=n-2`,
   \[
@@ -506,27 +523,36 @@ saturation for every \(n\ge3\).
   strictly restrict the minimizer set? The sufficient equality criterion
   \(n(n-1)/3\le B_n\) holds again at \(n=94\), so no persistence from the
   first strict index onward is asserted.
-- OPEN QUESTION: can the fixed-order STN/geometric equivalence, endpoint
-  semantics, and negative-cycle proof obligations be recorded independently of
-  any particular asymptotic constant?
+- CLOSED QUESTION: the fixed-order STN/geometric equivalence, endpoint
+  semantics, and negative-cycle proof obligations are now recorded
+  independently of every asymptotic claim in
+  `research/FIXED_ORDER_ANGULAR_STN.md`.
 
 ## Ranked Work
 
+Completed:
+
+- Documented and proved fixed-order angular/STN equivalence and certificate
+  endpoint semantics, including monotonicity and continuity in `R`,
+  negative-cycle infeasibility, feasible-potential recovery, upper-witness
+  meaning, and the interval-backend trust boundary.
+
 Immediate:
 
-- Document fixed-order angular/STN equivalence and certificate endpoint
-  semantics, including monotonicity in `R`, negative-cycle infeasibility,
-  upper-witness meaning, and the interval-backend trust boundary.
+- Design an independent interval-backend cross-verification path for the
+  existing checked artifacts before making public production-grade certificate
+  claims.
 
 Next:
 
+- Seek a geometric all-pairs construction or lower obstruction that narrows
+  the remaining coefficient gap without relying on larger exhaustive finite
+  certificates.
 - Keep the exact radius-one theorem separate from finite critical-cycle proxy
   claims and from any assumption that an optimum is attained.
 
 Later:
 
-- Replace or independently audit the guarded `mpmath.iv` backend before making
-  public production-grade certificate claims.
 - Reduce bracket widths or add independent fixed-order analysis for the
   multiple candidates at `n=5,6` if exact tie questions become important.
 - Consider larger finite certificates only after a structural prediction gives
@@ -546,15 +572,17 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: document fixed-order angular/STN equivalence and endpoint semantics.
+Task: design an independent interval-backend cross-verification path for the
+existing checked finite artifacts.
 
 Acceptance criteria:
 
-- state the fixed-order angular constraints and monotonicity in `R` precisely;
-- prove the equivalence between geometric feasibility and the STN formulation
-  used by the current code;
-- document strict lower-endpoint negative-cycle infeasibility and upper-witness
-  semantics without overstating endpoint inclusion;
-- preserve the local interval-backend trust boundary and evidence
-  classifications;
-- do not generate new certificates, artifacts, or surrogate enumerations.
+- choose one independently implemented outward-enclosure backend or a small
+  exact rational enclosure pipeline for the operations actually required;
+- specify how every existing local cycle and witness would be recomputed
+  without trusting the current `mpmath.iv` path;
+- keep generator, verifier, and artifact provenance roles separate;
+- begin with a bounded checked fixture and explicit platform/version
+  requirements;
+- do not generate a larger-\(n\) certificate or change any current certified
+  claim during the design task.

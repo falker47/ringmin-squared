@@ -2,6 +2,16 @@
 
 Date: 2026-07-11
 
+Status update, 2026-07-14: this file is retained as the historical design
+record. The local verifier, finite small-\(n\) aggregation, and checked
+\(n=3,4,5,6\) artifacts were implemented after it was written. The proof
+obligations in the section below are now discharged authoritatively by
+`research/FIXED_ORDER_ANGULAR_STN.md`, which sharpens the verified bracket
+notation to \((L,U]\). Statements below about a future implementation or the
+absence of checked global brackets describe the 2026-07-11 design state, not
+current project status. Checked global brackets now exist, but no exact
+geometric threshold value is certified.
+
 ## Scope And Classification
 
 This document is a design artifact for a future implementation task. It

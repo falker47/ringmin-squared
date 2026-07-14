@@ -41,6 +41,16 @@ Interpretation: candidate membership and exclusion gaps are computer-certified f
 The ratio column is retained only as a legacy finite diagnostic against the
 former baseline; it is not an active asymptotic target.
 
+The half-open notation is proved in
+`research/FIXED_ORDER_ANGULAR_STN.md`. For every local order, the recomputed
+strictly negative cycle-sum upper bound excludes the lower endpoint and, by
+continuity, a right neighborhood of it. The all-pairs witness with slack lower
+bounds greater than or equal to zero includes the upper endpoint. Thus a local
+threshold infimum lies in \((L_\sigma,U_\sigma]\), and finite exhaustive order
+coverage gives the displayed global \((L,U]\). This conclusion does not assume
+an unproved optimum and remains conditional on the guarded `mpmath.iv` trust
+contract in `docs/INTERVAL_BACKEND_TRUST.md`.
+
 ## Verified Structural Data
 
 The structural analysis translates lower negative-cycle edges from positional nodes to stable index/radius-pair labels and normalizes cyclic edge signatures by rotation.
@@ -120,9 +130,11 @@ all-configuration theorem.
 - INTERPRETATION: this theorem is not inferred from the checked \(n=5,6\)
   candidates. It reuses the exact configuration-level induced-subset lower
   bound and rigorous angular majorants.
-- WARNING: equality of the two infima does not prove that either infimum is
-  attained, identify an exact geometric optimum value, or show that index
-  \(1\) is absent from every exact active-contact graph.
+- WARNING: equality of the two infima alone would not prove attainment.
+  Attainment for the relevant finite unions of fixed-order feasible sets
+  follows separately from `research/FIXED_ORDER_ANGULAR_STN.md`. Neither fact
+  identifies an exact numerical threshold or shows that index \(1\) is absent
+  from every exact active-contact graph.
 
 ## Conjectures
 
@@ -157,7 +169,7 @@ Falsification: a later checked case has index `1` absent from the lower core and
 
 ## Warnings
 
-- No exact geometric optimum value \(R_2^*(n)\) has been proved for any `n`.
+- No exact geometric threshold value \(R_2^*(n)\) has been proved for any `n`.
 - No exact tie has been proved between candidate orders.
 - The finite artifacts summarized here do not prove any all-`n` theorem,
   asymptotic equality theorem, matching upper bound, or exact leading constant.

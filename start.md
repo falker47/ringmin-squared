@@ -23,6 +23,14 @@ attainment assumption is needed for the current theorems.
 
 The quadratic-radii computational foundation has been implemented. Checked finite interval certificate artifacts currently exist for `n=3,4,5,6`; they provide finite global radius brackets under the documented guarded `mpmath.iv` interval-backend contract.
 
+The fixed-order certification semantics are now proved independently in
+`research/FIXED_ORDER_ANGULAR_STN.md`: exact all-pairs geometry is equivalent
+to the implemented difference constraints, negative cycles characterize
+infeasibility, shortest paths recover feasible potentials, and a verified
+interval bracket has exact endpoint meaning \((L,U]\). The proof is real
+mathematics; applying it to checked artifacts remains conditional on the
+guarded `mpmath.iv` trust contract.
+
 A strengthened all-`n` mathematical lower bound has been proved from induced
 subsets of cyclic gaps. For every `n>=4` and `1<=m<=n-2`,
 
@@ -418,9 +426,49 @@ For quadratic radii:
 
 All-pairs non-overlap constraints are part of the problem, not merely adjacent-pair constraints.
 
+## Fixed-Order Angular And STN Semantics
+
+For a fixed counterclockwise order \((r_0,\dots,r_{m-1})\), \(m\ge3\),
+anchor \(p_0=0\). Exact all-pairs feasibility is equivalent to
+
+\[
+\theta_R(r_i,r_j)
+\le p_j-p_i
+\le2\pi-\theta_R(r_i,r_j)
+\qquad(0\le i<j<m).
+\]
+
+The lower inequality is the directed edge \(j\to i\) of weight
+\(-\theta_{ij}\); the upper is \(i\to j\) of weight
+\(2\pi-\theta_{ij}\). The system is feasible exactly when it has no negative
+directed cycle, and shortest-path distances recover a feasible potential.
+Moreover, \(\theta_R\) is continuous and strictly decreasing in \(R\), so the
+feasible-radius set is monotone upward.
+
+Under genuine interval enclosures, a relaxed cycle whose recomputed weight
+upper bound is strictly negative excludes the lower endpoint \(L\) and a right
+neighborhood. An explicit all-pairs witness whose recomputed slack lower bounds
+are nonnegative includes the upper endpoint \(U\). Thus the fixed-order
+threshold infimum lies in \((L,U]\), without assuming an unproved optimum.
+The same half-open semantics holds after exhaustive finite order aggregation.
+`research/FIXED_ORDER_ANGULAR_STN.md` contains the proof, and
+`docs/INTERVAL_BACKEND_TRUST.md` states the separate backend assumptions.
+
 ## Current Knowledge Status
 
 - COMPUTER-CERTIFIED RESULT: checked finite global interval brackets exist for `n=3,4,5,6` under the repository's documented local interval-verifier semantics and guarded `mpmath.iv` backend contract.
+- EXACT THEOREM: for every fixed labelled cyclic order of at least three
+  positive radii, the exact all-pairs angular system is equivalent to the
+  implemented STN; feasibility is equivalent to absence of a negative cycle,
+  shortest paths recover a feasible potential, and the fixed-order
+  feasible-radius set is an upper interval.
+- EXACT THEOREM (ABSTRACT ENCLOSURE IMPLICATION): genuine lower angular bounds
+  and upper \(2\pi\) bounds make a strictly negative relaxed cycle decisive;
+  genuine upper angular bounds and a lower \(2\pi\) bound make nonnegative
+  all-pairs witness slacks decisive. The threshold infimum then lies in
+  \((L,U]\): \(L\) is excluded and \(U\) is included.
+- CONDITIONAL COMPUTER-CERTIFIED RESULT: current checked artifacts instantiate
+  that implication only under the documented guarded `mpmath.iv` contract.
 - EXACT THEOREM: for every `n>=3`,
   \[
   R_2^*(n)\ge \frac{n(n+1)(n+2)}{6\pi}-n^2,
