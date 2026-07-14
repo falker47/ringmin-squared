@@ -86,8 +86,11 @@ class TwoThresholdTailPacking:
     whose consecutive products are strictly greater than ``threshold`` and
     ``2 * threshold``, respectively.  Intersecting the corresponding integer
     tails with ``{2, ..., n}`` gives sizes ``u_size`` and ``v_size``.
-    ``required_positions`` is the proved packing requirement
-    ``2*u + max(0, 2*v-u)``.
+    ``clique_incompatibility_bound`` is the earlier independent-tail bound.
+    ``minimum_incompatibilities`` is the exact minimum over cycles of the
+    first tail, counting both oriented arcs when that tail has two vertices.
+    ``required_positions`` is the exact proved packing requirement
+    ``2*u + minimum_incompatibilities``.
     """
 
     n: int
@@ -96,6 +99,8 @@ class TwoThresholdTailPacking:
     b_threshold: int
     u_size: int
     v_size: int
+    clique_incompatibility_bound: int
+    minimum_incompatibilities: int
     required_positions: int
 
 
@@ -356,7 +361,19 @@ def two_threshold_tail_packing(
     b_threshold = _strict_product_tail_start(2 * exact_threshold)
     u_size = max(0, n - a_threshold + 1)
     v_size = max(0, n - b_threshold + 1)
-    required_positions = 2 * u_size + max(0, 2 * v_size - u_size)
+    clique_incompatibility_bound = max(0, 2 * v_size - u_size)
+    if u_size <= 1:
+        minimum_incompatibilities = 0
+    else:
+        nested_correction = int(
+            a_threshold < b_threshold <= n - 1
+            and 2 * exact_threshold < b_threshold * b_threshold - 1
+        )
+        minimum_incompatibilities = max(
+            0,
+            2 * v_size - u_size + nested_correction,
+        )
+    required_positions = 2 * u_size + minimum_incompatibilities
     return TwoThresholdTailPacking(
         n=n,
         threshold=exact_threshold,
@@ -364,8 +381,27 @@ def two_threshold_tail_packing(
         b_threshold=b_threshold,
         u_size=u_size,
         v_size=v_size,
+        clique_incompatibility_bound=clique_incompatibility_bound,
+        minimum_incompatibilities=minimum_incompatibilities,
         required_positions=required_positions,
     )
+
+
+def tail_cycle_incompatibility_minimum(
+    n: int,
+    threshold: int | Fraction,
+) -> int:
+    """Return the exact threshold-tail cycle incompatibility ``eta_n(T)``.
+
+    Cycles on zero or one tail vertex contribute no distinct-vertex arc.  A
+    two-vertex tail has two oriented arcs, so an incompatible pair contributes
+    two.  The nested-neighborhood proof for all cardinalities is recorded in
+    ``research/PRODUCT_DISTANCE_SURROGATE.md``.
+    """
+    return two_threshold_tail_packing(
+        n,
+        threshold,
+    ).minimum_incompatibilities
 
 
 def two_threshold_lower_obstruction(n: int) -> Fraction:
@@ -373,15 +409,18 @@ def two_threshold_lower_obstruction(n: int) -> Fraction:
 
     ``Q_n`` is the least nonnegative half-integer threshold whose tail
     packing requirement fits in the ``n-1`` core positions.  The requirement
-    changes only at ``k(k+1)/2`` or ``k(k+1)``, so checking the finite event
-    set is equivalent to minimizing over all nonnegative half-integers.
+    changes only at ``k(k+1)/2``, ``k(k+1)``, or ``(k^2-1)/2``.  The last
+    event makes the skip-one pair ``(k-1, k+1)`` compatible.  Checking these
+    finite events is equivalent to minimizing over all nonnegative
+    half-integers.
     """
     _validate_problem_n(n)
     event_thresholds = {Fraction(0)}
-    for k in range(2, n):
+    for k in range(2, n + 1):
         product = k * (k + 1)
         event_thresholds.add(Fraction(product, 2))
         event_thresholds.add(Fraction(product))
+        event_thresholds.add(Fraction(k * k - 1, 2))
 
     for threshold in sorted(event_thresholds):
         packing = two_threshold_tail_packing(n, threshold)
@@ -729,6 +768,7 @@ __all__ = [
     "enumerate_truncated_product_distance",
     "product_distance_pair_scores",
     "product_distance_score",
+    "tail_cycle_incompatibility_minimum",
     "tail_pairing_sum",
     "truncated_product_distance_score",
     "two_threshold_lower_obstruction",

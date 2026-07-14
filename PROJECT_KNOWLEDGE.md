@@ -262,20 +262,40 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   `n=11`.
 - DEFINITION: for exact \(T\ge0\), let \(a_T\) and \(b_T\) be the least
   integers at least two satisfying \(a_T(a_T+1)>T\) and
-  \(b_T(b_T+1)>2T\). The threshold tails have sizes
+  \(b_T(b_T+1)>2T\). Put
+  \(U_T=\{a_T,\dots,n\}\cap\{2,\dots,n\}\) and
+  \(V_T=\{b_T,\dots,n\}\cap\{2,\dots,n\}\); their sizes are
   \(u=\max(0,n-a_T+1)\) and \(v=\max(0,n-b_T+1)\).
-- EXACT THEOREM: if a cyclic core order has distance-at-most-two score at
-  most \(T\) and \(u\ge2\), its induced \(U_T\)-gaps and the exact minimum
-  number of \(V_T\)-to-\(V_T\) adjacencies in a cyclic binary word give
+- DEFINITION: put
   \[
-  n-1\ge2u+\max(0,2v-u).
+  \delta_n(T)
+  =
+  \mathbf1_{\{a_T<b_T\le n-1,\ 2T<b_T^2-1\}}.
   \]
-  Empty and singleton tails satisfy the same necessary inequality separately:
-  \(u=0\) forces \(v=0\), while \(u=1\) forces \(v=0\) for \(n\ge3\).
+- EXACT THEOREM: the graph on \(U_T\) with compatible edges \(xy\le2T\)
+  is a split threshold graph with nested prefix neighborhoods, and its exact
+  minimum number of incompatible cyclic adjacencies is
+  \[
+  \eta_n(T)=\max(0,2v-u+\delta_n(T)).
+  \]
+  For \(u=0,1\), \(\eta_n(T)=0\); for \(u=2\), the two oriented arcs are
+  counted separately. At equality \(2T=b_T^2-1\), the skip-one pair is
+  compatible and the correction turns off. Consequently, if a cyclic core
+  order has distance-at-most-two score at most \(T\), its induced
+  \(U_T\)-gaps give
+  \[
+  n-1\ge2u+\eta_n(T).
+  \]
+  The exact correction improves the clique count by zero or one. It is
+  genuinely active, for example at `n=5,T=6`.
 - DEFINITION / EXACT FINITE OBSTRUCTION: let \(Q_n\) be the least
   nonnegative half-integer \(T\) for which the displayed packing requirement
   is at most \(n-1\). It is computed exactly from the finite event set
-  \(\{0\}\cup\{k(k+1)/2,k(k+1):2\le k\le n-1\}\), and
+  \[
+  \{0\}\cup
+  \{k(k+1)/2,k(k+1),(k^2-1)/2:2\le k\le n\},
+  \]
+  and
   \[
   B_n\ge Q_n,
   \qquad
@@ -291,6 +311,12 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \liminf_{n\to\infty}{B_n\over n^2}
   \ge {36-16\sqrt2\over49}>{1\over4}.
   \]
+  The inversion is asymptotically sharp for this subproblem:
+  \[
+  Q_n={36-16\sqrt2\over49}n^2+O(n).
+  \]
+  Hence the exact nested-neighborhood correction does not improve the leading
+  coefficient furnished by this necessary condition.
   This distance-two coefficient is strictly below the full-distance tail
   coefficient \(2(\sqrt2-1)/3\); \(L_n\le W_n\) does not imply
   \(L_n\le B_n\).
@@ -338,10 +364,11 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - VERIFIED FACT: `src/power_ringmin/product_distance.py` provides exact
   all-pairs `Fraction` scoring, core-cycle canonicalization, explicit `n=3`
   handling, the exact adjacent formula, a direct parity-specific adjacent
-  equality classifier, exact two-threshold tail packing and finite obstruction,
-  full-distance tail obstructions, and deterministic full and truncated
-  enumeration with the hard domain `3<=n<=11` and a preflight canonical-order
-  ceiling. It creates no CLI or serialized artifact.
+  equality classifier, the exact nested-neighborhood tail-cycle
+  incompatibility and finite two-threshold obstruction, full-distance tail
+  obstructions, and deterministic full and truncated enumeration with the
+  hard domain `3<=n<=11` and a preflight canonical-order ceiling. It creates
+  no CLI or serialized artifact.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): enumeration of all
   `204557` canonical rotation/reflection classes for `n=3..11` gives
   \[
@@ -363,7 +390,7 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION): the new finite obstruction
   gives
   \[
-  (Q_3,\dots,Q_{11})=(6,12,12,20,21,30,30,42,45).
+  (Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45).
   \]
   Thus \(\max(A_n,Q_n)=A_n\) throughout this bounded table. This formula
   evaluation is not cyclic-order enumeration and does not weaken the all-\(n\)

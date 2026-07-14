@@ -163,11 +163,25 @@ B_n>A_n\quad(n\ge9).
 Thus \(W_n>A_n\) for every \(n\ge9\), with no cyclic-order enumeration beyond
 the existing `n=3..11` regression.
 An independent quantitative obstruction now uses two exact product tails.
-For a threshold \(T\), the induced cyclic gaps between labels whose mutual
-products exceed \(T\) cost at least two positions; each forced adjacency of
-labels whose mutual products exceed \(2T\) costs one more. Inverting the exact
-integer thresholds gives a finite half-integer obstruction \(Q_n\le B_n\) and,
-for every \(n\ge9\),
+For a threshold \(T\), let \(a_T,b_T\) be the least integers at least two
+with \(a_T(a_T+1)>T\) and \(b_T(b_T+1)>2T\), and put
+\(U_T=\{a_T,\dots,n\}\), \(V_T=\{b_T,\dots,n\}\), with sizes \(u,v\)
+after intersection with the core. The induced cyclic gaps between labels in
+\(U_T\) cost at least two positions. The compatible graph \(xy\le2T\) on
+\(U_T\) is a split threshold graph with nested prefix neighborhoods, and its
+exact minimum number of incompatible cyclic adjacencies is
+\[
+\eta_n(T)=\max(0,2v-u+\delta_n(T)),
+\]
+where
+\[
+\delta_n(T)
+=
+\mathbf1_{\{a_T<b_T\le n-1,\ 2T<b_T^2-1\}}
+\]
+is the strict skip-one correction. Inverting the exact requirement
+\(n-1\ge2u+\eta_n(T)\) gives a finite half-integer obstruction
+\(Q_n\le B_n\) and, for every \(n\ge9\),
 \[
 B_n\ge Q_n\ge
 {36-16\sqrt2\over49}\left(n+{1\over2}\right)^2.
@@ -177,6 +191,12 @@ Consequently
 \liminf_{n\to\infty}{B_n\over n^2}
 \ge {36-16\sqrt2\over49}>{1\over4}.
 \]
+In fact,
+\[
+Q_n={36-16\sqrt2\over49}n^2+O(n),
+\]
+so the exact nested-neighborhood refinement can improve finite values but
+does not improve this subproblem's asymptotic coefficient.
 An exact, no-floating-point canonical enumeration bounded to `n=3..11` gives
 \[
 (W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50),
@@ -355,9 +375,12 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \]
   Consequently \(W_n>A_n\) for every \(n\ge9\). The proof uses no
   cyclic-order enumeration beyond `n=11`.
-- EXACT THEOREM: exact product tails at thresholds \(T\) and \(2T\) give the
-  cyclic packing requirement
-  \(n-1\ge2u+\max(0,2v-u)\). Its finite half-integer inversion \(Q_n\)
+- EXACT THEOREM: on the threshold tail \(U_T\), the exact minimum number of
+  cyclic adjacencies with product greater than \(2T\) is
+  \(\eta_n(T)=\max(0,2v-u+\delta_n(T))\), where
+  \(\delta_n(T)\in\{0,1\}\) is the strict skip-one correction. Thus the
+  exact cyclic packing requirement is \(n-1\ge2u+\eta_n(T)\). Its finite
+  half-integer inversion \(Q_n\)
   satisfies \(Q_n\le B_n\), and for every \(n\ge9\),
   \[
   B_n\ge Q_n\ge
@@ -368,6 +391,8 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \liminf_{n\to\infty}{B_n\over n^2}
   \ge {36-16\sqrt2\over49}>{1\over4}.
   \]
+  Moreover, \(Q_n=((36-16\sqrt2)/49)n^2+O(n)\), so this exact refinement
+  leaves the leading obstruction coefficient unchanged.
 - EXACT THEOREM:
   \[
   \lim_{n\to\infty} A_n/n^2
@@ -392,7 +417,7 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \(A_9=35<36=W_9\). Equality of the distance-two and full objectives beyond
   `n=11` is not claimed.
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
-  \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,30,42,45)\). In this bounded table
+  \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved
   asymptotic lower coefficient for \(B_n\).
 - EXACT THEOREM: within the induced-subset plus duplicated-pairing plus

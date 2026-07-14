@@ -2,12 +2,12 @@
 
 Last update: 2026-07-13
 
-- **Current phase:** quantitative all-`n` lower obstruction for the
-  distance-two product-distance relaxation.
-- **Current task:** prove and invert the two-threshold cyclic packing lemma for
-  `B_n=W_n^(<=2)`.
+- **Current phase:** exact characterization of the distance-two threshold-tail
+  incompatibility.
+- **Current task:** characterize `eta_n(T)`, invert the resulting packing
+  condition, and decide whether its asymptotic coefficient improves.
 - **Task dossier:**
-  `ops/TASK-20260713__two_threshold_distance_two_obstruction/`.
+  `ops/TASK-20260713__exact_tail_incompatibility/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
@@ -15,54 +15,100 @@ Last update: 2026-07-13
 
 ## Current Exact Result
 
-Fix `n>=3` and an exact threshold `T>=0`. Let `a_T` and `b_T` be the least
-integers at least two satisfying
+Fix `n>=3` and an exact threshold `T>=0`. Let `a=a_T` and `b=b_T` be the
+least integers at least two satisfying
 
 \[
-a_T(a_T+1)>T,
+a(a+1)>T,
 \qquad
-b_T(b_T+1)>2T,
+b(b+1)>2T,
 \]
 
-and set
+and put
 
 \[
-u=\max(0,n-a_T+1),
+u=\max(0,n-a+1),
 \qquad
-v=\max(0,n-b_T+1).
+v=\max(0,n-b+1).
 \]
 
-EXACT THEOREM: if a cyclic core order has distance-at-most-two score at most
-`T` and `u>=2`, then induced `U_T` gaps and the exact cyclic marked-word count
-give
+On `U_T={a,...,n}`, join distinct labels when `xy<=2T` and define
 
 \[
-\boxed{n-1\ge2u+\max(0,2v-u)}.
+\delta_n(T)
+=
+\mathbf1_{\{a<b\le n-1,\ 2T<b^2-1\}}.
 \]
 
-Every induced `U_T` gap costs at least two positions. A `V_T-V_T` gap costs
-at least three, and a cyclic word with `u` positions and `v` marked has
-minimum exactly `max(0,2v-u)` marked-marked adjacencies. The two oriented gaps
-when `u=2` are counted separately. Degenerate tails are explicit: `u=0`
-forces `v=0`, while `u=1` forces `v=0` for every `n>=3`, so the same necessary
-numerical inequality remains valid.
-
-Define the exact finite obstruction
+EXACT THEOREM: the compatible graph is a split threshold graph whose cross
+neighborhoods are nested prefixes, and
 
 \[
-Q_n=
+\boxed{
+\eta_n(T)=\max(0,2v-u+\delta_n(T))
+}.
+\]
+
+For `u=0,1`, `eta_n(T)=0`. For `u=2`, the two oriented arcs are counted
+separately, so an incompatible pair contributes two and a compatible pair
+contributes zero. The equality `2T=b^2-1` is compatible and turns the
+correction off.
+
+The earlier clique term is exact up to one:
+
+\[
+0\le
+\eta_n(T)-\max(0,2v-u)
+\le1.
+\]
+
+The improvement is real: `n=5,T=6` gives `eta=2` and clique bound one. It is
+also uniformly bounded and vanishes on infinite families, including
+`2T=b^2-1`.
+
+## Exact Gap Inversion
+
+If a cyclic core order has distance-at-most-two score at most `T`, the induced
+tail gaps give
+
+\[
+\boxed{n-1\ge2u+\eta_n(T)}.
+\]
+
+Define
+
+\[
+\Psi_n(T)
+=2u+\eta_n(T)
+=\max(2u,u+2v+\delta_n(T))
+\]
+
+and
+
+\[
+Q_n
+=
 \min\left\{
 {q\over2}:q\in\mathbb Z_{\ge0},\quad
-2u_{q/2}+\max(0,2v_{q/2}-u_{q/2})\le n-1
+\Psi_n(q/2)\le n-1
 \right\}.
 \]
 
-It is enough to inspect the finite event set
+The exact finite event set is
 
 \[
 \{0\}\cup
-\{k(k+1)/2,k(k+1):2\le k\le n-1\}.
+\left\{
+{k(k+1)\over2},\ k(k+1),\ {k^2-1\over2}:2\le k\le n
+\right\}.
 \]
+
+The range now includes `k=n`, so exhaustivity is literal. In the earlier
+clique-only event set, the omitted `b` event at `T=n(n+1)/2` either coincided
+with an already included `a` event or left the clique function unchanged. The
+omitted `a` event occurred only after the condition was already admissible.
+Thus the earlier values were not wrong; the new statement removes the
+expositional gap.
 
 Because every distance-two objective is a half-integer,
 
@@ -72,60 +118,44 @@ B_n\ge Q_n,
 B_n\ge\max(A_n,Q_n).
 \]
 
-For every `n>=9`, the explicit all-`n` consequence is
+## Asymptotic Decision
+
+For every `n>=9`,
+
+\[
+B_n\ge Q_n\ge
+{36-16\sqrt2\over49}\left(n+{1\over2}\right)^2.
+\]
+
+The exact inversion has a matching upper estimate:
 
 \[
 \boxed{
-B_n\ge Q_n\ge
-{36-16\sqrt2\over49}\left(n+{1\over2}\right)^2
+Q_n={36-16\sqrt2\over49}n^2+O(n)
 }.
 \]
 
 Therefore
 
 \[
-\boxed{
+\lim_{n\to\infty}{Q_n\over n^2}
+={36-16\sqrt2\over49},
+\qquad
 \liminf_{n\to\infty}{B_n\over n^2}
-\ge {36-16\sqrt2\over49}>{1\over4}
-}.
+\ge {36-16\sqrt2\over49}>{1\over4}.
 \]
 
-This is stronger than `B_n>=c*n^2-O(n)`: it gives
-`B_n>=c*n^2+c*n+c/4` for the displayed `c` and `n>=9`.
-
-## Comparison With Existing Obstructions
-
-The rigorous domains are
-
-\[
-A_n\le B_n\le W_n,
-\qquad
-Q_n\le B_n,
-\qquad
-L_n\le W_n.
-\]
-
-The full-distance tail argument for `L_n` uses induced gaps of arbitrary
-length and does not prove `L_n<=B_n`. The constants satisfy
-
-\[
-{1\over4}
-<
-{36-16\sqrt2\over49}
-<
-{2(\sqrt2-1)\over3}.
-\]
-
-Thus the two-threshold obstruction strictly improves the adjacent coefficient
-for `B_n`, while the slightly larger tail coefficient remains a statement
-about `W_n`.
+INTERPRETATION: the exact nested-neighborhood refinement improves some finite
+thresholds but does not improve the asymptotic coefficient obtainable from
+this tail-cycle subproblem. This does not prove that `B_n/n^2` converges or
+that its actual coefficient equals the displayed constant.
 
 ## Finite Exact Regression
 
 VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
 
 \[
-(Q_3,\dots,Q_{11})=(6,12,12,20,21,30,30,42,45).
+(Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45).
 \]
 
 Combined with the existing bounded exact table:
@@ -138,7 +168,7 @@ Combined with the existing bounded exact table:
 | 6 | 20 | 20 | 20 | 20 | 76/5 | 20 |
 | 7 | 24 | 21 | 24 | 24 | 58/3 | 24 |
 | 8 | 30 | 30 | 30 | 30 | 170/7 | 30 |
-| 9 | 35 | 30 | 35 | 36 | 59/2 | 36 |
+| 9 | 35 | 63/2 | 35 | 36 | 59/2 | 36 |
 | 10 | 42 | 42 | 42 | 45 | 320/9 | 45 |
 | 11 | 48 | 45 | 48 | 50 | 42 | 50 |
 
@@ -149,18 +179,21 @@ to `n=3..11`. No cyclic-order enumeration was extended beyond `n=11`.
 ## Verification And CI Provenance
 
 - CURRENT LOCAL VERIFIED FACT: changed source and tests compile.
-- CURRENT LOCAL VERIFIED FACT: focused product-distance tests pass `18/18`.
+- CURRENT LOCAL VERIFIED FACT: focused product-distance tests pass `20/20`.
 - CURRENT LOCAL VERIFIED FACT: integrated
-  product-distance/zigzag/tail/insertion tests pass `33/33`.
-- CURRENT LOCAL VERIFIED FACT: exact formula diagnostics pass for all 992
-  values `n=9..1000`; this is parameter evaluation, not order enumeration or
-  a substitute for the symbolic proof.
-- CURRENT LOCAL VERIFIED FACT: full pytest passes `146/146`.
+  product-distance/zigzag/tail/insertion tests pass `35/35`.
+- CURRENT LOCAL VERIFIED FACT: the independent verifier matches 299 graph
+  states with tail cardinality at most seven; it does not enumerate core
+  orders.
+- CURRENT LOCAL VERIFIED FACT: exact obstruction minimality passes for all 992
+  values `n=9..1000`; 956 explicit asymptotic witnesses pass for
+  `n=45..1000`. These are formula diagnostics, not order enumeration.
+- CURRENT LOCAL VERIFIED FACT: full pytest passes `148/148`.
 - CURRENT LOCAL VERIFIED FACT: checked-artifact semantic verification accepts
   4 certificates, 76 local brackets, and the `n=3..6` summary.
-- CURRENT LOCAL VERIFIED FACT: exact ten-path scope, strict UTF-8, corrected
-  trailing-whitespace scan, 51 unique equation tags, complete diff review, and
-  `git diff --check` pass.
+- CURRENT LOCAL VERIFIED FACT: independent mathematical, implementation, and
+  documentation reviews pass with no remaining blocker; the exact 10-path
+  scope, UTF-8, whitespace, 51 equation tags, and final diff checks pass.
 - CURRENT HOSTED STATUS: GitHub Actions for the current `HEAD` has not been
   independently verified.
 
@@ -168,9 +201,11 @@ to `n=3..11`. No cyclic-order enumeration was extended beyond `n=11`.
 
 - No exact formula or matching upper construction for `B_n` is proved.
 - No equality `B_n=W_n` beyond the bounded `n=3..11` table is claimed.
-- The coefficient `(36-16*sqrt(2))/49` is a proved lower coefficient, not an
-  exact asymptotic constant or a claim that a limit exists.
-- The full-distance tail coefficient is not silently transferred to `B_n`.
+- The exact result settles only the single-tail cyclic incompatibility
+  subproblem; a stronger coefficient would require a genuinely different or
+  combined obstruction.
+- The coefficient `(36-16*sqrt(2))/49` remains a proved lower coefficient for
+  `B_n`, not an exact asymptotic constant or a claim that a limit exists.
 
 ## Proposed Next Task
 

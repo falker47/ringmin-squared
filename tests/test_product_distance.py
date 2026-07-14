@@ -19,6 +19,7 @@ from power_ringmin.product_distance import (
     enumerate_truncated_product_distance,
     product_distance_pair_scores,
     product_distance_score,
+    tail_cycle_incompatibility_minimum,
     tail_pairing_sum,
     truncated_product_distance_score,
     two_threshold_lower_obstruction,
@@ -162,6 +163,33 @@ def _independent_canonicalize(order: tuple[int, ...]) -> tuple[int, ...]:
     backward_index = reversed_order.index(largest)
     backward = reversed_order[backward_index:] + reversed_order[:backward_index]
     return min(forward, backward)
+
+
+def _independent_tail_cycle_incompatibility(
+    n: int,
+    threshold: Fraction,
+) -> int:
+    """Brute-force ``eta_n(T)`` without using production tail support."""
+    tail = tuple(
+        index
+        for index in range(2, n + 1)
+        if index * (index + 1) > threshold
+    )
+    if len(tail) <= 1:
+        return 0
+    if len(tail) > 7:
+        raise ValueError("independent eta enumeration is limited to tail size 7")
+
+    anchor = tail[0]
+    return min(
+        sum(
+            order[position] * order[(position + 1) % len(order)]
+            > 2 * threshold
+            for position in range(len(order))
+        )
+        for suffix in itertools.permutations(tail[1:])
+        for order in ((anchor, *suffix),)
+    )
 
 
 def test_rational_pair_scores_are_exact_and_cover_every_pair() -> None:
@@ -325,22 +353,25 @@ def test_two_threshold_tail_starts_and_degenerate_sizes_are_exact() -> None:
         marked_singleton.b_threshold,
         marked_singleton.u_size,
         marked_singleton.v_size,
+        marked_singleton.minimum_incompatibilities,
         marked_singleton.required_positions,
-    ) == (4, 5, 2, 1, 4)
+    ) == (4, 5, 2, 1, 0, 4)
     assert (
         marked_empty.a_threshold,
         marked_empty.b_threshold,
         marked_empty.u_size,
         marked_empty.v_size,
+        marked_empty.minimum_incompatibilities,
         marked_empty.required_positions,
-    ) == (4, 6, 2, 0, 4)
+    ) == (4, 6, 2, 0, 0, 4)
     assert (
         first_tail_singleton.a_threshold,
         first_tail_singleton.b_threshold,
         first_tail_singleton.u_size,
         first_tail_singleton.v_size,
+        first_tail_singleton.minimum_incompatibilities,
         first_tail_singleton.required_positions,
-    ) == (5, 6, 1, 0, 2)
+    ) == (5, 6, 1, 0, 0, 2)
     assert (
         first_tail_empty.a_threshold,
         first_tail_empty.u_size,
@@ -372,6 +403,98 @@ def test_two_threshold_tail_starts_and_degenerate_sizes_are_exact() -> None:
         two_threshold_tail_packing(5, 1.0)
 
 
+def test_exact_tail_cycle_incompatibility_boundaries_and_strict_correction() -> None:
+    empty = two_threshold_tail_packing(5, 30)
+    singleton = two_threshold_tail_packing(5, 20)
+    incompatible_pair = two_threshold_tail_packing(3, 0)
+    compatible_pair = two_threshold_tail_packing(3, 3)
+    strict_correction = two_threshold_tail_packing(5, 6)
+    before_skip_one_equality = two_threshold_tail_packing(9, 30)
+    at_skip_one_equality = two_threshold_tail_packing(9, Fraction(63, 2))
+
+    assert (empty.u_size, empty.minimum_incompatibilities) == (0, 0)
+    assert (singleton.u_size, singleton.minimum_incompatibilities) == (1, 0)
+    assert (
+        incompatible_pair.u_size,
+        incompatible_pair.clique_incompatibility_bound,
+        incompatible_pair.minimum_incompatibilities,
+    ) == (2, 2, 2)
+    assert (
+        compatible_pair.u_size,
+        compatible_pair.clique_incompatibility_bound,
+        compatible_pair.minimum_incompatibilities,
+    ) == (2, 0, 0)
+    assert (
+        strict_correction.u_size,
+        strict_correction.clique_incompatibility_bound,
+        strict_correction.minimum_incompatibilities,
+    ) == (3, 1, 2)
+    assert (
+        before_skip_one_equality.u_size,
+        before_skip_one_equality.clique_incompatibility_bound,
+        before_skip_one_equality.minimum_incompatibilities,
+        before_skip_one_equality.required_positions,
+    ) == (4, 0, 1, 9)
+    assert (
+        at_skip_one_equality.u_size,
+        at_skip_one_equality.clique_incompatibility_bound,
+        at_skip_one_equality.minimum_incompatibilities,
+        at_skip_one_equality.required_positions,
+    ) == (4, 0, 0, 8)
+
+    for packing in (
+        empty,
+        singleton,
+        incompatible_pair,
+        compatible_pair,
+        strict_correction,
+        before_skip_one_equality,
+        at_skip_one_equality,
+    ):
+        assert tail_cycle_incompatibility_minimum(
+            packing.n,
+            packing.threshold,
+        ) == packing.minimum_incompatibilities
+        assert (
+            packing.clique_incompatibility_bound
+            <= packing.minimum_incompatibilities
+            <= packing.clique_incompatibility_bound + 1
+        )
+
+
+def test_exact_tail_cycle_formula_matches_independent_small_tail_enumerator() -> None:
+    comparison_count = 0
+    for n in range(3, 12):
+        events = {Fraction(0)}
+        events.update(
+            Fraction(index * (index + 1)) for index in range(2, n + 1)
+        )
+        events.update(
+            Fraction(left * right, 2)
+            for left, right in itertools.combinations(range(2, n + 1), 2)
+        )
+        ordered_events = sorted(events)
+        thresholds = events | {
+            (left + right) / 2
+            for left, right in itertools.pairwise(ordered_events)
+        }
+
+        for threshold in sorted(thresholds):
+            tail_size = sum(
+                index * (index + 1) > threshold
+                for index in range(2, n + 1)
+            )
+            if tail_size > 7:
+                continue
+            assert tail_cycle_incompatibility_minimum(
+                n,
+                threshold,
+            ) == _independent_tail_cycle_incompatibility(n, threshold)
+            comparison_count += 1
+
+    assert comparison_count >= 250
+
+
 def test_two_threshold_finite_obstruction_and_bounded_table_are_exact(
     exact_truncated_enumerations,
 ) -> None:
@@ -382,7 +505,7 @@ def test_two_threshold_finite_obstruction_and_bounded_table_are_exact(
         6: Fraction(20),
         7: Fraction(21),
         8: Fraction(30),
-        9: Fraction(30),
+        9: Fraction(63, 2),
         10: Fraction(42),
         11: Fraction(45),
     }

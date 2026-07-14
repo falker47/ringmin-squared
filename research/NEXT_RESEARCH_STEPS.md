@@ -81,9 +81,14 @@ The proof uses terminal-high incidences and a separate degree obstruction at
 finite optima or minimizer sets.
 
 A separate two-threshold cyclic packing theorem now gives a quantitative
-lower obstruction for \(B_n\). Exact tails at product thresholds \(T\) and
-\(2T\) yield a finite half-integer bound \(Q_n\le B_n\), and for every
-\(n\ge9\),
+lower obstruction for \(B_n\). The graph of compatible products \(xy\le2T\)
+on the first exact tail has nested prefix neighborhoods, and its exact cyclic
+incompatibility is \(\eta_n(T)=\max(0,2v-u+\delta_n(T))\), where
+\(\delta_n(T)=\mathbf1_{\{a_T<b_T\le n-1,\ 2T<b_T^2-1\}}\) is the
+skip-one correction, with the tail notation defined in
+`research/PRODUCT_DISTANCE_SURROGATE.md`. Inverting
+\(n-1\ge2u+\eta_n(T)\) yields a finite
+half-integer bound \(Q_n\le B_n\), and for every \(n\ge9\),
 \[
 B_n\ge Q_n\ge
 {36-16\sqrt2\over49}\left(n+{1\over2}\right)^2.
@@ -93,6 +98,10 @@ Therefore
 \liminf_{n\to\infty}{B_n\over n^2}
 \ge {36-16\sqrt2\over49}>{1\over4}.
 \]
+The inversion satisfies
+\(Q_n=((36-16\sqrt2)/49)n^2+O(n)\). Thus the exact graph theorem improves
+some finite thresholds but proves that the clique coefficient is already
+optimal for this tail-cycle subproblem.
 The full-distance tail obstruction remains logically separate:
 \(L_n\le W_n\) is not a lower bound for \(B_n\), and its limiting coefficient
 \(2(\sqrt2-1)/3\) is slightly larger than the new distance-two coefficient.
@@ -204,10 +213,13 @@ The full-distance tail obstruction remains logically separate:
   \(B_n=A_n\) exactly for `3<=n<=8` and \(B_n>A_n\) for every `n>=9`; the
   exceptional incidence parameter `n=12` is covered by a separate exact
   four-degree argument.
-- EXACT THEOREM: the exact two-threshold tails satisfy the cyclic packing
-  obstruction \(n-1\ge2u+\max(0,2v-u)\). Its finite half-integer inversion
-  \(Q_n\) lower-bounds \(B_n\) and proves the explicit quadratic bound and
-  liminf coefficient strictly above \(1/4\).
+- EXACT THEOREM: the exact two-threshold tail graph has nested neighborhoods
+  and cyclic incompatibility
+  \(\eta_n(T)=\max(0,2v-u+\delta_n(T))\). The resulting packing obstruction
+  \(n-1\ge2u+\eta_n(T)\) has a finite half-integer inversion \(Q_n\) that
+  lower-bounds \(B_n\), proves the explicit quadratic bound and liminf
+  coefficient strictly above \(1/4\), and satisfies
+  \(Q_n=((36-16\sqrt2)/49)n^2+O(n)\).
 - EXACT THEOREM: \(A_n/n^2\to1/4\), while
   \(L_n/n^2\to2(\sqrt2-1)/3\). A residue-class proof with
   \(m=\lceil2n/5\rceil\) gives \(L_n>A_n\) for every \(n\ge33\).
@@ -301,9 +313,10 @@ The full-distance tail obstruction remains logically separate:
    both the quantitative distance-two coefficient
    \((36-16\sqrt2)/49\) and the full-distance tail coefficient. Distance-two
    constraints leave it exact through `n=8`, make it strict for every
-   `n>=9`, and obey the new explicit lower bound. The theorem does not
-   determine exact \(B_n\) or \(W_n\) values or provide a matching upper
-   construction.
+   `n>=9`, and obey the new explicit lower bound. Exact characterization of
+   the nested tail graph shows that this particular obstruction still has
+   coefficient \((36-16\sqrt2)/49\); it does not determine exact \(B_n\) or
+   \(W_n\) values or provide a matching upper construction.
 
 ## Updated Research Questions
 

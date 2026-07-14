@@ -37,7 +37,10 @@
   Hence the adjacent relaxation is strict for the full surrogate for every
   \(n\ge9\), not only for the formerly covered bounded and asymptotic ranges.
 - **EXACT THEOREM (quantitative distance-two obstruction):** exact
-  threshold tails \(U_T,V_T\) and cyclic gap packing give a finite
+  threshold tails \(U_T,V_T\) have a compatible split graph with nested
+  neighborhoods. Its exact cycle incompatibility is
+  \(\eta_n(T)=\max(0,2v-u+\delta_n(T))\), where the skip-one correction
+  \(\delta_n(T)\) is zero or one. Exact cyclic gap packing gives a finite
   obstruction \(Q_n\le B_n\). For every \(n\ge9\),
   \[
   B_n\ge Q_n\ge
@@ -48,6 +51,12 @@
   \liminf_{n\to\infty}{B_n\over n^2}
   \ge {36-16\sqrt2\over49}>{1\over4}.
   \]
+  Moreover,
+  \[
+  Q_n={36-16\sqrt2\over49}n^2+O(n),
+  \]
+  so the exact nested-neighborhood correction does not improve this
+  subproblem's leading coefficient.
 - **VERIFIED FACT (finite exhaustive exact computation):** the table below
   gives the objectives truncated at positional distances at most one and two,
   as well as \(W_n\), for \(3\le n\le11\). Non-adjacent constraints first
@@ -533,7 +542,8 @@ and does not by itself improve a geometric radius bound for Power-Ringmin.
 
 The preceding strictness theorem compares \(B_n\) with \(A_n\), but gives no
 size for the gap. We now prove an independent quantitative obstruction using
-only positional distances one and two.
+only positional distances one and two, and then characterize exactly the
+tail-cycle incompatibility that enters it.
 
 ### Exact integer thresholds and degenerate tails
 
@@ -612,14 +622,184 @@ If also \(v=1\), then \(b_T=n\) and
 \(2n(n-1)<n(n+1)\), or \(n<3\), a contradiction. This verifies the
 singleton and empty cases separately from the gap argument below.
 
-### Cyclic gap lemma
+### Exact nested-neighborhood cycle theorem
+
+Put \(P=2T\). On \(U_T\), call a distinct pair compatible when its product
+is at most \(P\), and define
+
+\[
+\eta_n(T)
+=
+\min_\tau
+\#\{i:\tau_i\tau_{i+1}>P\},
+\]
+
+where \(\tau\) runs over cyclic orders of \(U_T\). For \(u=0,1\), there is
+no distinct-vertex cyclic arc and we define \(\eta_n(T)=0\). For \(u=2\),
+the two oriented arcs are counted separately, as they are for the two induced
+positional gaps.
+
+Define the exact skip-one indicator
+
+\[
+\delta_n(T)
+=
+\mathbf 1_{\{a_T<b_T\le n-1,\ 2T<b_T^2-1\}}.
+\tag{TT5}
+\]
+
+The strict inequality is intentional: at \(2T=b_T^2-1\), the pair
+\((b_T-1,b_T+1)\) is compatible. The exact answer is
+
+\[
+\boxed{
+\eta_n(T)
+=
+\max\bigl(0,2v-u+\delta_n(T)\bigr)
+}.
+\tag{TT6}
+\]
+
+We prove this from the full nested-neighborhood graph, not only from its
+terminal incompatible clique. Suppress the subscript on \(a_T,b_T\). Whenever
+\(b>2\), and in particular in the split case \(a<b\), minimality of \(b\)
+gives
+
+\[
+b(b-1)\le P<b(b+1).
+\tag{TT7}
+\]
+
+When \(a<b\le n\), put
+
+\[
+K=\{a,\dots,b-1\},
+\qquad
+V=\{b,\dots,n\},
+\qquad
+\ell=|K|=u-v=b-a.
+\]
+
+Then \(K\) is a compatible clique, \(V\) is an incompatible independent
+set, and for \(y\in V\)
+
+\[
+N(y)\cap K
+=
+\left\{a,\dots,
+\min\!\left(b-1,\left\lfloor{P\over y}\right\rfloor\right)
+\right\}
+\tag{TT8}
+\]
+
+when the displayed upper endpoint is at least \(a\), and is empty otherwise.
+Thus the cross-neighborhoods are prefixes nested in reverse order as \(y\)
+increases. In particular, incidence counting on the independent set \(V\)
+gives the earlier clique lower bound
+
+\[
+\eta_n(T)\ge\max(0,v-\ell)=\max(0,2v-u).
+\tag{TT9}
+\]
+
+For matching upper constructions, use the following elementary cyclic-order
+fact. On the consecutive normalized labels \(0,\dots,u-1\), suppose every
+pair with sum at most \(h\) is compatible. If \(h\ge u\), the alternating
+extremes cycle
+
+\[
+0,u-1,1,u-2,2,u-3,\dots
+\]
+
+has every adjacent sum at most \(u\), including its closing edge. If
+\(h\le u-1\), the labels \(0,\dots,h\) have the compatible Hamiltonian path
+
+\[
+h,0,h-1,1,h-2,2,\dots,
+\]
+
+while \(h+1,\dots,u-1\) may be treated as singleton paths. Closing these
+\(u-h\) paths cyclically uses at most \(u-h\) incompatible edges. Therefore
+the available sum-threshold subgraph always gives a cycle with at most
+\(\max(0,u-h)\) incompatible edges in the cases used below.
+
+If \(P\ge b^2-1\), every distinct pair with sum at most \(2b\) is
+compatible: its product is at most \((b-1)(b+1)=b^2-1\). After subtracting
+\(a\) from every label, the preceding construction has
+\(h=2b-2a=2\ell\), so it uses at most
+
+\[
+\max(0,u-2\ell)=\max(0,v-\ell)
+\]
+
+incompatible edges. This matches (TT9).
+
+Now suppose \(P<b^2-1\) and \(b\le n-1\). Every distinct pair with sum at
+most \(2b-1\) is still compatible, because its product is at most
+\(b(b-1)\le P\). The construction with \(h=2\ell-1\) uses at most
+
+\[
+\max(0,u-(2\ell-1))
+=
+\max(0,v-\ell+1)
+\]
+
+incompatible edges. This extra one is forced whenever its positive part is
+nonzero. Indeed, delete
+\(S=\{a,\dots,b-2\}\), of size \(\ell-1\). In the compatible graph minus
+\(S\), the pair \(\{b-1,b\}\) is one component and
+\(b+1,\dots,n\) are isolated, because
+
+\[
+(b-1)b\le P<(b-1)(b+1)<b(b+1).
+\]
+
+There are therefore \(v\) components. Deleting \(e\) incompatible cycle
+edges and then \(|S|\) vertices leaves at most \(e+|S|\) compatible path
+pieces; the disconnected case \(e=|S|=0\) gives the same conclusion
+directly. Hence
+
+\[
+e\ge v-(\ell-1)=v-\ell+1.
+\]
+
+If \(b=n\), then \(v=1\). For \(\ell\ge2\), the same sum-threshold
+construction already gives an all-compatible cycle; for \(\ell=1\), the
+tail has two vertices and \((b-1)b\le P\), so both oriented arcs are
+compatible. If \(b>n\), then \(n(n+1)\le P\), so the whole tail is a
+compatible clique. Finally, if \(a=b\), then \(U_T=V_T\) and every distinct
+pair is incompatible, giving \(\eta_n(T)=u\). These cases complete the proof
+of (TT6).
+
+The two-vertex boundary is worth stating once more. If
+\(U_T=\{a,a+1\}\) and \(a(a+1)>2T\), then \(b=a\), \(v=u=2\), and (TT6)
+counts both oriented arcs: \(\eta_n(T)=2\). At equality
+\(a(a+1)=2T\), both arcs are compatible and \(\eta_n(T)=0\). Together with
+the already proved facts \(u=0\Rightarrow v=0\) and
+\(u=1\Rightarrow v=0\), this handles cardinalities zero, one, and two
+without loops or hidden exceptions.
+
+The clique bound is sometimes strict but misses by at most one:
+
+\[
+0\le
+\eta_n(T)-\max(0,2v-u)
+\le1.
+\tag{TT10}
+\]
+
+For example, \(n=5,T=6\) gives \(U_T=\{3,4,5\}\),
+\(\eta_5(6)=2\), and clique bound one. Conversely, equality holds for
+infinite threshold families, including \(2T=b^2-1\), where the correction
+turns off exactly at compatibility.
+
+### Exact cyclic gap consequence
 
 Let \(S_2(\sigma)=W^{(\le2)}(\sigma)\). Suppose that a cyclic core order
 \(\sigma\) satisfies
 
 \[
 S_2(\sigma)\le T
-\tag{TT5}
 \]
 
 and first assume \(u\ge2\). Filter the oriented \(N=n-1\) position cycle to
@@ -632,79 +812,45 @@ partition the full position cycle:
 g_i\ge1,
 \qquad
 \sum_{i=1}^u g_i=N.
-\tag{TT6}
 \]
 
 Every distinct pair in \(U_T\) has product greater than \(T\). Therefore
 \(g_i=1\) would give a distance-one score greater than \(T\), contradicting
-(TT5). Hence every \(g_i\ge2\).
-
-If both endpoints of a gap lie in \(V_T\), their product is greater than
-\(2T\). If that gap were at most two, their smaller circular distance would
-also be at most two and their score would be at least their product divided
-by two, again greater than \(T\). Thus a \(V_T\)-to-\(V_T\) induced gap is
-at least three.
-
-It remains to count how many such gaps are forced. Mark the \(v\) positions
-of the cyclic \(U_T\)-word that belong to \(V_T\), and let \(e_{VV}\) be
-the number of cyclic marked-marked adjacencies, counting the two directed
-cyclic gaps separately when \(u=2\). If \(e_{V\bar V}\) is the number of
-mixed adjacencies, incidence counting gives
+(the displayed score assumption). Hence every \(g_i\ge2\). If an adjacency
+of the induced \(U_T\)-cycle is incompatible in the graph above, then its
+endpoint product exceeds \(2T\). Its induced gap cannot be at most two, so it
+is at least three. At least \(\eta_n(T)\) such adjacencies occur by definition.
+The two oriented gaps when \(u=2\) are exactly the two arcs counted in
+\(\eta_n(T)\). Therefore
 
 \[
-2v=2e_{VV}+e_{V\bar V},
-\qquad
-e_{V\bar V}\le2(u-v).
+n-1\ge2u+\eta_n(T).
 \]
-
-Consequently
-
-\[
-e_{VV}\ge\max(0,2v-u).
-\tag{TT7}
-\]
-
-This is the exact minimum. If \(v\le u-v\), place at least one unmarked
-position between consecutive marked positions and obtain no marked-marked
-adjacency. If \(v>u-v\), isolate every unmarked position between marked
-positions; the remaining marked runs have exactly
-\(v-(u-v)=2v-u\) marked-marked cyclic edges.
-
-Using the baseline cost two for every induced gap and one additional position
-for each marked-marked gap, (TT6)--(TT7) prove the candidate lemma:
-
-\[
-\boxed{
-n-1\ge2u+\max(0,2v-u)
-}
-\qquad(u\ge2).
-\tag{TT8}
-\]
-
-There is no exceptional small cycle hidden in this proof. For \(u=2\), the
-two induced oriented gaps still sum to \(N\), and if both positions are
-marked, (TT7) correctly counts both gaps as marked-marked.
 
 Define
 
 \[
-\Phi_n(T)=2u+\max(0,2v-u)=\max(2u,u+2v).
-\tag{TT9}
+\Psi_n(T)
+=
+2u+\eta_n(T)
+=
+\max\bigl(2u,u+2v+\delta_n(T)\bigr).
+\tag{TT11}
 \]
 
 The degenerate cases extend the necessary inequality to every \(u\): for
 \(u=0\), both sides contributed by the tails are zero; for \(u=1\), the
-result above gives \(v=0\), so \(\Phi_n(T)=2\le n-1\). Therefore
+result above gives \(v=0\), so \(\Psi_n(T)=2\le n-1\). Therefore
 
 \[
 S_2(\sigma)\le T
 \quad\Longrightarrow\quad
-n-1\ge\Phi_n(T)
-\tag{TT10}
+n-1\ge\Psi_n(T)
+\tag{TT12}
 \]
 
 for every \(n\ge3\) and every exact \(T\ge0\). Equivalently, the exact
-finite condition \(\Phi_n(T)>n-1\) certifies \(B_n>T\).
+finite condition \(\Psi_n(T)>n-1\) certifies \(B_n>T\).
 
 ### Finite exact obstruction
 
@@ -716,39 +862,55 @@ Q_n
 =
 \min\left\{
 {q\over2}:q\in\mathbb Z_{\ge0},\quad
-\Phi_n(q/2)\le n-1
+\Psi_n(q/2)\le n-1
 \right\}.
-\tag{TT11}
+\tag{TT13}
 \]
 
-This set is nonempty: at \(T=n(n-1)\), one has \(u=1,v=0\). Moreover the
-minimum is a genuinely finite calculation. The tails change only when
-\(T=k(k+1)\) or \(2T=k(k+1)\), and strictness makes the change occur at
-the equality itself. Thus (TT11) is equivalently the minimum over
+This set is nonempty: at \(T=n(n+1)\), one has \(u=v=0\). Moreover the
+minimum is a genuinely finite calculation. The first tail changes at
+\(T=k(k+1)\), the second at \(T=k(k+1)/2\), and the exact correction turns
+off at \(T=(k^2-1)/2\). Strictness makes each change occur at the equality
+itself. Thus (TT13) is equivalently the minimum over
 
 \[
-E_n
+\widehat E_n
 =
 \{0\}\cup
 \left\{
-{k(k+1)\over2},\ k(k+1):2\le k\le n-1
+{k(k+1)\over2},\ k(k+1),\ {k^2-1\over2}:2\le k\le n
 \right\}.
-\tag{TT12}
+\tag{TT14}
 \]
 
-The finite order space attains \(B_n\). Applying (TT10) at \(T=B_n\) shows
-that \(B_n\) belongs to the admissible half-integer set in (TT11), so
+Including \(k=n\) makes the event statement literally exhaustive. In the
+earlier clique-only function
+\(\Phi_n(T)=\max(2u,u+2v)\), the omitted \(b\)-event
+\(T=n(n+1)/2\) either coincided with an already included \(a\)-event or
+left \(u\) fixed. In the latter case it changed \(v\) from one to zero but
+did not change \(\Phi_n\): when \(v=1\), one has \(u\ge2\), so
+\(\max(2u,u+2)=2u\). (For example, at \(n=3,T=6\) the simultaneous
+\(a\)-event does change \(\Phi_3\), but that threshold was already present as
+the \(k=2\) event.) The omitted \(a\)-event \(T=n(n+1)\) changed
+\(\Phi_n\) from two to zero, but could not change its minimum admissible
+threshold because the included event \(T=n(n-1)\) already had
+\(u=1,v=0\) and \(\Phi_n=2\le n-1\). Thus the former values were correct;
+the enlarged range removes the expositional gap.
+
+The finite order space attains \(B_n\). Applying (TT12) at \(T=B_n\) shows
+that \(B_n\) belongs to the admissible half-integer set in (TT13), so
 
 \[
 \boxed{B_n\ge Q_n},
 \qquad
 \boxed{B_n\ge\max(A_n,Q_n)}.
-\tag{TT13}
+\tag{TT15}
 \]
 
 The implementation functions `two_threshold_tail_packing` and
-`two_threshold_lower_obstruction` evaluate (TT1)--(TT4), (TT9), and
-(TT11)--(TT12) with integers and `Fraction` only.
+`tail_cycle_incompatibility_minimum` evaluate (TT1)--(TT6) exactly;
+`two_threshold_lower_obstruction` evaluates (TT13)--(TT14) with integers and
+`Fraction` only.
 
 ### Explicit all-\(n\) lower bound
 
@@ -770,19 +932,18 @@ which is positive in both domains. Therefore
 \[
 Q_n\le B_n\le {n(n-1)\over2}
 \qquad(n\ge9).
-\tag{TT14}
 \]
 
-Put \(T=Q_n\), \(a=a_T\), and \(b=b_T\). The upper bound in (TT14) gives
+Put \(T=Q_n\), \(a=a_T\), and \(b=b_T\). The displayed upper bound
+\(Q_n\le n(n-1)/2\) gives
 \(a\le n-1\) and \(b\le n\), so \(u=n-a+1\ge2\) and
-\(v=n-b+1\ge1\). Since \(\Phi_n(Q_n)\le n-1\), (TT9) yields both
+\(v=n-b+1\ge1\). Since \(\Psi_n(Q_n)\le n-1\), (TT11) yields both
 \(2u\le n-1\) and \(u+2v\le n-1\). In particular,
 
 \[
 a\ge{n+3\over2}>2,
 \qquad
 a+2b\ge2n+4.
-\tag{TT15}
 \]
 
 Minimality in (TT1)--(TT2), now with valid predecessors at least two, gives
@@ -794,7 +955,8 @@ Minimality in (TT1)--(TT2), now with valid predecessors at least two, gives
 \]
 
 Hence \(a\le1+\sqrt{Q_n}\) and
-\(b\le1+\sqrt{2Q_n}\). Combining these estimates with (TT15),
+\(b\le1+\sqrt{2Q_n}\). Combining these estimates with the preceding
+inequality for \(a+2b\),
 
 \[
 2n+4
@@ -833,6 +995,66 @@ c={36-16\sqrt2\over49},
 }.
 \tag{TT17}
 \]
+
+The exact incompatibility does not improve this leading coefficient. Put
+
+\[
+\alpha={2\over1+2\sqrt2},
+\qquad
+\beta=\sqrt2\,\alpha,
+\qquad
+c=\alpha^2={36-16\sqrt2\over49};
+\]
+
+then \(\alpha+2\beta=2\). Define
+
+\[
+A=\lceil\alpha n+1\rceil,
+\qquad
+D=\lceil\beta n+2\rceil,
+\qquad
+T_n=\max\left(A(A-1),{D(D-1)\over2}\right).
+\]
+
+The threshold definitions give \(a_{T_n}\ge A\) and \(b_{T_n}\ge D\).
+For \(n\ge45\), \(A\ge(n+4)/2\): the boundary reduces to
+\(133>94\sqrt2\), and \(133^2=17689>17672=2\cdot94^2\).
+Also \(A+2D\ge(\alpha+2\beta)n+5=2n+5\). Hence
+
+\[
+2u\le n-2,
+\qquad
+u+2v\le n-2.
+\]
+
+Since \(\delta_n(T_n)\le1\), (TT11) gives
+\(\Psi_n(T_n)\le n-1\), so \(Q_n\le T_n\). Both terms defining \(T_n\)
+equal \(cn^2+O(n)\), while (TT16) gives the matching lower estimate.
+Consequently
+
+\[
+\boxed{
+Q_n=cn^2+O(n),
+\qquad
+\lim_{n\to\infty}{Q_n\over n^2}
+=c={36-16\sqrt2\over49}
+}.
+\]
+
+Equivalently, if \(T\sim t n^2\) near the transition, then
+\(a_T/n\to\sqrt t\), \(b_T/n\to\sqrt{2t}\), and
+
+\[
+{\Psi_n(T)\over n}
+\longrightarrow
+\max\left(2-2\sqrt t,
+3-(1+2\sqrt2)\sqrt t\right),
+\]
+
+whose crossing with one is exactly at \(t=c\). This proves optimality of the
+clique coefficient for this tail-cycle subproblem. It does **not** prove that
+\(B_n/n^2\) converges or that its actual lower asymptotic coefficient equals
+\(c\).
 
 The strict comparison is exact:
 
@@ -1198,7 +1420,7 @@ bounded exhaustive results.
 | 6 | \(20\) | \(20\) | \(20\) | \(20\) | \(76/5\) | \(20\) | \(2,2\) |
 | 7 | \(24\) | \(21\) | \(24\) | \(24\) | \(58/3\) | \(24\) | \(2,2\) |
 | 8 | \(30\) | \(30\) | \(30\) | \(30\) | \(170/7\) | \(30\) | \(4,4\) |
-| 9 | \(35\) | \(30\) | \(35\) | \(36\) | \(59/2\) | \(36\) | \(4,12\) |
+| 9 | \(35\) | \(63/2\) | \(35\) | \(36\) | \(59/2\) | \(36\) | \(4,12\) |
 | 10 | \(42\) | \(42\) | \(42\) | \(45\) | \(320/9\) | \(45\) | \(24,72\) |
 | 11 | \(48\) | \(45\) | \(48\) | \(50\) | \(42\) | \(50\) | \(24,24\) |
 
@@ -1251,10 +1473,13 @@ permutation calculation for the smallest cases, deterministic work bounds,
 the all-\(n\) adjacent formula against the explicit interleave construction,
 the parity-specific equality classifier on the bounded `n=4..11` regression,
 the exact incidence-lemma boundary arithmetic, the `n=12` local degree data,
-the strict two-threshold floor boundaries and empty/singleton tails, the exact
-finite \(Q_n\) obstruction, the effective full-distance tail comparison,
-zigzag and tail values, and exact reproduction of both truncated and full
-`n=3..11` tables. No cyclic-order enumeration is performed beyond `n=11`.
+the strict two-threshold floor and skip-one boundaries, cardinalities zero,
+one, and two, an independent brute-force cycle enumerator restricted to tail
+cardinality at most seven, the exact finite \(Q_n\) obstruction, the effective
+full-distance tail comparison, zigzag and tail values, and exact reproduction
+of both truncated and full `n=3..11` tables. The independent tail check does
+not enumerate full core orders. No cyclic-order enumeration is performed
+beyond `n=11`.
 
 The following remain unresolved.
 
