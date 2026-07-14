@@ -137,6 +137,27 @@ construction, it is now the exact leading coefficient of both \(B_n\) and
 \(W_n\). The full-distance tail obstruction \(L_n\le W_n\) remains logically
 separate and is not redefined or transferred by this theorem.
 
+The residue-class roadmap is now sharper. For every \(n\ge9\), with
+\(d_n=\lceil(4n+8)/5\rceil\), the exact obstruction is
+
+\[
+H_n=
+\begin{cases}
+d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
+(d_n-1)^2/2,&n\equiv1\pmod5,\\
+(d_n-1)(d_n-2)/2,&n\equiv2\pmod5,\ n\ge17,
+\end{cases}
+\qquad H_{12}=56.
+\]
+
+The uniform upper construction attains this value in residues zero, three,
+and four. A separate search-free order attains the smaller residue-one value
+for every \(n=5k+1\), \(k\ge2\). Therefore exact values of \(B_n\) and \(W_n\)
+are known in residues zero, one, three, and four. Only residue two remains
+unresolved beyond the bounded table. The former residue-one width
+\((2n+3)/5\) measures only slack in the superseded uniform order; it is no
+longer an open optimality interval.
+
 ## Evidence Basis
 
 - COMPUTER-CERTIFIED RESULT: checked finite interval certificates exist for
@@ -249,6 +270,17 @@ separate and is not redefined or transferred by this theorem.
   \(B_n/n^2\to8/25\) and \(W_n/n^2\to8/25\). The regular-direction majorant
   and radius-one insertion theorem then give the geometric upper coefficient
   \(8/(25\pi)\), without asserting a matching geometric lower bound.
+- EXACT THEOREM: in residue one, write \(n=5k+1\), \(k\ge2\), and
+  \(D=d_n-1=4k+2\). A separate explicit order, generated without search, has
+  \[
+  W(\sigma_n^{(1)})={D^2\over2}=H_n.
+  \]
+  Its proof controls adjacent pairs, positional distances two and three, all
+  pairs crossing the displayed cut, and distances at least four separately.
+  Consequently \(B_n=W_n=H_n\) in residue one. Together with the uniform
+  matching classes, this settles residues zero, one, three, and four; only
+  residue two remains unresolved beyond the bounded table. Canonical
+  factorial enumeration remains bounded to \(n\le11\).
 - EXACT THEOREM: the same note proves the adjacent formula for \(A_n\) by a
   high/low internal-edge count and an explicit all-`n` cycle whose edges have
   endpoint sums at most \(n+3\); source inspection identifies that cycle with
@@ -369,10 +401,12 @@ separate and is not redefined or transferred by this theorem.
 
 7. The product-distance surrogate isolates exactly what the angular majorant
    needs from a regular-direction order. The explicit \(T_n\) family proves
-   the exact leading coefficient \(8/25\) for both \(B_n\) and \(W_n\), but it
-   does not determine their exact finite values or second-order terms. The best
-   tail obstruction remains strict in all enumerated cases where it is
-   defined.
+   the exact leading coefficient \(8/25\) for both \(B_n\) and \(W_n\).
+   Matching constructions now determine their exact values in residues zero,
+   one, three, and four. Exact values in residue two, global structural
+   classifications of minimizers, and any geometric matching coefficient
+   remain open. The best tail obstruction remains strict in all enumerated
+   cases where it is defined.
 
 8. The adjacent relaxation by itself has coefficient \(1/4\), strictly below
    both the earlier two-threshold coefficient \((36-16\sqrt2)/49\) and the
@@ -382,7 +416,8 @@ separate and is not redefined or transferred by this theorem.
    subproblem still has coefficient \((36-16\sqrt2)/49\), while the added
    incidence constraint raises the combined necessary coefficient to
    \(8/25\), and the explicit order family matches it from above. This settles
-   the leading coefficients, but not exact \(B_n\) or \(W_n\) values.
+   the leading coefficients and four residue classes exactly, but not exact
+   \(B_n\) or \(W_n\) values in residue two.
 
 ## Updated Research Questions
 
@@ -394,8 +429,8 @@ separate and is not redefined or transferred by this theorem.
 - OPEN QUESTION: is \(12\) the least threshold for
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
-- OPEN QUESTION: what exact formulas or second-order asymptotics hold for
-  \(B_n\) and \(W_n\) beyond their now-settled leading coefficient \(8/25\)?
+- OPEN QUESTION: what exact formula holds for \(B_n\) and \(W_n\) in residue
+  class two, the only class not settled beyond the bounded table?
 - OPEN QUESTION: can the gap between the induced-subset geometric lower
   coefficient and the product-distance upper coefficient \(8/(25\pi)\) be
   narrowed by a sharper angular construction or a stronger lower bound?
@@ -415,7 +450,7 @@ Immediate:
 
 Next:
 
-- Seek exact finite formulas or controlled second-order bounds for \(B_n\) and
+- Seek an exact residue-two formula or controlled bounds for \(B_n\) and
   \(W_n\), without extending factorial enumeration by default.
 - Keep the exact radius-one theorem separate from finite critical-cycle proxy
   claims and from any assumption that an optimum is attained.

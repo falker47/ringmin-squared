@@ -2,118 +2,128 @@
 
 Last update: 2026-07-14
 
-- **Current phase:** exact residue-class consequences of the matching
-  product-distance construction.
-- **Current task:** derive the closed formula for \(H_n\), including the
-  separate value at \(n=12\), and combine it with the existing uniform upper
-  construction.
+- **Current phase:** exact residue-class values of the product-distance
+  surrogate.
+- **Current task:** construct and prove the exact threshold in the class
+  \(n\equiv1\pmod5\), without canonical enumeration beyond \(n=11\).
 - **Task dossier:**
-  ops/TASK-20260714__residue_class_matching_consequences/.
+  ops/TASK-20260714__residue_one_exact_construction/.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
-## Exact Residue-Class Formula
+## Exact Residue-One Construction
 
-For \(n\ge9\), put
-
-\[
-d_n=\left\lceil{4n+8\over5}\right\rceil,
-\qquad
-T_n={d_n(d_n-1)\over2}.
-\]
-
-EXACT THEOREM:
+Write
 
 \[
-H_n=
-\begin{cases}
-d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
-(d_n-1)^2/2,&n\equiv1\pmod5,\\
-(d_n-1)(d_n-2)/2,&n\equiv2\pmod5,\ n\ge17,\\
-56,&n=12.
-\end{cases}
+n=5k+1,\qquad k\ge2,\qquad
+d=4k+3,\qquad D=d-1=4k+2,\qquad
+h={D^2\over2}=H_n.
 \]
 
-The exceptional value is caused by the unchanged tail-packing condition:
-at \(n=12\), both \(55\) and \(111/2\) have \(a=7,u=6\), so
-\(\Psi_{12}=12>11\); at \(56\), one has \(a=8,u=5,b=11,v=2,C=4\) and
-\(\Psi_{12}=10\).
-
-## Exact Matching Consequences
-
-The established chain
+EXACT THEOREM: `residue_one_product_distance_order(n)` generates an explicit
+cyclic permutation \(\sigma_n^{(1)}\) of \(\{2,\dots,n\}\), without search,
+such that
 
 \[
-H_n\le B_n\le W_n\le W(\sigma_n)\le T_n
+W(\sigma_n^{(1)})=h.
 \]
 
-has equal endpoints in residues zero, three, and four. Therefore
+The proof in `research/PRODUCT_DISTANCE_SURROGATE.md` separately checks:
+
+- every adjacent product;
+- every pair at positional distance two;
+- every pair at positional distance three;
+- all pairs crossing the displayed cut;
+- every distance at least four through
+  \(n(n-1)<4h\).
+
+The closing edge \((2k+1,D)\) has product exactly \(h\). The exact lower
+obstruction therefore gives
+
+\[
+h=H_n\le B_n\le W_n\le W(\sigma_n^{(1)})=h,
+\]
+
+and hence
 
 \[
 \boxed{
-B_n=W_n=T_n={d_n(d_n-1)\over2}
+B_n=W_n=H_n={(d-1)^2\over2}
 }
-\qquad(n\ge9,\ n\equiv0,3,4\pmod5).
+\qquad(n\equiv1\pmod5,\ n\ge11).
 \]
 
-In the two unresolved classes, the exact widths to the uniform theorem
-threshold are
+## Updated Residue Classification
+
+For \(n\ge9\), with
+\(d_n=\lceil(4n+8)/5\rceil\), exact surrogate values are now known in four
+classes:
+
+\[
+B_n=W_n=H_n
+=
+\begin{cases}
+d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
+(d_n-1)^2/2,&n\equiv1\pmod5.
+\end{cases}
+\]
+
+Only residue two remains unresolved beyond the bounded table. Its current
+proved interval has width
 
 \[
 T_n-H_n=
 \begin{cases}
-(d_n-1)/2=(2n+3)/5,&n\equiv1\pmod5,\\
-d_n-1=(4n+7)/5,&n\equiv2\pmod5,\ n\ge17,\\
+(4n+7)/5,&n\equiv2\pmod5,\ n\ge17,\\
 10,&n=12.
 \end{cases}
 \]
 
-These are bound widths, not optimality gaps and not necessarily gaps to the
-scores of individual exceptional witnesses. No replacement construction is
-proposed, and no all-\(n\) formula or new exact value beyond the bounded
-\(n\le11\) table is claimed in residues one and two.
+These are bound widths, not asserted optimality gaps.
 
 ## Exact Support And Verification
 
-- CURRENT LOCAL VERIFIED FACT: the event-set inversion for \(H_n\) remains
-  unchanged, and a separate constant-time exact residue formula is exported
-  from power_ringmin.product_distance.
 - CURRENT LOCAL VERIFIED FACT: source and tests compile; Ruff passes.
-- CURRENT LOCAL VERIFIED FACT: focused product-distance tests pass 28/28.
+- CURRENT LOCAL VERIFIED FACT: focused product-distance tests pass `31/31`.
 - CURRENT LOCAL VERIFIED FACT: integrated product-distance, zigzag,
-  induced-subset, and insertion tests pass 43/43.
-- CURRENT LOCAL VERIFIED FACT: the full suite passes 156/156 outside the
+  induced-subset, and insertion tests pass `46/46`.
+- CURRENT LOCAL VERIFIED FACT: the full suite passes `159/159` outside the
   filesystem sandbox.
 - RETAINED FAILED CHECK: the sandboxed full suite produced 31 temporary-path
-  setup errors and one Git-provenance mismatch because the sandbox denied the
-  required system-temp and Git metadata access. The identical suite passed
-  outside the sandbox; no changed product-distance test failed.
+  setup errors because the sandbox denied pytest access to its system
+  temporary directory. The identical suite passed outside the sandbox; no
+  changed product-distance test failed.
 - CURRENT LOCAL VERIFIED FACT: checked-artifact semantic verification accepts
-  4 certificates, 76 local brackets, and the n=3..6 summary.
-- CURRENT LOCAL VERIFIED FACT: the closed form matches both an independent
-  five-polynomial oracle and the unchanged exact event inversion for every
-  9<=n<=200; exact formula/gap checks cover every 9<=n<=5000.
+  4 certificates, 76 local brackets, and the `n=3..6` summary.
+- CURRENT LOCAL VERIFIED FACT: the repository regression checks the exact
+  residue-one formula for every `2<=k<=1000` and independent full all-pairs
+  scores on selected values through `k=100`.
+- CURRENT LOCAL VERIFIED FACT: separate exact oracles checked the formula
+  through `k=5000`, reconstructed the implemented order through `k=2000`,
+  and checked additional large values `k=9999,10000,10001`.
 - CURRENT LOCAL VERIFIED FACT: independent mathematical and implementation
-  audits pass without a finding; the documentation audit's stale-memory
-  findings were applied.
-- CURRENT LOCAL VERIFIED FACT: all 9 changed paths pass strict UTF-8 and
-  trailing-whitespace checks; the proof note has 94 unique equation tags and
-  195 balanced display pairs; path scope, complete-diff inspection, and
-  git diff --check pass.
+  audits pass after correcting the documented `k=2` boundary wording.
+- CURRENT LOCAL VERIFIED FACT: the documentation audit's missing `n>=9`
+  roadmap domain was corrected; all 10 changed paths pass strict UTF-8 and
+  trailing-whitespace checks; the proof has 118 unique equation tags and 215
+  balanced display pairs; complete diff inspection and `git diff --check`
+  pass.
 - CURRENT HOSTED STATUS: GitHub Actions for the current worktree has not been
   independently verified.
 
 ## Residual Limitations
 
-- Exact values of \(B_n\) and \(W_n\) beyond the bounded table remain open in
-  residue classes one and two.
+- Exact values of \(B_n\) and \(W_n\) beyond the bounded table remain open
+  only in residue class two.
 - Structural classifications of optimal orders remain open in every class.
-- The widths above are relative to the uniform threshold \(T_n\), not to a
-  proved best upper construction in each exceptional finite case.
-- Finite canonical core-order enumeration remains bounded to n=3..11.
-- The geometric lower and upper coefficients remain different.
+- The first index, if any, where distances at least three change \(W_n\)
+  remains open.
+- Finite canonical core-order enumeration remains bounded to `n=3..11`.
+- The geometric lower and upper coefficients remain different; this exact
+  combinatorial result does not prove a geometric optimum.
 
 ## Proposed Next Task
 

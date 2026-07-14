@@ -251,17 +251,24 @@ d(d-1)/2,&n\equiv0,3,4\pmod5,\\
 (d-1)(d-2)/2,&n\equiv2\pmod5,\ n\ge17,
 \end{cases}
 \]
-and \(H_{12}=56\). Combining this formula with the construction proves
+and \(H_{12}=56\). Combining this formula with the uniform construction and
+the separate residue-one construction proves
 \[
-B_n=W_n={d_n(d_n-1)\over2}
-\qquad(n\ge9,\ n\equiv0,3,4\pmod5).
+B_n=W_n=H_n
+=
+\begin{cases}
+d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
+(d_n-1)^2/2,&n\equiv1\pmod5
+\end{cases}
+\qquad(n\ge9).
 \]
-In residues one and two, the exact widths from \(H_n\) to the uniform theorem
-threshold \(T_n\) are \((2n+3)/5\) and \((4n+7)/5\), respectively, with
-width \(10\) at \(n=12\). These are bound widths, not asserted optimality
-gaps. This residue analysis proposes no replacement construction and proves
-no all-\(n\) exact formula, or new value beyond the bounded \(n\le11\) table,
-in those two classes.
+The residue-one branch begins at \(n=11\) and is realized by a separate
+search-free cyclic order whose score is exactly \((d_n-1)^2/2\). Its proof
+checks adjacency, distances two and three, closing arcs, and automatic
+distances at least four separately. Only residue two remains unresolved
+beyond the bounded table. Its current width to \(T_n\) is \((4n+7)/5\) for
+\(n\ge17\), with width \(10\) at \(n=12\); these are bound widths, not
+asserted optimality gaps.
 An exact, no-floating-point canonical enumeration bounded to `n=3..11` gives
 \[
 (W_3,\dots,W_{11})=(6,12,15,20,24,30,36,45,50),
@@ -283,9 +290,8 @@ also gives
 row by row. The last equality is a bounded exact comparison, not an all-\(n\)
 formula. The table agrees with the theorem: the first non-adjacent gap is
 \(A_9=35<36=W_9\), already accounted for by positional distance two. Exact
-values of \(B_n\) and \(W_n\) are now known in residue classes zero, three,
-and four; beyond the bounded table they remain unresolved in classes one and
-two.
+values of \(B_n\) and \(W_n\) are now known in residue classes zero, one,
+three, and four; beyond the bounded table only class two remains unresolved.
 
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
@@ -519,15 +525,21 @@ All-pairs non-overlap constraints are part of the problem, not merely adjacent-p
   \end{cases}
   \qquad H_{12}=56.
   \]
-  Hence the matching upper construction gives
+  The matching upper construction in residues zero, three, and four, together
+  with the separate search-free residue-one construction, gives
   \[
-  B_n=W_n={d_n(d_n-1)\over2}
-  \qquad(n\ge9,\ n\equiv0,3,4\pmod5).
+  B_n=W_n=H_n
+  =
+  \begin{cases}
+  d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
+  (d_n-1)^2/2,&n\equiv1\pmod5
+  \end{cases}
+  \qquad(n\ge9).
   \]
-  The exact widths to the uniform threshold \(T_n\) in the unresolved
-  classes are \((2n+3)/5\) for residue one and \((4n+7)/5\) for residue two
-  from \(n=17\), with width \(10\) at \(n=12\). These are not asserted
-  optimality gaps.
+  The residue-one branch starts at \(n=11\). Only residue two remains
+  unresolved beyond the bounded table; its exact width to the uniform
+  threshold is \((4n+7)/5\) from \(n=17\), with width \(10\) at \(n=12\).
+  These are not asserted optimality gaps.
 - EXACT THEOREM:
   \[
   \lim_{n\to\infty} A_n/n^2

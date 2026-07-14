@@ -672,6 +672,58 @@ def eight_twenty_fifths_order(n: int) -> tuple[int, ...]:
     return result
 
 
+def residue_one_product_distance_order(n: int) -> tuple[int, ...]:
+    """Return the exact-threshold order for ``n == 1 (mod 5)``, ``n >= 11``.
+
+    Writing ``n = 5*k+1`` and ``D = 4*k+2``, this search-free construction
+    has product-distance score exactly ``D**2/2 = H_n``.  It sharpens
+    :func:`eight_twenty_fifths_order` only in this residue class; the proof is
+    recorded in ``research/PRODUCT_DISTANCE_SURROGATE.md``.
+    """
+    _validate_residue_one_n(n)
+    k = (n - 1) // 5
+    terminal_start = 4 * k + 2
+    triple_count, has_doubleton = divmod(k, 2)
+
+    middle_paths: list[tuple[int, ...]] = [(terminal_start - 1,)]
+    middle_paths.extend(
+        (
+            terminal_start - 2 * block,
+            2 * k + 1 + block,
+            terminal_start - 2 * block - 1,
+        )
+        for block in range(1, triple_count + 1)
+    )
+    middle_paths.extend(
+        (terminal_start - triple_count - block - 1,)
+        for block in range(triple_count + 1, k - has_doubleton)
+    )
+    if has_doubleton:
+        middle_paths.append((2 * k + triple_count + 3, 2 * k + triple_count + 2))
+    if len(middle_paths) != k:
+        raise AssertionError(
+            f"middle-path count mismatch for n={n}: "
+            f"expected {k}, got {len(middle_paths)}"
+        )
+
+    order: list[int] = []
+    for block, middle_path in enumerate(middle_paths):
+        next_block = (block + 1) % k
+        order.extend(
+            (
+                terminal_start + block,
+                2 * k - 2 * block,
+                *middle_path,
+                2 * k + 1 - 2 * next_block,
+            )
+        )
+
+    result = tuple(order)
+    if len(result) != n - 1 or set(result) != set(range(2, n + 1)):
+        raise AssertionError(f"residue-one construction is not a core order for n={n}")
+    return result
+
+
 def enumerate_product_distance(
     n: int,
     *,
@@ -895,6 +947,19 @@ def _validate_eight_twenty_fifths_n(n: int) -> None:
         raise ValueError(f"n must be an integer at least 9, got {n!r}")
 
 
+def _validate_residue_one_n(n: int) -> None:
+    if (
+        isinstance(n, bool)
+        or not isinstance(n, int)
+        or n < 11
+        or n % 5 != 1
+    ):
+        raise ValueError(
+            "n must be an integer congruent to 1 modulo 5 and at least 11, "
+            f"got {n!r}"
+        )
+
+
 def _validate_max_position_distance(max_position_distance: int) -> None:
     if (
         isinstance(max_position_distance, bool)
@@ -1018,6 +1083,7 @@ __all__ = [
     "enumerate_truncated_product_distance",
     "product_distance_pair_scores",
     "product_distance_score",
+    "residue_one_product_distance_order",
     "tail_cycle_incompatibility_minimum",
     "tail_pairing_sum",
     "terminal_high_incidence_closed_form",

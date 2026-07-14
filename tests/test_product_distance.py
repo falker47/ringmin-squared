@@ -21,6 +21,7 @@ from power_ringmin.product_distance import (
     enumerate_truncated_product_distance,
     product_distance_pair_scores,
     product_distance_score,
+    residue_one_product_distance_order,
     tail_cycle_incompatibility_minimum,
     tail_pairing_sum,
     terminal_high_incidence_closed_form,
@@ -1063,6 +1064,71 @@ def test_eight_twenty_fifths_construction_validation_is_strict() -> None:
             eight_twenty_fifths_order(invalid)  # type: ignore[arg-type]
         with pytest.raises(ValueError, match="integer at least 9"):
             eight_twenty_fifths_threshold(invalid)  # type: ignore[arg-type]
+
+
+def test_residue_one_construction_has_exact_local_scores_and_closing_arcs() -> None:
+    expected_diagnostics = {
+        2: (
+            (10, 4, 9, 3, 11, 2, 8, 6, 7, 5),
+            (Fraction(50), Fraction(99, 2), Fraction(22)),
+            (Fraction(50), Fraction(35), Fraction(20)),
+        ),
+        3: (
+            (14, 6, 13, 5, 15, 4, 12, 8, 11, 3, 16, 2, 10, 9, 7),
+            (Fraction(98), Fraction(195, 2), Fraction(48)),
+            (Fraction(98), Fraction(63), Fraction(140, 3)),
+        ),
+    }
+    for k, (expected_order, expected_scores, expected_closing) in (
+        expected_diagnostics.items()
+    ):
+        n = 5 * k + 1
+        order = residue_one_product_distance_order(n)
+
+        assert order == expected_order
+        assert _independent_exact_distance_scores(order, 3) == expected_scores
+        assert _independent_closing_distance_scores(order, 3) == expected_closing
+
+
+def test_residue_one_construction_is_uniform_and_exact() -> None:
+    for k in range(2, 1001):
+        n = 5 * k + 1
+        vertex_count = n - 1
+        terminal_start = 4 * k + 2
+        threshold = terminal_high_incidence_closed_form(n)
+        order = residue_one_product_distance_order(n)
+
+        assert threshold == Fraction(terminal_start * terminal_start, 2)
+        assert tuple(sorted(order)) == tuple(range(2, n + 1))
+        local_product_maxima = tuple(
+            max(
+                order[position] * order[(position + distance) % vertex_count]
+                for position in range(vertex_count)
+            )
+            for distance in (1, 2, 3)
+        )
+        assert local_product_maxima[0] == threshold
+        assert local_product_maxima[1] == 2 * threshold - 1
+        assert local_product_maxima[2] <= 3 * threshold
+        assert n * (n - 1) < 4 * threshold
+
+    assert _independent_score(residue_one_product_distance_order(11)) == (
+        EXPECTED_TABLE[11][1]
+    )
+    for k in (3, 4, 5, 6, 7, 10, 25, 100):
+        n = 5 * k + 1
+        assert _independent_score(residue_one_product_distance_order(n)) == (
+            terminal_high_incidence_closed_form(n)
+        )
+
+
+def test_residue_one_construction_validation_is_strict() -> None:
+    for invalid in (True, 6, 8, 10, 12, Fraction(11), 11.0):
+        with pytest.raises(
+            ValueError,
+            match="integer congruent to 1 modulo 5 and at least 11",
+        ):
+            residue_one_product_distance_order(invalid)  # type: ignore[arg-type]
 
 
 def test_fraction_comparisons_do_not_use_float_rounding() -> None:

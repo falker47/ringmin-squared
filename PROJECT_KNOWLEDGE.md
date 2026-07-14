@@ -398,24 +398,33 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \end{cases}
   \qquad H_{12}=56.
   \]
-  Combining this with \(H_n\le B_n\le W_n\le T_n\) gives
+  The uniform upper construction and a separate search-free residue-one
+  construction give
   \[
-  B_n=W_n=T_n={d_n(d_n-1)\over2}
-  \qquad(n\ge9,\ n\equiv0,3,4\pmod5).
+  B_n=W_n=H_n
+  =
+  \begin{cases}
+  d_n(d_n-1)/2,&n\equiv0,3,4\pmod5,\\
+  (d_n-1)^2/2,&n\equiv1\pmod5
+  \end{cases}
+  \qquad(n\ge9).
   \]
-  In the two unresolved classes, the exact widths to the uniform theorem
-  threshold are
+  In residue one, writing \(n=5k+1\), \(D=d_n-1=4k+2\), the explicit order
+  has score exactly \(D^2/2=H_n\) for every \(k\ge2\). Its proof separately
+  checks adjacent products, distances two and three, the displayed closing
+  cut, and automatic distances at least four. Only residue two remains
+  unresolved beyond the bounded table. Its exact width to the uniform theorem
+  threshold is
   \[
   T_n-H_n=
   \begin{cases}
-  (2n+3)/5,&n\equiv1\pmod5,\\
   (4n+7)/5,&n\equiv2\pmod5,\ n\ge17,\\
   10,&n=12.
   \end{cases}
   \]
-  These are bound widths, not asserted optimality gaps; no exact value of
-  \(B_n\) or \(W_n\) beyond the bounded \(n\le11\) table, and no all-\(n\)
-  exact formula, is proved in residues one or two.
+  These residue-two values are bound widths, not asserted optimality gaps; no
+  exact value of \(B_n\) or \(W_n\) beyond the bounded \(n\le11\) table, and
+  no all-\(n\) exact formula, is proved in residue two.
 - EXACT THEOREM: the matching lower and upper bounds give
   \[
   \lim_{n\to\infty}{B_n\over n^2}
@@ -478,10 +487,11 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   incompatibility, compatible-low capacity, unchanged finite two-threshold
   obstruction, joint terminal-high incidence obstruction, its constant-time
   exact residue-class formula, the explicit eight-twenty-fifths order and
-  threshold, full-distance tail obstructions,
+  threshold, the exact-threshold residue-one order, full-distance tail
+  obstructions,
   and deterministic full and truncated enumeration with the hard domain
   `3<=n<=11` and a preflight canonical-order ceiling. The explicit upper
-  generator performs no search or enumeration. The module creates no CLI or
+  generators perform no search or enumeration. The module creates no CLI or
   serialized artifact.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): enumeration of all
   `204557` canonical rotation/reflection classes for `n=3..11` gives
@@ -523,8 +533,8 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   certificate, or proof that the surrogate radius is geometrically optimal
   for a fixed order. No conjecture is promoted from these nine cases.
 - OPEN QUESTION: exact finite values of \(B_n\) and \(W_n\) beyond the bounded
-  table remain unresolved in residue classes one and two; classes zero, three,
-  and four now have the exact formula above. Structural characterizations of
+  table remain unresolved in residue class two; classes zero, one, three, and
+  four now have the exact formula above. Structural characterizations of
   optimal orders remain open in every class.
 - OPEN QUESTION: positional distances at least three do not change the exact
   objective or minimizer set for \(3\le n\le11\); their first essential index,
@@ -630,7 +640,13 @@ Candidate-set extraction uses the following finite-certificate semantics.
 
 ## Current Research Roadmap
 
-- VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise roadmap synthesizing checked `n=3..6` certificates, candidate-set and critical-structure diagnostics, verifier limitations, workflow provenance, the induced-subset lower bound, exact insertion theorem, regular-direction bounds, and the exact bounded product-distance analysis through `n=11`.
+- VERIFIED FACT: `research/NEXT_RESEARCH_STEPS.md` is the current concise
+  roadmap synthesizing checked `n=3..6` certificates, candidate-set and
+  critical-structure diagnostics, verifier limitations, workflow provenance,
+  the induced-subset lower bound, exact insertion theorem, regular-direction
+  bounds, bounded product-distance enumeration through `n=11`, the all-\(n\)
+  matching construction, and exact surrogate values in residues zero, one,
+  three, and four.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
