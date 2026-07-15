@@ -2,13 +2,13 @@
 
 Last update: 2026-07-15
 
-- **Current phase:** exact one-wrap saturation of the fixed-order cyclic
-  ratio.
-- **Current task:** identify the one-wrap score with induced-subset cyclic
-  product sums, decide saturation for every complete order, and add an exact
-  Karp-independent bounded oracle.
+- **Current phase:** exact elimination of index `1` from the cyclic-ratio
+  objective.
+- **Current task:** prove the insertion-independent core reduction, derive its
+  global, product-distance, and geometric consequences, and verify every
+  bounded core order and insertion.
 - **Task dossier:**
-  ops/TASK-20260715__one_wrap_cycle_ratio_saturation/.
+  ops/TASK-20260715__index_one_elimination/.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
@@ -16,106 +16,107 @@ Last update: 2026-07-15
 
 ## Exact Results
 
-- DEFINITION: for a complete order \(\sigma\),
+- DEFINITION: for a cyclic core order \(\tau\) of \(\{2,\ldots,n\}\),
   \[
-  \Lambda^{(1)}(\sigma)=\max\{S(C):q(C)=1\}.
+  K(\tau)=
+  \max_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P_\tau(U),
   \]
-  For a nonempty position subset
-  \(T=\{i_0<\cdots<i_{m-1}\}\), let
+  where a singleton contributes \(j^2\) and a two-element subset contributes
+  \(2ij\).
+- EXACT THEOREM (INDEX-ONE ELIMINATION): if deleting label \(1\) from a
+  complete order \(\sigma\) gives \(\tau\), then
   \[
-  P_\sigma(T)=
-  \sum_{r=0}^{m-1}\sigma_{i_r}\sigma_{i_{r+1\bmod m}}.
+  \Lambda(\sigma)=K(\tau),
   \]
-  A singleton contributes its square; a two-element subset contributes the
-  same unordered product twice.
-- EXACT THEOREM: a one-wrap closed walk is exactly the reverse orientation of
-  an induced subset order of cardinality at least two. Since singleton scores
-  cannot maximize for `n>=3`,
+  independently of the insertion gap. Subsets avoiding \(1\) retain their
+  score; \(\{1\}\) gives \(1<4\); \(\{1,j\}\) gives \(2j\le j^2\); and
+  deleting \(1\) from a subset with distinct core neighbors \(a,b\) raises
+  its score by \(ab-a-b\ge1\). No maximizing subset contains \(1\).
+- EXACT THEOREM: deletion/insertion is surjective on cyclic-order spaces, so
   \[
-  \Lambda^{(1)}(\sigma)
-  =\max_{|T|\ge2}P_\sigma(T)
-  =\max_{T\ne\varnothing}P_\sigma(T).
+  \Lambda_n=\min_\tau K(\tau).
   \]
-- EXACT THEOREM (ALL-ORDER ONE-WRAP SATURATION): for every complete order and
-  `n>=3`,
+  The same-order comparison gives
   \[
-  \Lambda(\sigma)=\Lambda^{(1)}(\sigma).
+  K(\tau)\le\Lambda_{\rm same}(\tau)\le(n-1)W(\tau),
+  \qquad
+  \Lambda_n\le(n-1)W_n.
   \]
-  The complete induced cycle has score at least
-  \(n(n+1)(n+2)/6\). Every vertex-simple cycle with `q>=2` has ratio at most
+- EXACT THEOREM (GEOMETRIC CONSEQUENCE): for every `n>=3`,
   \[
-  {1\over2}\sum_{i=1}^n i^2
-  ={n(n+1)(n+2)\over6}-{n(n+1)\over4},
+  R_2^*(n)<{\Lambda_n\over\pi}
+  \le{(n-1)W_n\over\pi}.
   \]
-  which is strictly smaller. Thus \(\Lambda(\sigma)\) and \(\Lambda_n\) are
-  integers.
-- LIMITATION: saturation concerns separable product weights. It does not
-  reduce exact angular-STN feasibility or critical-cycle analysis to
-  one-wrap cycles.
+  This proof does not use radius-one insertion or a regular-direction
+  construction. It gives an upper bound, not an exact optimum.
+- LIMITATION: insertion independence concerns \(\Lambda\), not
+  \(\rho_\sigma\), exact fixed-order feasibility, or feasible-radius sets.
 
 ## Finite Exact Verification
 
-- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): a test-only exact
-  subset/path dynamic program computes the full simple-cycle ratio without
-  using production descending closure, macro compression, or Karp's
-  maximum-cycle-mean recurrence. It agrees with literal induced-subset
-  maximization and production on all 2,956 canonical complete orders for
-  `n=3..8`.
-- VERIFIED FACT: the bounded values remain
-  \[
-  (\Lambda_3,\dots,\Lambda_8)=(12,26,47,77,118,172),
-  \]
-  with canonical minimizer counts `(1,3,4,15,24,84)`.
-- VERIFIED FACT: production remains hard-bounded to `3<=n<=8` and at most
-  2,520 canonical orders in one row. The oracle exists only in tests.
-- INTERPRETATION: the finite sweep verifies the implementation; it is not the
-  proof of all-order saturation, an all-`n` formula for \(\Lambda_n\), or a
-  geometric result.
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): for `n=3..8`, every
+  canonical core order and every cyclic insertion gap satisfies the reduction
+  under literal subset scoring and the production scorer.
+- The exact row counts are:
+
+  | `n` | Core classes | Insertions | Complete classes | Minimum | Core minimizers | Complete minimizers |
+  |---:|---:|---:|---:|---:|---:|---:|
+  | 3 | 1 | 2 | 1 | 12 | 1 | 1 |
+  | 4 | 1 | 3 | 3 | 26 | 1 | 3 |
+  | 5 | 3 | 12 | 12 | 47 | 1 | 4 |
+  | 6 | 12 | 60 | 60 | 77 | 3 | 15 |
+  | 7 | 60 | 360 | 360 | 118 | 4 | 24 |
+  | 8 | 360 | 2,520 | 2,520 | 172 | 12 | 84 |
+
+- Totals are 437 core classes, 2,957 insertion trials, and 2,956 distinct
+  complete classes. At `n=3`, insertions `(3,1,2)` and `(3,2,1)` are
+  reflections and canonicalize to the same class; both have value `12`.
+- INTERPRETATION: the finite sweep verifies the implementation and counts. It
+  is not the proof of the all-order reduction or a geometric certificate.
 
 ## Changes
 
-- `research/FIXED_ORDER_CYCLE_RATIO.md` now contains the authoritative
-  induced-subset equivalence, saturation proof, integer consequence,
-  independent-oracle description, and exact-angular non-consequence.
-- `tests/test_fixed_order_cycle_ratio.py` adds literal subset and independent
-  subset/path oracles, exhaustive `n=3..8` agreement, and explicit
-  two-element multiplicity coverage.
-- The production scorer implementation and enumeration limits are unchanged;
-  only its docstrings record the proved integer result.
-- Project brief, durable knowledge, fixed-order source note, research roadmap,
-  current status, and this task dossier are synchronized.
-- No interval backend, verifier, certificate, checked artifact, example,
-  schema, CLI, product-distance implementation, or production enumeration
-  limit changed.
+- `research/FIXED_ORDER_CYCLE_RATIO.md` now contains the exact three-case
+  elimination proof, reduced minimum, same-order comparison, all-`n`
+  geometric upper bound, explicit `n=3` treatment, and bounded table.
+- `tests/test_fixed_order_cycle_ratio.py` adds test-only core insertion and
+  canonical-coverage checks; production code and limits are unchanged.
+- Project brief, durable knowledge, roadmap, current status, and this task
+  dossier are synchronized.
+- No backend, verifier, certificate, checked artifact, schema, example, CLI,
+  product-distance implementation, production scorer, or certification claim
+  changed.
 
 ## Verification
 
-- CURRENT LOCAL VERIFIED FACT: the focused cycle-ratio module passes all 23
-  tests, including the exhaustive independent oracle over 2,956 orders.
-- CURRENT LOCAL VERIFIED FACT: the complete repository suite passes all 196
+- CURRENT LOCAL VERIFIED FACT: the focused cycle-ratio module passes all 25
+  tests, including 437 core classes and 2,957 insertion trials.
+- CURRENT LOCAL VERIFIED FACT: the complete repository suite passes all 198
   tests on local Python 3.14.3.
 - CURRENT LOCAL VERIFIED FACT: checked-artifact semantic verification accepts
-  4 certificates, 76 local brackets, and the `n=3..6` summary.
-- CURRENT LOCAL VERIFIED FACT: targeted Ruff, Python compilation, and Git diff
-  whitespace checks pass.
-- CURRENT LOCAL VERIFIED FACT: independent mathematical, oracle,
-  implementation, and classification reviews accept the proof, tests,
-  bounded-domain guard, and finite/all-order separation after correcting two
-  notation collisions and one closed-walk wording ambiguity.
+  4 certificates, 76 local brackets, and the `n=3..6` summary; no backend,
+  artifact, or certification claim changed.
+- CURRENT LOCAL VERIFIED FACT: targeted Ruff, Python compilation, final Git
+  diff inspection, and whitespace hygiene pass.
+- CURRENT LOCAL VERIFIED FACT: independent mathematical, test, and
+  documentation audits accept the theorem, strictness boundaries, exact
+  values, minimizer counts, bounded-domain guard, and evidence
+  classifications after five wording/status refinements.
 - CURRENT HOSTED STATUS: GitHub Actions on Python 3.11-3.13 has not been run
   for this worktree.
 
 ## Residual Limitations
 
+- The reduction gives an exact core optimization, not a closed form for
+  \(\Lambda_n\) or a structural classification of its minimizers.
+- The pointwise/global comparison with \(W\) is one-sided and non-strict;
+  equality holds at `n=3`, and no all-`n` strictness is claimed.
+- The geometric consequence recovers the known \(8/(25\pi)\) limsup
+  coefficient; it does not prove convergence or a matching lower coefficient.
+- Existing interval-backend trust limitations and certified finite claims are
+  unchanged.
 - Local execution used Python 3.14.3; Python 3.11 compatibility of the new
-  test-only syntax was inspected but not locally executed.
-- Repository-wide Ruff retains four known pre-existing F401/F841 findings in
-  three untouched files; task-scoped Ruff is clean.
-- The theorem gives no formula for \(\Lambda_n\), exact geometric optimum,
-  improvement of the additive-\(n^2\) sandwich, new geometric coefficient, or
-  asymptotic convergence result.
-- The production Karp scorer remains useful as the independently cross-checked
-  full-ratio implementation; no production rewrite was attempted.
+  test-only code was independently source-inspected but not locally executed.
 
 ## Proposed Next Task
 

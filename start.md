@@ -52,7 +52,29 @@ where \(i_0<\cdots<i_{|T|-1}\) are the positions induced by \(T\),
 \(P_\sigma(T)\) denotes the displayed cyclic sum, singleton sums use
 \(P_\sigma(\{i\})=\sigma_i^2\), and a two-element subset counts its product
 twice. This is an exact theorem for every complete order, so the scores are
-integers. Moreover,
+integers. If \(\tau\) is the core order obtained by deleting label \(1\),
+define
+\[
+K(\tau)=
+\max_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P_\tau(U).
+\]
+Treating separately \(\{1\}\), \(\{1,j\}\), and subsets in which \(1\)
+has two core neighbors proves the exact insertion-independent reduction
+\[
+\Lambda(\sigma)=K(\tau),
+\qquad
+\Lambda_n=\min_\tau K(\tau).
+\]
+The accepted same-order comparison then gives
+\[
+\Lambda_n\le(n-1)W_n,
+\qquad
+R_2^*(n)<{\Lambda_n\over\pi}
+\le{(n-1)W_n\over\pi}
+\quad(n\ge3).
+\]
+The last chain is an upper bound and does not identify the \(K\)- and
+\(W\)-minimizers. Moreover,
 \[
 {\Lambda(\sigma)\over\pi}-n^2
 <\rho_\sigma
@@ -65,8 +87,11 @@ descending-path compression and maximum-cycle-mean dynamic programming, not
 cycle enumeration. Bounded exhaustive computation for `n=3..8` gives
 \((12,26,47,77,118,172)\). A test-only subset/path oracle independent of
 Karp verifies the saturation property on all 2,956 bounded canonical orders,
-without increasing the production limit. This finite table is not an all-`n`
-formula, and \(\Lambda\) is distinct from the regular-direction core
+without increasing the production limit. A second test-only regression checks
+all 437 canonical core orders and 2,957 insertion gaps, including the explicit
+two-arc \(n=3\) case, and recovers core minimizer counts
+`(1,1,1,3,4,12)`. This finite table is not a closed-form evaluation of the
+reduced minimum, and \(K\) remains distinct from the regular-direction core
 surrogate \(W\).
 
 A strengthened all-`n` mathematical lower bound has been proved from induced
@@ -536,6 +561,32 @@ and \(\Lambda(\sigma)\) and \(\Lambda_n\) are integers. The strict separation
 is for vertex-simple multi-wrap cycles; a general closed walk may repeat a
 maximizing one-wrap component.
 
+For a cyclic core order \(\tau\) of \(\{2,\ldots,n\}\), let
+\[
+K(\tau)=
+\max_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P_\tau(U).
+\]
+If \(\tau\) is obtained from \(\sigma\) by deleting label \(1\), then every
+subset avoiding \(1\) retains its score. The subsets containing \(1\) split
+into three cases: \(\{1\}\) has score \(1<4\); \(\{1,j\}\) has score
+\(2j\le j^2\); and when \(1\) has distinct core neighbors \(a,b\), deleting
+it increases the induced cyclic sum by
+\(ab-a-b=(a-1)(b-1)-1\ge1\). Therefore
+\[
+\Lambda(\sigma)=K(\tau)
+\]
+independently of the insertion gap. Deletion and insertion then give
+\[
+\Lambda_n=\min_\tau K(\tau).
+\]
+Singletons do not maximize \(K\), so the accepted same-order comparison gives
+\[
+K(\tau)\le\Lambda_{\rm same}(\tau)\le(n-1)W(\tau),
+\qquad
+\Lambda_n\le(n-1)W_n.
+\]
+This comparison does not assert equality or common minimizers.
+
 The exact angular comparisons
 \[
 {2ij\over R+n^2}<\theta_R(i^2,j^2)<{2ij\over R}
@@ -556,10 +607,18 @@ Minimizing over complete orders gives
 \qquad
 0<\Lambda_n-\pi R_2^*(n)<\pi n^2.
 \]
+Consequently
+\[
+R_2^*(n)<{\Lambda_n\over\pi}
+\le{(n-1)W_n\over\pi}
+\qquad(n\ge3).
+\]
 `research/FIXED_ORDER_CYCLE_RATIO.md` contains the definitions, saturation
-proof, scorer algorithm, independent bounded oracle, comparison with \(W\),
-and asymptotic limitations. One-wrap saturation concerns the product ratio;
-it does not reduce exact angular-STN feasibility to one-wrap cycle checks.
+and elimination proofs, scorer algorithm, independent bounded oracles,
+comparison with \(W\), and asymptotic limitations. One-wrap saturation and
+insertion independence concern the product ratio; they do not reduce exact
+angular-STN feasibility to one-wrap cycle checks or make
+\(\rho_\sigma\) insertion-independent.
 
 ## Current Knowledge Status
 
@@ -594,14 +653,36 @@ it does not reduce exact angular-STN feasibility to one-wrap cycle checks.
   induced by the position subset \(T\), with a two-element product counted
   twice. Every vertex-simple cycle with `q>=2` is strictly below the one-wrap
   maximum. Consequently \(\Lambda(\sigma)\) and \(\Lambda_n\) are integers.
+- EXACT THEOREM (INDEX-ONE ELIMINATION): for a core order \(\tau\), define
+  \(K(\tau)\) as the maximum cyclic adjacent-product sum over its nonempty
+  induced subsets, with singleton squares and twice-counted two-element
+  products. If deleting label \(1\) from \(\sigma\) gives \(\tau\), then
+  \[
+  \Lambda(\sigma)=K(\tau)
+  \]
+  independently of the insertion gap. Hence
+  \[
+  \Lambda_n=\min_\tau K(\tau),
+  \qquad
+  \Lambda_n\le(n-1)W_n,
+  \qquad
+  R_2^*(n)<{\Lambda_n\over\pi}
+  \le{(n-1)W_n\over\pi}.
+  \]
+  The insertion independence is not a statement about exact angular
+  thresholds or feasible-radius sets.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): the exact bounded
   `Fraction` scorer gives
   \((\Lambda_3,\dots,\Lambda_8)=(12,26,47,77,118,172)\) over all 2,956
   canonical complete orders. A separate exact subset/path oracle and literal
   induced-subset maximization verify one-wrap saturation on every bounded
   order without using the production Karp recurrence or increasing its
-  `n<=8` limit. This is not the all-order proof, an all-`n` formula, or a
-  geometric exact-optimum computation.
+  `n<=8` limit. A further exact regression checks all 437 canonical core
+  orders and 2,957 insertion gaps and gives core minimizer counts
+  `(1,1,1,3,4,12)`, while the complete counts remain
+  `(1,3,4,15,24,84)`. This is not the all-order proof, a closed-form
+  evaluation of the reduced minimum, or a geometric exact-optimum
+  computation.
 - EXACT THEOREM: for every `n>=3`,
   \[
   R_2^*(n)\ge \frac{n(n+1)(n+2)}{6\pi}-n^2,

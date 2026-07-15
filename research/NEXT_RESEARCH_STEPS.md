@@ -42,6 +42,35 @@ for `n=3..8` without changing the production bound. The finite regression is
 not the proof of the theorem and produces no new geometric or asymptotic
 claim.
 
+The index-one reduction is now also closed exactly. For a core order
+\(\tau\), let
+\[
+K(\tau)=
+\max_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P_\tau(U).
+\]
+If \(\tau\) is obtained from a complete order \(\sigma\) by deleting label
+\(1\), the singleton \(\{1\}\), the pairs \(\{1,j\}\), and the subsets in
+which \(1\) has two distinct core neighbors give the exact theorem
+\[
+\Lambda(\sigma)=K(\tau),
+\qquad
+\Lambda_n=\min_\tau K(\tau).
+\]
+The result is independent of the insertion gap of \(1\). Applying the
+accepted same-order comparison to the core gives
+\[
+\Lambda_n\le(n-1)W_n,
+\qquad
+R_2^*(n)<{\Lambda_n\over\pi}
+\le{(n-1)W_n\over\pi}
+\qquad(n\ge3).
+\]
+This route recovers the upper coefficient \(8/(25\pi)\) without using the
+radius-one insertion theorem; it does not prove convergence, equality, or
+common minimizing orders. An exact test-only sweep covers all 437 canonical
+core orders and 2,957 insertion gaps through `n=8`, representing the same
+2,956 complete classes. The duplicate is the explicit two-arc `n=3` case.
+
 As of 2026-07-14, the former asymptotic target
 \[
 R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))
@@ -269,12 +298,31 @@ saturation for every \(n\ge3\).
   least \(n(n+1)(n+2)/6\), while every vertex-simple cycle with \(q\ge2\)
   has ratio at most half of \(\sum_{i=1}^n i^2\), smaller by
   \(n(n+1)/4\). Thus \(\Lambda(\sigma)\) and \(\Lambda_n\) are integers.
+- EXACT THEOREM: deleting label \(1\) from \(\sigma\) gives a core order
+  \(\tau\) for which
+  \[
+  \Lambda(\sigma)=K(\tau),
+  \qquad
+  K(\tau)=
+  \max_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P_\tau(U).
+  \]
+  The proof treats \(\{1\}\), \(\{1,j\}\), and subsets with two distinct
+  core neighbors \(a,b\) of \(1\); in the last case deletion raises the score
+  by \(ab-a-b\ge1\). Thus the score is independent of the insertion gap,
+  \(\Lambda_n=\min_\tau K(\tau)\), and the same-order comparison gives
+  \[
+  \Lambda_n\le(n-1)W_n,
+  \qquad
+  R_2^*(n)<{\Lambda_n\over\pi}
+  \le{(n-1)W_n\over\pi}.
+  \]
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): a descending-path/Karp
   `Fraction` scorer, independently checked by direct simple-cycle enumeration
   on every canonical order through `n=6`, gives
   \((\Lambda_3,\dots,\Lambda_8)=(12,26,47,77,118,172)\) over all 2,956
   canonical complete orders. The production enumerator hard-rejects `n>8`.
-  This finite result is neither an all-`n` formula nor a geometric certificate.
+  This finite result is neither a closed-form evaluation of the reduced
+  minimum nor a geometric certificate.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): a separate exact
   subset/path dynamic program and literal induced-subset oracle agree with one
   another and with production on all 2,956 canonical complete orders for
@@ -282,6 +330,13 @@ saturation for every \(n\ge3\).
   graph, or Karp recurrence; the production domain and ceiling remain
   unchanged. This verifies the bounded implementation, not the all-order
   proof.
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): every one of the 437
+  canonical core orders and all 2,957 cyclic insertion gaps for `n=3..8`
+  satisfy \(\Lambda(\sigma)=K(\tau)\) under both literal subset scoring and
+  the production scorer. These trials cover all 2,956 complete classes. Core
+  minimizer counts are `(1,1,1,3,4,12)` and complete minimizer counts are
+  `(1,3,4,15,24,84)`. At `n=3`, the two insertions into
+  \(\tau=(3,2)\) are reflections and give the same canonical complete class.
 - EXACT THEOREM: `research/ALL_N_LOWER_BOUND.md` proves the induced-subset
   lower-bound theorem. In particular, for every `n>=4` and `1<=m<=n-2`,
   \[
@@ -577,8 +632,13 @@ saturation for every \(n\ge3\).
    explains why the bounded `Fraction` outputs have denominator one. It does
    not reduce exact angular-STN feasibility to one-wrap cycles: those weights
    contain nonlinear \(\theta_R\) terms rather than only the separable
-   products used by \(\Lambda\). It also gives no formula for \(\Lambda_n\),
-   no new geometric optimum, and no new asymptotic coefficient.
+   products used by \(\Lambda\). Exact elimination of label \(1\) further
+   reduces \(\Lambda_n\) to \(\min_\tau K(\tau)\) and proves
+   \(\Lambda_n\le(n-1)W_n\). This is not a closed-form evaluation or a
+   minimizer classification, and insertion independence for \(\Lambda\) does
+   not transfer to the exact angular threshold. The resulting geometric upper
+   bound recovers the known coefficient \(8/(25\pi)\); it proves no exact
+   geometric optimum or new coefficient.
 
 ## Updated Research Questions
 
@@ -605,10 +665,11 @@ saturation for every \(n\ge3\).
   fixed/global sandwich, endpoint strictness, exact scorer, and bounded
   `n=3..8` prediction are recorded in
   `research/FIXED_ORDER_CYCLE_RATIO.md`. The one-wrap induced-subset
-  equivalence and all-order saturation are also closed there, with a separate
-  Karp-independent bounded oracle. Its distinction from \(W\), from exact
-  angular-STN cycle criticality, and its asymptotic non-consequences remain
-  explicit.
+  equivalence, all-order saturation, exact index-one elimination,
+  core-minimum reduction, and one-sided comparison with \(W_n\) are also
+  closed there, with separate Karp-independent and all-insertion bounded
+  oracles. Their distinction from exact angular-STN cycle criticality and
+  their asymptotic non-consequences remain explicit.
 
 ## Ranked Work
 
@@ -625,6 +686,11 @@ Completed:
   one-wrap score with induced-subset cyclic product sums, and verified the
   bounded property using a test-only exact oracle independent of production
   Karp scoring, without enlarging the production enumeration domain.
+- Proved exact elimination of label \(1\), reduced
+  \(\Lambda_n\) to \(\min_\tau K(\tau)\), derived
+  \(\Lambda_n\le(n-1)W_n\) and its all-\(n\) geometric upper bound, and
+  checked every canonical core order and insertion gap through `n=8` without
+  changing production limits or certification claims.
 
 Immediate:
 

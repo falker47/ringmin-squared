@@ -168,6 +168,27 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   closed walks may repeat maximizing one-wrap components. This product-weight
   theorem does not reduce the nonlinear exact angular STN to one-wrap cycle
   checks. In particular, \(\Lambda(\sigma)\) and \(\Lambda_n\) are integers.
+- DEFINITION: for a cyclic core order \(\tau\) of \(\{2,\ldots,n\}\), let
+  \[
+  K(\tau)
+  =
+  \max_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P_\tau(U),
+  \]
+  where the cyclic order is induced by \(\tau\), a singleton contributes
+  \(j^2\), and a two-element subset contributes \(2ij\).
+- EXACT THEOREM (INDEX-ONE ELIMINATION): if \(\tau\) is obtained from a
+  complete order \(\sigma\) by deleting label \(1\), then
+  \[
+  \Lambda(\sigma)=K(\tau),
+  \]
+  independently of the insertion gap of label \(1\). Subsets avoiding
+  \(1\) retain their score. The remaining cases are: \(\{1\}\) has score
+  \(1<4\); \(\{1,j\}\) has score \(2j\le j^2\); and if a subset has at
+  least two core labels with distinct core neighbors \(a,b\) around \(1\),
+  deleting \(1\) increases its score by
+  \(ab-a-b=(a-1)(b-1)-1\ge1\). Thus no maximizing subset contains label
+  \(1\). This theorem concerns \(\Lambda\), not \(\rho_\sigma\) or exact
+  fixed-order feasibility.
 - EXACT THEOREM: for every complete order and `n>=3`,
   \[
   {\Lambda(\sigma)\over\pi}-n^2
@@ -187,6 +208,26 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \qquad
   0<\Lambda_n-\pi R_2^*(n)<\pi n^2.
   \]
+- EXACT THEOREM: deletion is surjective from complete cyclic orders to core
+  cyclic orders, and every insertion has the same score, so
+  \[
+  \Lambda_n=\min_\tau K(\tau).
+  \]
+  Singleton terms do not attain \(K\), hence the accepted same-order
+  comparison gives
+  \[
+  K(\tau)\le\Lambda_{\rm same}(\tau)\le(n-1)W(\tau),
+  \qquad
+  \Lambda_n\le(n-1)W_n.
+  \]
+  Consequently the geometric infimum satisfies the all-\(n\) upper bound
+  \[
+  R_2^*(n)<{\Lambda_n\over\pi}
+  \le{(n-1)W_n\over\pi}
+  \qquad(n\ge3).
+  \]
+  This route neither uses radius-one insertion nor constructs regular
+  directions; it supplies an upper bound, not an exact optimum.
 - EXACT THEOREM: the additive relation transfers normalized asymptotics:
   \(\Lambda_n=\pi R_2^*(n)+O(n^2)=\Theta(n^3)\),
   \(\Lambda_n/(\pi R_2^*(n))\to1\), and
@@ -197,11 +238,13 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \le{8\over25}.
   \]
   This proves neither convergence nor an exact leading constant.
-- EXACT THEOREM / DISTINCTION: \(\Lambda\) is a complete-order directed-cycle
-  objective, while repository \(W\) is a core-order single-pair objective for
-  equal regular directions. On the same cyclic order of `m` labels one has
-  only \(\Lambda_{\rm same}\le mW_{\rm same}\), not equality. The global
-  complete/core minima and their minimizing order sets must not be identified.
+- EXACT THEOREM / DISTINCTION: \(\Lambda\) is natively a complete-order
+  directed-cycle objective, while repository \(W\) is a core-order
+  single-pair objective for equal regular directions. Elimination factors
+  \(\Lambda\) through the full core order via \(K\), but \(K\ne W\) in
+  general. Only the one-sided comparison
+  \(\Lambda_n\le(n-1)W_n\) is proved; equality and equality of minimizing
+  order sets are not claimed.
 - VERIFIED FACT: `src/power_ringmin/fixed_order_cycle_ratio.py` implements the
   exact scorer by maximum descending-path closure, a one-wrap macro graph, and
   Karp maximum-cycle-mean dynamic programming in integer/`Fraction`
@@ -217,10 +260,15 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   every canonical complete order through `n=6`. A separate exact subset/path
   oracle and literal induced-subset maximization agree on every one of the
   2,956 canonical complete orders through `n=8`, independently of production
-  descending closure, macro compression, and Karp scoring. This finite result
-  verifies the implementation but is not the all-order saturation proof, an
-  all-`n` formula for \(\Lambda_n\), an exact geometric optimum, or an
-  asymptotic theorem. The production bound remains `n<=8`.
+  descending closure, macro compression, and Karp scoring. A further exact
+  test checks all 437 canonical core orders and all 2,957 insertion gaps,
+  covering the same 2,956 complete classes. Core minimizer counts are
+  `(1,1,1,3,4,12)` and complete minimizer counts remain
+  `(1,3,4,15,24,84)`. At `n=3`, the two insertion arcs are reflections and
+  collapse to one complete class. This finite result verifies the
+  implementation but is not the all-order proof, a closed-form evaluation of
+  the reduced minimum, an exact geometric optimum, or an asymptotic theorem.
+  The production bound remains `n<=8`.
 - VERIFIED FACT: `research/FIXED_ORDER_CYCLE_RATIO.md` is the authoritative
   proof, algorithm, bounded-experiment, \(W\)-comparison, and limitations
   note.
@@ -877,7 +925,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   consequence \(W_n^{(\le2)}=B_n=W_n\) for every \(n\ge3\), together with
   minimizer-set equality through \(n=92\) and its first strict inclusion at
   \(n=93\), plus the exact one-wrap induced-subset characterization and
-  saturation of \(\Lambda(\sigma)\) for every complete order.
+  saturation of \(\Lambda(\sigma)\) for every complete order, exact
+  index-one elimination \(\Lambda(\sigma)=K(\tau)\), the reduced minimum
+  \(\Lambda_n=\min_\tau K(\tau)\), and the all-\(n\) upper comparison
+  \(R_2^*(n)<\Lambda_n/\pi\le(n-1)W_n/\pi\).
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to

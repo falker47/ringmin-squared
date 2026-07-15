@@ -11,10 +11,15 @@ from power_ringmin.fixed_order_cycle_ratio import (
     enumerate_fixed_order_cycle_ratio,
     fixed_order_cycle_ratio_score,
 )
-from power_ringmin.product_distance import product_distance_score
+from power_ringmin.product_distance import (
+    canonical_core_order_count,
+    canonical_core_orders,
+    product_distance_score,
+)
 from power_ringmin.search_small_n import (
     canonical_index_order_count,
     canonical_index_orders,
+    canonicalize_index_order,
 )
 
 
@@ -107,6 +112,18 @@ def _induced_subset_one_wrap_oracle(order: tuple[int, ...]) -> Fraction:
     return Fraction(best)
 
 
+def _insert_one_after(
+    core_order: tuple[int, ...],
+    left_position: int,
+) -> tuple[int, ...]:
+    """Insert label one in the cyclic gap after ``left_position``."""
+    return (
+        core_order[: left_position + 1]
+        + (1,)
+        + core_order[left_position + 1 :]
+    )
+
+
 def test_two_cycle_counts_both_edge_occurrences() -> None:
     score = fixed_order_cycle_ratio_score((3, 1, 2))
 
@@ -146,6 +163,96 @@ def test_independent_oracles_verify_one_wrap_saturation_n3_to_n8() -> None:
 
 def test_induced_subset_oracle_counts_two_element_product_twice() -> None:
     assert _induced_subset_one_wrap_oracle((3, 1, 2)) == 12
+
+
+def test_index_one_elimination_is_explicit_for_n3() -> None:
+    core_order = (3, 2)
+    inserted_orders = tuple(
+        _insert_one_after(core_order, position)
+        for position in range(len(core_order))
+    )
+
+    assert _induced_subset_one_wrap_oracle(core_order) == max(
+        3 * 3,
+        2 * 2,
+        2 * 3 * 2,
+    ) == 12
+    assert inserted_orders == ((3, 1, 2), (3, 2, 1))
+    assert {
+        canonicalize_index_order(order) for order in inserted_orders
+    } == {(3, 1, 2)}
+    assert {
+        fixed_order_cycle_ratio_score(order) for order in inserted_orders
+    } == {Fraction(12)}
+
+
+def test_index_one_elimination_on_all_core_orders_and_insertions_n3_to_n8() -> None:
+    expected = {
+        3: (1, 2, 1, 12, 1, 1),
+        4: (1, 3, 3, 26, 1, 3),
+        5: (3, 12, 12, 47, 1, 4),
+        6: (12, 60, 60, 77, 3, 15),
+        7: (60, 360, 360, 118, 4, 24),
+        8: (360, 2_520, 2_520, 172, 12, 84),
+    }
+
+    total_core_orders = 0
+    total_insertion_trials = 0
+    total_complete_orders = 0
+
+    for n, row in expected.items():
+        (
+            expected_core_count,
+            expected_insertion_count,
+            expected_complete_count,
+            expected_optimum,
+            expected_core_minimizers,
+            expected_complete_minimizers,
+        ) = row
+        core_scores: dict[tuple[int, ...], Fraction] = {}
+        complete_scores: dict[tuple[int, ...], Fraction] = {}
+        insertion_count = 0
+
+        for core_order in canonical_core_orders(n):
+            core_score = _induced_subset_one_wrap_oracle(core_order)
+            core_scores[core_order] = core_score
+            assert core_score <= (n - 1) * product_distance_score(core_order)
+
+            for left_position in range(len(core_order)):
+                complete_order = _insert_one_after(core_order, left_position)
+                complete_score = fixed_order_cycle_ratio_score(complete_order)
+                canonical_complete_order = canonicalize_index_order(complete_order)
+
+                assert _induced_subset_one_wrap_oracle(complete_order) == core_score
+                assert complete_score == core_score
+                previous = complete_scores.get(canonical_complete_order)
+                if previous is not None:
+                    assert previous == complete_score
+                complete_scores[canonical_complete_order] = complete_score
+                insertion_count += 1
+
+        optimum = min(core_scores.values())
+        assert canonical_core_order_count(n) == expected_core_count
+        assert len(core_scores) == expected_core_count
+        assert insertion_count == expected_insertion_count
+        assert set(complete_scores) == set(canonical_index_orders(n))
+        assert len(complete_scores) == canonical_index_order_count(n)
+        assert len(complete_scores) == expected_complete_count
+        assert optimum == expected_optimum
+        assert sum(score == optimum for score in core_scores.values()) == (
+            expected_core_minimizers
+        )
+        assert sum(score == optimum for score in complete_scores.values()) == (
+            expected_complete_minimizers
+        )
+
+        total_core_orders += len(core_scores)
+        total_insertion_trials += insertion_count
+        total_complete_orders += len(complete_scores)
+
+    assert total_core_orders == 437
+    assert total_insertion_trials == 2_957
+    assert total_complete_orders == 2_956
 
 
 def test_score_is_invariant_under_rotation_and_reflection() -> None:

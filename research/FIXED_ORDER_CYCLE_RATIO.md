@@ -24,6 +24,19 @@ in `research/ALL_N_LOWER_BOUND.md`.
   cycle with at least two wraps has strictly smaller ratio. Thus the fixed-
   order and global scores are integers, although the implementation retains
   its exact `Fraction` return type.
+- **EXACT THEOREM:** if \(\tau\) is obtained from \(\sigma\) by deleting
+  label \(1\), and \(K(\tau)\) is the maximum induced cyclic product sum over
+  nonempty core subsets, then
+  \(\Lambda(\sigma)=K(\tau)\), independently of the insertion gap of label
+  \(1\). Consequently \(\Lambda_n=\min_\tau K(\tau)\).
+- **EXACT THEOREM:** the accepted same-order comparison gives
+  \(\Lambda_n\le(n-1)W_n\). Combined with the strict cyclic-ratio sandwich,
+  this yields
+  \[
+  R_2^*(n)<{\Lambda_n\over\pi}
+  \le{(n-1)W_n\over\pi}
+  \qquad(n\ge3).
+  \]
 - **EXACT THEOREM:** the maximum ratio \(\Lambda(\sigma)\) gives the requested
   fixed-order sandwich
   \[
@@ -43,13 +56,19 @@ in `research/ALL_N_LOWER_BOUND.md`.
   recurrence, agrees with literal induced-subset maximization on all 2,956
   canonical orders for \(n=3,\ldots,8\). This regression is not the proof of
   the all-\(n\) theorem.
+- **VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION):** a separate
+  all-core/all-insertion regression checks 437 canonical core orders and all
+  2,957 insertion gaps for \(n=3,\ldots,8\). It covers the same 2,956
+  complete rotation/reflection classes; the extra trial is the explicit
+  two-arc degeneracy at \(n=3\).
 - **VERIFIED FACT:** `src/power_ringmin/fixed_order_cycle_ratio.py` implements
   a float-free exact scorer using descending-path compression and Karp's
   maximum-cycle-mean dynamic program. Direct simple-cycle enumeration is not
   used in production and exists only as an independent small-test oracle.
-- **LIMITATION:** the finite table is not an all-\(n\) formula or evidence for
-  convergence to a new asymptotic constant. No interval backend, verifier,
-  certificate, checked artifact, schema, or example is changed by this work.
+- **LIMITATION:** the exact core reduction is not a closed-form evaluation of
+  its minimum or evidence for convergence to a new asymptotic constant. No
+  interval backend, verifier, certificate, checked artifact, schema, or
+  example is changed by this work.
 
 ## 1. Complete Fixed-Order STN
 
@@ -303,6 +322,106 @@ cycle. Equality in the weighted average (CR10) requires every simple
 component to be one-wrap and maximizing. The strict separation in (CR12g) is
 specifically a statement about vertex-simple multi-wrap cycles.
 
+### Exact elimination of label \(1\)
+
+Let
+\[
+\tau=(a_0,\ldots,a_{n-2})
+\tag{CR12i}
+\]
+be the cyclic core order obtained from \(\sigma\) by deleting label \(1\).
+For a nonempty subset \(U\subseteq\{2,\ldots,n\}\), write
+\(P_\tau(U)\) for the cyclic adjacent-product sum in the order induced by
+\(\tau\), with the same conventions
+\[
+P_\tau(\{j\})=j^2,
+\qquad
+P_\tau(\{i,j\})=2ij.
+\tag{CR12j}
+\]
+Define
+\[
+\boxed{
+K(\tau)
+=
+\max_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P_\tau(U).
+}
+\tag{CR12k}
+\]
+Because every label occurs once, label subsets and their position subsets
+will be identified below.
+
+Every subset avoiding label \(1\) has exactly the same induced cyclic order
+before and after deletion, so
+\[
+P_\sigma(U)=P_\tau(U)
+\qquad
+(\varnothing\ne U\subseteq\{2,\ldots,n\}).
+\tag{CR12l}
+\]
+In particular, a core subset attaining \(K(\tau)\) supplies the same score
+inside \(\sigma\).
+
+It remains to classify the subsets containing label \(1\).
+
+1. The singleton has
+   \[
+   P_\sigma(\{1\})=1<4=P_\tau(\{2\})\le K(\tau).
+   \tag{CR12m}
+   \]
+2. For \(j\ge2\), the two-element convention gives
+   \[
+   P_\sigma(\{1,j\})=2j\le j^2=P_\tau(\{j\})\le K(\tau).
+   \tag{CR12n}
+   \]
+   The first inequality is an equality only at \(j=2\).
+3. Suppose \(T\) contains label \(1\) and at least two core labels, and put
+   \(U=T\setminus\{1\}\). Let \(a,b\) be the two distinct core neighbors
+   of \(1\) in the cyclic order induced by \(T\). Deleting \(1\) replaces
+   the two contributions \(a\cdot1+1\cdot b\) by one contribution \(ab\).
+   Hence
+   \[
+   P_\tau(U)-P_\sigma(T)
+   =ab-a-b
+   =(a-1)(b-1)-1
+   \ge1,
+   \tag{CR12o}
+   \]
+   because \(a,b\) are distinct integers at least two. This calculation also
+   covers \(|U|=2\): in that case \(P_\tau(U)=2ab\), and only the occurrence
+   on the arc through label \(1\) is replaced.
+
+Thus every subset containing label \(1\) is bounded by a core subset, while
+(CR12l) realizes the core maximum unchanged. Combining this classification
+with (CR12h) proves
+\[
+\boxed{
+\Lambda(\sigma)=K(\tau).
+}
+\tag{CR12p}
+\]
+The right side contains no insertion-gap data: the cyclic-ratio score is
+therefore independent of where label \(1\) is inserted into a fixed core
+order. Equation (CR12o) makes the third case strictly smaller than its core
+deletion. The first two cases have score at most \(n^2\), while
+\[
+K(\tau)\ge P_\tau(\{n-1,n\})=2n(n-1)>n^2.
+\tag{CR12q}
+\]
+Hence no maximizing subset contains label \(1\).
+This independence concerns the separable product score \(\Lambda\), not the
+exact angular threshold \(\rho_\sigma\) or fixed-order feasibility.
+
+The smallest case is explicit. For \(n=3\), the unique core class is
+\(\tau=(3,2)\), and its nonempty-subset scores are \(9,4,12\), so
+\[
+K(3,2)=12.
+\tag{CR12r}
+\]
+Insertion into its two cyclic arcs gives \((3,1,2)\) and \((3,2,1)\).
+They are reflections, represent one complete canonical class, and both have
+\(\Lambda=12\).
+
 ## 3. Exact Fixed-Order Sandwich
 
 For distinct \(1\le i,j\le n\) and \(R>0\), the two angular estimates needed
@@ -461,6 +580,22 @@ Thus the exact global additive relation is
 \tag{CR28}
 \]
 
+Let \(\mathcal T_n\) be the finite cyclic-order space of the core labels
+\(\{2,\ldots,n\}\). Deleting label \(1\) maps every complete cyclic order
+to one member of \(\mathcal T_n\), and inserting label \(1\) into any core
+gap supplies a complete preimage. Equation (CR12p) is constant over all such
+preimages. Therefore the global objective has the exact reduced form
+\[
+\boxed{
+\Lambda_n
+=
+\min_{\tau\in\mathcal T_n}K(\tau).
+}
+\tag{CR28a}
+\]
+This is a reduction from complete to core orders, not a closed-form evaluation
+or a classification of the minimizing core orders.
+
 ## 5. Exact Scorer Without Cycle Enumeration
 
 The proof that simple cycles suffice does not make their enumeration the
@@ -592,15 +727,37 @@ canonical orders. The supplied prediction
 \]
 is reproduced exactly, so there is no counterexample to preserve in this
 bounded domain. The counts and representative orders are additional finite
-data, not an all-\(n\) formula or conjecture. The independent oracle also
+data, not a closed-form evaluation or conjecture. The independent oracle also
 verifies \(\Lambda=\Lambda^{(1)}\) on every one of these bounded orders, but
 the all-order equality is the exact proof (CR12a)--(CR12h), not this finite
 regression. The production ceiling remains 2,520 canonical orders at
 \(n=8\); no larger production enumeration was enabled.
 
+The elimination theorem has a separate test-only regression over every
+canonical core order and every cyclic insertion gap. The exact counts are:
+
+| \(n\) | Canonical core orders | Insertion trials | Distinct complete classes | \(\min K=\Lambda_n\) | Core \(K\)-minimizers | Complete \(\Lambda\)-minimizers |
+|---:|---:|---:|---:|---:|---:|---:|
+| 3 | 1 | 2 | 1 | 12 | 1 | 1 |
+| 4 | 1 | 3 | 3 | 26 | 1 | 3 |
+| 5 | 3 | 12 | 12 | 47 | 1 | 4 |
+| 6 | 12 | 60 | 60 | 77 | 3 | 15 |
+| 7 | 60 | 360 | 360 | 118 | 4 | 24 |
+| 8 | 360 | 2,520 | 2,520 | 172 | 12 | 84 |
+
+In total, 437 core classes and 2,957 insertion trials cover all 2,956
+complete classes. The sole duplicate is the explicit \(n=3\) reflection in
+(CR12r). For \(n\ge4\), every core class has \(n-1\) distinct labeled cyclic
+gaps, so the complete minimizer count is \((n-1)\) times the core minimizer
+count. Each insertion is checked both by literal exact subset maximization and
+by the production scorer. This is a **VERIFIED FACT (FINITE EXHAUSTIVE EXACT
+COMPUTATION)**, not the proof of (CR12p), and it does not extend the production
+domain beyond \(n=8\).
+
 ## 7. Comparison With \(W\)
 
-The two symbols describe different combinatorial relaxations.
+The native definitions of the two symbols describe different combinatorial
+relaxations.
 
 - \(\Lambda(\sigma)\) uses a **complete** order of
   \(\{1,\ldots,n\}\), sums products around directed STN cycles, and divides
@@ -611,10 +768,11 @@ The two symbols describe different combinatorial relaxations.
   \(ij/d_\tau(i,j)\), and controls a construction on equally spaced regular
   directions.
 
-Thus neither their order domains nor their objectives agree. In particular,
-the last two columns of the bounded table are a comparison of separate exact
-finite computations, not evidence that
-\(\Lambda_n=(n-1)W_n\) or that their minimizers coincide.
+Exact label-one elimination bridges the order domains through the core
+objective \(K\), but it does not identify \(K\) with the scalar pair objective
+\(W\). In particular, the last two columns of the bounded table compare
+separate exact objectives; they do not establish
+\(\Lambda_n=(n-1)W_n\) or equality of minimizing order sets.
 
 There is one useful exact comparison after first putting both quantities on
 the **same** order. Let
@@ -658,17 +816,60 @@ Since each edge product is at most
 This need not be equality: on the core order \(\tau=(4,2,3)\),
 \(\Lambda_{\rm same}(\tau)=26\), while \(3W(\tau)=36\).
 
-Deleting label \(1\) still does not make the full \(\Lambda\) score a
-function of the induced-core \(W\) score. Exact finite examples at \(n=6\)
-are:
+For a Power-Ringmin core order, singleton scores do not attain \(K\), because
+the pair \(\{n-1,n\}\) has score \(2n(n-1)>n^2\). Every relevant subset in
+the definition of \(K(\tau)\) is therefore a one-wrap cycle admitted by
+\(\Lambda_{\rm same}(\tau)\). Applying (CR38) with \(m=n-1\) gives the
+pointwise comparison
+\[
+\boxed{
+K(\tau)
+\le\Lambda_{\rm same}(\tau)
+\le(n-1)W(\tau).
+}
+\tag{CR38a}
+\]
+Using the exact reduction (CR28a) and choosing an order minimizing \(W\),
+\[
+\boxed{
+\Lambda_n\le(n-1)W_n.
+}
+\tag{CR38b}
+\]
+The inequality is intentionally non-strict; equality holds at \(n=3\).
+Combining it with (CR27) yields the geometric upper bound
+\[
+\boxed{
+R_2^*(n)
+< {\Lambda_n\over\pi}
+\le {(n-1)W_n\over\pi}
+\qquad(n\ge3).
+}
+\tag{CR38c}
+\]
+Unlike the regular-direction construction followed by radius-one insertion,
+this deduction is valid for every \(n\ge3\) and uses neither construction.
+It is an upper bound, not an exact geometric optimum or a certificate claim.
+Since the separately proved product-distance theorem gives
+\(W_n/n^2\to8/25\), it also recovers
+\[
+\limsup_{n\to\infty}{\Lambda_n\over n^3}\le{8\over25},
+\qquad
+\limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{8\over25\pi}.
+\tag{CR38d}
+\]
+
+Deleting label \(1\) makes the full \(\Lambda\) score a function of the
+entire induced core order through \(K\), but not a function of the single
+number \(W(\tau)\). Exact finite examples at \(n=6\) are:
 
 - `(6,1,2,4,5,3)` and `(6,3,5,2,1,4)` both have \(\Lambda=77\), while
   their induced-core \(W\) scores are respectively \(20\) and \(24\);
 - `(6,1,2,4,5,3)` and `(6,2,5,4,1,3)` both induce \(W=20\), while their
   full scores are respectively \(77\) and \(80\).
 
-These examples disprove identification of the two order scores; they do not
-establish a general ordering between the global minima.
+These examples disprove identification of \(K\) with \(W\); they are
+consistent with the global one-sided comparison (CR38b).
 
 ## 8. Asymptotic Consequences And Non-Consequences
 
@@ -709,13 +910,16 @@ and
 
 None of these statements proves that either normalized sequence converges, or
 identifies an exact leading constant. In particular, the bounded values in
-(CR34) do not imply an all-\(n\) formula; \(8/25\) remains an upper
-coefficient, not an exact constant.
+(CR34) do not give a closed-form evaluation of (CR28a); \(8/25\) remains an
+upper coefficient, not an exact constant.
 
 Further non-consequences are important.
 
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality
-  of minimizing order sets, or \(\Lambda_n=(n-1)W_n\).
+  of minimizing order sets, or \(\Lambda_n=(n-1)W_n\). The exact global
+  relation proved here is the one-sided inequality (CR38b).
+- Insertion-gap independence applies to \(\Lambda(\sigma)\), not to the exact
+  angular threshold \(\rho_\sigma\) or to fixed-order feasible-radius sets.
 - One-wrap saturation concerns the separable product weights
   \(\sigma_u\sigma_v\). It does not show that checking only one-wrap cycles
   suffices for the exact angular STN weights
