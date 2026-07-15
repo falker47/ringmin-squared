@@ -34,10 +34,10 @@ The first explicit linear tail block now also gives the rigorous lower
 coefficients
 \[
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
-\ge {139-25\sqrt2\over375},
+\ge {117\sqrt2-158\over27},
 \qquad
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-\ge {139-25\sqrt2\over375\pi}.
+\ge {117\sqrt2-158\over27\pi}.
 \]
 These are one-sided bounds and do not prove convergence or identify an exact
 leading coefficient.
@@ -244,7 +244,7 @@ the exact split-history/prefix objective satisfies
 \[
 \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
 \ge
-{389-275\sqrt2\over375}n^3-O(n^2).
+{99\sqrt2-140\over27}n^3-O(n^2).
 \]
 The proof uses the exact base-cycle slack identity
 \[
@@ -253,33 +253,46 @@ P(C)-P_{r_n,n}
 {1\over2}\sum_{\{u,v\}\in E(C)}
 (u+v-n-r_n)^2
 \]
-and the prefix ending at \(s_n=\lceil2n/5\rceil\). Intact base-edge splits
+and the optimized parameters
+\[
+\beta_*={3\sqrt2\over4}-{2\over3},
+\qquad
+\lambda_*={88-48\sqrt2\over49},
+\qquad
+s_n^*=\lceil\beta_*n\rceil.
+\]
+The proof-valid region is exactly
+\((0,\sqrt2-1)\times[0,1]\), and exact elimination makes
+\((\beta_*,\lambda_*)\) the unique maximin point in the positive-cubic
+subregion. Intact base-edge splits
 are charged once against their own slack; every recursive child-edge split
-has a separate positive local floor. The maximum over all prefixes retains
+has a separate local floor which exact finite algebra proves is strictly above
+the base floor. The maximum over all prefixes retains
 both zero and the selected prefix. Thus no compatible history has
-\(o(n^3)\) excess for this block. In addition, CR28bg uses the nonstarred
+\(o(n^3)\) excess for this block. The displayed coefficient is optimal within
+CR28ax--CR28bg, not the exact block residual. In addition, CR28bg uses the nonstarred
 pairing floor and gives, without exchanging a maximum and a minimum,
 \[
 \Lambda_n
 \ge\Gamma_n^{(r_n)}
 \ge\gamma^{(r_n)}_{1,n}
-\ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}
-\qquad(n\ge141).
+\ge P_{r_n,n}+(r_n-s_n^*)F_n^*
+\qquad(n\ge99).
 \]
 Indeed, for each fixed \(m\), pointwise domination by
 \(\Lambda(\sigma)\) is minimized first; \(\Gamma_n^{(r_n)}\) then maximizes
 the resulting scalar lower bounds. With
 \[
-c={139-25\sqrt2\over375},
+c={117\sqrt2-158\over27},
 \qquad
-b={40\sqrt2-54\over75},
+b={136-96\sqrt2\over9},
 \]
 this proves the finite consequences
 \[
 \Lambda_n\ge cn^3-bn^2,
 \qquad
 R_2^*(n)>{c\over\pi}n^3-\left(1+{b\over\pi}\right)n^2
-\qquad(n\ge141).
+\qquad(n\ge99).
 \]
 The result supplies a global and geometric lower coefficient, but not the
 exact residual coefficient, convergence, an exact leading coefficient, or a
@@ -303,16 +316,16 @@ The best leading coefficient obtainable from the single-subset relaxation
 \]
 The separate relational extension to two consecutive tails has the same best
 leading coefficient after its cycle-signature constraints are enforced.
-These are method-specific optimality statements. The first linear block
-strictly improves the global lower coefficient to
-\((139-25\sqrt2)/(375\pi)\), but that value is still only a proved lower
+These are method-specific optimality statements. The optimized first linear
+block strictly improves the global lower coefficient to
+\((117\sqrt2-158)/(27\pi)\), but that value is still only a proved lower
 coefficient, not an exact asymptotic constant for Power-Ringmin.
 
 The zigzag regular-direction construction historically improved the proved
 upper coefficient from \(1/\pi\) to \(1/(2\pi)\). It is now superseded by the
 product-distance construction below, which gives \(8/(25\pi)\). Neither upper
 bound matches the current first-linear-block geometric lower coefficient
-\((139-25\sqrt2)/(375\pi)\). The zigzag
+\((117\sqrt2-158)/(27\pi)\). The zigzag
 theorem itself generated no leading-order LP, new finite certificate, `n=7`
 certificate, preflight artifact, permutation optimization, or exhaustive
 enumeration.
@@ -611,28 +624,45 @@ saturation for every \(n\ge3\).
   \]
   for every \(r(n)=o(n)\), and the normalized error is \(o(1)\). Linear
   \(r=\Theta(n)\) is the first scale this comparison does not settle.
+- EXACT TEMPLATE OPTIMIZATION (FIRST LINEAR BLOCK): the proof-valid region is
+  \((0,\sqrt2-1)\times[0,1]\), the positive-cubic subregion is
+  \[
+  {\sqrt2\over4}<\beta<\sqrt2-1,
+  \qquad
+  0<\lambda<{2\sqrt2\,\beta-1\over\beta^2},
+  \]
+  and exact elimination gives the unique optimizer displayed below. Its
+  residual coefficient is \((99\sqrt2-140)/27\), strictly above the former
+  \((2/5,1/2)\) value. This is optimality inside CR28ax--CR28bg only.
 - EXACT THEOREM (FIRST LINEAR BLOCK, GLOBAL CONSEQUENCE): for
   \(r_n=\lfloor(\sqrt2-1)n\rfloor\),
-  \(s_n=\lceil2n/5\rceil\), and \(n\ge141\),
+  \[
+  \beta_*={3\sqrt2\over4}-{2\over3},
+  \qquad
+  \lambda_*={88-48\sqrt2\over49},
+  \qquad
+  s_n^*=\lceil\beta_*n\rceil,
+  \]
+  and \(n\ge99\),
   \[
   \Lambda_n
   \ge\Gamma_n^{(r_n)}
   \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}.
+  \ge P_{r_n,n}+(r_n-s_n^*)F_n^*.
   \]
   This selects \(m=1\) only after proving
   \(\Lambda_n\ge\gamma^{(r_n)}_{m,n}\) separately for every \(m\); it does
   not exchange a maximum with a minimum. Exactly,
   \[
   \Lambda_n
-  \ge {139-25\sqrt2\over375}n^3
-  -{40\sqrt2-54\over75}n^2,
+  \ge {117\sqrt2-158\over27}n^3
+  -{136-96\sqrt2\over9}n^2,
   \]
   and the strict global sandwich gives
   \[
   R_2^*(n)>
-  {139-25\sqrt2\over375\pi}n^3
-  -\left(1+{40\sqrt2-54\over75\pi}\right)n^2.
+  {117\sqrt2-158\over27\pi}n^3
+  -\left(1+{136-96\sqrt2\over9\pi}\right)n^2.
   \]
   The resulting liminf coefficients are rigorous lower bounds, not exact
   leading coefficients or a convergence statement.
@@ -771,10 +801,10 @@ saturation for every \(n\ge3\).
   gives
   \[
   \liminf_{n\to\infty}{\Lambda_n\over n^3}
-  \ge {139-25\sqrt2\over375},
+  \ge {117\sqrt2-158\over27},
   \qquad
   \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-  \ge {139-25\sqrt2\over375\pi}.
+  \ge {117\sqrt2-158\over27\pi}.
   \]
   This strictly improves the single-subset lower coefficient, while proving
   neither convergence nor an exact leading coefficient.
@@ -985,7 +1015,7 @@ saturation for every \(n\ge3\).
 2. Any future asymptotic upper-bound target must be compatible with
    \[
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-   \ge {139-25\sqrt2\over375\pi}.
+   \ge {117\sqrt2-158\over27\pi}.
    \]
    This roadmap records a lower coefficient, not a proposed exact constant.
 
@@ -1011,7 +1041,7 @@ saturation for every \(n\ge3\).
 6. The symbolic product-distance construction supersedes zigzag and gives the
    rigorous liminf/limsup bracket
    \[
-   {139-25\sqrt2\over375\pi}
+   {117\sqrt2-158\over27\pi}
    \le
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
    \le
@@ -1097,21 +1127,23 @@ saturation for every \(n\ge3\).
     \[
     \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
     \ge
-    {389-275\sqrt2\over375}n^3-O(n^2).
+    {99\sqrt2-140\over27}n^3-O(n^2).
     \]
     It charges every intact base edge at most once and covers every recursive
     split locally, so recursive domino compatibility and the maximum over all
-    prefixes remain literal. This closes the subcubic-versus-cubic
-    alternative only for the named block. CR28bg nevertheless transfers it
-    to the proved global lower coefficients above. It does not give the exact
-    residual coefficient, convergence, or an exact leading coefficient for
-    \(\Lambda_n\) or \(R_2^*(n)\).
+    prefixes remain literal. Exact elimination proves this coefficient is the
+    maximum available from the cutoff/weight template, strictly improving the
+    old \((2/5,1/2)\) specialization. This closes the optimization and the
+    subcubic-versus-cubic alternative only for the named certificate. CR28bg
+    nevertheless transfers it to the proved global lower coefficients above.
+    It does not give the exact residual coefficient, convergence, or an exact
+    leading coefficient for \(\Lambda_n\) or \(R_2^*(n)\).
 
 ## Updated Research Questions
 
 - OPEN QUESTION: what geometric upper-bound construction, if any, narrows or
   matches the current first-linear-block lower coefficient
-  \((139-25\sqrt2)/(375\pi)\) up to lower-order terms?
+  \((117\sqrt2-158)/(27\pi)\) up to lower-order terms?
 - OPEN QUESTION: can the previous reduced-core observations at checked
   `n=5,6` be related to the exact feasible-radius-set equality for
   \(n\ge12\), or are their lower-cycle proxies a separate finite phenomenon?
@@ -1119,7 +1151,7 @@ saturation for every \(n\ge3\).
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
 - OPEN QUESTION: can the gap between the first-linear-block geometric lower
-  coefficient \((139-25\sqrt2)/(375\pi)\) and the product-distance upper
+  coefficient \((117\sqrt2-158)/(27\pi)\) and the product-distance upper
   coefficient \(8/(25\pi)\) be narrowed by a sharper angular construction or
   a stronger lower bound?
 - OPEN QUESTION: for which other linear block densities and starting indices
@@ -1262,16 +1294,17 @@ Completed:
   \(r=\Theta(n)\) as the first scale not excluded. Added a bounded exact
   \(r=4\) oracle only; production code and limits remain unchanged.
 - Proved a positive cubic residual for the first explicit linear block
-  \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\). The exact finite bound uses
-  \(s_n=\lceil2n/5\rceil\), a quadratic base-edge slack identity, one-use
-  charging for intact base splits, and a separate recursive-split floor. It
-  yields
-  \(c_0=(389-275\sqrt2)/375>0\), keeps the full prefix maximum and literal
-  compatibility, and adds only bounded exact test-local diagnostics. The
-  nonstarred CR28bg floor transfers this to the exact global chain and the
-  improved lower coefficients
-  \((139-25\sqrt2)/375\) for \(\Lambda_n\) and
-  \((139-25\sqrt2)/(375\pi)\) for \(R_2^*(n)\), without a max--min exchange.
+  \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\), then optimized the exact
+  cutoff/weight template. The proof-valid and positive-cubic regions, literal
+  intact/recursive floors, and unique maximin parameters
+  \((\beta_*,\lambda_*)\) are exact. The template-optimal residual coefficient
+  is \((99\sqrt2-140)/27\), strictly above the former specialization. The
+  nonstarred CR28bg floor transfers this to lower coefficients
+  \((117\sqrt2-158)/27\) for \(\Lambda_n\) and
+  \((117\sqrt2-158)/(27\pi)\) for \(R_2^*(n)\), without a max--min exchange.
+  Bounded exact diagnostics cover all 7,140 depth-two histories at \(n=141\)
+  and every rounded finite bound through \(n=1000\), without production or
+  enumeration-limit changes.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -1280,19 +1313,15 @@ Completed:
 
 Immediate:
 
-- In a fresh bounded task, optimize the same block-local slack/prefix
-  certificate over its cutoff and averaging weight, determining the best
-  rigorously certified cubic lower constant available from that template or
-  proving the current parameters optimal within it.
+- Extend the independent test-only Arb endpoint-sign cross-check from the
+  checked `n=3` artifact to the existing checked `n=4` artifact, without
+  changing production verification or certification claims.
 
 Next:
 
 - Seek a geometric all-pairs construction or lower obstruction that narrows
   the remaining coefficient gap without relying on larger exhaustive finite
   certificates.
-- Extend the independent test-only Arb endpoint-sign cross-check from the
-  checked `n=3` artifact to the existing checked `n=4` artifact, without
-  changing production verification or certification claims.
 - Keep the exact radius-one theorem separate from finite critical-cycle proxy
   claims and from any assumption that an optimum is attained.
 
@@ -1319,21 +1348,16 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: optimize the finite-dimensional certificate for the first
-linear-density block.
+Task: extend the independent test-only Arb endpoint-sign cross-check to the
+existing checked `n=4` certificate.
 
 Acceptance criteria:
 
-- keep \(m=1\) and
-  \(r_n=\lfloor(\sqrt2-1)n\rfloor\) fixed;
-- replace the chosen cutoff \(2/5\) and the averaging factor \(1/2\) by
-  explicit admissible parameters, deriving the intact-base and recursive
-  local floors without relaxing literal compatibility;
-- solve the resulting bounded limiting maximin problem exactly or with a
-  rigorous symbolic certificate, and compare its constant with
-  \((389-275\sqrt2)/375\);
-- preserve the distinction between a certified lower constant and the exact
-  residual coefficient;
-- use exact symbolic reasoning and only bounded test-local diagnostics; do
-  not expand production enumeration or claim convergence or an exact
-  geometric leading coefficient.
+- keep the path test-local and independent of the guarded production interval
+  backend and its stored enclosures;
+- cover every embedded lower-cycle and upper-witness local record in the
+  checked `n=4` artifact, including decisive endpoint signs and slack counts;
+- record exact artifact coverage and bounded Arb precision in the task
+  evidence;
+- do not alter production verification, schemas, checked artifacts,
+  certification semantics, or enumeration limits.

@@ -58,30 +58,34 @@ Last updated: 2026-07-15
   \[
   r_n=\lfloor(\sqrt2-1)n\rfloor,
   \qquad
-  s_n=\left\lceil{2n\over5}\right\rceil.
+  s_n^*=\left\lceil
+  \left({3\sqrt2\over4}-{2\over3}\right)n
+  \right\rceil,
+  \qquad
+  \lambda_*={88-48\sqrt2\over49}.
   \]
   With the consecutive-tail quantities defined in
-  `research/FIXED_ORDER_CYCLE_RATIO.md`, for every \(n\ge141\),
+  `research/FIXED_ORDER_CYCLE_RATIO.md`, for every \(n\ge99\),
   \[
   \Lambda_n
   \ge\Gamma_n^{(r_n)}
   \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}.
+  \ge P_{r_n,n}+(r_n-s_n^*)F_n^*.
   \]
   No maximum and minimum are exchanged: for each fixed \(m\), pointwise
   domination by \(\Lambda(\sigma)\) is minimized first, and only the resulting
   scalar lower bounds are maximized over \(m\). Consequently, with
   \[
-  c={139-25\sqrt2\over375},
+  c={117\sqrt2-158\over27},
   \qquad
-  b={40\sqrt2-54\over75},
+  b={136-96\sqrt2\over9},
   \]
   one has the explicit finite bounds
   \[
   \Lambda_n\ge cn^3-bn^2,
   \qquad
   R_2^*(n)>{c\over\pi}n^3-\left(1+{b\over\pi}\right)n^2
-  \qquad(n\ge141),
+  \qquad(n\ge99),
   \]
   and hence
   \[
@@ -168,9 +172,9 @@ The lower-bound proof uses only necessary consequences of all-pairs feasibility.
 The coefficient \(2(\sqrt2-1)/(3\pi)\) remains optimal for the
 single-subset pairing relaxation analyzed directly here. The relational
 extension using two consecutive tails is a distinct, stronger finite schema;
-its separate exact analysis proves the same leading coefficient. The first
-linear block improves the global lower coefficient to
-\((139-25\sqrt2)/(375\pi)\). None of these lower-bound results is an upper
+its separate exact analysis proves the same leading coefficient. The optimized
+first linear block improves the global lower coefficient to
+\((117\sqrt2-158)/(27\pi)\). None of these lower-bound results is an upper
 bound on the true problem. The order-independent regular-core baseline has
 upper coefficient \(1/\pi\), the zigzag refinement gives \(1/(2\pi)\), and
 the later product-distance construction sharpens the current upper
@@ -724,7 +728,11 @@ bound. Put
 \[
 r=r_n=\lfloor(\sqrt2-1)n\rfloor,
 \qquad
-s=s_n=\left\lceil{2n\over5}\right\rceil.
+s=s_n^*=\left\lceil
+\left({3\sqrt2\over4}-{2\over3}\right)n
+\right\rceil,
+\qquad
+\lambda_*={88-48\sqrt2\over49}.
 \]
 For a fixed admissible starting index \(m\), define
 \[
@@ -746,18 +754,30 @@ these already-minimized scalar lower bounds gives
 =\Gamma_n^{(r)}.
 \]
 Thus no maximum is interchanged with a minimum. Since \(m=1\) is admissible,
-CR28bg gives, for every \(n\ge141\),
+CR28bg gives, for every \(n\ge99\),
 \[
 \boxed{
 \Lambda_n
 \ge\Gamma_n^{(r_n)}
 \ge\gamma^{(r_n)}_{1,n}
-\ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}.
+\ge P_{r_n,n}+(r_n-s_n^*)F_n^*.
 }
 \]
 The last term uses the duplicated-pairing floor \(P_{r_n,n}\), not the exact
 inner-cycle minimum \(P^*_{r_n,n}\). The latter belongs to the separate
 residual comparison CR28bi.
+
+The proof-valid parameter region is exactly
+\((0,\sqrt2-1)\times[0,1]\), while the strictly positive-cubic subregion is
+\[
+{\sqrt2\over4}<\beta<\sqrt2-1,
+\qquad
+0<\lambda<{2\sqrt2\,\beta-1\over\beta^2}.
+\]
+Exact elimination in `research/FIXED_ORDER_CYCLE_RATIO.md` proves that
+\((\beta_*,\lambda_*)\) above is the unique maximizer and gives the residual
+coefficient \((99\sqrt2-140)/27\). This is template-specific optimality, not
+an exact residual or geometric asymptotic coefficient.
 
 The finite coefficient can be read without losing the floor information.
 Write
@@ -782,28 +802,28 @@ The right-hand side is at least
 (\sqrt2-1)n^2-{4+\sqrt2\over3}n-{1\over6}>0
 \qquad(n\ge5).
 \]
-The local estimates CR28aw and CR28bk give
+The optimized floor estimate and CR28bk give
 \[
-(r_n-s_n)F_n^{\mathrm{blk}}
+(r_n-s_n^*)F_n^*
 \ge
-{389-275\sqrt2\over375}n^3
--{40\sqrt2-54\over75}n^2
-\qquad(n\ge141).
+{99\sqrt2-140\over27}n^3
+-{136-96\sqrt2\over9}n^2
+\qquad(n\ge99).
 \]
 Adding the two bounds and using the exact coefficient identity
 \[
 {2(\sqrt2-1)\over3}
-+{389-275\sqrt2\over375}
-={139-25\sqrt2\over375}
++{99\sqrt2-140\over27}
+={117\sqrt2-158\over27}
 \]
 proves
 \[
 \boxed{
 \Lambda_n
 \ge
-{139-25\sqrt2\over375}n^3
--{40\sqrt2-54\over75}n^2
-\qquad(n\ge141).
+{117\sqrt2-158\over27}n^3
+-{136-96\sqrt2\over9}n^2
+\qquad(n\ge99).
 }
 \]
 Finally, the strict global cyclic-ratio sandwich gives the finite geometric
@@ -812,24 +832,25 @@ consequence
 \boxed{
 R_2^*(n)
 >
-{139-25\sqrt2\over375\pi}n^3
--\left(1+{40\sqrt2-54\over75\pi}\right)n^2
-\qquad(n\ge141).
+{117\sqrt2-158\over27\pi}n^3
+-\left(1+{136-96\sqrt2\over9\pi}\right)n^2
+\qquad(n\ge99).
 }
 \]
 In particular,
 \[
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
-\ge {139-25\sqrt2\over375},
+\ge {117\sqrt2-158\over27},
 \qquad
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-\ge {139-25\sqrt2\over375\pi}.
+\ge {117\sqrt2-158\over27\pi}.
 \]
 These are exact lower bounds with a rigorously certified lower coefficient.
 They do not prove that either normalized sequence converges or that the
-displayed coefficient is its exact leading coefficient. The exact residual
-coefficient of the selected block and the behavior of other linear densities
-also remain open.
+displayed coefficient is its exact leading coefficient. The residual
+coefficient \((99\sqrt2-140)/27\) is optimal only inside the parameterized
+CR28ax--CR28bg certificate; it is not the exact residual coefficient of the
+selected block. The behavior of other linear densities also remains open.
 
 ## Exact Radius-One Insertion
 
@@ -1418,7 +1439,7 @@ Therefore
 Combining (21) with the sharpened first-linear-block lower bound already
 proved in this note yields
 \[
-{139-25\sqrt2\over375\pi}
+{117\sqrt2-158\over27\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -1433,7 +1454,7 @@ In particular,
 The later exact product-distance construction sharpens the right endpoint to
 
 \[
-{139-25\sqrt2\over375\pi}
+{117\sqrt2-158\over27\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -1487,10 +1508,14 @@ Neither the improved upper bound nor the lower bound proves that
   from \(1/\pi\) to \(1/(2\pi)\); the later product-distance construction
   improves it again to \(8/(25\pi)\), which still does not match the
   current first-linear-block lower coefficient
-  \((139-25\sqrt2)/(375\pi)\). None may be described as the exact asymptotic
+  \((117\sqrt2-158)/(27\pi)\). None may be described as the exact asymptotic
   leading constant for Power-Ringmin. The smaller coefficient
   \(2(\sqrt2-1)/(3\pi)\) remains optimal only inside the single-subset
   lower-bound relaxation explicitly analyzed above.
+- The optimized first-linear-block residual coefficient
+  \((99\sqrt2-140)/27\) is maximal only in the parameterized
+  CR28ax--CR28bg certificate. This does not make it the exact residual of the
+  block, an exact geometric leading coefficient, or a convergence theorem.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower
   bound only from the scalar full-problem lower bound would reverse the useful

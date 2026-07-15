@@ -308,36 +308,45 @@ P(C)-P_{r_n,n}
 {1\over2}\sum_{\{u,v\}\in E(C)}
 (u+v-n-r_n)^2,
 \]
-and treating every recursive split separately on the prefix ending at
-\(s_n=\lceil2n/5\rceil\), proves
+and treating every recursive split separately, the exact parameter optimization
+of the cutoff \(s_n=\lceil\beta n\rceil\) and prefix weight \(\lambda\) gives
+\[
+\beta_*={3\sqrt2\over4}-{2\over3},
+\qquad
+\lambda_*={88-48\sqrt2\over49}.
+\]
+The resulting finite bound proves, for \(n\ge99\),
 \[
 \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
 \ge
-{389-275\sqrt2\over375}n^3-O(n^2).
+{99\sqrt2-140\over27}n^3
+-{1097-768\sqrt2\over72}n^2.
 \]
-Thus this one block has a genuinely cubic residual and admits no compatible
-history with subcubic excess. More importantly, the earlier pointwise block
+This is the best cubic residual coefficient certified by CR28ax--CR28bg; it is
+not the exact block residual. Thus this block has a genuinely cubic residual
+and admits no compatible history with subcubic excess. More importantly, the
+earlier pointwise block
 comparison and CR28bg give, explicitly and without exchanging a maximum and a
 minimum,
 \[
 \Lambda_n
 \ge\Gamma_n^{(r_n)}
 \ge\gamma^{(r_n)}_{1,n}
-\ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}
-\qquad(n\ge141).
+\ge P_{r_n,n}+(r_n-s_n^*)F_n^*
+\qquad(n\ge99).
 \]
 Here \(P_{r_n,n}\) is the nonstarred duplicated-pairing floor. Exact rounding
 then gives the finite consequences
 \[
 \Lambda_n
-\ge {139-25\sqrt2\over375}n^3
--{40\sqrt2-54\over75}n^2,
+\ge {117\sqrt2-158\over27}n^3
+-{136-96\sqrt2\over9}n^2,
 \]
 \[
 R_2^*(n)
->{139-25\sqrt2\over375\pi}n^3
--\left(1+{40\sqrt2-54\over75\pi}\right)n^2
-\qquad(n\ge141).
+>{117\sqrt2-158\over27\pi}n^3
+-\left(1+{136-96\sqrt2\over9\pi}\right)n^2
+\qquad(n\ge99).
 \]
 Thus the same coefficient, divided by \(\pi\), is a rigorous geometric lower
 coefficient. Neither coefficient is asserted to be the exact leading
@@ -645,7 +654,7 @@ The cubic order is exact, but existence of a limiting coefficient, a
 leading-term asymptotic formula, and an upper bound matching the current
 linear-block lower coefficient remain unresolved. Current exact bounds give
 \[
-\frac{139-25\sqrt2}{375\pi}
+\frac{117\sqrt2-158}{27\pi}
 \le
 \liminf_{n\to\infty}\frac{R_2^*(n)}{n^3}
 \le
@@ -987,35 +996,51 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \qquad
   m=1,
   \]
-  the block is in the ordinary split-history domain for \(n\ge5\). With
-  \(s_n=\lceil2n/5\rceil\), the exact finite slack/prefix bound for
-  \(n\ge141\) implies
+  the block is in the ordinary split-history domain for \(n\ge5\). The
+  proof-valid parameter region is exactly
+  \((0,\sqrt2-1)\times[0,1]\), and the unique maximin parameters are
+  \[
+  \beta_*={3\sqrt2\over4}-{2\over3},
+  \qquad
+  \lambda_*={88-48\sqrt2\over49}.
+  \]
+  With \(s_n^*=\lceil\beta_*n\rceil\), the exact finite slack/prefix bound for
+  \(n\ge99\) implies
   \[
   \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
   \ge
-  c_0n^3-C_0n^2,
+  c_*n^3-Q_*n^2,
   \qquad
-  c_0={389-275\sqrt2\over375}>0,
+  c_*={99\sqrt2-140\over27}>0,
   \]
   where
-  \(C_0=2(20\sqrt2-27)/75+1/8\). Every original base edge is charged at
+  \(Q_*=(1097-768\sqrt2)/72\). Every original base edge is charged at
   most once, recursive child edges have a separate local floor, and the
   exact maximum over all prefixes retains the selected prefix. Hence the
-  residual is genuinely cubic for this block. Moreover, for \(n\ge141\),
+  residual is genuinely cubic for this block. The coefficient \(c_*\) is
+  optimal within this template, not the exact residual coefficient.
+  Moreover, for \(n\ge99\),
   \[
   \Lambda_n
   \ge\Gamma_n^{(r_n)}
   \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}},
+  \ge P_{r_n,n}+(r_n-s_n^*)F_n^*,
   \]
   with no max--min exchange. It follows that
   \[
-  \Lambda_n\ge{139-25\sqrt2\over375}n^3-O(n^2),
+  \Lambda_n\ge{117\sqrt2-158\over27}n^3-O(n^2),
   \qquad
-  R_2^*(n)\ge{139-25\sqrt2\over375\pi}n^3-O(n^2).
+  R_2^*(n)\ge{117\sqrt2-158\over27\pi}n^3-O(n^2).
   \]
   These are lower bounds, not exact residual or leading coefficients;
   convergence and production claims do not follow.
+- VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): test-local
+  \(\mathbb Q(\sqrt2)\) arithmetic checks the optimizer, old specialization,
+  strict coefficient gain, every rounded finite bound for
+  \(99\le n\le1000\), and deterministic intact/recursive histories at five
+  sizes. A separate \(n=141\) oracle covers all 7,140 literal depth-two
+  histories, including all 168 recursive second splits, without production
+  code or an enumeration-limit change.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): at
   \((m,n,r)=(2,7,4)\), all 60 compatible triple-split histories agree
   signature by signature with all 60 directly generated outer cycles, and
@@ -1372,9 +1397,10 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   asymptotic coefficient for Power-Ringmin. The first explicit linear block
   \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\), has a proved positive cubic
   residual and yields the stronger global lower coefficient
-  \((139-25\sqrt2)/(375\pi)\). This is not the exact leading coefficient;
-  convergence, general linear densities, and exact block coefficients remain
-  unresolved.
+  \((117\sqrt2-158)/(27\pi)\). Its residual coefficient
+  \((99\sqrt2-140)/27\) is optimal only inside CR28ax--CR28bg. It is not an
+  exact residual or leading coefficient; convergence, general linear
+  densities, and exact block coefficients remain unresolved.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit
   and unresolved for public production claims. The bounded test-only Arb
   cross-check covers checked `n=3` only and is not a full backend audit.
