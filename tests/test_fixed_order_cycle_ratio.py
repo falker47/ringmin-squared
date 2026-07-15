@@ -206,12 +206,25 @@ def _is_loopless_spanning_cycle_signature(
     signature: tuple[tuple[int, int], ...],
     labels: tuple[int, ...],
 ) -> bool:
-    """Recognize when a duplicated-label pairing is one spanning cycle."""
+    """Recognize a simple spanning cycle among duplicated-label pairings.
+
+    The two-vertex double-edge convention is deliberately outside this
+    helper.  On three or more labels, degree two is not enough: disconnected
+    unions of cycles must also be rejected.
+    """
+    if len(labels) < 3 or len(signature) != len(labels):
+        return False
+
     degrees = {label: 0 for label in labels}
     adjacency = {label: set() for label in labels}
+    seen_edges: set[tuple[int, int]] = set()
     for left, right in signature:
-        if left == right:
+        edge = (min(left, right), max(left, right))
+        if left not in degrees or right not in degrees:
             return False
+        if left == right or edge in seen_edges:
+            return False
+        seen_edges.add(edge)
         degrees[left] += 1
         degrees[right] += 1
         adjacency[left].add(right)
@@ -240,6 +253,84 @@ def _undirected_cycle_edge_signature(
             (min(left, right), max(left, right))
             for left, right in zip(order, order[1:] + order[:1], strict=True)
         )
+    )
+
+
+def _dihedral_orders_on_labels_oracle(
+    labels: tuple[int, ...],
+) -> tuple[tuple[int, ...], ...]:
+    """Generate labelled simple cycles without repository enumeration."""
+    assert len(labels) >= 3
+    assert len(labels) == len(set(labels))
+    anchor = max(labels)
+    remaining = tuple(label for label in labels if label != anchor)
+    return tuple(
+        order
+        for tail in itertools.permutations(remaining)
+        if (order := (anchor, *tail))[1] < order[-1]
+    )
+
+
+def _nested_tail_bound_oracle(m: int, n: int) -> tuple[int, int]:
+    """Return the minimum tail-cycle score and exact two-tail obstruction."""
+    labels = tuple(range(m + 1, n + 1))
+    assert len(labels) >= 3
+    minimum_cycle_score: int | None = None
+    minimum_two_tail_score: int | None = None
+
+    for order in _dihedral_orders_on_labels_oracle(labels):
+        tail_score = _cyclic_product_sum(order)
+        minimum_cycle_score = (
+            tail_score
+            if minimum_cycle_score is None
+            else min(minimum_cycle_score, tail_score)
+        )
+        for position, left in enumerate(order):
+            right = order[(position + 1) % len(order)]
+            inserted_order = order[: position + 1] + (m,) + order[position + 1 :]
+            correction = m * (left + right) - left * right
+
+            assert correction == m * m - (left - m) * (right - m)
+            assert _cyclic_product_sum(inserted_order) == tail_score + correction
+
+            candidate = tail_score + max(0, correction)
+            minimum_two_tail_score = (
+                candidate
+                if minimum_two_tail_score is None
+                else min(minimum_two_tail_score, candidate)
+            )
+
+    assert minimum_cycle_score is not None
+    assert minimum_two_tail_score is not None
+    return minimum_cycle_score, minimum_two_tail_score
+
+
+def _alternating_tail_cycle_oracle(m: int, n: int) -> tuple[int, ...]:
+    """Construct the exact near-pairing cycle used in the asymptotic squeeze."""
+    labels = tuple(range(m + 1, n + 1))
+    q = len(labels)
+    assert q >= 3
+    half = q // 2
+
+    if q % 2 == 0:
+        lows = labels[:half]
+        highs = tuple(reversed(labels[half:]))
+        return tuple(
+            label
+            for pair in zip(lows, highs, strict=True)
+            for label in pair
+        )
+
+    middle = labels[half]
+    lows = labels[:half]
+    highs = tuple(reversed(labels[half + 1 :]))
+    return (
+        middle,
+        *(
+            label
+            for pair in zip(lows, highs, strict=True)
+            for label in pair
+        ),
     )
 
 
@@ -443,6 +534,120 @@ def test_index_one_elimination_on_all_core_orders_and_insertions_n3_to_n8() -> N
     assert total_core_orders == 437
     assert total_insertion_trials == 2_957
     assert total_complete_orders == 2_956
+
+
+def test_pairing_signatures_require_one_connected_simple_cycle() -> None:
+    expected_counts = {
+        3: (5, 1),
+        4: (17, 3),
+        5: (73, 12),
+        6: (388, 60),
+    }
+
+    for q, (expected_pairings, expected_cycles) in expected_counts.items():
+        labels = tuple(range(1, q + 1))
+        _minimum, signatures_by_score = _near_minimum_duplicated_pairings_oracle(
+            labels,
+            ceiling=q**3,
+        )
+        pairing_signatures = {
+            signature
+            for signatures in signatures_by_score.values()
+            for signature in signatures
+        }
+        literal_cycle_signatures = {
+            _undirected_cycle_edge_signature(order)
+            for order in _dihedral_orders_on_labels_oracle(labels)
+        }
+        accepted_signatures = {
+            signature
+            for signature in pairing_signatures
+            if _is_loopless_spanning_cycle_signature(signature, labels)
+        }
+
+        assert len(pairing_signatures) == expected_pairings
+        assert len(literal_cycle_signatures) == expected_cycles
+        assert accepted_signatures == literal_cycle_signatures
+
+    disconnected_triangles = (
+        (1, 2),
+        (1, 3),
+        (2, 3),
+        (4, 5),
+        (4, 6),
+        (5, 6),
+    )
+    assert not _is_loopless_spanning_cycle_signature(
+        disconnected_triangles,
+        tuple(range(1, 7)),
+    )
+    assert not _is_loopless_spanning_cycle_signature(((1, 2), (1, 2)), (1, 2))
+
+
+def test_nested_tail_bound_matches_literal_cycles_and_insertions() -> None:
+    expected = {
+        (1, 4): (25, 26, 26),
+        (2, 6): (76, 77, 77),
+        (3, 8): (170, 172, 172),
+        (4, 10): (320, 322, 323),
+    }
+
+    for (m, n), (expected_pairing, expected_cycle, expected_nested) in (
+        expected.items()
+    ):
+        labels = tuple(range(m + 1, n + 1))
+        pairing_floor = sum(label * (m + 1 + n - label) for label in labels)
+        minimum_cycle, nested_bound = _nested_tail_bound_oracle(m, n)
+
+        cycle_signatures = {
+            _undirected_cycle_edge_signature(order)
+            for order in _dihedral_orders_on_labels_oracle(labels)
+        }
+        signature_bound = min(
+            sum(left * right for left, right in signature)
+            + max(0, m * (left + right) - left * right)
+            for signature in cycle_signatures
+            for left, right in signature
+        )
+
+        assert pairing_floor == expected_pairing
+        assert minimum_cycle == expected_cycle
+        assert nested_bound == signature_bound == expected_nested
+
+
+def test_alternating_tail_cycle_has_exact_subcubic_pairing_excess() -> None:
+    for m in range(1, 7):
+        for q in range(3, 13):
+            n = m + q
+            labels = tuple(range(m + 1, n + 1))
+            cycle = _alternating_tail_cycle_oracle(m, n)
+            pairing_floor = sum(
+                label * (m + 1 + n - label) for label in labels
+            )
+            half = q // 2
+            excess = (
+                half * (half - 1) // 2
+                if q % 2 == 0
+                else half * (half + 1) // 2
+            )
+
+            assert len(cycle) == len(set(cycle)) == q
+            assert set(cycle) == set(labels)
+            assert _cyclic_product_sum(cycle) == pairing_floor + excess
+            assert 8 * excess <= q * q
+
+            corrections = tuple(
+                m * (left + right) - left * right
+                for left, right in zip(cycle, cycle[1:] + cycle[:1], strict=True)
+            )
+            assert all(max(0, correction) <= m * m for correction in corrections)
+            assert (
+                min(
+                    _cyclic_product_sum(cycle) + max(0, correction)
+                    for correction in corrections
+                )
+                <= pairing_floor + excess + m * m
+            )
 
 
 def test_lambda9_lower_bound_oracle_covers_all_sixty_tail_classes() -> None:

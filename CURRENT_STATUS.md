@@ -2,90 +2,105 @@
 
 Last update: 2026-07-15
 
-- **Current phase:** exact finite structural classification beyond the public
-  cyclic-ratio enumeration boundary.
-- **Current task:** classify label `2` in the eleven surviving partial
-  `n=10` cycles, then derive the complete count through label `1`.
+- **Current phase:** all-`n` method analysis for lower bounds on the exact
+  cyclic-ratio objective.
+- **Current task:** classify the two-consecutive-tail refinement for
+  \(\Lambda_n\), including cycle-compatible pairing signatures and exact
+  insertion corrections.
 - **Task dossier:**
-  `ops/TASK-20260715__lambda10_label2_core_classification/`.
+  `ops/TASK-20260715__nested_tail_cyclic_ratio_lower_bound/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
-- **Current next atomic action:** user review of the proof, oracle, durable
-  memory, and final diff, followed by a manual commit if accepted.
+- **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
 ## Implemented Scope
 
-- `research/FIXED_ORDER_CYCLE_RATIO.md` now proves the exact label-two
-  insertion classification over all eleven accepted partial cycles.
-- The proof uses
-  \(\Delta_2(a,b)=2(a+b)-ab=4-(a-2)(b-2)\), the previously recorded
-  partial argmaxes, and constrained shortcut-gain pruning certificates.
-- It resolves all dihedral equivalences before counting and derives the
-  complete-class count only after the core classification is proved.
-- `tests/test_fixed_order_cycle_ratio.py` adds a literal independent oracle
-  over all 88 core orders and all 511 nonempty subsets of each, plus
-  test-local dihedral keys for the core and complete counts.
-- No production source, scorer, API, enumerator, or canonicalizer changed.
-  The public complete-order domain remains `n<=8`.
+- `research/FIXED_ORDER_CYCLE_RATIO.md` defines the sharp obstruction
+  \[
+  \beta_{m,n}
+  =\min_{\substack{C\text{ simple on }S_{m+1}\\
+                    \{a,b\}\in E(C)}}
+  \left(P(C)+[m(a+b)-ab]_+\right)
+  \]
+  and proves that it is the strongest universal bound using only
+  \(S_m,S_{m+1}\).
+- The proof includes the exact identity
+  \(m(a+b)-ab=m^2-(a-m)(b-m)\), fixed-edge residual pairing floors, and the
+  requirement that the restored full pairing signature form one connected
+  loopless degree-two spanning graph.
+- An explicit alternating simple cycle gives the uniform squeeze
+  \[
+  P_{m+1,n}\le\beta_{m,n}\le P_{m+1,n}+n^2.
+  \]
+- `tests/test_fixed_order_cycle_ratio.py` adds exact test-local checks only.
+  No production source, scorer, API, canonicalizer, or enumerator changed;
+  the public complete-order domain remains `n<=8`.
 
-## Exact Finite Result
+## Exact Method Result
 
-- EXACT THEOREM: the 88 label-two insertions are 88 distinct dihedral core
-  classes. Exactly 87 have \(K=323\).
-- The sole exception is `(10,3,2,4,7,8,6,9,5)`, obtained by inserting label
-  `2` in the `{3,4}` gap of `(10,3,4,7,8,6,9,5)`; it has `K=325` and sole
-  argmax \(\{2,\ldots,10\}\).
-- Among the 87 core minimizers, seven have exactly the two argmaxes
-  \(\{5,\ldots,10\}\) and \(\{3,\ldots,10\}\), 40 have sole argmax
-  \(\{5,\ldots,10\}\), and 40 have sole argmax
-  \(\{4,\ldots,10\}\).
-- Exact label-one elimination/insertion gives exactly
-  \(87\cdot9=783\) complete dihedral minimizer classes: 63 retain the two
-  argmaxes, 360 have sole argmax \(\{5,\ldots,10\}\), and 360 have sole
-  argmax \(\{4,\ldots,10\}\).
-- VERIFIED FACT: the independent oracle performs 44,968 literal subset
-  evaluations and recovers every score, argmax, and dihedral count.
+- EXACT THEOREM: with
+  \(\beta_n^{(2)}=\max_{1\le m\le n-3}\beta_{m,n}\),
+  \[
+  \Lambda_n\ge\beta_n^{(2)}
+  ={2(\sqrt2-1)\over3}n^3+O(n^2).
+  \]
+- EXACT METHOD-SPECIFIC LIMITATION: the two-tail refinement may strengthen
+  finite terms but cannot improve the leading coefficient
+  \(2(\sqrt2-1)/3\). This is not an upper bound or an asymptotic evaluation
+  of \(\Lambda_n\), and it does not cover coupling a number of tails growing
+  with \(n\).
+- EXACT GEOMETRIC COROLLARY:
+  \[
+  R_2^*(n)>{\beta_n^{(2)}\over\pi}-n^2
+  \qquad(n\ge4),
+  \]
+  with the same leading lower coefficient
+  \(2(\sqrt2-1)/(3\pi)\).
+- VERIFIED FACT (FINITE EXACT TEST-ONLY EXAMPLE): \(\beta_{4,10}=323\),
+  compared with the inner-tail pairing floor \(P_{5,10}=320\).
 
 ## Verification
 
-- Focused oracle check: `1 passed, 33 deselected`.
-- Full cyclic-ratio module: `34 passed`.
-- Complete suite: `210 passed`. The first sandboxed attempt produced only
-  permission/provenance setup failures; the required unrestricted rerun
-  passed completely.
-- Checked-artifact schema regression: `4 passed`; semantic verifier:
-  `4` certificates and `76` local brackets verified.
-- Ruff and `compileall` passed. Three independent STRICT audits found no
-  residual mathematical, test-independence, documentation, or scope issue.
-- Final Git hygiene passed: clean whitespace, no staged paths, no production
-  diff, and no retained task-specific temporary directory.
-- CURRENT HOSTED STATUS: GitHub Actions on Ubuntu/Python 3.11--3.13 has not
-  been run or independently verified for this worktree.
+- Final focused new-test selection: `3 passed, 34 deselected`.
+- Complete cyclic-ratio module: `37 passed`.
+- Induced-subset lower-bound module: `7 passed`.
+- Complete local suite: `213 passed`.
+- Checked-artifact verifier: all 4 certificates and 76 local brackets
+  verified; schema suite: `4 passed`.
+- Ruff, test-file compilation, `git diff --check`, temporary-output cleanup,
+  and the no-`src/`-diff boundary all pass.
+- Independent proof, test, and documentation/scope audits pass after adding
+  the explicit \(n\ge4\), \(1\le m\le n-3\) domain to the summary theorem.
+- CURRENT HOSTED STATUS: GitHub Actions has not run these uncommitted
+  worktree changes.
 
 ## Files Changed
 
-- `research/FIXED_ORDER_CYCLE_RATIO.md` adds the label-two proof, exact
-  argmax classification, dihedral completeness, and core/complete counts.
-- `tests/test_fixed_order_cycle_ratio.py` adds the independent 88-by-511
-  oracle and test-local orbit checks.
+- `research/FIXED_ORDER_CYCLE_RATIO.md` adds the authoritative theorem and
+  proof.
+- `research/ALL_N_LOWER_BOUND.md` adds only the resulting geometric
+  consequence and its method-specific limitation.
+- `tests/test_fixed_order_cycle_ratio.py` adds independent exact bounded
+  checks.
 - `start.md`, `PROJECT_KNOWLEDGE.md`, and
-  `research/NEXT_RESEARCH_STEPS.md` synchronize the exact result, evidence
-  role, limitations, and next research boundary.
+  `research/NEXT_RESEARCH_STEPS.md` synchronize stable knowledge and the
+  research boundary.
 - `CURRENT_STATUS.md` and the STRICT task dossier record durable handoff.
 
 ## Residual Limitations
 
-- The classification is finite and combinatorial. It gives no exact value or
-  geometric minimizer classification for \(R_2^*(10)\), no all-`n` formula,
-  and no asymptotic claim.
-- The score-325 exception is unique among the 88 candidates forced by the
-  accepted equality chain, not among all nonminimizing core orders.
-- Hosted GitHub Actions for this worktree has not been inspected.
+- No exact leading constant, nor convergence of \(\Lambda_n/n^3\) or
+  \(R_2^*(n)/n^3\), is proved.
+- The theorem concerns one optimized pair of consecutive tails; simultaneous
+  coupling of many tails remains open.
+- Finite tests verify arithmetic and signature recognition only; they are not
+  the all-`n` proof.
+- Hosted GitHub Actions remain unverified.
 
 ## Proposed Next Task
 
-In a fresh chat, extend the independent test-only Arb endpoint-sign
-cross-check from the checked `n=3` certificate to the existing checked `n=4`
-certificate, without changing production verification or certification
-claims.
+In a fresh chat, generalize the no-first-order-improvement theorem from two
+tails to a fixed symbolic block of \(r\) consecutive nested tails and identify
+the first growth scale of \(r=r(n)\) not excluded by the resulting error
+bound, without changing production enumeration.

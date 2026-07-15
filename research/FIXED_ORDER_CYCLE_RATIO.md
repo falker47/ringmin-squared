@@ -47,6 +47,24 @@ in `research/ALL_N_LOWER_BOUND.md`.
   On the stated domain, both inequalities are in fact strict.
 - **EXACT THEOREM:** minimizing over the finite complete-order space gives the
   analogous global sandwich for \(\Lambda_n\) and \(R_2^*(n)\).
+- **EXACT THEOREM (TWO NESTED TAILS):** for \(n\ge4\),
+  \(1\le m\le n-3\), and \(S_m=\{m,\ldots,n\}\), deleting \(m\) from the
+  induced cycle gives a
+  simple cycle \(C\) on \(S_{m+1}\) and a distinguished edge
+  \(\{a,b\}\), with exact correction
+  \(m(a+b)-ab=m^2-(a-m)(b-m)\). The resulting quantity
+  \(\beta_{m,n}\) defined below is the strongest universal lower obstruction
+  that uses only the two scores on \(S_m,S_{m+1}\).
+- **EXACT METHOD-SPECIFIC LIMITATION:** after imposing the full simple-cycle
+  conditions on duplicated-pairing signatures and optimizing over \(m\),
+  \[
+  \beta_n^{(2)}
+  ={2(\sqrt2-1)\over3}n^3+O(n^2).
+  \]
+  Thus the two-tail refinement can strengthen finite terms but does not
+  improve the leading coefficient \(2(\sqrt2-1)/3\). This does not determine
+  the leading behavior of \(\Lambda_n\) or exclude arguments coupling many
+  tails simultaneously.
 - **VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION):** bounded canonical
   enumeration for \(n=3,\ldots,8\) gives
   \((12,26,47,77,118,172)\), with no counterexample to the supplied
@@ -674,6 +692,230 @@ By itself this is a reduction from complete to core orders, not a closed-form
 evaluation or a general classification of the minimizing core orders. The
 separate finite `n=9` classification below uses additional equality and
 shortcut-gain arguments.
+
+### Exact obstruction from two nested tails
+
+Fix \(n\ge4\) and \(1\le m\le n-3\), and put
+\[
+S_m=\{m,m+1,\ldots,n\},
+\qquad
+T=S_{m+1},
+\qquad
+q=|T|=n-m\ge3.
+\tag{CR28b}
+\]
+Let \(C\) be the simple cyclic order induced on \(T\). In the cyclic order
+induced on \(S_m\), label \(m\) splits one edge \(e=\{a,b\}\) of \(C\).
+Writing \(P(C)\) for the adjacent-product sum of the inner cycle, deletion
+and insertion give the exact identity
+\[
+P_\sigma(S_m)
+=P(C)+\delta_m(a,b),
+\qquad
+\delta_m(a,b)
+=m(a+b)-ab
+=m^2-(a-m)(b-m).
+\tag{CR28c}
+\]
+Consequently
+\[
+\max\{P_\sigma(S_m),P_\sigma(T)\}
+=P(C)+[\delta_m(a,b)]_+,
+\qquad [x]_+=\max(0,x).
+\tag{CR28d}
+\]
+
+Let \(\mathcal C(T)\) be the finite set of undirected simple spanning cycles
+on \(T\), and define
+\[
+\boxed{
+\beta_{m,n}
+=
+\min_{\substack{C\in\mathcal C(T)\\e=\{a,b\}\in E(C)}}
+\left(P(C)+[\delta_m(a,b)]_+\right).
+}
+\tag{CR28e}
+\]
+This is not merely a convenient lower bound. Every complete order produces a
+pair \((C,e)\) in (CR28e). Conversely, every such pair is realized by
+inserting \(m\) into \(e\), then inserting labels
+\(1,\ldots,m-1\) arbitrarily; those later insertions do not alter either
+induced tail order. Hence
+\[
+\beta_{m,n}
+=
+\min_{\sigma\in\Omega_n}
+\max\{P_\sigma(S_m),P_\sigma(S_{m+1})\}.
+\tag{CR28f}
+\]
+By one-wrap saturation, both subset scores are bounded above by
+\(\Lambda(\sigma)\). Therefore, with
+\[
+\beta_n^{(2)}
+=\max_{1\le m\le n-3}\beta_{m,n},
+\]
+one has the exact method lower bound
+\[
+\boxed{\Lambda_n\ge\beta_n^{(2)}.}
+\tag{CR28g}
+\]
+
+The pairing signatures used to estimate (CR28e) require a connectivity audit.
+Pairing the duplicated multiset
+\[
+M_T=\{x,x:x\in T\}
+\]
+produces a multigraph on \(T\) in which every vertex automatically has degree
+two, with a loop counted twice. For \(q\ge3\), such a signature is the edge
+signature of one simple spanning cycle if and only if the multigraph is
+loopless and connected. Equivalently, an explicit audit may require: exactly
+\(q\) edges using both copies of every label, degree two at each label, no
+loops, no repeated unordered edge, and connectedness. The last condition
+cannot be omitted: a disjoint union of two or more cycles passes the local
+degree test. For \(q=2\), outside the present domain, the induced-subset
+convention instead uses the exceptional double edge and score \(2ab\).
+
+The fixed-edge pairing form makes the finite refinement explicit. For
+\(e=\{a,b\}\), remove one copy of each endpoint and write
+\[
+N_e=M_T\setminus\{a,b\},
+\qquad
+F_e=ab+A(N_e),
+\tag{CR28h}
+\]
+where \(A(N_e)\) is the anti-sorted rearrangement sum of the residual
+multiset. If
+\[
+H_e=\min\{P(C):C\in\mathcal C(T),\ e\in E(C)\},
+\]
+then the residual edges pair \(N_e\), so
+\[
+H_e\ge F_e,
+\qquad
+\beta_{m,n}
+=\min_e\bigl(H_e+[\delta_m(e)]_+\bigr)
+\ge\min_e\bigl(F_e+[\delta_m(e)]_+\bigr).
+\tag{CR28i}
+\]
+If a signature attaining \(F_e\) is used for equality or pruning, the *full*
+signature obtained after restoring \(e\) must satisfy all the simple-cycle
+conditions above. The `n=10` equality proof below illustrates the distinction:
+the fixed-edge floor for \(\{8,9\}\) is not cycle-realizable, whereas the
+floor for \(\{7,10\}\) is.
+
+For the consecutive inner tail, the unrestricted pairing floor is
+\[
+A(T)=P_{m+1,n}
+=\sum_{k=m+1}^n k(m+n+1-k)
+=
+{(n-m)(m^2+4mn+n^2+3m+3n+2)\over6}.
+\tag{CR28j}
+\]
+Since \(a-m,b-m\) are distinct elements of \(\{1,\ldots,q\}\),
+\[
+m^2-q(q-1)
+\le\delta_m(a,b)\le m^2-2.
+\]
+Thus pairing plus the insertion correction already gives the explicit bound
+\[
+\beta_{m,n}
+\ge
+P_{m+1,n}+[m^2-q(q-1)]_+
+\ge P_{m+1,n}.
+\tag{CR28k}
+\]
+
+It remains possible a priori that enforcing one connected simple cycle raises
+the pairing floor by order \(n^3\). An explicit cycle rules this out. Write
+\(x_i=m+i\), \(1\le i\le q\). If \(q=2t\), take
+\[
+Z=(x_1,x_{2t},x_2,x_{2t-1},\ldots,x_t,x_{t+1}).
+\]
+If \(q=2t+1\), take
+\[
+Z=(x_{t+1},x_1,x_{2t+1},x_2,x_{2t},\ldots,x_t,x_{t+2}).
+\]
+These are literal simple spanning cycles. In the even case, putting
+\(L_i=x_i\), \(H_i=x_{2t+1-i}\) gives
+\[
+P(Z)-P_{m+1,n}
+=\sum_{i=1}^{t-1}(H_i-H_t)
+={t(t-1)\over2}.
+\]
+In the odd case, with \(c=x_{t+1}\) and
+\(H_i=x_{2t+2-i}\), direct subtraction gives
+\[
+P(Z)-P_{m+1,n}
+=\sum_{i=1}^t(H_i-c)
+={t(t+1)\over2}.
+\]
+Denote these two exact excesses by \(g(q)\). Then
+\(0\le g(q)\le q^2/8\), while (CR28c) gives
+\([\delta_m(e)]_+\le m^2\) on every edge. Choosing any edge of \(Z\) in
+(CR28e), and using
+\[
+n^2-m^2-{q^2\over8}=2mq+{7q^2\over8}>0,
+\]
+yields the uniform exact squeeze
+\[
+\boxed{
+P_{m+1,n}
+\le\beta_{m,n}
+\le P_{m+1,n}+g(n-m)+m^2
+\le P_{m+1,n}+n^2.
+}
+\tag{CR28l}
+\]
+
+This squeeze determines the strongest leading coefficient available from the
+two-tail schema. If \(m=\alpha n+O(1)\), then
+\[
+P_{m+1,n}
+=\phi(\alpha)n^3+O(n^2),
+\qquad
+\phi(\alpha)
+={(1-\alpha)(\alpha^2+4\alpha+1)\over6}.
+\tag{CR28m}
+\]
+Moreover,
+\[
+\phi'(\alpha)={1-2\alpha-\alpha^2\over2},
+\qquad
+\phi''(\alpha)=-(1+\alpha)<0.
+\]
+The unique maximizer is \(\alpha_0=\sqrt2-1\), and
+\[
+\phi(\alpha_0)={2(\sqrt2-1)\over3}.
+\]
+The old exact tail optimization has an interior maximizer at least two, so the
+shift from \(P_{m,n}\) to \(P_{m+1,n}\) and the restriction
+\(1\le m\le n-3\) do not remove its discrete maximum. Taking maxima in
+(CR28l) gives, exactly,
+\[
+\max_{1\le \ell\le n-2}P_{\ell,n}
+\le\beta_n^{(2)}
+\le\max_{1\le \ell\le n-2}P_{\ell,n}+n^2.
+\]
+The established discrete tail asymptotics therefore prove
+\[
+\boxed{
+\beta_n^{(2)}
+={2(\sqrt2-1)\over3}n^3+O(n^2),
+\qquad
+\lim_{n\to\infty}{\beta_n^{(2)}\over n^3}
+={2(\sqrt2-1)\over3}.
+}
+\tag{CR28n}
+\]
+
+Thus this refinement can improve finite lower terms--at \((m,n)=(4,10)\),
+for example, the inner pairing floor is 320 while
+\(\beta_{4,10}=323\)--but it **cannot improve the cubic coefficient**
+\(2(\sqrt2-1)/3\). This is an exact limitation of the single-\(m\),
+two-consecutive-tail schema (CR28e)--(CR28g), not an upper bound on
+\(\Lambda_n\). It does not exclude a gain from coupling a number of tails
+that grows with \(n\), from nonconsecutive subsets, or from additional global
+structure.
 
 ## 5. Exact Scorer Without Cycle Enumeration
 
@@ -2187,6 +2429,10 @@ upper coefficient, not an exact constant.
 
 Further non-consequences are important.
 
+- The two-nested-tail obstruction (CR28g) may improve finite lower terms, but
+  (CR28n) proves only that this specific proof schema has the same leading
+  coefficient as the one-tail pairing bound. It neither evaluates
+  \(\Lambda_n\) asymptotically nor excludes methods coupling many tails.
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality
   of minimizing order sets, or \(\Lambda_n=(n-1)W_n\). The exact global
   relation proved here is the one-sided inequality (CR38b).

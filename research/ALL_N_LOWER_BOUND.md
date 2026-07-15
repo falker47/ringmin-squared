@@ -2,6 +2,8 @@
 
 Date: 2026-07-13
 
+Last updated: 2026-07-15
+
 ## Classification
 
 - EXACT THEOREM: for every integer \(n\ge 3\),
@@ -41,6 +43,17 @@ Date: 2026-07-13
   \ge
   4(\sqrt2-1)>1.
   \]
+- EXACT THEOREM (two-nested-tail geometric refinement): let
+  \(\beta_n^{(2)}\) be the exact two-tail obstruction defined in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`. Then, for \(n\ge4\),
+  \[
+  R_2^*(n)>{\beta_n^{(2)}\over\pi}-n^2,
+  \qquad
+  \beta_n^{(2)}
+  ={2(\sqrt2-1)\over3}n^3+O(n^2).
+  \]
+  The refinement can improve finite lower terms but provably leaves this
+  schema's leading lower coefficient unchanged.
 - EXACT THEOREM: if a configuration of the core radii
   \(2^2,\dots,n^2\) is feasible at central radius \(R>0\), then a circle of
   radius \(1\) can be inserted at the same central radius whenever
@@ -115,9 +128,13 @@ Date: 2026-07-13
   \]
 
 The lower-bound proof uses only necessary consequences of all-pairs feasibility.
-The coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal for the specific relaxation
-analyzed here. The order-independent regular-core baseline has upper
-coefficient \(1/\pi\), the zigzag refinement gives \(1/(2\pi)\), and the
+The coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal for the single-subset
+pairing relaxation analyzed directly here. The relational extension using two
+consecutive tails is a distinct, stronger finite schema; its separate exact
+analysis proves the same leading coefficient. Neither method-specific result
+is an upper bound on the true problem. The order-independent regular-core
+baseline has upper coefficient \(1/\pi\), the zigzag refinement gives
+\(1/(2\pi)\), and the
 later product-distance construction sharpens the current coefficient to
 \(8/(25\pi)\). This still does not match the lower coefficient. Thus no exact
 leading constant, limiting coefficient, or leading-term asymptotic formula is
@@ -615,6 +632,51 @@ R_2^*(n)= {n^3\over 6\pi}+O(n^2)
 \]
 is also a disproved claim, since it would also force the normalized ratio to
 tend to \(1\).
+
+## Geometric Consequence Of Two Nested Tails
+
+The preceding single-subset optimization does not use relations between
+different induced tails. The exact cyclic-ratio theorem permits the first such
+refinement to be transferred back to geometry.
+
+For \(n\ge4\), let \(\beta_{m,n}\) and
+\(\beta_n^{(2)}=\max_{1\le m\le n-3}\beta_{m,n}\) be defined by
+(CR28e)--(CR28g) in `research/FIXED_ORDER_CYCLE_RATIO.md`. Thus
+\(\beta_{m,n}\) is the minimum, over a simple cycle \(C\) on
+\(S_{m+1}\) and an edge \(\{a,b\}\) split by \(m\), of
+\[
+P(C)+[m(a+b)-ab]_+.
+\]
+That note proves both
+\[
+\Lambda_n\ge\beta_n^{(2)}
+\]
+and the exact method-specific asymptotic squeeze
+\[
+\beta_n^{(2)}
+={2(\sqrt2-1)\over3}n^3+O(n^2).
+\]
+Combining the first inequality with the strict global cyclic-ratio sandwich
+\[
+R_2^*(n)>{\Lambda_n\over\pi}-n^2
+\]
+gives the geometric consequence
+\[
+\boxed{
+R_2^*(n)>{\beta_n^{(2)}\over\pi}-n^2
+\qquad(n\ge4).
+}
+\]
+
+This can be a finite strengthening: for example,
+\(\beta_{4,10}=323\), while the inner-tail pairing floor is
+\(P_{5,10}=320\). Nevertheless, the correction from inserting one label and
+the cost of enforcing a connected simple pairing signature are uniformly
+subcubic. Hence this two-tail geometric refinement reproduces, but does not
+exceed, the coefficient \(2(\sqrt2-1)/(3\pi)\) at first order. The negative
+conclusion is specific to a single optimized pair of consecutive tails; it
+does not cover simultaneous coupling of a number of tails growing with
+\(n\), nonconsecutive subsets, or other information about \(\Lambda_n\).
 
 ## Exact Radius-One Insertion
 
@@ -1256,6 +1318,13 @@ Neither the improved upper bound nor the lower bound proves that
   relaxation \(A(S)\), not about cyclic orders themselves. It proves that no
   nonconsecutive subset improves this method's bound, but it does not rule out
   stronger lower-bound methods.
+- The two-tail corollary is a distinct relational refinement. Its proof does
+  not treat an arbitrary pairing signature as a cycle: after restoring the
+  distinguished insertion edge, the complete degree-two multigraph must be
+  loopless and connected. The alternating-cycle upper squeeze shows that even
+  this exact filter can change the optimized bound only by \(O(n^2)\); the
+  resulting no-improvement conclusion is specific to one pair of consecutive
+  tails.
 - The asymptotic optimization uses an integer choice
   \(m_n=\lceil(\sqrt2-1)n\rceil\) with an explicit bounded rounding parameter
   \(\varepsilon_n\). The exact finite maximizers are characterized separately

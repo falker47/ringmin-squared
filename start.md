@@ -204,6 +204,35 @@ governed by
 Thus \(2(\sqrt2-1)/(3\pi)\) is optimal only within this specific lower-bound
 relaxation, not necessarily for Power-Ringmin itself.
 
+The first relational refinement between consecutive tails has also been
+settled exactly. For \(S_m=\{m,\ldots,n\}\), deleting \(m\) leaves a simple
+cycle \(C\) on \(S_{m+1}\) and a distinguished edge \(\{a,b\}\), with
+\[
+P_\sigma(S_m)-P_\sigma(S_{m+1})
+=m(a+b)-ab
+=m^2-(a-m)(b-m).
+\]
+Let \(\beta_{m,n}\) minimize
+\(P(C)+[m(a+b)-ab]_+\) over all such cycle/edge pairs, and put
+\(\beta_n^{(2)}=\max_{1\le m\le n-3}\beta_{m,n}\). This is the strongest
+universal lower obstruction using only one pair \(S_m,S_{m+1}\). Pairing
+signatures must form one connected loopless degree-two spanning graph; degree
+conditions alone do not exclude disjoint subcycles. An explicit alternating
+simple cycle proves
+\[
+P_{m+1,n}\le\beta_{m,n}\le P_{m+1,n}+n^2,
+\]
+and hence
+\[
+\beta_n^{(2)}
+={2(\sqrt2-1)\over3}n^3+O(n^2).
+\]
+Thus the two-tail scheme can strengthen finite terms, but cannot improve the
+leading coefficient. This limitation is specific to one optimized pair of
+consecutive tails and is not an asymptotic evaluation of \(\Lambda_n\).
+The strict cyclic-ratio sandwich also gives the geometric finite bound
+\(R_2^*(n)>\beta_n^{(2)}/\pi-n^2\).
+
 There is also an exact eventual radius-one insertion theorem. Let
 \(R^*_{2:n}\) be the infimum feasible central radius for only the core radii
 \(2^2,\dots,n^2\). A core configuration at radius \(R\) admits insertion of
@@ -746,6 +775,29 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \]
   The insertion independence is not a statement about exact angular
   thresholds or feasible-radius sets.
+- EXACT THEOREM (TWO NESTED TAILS): for `n>=4` and `1<=m<=n-3`, the exact
+  obstruction based only on \(S_m,S_{m+1}\) is
+  \[
+  \beta_{m,n}
+  =\min_{\substack{C\text{ simple on }S_{m+1}\\
+                    \{a,b\}\in E(C)}}
+  \left(P(C)+[m(a+b)-ab]_+\right).
+  \]
+  Every cycle/edge pair extends to a complete order, so
+  \(\Lambda_n\ge\beta_n^{(2)}=\max_m\beta_{m,n}\). A valid
+  duplicated-pairing signature must be connected and loopless, in addition to
+  its automatic degree-two condition; when a fixed edge is restored, the full
+  signature must pass this audit. Exact alternating cycles give
+  \[
+  P_{m+1,n}\le\beta_{m,n}\le P_{m+1,n}+n^2,
+  \qquad
+  \beta_n^{(2)}
+  ={2(\sqrt2-1)\over3}n^3+O(n^2).
+  \]
+  Hence this specific two-tail scheme does not improve the old cubic
+  coefficient, although it may improve finite values. It also gives
+  \(R_2^*(n)>\beta_n^{(2)}/\pi-n^2\), with the same leading geometric
+  coefficient.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): the exact bounded
   `Fraction` scorer gives
   \((\Lambda_3,\dots,\Lambda_8)=(12,26,47,77,118,172)\) over all 2,956
@@ -1064,7 +1116,7 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   Combined with the existing finite exhaustive distance-two table,
   \(\max(A_n,H_n)=B_n\) for every displayed \(3\le n\le11\). This is not an
   all-\(n\) formula and uses no order enumeration beyond \(n=11\).
-- EXACT THEOREM: within the induced-subset plus duplicated-pairing plus
+- EXACT THEOREM: within the single-subset induced-tail plus duplicated-pairing plus
   \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\) relaxation, no nonconsecutive subset
   improves the tail bounds \(P_{m,n}\); the best discrete tail is characterized
   by \(\rho_n=(\sqrt{8n^2+8n+1}-(2n+1))/2\), with adjacent ties exactly when
@@ -1087,8 +1139,10 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   independent of the finite certificates; the upper and lower leading
   coefficients do not currently match.
 - INTERPRETATION: the coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal for the
-  documented relaxation only; it is not a proved exact asymptotic coefficient
-  for Power-Ringmin.
+  documented single-subset relaxation, and the distinct two-consecutive-tail
+  extension has the same leading coefficient. Neither method-specific result
+  is a proved exact asymptotic coefficient for Power-Ringmin or excludes
+  simultaneous coupling of many tails.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit
   and unresolved for public production claims. The bounded test-only Arb
   cross-check covers checked `n=3` only and is not a full backend audit.

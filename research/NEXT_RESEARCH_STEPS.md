@@ -142,6 +142,29 @@ literal oracles check all 14-by-255 label-three cases and all 88-by-511
 label-two cases, including every argmax and the dihedral counts. The public
 domain remains `n<=8`.
 
+The all-\(n\) version of the same two-tail idea is now classified exactly as
+a proof method. For \(S_m=\{m,\ldots,n\}\), deleting \(m\) identifies a
+simple cycle on \(S_{m+1}\) and a distinguished edge \(\{a,b\}\), with
+correction
+\[
+m(a+b)-ab=m^2-(a-m)(b-m).
+\]
+The exact minimum \(\beta_{m,n}\) over all such cycle/edge pairs is the
+strongest universal obstruction based only on these two induced tails. A
+valid duplicated-pairing signature must be one connected loopless degree-two
+spanning multigraph; local degree checks alone do not exclude disjoint
+subcycles. After imposing this full constraint and optimizing in \(m\),
+\[
+\beta_n^{(2)}
+={2(\sqrt2-1)\over3}n^3+O(n^2).
+\]
+Thus the refinement can improve finite terms--it recovers
+\(\beta_{4,10}=323\)--but cannot improve the previous cubic coefficient.
+This is a limitation of the single-pair-of-tails schema, not an asymptotic
+formula for \(\Lambda_n\). The strict cyclic-ratio sandwich also gives the
+new finite geometric bound
+\(R_2^*(n)>\beta_n^{(2)}/\pi-n^2\).
+
 As of 2026-07-14, the former asymptotic target
 \[
 R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))
@@ -152,14 +175,16 @@ R_2^*(n)=\frac{n^3}{6\pi}+O(n^2)
 \]
 is also a DISPROVED CLAIM.
 
-The best leading coefficient obtainable from the specific relaxation
+The best leading coefficient obtainable from the single-subset relaxation
 "induced subset plus duplicated-multiset pairing plus
 \(\theta_R(i^2,j^2)\ge 2ij/(R+n^2)\)" is exactly
 \[
 \frac{2(\sqrt2-1)}{3\pi}.
 \]
-This is a method-specific optimality statement, not a matching upper bound and
-not a proved exact asymptotic constant for Power-Ringmin.
+The separate relational extension to two consecutive tails has the same best
+leading coefficient after its cycle-signature constraints are enforced. These
+are method-specific optimality statements, not matching upper bounds and not
+proved exact asymptotic constants for Power-Ringmin.
 
 The zigzag regular-direction construction historically improved the proved
 upper coefficient from \(1/\pi\) to \(1/(2\pi)\). It is now superseded by the
@@ -387,6 +412,31 @@ saturation for every \(n\ge3\).
   R_2^*(n)<{\Lambda_n\over\pi}
   \le{(n-1)W_n\over\pi}.
   \]
+- EXACT THEOREM (TWO NESTED TAILS): for `n>=4` and
+  `1<=m<=n-3`, `research/FIXED_ORDER_CYCLE_RATIO.md` defines
+  \[
+  \beta_{m,n}
+  =\min_{\substack{C\text{ simple on }S_{m+1}\\
+                    e=\{a,b\}\in E(C)}}
+  \left(P(C)+[m(a+b)-ab]_+\right).
+  \]
+  Every cycle/edge pair is extendible to a complete order, so this is the
+  strongest universal obstruction using only \(S_m,S_{m+1}\), and
+  \(\Lambda_n\ge\beta_n^{(2)}=\max_m\beta_{m,n}\). Full pairing-signature
+  validity requires degree two, no loops or repeated edges, and connectedness.
+  An explicit alternating simple cycle proves the uniform squeeze
+  \[
+  P_{m+1,n}\le\beta_{m,n}\le P_{m+1,n}+n^2,
+  \]
+  whence
+  \[
+  \beta_n^{(2)}
+  ={2(\sqrt2-1)\over3}n^3+O(n^2).
+  \]
+  The conclusion is specific to this method. Via the strict global sandwich
+  it also gives
+  \(R_2^*(n)>\beta_n^{(2)}/\pi-n^2\), with no improved leading geometric
+  coefficient.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): a descending-path/Karp
   `Fraction` scorer, independently checked by direct simple-cycle enumeration
   on every canonical order through `n=6`, gives
@@ -798,6 +848,15 @@ saturation for every \(n\ge3\).
    geometric upper bound recovers the known coefficient \(8/(25\pi)\); it
    proves no exact geometric optimum or new coefficient.
 
+10. The exact two-nested-tail obstruction explains the finite mechanism used
+    at \(n=9,10\) without promoting those cases to an asymptotic pattern.
+    Correct pairing signatures must form one connected simple spanning cycle;
+    after this filter, the strongest bound based on one optimized pair
+    \(S_m,S_{m+1}\) differs from the inner-tail pairing floor by only
+    \(O(n^2)\). It therefore has leading coefficient
+    \(2(\sqrt2-1)/3\), exactly the old one-tail coefficient. This does not
+    rule out coupling a number of tails that grows with \(n\).
+
 ## Updated Research Questions
 
 - OPEN QUESTION: what geometric upper-bound construction, if any, narrows or
@@ -811,6 +870,9 @@ saturation for every \(n\ge3\).
 - OPEN QUESTION: can the gap between the induced-subset geometric lower
   coefficient and the product-distance upper coefficient \(8/(25\pi)\) be
   narrowed by a sharper angular construction or a stronger lower bound?
+- OPEN QUESTION: can a simultaneous obstruction involving a number of nested
+  tails that grows with \(n\) improve the coefficient, now that one optimized
+  consecutive pair is proved unable to do so?
 - OPEN QUESTION: for which \(n\ge94\) do positional distances at least three
   strictly restrict the minimizer set? The sufficient equality criterion
   \(n(n-1)/3\le B_n\) holds again at \(n=94\), so no persistence from the
@@ -828,6 +890,12 @@ saturation for every \(n\ge3\).
   closed there, with separate Karp-independent and all-insertion bounded
   oracles. Their distinction from exact angular-STN cycle criticality and
   their asymptotic non-consequences remain explicit.
+- CLOSED METHOD QUESTION: the exact refinement from one optimized pair of
+  consecutive tails \(S_m,S_{m+1}\), including all simple-cycle conditions on
+  duplicated-pairing signatures, has best leading coefficient
+  \(2(\sqrt2-1)/3\) and therefore does not improve the one-tail coefficient
+  at first order. This is not a statement about methods using many coupled
+  tails or about the true asymptotic behavior of \(\Lambda_n\).
 - CLOSED FINITE QUESTION: the first reduced value beyond the public
   cyclic-ratio enumeration boundary is \(\Lambda_9=239\). All minimizing
   core orders are exactly the 28 placement classes recorded in
@@ -898,6 +966,12 @@ Completed:
   has score 325. Derived 783 complete classes only after the proof and checked
   all 44,968 core subset scores, every argmax, and the dihedral counts with an
   independent test-only oracle.
+- Proved the exact all-\(n\) two-nested-tail obstruction for \(\Lambda_n\),
+  including the fixed-edge pairing bound, the connected simple-cycle
+  signature criterion, and an explicit alternating-cycle squeeze. Its finite
+  terms can improve, but its optimized leading coefficient remains exactly
+  \(2(\sqrt2-1)/3\). Added independent test-only pairing, cycle, insertion,
+  and construction checks without changing production.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -906,15 +980,18 @@ Completed:
 
 Immediate:
 
-- In a fresh bounded task, extend the independent test-only Arb endpoint-sign
-  cross-check from the checked `n=3` artifact to the existing checked `n=4`
-  artifact, without changing production verification or certification claims.
+- In a fresh bounded task, generalize the two-tail limitation to every fixed
+  number \(r\) of consecutive nested tails and determine which growth scale
+  of \(r=r(n)\) is first not excluded from affecting the cubic coefficient.
 
 Next:
 
 - Seek a geometric all-pairs construction or lower obstruction that narrows
   the remaining coefficient gap without relying on larger exhaustive finite
   certificates.
+- Extend the independent test-only Arb endpoint-sign cross-check from the
+  checked `n=3` artifact to the existing checked `n=4` artifact, without
+  changing production verification or certification claims.
 - Keep the exact radius-one theorem separate from finite critical-cycle proxy
   claims and from any assumption that an optimum is attained.
 
@@ -941,18 +1018,18 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: extend the independent test-only Arb endpoint-sign cross-check to the
-existing checked `n=4` interval certificate.
+Task: generalize the method-specific no-improvement theorem from two
+consecutive tails to a fixed block of \(r\) consecutive nested tails.
 
 Acceptance criteria:
 
-- read the checked `n=4` artifact directly and account for every embedded
-  local bracket, lower-cycle edge occurrence, upper-witness pair, and
-  directional slack;
-- recompute the decisive endpoint signs with fixed high-precision Arb
-  arithmetic independently of the production interval oracle and its stored
-  enclosures;
-- record exact coverage and deterministic test evidence, with optional
-  python-flint absence handled consistently with the existing `n=3` test;
-- make no production-backend, artifact, bracket, schema, classification, or
-  certification-claim change.
+- define the strongest obstruction using
+  \(S_m,S_{m+1},\ldots,S_{m+r-1}\) for fixed symbolic \(r\), with every
+  insertion edge and simple-cycle compatibility condition explicit;
+- prove or disprove uniformly that its excess over one inner-tail pairing
+  floor is \(O_r(n^2)\), and hence whether every fixed \(r\) retains the
+  coefficient \(2(\sqrt2-1)/3\);
+- identify, without claiming sufficiency, the first growth scale of
+  \(r=r(n)\) not excluded by that error bound;
+- use exact algebra and only bounded independent verification; do not expand
+  production enumeration or make a geometric asymptotic-constant claim.

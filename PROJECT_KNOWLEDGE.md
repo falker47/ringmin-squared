@@ -240,6 +240,65 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \]
   This route neither uses radius-one insertion nor constructs regular
   directions; it supplies an upper bound, not an exact optimum.
+- DEFINITION / EXACT THEOREM (TWO NESTED TAILS): for `n>=4` and
+  `1<=m<=n-3`, put \(S_m=\{m,\ldots,n\}\) and define
+  \[
+  \beta_{m,n}
+  =\min_{\substack{C\text{ simple on }S_{m+1}\\
+                    e=\{a,b\}\in E(C)}}
+  \left(P(C)+[m(a+b)-ab]_+\right).
+  \]
+  Deleting \(m\) gives the exact correction
+  \(m(a+b)-ab=m^2-(a-m)(b-m)\). Every cycle/edge pair extends to a
+  complete order, so
+  \[
+  \beta_{m,n}
+  =\min_\sigma\max\{P_\sigma(S_m),P_\sigma(S_{m+1})\},
+  \qquad
+  \Lambda_n\ge\beta_n^{(2)}:=\max_m\beta_{m,n}.
+  \]
+- EXACT THEOREM (PAIRING-SIGNATURE VALIDITY): a pairing of the duplicated
+  labels of \(S_{m+1}\) is automatically degree two. On at least three
+  labels it represents one simple spanning cycle exactly when the associated
+  multigraph is loopless and connected; an explicit equivalent audit also
+  rejects repeated unordered edges. Degree two, or only the local
+  loop/repetition checks, does not exclude disjoint subcycles. For a fixed
+  insertion edge, the full signature after restoring that edge must pass the
+  audit. The two-label convention is the exceptional double edge.
+- EXACT METHOD-SPECIFIC THEOREM: the inner-tail pairing floor and an explicit
+  alternating simple cycle give the uniform squeeze
+  \[
+  P_{m+1,n}\le\beta_{m,n}\le P_{m+1,n}+n^2.
+  \]
+  Therefore
+  \[
+  \beta_n^{(2)}
+  ={2(\sqrt2-1)\over3}n^3+O(n^2),
+  \qquad
+  \lim_{n\to\infty}{\beta_n^{(2)}\over n^3}
+  ={2(\sqrt2-1)\over3}.
+  \]
+  The two-tail refinement may improve finite terms--for example
+  \(\beta_{4,10}=323>P_{5,10}=320\)--but cannot improve the cubic
+  coefficient. This limitation is specific to one optimized pair of
+  consecutive tails; it is not an asymptotic evaluation of \(\Lambda_n\)
+  and does not cover coupling a number of tails growing with \(n\).
+- EXACT GEOMETRIC COROLLARY: the strict global cyclic-ratio sandwich gives
+  \[
+  R_2^*(n)>{\beta_n^{(2)}\over\pi}-n^2
+  \qquad(n\ge4).
+  \]
+  This is a finite refinement with the same leading geometric coefficient
+  \(2(\sqrt2-1)/(3\pi)\), not a new asymptotic constant.
+- VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): independent helpers enumerate
+  all distinct duplicated-label pairing signatures and all dihedral simple
+  cycles for tail sizes three through six. They recover total signature
+  counts `(5,17,73,388)`, simple-cycle counts `(1,3,12,60)`, and exact
+  \((P_{m+1,n},\min P(C),\beta_{m,n})\) rows
+  `(25,26,26)`, `(76,77,77)`, `(170,172,172)`, and `(320,322,323)` for
+  `(m,n)=(1,4),(2,6),(3,8),(4,10)`. A separate exact check verifies the
+  alternating-cycle excess formula. These tests call no production scorer,
+  canonicalizer, or enumerator and are not the all-`n` proof.
 - EXACT THEOREM: the additive relation transfers normalized asymptotics:
   \(\Lambda_n=\pi R_2^*(n)+O(n^2)=\Theta(n^3)\),
   \(\Lambda_n/(\pi R_2^*(n))\to1\), and
@@ -461,8 +520,9 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - INTERPRETATION: the induced-subset lower bound uses only necessary consequences of all-pairs feasibility; it does not require constructing a feasible order or controlling all non-adjacent constraints for an upper bound.
 - INTERPRETATION: this proves a strict lower obstruction above the former \(n^3/(6\pi)\) target; it does not prove exact optima, a matching upper bound, or an exact asymptotic constant.
 - INTERPRETATION: the coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal only
-  within the specific relaxation named above, not necessarily for
-  Power-Ringmin.
+  within the single-subset relaxation named above. The distinct exact
+  two-consecutive-tail extension has the same leading coefficient. Neither
+  statement is an exact asymptotic result for Power-Ringmin.
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 
@@ -1069,7 +1129,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   shortcut certificate, exact label-three and label-two insertion
   classifications, all 87 core and 783 complete dihedral minimizer classes,
   every argmax, and independent 360-class, 511-subset, 14-by-255, and
-  88-by-511 checks.
+  88-by-511 checks, plus the exact two-consecutive-tail obstruction
+  \(\beta_n^{(2)}\), its connected simple-cycle signature criterion, the
+  method-specific no-improvement theorem for its cubic coefficient, and its
+  finite geometric corollary.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -1082,10 +1145,15 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - COMPLETED PRIORITY: a bounded independent test-only Arb path now
   cross-verifies the decisive endpoint signs and complete embedded data of the
   checked `n=3` artifact without the production oracle or its enclosures.
-- RECOMMENDED NEXT TASK: in a fresh bounded task, extend the independent
-  test-only Arb endpoint-sign path from checked `n=3` to the existing checked
-  `n=4` artifact, covering every embedded local record without changing
-  production verification, artifacts, schemas, or certification claims.
+- RECOMMENDED NEXT TASK: in a fresh bounded task, generalize the two-tail
+  limitation to a fixed symbolic block of \(r\) consecutive nested tails and
+  determine which growth scale of \(r=r(n)\) is first not excluded from
+  affecting the cubic coefficient. Keep the result method-specific and do not
+  change production enumeration.
+- OPEN VERIFICATION TASK: extend the independent test-only Arb endpoint-sign
+  path from checked `n=3` to the existing checked `n=4` artifact, covering
+  every embedded local record without changing production verification,
+  artifacts, schemas, or certification claims.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
