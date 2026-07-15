@@ -2,12 +2,13 @@
 
 Last update: 2026-07-15
 
-- **Current phase:** sublinear-block method analysis for lower bounds on the
-  exact cyclic-ratio objective.
-- **Current task:** arbitrary block of \(r=r(n)\ge2\) consecutive nested
-  tails, including compatible histories, uniform error, and growth scale.
+- **Current phase:** first explicit linear-block analysis for the exact
+  consecutive-tail obstruction.
+- **Current task:** decide the subcubic-history versus positive-cubic-residual
+  alternative for \(m=1\) and
+  \(r_n=\lfloor(\sqrt2-1)n\rfloor\).
 - **Task dossier:**
-  ops/TASK-20260715__arbitrary_nested_tail_block/.
+  `ops/TASK-20260715__first_linear_tail_block/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
@@ -15,123 +16,119 @@ Last update: 2026-07-15
 
 ## Implemented Scope
 
-- research/FIXED_ORDER_CYCLE_RATIO.md now defines, for
+- The ordinary exact split-history formula is specialized to
   \[
-  2\le r\le n-2,\qquad
-  1\le m\le n-r-1,\qquad
-  \ell=m+r-1,
+  \alpha=\sqrt2-1,
+  \qquad
+  m=1,
+  \qquad
+  r_n=\lfloor\alpha n\rfloor
+  =\lfloor\sqrt{2n^2}\rfloor-n.
   \]
-  the exact obstruction from
-  \(S_m,S_{m+1},\ldots,S_\ell\).
-- Deleting \(m,m+1,\ldots,\ell-1\), then reinserting them in reverse order,
-  gives a bijection between outer cycles and a simple base cycle on
-  \(S_\ell\) followed by \(r-1\) compatible descending edge splits.
-- If \(A_i\) are the exact split corrections and
-  \(H_j=\sum_{i=1}^jA_i\), then
-  \[
-  \gamma^{(r)}_{m,n}
-  =
-  \min_{\text{compatible histories}}
-  \left[P(C)+\max_{0\le j\le r-1}H_j\right].
-  \]
-- Every intermediate signature must be one connected loopless degree-two
-  spanning cycle with no repeated edge and must satisfy the literal split
-  linkage. Recursive child-edge dominoes remain admissible.
+  Its block domain holds for every integer \(n\ge5\).
+- The proof keeps every literal current-edge split, including recursively
+  nested child-edge splits, and retains the maximum over all correction
+  prefixes.
+- With \(s_n=\lceil2n/5\rceil\), the selected prefix is nonempty throughout
+  the explicit sufficient domain \(n\ge141\).
+- No production source, API, scorer, canonicalizer, enumerator, ceiling,
+  schema, artifact, example, verifier, backend, or certificate contract
+  changed.
 
 ## Exact Method Result
 
-- EXACT THEOREM: with
+- EXACT THEOREM: every simple base cycle \(C\) on \(S_{r_n}\) satisfies
   \[
-  E_{m,\ell}=\sum_{t=m}^{\ell-1}[t^2-2]_+,
+  P(C)-P_{r_n,n}
+  =
+  {1\over2}\sum_{\{u,v\}\in E(C)}
+  (u+v-n-r_n)^2.
   \]
-  the exact inner-cycle comparison is
+- EXACT METHOD-SPECIFIC THEOREM: charging an intact base edge at most once
+  against this slack, and bounding recursive splits separately, gives the
+  exact finite comparison
   \[
-  0\le\gamma^{(r)}_{m,n}-P^*_{\ell,n}
-  \le E_{m,\ell}<(r-1)n^2.
+  \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
+  \ge
+  (r_n-s_n)L_n-e(n-r_n+1)
+  \qquad(n\ge141),
   \]
-- EXACT THEOREM: the alternating-cycle comparison gives
+  with \(L_n\), \(e\), and all rounding conventions defined in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`.
+- EXACT METHOD-SPECIFIC CUBIC RESIDUAL: for every \(n\ge141\),
   \[
-  P_{\ell,n}\le\gamma^{(r)}_{m,n}
-  \le P_{\ell,n}+g(n-\ell+1)+E_{m,\ell}
-  <P_{\ell,n}+rn^2.
+  \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
+  \ge c_0n^3-C_0n^2,
   \]
-- EXACT METHOD-SPECIFIC LIMITATION: for every integer sequence
-  \(r=r(n)=o(n)\),
+  where
   \[
-  \Gamma_n^{(r(n))}
-  ={2(\sqrt2-1)\over3}n^3+O(r(n)n^2)
-  ={2(\sqrt2-1)\over3}n^3+o(n^3).
+  c_0={389-275\sqrt2\over375}>0,
+  \qquad
+  C_0={2(20\sqrt2-27)\over75}+{1\over8}.
   \]
-  Thus every fixed or sublinear block preserves the one-tail coefficient.
-- EXACT METHOD-SPECIFIC BOUNDARY: linear \(r=\Theta(n)\) is the first scale
-  not excluded by the error estimate. An admissible nested domino attains the
-  history-level envelope, but this does not prove that the minimized
-  obstruction improves or changes coefficient.
+  The displayed finite lower bound is positive for every \(n\ge655\).
+  Hence the second requested alternative holds: no compatible history for
+  this block has \(o(n^3)\) excess over \(P^*_{r_n,n}\).
 
-## Bounded Exact Oracle
+## Bounded Exact Diagnostics
 
-- VERIFIED FACT (FINITE EXACT TEST-ONLY COMPUTATION): the recursive oracle
-  audits every correction, prefix, edge-set linkage, intermediate cycle, and
-  final signature without production scoring or enumeration.
-- At \((m,n,r)=(2,7,4)\), 60 compatible histories equal all 60 direct outer
-  dihedral cycles signature by signature, with
-  \[
-  (P_{5,7},P^*_{5,7},\gamma^{(4)}_{2,7})=(106,107,118).
-  \]
-- At \((2,8,4)\), three base classes expand to all 360 outer classes and give
-  \((164,165,172)\). A separate fully nested history attains
-  \(E_{2,5}=23\).
-- No production source, API, scorer, canonicalizer, public enumerator,
-  enumeration ceiling, schema, artifact, example, verifier, backend, or
-  certificate contract changed. The production complete-order domain remains
-  \(3\le n\le8\), with ceiling 2,520.
+- VERIFIED FACT (FINITE EXACT TEST-ONLY COMPUTATION): the base-slack identity
+  is checked exhaustively on all dihedral cycles of tail sizes three through
+  six.
+- At \(n=141,200,500,1000\), deterministic policies preferring intact base
+  edges or forcing recursive child edges check floor/ceiling arithmetic,
+  literal linkage, every local bound, prefix averaging, and the finite
+  comparison.
+- A fixed-seed read-only diagnostic additionally checked 200 compatible
+  prefix histories across those four sizes with exact arithmetic.
+- These bounded diagnostics call no production scorer, canonicalizer, or
+  enumerator and are not the all-\(n\) proof.
 
 ## Verification
 
-- New focused selection: 7 passed.
-- Complete cyclic-ratio module: 47 passed.
-- Complete local suite: 223 collected tests passed.
+- New focused selection: 9 passed.
+- Complete cyclic-ratio module: 56 passed.
+- Complete local suite: 232 passed.
 - Checked-artifact verifier: all 4 certificates and 76 local brackets
   verified; schema suite: 4 passed.
 - Focused Ruff on the modified Python test passes.
 - Repository-wide Ruff reports four existing findings in untouched files:
-  two in src/power_ringmin/critical_structure.py, one in
-  src/power_ringmin/fixed_order_artifact.py, and one in
-  tests/test_finite_results.py. They are recorded but not mixed into this
+  two in `src/power_ringmin/critical_structure.py`, one in
+  `src/power_ringmin/fixed_order_artifact.py`, and one in
+  `tests/test_finite_results.py`. They are recorded but not mixed into this
   task.
-- Independent proof, oracle, and synchronization audits pass after extending
-  the \(P^*_{\ell,n}\) definition to \(1\le\ell\le n-2\) and making the
-  complete-order extension explicit.
+- Independent proof, rounding, compatibility, and synchronization audits
+  found no flaw.
 - Git diff hygiene and the no-production-diff audit pass.
 - CURRENT HOSTED STATUS: GitHub Actions has not run these worktree changes.
 
 ## Files Changed
 
-- research/FIXED_ORDER_CYCLE_RATIO.md adds the authoritative general theorem,
-  uniform bound, sublinear result, domino audit, and limitations.
-- tests/test_fixed_order_cycle_ratio.py adds the independent recursive exact
-  oracle and bounded \(r=4\) checks.
-- start.md, PROJECT_KNOWLEDGE.md, and
-  research/NEXT_RESEARCH_STEPS.md synchronize stable knowledge and the
+- `research/FIXED_ORDER_CYCLE_RATIO.md` adds the authoritative block-local
+  theorem, finite constants, compatibility audit, and limitations.
+- `tests/test_fixed_order_cycle_ratio.py` adds bounded independent exact
+  diagnostics only.
+- `start.md`, `PROJECT_KNOWLEDGE.md`, and
+  `research/NEXT_RESEARCH_STEPS.md` synchronize stable knowledge and the
   research boundary.
-- CURRENT_STATUS.md and the STRICT task dossier record durable handoff.
+- `CURRENT_STATUS.md` and the STRICT task dossier record durable handoff.
 
 ## Residual Limitations
 
-- The ordinary split theorem requires an inner tail of at least three labels;
-  the two-label double-edge case is outside the stated domain.
-- The result concerns a maximum of separately optimized one-block
-  obstructions. It does not exchange \(\max_m\) and \(\min_\sigma\).
-- Linear-size block optimization remains open.
-- No exact leading constant, convergence theorem, or matching geometric bound
-  for \(\Lambda_n/n^3\) or \(R_2^*(n)/n^3\) is claimed.
-- Finite tests verify arithmetic, compatibility, and bounded coverage only;
-  they are not the all-\(n\) proof.
+- The constant \(c_0\) is a certified lower constant, not the exact residual
+  coefficient and not claimed optimal.
+- Other linear densities and starting indices remain unclassified.
+- The result concerns one separately optimized block and its exact
+  inner-cycle reference. It does not exchange any global max and min.
+- No asymptotic evaluation of \(\Lambda_n\), exact angular-geometric result,
+  or production-computation claim follows.
+- Finite tests verify arithmetic and bounded compatible histories only; they
+  are not the all-\(n\) proof.
 - Hosted GitHub Actions remain unverified.
 
 ## Proposed Next Task
 
-In a fresh chat, formulate one linear-density block, for example
-\(r_n=\lfloor(\sqrt2-1)n\rfloor\), and determine whether a compatible-history
-strategy has \(o(n^3)\) excess or a genuinely cubic residual obstruction,
-without changing production enumeration.
+In a fresh chat, optimize the same block-local slack/prefix certificate over
+its cutoff and averaging weight, determining the best rigorously certified
+cubic lower constant available from that template or proving the current
+parameters optimal within it.

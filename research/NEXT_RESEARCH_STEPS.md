@@ -219,6 +219,36 @@ matches all 60 triple-split histories at \((m,n,r)=(2,7,4)\) with all 60
 outer cycles and obtains \((106,107,118)\) for the pairing floor, exact inner
 minimum, and four-tail obstruction. Production boundaries remain unchanged.
 
+The first explicit linear block is now closed in the lower-residual
+direction. For
+\[
+\alpha=\sqrt2-1,
+\qquad
+r_n=\lfloor\alpha n\rfloor,
+\qquad
+m=1,
+\]
+the exact split-history/prefix objective satisfies
+\[
+\gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
+\ge
+{389-275\sqrt2\over375}n^3-O(n^2).
+\]
+The proof uses the exact base-cycle slack identity
+\[
+P(C)-P_{r_n,n}
+=
+{1\over2}\sum_{\{u,v\}\in E(C)}
+(u+v-n-r_n)^2
+\]
+and the prefix ending at \(s_n=\lceil2n/5\rceil\). Intact base-edge splits
+are charged once against their own slack; every recursive child-edge split
+has a separate positive local floor. The maximum over all prefixes retains
+both zero and the selected prefix. Thus no compatible history has
+\(o(n^3)\) excess for this block. The result is relative only to this
+one-block minimum and \(P^*_{r_n,n}\); it neither evaluates
+\(\Lambda_n\) nor makes a geometric or production claim.
+
 As of 2026-07-14, the former asymptotic target
 \[
 R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))
@@ -983,9 +1013,22 @@ saturation for every \(n\ge3\).
     minimum is at most \(\sum[t^2-2]_+<rn^2\); an admissible nested domino
     shows this history-level envelope is not an artifact of incompatible
     splits. Therefore all \(r=o(n)\) preserve the one-tail coefficient for
-    this method. The first unresolved scale is linear \(r=\Theta(n)\), where
-    the error can be cubic. This neither proves an improvement nor evaluates
-    \(\Lambda_n\) or \(R_2^*(n)\) asymptotically.
+    this method. Linear \(r=\Theta(n)\) is the first scale not controlled by
+    this uniform estimate, where the error can be cubic.
+
+13. For the first explicit linear sequence
+    \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\), a separate exact
+    slack/prefix argument proves
+    \[
+    \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
+    \ge
+    {389-275\sqrt2\over375}n^3-O(n^2).
+    \]
+    It charges every intact base edge at most once and covers every recursive
+    split locally, so recursive domino compatibility and the maximum over all
+    prefixes remain literal. This closes the subcubic-versus-cubic
+    alternative only for the named block; it neither gives the exact
+    residual coefficient nor evaluates \(\Lambda_n\) or \(R_2^*(n)\).
 
 ## Updated Research Questions
 
@@ -1000,10 +1043,12 @@ saturation for every \(n\ge3\).
 - OPEN QUESTION: can the gap between the induced-subset geometric lower
   coefficient and the product-distance upper coefficient \(8/(25\pi)\) be
   narrowed by a sharper angular construction or a stronger lower bound?
-- OPEN QUESTION: can a linear-size block \(r=\Theta(n)\) of nested tails
-  improve the method coefficient? Every sublinear block is now excluded from
-  doing so by the uniform \(O(rn^2)\) comparison, but no sufficiency or
-  improvement is claimed at the linear scale.
+- OPEN QUESTION: for which other linear block densities and starting indices
+  does a positive cubic residual survive, and what is the exact residual
+  coefficient even for
+  \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\)? The first named block now has
+  a rigorous positive lower coefficient, but no matching upper coefficient
+  or general density classification.
 - OPEN QUESTION: for which \(n\ge94\) do positional distances at least three
   strictly restrict the minimizer set? The sufficient equality criterion
   \(n(n-1)/3\le B_n\) holds again at \(n=94\), so no persistence from the
@@ -1036,9 +1081,16 @@ saturation for every \(n\ge3\).
 - CLOSED METHOD QUESTION: the general consecutive-tail refinement has an
   exact descending split-history bijection and signed-prefix formula. Its
   uniform \(O(rn^2)\) excess proves that every fixed and every sublinear block
-  preserves the coefficient \(2(\sqrt2-1)/3\). This does not settle the
-  linear scale or the true asymptotic behavior of \(\Lambda_n\) or
+  preserves the coefficient \(2(\sqrt2-1)/3\). This does not classify the
+  general linear scale or the true asymptotic behavior of \(\Lambda_n\) or
   \(R_2^*(n)\).
+- CLOSED METHOD QUESTION (FIRST LINEAR BLOCK): for
+  \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\), the exact base-slack and
+  selected-prefix proof gives a positive cubic residual above
+  \(P^*_{r_n,n}\). Hence the subcubic compatible-history alternative is
+  false for this block. The coefficient is only a certified lower constant
+  for the block, not an exact value or a claim about any global or geometric
+  objective.
 - CLOSED FINITE QUESTION: the first reduced value beyond the public
   cyclic-ratio enumeration boundary is \(\Lambda_9=239\). All minimizing
   core orders are exactly the 28 placement classes recorded in
@@ -1128,6 +1180,13 @@ Completed:
   \(r=o(n)\), while an admissible nested domino identifies linear
   \(r=\Theta(n)\) as the first scale not excluded. Added a bounded exact
   \(r=4\) oracle only; production code and limits remain unchanged.
+- Proved a positive cubic residual for the first explicit linear block
+  \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\). The exact finite bound uses
+  \(s_n=\lceil2n/5\rceil\), a quadratic base-edge slack identity, one-use
+  charging for intact base splits, and a separate recursive-split floor. It
+  yields
+  \(c_0=(389-275\sqrt2)/375>0\), keeps the full prefix maximum and literal
+  compatibility, and adds only bounded exact test-local diagnostics.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -1136,10 +1195,10 @@ Completed:
 
 Immediate:
 
-- In a fresh bounded task, formulate the linear-density tail-block problem
-  for one explicit sequence such as
-  \(r_n=\lfloor(\sqrt2-1)n\rfloor\), and seek either a compatible-history
-  strategy with \(o(n^3)\) excess or a rigorous cubic residual obstruction.
+- In a fresh bounded task, optimize the same block-local slack/prefix
+  certificate over its cutoff and averaging weight, determining the best
+  rigorously certified cubic lower constant available from that template or
+  proving the current parameters optimal within it.
 
 Next:
 
@@ -1175,18 +1234,20 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: reduce one linear-density consecutive-tail block to a tractable
-limiting optimization problem.
+Task: optimize the finite-dimensional certificate for the first
+linear-density block.
 
 Acceptance criteria:
 
-- fix one explicit linear sequence, preferably
-  \(r_n=\lfloor(\sqrt2-1)n\rfloor\), with all rounding and admissible-domain
-  boundaries explicit;
-- use the exact split-history/prefix formula to derive either an
-  \(o(n^3)\) compatible upper strategy or a nonzero cubic residual lower
-  obstruction for that one-block minimum;
-- keep max/min order, recursive domino compatibility, and the distinction
-  between the inner-cycle reference and other block tails explicit;
+- keep \(m=1\) and
+  \(r_n=\lfloor(\sqrt2-1)n\rfloor\) fixed;
+- replace the chosen cutoff \(2/5\) and the averaging factor \(1/2\) by
+  explicit admissible parameters, deriving the intact-base and recursive
+  local floors without relaxing literal compatibility;
+- solve the resulting bounded limiting maximin problem exactly or with a
+  rigorous symbolic certificate, and compare its constant with
+  \((389-275\sqrt2)/375\);
+- preserve the distinction between a certified lower constant and the exact
+  residual coefficient;
 - use exact symbolic reasoning and only bounded test-local diagnostics; do
   not expand production enumeration or claim a geometric asymptotic constant.

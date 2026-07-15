@@ -286,11 +286,39 @@ P_{\ell,n}\le\gamma^{(r)}_{m,n}<P_{\ell,n}+rn^2.
 Thus every fixed block, and more generally every \(r=r(n)=o(n)\), preserves
 the coefficient \(2(\sqrt2-1)/3\) for this separately optimized one-block
 method. Linear \(r=\Theta(n)\) is the first scale not excluded by the error
-bound; no improvement is proved there. A bounded exact test-local oracle for
+bound alone. A bounded exact test-local oracle for
 \((m,n,r)=(2,7,4)\) matches all 60 compatible triple-split histories with all
 60 outer dihedral cycles and obtains \((106,107,118)\) for the pairing floor,
 inner cycle minimum, and four-tail obstruction. Production code and limits
 remain unchanged.
+
+For the first explicit linear block, put
+\[
+\alpha=\sqrt2-1,
+\qquad
+r_n=\lfloor\alpha n\rfloor,
+\qquad
+m=1.
+\]
+The split-history domain is valid for every \(n\ge5\). Charging each intact
+base split against the exact quadratic edge slack
+\[
+P(C)-P_{r_n,n}
+=
+{1\over2}\sum_{\{u,v\}\in E(C)}
+(u+v-n-r_n)^2,
+\]
+and treating every recursive split separately on the prefix ending at
+\(s_n=\lceil2n/5\rceil\), proves
+\[
+\gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
+\ge
+{389-275\sqrt2\over375}n^3-O(n^2).
+\]
+Thus this one block has a genuinely cubic residual and admits no compatible
+history with subcubic excess. This is a method-specific theorem relative to
+\(P^*_{r_n,n}\), not an asymptotic evaluation of \(\Lambda_n\), a geometric
+statement, or a production-computation result.
 
 There is also an exact eventual radius-one insertion theorem. Let
 \(R^*_{2:n}\) be the infimum feasible central radius for only the core radii
@@ -777,7 +805,8 @@ and elimination proofs, scorer algorithm, the exact reduced values
 \(\Lambda_9=239\) and \(\Lambda_{10}=323\), their complete finite core
 minimizer classifications, independent bounded oracles, comparison with
 \(W\), the exact arbitrary consecutive-tail split-history theorem through
-every sublinear block length, and asymptotic limitations. One-wrap saturation
+every sublinear block length, the positive cubic residual for the first
+explicit linear block, and asymptotic limitations. One-wrap saturation
 and insertion independence concern the product ratio; they do not reduce
 exact angular-STN feasibility to one-wrap cycle checks or make \(\rho_\sigma\)
 insertion-independent. The `n=10` proof classifies equality in the
@@ -925,7 +954,31 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   Consequently fixed \(r\) gives the old cubic coefficient with
   \(O_r(n^2)\) error, every \(r=o(n)\) gives the same coefficient with
   \(o(n^3)\) error, and linear \(r=\Theta(n)\) is only the first scale not
-  excluded from changing it.
+  excluded from changing it by this uniform estimate.
+- EXACT METHOD-SPECIFIC THEOREM (FIRST LINEAR BLOCK): for
+  \[
+  \alpha=\sqrt2-1,
+  \qquad
+  r_n=\lfloor\alpha n\rfloor,
+  \qquad
+  m=1,
+  \]
+  the block is in the ordinary split-history domain for \(n\ge5\). With
+  \(s_n=\lceil2n/5\rceil\), the exact finite slack/prefix bound for
+  \(n\ge141\) implies
+  \[
+  \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
+  \ge
+  c_0n^3-C_0n^2,
+  \qquad
+  c_0={389-275\sqrt2\over375}>0,
+  \]
+  where
+  \(C_0=2(20\sqrt2-27)/75+1/8\). Every original base edge is charged at
+  most once, recursive child edges have a separate local floor, and the
+  exact maximum over all prefixes retains the selected prefix. Hence the
+  residual is genuinely cubic for this block. No exact residual coefficient,
+  \(\Lambda_n\), geometric, or production claim follows.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): at
   \((m,n,r)=(2,7,4)\), all 60 compatible triple-split histories agree
   signature by signature with all 60 directly generated outer cycles, and
@@ -1279,8 +1332,10 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   documented single-subset relaxation. The exact consecutive-tail block
   extension has the same leading coefficient for every fixed length and for
   every \(r=o(n)\). This method-specific result is not a proved exact
-  asymptotic coefficient for Power-Ringmin; it leaves linear-size blocks
-  \(r=\Theta(n)\) unresolved.
+  asymptotic coefficient for Power-Ringmin. The first explicit linear block
+  \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\), has a proved positive cubic
+  residual relative to its inner-cycle reference, but general linear
+  densities and exact block coefficients remain unresolved.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit
   and unresolved for public production claims. The bounded test-only Arb
   cross-check covers checked `n=3` only and is not a full backend audit.

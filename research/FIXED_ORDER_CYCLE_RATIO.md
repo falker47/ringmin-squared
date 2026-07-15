@@ -114,6 +114,26 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \(2(\sqrt2-1)/3\) for this separately optimized one-block obstruction.
   Linear \(r=\Theta(n)\) is the first scale this error bound does not
   exclude from changing the coefficient; that is not evidence that it does.
+- **EXACT METHOD-SPECIFIC THEOREM (FIRST LINEAR BLOCK):** put
+  \[
+  \alpha=\sqrt2-1,
+  \qquad
+  r_n=\lfloor\alpha n\rfloor.
+  \]
+  The block \(S_1,\ldots,S_{r_n}\) is in the ordinary split-history domain
+  for every \(n\ge5\). A base-edge slack identity, a linear prefix ending at
+  \(\lceil2n/5\rceil\), and separate local bounds for intact-base and
+  recursive splits prove
+  \[
+  \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
+  \ge
+  {389-275\sqrt2\over375}n^3-O(n^2).
+  \]
+  The displayed constant is positive. Hence this particular linear block
+  has a genuinely cubic residual above its exact inner-cycle reference; no
+  compatible history for this block has subcubic excess. This neither gives
+  the exact residual coefficient nor makes a claim about \(\Lambda_n\),
+  geometry, or production computation.
 - **VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK):** a recursive oracle at
   \((m,n,r)=(2,7,4)\) identifies all 60 compatible triple-split histories
   with all 60 outer dihedral cycles and obtains
@@ -1501,8 +1521,9 @@ At that linear scale the admissible domino (CR28am) can accumulate
 compatibility alone supplies no hidden subcubic cancellation. This does
 **not** prove that the minimized obstruction improves, or even changes, its
 coefficient. It proves only that linear-size blocks are the first scale not
-excluded by this uniform comparison. Determining their optimized behavior
-remains open.
+excluded by this uniform comparison. The next section treats one explicit
+linear sequence and proves a cubic residual by an additional argument; it
+does not classify every linear density or determine an exact coefficient.
 
 A bounded exact test-local oracle checks the first new case without touching
 production code. At \((m,n,r)=(2,7,4)\), the base has three labels. The
@@ -1516,6 +1537,315 @@ signature by signature. Literal prefix scoring gives
 The same bounded checks retain the 12 fully child-edge-nested histories and
 verify a domino attaining \(E_{2,5}=23\). These are finite exact arithmetic
 and coverage checks, not the proof of (CR28al)--(CR28as).
+
+### A cubic residual in the first linear-density block
+
+The first scale left open by (CR28as) can already be separated from the
+inner-cycle reference. Put
+\[
+\alpha=\sqrt2-1,
+\qquad
+r=r_n=\lfloor\alpha n\rfloor.
+\tag{CR28at}
+\]
+For integer arithmetic the rounding is equivalently
+\[
+r_n=\lfloor\sqrt{2n^2}\rfloor-n.
+\]
+For every integer \(n\ge5\), one has
+\[
+2\le r_n\le n-2.
+\]
+Thus (CR28ae)--(CR28al) apply with \(m=1\), block length \(r_n\), and
+\(\ell=r_n\). In particular, the exact object under study is
+\[
+\gamma^{(r_n)}_{1,n}
+=
+\min_{\text{compatible histories}}
+\left[
+P(C_0)+\max_{0\le j\le r_n-1}H_j
+\right],
+\tag{CR28au}
+\]
+where \(C_0\) is a simple cycle on \(S_{r_n}\), every split uses a literal
+current edge, and every intermediate signature remains a connected simple
+spanning cycle.
+
+Choose the auxiliary cutoff
+\[
+s=s_n=\left\lceil{2n\over5}\right\rceil,
+\qquad
+S=n+r,
+\qquad
+q=n-r+1,
+\qquad
+k=r-s.
+\tag{CR28av}
+\]
+The prefix is nonempty whenever \(s\le r-1\). The explicit sufficient
+domain \(n\ge141\) will be used below: indeed,
+\[
+k
+\ge
+\left(\sqrt2-{7\over5}\right)n-2
+>0
+\qquad(n\ge141).
+\tag{CR28aw}
+\]
+This cutoff is sufficient, not claimed minimal. The original block itself
+remains defined on the larger domain \(n\ge5\).
+
+The base pairing floor has an exact quadratic slack decomposition. For every
+simple cycle \(C\) on \(S_r\),
+\[
+\boxed{
+P(C)-P_{r,n}
+=
+{1\over2}
+\sum_{\{u,v\}\in E(C)}
+(u+v-S)^2.
+}
+\tag{CR28ax}
+\]
+To verify it, use degree two and
+\(\sum_{x=r}^n x=qS/2\). Expanding the right-hand side gives
+\[
+P(C)+\sum_{x=r}^n x^2-{qS^2\over2},
+\]
+while
+\[
+P_{r,n}
+=
+\sum_{x=r}^n x(S-x)
+={qS^2\over2}-\sum_{x=r}^n x^2.
+\]
+Thus (CR28ax) is an identity, not a stability heuristic.
+
+Fix an arbitrary compatible history in (CR28au), and retain only its first
+\(k\) insertions, namely \(t=r-1,r-2,\ldots,s\). Write
+\[
+H_k=\sum_{t=s}^{r-1}A_t.
+\]
+Call the split at \(t\) a **base split** when it uses an edge of the original
+\(C_0\) that is still present, and a **recursive split** otherwise. Every
+base edge can be used at most once. Once split, it is replaced by two edges
+incident to a label below \(r\), and later operations never recreate an edge
+whose two endpoints both belong to the original \(S_r\). Inductively, every
+current non-base edge contains at least one previously inserted label
+\(z\in\{t+1,\ldots,r-1\}\). This dichotomy includes all recursive child-edge
+dominoes.
+
+For a base split, write
+\[
+w=u+v,
+\qquad
+p=uv,
+\qquad
+A_t=tw-p.
+\]
+The elementary inequality \(p\le w^2/4\), followed by completing the square,
+gives the local bound
+\[
+\begin{aligned}
+{(w-S)^2\over2}+{A_t\over2}
+&\ge
+{(w-S)^2\over2}+{tw\over2}-{w^2\over8}\\
+&=
+{3\over8}
+\left(w-{4S-2t\over3}\right)^2
++G_n(t),
+\end{aligned}
+\tag{CR28ay}
+\]
+where
+\[
+G_n(t)={4St-S^2-t^2\over6}.
+\tag{CR28az}
+\]
+For a recursive split, choose an inserted endpoint
+\(z\in\{t+1,\ldots,r-1\}\); the other endpoint is at most \(n\). The exact
+correction formula therefore gives
+\[
+\begin{aligned}
+A_t
+&=t^2-(u-t)(v-t)\\
+&\ge
+t^2-(r-1-t)(n-t)\\
+&=(S-1)t-n(r-1).
+\end{aligned}
+\tag{CR28ba}
+\]
+Put
+\[
+J_n(t)={(S-1)t-n(r-1)\over2}.
+\tag{CR28bb}
+\]
+Both local floors increase throughout the selected prefix:
+\[
+G_n(t+1)-G_n(t)={4S-2t-1\over6}>0,
+\qquad
+J_n(t+1)-J_n(t)={S-1\over2}>0.
+\tag{CR28bc}
+\]
+Consequently, with
+\[
+L_n=\min\{G_n(s),J_n(s)\},
+\tag{CR28bd}
+\]
+every selected split contributes at least \(L_n\) after assigning the
+quadratic slack of its base edge to a base split, or half its correction to a
+recursive split.
+
+This assignment respects compatibility and uses each base slack at most
+once. Discarding the nonnegative slack of unused base edges in (CR28ax)
+therefore yields
+\[
+\begin{aligned}
+P(C_0)+{H_k\over2}-P_{r,n}
+&\ge
+\sum_{\substack{t:\ \text{base}\\\text{split}}}
+\left[
+{(u_t+v_t-S)^2\over2}+{A_t\over2}
+\right]
++
+\sum_{\substack{t:\ \text{recursive}\\\text{split}}}
+{A_t\over2}\\
+&\ge kL_n.
+\end{aligned}
+\tag{CR28be}
+\]
+The exact objective retains the maximum over *all* prefixes. In particular,
+it retains both \(H_0=0\) and the selected \(H_k\), so
+\[
+\max_{0\le j\le r-1}H_j
+\ge\max\{0,H_k\}
+\ge{H_k\over2}.
+\tag{CR28bf}
+\]
+Equations (CR28be)--(CR28bf) hold for every compatible history, including
+histories that repeatedly split recursive child edges. Minimizing therefore
+proves the finite lower bound
+\[
+\gamma^{(r)}_{1,n}\ge P_{r,n}+kL_n.
+\tag{CR28bg}
+\]
+
+For comparison with the requested exact inner-cycle reference, recall the
+explicit alternating cycle on the \(q\) labels of \(S_r\). Its excess over
+the pairing floor is
+\[
+e(q)=
+\begin{cases}
+q(q-2)/8,&q\text{ even},\\
+(q^2-1)/8,&q\text{ odd},
+\end{cases}
+\qquad
+0\le e(q)\le{q^2\over8}.
+\tag{CR28bh}
+\]
+Only the proved upper comparison
+\[
+P^*_{r,n}\le P_{r,n}+e(q)
+\]
+is needed; equality is not assumed. Combining it with (CR28bg) gives the
+exact finite statement
+\[
+\boxed{
+\gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
+\ge
+(r_n-s_n)L_n-e(n-r_n+1)
+}
+\tag{CR28bi}
+\]
+whenever \(s_n\le r_n-1\), in particular throughout \(n\ge141\). The
+right-hand side need not already be positive at \(n=141\); positivity is the
+asymptotic conclusion below.
+
+The finite estimate can be made fully explicit. Put
+\[
+D=\sqrt2-{7\over5},
+\qquad
+d={20\sqrt2-27\over75}.
+\tag{CR28bj}
+\]
+For \(n\ge141\), one has \(S\le\sqrt2\,n\) and
+\(s\ge2n/5\). The function \(G_n(t)\) is increasing in \(t\), while
+\((4Xt-X^2-t^2)/6\), at \(t=2n/5\), is decreasing in \(X\) throughout
+\(X\ge4n/5\). Therefore
+\[
+G_n(s)
+\ge
+{4(\sqrt2 n)(2n/5)-(\sqrt2 n)^2-(2n/5)^2\over6}
+=dn^2.
+\]
+The recursive floor has the separate exact estimate
+\[
+\begin{aligned}
+J_n(s)
+&\ge
+{(n+r-1)(2n/5)-n(r-1)\over2}\\
+&\ge
+{5-3\sqrt2\over10}n^2+{3\over10}n
+>dn^2,
+\end{aligned}
+\tag{CR28bk}
+\]
+where the last coefficient gap is
+\((129-85\sqrt2)/150>0\). Hence \(L_n\ge dn^2\). Together with
+\[
+k\ge Dn-2,
+\qquad
+e(q)\le{q^2\over8}\le{n^2\over8},
+\]
+equation (CR28bi) proves, for every \(n\ge141\),
+\[
+\boxed{
+\gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
+\ge
+c_0n^3-C_0n^2,
+}
+\qquad
+\begin{aligned}
+c_0
+&=Dd
+={389-275\sqrt2\over375},\\
+C_0
+&=2d+{1\over8}.
+\end{aligned}
+\tag{CR28bl}
+\]
+Numerically,
+\[
+c_0\approx2.433875930636\times10^{-4},
+\qquad
+C_0\approx0.159247233266.
+\]
+The displayed finite lower bound is positive for every \(n\ge655\): indeed,
+\[
+655c_0-C_0={408029-288520\sqrt2\over600}>0,
+\]
+and \(408029^2-2(288520)^2=84041\). In particular the bound is
+\(c_0n^3-O(n^2)=c_0n^3-o(n^3)\). Positivity of \(c_0\) is also immediate from
+\(389^2=151321>151250=2\cdot275^2\). Thus the second alternative is proved:
+this particular linear-density block has a genuinely cubic residual above
+its exact inner-cycle minimum, and no compatible history for this block has
+\(o(n^3)\) excess.
+
+This is an exact, method-specific result for
+\(\gamma^{(r_n)}_{1,n}-P^*_{r_n,n}\). It is not an exact residual
+coefficient, an asymptotic evaluation of any maximum over separately
+optimized blocks, or a claim about \(\Lambda_n\), exact angular geometry,
+production enumeration, or certificates.
+
+Bounded exact test-local diagnostics check the new algebra without entering
+the proof. The quadratic identity (CR28ax) is checked on every dihedral cycle
+of tail sizes three through six. At
+\(n=141,200,500,1000\), deterministic histories that prefer intact base
+edges and histories that force recursive child edges check the exact
+floor/ceiling arithmetic, every local contribution, the one-use base linkage,
+the averaging step, and the finite bound (CR28bi). These paths use only
+integer and exact rational arithmetic and call no production scorer,
+canonicalizer, or enumerator.
 
 ## 5. Exact Scorer Without Cycle Enumeration
 
@@ -3039,15 +3369,20 @@ Further non-consequences are important.
   This is a method-specific limitation for one block of three tails, not an
   asymptotic evaluation of \(\Lambda_n\) or \(R_2^*(n)\). By itself it does
   not settle growing blocks; the following general result settles every
-  sublinear length but leaves the linear scale open.
+  sublinear length, and the later special result treats one linear sequence.
 - The arbitrary-block reduction (CR28al) retains every compatible recursive
   split and every signed correction prefix. Its uniform squeeze
   (CR28an)--(CR28ao) proves that all fixed blocks and, more generally, every
   sublinear length \(r=o(n)\) preserve the one-tail coefficient for this
   separately optimized obstruction. The first scale not excluded is linear
   \(r=\Theta(n)\); neither the error estimate nor the admissible-domino audit
-  proves improvement there. No exact asymptotic conclusion for
-  \(\Lambda_n\) or \(R_2^*(n)\) follows.
+  alone proves improvement there.
+- For the explicit first linear block
+  \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\), the independent slack/prefix
+  argument (CR28ax)--(CR28bl) proves a positive cubic residual over
+  \(P^*_{r_n,n}\). This is a theorem only about that block minimum. It gives
+  neither its exact residual coefficient nor an exact asymptotic conclusion
+  for \(\Lambda_n\) or \(R_2^*(n)\).
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality
   of minimizing order sets, or \(\Lambda_n=(n-1)W_n\). The exact global
   relation proved here is the one-sided inequality (CR38b).

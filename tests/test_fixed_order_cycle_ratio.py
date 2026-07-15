@@ -3,6 +3,7 @@ from __future__ import annotations
 from fractions import Fraction
 import hashlib
 import itertools
+from math import isqrt
 
 import pytest
 
@@ -589,6 +590,118 @@ def _consecutive_tail_block_oracle(
     )
 
 
+def _linear_density_prefix_diagnostic_oracle(
+    n: int,
+    *,
+    force_recursive: bool,
+) -> None:
+    """Audit the linear-block local inequalities on one bounded history."""
+    r = isqrt(2 * n * n) - n
+    cutoff = (2 * n + 4) // 5
+    assert cutoff < r
+
+    base = _alternating_tail_cycle_oracle(r - 1, n)
+    base_edges = set(_undirected_cycle_edge_signature(base))
+    base_score = _cyclic_product_sum(base)
+    center = n + r
+    tail_size = n - r + 1
+    pairing_floor = sum(
+        label * (center - label) for label in range(r, n + 1)
+    )
+    half = tail_size // 2
+    alternating_excess = (
+        half * (half - 1) // 2
+        if tail_size % 2 == 0
+        else half * (half + 1) // 2
+    )
+    base_slack = sum(
+        (left + right - center) ** 2 for left, right in base_edges
+    )
+
+    assert 2 * (base_score - pairing_floor) == base_slack
+    assert base_score == pairing_floor + alternating_excess
+
+    def base_split_floor(label: int) -> Fraction:
+        return Fraction(
+            4 * center * label - center * center - label * label,
+            6,
+        )
+
+    def recursive_split_floor(label: int) -> Fraction:
+        return Fraction(
+            (center - 1) * label - n * (r - 1),
+            2,
+        )
+
+    local_floor = min(
+        base_split_floor(cutoff),
+        recursive_split_floor(cutoff),
+    )
+    current = base
+    prefixes = [0]
+    used_base_edges: set[tuple[int, int]] = set()
+    local_contributions = Fraction(0)
+
+    for label in range(r - 1, cutoff - 1, -1):
+        candidates = []
+        for position, left in enumerate(current):
+            right = current[(position + 1) % len(current)]
+            edge = (min(left, right), max(left, right))
+            is_base_edge = edge in base_edges
+            if (
+                (force_recursive and label < r - 1 and not is_base_edge)
+                or (not force_recursive and is_base_edge)
+                or (force_recursive and label == r - 1 and is_base_edge)
+            ):
+                candidates.append((position, left, right, edge))
+
+        assert candidates
+        position, left, right, edge = candidates[0]
+        correction = label * (left + right) - left * right
+
+        if edge in base_edges:
+            assert edge not in used_base_edges
+            used_base_edges.add(edge)
+            contribution = Fraction(
+                (left + right - center) ** 2 + correction,
+                2,
+            )
+            assert contribution >= base_split_floor(label)
+            assert base_split_floor(label) >= base_split_floor(cutoff)
+        else:
+            assert min(left, right) < r
+            contribution = Fraction(correction, 2)
+            assert contribution >= recursive_split_floor(label)
+            assert recursive_split_floor(label) >= recursive_split_floor(cutoff)
+
+        local_contributions += contribution
+        prefixes.append(prefixes[-1] + correction)
+        current = _split_cycle_edge_oracle(current, position, label)
+
+    unused_base_slack = Fraction(
+        sum(
+            (left + right - center) ** 2
+            for left, right in base_edges - used_base_edges
+        ),
+        2,
+    )
+    prefix_length = r - cutoff
+    averaged_excess = (
+        Fraction(base_score - pairing_floor)
+        + Fraction(prefixes[-1], 2)
+    )
+    objective = base_score + max(prefixes)
+
+    assert averaged_excess == local_contributions + unused_base_slack
+    assert local_contributions >= prefix_length * local_floor
+    assert averaged_excess >= prefix_length * local_floor
+    assert Fraction(objective - pairing_floor) >= prefix_length * local_floor
+    assert (
+        Fraction(objective - pairing_floor - alternating_excess)
+        >= prefix_length * local_floor - alternating_excess
+    )
+
+
 def _alternating_tail_cycle_oracle(m: int, n: int) -> tuple[int, ...]:
     """Construct the exact near-pairing cycle used in the asymptotic squeeze."""
     labels = tuple(range(m + 1, n + 1))
@@ -1109,6 +1222,40 @@ def test_consecutive_tail_block_oracle_matches_every_outer_cycle(
         expected_minimizers
     )
     assert fully_nested == expected_fully_nested
+
+
+def test_tail_pairing_floor_has_exact_quadratic_edge_slack() -> None:
+    for tail_size in range(3, 7):
+        r = tail_size + 1
+        n = r + tail_size - 1
+        labels = tuple(range(r, n + 1))
+        center = r + n
+        pairing_floor = sum(label * (center - label) for label in labels)
+
+        for cycle in _dihedral_orders_on_labels_oracle(labels):
+            edge_slack = sum(
+                (left + right - center) ** 2
+                for left, right in zip(
+                    cycle,
+                    cycle[1:] + cycle[:1],
+                    strict=True,
+                )
+            )
+            assert 2 * (_cyclic_product_sum(cycle) - pairing_floor) == (
+                edge_slack
+            )
+
+
+@pytest.mark.parametrize("n", (141, 200, 500, 1_000))
+@pytest.mark.parametrize("force_recursive", (False, True))
+def test_first_linear_density_block_prefix_diagnostic_is_exact(
+    n: int,
+    force_recursive: bool,
+) -> None:
+    _linear_density_prefix_diagnostic_oracle(
+        n,
+        force_recursive=force_recursive,
+    )
 
 
 def test_consecutive_tail_block_keeps_admissible_domino_prefixes() -> None:

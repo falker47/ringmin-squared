@@ -411,6 +411,69 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   infer a drop below the one-tail coefficient. Also,
   \(\Gamma_n^{(r)}\) is a maximum of separately minimized one-block
   obstructions; no exchange of max and min is asserted.
+- EXACT METHOD-SPECIFIC THEOREM (FIRST LINEAR BLOCK): put
+  \[
+  \alpha=\sqrt2-1,
+  \qquad
+  r_n=\lfloor\alpha n\rfloor
+  =\lfloor\sqrt{2n^2}\rfloor-n.
+  \]
+  With \(m=1\), the ordinary split-history domain holds for every \(n\ge5\).
+  For \(s_n=\lceil2n/5\rceil\), \(S_n=n+r_n\), \(q_n=n-r_n+1\), and
+  \(k_n=r_n-s_n\), define
+  \[
+  G_n(t)={4S_nt-S_n^2-t^2\over6},
+  \qquad
+  J_n(t)={(S_n-1)t-n(r_n-1)\over2},
+  \qquad
+  L_n=\min\{G_n(s_n),J_n(s_n)\}.
+  \]
+  If
+  \[
+  e(q)=
+  \begin{cases}
+  q(q-2)/8,&q\text{ even},\\
+  (q^2-1)/8,&q\text{ odd},
+  \end{cases}
+  \]
+  then, whenever \(s_n\le r_n-1\), and in particular for \(n\ge141\),
+  \[
+  \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
+  \ge
+  k_nL_n-e(q_n).
+  \]
+- EXACT THEOREM (BASE-SLACK IDENTITY): every simple cycle \(C\) on
+  \(S_{r_n}\) satisfies
+  \[
+  P(C)-P_{r_n,n}
+  =
+  {1\over2}
+  \sum_{\{u,v\}\in E(C)}
+  (u+v-n-r_n)^2.
+  \]
+  On the selected prefix \(t=r_n-1,\ldots,s_n\), an intact base split can
+  be charged against its unique edge slack and contributes at least
+  \(G_n(t)\); a recursive split contains a previously inserted endpoint and
+  contributes at least \(J_n(t)\). Both floors increase in \(t\), no base
+  edge can be recreated, and
+  \(\max\{0,H_{k_n}\}\ge H_{k_n}/2\). Thus the proof retains literal
+  recursive compatibility and the maximum over all prefixes.
+- EXACT METHOD-SPECIFIC CUBIC RESIDUAL: for every \(n\ge141\),
+  \[
+  \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
+  \ge
+  c_0n^3-C_0n^2,
+  \]
+  where
+  \[
+  c_0={389-275\sqrt2\over375}>0,
+  \qquad
+  C_0={2(20\sqrt2-27)\over75}+{1\over8}.
+  \]
+  The displayed lower bound is positive for \(n\ge655\). Hence no
+  compatible history for this block has \(o(n^3)\) excess. This proves no
+  exact residual coefficient, general linear-density classification,
+  \(\Lambda_n\) asymptotic, geometric claim, or production result.
 - EXACT GEOMETRIC COROLLARY: the strict global cyclic-ratio sandwich gives
   \[
   R_2^*(n)>{\beta_n^{(2)}\over\pi}-n^2
@@ -450,6 +513,15 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   and intermediate connected cycle; a separate exact check realizes the
   admissible-domino envelope \(E_{2,5}=23\). All paths are test-local and
   call no production scorer, canonicalizer, or enumerator.
+- VERIFIED FACT (BOUNDED EXACT TEST-LOCAL DIAGNOSTIC): the first-linear-block
+  checks verify the base-slack identity on every dihedral cycle of tail sizes
+  three through six. At \(n=141,200,500,1000\), two deterministic history
+  policies exercise intact-base and recursive child-edge splits and verify
+  exact floor/ceiling rounding, one-use base linkage, every local floor, the
+  prefix average, and the finite lower inequality. The checks use integer and
+  exact rational arithmetic only and call no production scorer,
+  canonicalizer, or enumerator. They corroborate the algebra but are not the
+  all-\(n\) proof.
 - EXACT THEOREM: the additive relation transfers normalized asymptotics:
   \(\Lambda_n=\pi R_2^*(n)+O(n^2)=\Theta(n^3)\),
   \(\Lambda_n/(\pi R_2^*(n))\to1\), and
@@ -674,7 +746,10 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   within the single-subset relaxation named above. The exact consecutive-tail
   block extension has the same leading coefficient for every fixed \(r\)
   and every \(r=o(n)\). None of these statements is an exact asymptotic
-  result for Power-Ringmin; linear-size blocks remain unresolved.
+  result for Power-Ringmin. The first explicit linear block has a positive
+  method-specific cubic residual over its inner-cycle reference; other
+  densities, its exact residual coefficient, and all global/geometric
+  consequences remain unresolved.
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 
@@ -1290,7 +1365,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   test-local checks, plus the arbitrary consecutive-tail split-history
   bijection, signed prefix maximum, admissible-domino audit, uniform
   \(O(rn^2)\) squeeze, preservation of the coefficient for every
-  \(r=o(n)\), linear first non-excluded scale, and bounded \(r=4\) oracle.
+  \(r=o(n)\), linear first non-excluded scale, and bounded \(r=4\) oracle,
+  plus the exact positive cubic residual for
+  \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\), its base-slack identity,
+  intact/recursive local split bounds, quantitative constants, and bounded
+  exact diagnostics.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -1303,12 +1382,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - COMPLETED PRIORITY: a bounded independent test-only Arb path now
   cross-verifies the decisive endpoint signs and complete embedded data of the
   checked `n=3` artifact without the production oracle or its enclosures.
-- RECOMMENDED NEXT TASK: in a fresh bounded task, formulate and analyze one
-  linear-density block, for example
-  \(r_n=\lfloor(\sqrt2-1)n\rfloor\), and determine whether a compatible
-  split strategy gives an \(o(n^3)\) excess or whether a genuinely cubic
-  obstruction survives. Keep the result method-specific and do not change
-  production enumeration.
+- RECOMMENDED NEXT TASK: in a fresh bounded task, optimize the cutoff and
+  prefix-averaging weight in the same block-local slack certificate, deriving
+  the best rigorous cubic lower constant available from that template or
+  proving the current parameters optimal within it. Keep the result
+  method-specific and do not change production enumeration.
 - OPEN VERIFICATION TASK: extend the independent test-only Arb endpoint-sign
   path from checked `n=3` to the existing checked `n=4` artifact, covering
   every embedded local record without changing production verification,
@@ -1340,10 +1418,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   minimizer inclusion have not been classified.
 - LIMITATION: neither existence of \(\lim R_2^*(n)/n^3\) nor a leading-term
   asymptotic formula has been proved in this repository.
-- LIMITATION: the optimized consecutive-tail obstruction is classified only
-  through sublinear block lengths. Linear \(r=\Theta(n)\) is the first scale
-  not excluded by the uniform error bound, but no improvement or coefficient
-  change has been proved there.
+- LIMITATION: the uniform consecutive-tail comparison classifies every
+  sublinear block length and leaves the general linear scale outside that
+  estimate. The first explicit linear block has a positive cubic residual,
+  but other densities and the exact coefficient even for that block remain
+  unclassified.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.
 - LIMITATION: the sufficient radius-one threshold `12` is not known to be
   minimal, and the exact equality question remains open for `n<=11`.
