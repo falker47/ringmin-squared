@@ -334,6 +334,23 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   are 323, 323, 326, and 330. The unique equality signature for \(\{8,9\}\)
   is not a simple cycle, while \(\{7,10\}\) gives the sole surviving class.
   This proof does not use cyclic-order enumeration.
+- EXACT THEOREM (FINITE \(n=10\) LABEL-THREE INSERTION-GAP CLASSIFICATION):
+  for a partial cycle \(\nu\) on \(\{3,\ldots,10\}\), define
+  \[
+  K_{\ge3}(\nu)=
+  \max_{\varnothing\ne U\subseteq\{3,\ldots,10\}}P_\nu(U).
+  \]
+  Inserting label \(3\) into `(10,4,7,8,6,9,5)` gives
+  \(K_{\ge3}=326\) on \(\{4,7\}\) and 323 on every other gap. Inserting
+  it into `(10,5,9,4,7,8,6)` gives 326 on \(\{4,9\}\), 328 on
+  \(\{4,7\}\), and 323 on every other gap. The proof uses
+  \(\Delta_3(a,b)=3(a+b)-ab=9-(a-3)(b-3)\), the exact shortcut
+  transformation under insertion, and complete nonnegative-gain
+  certificates. The first cycle has argmaxes \(\{5,\ldots,10\}\) and the
+  full partial set on gap \(\{4,10\}\), and only \(\{5,\ldots,10\}\) on
+  its other five admissible gaps. Every admissible gap of the second cycle
+  has sole argmax \(\{4,\ldots,10\}\). Each excluded row has the full
+  partial set as its sole argmax.
 - VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT): the core witness
   \(\tau=(10,2,3,4,7,8,6,9,5)\) has complete sum 319. Its exact shortcut
   table has only the positive nontrivial gains
@@ -353,13 +370,18 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   seven-label lemma, recover the exact low-pairing and fixed-edge branch data,
   audit every required insertion correction, confirm exactly the two proved
   equality classes, and literally score all \(2^9-1=511\) nonempty witness
-  subsets. They call no repository canonicalizer, public enumerator, or
-  production Karp scorer. Production source and the public complete-order
-  `n<=8` boundary are unchanged.
+  subsets. A separate oracle constructs the 14 label-three insertions and
+  literally scores all \(14(2^8-1)=3{,}570\) nonempty subsets, recording
+  every argmax independently of the structural certificate. These paths call
+  no repository canonicalizer, public enumerator, or production Karp scorer.
+  Production source and the public complete-order `n<=8` boundary are
+  unchanged.
 - INTERPRETATION: the \(n=10\) theorem and oracles are finite exact
   combinatorial results. They do not give an exact value of \(R_2^*(10)\), a
   geometric statement, an all-\(n\) formula, an asymptotic claim, or a
-  classification of all `n=10` core minimizers.
+  classification of all `n=10` core minimizers. Label \(2\) remains
+  unplaced. A partial order with \(K_{\ge3}=323\) is a surviving necessary
+  case, not yet a proved full-core minimizer.
 - VERIFIED FACT: `research/FIXED_ORDER_CYCLE_RATIO.md` is the authoritative
   proof, algorithm, bounded-experiment, \(W\)-comparison, and limitations
   note.
@@ -1029,7 +1051,9 @@ Candidate-set extraction uses the following finite-certificate semantics.
   complete minimizer classes, and the independent 2,520-core argmax oracle,
   plus the exact finite value \(\Lambda_{10}=323\), its seven-label pairing
   lemma, structural classification of its two equality classes, exact witness
-  shortcut certificate, and independent 360-class and 511-subset checks.
+  shortcut certificate, exact label-three insertion-gap classification over
+  the two equality cycles, and independent 360-class, 511-subset, and
+  14-by-255 checks.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -1042,11 +1066,12 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - COMPLETED PRIORITY: a bounded independent test-only Arb path now
   cross-verifies the decisive endpoint signs and complete embedded data of the
   checked `n=3` artifact without the production oracle or its enclosures.
-- RECOMMENDED NEXT TASK: in a fresh bounded task, determine the exact
-  admissible insertion gaps for label `3` in the two proved `n=10`
-  seven-label equality cycles while leaving label `2` unplaced and making no
-  complete core-minimizer classification. Extending the independent Arb path
-  to the checked `n=4` artifact remains a separate open verification task.
+- RECOMMENDED NEXT TASK: in a fresh bounded task, classify insertion of label
+  `2` into the eleven surviving partial `n=10` cycles, using the recorded
+  argmax and shortcut data and an independent bounded oracle. Do not infer a
+  full-core count until the label-two proof is complete. Extending the
+  independent Arb path to the checked `n=4` artifact remains a separate open
+  verification task.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order

@@ -146,9 +146,19 @@ the equality classes are exactly those
 represented by `(10,4,7,8,6,9,5)` and `(10,5,9,4,7,8,6)`. Independent
 test-only arithmetic confirms this list over all 360 lemma classes and checks
 all 511 nonempty witness subsets without calling the public enumerator or
-production scorer. The public complete-order domain remains `n<=8`, labels
-`2` and `3` are not placed by the equality proof, and the full set of `n=10`
-core minimizers is not classified.
+production scorer.
+
+Label `3` is now classified exactly over those two equality cycles. For the
+partial induced-subset maximum \(K_{\ge3}\) on labels \(3,\ldots,10\), the
+insertion formula and complete shortcut-gain certificates show that the first
+cycle excludes only \(\{4,7\}\), with score 326 there, while the second
+excludes exactly \(\{4,9\}\) and \(\{4,7\}\), with scores 326 and 328.
+Every other insertion has \(K_{\ge3}=323\). A separate test-only oracle
+literally checks all 14 inserted orders and all 255 nonempty subsets of each,
+including every argmax, without using the proof certificate or production
+code. The public complete-order domain remains `n<=8`. Label `2` is not
+placed, a surviving partial order is not yet proved extendible at score 323,
+and the full set of `n=10` core minimizers is not classified.
 
 A strengthened all-`n` mathematical lower bound has been proved from induced
 subsets of cyclic gaps. For every `n>=4` and `1<=m<=n-2`,
@@ -676,8 +686,9 @@ comparison with \(W\), and asymptotic limitations. One-wrap saturation and
 insertion independence concern the product ratio; they do not reduce exact
 angular-STN feasibility to one-wrap cycle checks or make \(\rho_\sigma\)
 insertion-independent. The `n=10` results prove the value and classify
-equality in the seven-label lemma, but do not place labels `2` or `3` and do
-not classify all minimizing core orders.
+equality in the seven-label lemma; they now also classify label `3` over the
+two equality cycles. They do not place label `2` or classify all minimizing
+core orders.
 
 ## Current Knowledge Status
 
@@ -778,6 +789,18 @@ not classify all minimizing core orders.
   separates the two tail-score branches, audits every needed label-four
   correction, and uses fixed-edge residual pairing bounds rather than the
   360-class sweep.
+- EXACT THEOREM (FINITE \(n=10\) LABEL-THREE INSERTION-GAP CLASSIFICATION):
+  for the partial maximum \(K_{\ge3}\) over nonempty subsets of labels
+  \(3,\ldots,10\), inserting label \(3\) into
+  `(10,4,7,8,6,9,5)` gives 326 on \(\{4,7\}\) and 323 on every other
+  gap. Inserting it into `(10,5,9,4,7,8,6)` gives 326 on
+  \(\{4,9\}\), 328 on \(\{4,7\}\), and 323 on every other gap. The
+  proof uses the exact correction
+  \(3(a+b)-ab=9-(a-3)(b-3)\) and complete shortcut-gain certificates.
+  On the first cycle, the \(\{4,10\}\) insertion maximizes on both
+  \(\{5,\ldots,10\}\) and the full partial label set; its other admissible
+  gaps maximize only on \(\{5,\ldots,10\}\). Every admissible insertion in
+  the second cycle maximizes only on \(\{4,\ldots,10\}\).
 - VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT): the exact shortcut-gain
   certificate for `(10,2,3,4,7,8,6,9,5)` gives \(K=323\), with precisely
   \(\{5,\ldots,10\}\) and \(\{3,\ldots,10\}\) as argmax subsets. Thus the
@@ -785,12 +808,16 @@ not classify all minimizing core orders.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): independent test-only
   code confirms the proved equality list over all \(6!/2=360\) lemma classes,
   independently checks the pairing/correction branch data, and literally
-  evaluates all 511 nonempty witness subsets. It calls no repository
-  canonicalizer, public enumerator, or production Karp scorer, and the public
-  `n<=8` boundary is unchanged.
+  evaluates all 511 nonempty witness subsets. A separate literal oracle checks
+  all 14 label-three insertions and all \(14(2^8-1)=3{,}570\) nonempty-subset
+  scores, recording every argmax. It calls no repository canonicalizer,
+  public enumerator, or production Karp scorer, and the public `n<=8`
+  boundary is unchanged.
 - INTERPRETATION: the \(n=10\) result is finite and combinatorial. It gives
   no exact value of \(R_2^*(10)\), geometric statement, all-\(n\) formula,
-  asymptotic claim, or classification of every minimizing core order.
+  asymptotic claim, placement of label `2`, or classification of every
+  minimizing core order. A partial order with \(K_{\ge3}=323\) is only a
+  surviving candidate until label `2` is analyzed.
 - EXACT THEOREM: for every `n>=3`,
   \[
   R_2^*(n)\ge \frac{n(n+1)(n+2)}{6\pi}-n^2,

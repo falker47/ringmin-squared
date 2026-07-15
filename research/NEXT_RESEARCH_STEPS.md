@@ -128,9 +128,17 @@ recurrence leave exactly the two dihedral classes represented by
 `(10,4,7,8,6,9,5)` and `(10,5,9,4,7,8,6)`. Independent
 test-only arithmetic confirms this proved list over all 360 lemma classes and
 checks all 511 nonempty witness subsets without a repository canonicalizer,
-public enumerator, or production scorer. The public domain remains `n<=8`;
-the equality classification makes no placement claim for label `2` or `3`,
-and the `n=10` core minimizers are not classified.
+public enumerator, or production scorer.
+
+The exact label-three insertion step over these two classes is also closed.
+Writing \(K_{\ge3}\) for the induced-subset maximum on labels
+\(3,\ldots,10\), the insertion correction and complete shortcut-gain
+certificates exclude only \(\{4,7\}\) in the first cycle and exactly
+\(\{4,9\}\), \(\{4,7\}\) in the second; all eleven other insertions have
+\(K_{\ge3}=323\). A separate literal oracle checks all 14 inserted orders,
+all 255 nonempty subsets of each, and every argmax. The public domain remains
+`n<=8`; label `2` is unplaced, the surviving partial cycles are not yet proved
+extendible at score 323, and the `n=10` core minimizers are not classified.
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -450,6 +458,12 @@ saturation for every \(n\ge3\).
   signs leave four candidate insertion edges; fixed-edge pairing floors and
   their unique residual equality signatures leave only \(\{7,10\}\). This
   proof uses no sweep over cyclic orders.
+- EXACT THEOREM (FINITE LABEL-THREE INSERTION-GAP CLASSIFICATION): for the
+  partial induced-subset score \(K_{\ge3}\) on labels \(3,\ldots,10\), the
+  first equality cycle has value 326 on \(\{4,7\}\) and 323 on every other
+  gap. The second has value 326 on \(\{4,9\}\), 328 on \(\{4,7\}\), and
+  323 on every other gap. The proof uses the exact insertion formula and a
+  complete shortcut-gain certificate and records every maximizing subset.
 - VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT): the shortcut-gain table
   for \(\tau=(10,2,3,4,7,8,6,9,5)\) proves \(K(\tau)=323\), with exactly
   \(\{5,\ldots,10\}\) and \(\{3,\ldots,10\}\) maximizing. Hence the
@@ -457,9 +471,11 @@ saturation for every \(n\ge3\).
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): direct test-local
   generation confirms the proved equality list over all \(6!/2=360\) lemma
   classes, independently audits the low-pairing and fixed-edge correction
-  data, and checks all 511 nonempty witness subsets. These paths call no
+  data, and checks all 511 nonempty witness subsets. A separate literal oracle
+  checks the 14 label-three insertions and all 3,570 corresponding nonempty
+  subset scores, independently of the proof certificate. These paths call no
   repository canonicalizer, public enumerator, or production scorer. They do
-  not classify all `n=10` core minimizers.
+  not place label `2` or classify all `n=10` core minimizers.
 - EXACT THEOREM: `research/ALL_N_LOWER_BOUND.md` proves the induced-subset
   lower-bound theorem. In particular, for every `n>=4` and `1<=m<=n-2`,
   \[
@@ -762,12 +778,13 @@ saturation for every \(n\ge3\).
    additional finite equality/shortcut argument now classifies all \(n=9\)
    core \(K\)-minimizers and a separate pairing/shortcut argument proves the
    value \(\Lambda_{10}=323\) and exactly classifies equality in its
-   seven-label lemma. The latter classification places neither label `2` nor
-   label `3` and does not classify the `n=10` core minimizers. Insertion
-   independence for \(\Lambda\) does not transfer to the exact angular
-   threshold. The resulting geometric upper bound recovers the known
-   coefficient \(8/(25\pi)\); it proves no exact geometric optimum or new
-   coefficient.
+   seven-label lemma. The subsequent exact partial analysis classifies every
+   insertion gap for label `3` over those two equality cycles and leaves
+   eleven candidates with \(K_{\ge3}=323\). Label `2` remains unplaced, and
+   the `n=10` core minimizers remain unclassified. Insertion independence for
+   \(\Lambda\) does not transfer to the exact angular threshold. The resulting
+   geometric upper bound recovers the known coefficient \(8/(25\pi)\); it
+   proves no exact geometric optimum or new coefficient.
 
 ## Updated Research Questions
 
@@ -806,14 +823,18 @@ saturation for every \(n\ge3\).
   224 complete minimizer classes. The independent 2,520-core oracle records
   every argmax and recovers the same classification. This closes only the
   specified finite combinatorial case, not any geometric or all-\(n\) case.
-- CLOSED FINITE VALUE AND SEVEN-LABEL EQUALITY CLASSIFICATION / OPEN CORE
-  CLASSIFICATION: the next reduced value is
+- CLOSED FINITE VALUE, SEVEN-LABEL EQUALITY, AND LABEL-THREE GAP
+  CLASSIFICATION / OPEN LABEL-TWO AND CORE CLASSIFICATION: the next reduced
+  value is
   \(\Lambda_{10}=323\), proved by the seven-label pairing lemma and exact
   witness shortcut certificate in `research/FIXED_ORDER_CYCLE_RATIO.md` and
   independently checked on 360 lemma classes and 511 witness subsets. A
   separate structural branch proof now establishes exactly the two
-  seven-label equality cycles. Labels `2` and `3` and all minimizing `n=10`
-  core orders remain unclassified.
+  seven-label equality cycles. Exact insertion and shortcut certificates
+  classify all label-three gaps over them, leaving eleven partial cycles with
+  \(K_{\ge3}=323\); an independent 14-by-255 oracle confirms every score and
+  argmax. Label `2` and all minimizing `n=10` core orders remain
+  unclassified.
 
 ## Ranked Work
 
@@ -853,6 +874,12 @@ Completed:
   `n=10` by separating tail scores 322 and 323, auditing exact label-four
   corrections, and using fixed-edge residual pairing bounds; retained the
   360-class sweep solely as an independent test oracle.
+- Classified all 14 insertions of label `3` over those two equality cycles by
+  the exact insertion formula and complete shortcut-gain certificates. The
+  first cycle excludes only \(\{4,7\}\); the second excludes exactly
+  \(\{4,9\}\) and \(\{4,7\}\); every other partial score is 323. A separate
+  literal oracle checks all 3,570 induced subsets and every argmax without
+  production code.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -861,10 +888,10 @@ Completed:
 
 Immediate:
 
-- In a fresh bounded task, determine exactly which insertion gaps for label
-  `3` in the two proved `n=10` seven-label equality cycles can still satisfy
-  \(K\le323\). Leave label `2` unplaced and do not enumerate or classify the
-  complete core space.
+- In a fresh bounded task, classify insertion of label `2` into the eleven
+  surviving partial `n=10` cycles. Use the recorded argmax and shortcut data,
+  keep any exhaustive check independent and test-only, and do not state a
+  full-core count until the label-two proof is complete.
 
 Next:
 
@@ -900,19 +927,17 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: classify the admissible placements of label `3` into the two proved
-`n=10` seven-label equality cycles, while leaving label `2` unplaced and
-without classifying the complete core minimizers or changing production.
+Task: classify insertion of label `2` into the eleven surviving partial
+`n=10` cycles on labels `3..10`, without changing production.
 
 Acceptance criteria:
 
-- analyze all seven insertion gaps of each proved seven-label class through
-  exact induced-subset score changes rather than a full core sweep;
-- prove which partial orders on labels `3..10` can still have maximum score
-  at most 323, recording every equality subset needed for the later label-two
-  step;
+- analyze every label-two insertion through the exact change
+  \(2(a+b)-ab=4-(a-2)(b-2)\) and the recorded partial argmax/shortcut data;
+- prove exactly which resulting core orders have \(K\le323\), recording all
+  equality subsets and resolving any duplicate dihedral classes before a
+  count is stated;
 - keep any bounded enumeration independent and test-only;
-- make no placement claim for label `2`, no full core-minimizer count, and no
-  geometric inference;
+- make no geometric inference or production-domain extension;
 - keep the production scorer and public complete-order `n<=8` boundary
   unchanged.

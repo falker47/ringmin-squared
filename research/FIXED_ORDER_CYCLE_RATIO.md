@@ -103,6 +103,15 @@ in `research/ALL_N_LOWER_BOUND.md`.
   four possible tail edges; fixed-edge pairing bounds eliminate two, and the
   exact residual equality signatures eliminate a third. Exactly one insertion
   gap survives in each score branch.
+- **EXACT THEOREM (FINITE LABEL-THREE INSERTION-GAP CLASSIFICATION):** write
+  \(K_{\ge3}\) for the maximum induced-subset score of a partial cycle on
+  labels \(3,\ldots,10\). Inserting label \(3\) into
+  `(10,4,7,8,6,9,5)` gives \(K_{\ge3}=323\) in every gap except
+  \(\{4,7\}\), where it gives 326. Inserting label \(3\) into
+  `(10,5,9,4,7,8,6)` gives \(K_{\ge3}=323\) except on
+  \(\{4,9\}\) and \(\{4,7\}\), where it gives 326 and 328. The proof uses
+  the exact insertion correction and a complete shortcut-gain certificate,
+  not subset enumeration.
 - **VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT):** the seven-label
   lemma and the exact shortcut-gain witness
   \(\tau=(10,2,3,4,7,8,6,9,5)\) give
@@ -111,19 +120,21 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \(\{3,\ldots,10\}\).
 - **VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION):** independent
   test-only code checks the lemma on all \(6!/2=360\) seven-label dihedral
-  classes and literally scores all \(2^9-1=511\) nonempty witness subsets.
-  Neither path calls a repository canonicalizer, the public enumerator, or
-  the production scorer.
+  classes, literally scores all \(2^9-1=511\) nonempty witness subsets, and
+  separately checks all 14 label-three insertions and all 255 nonempty
+  subsets of each. None of these paths calls a repository canonicalizer, the
+  public enumerator, or the production scorer.
 - **VERIFIED FACT:** `src/power_ringmin/fixed_order_cycle_ratio.py` implements
   a float-free exact scorer using descending-path compression and Karp's
   maximum-cycle-mean dynamic program. Direct simple-cycle enumeration is not
   used in production and exists only as an independent small-test oracle.
 - **LIMITATION:** the exact `n=9` classification and exact `n=10` value are
   not a closed-form all-\(n\) evaluation or evidence for convergence to a
-  new asymptotic constant. The two `n=10` seven-label equality cycles do not
-  classify the `n=10` core minimizers: labels `2` and `3` are deliberately not
-  placed here. No interval backend, verifier, interval-certificate artifact,
-  checked artifact, schema, or example is changed by this work.
+  new asymptotic constant. Label `3` is now classified only relative to the
+  two `n=10` seven-label equality cycles; label `2` remains unplaced, and the
+  `n=10` core minimizers remain unclassified. No interval backend, verifier,
+  interval-certificate artifact, checked artifact, schema, or example is
+  changed by this work.
 
 ## 1. Complete Fixed-Order STN
 
@@ -1580,9 +1591,191 @@ distinct. We have therefore proved the exact finite structural theorem
 }
 \tag{L10-36}
 \]
-This classifies equality in the seven-label lemma only. It places neither
-label \(2\) nor label \(3\), and it does not classify the minimizing
-`n=10` core orders.
+The theorem (L10-36) by itself classifies equality in the seven-label lemma
+only. It places neither label \(2\) nor label \(3\), and it does not classify
+the minimizing `n=10` core orders.
+
+#### Exact label-three insertion gaps over the equality cycles
+
+The next partial step can be classified without placing label \(2\). Set
+\[
+T_8=\{3,\ldots,10\},
+\qquad
+K_{\ge3}(\nu)
+=\max_{\varnothing\ne U\subseteq T_8}P_\nu(U)
+\tag{L10-37}
+\]
+for a cyclic order \(\nu\) on \(T_8\). This is deliberately distinct from
+the full-core score \(K\), whose domain also contains label \(2\). If a later
+full-core order \(\tau\) induces \(\nu\) after deleting label \(2\), then
+\[
+K(\tau)\ge K_{\ge3}(\nu).
+\tag{L10-38}
+\]
+Thus a value above 323 is a definitive obstruction, whereas a value equal to
+323 only leaves the gap available for a later label-two analysis.
+
+Write
+\[
+\omega_A=(10,4,7,8,6,9,5),
+\qquad
+\omega_B=(10,5,9,4,7,8,6).
+\tag{L10-39}
+\]
+Their complete seven-label sums are 321 and 323, respectively. For an edge
+\(h=\{a,b\}\) of one of these displayed cycles, let \(\iota_h(\omega)\)
+insert label \(3\) between its endpoints in the displayed orientation. The
+full eight-label sum changes by the exact one-edge replacement
+\[
+\begin{aligned}
+B_h
+&=P_{\iota_h(\omega)}(T_8)
+=P_\omega(T_7)+\Delta_3(a,b),\\
+\Delta_3(a,b)
+&=3(a+b)-ab
+=9-(a-3)(b-3).
+\end{aligned}
+\tag{L10-40}
+\]
+
+It remains to control all proper induced subsets. Use the shortcut gain from
+(L10-16), now computed in the inserted eight-cycle. For \(|U|\ge2\), the
+same partition of the full cycle into selected gaps gives
+\[
+P_{\iota_h(\omega)}(U)-B_h
+=\sum_{(i,j)\text{ a selected gap}}g_{\iota_h(\omega)}(i,j).
+\tag{L10-41}
+\]
+There is a compact exact audit of every gain that can be nonnegative. For old
+endpoints \(i,j\), splitting \(h\) changes the forward-arc sum only when that
+arc contains \(h\), so
+\[
+g_{\iota_h(\omega)}(i,j)
+=
+\begin{cases}
+g_\omega(i,j)-\Delta_3(a,b),&
+   \text{if the forward arc from \(i\) to \(j\) contains \(h\)},\\
+g_\omega(i,j),&\text{otherwise}.
+\end{cases}
+\tag{L10-42}
+\]
+The new shortcut that deletes only label \(3\) has gain
+\(-\Delta_3(a,b)\). Every nontrivial shortcut having label \(3\) as an
+endpoint is strictly negative: its arc contains a product \(3x\ge12\) and
+an old--old product \(yz\ge20\), while its endpoint product is at most 30.
+
+For \(\omega_A\), the edge products are
+\[
+40,28,56,48,54,45,50,
+\tag{L10-43}
+\]
+and its one-internal-label shortcut gains, in the displayed starting-label
+order, are
+\[
+2,-52,-62,-30,-69,-5,-70.
+\tag{L10-44}
+\]
+The only two requiring separate attention are
+\(g_A(10,7)=2\) on \(10\to4\to7\) and
+\(g_A(9,10)=-5\) on \(9\to5\to10\). Every longer base arc uses at least
+three edges and hence has gain at most
+\[
+90-(28+40+45)=-23.
+\tag{L10-45}
+\]
+Since \(-\Delta_3(a,b)\le12\) in all 14 rows, (L10-42) keeps these longer
+gains and every other one-internal gain strictly negative. The gain
+\(g_A(10,7)\) becomes zero for \(h=\{4,10\}\), becomes \(-3\) for
+\(h=\{4,7\}\), and otherwise remains 2. The gain \(g_A(9,10)\) becomes
+\(-2\) for \(h=\{5,9\}\), becomes zero for \(h=\{5,10\}\), and
+otherwise remains \(-5\).
+
+For \(\omega_B\), the edge products and one-internal-label gains are
+\[
+50,45,36,28,56,48,60
+\tag{L10-46}
+\]
+and
+\[
+-5,-61,-1,-52,-62,-28,-80.
+\tag{L10-47}
+\]
+Here the only relevant gains are \(g_B(10,9)=-5\) on
+\(10\to5\to9\) and \(g_B(9,7)=-1\) on \(9\to4\to7\). Every longer
+base arc has gain at most
+\[
+90-(28+36+45)=-19,
+\tag{L10-48}
+\]
+so it remains negative after (L10-42), as do the other one-internal gains.
+The gain \(g_B(10,9)\) becomes zero only for \(h=\{5,10\}\); the gain
+\(g_B(9,7)\) remains negative in every row.
+
+The following tables are therefore complete shortcut-gain certificates.
+In a bracket after a gain, the listed labels are exactly those skipped by
+that shortcut. A dash means that there is no nontrivial gain of the indicated
+sign. The argmax column records every maximizing label subset.
+
+| Cycle | Gap \(h\) | \(\Delta_3\) | \(B_h\) | Positive nontrivial gains | Zero nontrivial gains | \(K_{\ge3}\) | Argmax subsets |
+|---|---|---:|---:|---|---|---:|---|
+| \(\omega_A\) | \(\{4,10\}\) | 2 | 323 | -- | \(10\to7:0\ [3,4]\) | 323 | \(T_6,T_8\) |
+| \(\omega_A\) | \(\{4,7\}\) | 5 | 326 | -- | -- | 326 | \(T_8\) |
+| \(\omega_A\) | \(\{7,8\}\) | -11 | 310 | \(10\to7:+2\ [4]\); \(7\to8:+11\ [3]\) | -- | 323 | \(T_6\) |
+| \(\omega_A\) | \(\{6,8\}\) | -6 | 315 | \(10\to7:+2\ [4]\); \(8\to6:+6\ [3]\) | -- | 323 | \(T_6\) |
+| \(\omega_A\) | \(\{6,9\}\) | -9 | 312 | \(10\to7:+2\ [4]\); \(6\to9:+9\ [3]\) | -- | 323 | \(T_6\) |
+| \(\omega_A\) | \(\{5,9\}\) | -3 | 318 | \(10\to7:+2\ [4]\); \(9\to5:+3\ [3]\) | -- | 323 | \(T_6\) |
+| \(\omega_A\) | \(\{5,10\}\) | -5 | 316 | \(10\to7:+2\ [4]\); \(5\to10:+5\ [3]\) | \(9\to10:0\ [5,3]\) | 323 | \(T_6\) |
+| \(\omega_B\) | \(\{5,10\}\) | -5 | 318 | \(10\to5:+5\ [3]\) | \(10\to9:0\ [3,5]\) | 323 | \(T_7\) |
+| \(\omega_B\) | \(\{5,9\}\) | -3 | 320 | \(5\to9:+3\ [3]\) | -- | 323 | \(T_7\) |
+| \(\omega_B\) | \(\{4,9\}\) | 3 | 326 | -- | -- | 326 | \(T_8\) |
+| \(\omega_B\) | \(\{4,7\}\) | 5 | 328 | -- | -- | 328 | \(T_8\) |
+| \(\omega_B\) | \(\{7,8\}\) | -11 | 312 | \(7\to8:+11\ [3]\) | -- | 323 | \(T_7\) |
+| \(\omega_B\) | \(\{6,8\}\) | -6 | 317 | \(8\to6:+6\ [3]\) | -- | 323 | \(T_7\) |
+| \(\omega_B\) | \(\{6,10\}\) | -12 | 311 | \(6\to10:+12\ [3]\) | -- | 323 | \(T_7\) |
+
+Indeed, (L10-41) bounds every score with at least two labels by \(B_h\) plus
+the sum of all positive gains in its row. The displayed lower witnesses attain
+that bound, and singletons score at most \(10^2=100\). The argmax list is
+also exact. In the first row, either every selected gap is adjacent, giving
+\(T_8\), or the sole zero shortcut is used, giving \(T_6\). In each of the
+other admissible \(\omega_A\) rows, equality requires both positive shortcuts
+and gives \(T_6\); in the \(\{5,10\}\) row its zero shortcut cannot coexist
+with the positive \(5\to10\) shortcut because both enter label 10. In every
+admissible \(\omega_B\) row, equality requires the shortcut deleting label
+3 and gives \(T_7\); in its \(\{5,10\}\) row the zero and positive
+shortcuts cannot coexist because both leave label 10. With no nontrivial
+nonnegative gain, each excluded row is uniquely maximized by \(T_8\).
+
+Consequently the exact partial classification is
+\[
+\boxed{
+K_{\ge3}(\iota_h(\omega_A))
+=
+\begin{cases}
+326,&h=\{4,7\},\\
+323,&\text{for every other edge of \(\omega_A\)},
+\end{cases}
+}
+\tag{L10-49}
+\]
+and
+\[
+\boxed{
+K_{\ge3}(\iota_h(\omega_B))
+=
+\begin{cases}
+326,&h=\{4,9\},\\
+328,&h=\{4,7\},\\
+323,&\text{for every other edge of \(\omega_B\)}.
+\end{cases}
+}
+\tag{L10-50}
+\]
+Thus exactly \(\{4,7\}\) is excluded in the first equality cycle, while
+exactly \(\{4,9\}\) and \(\{4,7\}\) are excluded in the second. This is
+an **EXACT THEOREM (FINITE LABEL-THREE INSERTION-GAP CLASSIFICATION)**. It
+makes no placement claim for label \(2\) and is not a classification or count
+of the full `n=10` core minimizers.
 
 #### Independent finite oracles for \(n=10\)
 
@@ -1605,6 +1798,35 @@ The same test independently enumerates duplicated-label pairing signatures
 through 322, recovers exactly the eight rows above, recognizes only the
 displayed 322 signature as a simple spanning cycle, and checks the exact
 correction and fixed-edge pairing data used in both equality branches.
+
+A separate structural regression constructs all seven label-three insertions
+in each equality cycle and directly audits all 48 nontrivial oriented
+shortcuts of each inserted order. It reproduces the complete nonnegative-gain
+columns in the table above and the exact bound obtained from (L10-41). This
+checks the certificate data but is not the source of (L10-49)--(L10-50).
+
+An independent literal subset oracle then treats the two equality cycles as
+fixed test-local tuples, splices label \(3\) into each of their seven labelled
+gaps, and scores all \(2^8-1=255\) nonempty induced subsets of every resulting
+order. It performs exactly
+\[
+14\cdot255=3{,}570
+\tag{L10-51}
+\]
+integer subset evaluations, without using the insertion formula, shortcut
+gains, a repository canonicalizer, the public enumerator, or the production
+scorer. It independently returns the score rows
+\[
+\begin{aligned}
+\omega_A:&\quad(323,326,323,323,323,323,323),\\
+\omega_B:&\quad(323,323,326,328,323,323,323),
+\end{aligned}
+\tag{L10-52}
+\]
+in the gap order of the certificate table. It also recovers every displayed
+argmax: \(T_6,T_8\) in the first \(\omega_A\) row; only \(T_8\) in each
+excluded row; only \(T_6\) in the other five admissible \(\omega_A\) rows;
+and only \(T_7\) in all five admissible \(\omega_B\) rows.
 
 A separate literal computation scores all \(2^9-1=511\) nonempty subsets
 of \(\tau_*\). It records every maximizing subset and supplies the following

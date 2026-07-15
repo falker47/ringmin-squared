@@ -792,6 +792,249 @@ def test_lambda10_equality_class_oracle_covers_all_360_tail_classes() -> None:
     ]
 
 
+def test_lambda10_label_three_insertions_have_exact_shortcut_certificates() -> None:
+    """Check the structural certificates without enumerating label subsets."""
+
+    cases = (
+        (
+            "first",
+            (10, 4, 7, 8, 6, 9, 5),
+            321,
+            (10, 7, 8, 6, 9, 5),
+            (
+                ((4, 10), 323, 323, ((10, (3, 4), 7, 0),)),
+                ((4, 7), 326, 326, ()),
+                (
+                    (7, 8),
+                    310,
+                    323,
+                    ((10, (4,), 7, 2), (7, (3,), 8, 11)),
+                ),
+                (
+                    (6, 8),
+                    315,
+                    323,
+                    ((10, (4,), 7, 2), (8, (3,), 6, 6)),
+                ),
+                (
+                    (6, 9),
+                    312,
+                    323,
+                    ((10, (4,), 7, 2), (6, (3,), 9, 9)),
+                ),
+                (
+                    (5, 9),
+                    318,
+                    323,
+                    ((10, (4,), 7, 2), (9, (3,), 5, 3)),
+                ),
+                (
+                    (5, 10),
+                    316,
+                    323,
+                    (
+                        (10, (4,), 7, 2),
+                        (9, (5, 3), 10, 0),
+                        (5, (3,), 10, 5),
+                    ),
+                ),
+            ),
+        ),
+        (
+            "second",
+            (10, 5, 9, 4, 7, 8, 6),
+            323,
+            (10, 5, 9, 4, 7, 8, 6),
+            (
+                (
+                    (5, 10),
+                    318,
+                    323,
+                    ((10, (3,), 5, 5), (10, (3, 5), 9, 0)),
+                ),
+                ((5, 9), 320, 323, ((5, (3,), 9, 3),)),
+                ((4, 9), 326, 326, ()),
+                ((4, 7), 328, 328, ()),
+                ((7, 8), 312, 323, ((7, (3,), 8, 11),)),
+                ((6, 8), 317, 323, ((8, (3,), 6, 6),)),
+                ((6, 10), 311, 323, ((6, (3,), 10, 12),)),
+            ),
+        ),
+    )
+
+    certificate_rows = []
+    for cycle_name, cycle, expected_cycle_score, witness, expected_rows in cases:
+        cycle_score = _cyclic_product_sum(cycle)
+        witness_score = _cyclic_product_sum(witness)
+        assert cycle_score == expected_cycle_score
+        assert witness_score == 323
+        assert len(expected_rows) == len(cycle) == 7
+
+        actual_rows = []
+        for left_position, left in enumerate(cycle):
+            right = cycle[(left_position + 1) % len(cycle)]
+            gap = tuple(sorted((left, right)))
+            inserted_order = (
+                cycle[: left_position + 1]
+                + (3,)
+                + cycle[left_position + 1 :]
+            )
+            full_score = _cyclic_product_sum(inserted_order)
+
+            insertion_correction = 3 * (left + right) - left * right
+            assert full_score == cycle_score + insertion_correction
+
+            # Adjacent endpoints have the trivial gain zero.  The 48 arcs
+            # below are every oriented shortcut that skips at least one label.
+            nonnegative_gains = []
+            for start_position in range(len(inserted_order)):
+                for skipped_count in range(1, len(inserted_order) - 1):
+                    arc = tuple(
+                        inserted_order[
+                            (start_position + offset) % len(inserted_order)
+                        ]
+                        for offset in range(skipped_count + 2)
+                    )
+                    arc_score = sum(
+                        arc_left * arc_right
+                        for arc_left, arc_right in zip(
+                            arc[:-1], arc[1:], strict=True
+                        )
+                    )
+                    gain = arc[0] * arc[-1] - arc_score
+                    if gain >= 0:
+                        nonnegative_gains.append(
+                            (arc[0], arc[1:-1], arc[-1], gain)
+                        )
+
+            positive_gain_total = sum(
+                gain
+                for _start, _skipped, _end, gain in nonnegative_gains
+                if gain > 0
+            )
+            certificate_upper_bound = max(
+                max(label * label for label in inserted_order),
+                full_score + positive_gain_total,
+            )
+            explicit_lower_bound = max(full_score, witness_score)
+            assert certificate_upper_bound == explicit_lower_bound
+
+            actual_rows.append(
+                (
+                    gap,
+                    full_score,
+                    certificate_upper_bound,
+                    tuple(nonnegative_gains),
+                )
+            )
+            certificate_rows.append((cycle_name, gap, certificate_upper_bound))
+
+        assert tuple(actual_rows) == expected_rows
+
+    assert len(certificate_rows) == 14
+    excluded = {
+        (cycle_name, gap)
+        for cycle_name, gap, certified_score in certificate_rows
+        if certified_score > 323
+    }
+    assert excluded == {
+        ("first", (4, 7)),
+        ("second", (4, 9)),
+        ("second", (4, 7)),
+    }
+    assert all(
+        certified_score == 323
+        for cycle_name, gap, certified_score in certificate_rows
+        if (cycle_name, gap) not in excluded
+    )
+
+
+def test_lambda10_label_three_gap_oracle_checks_all_fourteen_insertions() -> None:
+    """Enumerate all subsets test-locally, independently of the certificate."""
+
+    full_subset = (3, 4, 5, 6, 7, 8, 9, 10)
+    six_label_subset = (5, 6, 7, 8, 9, 10)
+    seven_label_subset = (4, 5, 6, 7, 8, 9, 10)
+    expected_rows = (
+        (
+            "first",
+            (4, 10),
+            323,
+            (six_label_subset, full_subset),
+        ),
+        ("first", (4, 7), 326, (full_subset,)),
+        ("first", (7, 8), 323, (six_label_subset,)),
+        ("first", (6, 8), 323, (six_label_subset,)),
+        ("first", (6, 9), 323, (six_label_subset,)),
+        ("first", (5, 9), 323, (six_label_subset,)),
+        ("first", (5, 10), 323, (six_label_subset,)),
+        ("second", (5, 10), 323, (seven_label_subset,)),
+        ("second", (5, 9), 323, (seven_label_subset,)),
+        ("second", (4, 9), 326, (full_subset,)),
+        ("second", (4, 7), 328, (full_subset,)),
+        ("second", (7, 8), 323, (seven_label_subset,)),
+        ("second", (6, 8), 323, (seven_label_subset,)),
+        ("second", (6, 10), 323, (seven_label_subset,)),
+    )
+    cycles = (
+        ("first", (10, 4, 7, 8, 6, 9, 5)),
+        ("second", (10, 5, 9, 4, 7, 8, 6)),
+    )
+
+    rows = []
+    inserted_orders = []
+    subset_evaluations = 0
+    for cycle_name, cycle in cycles:
+        for left_position, left in enumerate(cycle):
+            right = cycle[(left_position + 1) % len(cycle)]
+            gap = tuple(sorted((left, right)))
+            inserted_order = (
+                cycle[: left_position + 1]
+                + (3,)
+                + cycle[left_position + 1 :]
+            )
+            assert set(inserted_order) == set(range(3, 11))
+            assert 2 not in inserted_order
+
+            scores = _literal_induced_label_subset_scores(inserted_order)
+            assert len(scores) == 2**len(inserted_order) - 1 == 255
+            maximum = max(scores.values())
+            maximizers = tuple(
+                sorted(
+                    (
+                        tuple(sorted(subset))
+                        for subset, score in scores.items()
+                        if score == maximum
+                    ),
+                    key=lambda subset: (len(subset), subset),
+                )
+            )
+
+            rows.append((cycle_name, gap, maximum, maximizers))
+            inserted_orders.append(inserted_order)
+            subset_evaluations += len(scores)
+
+    assert len(rows) == len(set(inserted_orders)) == 14
+    assert subset_evaluations == 14 * (2**8 - 1) == 3_570
+    assert tuple(rows) == expected_rows
+
+    excluded = {
+        (cycle_name, gap)
+        for cycle_name, gap, score, _maximizers in rows
+        if score > 323
+    }
+    assert excluded == {
+        ("first", (4, 7)),
+        ("second", (4, 9)),
+        ("second", (4, 7)),
+    }
+    assert all(
+        score == 323
+        for cycle_name, gap, score, _maximizers in rows
+        if (cycle_name, gap) not in excluded
+    )
+
+
 def test_lambda10_witness_records_every_maximizing_subset_exactly() -> None:
     core_order = (10, 2, 3, 4, 7, 8, 6, 9, 5)
     scores = _literal_induced_label_subset_scores(core_order)
