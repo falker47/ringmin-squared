@@ -42,6 +42,71 @@ def _simple_cycle_ratio_oracle(order: tuple[int, ...]) -> Fraction:
     return best
 
 
+def _subset_path_cycle_ratio_oracle(order: tuple[int, ...]) -> Fraction:
+    """Score all simple cycles by an exact subset/path dynamic program.
+
+    This test oracle shares neither descending-path compression nor the macro
+    graph and Karp maximum-cycle-mean recurrence used by the production
+    scorer.  Every cycle is anchored at its least position; states retain its
+    visited subset, last position, and exact wrap count.
+    """
+    best: Fraction | None = None
+    vertex_count = len(order)
+
+    for anchor in range(vertex_count - 1):
+        anchor_mask = 1 << anchor
+        layer = {(anchor_mask, anchor, 0): 0}
+
+        while layer:
+            next_layer: dict[tuple[int, int, int], int] = {}
+            for (mask, last, wrap_count), path_score in layer.items():
+                if last != anchor:
+                    assert wrap_count >= 1
+                    cycle_score = path_score + order[last] * order[anchor]
+                    ratio = Fraction(cycle_score, wrap_count)
+                    if best is None or ratio > best:
+                        best = ratio
+
+                for next_position in range(anchor + 1, vertex_count):
+                    next_bit = 1 << next_position
+                    if mask & next_bit:
+                        continue
+                    next_mask = mask | next_bit
+                    next_wrap_count = wrap_count + int(last < next_position)
+                    next_score = path_score + order[last] * order[next_position]
+                    key = (next_mask, next_position, next_wrap_count)
+                    previous = next_layer.get(key)
+                    if previous is None or next_score > previous:
+                        next_layer[key] = next_score
+
+            layer = next_layer
+
+    assert best is not None
+    return best
+
+
+def _induced_subset_one_wrap_oracle(order: tuple[int, ...]) -> Fraction:
+    """Maximize the cyclic adjacent-product sum over nonempty subsets.
+
+    Singleton squares cannot attain the maximum for a complete order with
+    ``n >= 3``; including them makes the all-subsets convention literal.
+    """
+    best = 0
+    for subset_size in range(1, len(order) + 1):
+        for positions in itertools.combinations(range(len(order)), subset_size):
+            score = sum(
+                order[left] * order[right]
+                for left, right in zip(
+                    positions,
+                    positions[1:] + positions[:1],
+                    strict=True,
+                )
+            )
+            best = max(best, score)
+
+    return Fraction(best)
+
+
 def test_two_cycle_counts_both_edge_occurrences() -> None:
     score = fixed_order_cycle_ratio_score((3, 1, 2))
 
@@ -59,6 +124,28 @@ def test_production_scorer_matches_independent_simple_cycle_oracle_n3_to_n6() ->
             checked_order_count += 1
 
     assert checked_order_count == 76
+
+
+def test_independent_oracles_verify_one_wrap_saturation_n3_to_n8() -> None:
+    checked_order_count = 0
+    for n in range(3, 9):
+        row_count = 0
+        for order in canonical_index_orders(n):
+            full_score = _subset_path_cycle_ratio_oracle(order)
+            one_wrap_score = _induced_subset_one_wrap_oracle(order)
+
+            assert full_score == one_wrap_score
+            assert fixed_order_cycle_ratio_score(order) == one_wrap_score
+            row_count += 1
+
+        assert row_count == canonical_index_order_count(n)
+        checked_order_count += row_count
+
+    assert checked_order_count == 2_956
+
+
+def test_induced_subset_oracle_counts_two_element_product_twice() -> None:
+    assert _induced_subset_one_wrap_oracle((3, 1, 2)) == 12
 
 
 def test_score_is_invariant_under_rotation_and_reflection() -> None:

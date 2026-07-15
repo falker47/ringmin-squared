@@ -25,6 +25,22 @@ makes \(\Lambda_n/\pi\), for \(n\ge3\), an additive-\(n^2\) combinatorial approx
 the geometric infimum, while proving neither a new exact constant nor
 convergence. Exact canonical enumeration is deliberately bounded to
 `n=3..8` and gives \((12,26,47,77,118,172)\).
+The one-wrap saturation question is also closed exactly. If
+\[
+\Lambda^{(1)}(\sigma)=\max\{S(C):q(C)=1\},
+\]
+then \(\Lambda^{(1)}(\sigma)\) is the maximum cyclic adjacent-product sum
+over orders induced on subsets of at least two positions, equivalently over
+all nonempty subsets when a singleton has cyclic sum \(i^2\), and
+\[
+\Lambda(\sigma)=\Lambda^{(1)}(\sigma)
+\]
+for every complete order and every \(n\ge3\). This all-order theorem makes
+the scores integers. A test-only subset/path oracle, independent of the
+production Karp scorer, verifies the equality on all 2,956 canonical orders
+for `n=3..8` without changing the production bound. The finite regression is
+not the proof of the theorem and produces no new geometric or asymptotic
+claim.
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -237,12 +253,35 @@ saturation for every \(n\ge3\).
   Minimizing over complete orders gives, for \(n\ge3\), the analogous global
   inequalities and \(0<\Lambda_n-\pi R_2^*(n)<\pi n^2\). Consequently normalized limit points
   transfer after the factor \(\pi\), but existence of a limit does not.
+- EXACT THEOREM: the same note defines
+  \(\Lambda^{(1)}(\sigma)=\max_{q(C)=1}S(C)\), writes
+  \(P_\sigma(T)\) for the induced cyclic product sum, and proves
+  \[
+  \Lambda(\sigma)=\Lambda^{(1)}(\sigma)
+  =
+  \max_{\substack{T\subseteq\{0,\dots,n-1\}\\|T|\ge2}}
+  \sum_r\sigma_{i_r}\sigma_{i_{r+1\bmod |T|}}
+  =\max_{T\ne\varnothing}P_\sigma(T),
+  \]
+  where \(i_0<\cdots<i_{|T|-1}\), singleton cyclic sums are squares, and
+  cardinality two counts the product twice. The proof is all-order: the
+  complete induced cycle has score at
+  least \(n(n+1)(n+2)/6\), while every vertex-simple cycle with \(q\ge2\)
+  has ratio at most half of \(\sum_{i=1}^n i^2\), smaller by
+  \(n(n+1)/4\). Thus \(\Lambda(\sigma)\) and \(\Lambda_n\) are integers.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): a descending-path/Karp
   `Fraction` scorer, independently checked by direct simple-cycle enumeration
   on every canonical order through `n=6`, gives
   \((\Lambda_3,\dots,\Lambda_8)=(12,26,47,77,118,172)\) over all 2,956
   canonical complete orders. The production enumerator hard-rejects `n>8`.
   This finite result is neither an all-`n` formula nor a geometric certificate.
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): a separate exact
+  subset/path dynamic program and literal induced-subset oracle agree with one
+  another and with production on all 2,956 canonical complete orders for
+  `n=3..8`. Neither oracle uses the production descending closure, macro
+  graph, or Karp recurrence; the production domain and ceiling remain
+  unchanged. This verifies the bounded implementation, not the all-order
+  proof.
 - EXACT THEOREM: `research/ALL_N_LOWER_BOUND.md` proves the induced-subset
   lower-bound theorem. In particular, for every `n>=4` and `1<=m<=n-2`,
   \[
@@ -533,6 +572,14 @@ saturation for every \(n\ge3\).
    The residue-two saturation argument raises the lower endpoint from \(H_n\)
    to \(J_n\), and the separate symbolic order attains that endpoint.
 
+9. The full fixed-order cyclic ratio is one-wrap saturated for every complete
+   order. This replaces a possible finite pattern by an exact theorem and
+   explains why the bounded `Fraction` outputs have denominator one. It does
+   not reduce exact angular-STN feasibility to one-wrap cycles: those weights
+   contain nonlinear \(\theta_R\) terms rather than only the separable
+   products used by \(\Lambda\). It also gives no formula for \(\Lambda_n\),
+   no new geometric optimum, and no new asymptotic coefficient.
+
 ## Updated Research Questions
 
 - OPEN QUESTION: what geometric upper-bound construction, if any, narrows or
@@ -557,8 +604,11 @@ saturation for every \(n\ge3\).
 - CLOSED QUESTION: the complete fixed-order cyclic ratio, its exact
   fixed/global sandwich, endpoint strictness, exact scorer, and bounded
   `n=3..8` prediction are recorded in
-  `research/FIXED_ORDER_CYCLE_RATIO.md`. Its distinction from \(W\) and its
-  asymptotic non-consequences remain explicit.
+  `research/FIXED_ORDER_CYCLE_RATIO.md`. The one-wrap induced-subset
+  equivalence and all-order saturation are also closed there, with a separate
+  Karp-independent bounded oracle. Its distinction from \(W\), from exact
+  angular-STN cycle criticality, and its asymptotic non-consequences remain
+  explicit.
 
 ## Ranked Work
 
@@ -571,6 +621,10 @@ Completed:
 - Formalized the complete fixed-order maximum cyclic ratio, proved the exact
   additive-\(n^2\) fixed/global sandwich, implemented the independent exact
   scorer, and bounded its canonical enumeration to `n=3..8`.
+- Proved exact one-wrap saturation for every complete order, identified the
+  one-wrap score with induced-subset cyclic product sums, and verified the
+  bounded property using a test-only exact oracle independent of production
+  Karp scoring, without enlarging the production enumeration domain.
 
 Immediate:
 

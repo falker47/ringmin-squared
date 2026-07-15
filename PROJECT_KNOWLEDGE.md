@@ -1,6 +1,6 @@
 # PROJECT_KNOWLEDGE - power-ringmin
 
-Last reviewed: 2026-07-14
+Last reviewed: 2026-07-15
 
 This file is stable durable project memory. Chronology, command transcripts, failed attempts, and task-local evidence belong in `ops/`.
 
@@ -131,6 +131,43 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \Lambda(\sigma)=\max_C{S(C)\over q(C)}
   \]
   exists, is rational, and may be maximized over the finite simple-cycle set.
+- DEFINITION / EXACT THEOREM: put
+  \[
+  \Lambda^{(1)}(\sigma)=\max\{S(C):q(C)=1\}.
+  \]
+  For a nonempty position subset
+  \(T=\{i_0<\cdots<i_{m-1}\}\), define
+  \[
+  P_\sigma(T)=
+  \sum_{r=0}^{m-1}\sigma_{i_r}\sigma_{i_{r+1\bmod m}}.
+  \]
+  Cardinality one gives \(\sigma_{i_0}^2\), while cardinality two counts the
+  same unordered product twice. A one-wrap closed walk is forced to be the
+  reverse orientation of exactly one induced subset order of cardinality at
+  least two, so
+  \[
+  \Lambda^{(1)}(\sigma)
+  =\max_{|T|\ge2}P_\sigma(T)
+  =\max_{T\ne\varnothing}P_\sigma(T).
+  \]
+  The last equality holds because singleton scores are at most \(n^2\), while
+  the two labels \(n-1,n\) give \(2n(n-1)>n^2\).
+- EXACT THEOREM (ONE-WRAP SATURATION): for every complete order and `n>=3`,
+  \[
+  \Lambda(\sigma)=\Lambda^{(1)}(\sigma).
+  \]
+  The complete induced order has score at least
+  \(n(n+1)(n+2)/6\). For every vertex-simple cycle with `q>=2`,
+  \[
+  {S(C)\over q(C)}
+  \le {1\over2}\sum_{i=1}^n i^2
+  ={n(n+1)(n+2)\over6}-{n(n+1)\over4}
+  <{n(n+1)(n+2)\over6}.
+  \]
+  Thus every vertex-simple multi-wrap cycle is strictly dominated. General
+  closed walks may repeat maximizing one-wrap components. This product-weight
+  theorem does not reduce the nonlinear exact angular STN to one-wrap cycle
+  checks. In particular, \(\Lambda(\sigma)\) and \(\Lambda_n\) are integers.
 - EXACT THEOREM: for every complete order and `n>=3`,
   \[
   {\Lambda(\sigma)\over\pi}-n^2
@@ -177,8 +214,13 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \]
   canonical minimizer counts `(1,3,4,15,24,84)`, and no counterexample to the
   supplied prediction. A test-only independent simple-cycle oracle agrees on
-  every canonical complete order through `n=6`. This finite result is not an
-  all-`n` formula, an exact geometric optimum, or an asymptotic theorem.
+  every canonical complete order through `n=6`. A separate exact subset/path
+  oracle and literal induced-subset maximization agree on every one of the
+  2,956 canonical complete orders through `n=8`, independently of production
+  descending closure, macro compression, and Karp scoring. This finite result
+  verifies the implementation but is not the all-order saturation proof, an
+  all-`n` formula for \(\Lambda_n\), an exact geometric optimum, or an
+  asymptotic theorem. The production bound remains `n<=8`.
 - VERIFIED FACT: `research/FIXED_ORDER_CYCLE_RATIO.md` is the authoritative
   proof, algorithm, bounded-experiment, \(W\)-comparison, and limitations
   note.
@@ -834,7 +876,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
   matching construction, the exact residue-class formulas, and their global
   consequence \(W_n^{(\le2)}=B_n=W_n\) for every \(n\ge3\), together with
   minimizer-set equality through \(n=92\) and its first strict inclusion at
-  \(n=93\).
+  \(n=93\), plus the exact one-wrap induced-subset characterization and
+  saturation of \(\Lambda(\sigma)\) for every complete order.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to

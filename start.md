@@ -39,6 +39,20 @@ edge occurrences, with multiplicity. Then
 \Lambda(\sigma)=\max_C{S(C)\over q(C)}
 \]
 is well-defined because every directed cycle has \(q(C)\ge1\), and
+the score is exactly one-wrap saturated. Writing
+\(\Lambda^{(1)}(\sigma)=\max_{q(C)=1}S(C)\), one has
+\[
+\Lambda(\sigma)=\Lambda^{(1)}(\sigma)
+=
+\max_{|T|\ge2}
+\sum_r\sigma_{i_r}\sigma_{i_{r+1\bmod |T|}}
+=\max_{T\ne\varnothing}P_\sigma(T),
+\]
+where \(i_0<\cdots<i_{|T|-1}\) are the positions induced by \(T\),
+\(P_\sigma(T)\) denotes the displayed cyclic sum, singleton sums use
+\(P_\sigma(\{i\})=\sigma_i^2\), and a two-element subset counts its product
+twice. This is an exact theorem for every complete order, so the scores are
+integers. Moreover,
 \[
 {\Lambda(\sigma)\over\pi}-n^2
 <\rho_\sigma
@@ -49,8 +63,11 @@ globally for \(n\ge3\) and gives
 \(0<\Lambda_n-\pi R_2^*(n)<\pi n^2\). An exact `Fraction` scorer uses
 descending-path compression and maximum-cycle-mean dynamic programming, not
 cycle enumeration. Bounded exhaustive computation for `n=3..8` gives
-\((12,26,47,77,118,172)\). This finite table is not an all-`n` formula, and
-\(\Lambda\) is distinct from the regular-direction core surrogate \(W\).
+\((12,26,47,77,118,172)\). A test-only subset/path oracle independent of
+Karp verifies the saturation property on all 2,956 bounded canonical orders,
+without increasing the production limit. This finite table is not an all-`n`
+formula, and \(\Lambda\) is distinct from the regular-direction core
+surrogate \(W\).
 
 A strengthened all-`n` mathematical lower bound has been proved from induced
 subsets of cyclic gaps. For every `n>=4` and `1<=m<=n-2`,
@@ -485,6 +502,40 @@ with multiplicity; a two-cycle on labels \(i,j\) therefore has
 closed walk has \(q\ge1\). Closed-walk decomposition reduces the maximum to
 the finite simple-cycle set.
 
+For a nonempty subset of positions
+\(T=\{i_0<\cdots<i_{m-1}\}\), put
+\[
+P_\sigma(T)=
+\sum_{r=0}^{m-1}\sigma_{i_r}\sigma_{i_{r+1\bmod m}}.
+\]
+For \(m=1\) this is \(\sigma_{i_0}^2\), while for \(m=2\) the same
+unordered product occurs twice.
+A `q=1` cycle is forced to traverse those positions as
+\(i_0,i_{m-1},\dots,i_1,i_0\), so
+\[
+\Lambda^{(1)}(\sigma)
+=\max_{q(C)=1}S(C)
+=\max_{|T|\ge2}P_\sigma(T)
+=\max_{T\ne\varnothing}P_\sigma(T).
+\]
+Here the singleton convention is \(P_\sigma(\{i\})=\sigma_i^2\); singleton
+scores never change the maximum for \(n\ge3\).
+The full induced order has score at least
+\(n(n+1)(n+2)/6\). By \(2ij\le i^2+j^2\), every vertex-simple cycle
+with \(q\ge2\) has ratio at most
+\[
+{1\over2}\sum_{i=1}^n i^2
+={n(n+1)(n+2)\over6}-{n(n+1)\over4}
+<{n(n+1)(n+2)\over6}.
+\]
+Therefore the full ratio is one-wrap saturated for every complete order:
+\[
+\Lambda(\sigma)=\Lambda^{(1)}(\sigma),
+\]
+and \(\Lambda(\sigma)\) and \(\Lambda_n\) are integers. The strict separation
+is for vertex-simple multi-wrap cycles; a general closed walk may repeat a
+maximizing one-wrap component.
+
 The exact angular comparisons
 \[
 {2ij\over R+n^2}<\theta_R(i^2,j^2)<{2ij\over R}
@@ -505,9 +556,10 @@ Minimizing over complete orders gives
 \qquad
 0<\Lambda_n-\pi R_2^*(n)<\pi n^2.
 \]
-`research/FIXED_ORDER_CYCLE_RATIO.md` contains the definitions, proof,
-algorithm, bounded experiment, comparison with \(W\), and asymptotic
-limitations.
+`research/FIXED_ORDER_CYCLE_RATIO.md` contains the definitions, saturation
+proof, scorer algorithm, independent bounded oracle, comparison with \(W\),
+and asymptotic limitations. One-wrap saturation concerns the product ratio;
+it does not reduce exact angular-STN feasibility to one-wrap cycle checks.
 
 ## Current Knowledge Status
 
@@ -532,11 +584,24 @@ limitations.
   \]
   and its global minimum satisfies the analogous strict sandwich with
   \(R_2^*(n)\). Thus \(0<\Lambda_n-\pi R_2^*(n)<\pi n^2\).
+- EXACT THEOREM (ONE-WRAP SATURATION): for every complete order and `n>=3`,
+  \[
+  \Lambda(\sigma)=\Lambda^{(1)}(\sigma)
+  =\max_{|T|\ge2}P_\sigma(T)
+  =\max_{T\ne\varnothing}P_\sigma(T),
+  \]
+  where \(P_\sigma(T)\) is the cyclic adjacent-product sum on the order
+  induced by the position subset \(T\), with a two-element product counted
+  twice. Every vertex-simple cycle with `q>=2` is strictly below the one-wrap
+  maximum. Consequently \(\Lambda(\sigma)\) and \(\Lambda_n\) are integers.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): the exact bounded
   `Fraction` scorer gives
   \((\Lambda_3,\dots,\Lambda_8)=(12,26,47,77,118,172)\) over all 2,956
-  canonical complete orders. This is not an all-`n` formula or a geometric
-  exact-optimum computation.
+  canonical complete orders. A separate exact subset/path oracle and literal
+  induced-subset maximization verify one-wrap saturation on every bounded
+  order without using the production Karp recurrence or increasing its
+  `n<=8` limit. This is not the all-order proof, an all-`n` formula, or a
+  geometric exact-optimum computation.
 - EXACT THEOREM: for every `n>=3`,
   \[
   R_2^*(n)\ge \frac{n(n+1)(n+2)}{6\pi}-n^2,

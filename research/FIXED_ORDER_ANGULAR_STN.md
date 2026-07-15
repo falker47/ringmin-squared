@@ -630,5 +630,8 @@ certificates.
   `research/FIXED_ORDER_CYCLE_RATIO.md` combines the cycle-weight semantics
   proved here with the accepted angular lower and upper comparisons to define
   \(\Lambda(\sigma)\), prove its strict \(n^2\)-width sandwich around
-  \(\rho_\sigma\), and derive the finite-order global version. That result
-  does not change the interval endpoint or backend-trust semantics above.
+  \(\rho_\sigma\), and derive the finite-order global version. It now also
+  proves that the product ratio is exactly one-wrap saturated and equals an
+  induced-subset cyclic product maximum. This does not reduce the exact
+  angular STN itself to one-wrap cycle checks and does not change the interval
+  endpoint or backend-trust semantics above.

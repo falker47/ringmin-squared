@@ -7,6 +7,12 @@ when ``u > v`` (a ``forward_lower`` edge).  The score is
 
 ``Lambda(sigma) = max_C S(C) / q(C)``.
 
+The exact one-wrap saturation theorem proves that this value is also the
+maximum cyclic adjacent-product sum over induced position subsets, and hence
+is an integer for every complete order.  Production deliberately retains the
+full-ratio algorithm and exact :class:`fractions.Fraction` return type; the
+induced-subset and subset/path implementations are independent test oracles.
+
 The production algorithm does not enumerate cycles.  It first closes the
 acyclic graph of resource-zero descending edges, compresses one resource-one
 edge followed by a descending path into a macro edge, and then applies Karp's
@@ -59,6 +65,8 @@ def fixed_order_cycle_ratio_score(order: Sequence[int]) -> Fraction:
     The input must be a permutation of ``1, ..., n`` with ``n >= 3``.  It
     need not already be canonical.  The algorithm is float-free, takes
     ``O(n^3)`` exact integer operations, and uses ``O(n^2)`` memory.
+    The returned :class:`~fractions.Fraction` has denominator one by the exact
+    one-wrap saturation theorem.
     """
     index_order = _normalize_complete_order(order)
     descending_scores = _maximum_descending_path_scores(index_order)

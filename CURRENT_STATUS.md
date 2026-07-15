@@ -1,13 +1,14 @@
 # CURRENT_STATUS - power-ringmin
 
-Last update: 2026-07-14
+Last update: 2026-07-15
 
-- **Current phase:** exact fixed-order maximum cyclic ratio.
-- **Current task:** formalize the complete-order STN cycle ratio, prove its
-  fixed/global geometric sandwich, implement an exact scorer, and reproduce
-  the bounded `n=3..8` prediction.
+- **Current phase:** exact one-wrap saturation of the fixed-order cyclic
+  ratio.
+- **Current task:** identify the one-wrap score with induced-subset cyclic
+  product sums, decide saturation for every complete order, and add an exact
+  Karp-independent bounded oracle.
 - **Task dossier:**
-  ops/TASK-20260714__fixed_order_cyclic_ratio/.
+  ops/TASK-20260715__one_wrap_cycle_ratio_saturation/.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
@@ -15,116 +16,109 @@ Last update: 2026-07-14
 
 ## Exact Results
 
-- DEFINITION: for a complete order \(\sigma\) of \(\{1,\dots,n\}\),
-  \(q(C)\) counts `wrap_upper` edge occurrences and \(S(C)\) sums
-  endpoint-index products over every directed edge occurrence, with
-  multiplicity. Every directed closed walk has \(q(C)\ge1\).
-- EXACT THEOREM: closed-walk decomposition reduces the maximum to simple
-  directed cycles and defines the rational score
+- DEFINITION: for a complete order \(\sigma\),
   \[
-  \Lambda(\sigma)=\max_C{S(C)\over q(C)}.
+  \Lambda^{(1)}(\sigma)=\max\{S(C):q(C)=1\}.
   \]
-- EXACT THEOREM: for every complete order and `n>=3`, the requested sandwich
-  holds, with both endpoints actually strict:
+  For a nonempty position subset
+  \(T=\{i_0<\cdots<i_{m-1}\}\), let
   \[
-  {\Lambda(\sigma)\over\pi}-n^2
-  <\rho_\sigma
-  <{\Lambda(\sigma)\over\pi}.
+  P_\sigma(T)=
+  \sum_{r=0}^{m-1}\sigma_{i_r}\sigma_{i_{r+1\bmod m}}.
   \]
-- EXACT THEOREM: with
-  \(\Lambda_n=\min_\sigma\Lambda(\sigma)\),
+  A singleton contributes its square; a two-element subset contributes the
+  same unordered product twice.
+- EXACT THEOREM: a one-wrap closed walk is exactly the reverse orientation of
+  an induced subset order of cardinality at least two. Since singleton scores
+  cannot maximize for `n>=3`,
   \[
-  {\Lambda_n\over\pi}-n^2
-  <R_2^*(n)
-  <{\Lambda_n\over\pi},
-  \qquad
-  0<\Lambda_n-\pi R_2^*(n)<\pi n^2.
+  \Lambda^{(1)}(\sigma)
+  =\max_{|T|\ge2}P_\sigma(T)
+  =\max_{T\ne\varnothing}P_\sigma(T).
   \]
-- EXACT THEOREM: the additive relation transfers normalized asymptotics but
-  does not prove convergence or an exact constant. In particular,
+- EXACT THEOREM (ALL-ORDER ONE-WRAP SATURATION): for every complete order and
+  `n>=3`,
   \[
-  {2(\sqrt2-1)\over3}
-  \le\liminf{\Lambda_n\over n^3}
-  \le\limsup{\Lambda_n\over n^3}
-  \le{8\over25}.
+  \Lambda(\sigma)=\Lambda^{(1)}(\sigma).
   \]
-- DEFINITION / LIMITATION: \(\Lambda\) is a full-order directed-cycle objective;
-  repository \(W\) is a core-order single-pair regular-direction objective.
-  They and their minimizers are not identified.
+  The complete induced cycle has score at least
+  \(n(n+1)(n+2)/6\). Every vertex-simple cycle with `q>=2` has ratio at most
+  \[
+  {1\over2}\sum_{i=1}^n i^2
+  ={n(n+1)(n+2)\over6}-{n(n+1)\over4},
+  \]
+  which is strictly smaller. Thus \(\Lambda(\sigma)\) and \(\Lambda_n\) are
+  integers.
+- LIMITATION: saturation concerns separable product weights. It does not
+  reduce exact angular-STN feasibility or critical-cycle analysis to
+  one-wrap cycles.
 
-## Finite Exact Computation
+## Finite Exact Verification
 
-- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): exact canonical
-  enumeration over `n=3..8` covers `(1,3,12,60,360,2520)` orders and gives
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): a test-only exact
+  subset/path dynamic program computes the full simple-cycle ratio without
+  using production descending closure, macro compression, or Karp's
+  maximum-cycle-mean recurrence. It agrees with literal induced-subset
+  maximization and production on all 2,956 canonical complete orders for
+  `n=3..8`.
+- VERIFIED FACT: the bounded values remain
   \[
-  (\Lambda_3,\dots,\Lambda_8)=(12,26,47,77,118,172).
+  (\Lambda_3,\dots,\Lambda_8)=(12,26,47,77,118,172),
   \]
-  The canonical minimizer counts are `(1,3,4,15,24,84)`.
-- VERIFIED FACT: the production scorer uses integer descending-path closure,
-  a one-wrap macro graph, and Karp maximum-cycle-mean dynamic programming,
-  constructing exact `Fraction` ratios only. It does not enumerate cycles.
-- VERIFIED FACT: a direct simple-cycle oracle confined to tests agrees for
-  every canonical complete order through `n=6`. Independent audits also
-  compared the production scorer with a separate exact ratio algorithm on all
-  2,956 bounded orders and found no discrepancy.
-- INTERPRETATION: the bounded table is not an all-`n` formula, a geometric
-  exact optimum, or an asymptotic theorem.
+  with canonical minimizer counts `(1,3,4,15,24,84)`.
+- VERIFIED FACT: production remains hard-bounded to `3<=n<=8` and at most
+  2,520 canonical orders in one row. The oracle exists only in tests.
+- INTERPRETATION: the finite sweep verifies the implementation; it is not the
+  proof of all-order saturation, an all-`n` formula for \(\Lambda_n\), or a
+  geometric result.
 
 ## Changes
 
-- `research/FIXED_ORDER_CYCLE_RATIO.md` is the authoritative definition,
-  proof, algorithm, bounded-experiment, \(W\)-comparison, and limitations
-  note.
-- `src/power_ringmin/fixed_order_cycle_ratio.py` provides the exact scorer and
-  hard-bounded `3<=n<=8` canonical enumerator.
-- `tests/test_fixed_order_cycle_ratio.py` provides the independent
-  simple-cycle oracle, exhaustive prediction regression, symmetry, validation,
-  preflight, multiplicity, and \(W\)-separation tests.
-- Project brief, durable knowledge, fixed-order source note, roadmap, current
-  status, and task dossier are synchronized.
-- No interval backend, interval verifier, certificate, checked artifact,
-  example, schema, or CLI changed.
+- `research/FIXED_ORDER_CYCLE_RATIO.md` now contains the authoritative
+  induced-subset equivalence, saturation proof, integer consequence,
+  independent-oracle description, and exact-angular non-consequence.
+- `tests/test_fixed_order_cycle_ratio.py` adds literal subset and independent
+  subset/path oracles, exhaustive `n=3..8` agreement, and explicit
+  two-element multiplicity coverage.
+- The production scorer implementation and enumeration limits are unchanged;
+  only its docstrings record the proved integer result.
+- Project brief, durable knowledge, fixed-order source note, research roadmap,
+  current status, and this task dossier are synchronized.
+- No interval backend, verifier, certificate, checked artifact, example,
+  schema, CLI, product-distance implementation, or production enumeration
+  limit changed.
 
 ## Verification
 
-- CURRENT LOCAL VERIFIED FACT: the focused cycle-ratio suite passes all 21
-  tests; an integrated exact-math/search suite passes all 82 tests.
-- CURRENT LOCAL VERIFIED FACT: the complete repository suite passes all 194
+- CURRENT LOCAL VERIFIED FACT: the focused cycle-ratio module passes all 23
+  tests, including the exhaustive independent oracle over 2,956 orders.
+- CURRENT LOCAL VERIFIED FACT: the complete repository suite passes all 196
   tests on local Python 3.14.3.
 - CURRENT LOCAL VERIFIED FACT: checked-artifact semantic verification accepts
-  4 certificates, 76 local brackets, and the `n=3..6` summary; all 4 schema
-  tests pass.
-- CURRENT LOCAL VERIFIED FACT: compilation and Ruff pass on both new Python
-  files. Repository-wide Ruff was also executed and reports four pre-existing
-  F401/F841 findings in three untouched files; they were not mixed into this
-  bounded task.
-- CURRENT LOCAL VERIFIED FACT: independent mathematical, implementation,
-  algorithm, finite-experiment, and documentation reviews accept the theorem,
-  code, tests, classifications, and bounded-domain guard.
-- CURRENT LOCAL VERIFIED FACT: the final 11-path scope, strict-text, temporary-
-  path, and diff-hygiene audit passes; no task-created temporary directory
-  remains.
-- ENVIRONMENT NOTE: one initial integrated run completed all but one setup;
-  the sandbox denied `C:\tmp` for a `tmp_path` fixture. No test body failed.
-  The workspace-local `--basetemp` rerun passed.
+  4 certificates, 76 local brackets, and the `n=3..6` summary.
+- CURRENT LOCAL VERIFIED FACT: targeted Ruff, Python compilation, and Git diff
+  whitespace checks pass.
+- CURRENT LOCAL VERIFIED FACT: independent mathematical, oracle,
+  implementation, and classification reviews accept the proof, tests,
+  bounded-domain guard, and finite/all-order separation after correcting two
+  notation collisions and one closed-walk wording ambiguity.
 - CURRENT HOSTED STATUS: GitHub Actions on Python 3.11-3.13 has not been run
   for this worktree.
 
 ## Residual Limitations
 
-- The four global Ruff findings predate and lie outside this task's diff:
-  unused `defaultdict` and local `n` in `critical_structure.py`, unused `sys`
-  in `fixed_order_artifact.py`, and an unused import in
-  `tests/test_finite_results.py`.
-- The exact cycle-ratio theorem changes no guarded `mpmath.iv` trust premise
-  and certifies no new geometric finite optimum.
-- No order enumeration beyond `n=8`, all-`n` formula for \(\Lambda_n\),
-  convergence theorem, or exact leading constant is claimed.
-- Local execution used Python 3.14.3, outside the hosted Python 3.11-3.13
-  matrix.
+- Local execution used Python 3.14.3; Python 3.11 compatibility of the new
+  test-only syntax was inspected but not locally executed.
+- Repository-wide Ruff retains four known pre-existing F401/F841 findings in
+  three untouched files; task-scoped Ruff is clean.
+- The theorem gives no formula for \(\Lambda_n\), exact geometric optimum,
+  improvement of the additive-\(n^2\) sandwich, new geometric coefficient, or
+  asymptotic convergence result.
+- The production Karp scorer remains useful as the independently cross-checked
+  full-ratio implementation; no production rewrite was attempted.
 
 ## Proposed Next Task
 
-In a fresh chat, perform a bounded repository-lint cleanup of the four
-pre-existing F401/F841 findings and establish a clean global Ruff baseline,
-without changing mathematical behavior.
+In a fresh chat, design a bounded independent interval-backend
+cross-verification path for the existing checked artifacts, without generating
+a larger finite certificate or changing current certified claims.

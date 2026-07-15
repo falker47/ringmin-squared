@@ -2,6 +2,8 @@
 
 Date: 2026-07-14
 
+Last updated: 2026-07-15
+
 ## Scope And Classification
 
 This note formalizes the exact combinatorial cycle ratio associated with the
@@ -13,6 +15,15 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \(\{1,\ldots,n\}\), \(q(C)\) counts `wrap_upper` edge occurrences and
   \(S(C)\) sums endpoint-index products over all directed edge occurrences,
   with multiplicity.
+- **EXACT THEOREM:** the one-wrap score
+  \(\Lambda^{(1)}(\sigma)=\max_{q(C)=1}S(C)\) is exactly the maximum cyclic
+  adjacent-product sum over orders induced on subsets of at least two
+  positions. For two positions, the same unordered product occurs twice.
+- **EXACT THEOREM:** every complete order is one-wrap saturated:
+  \(\Lambda(\sigma)=\Lambda^{(1)}(\sigma)\). In fact, every vertex-simple
+  cycle with at least two wraps has strictly smaller ratio. Thus the fixed-
+  order and global scores are integers, although the implementation retains
+  its exact `Fraction` return type.
 - **EXACT THEOREM:** the maximum ratio \(\Lambda(\sigma)\) gives the requested
   fixed-order sandwich
   \[
@@ -27,6 +38,11 @@ in `research/ALL_N_LOWER_BOUND.md`.
   enumeration for \(n=3,\ldots,8\) gives
   \((12,26,47,77,118,172)\), with no counterexample to the supplied
   prediction.
+- **VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION):** a test-only exact
+  subset/path oracle, independent of the production macro graph and Karp
+  recurrence, agrees with literal induced-subset maximization on all 2,956
+  canonical orders for \(n=3,\ldots,8\). This regression is not the proof of
+  the all-\(n\) theorem.
 - **VERIFIED FACT:** `src/power_ringmin/fixed_order_cycle_ratio.py` implements
   a float-free exact scorer using descending-path compression and Karp's
   maximum-cycle-mean dynamic program. Direct simple-cycle enumeration is not
@@ -151,7 +167,8 @@ simple-cycle maximum exists. Define
 \]
 where the maximum may equivalently be taken over all nonempty directed closed
 walks or only over vertex-simple directed cycles of lengths \(2,\ldots,n\).
-The value is a positive rational number.
+The value is a positive rational number at this stage; the one-wrap theorem
+below strengthens this to an integer for complete Power-Ringmin orders.
 
 ### Cyclic-order symmetry
 
@@ -168,6 +185,123 @@ every closed walk, so \(q(C)\) is unchanged. Reflection also preserves the
 maximum: reflect the positions and reverse each directed cycle; this preserves
 both \(S\) and \(q\). Therefore minimization over the repository's canonical
 rotation/reflection representatives covers the complete cyclic-order space.
+
+### One-wrap cycles and induced subset orders
+
+Define the one-wrap score by
+\[
+\Lambda^{(1)}(\sigma)
+=
+\max\{S(C): C\text{ is a nonempty directed closed walk and }q(C)=1\}.
+\tag{CR12a}
+\]
+The denominator is absent because it equals one on this class.
+
+Let \(T=\{i_0<\cdots<i_{m-1}\}\) be a nonempty subset of positions, and
+let \(\sigma|_T\) denote the cyclic order induced by
+\(\sigma\). Put
+\[
+P_\sigma(T)
+=
+\sum_{r=0}^{m-1}
+\sigma_{i_r}\sigma_{i_{r+1\bmod m}}.
+\tag{CR12b}
+\]
+When \(m=1\), this convention gives
+\(P_\sigma(\{i_0\})=\sigma_{i_0}^2\). When \(m=2\), it gives
+\(\sigma_{i_0}\sigma_{i_1}+\sigma_{i_1}\sigma_{i_0}\): the same unordered
+pair contributes twice, exactly as in (CR7).
+
+A closed walk with \(q=1\) cannot repeat a vertex. Rotate it so that its
+unique ascending edge occurs first. Every later edge strictly decreases its
+position until the walk closes, so repetition is impossible. If its selected
+positions are \(i_0<\cdots<i_{m-1}\), the unique ascent must leave the least
+position and enter the greatest one; all later positions are then forced into
+strictly decreasing order. The cycle is therefore
+\[
+i_0\longrightarrow i_{m-1}\longrightarrow i_{m-2}
+\longrightarrow\cdots\longrightarrow i_1\longrightarrow i_0.
+\tag{CR12c}
+\]
+Its product sum is \(P_\sigma(T)\), since reversing a cyclic order does not
+change its undirected adjacent-product sum. Conversely, (CR12c) gives a
+one-wrap cycle for every \(T\) of cardinality at least two. Hence
+\[
+\boxed{
+\Lambda^{(1)}(\sigma)
+=
+\max_{\substack{T\subseteq\{0,\ldots,n-1\}\\|T|\ge2}}
+P_\sigma(T)
+=
+\max_{\varnothing\ne T\subseteq\{0,\ldots,n-1\}}
+P_\sigma(T).
+}
+\tag{CR12d}
+\]
+The second equality holds because, for \(n\ge3\), every singleton score is at
+most \(n^2\), while the subset carrying labels \(n-1,n\) has score
+\(2n(n-1)>n^2\). Cardinality at least two is the cycle-faithful convention.
+
+### Exact one-wrap saturation
+
+The duplicated-multiset pairing lemma from
+`research/ALL_N_LOWER_BOUND.md`, applied to the complete induced order, gives
+\[
+P_\sigma(\{0,\ldots,n-1\})
+\ge
+{n(n+1)(n+2)\over6}.
+\tag{CR12e}
+\]
+For completeness, the cycle edges pair the multiset containing two copies of
+each label. Oppositely pairing its sorted entries is the rearrangement lower
+bound, and its value is
+\(\sum_{k=1}^n k(n+1-k)=n(n+1)(n+2)/6\). Thus
+\(\Lambda^{(1)}(\sigma)\ge n(n+1)(n+2)/6\).
+
+Now let \(C\) be a vertex-simple directed cycle with selected label set
+\(U\). The inequality \(2ij\le i^2+j^2\), summed over its edge occurrences,
+and degree two at every selected vertex give
+\[
+S(C)
+\le
+\sum_{i\in U}i^2
+\le
+\sum_{i=1}^n i^2
+={n(n+1)(2n+1)\over6}.
+\tag{CR12f}
+\]
+If \(q(C)\ge2\), then
+\[
+{S(C)\over q(C)}
+\le {1\over2}\sum_{i=1}^n i^2
+={n(n+1)(n+2)\over6}-{n(n+1)\over4}
+<{n(n+1)(n+2)\over6}
+\le\Lambda^{(1)}(\sigma).
+\tag{CR12g}
+\]
+By (CR10), only vertex-simple cycles are needed for the full maximum. The
+cycles with \(q=1\) give (CR12d), while (CR12g) strictly excludes every
+vertex-simple cycle with more wraps. Therefore
+\[
+\boxed{
+\Lambda(\sigma)=\Lambda^{(1)}(\sigma)
+=
+\max_{\substack{T\subseteq\{0,\ldots,n-1\}\\|T|\ge2}}
+P_\sigma(T)
+=
+\max_{\varnothing\ne T\subseteq\{0,\ldots,n-1\}}
+P_\sigma(T)
+\qquad(n\ge3).
+}
+\tag{CR12h}
+\]
+This is an **EXACT THEOREM for every complete order**, not an inference from
+the bounded experiment. It also proves that \(\Lambda(\sigma)\), and hence
+\(\Lambda_n\), is an integer. A general closed walk with \(q>1\) can still
+attain the same ratio, for example by repeating a maximizing one-wrap simple
+cycle. Equality in the weighted average (CR10) requires every simple
+component to be one-wrap and maximizing. The strict separation in (CR12g) is
+specifically a statement about vertex-simple multi-wrap cycles.
 
 ## 3. Exact Fixed-Order Sandwich
 
@@ -411,13 +545,23 @@ The separate global enumerator rejects values outside \(3\le n\le8\), checks
 the explicit canonical-order ceiling before generating permutations, and has
 no CLI or serialized artifact contract.
 
+The one-wrap theorem proves that every public score has denominator one. The
+production implementation deliberately retains its full-ratio Karp algorithm
+and `Fraction` result: the new induced-subset and subset/path implementations
+remain test-only independent oracles, and the hard production enumeration
+domain is unchanged.
+
 ## 6. Bounded Exact Experiment, \(n=3,\ldots,8\)
 
 The production scorer was minimized over every canonical complete order using
 the repository convention: put \(n\) first and retain the reflection with
 second label smaller than the last. The direct simple-cycle oracle independently
-checked every canonical order through \(n=6\); it was not used to produce the
-larger rows.
+checked every canonical order through \(n=6\). A separate exact subset/path
+dynamic program anchors each simple cycle at its least position and retains
+states `(visited subset, last position, wrap count)`; it shares neither the
+descending closure, macro graph, nor Karp recurrence with production. That
+oracle and literal induced-subset maximization agree order by order for every
+canonical order through \(n=8\).
 
 For the comparison columns only, recall the separate core definition
 \[
@@ -448,7 +592,11 @@ canonical orders. The supplied prediction
 \]
 is reproduced exactly, so there is no counterexample to preserve in this
 bounded domain. The counts and representative orders are additional finite
-data, not an all-\(n\) theorem or conjecture.
+data, not an all-\(n\) formula or conjecture. The independent oracle also
+verifies \(\Lambda=\Lambda^{(1)}\) on every one of these bounded orders, but
+the all-order equality is the exact proof (CR12a)--(CR12h), not this finite
+regression. The production ceiling remains 2,520 canonical orders at
+\(n=8\); no larger production enumeration was enabled.
 
 ## 7. Comparison With \(W\)
 
@@ -568,6 +716,11 @@ Further non-consequences are important.
 
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality
   of minimizing order sets, or \(\Lambda_n=(n-1)W_n\).
+- One-wrap saturation concerns the separable product weights
+  \(\sigma_u\sigma_v\). It does not show that checking only one-wrap cycles
+  suffices for the exact angular STN weights
+  \(2\pi\varepsilon(u,v)-\theta_R(\sigma_u^2,\sigma_v^2)\), or that an exact
+  angular critical/negative cycle must have one wrap.
 - A cycle attaining \(\Lambda(\sigma)\) is a witness for the product-angle
   comparison, not necessarily a critical or negative exact-STN cycle at
   \(\rho_\sigma\). For \(n=3\), the two-cycle on labels \(2,3\) attains
