@@ -87,14 +87,35 @@ in `research/ALL_N_LOWER_BOUND.md`.
   exactly the 28 proved classes. A separate oracle checks the six-label lemma
   on all 60 dihedral classes. Neither check calls a repository canonicalizer,
   the public enumerator, or the production Karp scorer.
+- **EXACT THEOREM (FINITE SEVEN-LABEL LEMMA):** for every cyclic order
+  \(\omega\) on \(\{4,\ldots,10\}\),
+  \[
+  \max\{P_\omega(\{4,\ldots,10\}),P_\omega(\{5,\ldots,10\})\}\ge323.
+  \]
+  The proof applies the duplicated-multiset pairing relaxation to
+  \(\{5,\ldots,10\}\), classifies exactly the eight pairing signatures at
+  the only relevant integer levels 320--322, and then applies the exact
+  correction for inserting label \(4\).
+- **VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT):** the seven-label
+  lemma and the exact shortcut-gain witness
+  \(\tau=(10,2,3,4,7,8,6,9,5)\) give
+  \(\Lambda_{10}=323\). Exactly two witness subsets maximize: the six-label
+  tail \(\{5,\ldots,10\}\) and the eight-label tail
+  \(\{3,\ldots,10\}\).
+- **VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION):** independent
+  test-only code checks the lemma on all \(6!/2=360\) seven-label dihedral
+  classes and literally scores all \(2^9-1=511\) nonempty witness subsets.
+  Neither path calls a repository canonicalizer, the public enumerator, or
+  the production scorer.
 - **VERIFIED FACT:** `src/power_ringmin/fixed_order_cycle_ratio.py` implements
   a float-free exact scorer using descending-path compression and Karp's
   maximum-cycle-mean dynamic program. Direct simple-cycle enumeration is not
   used in production and exists only as an independent small-test oracle.
-- **LIMITATION:** the exact `n=9` classification is not a closed-form
-  all-\(n\) evaluation or evidence for convergence to a new asymptotic
-  constant. No interval backend, verifier, certificate, checked artifact,
-  schema, or example is changed by this work.
+- **LIMITATION:** the exact `n=9` classification and exact `n=10` value are
+  not a closed-form all-\(n\) evaluation or evidence for convergence to a
+  new asymptotic constant. The `n=10` core minimizers are deliberately not
+  classified here. No interval backend, verifier, interval-certificate
+  artifact, checked artifact, schema, or example is changed by this work.
 
 ## 1. Complete Fixed-Order STN
 
@@ -1156,6 +1177,302 @@ independently audit the finite proofs; they are not their source. The number
 2,520 here is the `n=9` **core** space and only happens to equal the production
 ceiling at `n=8`. Production still hard-rejects `n=9`, and no public
 enumeration limit changed.
+
+### Reduced exact evaluation at \(n=10\), without public enumeration or core classification
+
+Put
+\[
+T_7=\{4,5,6,7,8,9,10\},
+\qquad
+T_6=\{5,6,7,8,9,10\}.
+\tag{L10-1}
+\]
+Let \(\omega\) be a cyclic order on \(T_7\), and let \(a,b\) be the two
+neighbors of label \(4\). Deleting \(4\) replaces the two contributions
+\(4a+4b\) by \(ab\), so
+\[
+P_\omega(T_7)
+=P_\omega(T_6)+4(a+b)-ab
+=P_\omega(T_6)+16-(a-4)(b-4).
+\tag{L10-2}
+\]
+
+The six edges of the cycle induced on \(T_6\) pair the duplicated multiset
+\[
+M=(5,5,6,6,7,7,8,8,9,9,10,10).
+\tag{L10-3}
+\]
+The duplicated-multiset rearrangement bound gives
+\[
+P_\omega(T_6)
+\ge2(5\mathbin\cdot10+6\mathbin\cdot9+7\mathbin\cdot8)
+=320.
+\tag{L10-4}
+\]
+Because every cyclic sum is an integer, only the pairing levels 320, 321,
+and 322 can require work before the target 323 is automatic. The following
+small recurrence classifies them without enumerating cyclic orders.
+
+For an even sorted multiset
+\(N=(x_1\le\cdots\le x_{2r})\), define
+\[
+A(N)=\sum_{i=1}^r x_i x_{2r+1-i},
+\qquad A(\varnothing)=0.
+\tag{L10-5}
+\]
+The same rearrangement lemma says that \(A(N)\) is a lower bound for every
+pairing of \(N\). A state consists of the remaining multiset \(N\), a
+partial cost \(s\), and the multiset \(E\) of pairs already chosen. Take
+\(x=\min N\), try each distinct possible mate \(y\), and form
+\[
+N'=N\setminus\{x,y\},
+\qquad
+s'=s+xy,
+\qquad
+E'=E\mathbin\uplus\{(x,y)\}.
+\tag{L10-6}
+\]
+Retain the branch exactly when
+\[
+s'+A(N')\le322,
+\tag{L10-7}
+\]
+identifying states that differ only by exchanging equal copies. Every
+pairing of cost at most 322 survives by following the actual mate of the
+least remaining entry; conversely, every leaf is a pairing. Thus the
+recurrence is exhaustive.
+
+At the first step, the lower totals for pairing the first copy of \(5\) with
+\(y=5,6,7,8,9,10\) are respectively
+\[
+335, 330, 326, 323, 321, 320,
+\tag{L10-8}
+\]
+so only \(y=9,10\) survive. Continuing the same test leaves, after
+\(0,1,\ldots,6\) chosen pairs,
+\[
+1, 2, 3, 6, 6, 10, 8
+\tag{L10-9}
+\]
+distinct states. The eight leaves are listed below; \((i,j)^2\) denotes a
+pair with multiplicity two.
+
+| Value | Multiset of six unordered pairs | Simple six-cycle? |
+|---:|---|---|
+| 320 | \((5,10)^2,(6,9)^2,(7,8)^2\) | no: repeated pairs |
+| 321 | \((5,9),(5,10),(6,9),(6,10),(7,8)^2\) | no: \((7,8)\) repeats |
+| 321 | \((5,10)^2,(6,8),(6,9),(7,8),(7,9)\) | no: \((5,10)\) repeats |
+| 321 | \((5,10)^2,(6,9)^2,(7,7),(8,8)\) | no: loops |
+| 322 | \((5,9)^2,(6,10)^2,(7,8)^2\) | no: repeated pairs |
+| 322 | \((5,9),(5,10),(6,8),(6,10),(7,8),(7,9)\) | yes |
+| 322 | \((5,9),(5,10),(6,9),(6,10),(7,7),(8,8)\) | no: loops |
+| 322 | \((5,10)^2,(6,8)^2,(7,9)^2\) | no: repeated pairs |
+
+A simple cycle on six distinct labels has neither a loop nor a repeated
+unordered edge. Hence 320 and 321 are impossible, while 322 forces, up to
+rotation and reflection,
+\[
+C_*=(10,5,9,7,8,6),
+\tag{L10-10}
+\]
+with
+\[
+P_{C_*}(T_6)
+=10\mathbin\cdot5+5\mathbin\cdot9+9\mathbin\cdot7
+ +7\mathbin\cdot8+8\mathbin\cdot6+6\mathbin\cdot10
+=322.
+\tag{L10-11}
+\]
+
+It remains to insert label \(4\). On the six edges of \(C_*\), the exact
+correction \(\delta(a,b)=4(a+b)-ab\) in (L10-2) is
+
+| Edge \(\{a,b\}\) | \(\delta(a,b)\) |
+|---|---:|
+| \(\{5,10\}\) | 10 |
+| \(\{5,9\}\) | 11 |
+| \(\{7,9\}\) | 1 |
+| \(\{7,8\}\) | 4 |
+| \(\{6,8\}\) | 8 |
+| \(\{6,10\}\) | 4 |
+
+Every correction is at least one. If \(P_\omega(T_6)\ge323\), the desired
+maximum is already at least 323. Otherwise (L10-4) and the complete
+classification force \(P_\omega(T_6)=322\) and the induced cycle to be
+\(C_*\), so (L10-2) gives \(P_\omega(T_7)\ge323\). This proves the exact
+finite lemma
+\[
+\boxed{
+\max\{P_\omega(\{4,\ldots,10\}),
+      P_\omega(\{5,\ldots,10\})\}\ge323
+}
+\tag{L10-12}
+\]
+for every cyclic order \(\omega\) on \(\{4,\ldots,10\}\). The pairing
+recurrence and insertion table are the proof; the finite oracle below is an
+independent check, not its source.
+
+For any core order \(\tau\) of \(\{2,\ldots,10\}\), the order induced on
+\(T_7\) satisfies (L10-12), and both displayed subsets occur in the
+definition of \(K\). Therefore
+\[
+K(\tau)
+\ge\max\{P_\tau(T_7),P_\tau(T_6)\}
+\ge323.
+\tag{L10-13}
+\]
+
+For the reverse inequality, take the supplied core order
+\[
+\tau_*=(10,2,3,4,7,8,6,9,5).
+\tag{L10-14}
+\]
+Its nine cyclic edge products are
+\[
+20,6,12,28,56,48,54,45,50,
+\]
+and hence its complete-core sum is
+\[
+B=P_{\tau_*}(\{2,\ldots,10\})=319.
+\tag{L10-15}
+\]
+For an oriented arc from \(i\) to \(j\) in \(\tau_*\), define the exact
+shortcut gain
+\[
+g(i,j)
+=ij-
+\sum_{xy\text{ an edge on the oriented arc from }i\text{ to }j}xy.
+\tag{L10-16}
+\]
+Adjacent endpoints have gain zero. The following table records every
+nontrivial gain; \(r\) is the number of skipped internal labels, and each
+entry has the form `endpoint:gain`.
+
+| Start | \(r=1\) | \(r=2\) | \(r=3\) | \(r=4\) | \(r=5\) | \(r=6\) | \(r=7\) |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 10 | `3:+4` | `4:+2` | `7:+4` | `8:-42` | `6:-110` | `9:-134` | `5:-219` |
+| 2 | `4:-10` | `7:-32` | `8:-86` | `6:-138` | `9:-186` | `5:-239` | `10:-279` |
+| 3 | `7:-19` | `8:-72` | `6:-126` | `9:-171` | `5:-228` | `10:-263` | `2:-307` |
+| 4 | `8:-52` | `6:-108` | `9:-150` | `5:-211` | `10:-241` | `2:-293` | `3:-295` |
+| 7 | `6:-62` | `9:-95` | `5:-168` | `10:-183` | `2:-259` | `3:-258` | `4:-263` |
+| 8 | `9:-30` | `5:-107` | `10:-117` | `2:-201` | `3:-199` | `4:-203` | `7:-207` |
+| 6 | `5:-69` | `10:-89` | `2:-157` | `3:-157` | `4:-163` | `7:-173` | `8:-223` |
+| 9 | `10:-5` | `2:-97` | `3:-94` | `4:-97` | `7:-98` | `8:-145` | `6:-211` |
+| 5 | `2:-60` | `3:-61` | `4:-68` | `7:-81` | `8:-132` | `6:-190` | `9:-229` |
+
+Every entry is an integer subtraction from the displayed edge products.
+Complementary arcs give the additional audit identity
+\[
+g(i,j)+g(j,i)=2ij-B=2ij-319.
+\tag{L10-17}
+\]
+
+Let \(U\) be an induced subset with \(|U|\ge2\). The oriented arcs from
+each selected label to the next selected label partition the nine edges of
+the complete core cycle. Consequently,
+\[
+P_{\tau_*}(U)-319
+=\sum_{(i,j)\text{ a selected gap}}g(i,j).
+\tag{L10-18}
+\]
+For \(|U|=2\), the two complementary arcs supply both occurrences of the
+same unordered product, as required by the two-element convention.
+
+The only positive nontrivial gains are
+\[
+g(10,3)=4,
+\qquad
+g(10,4)=2,
+\qquad
+g(10,7)=4.
+\tag{L10-19}
+\]
+All three leave label \(10\), and exactly one selected gap can leave a given
+selected label. Thus the sum in (L10-18) is at most four. There is no
+nontrivial zero gain, so equality requires either the shortcut \(10\to3\)
+or \(10\to7\), with every other selected gap adjacent. These two cases give
+exactly
+\[
+U_8=\{3,4,5,6,7,8,9,10\},
+\qquad
+U_6=\{5,6,7,8,9,10\}.
+\tag{L10-20}
+\]
+Their sums are, respectively,
+\[
+10\mathbin\cdot3+3\mathbin\cdot4+4\mathbin\cdot7
++7\mathbin\cdot8+8\mathbin\cdot6+6\mathbin\cdot9
++9\mathbin\cdot5+5\mathbin\cdot10
+=323
+\tag{L10-21}
+\]
+and
+\[
+10\mathbin\cdot7+7\mathbin\cdot8+8\mathbin\cdot6
++6\mathbin\cdot9+9\mathbin\cdot5+5\mathbin\cdot10
+=323.
+\tag{L10-22}
+\]
+Singleton scores are at most \(10^2=100\). Therefore the shortcut table is
+an exact certificate that
+\[
+K(10,2,3,4,7,8,6,9,5)=323,
+\tag{L10-23}
+\]
+with precisely \(U_6\) and \(U_8\) as its maximizing subsets.
+
+Combining (L10-13), (L10-23), and the accepted reduction (CR28a) proves
+\[
+\boxed{\Lambda_{10}=323.}
+\tag{L10-24}
+\]
+This is a **VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT)**. It does not
+give an exact value of \(R_2^*(10)\), change the production scorer, enlarge
+the public enumeration domain, classify the `n=10` core minimizers, or imply
+a geometric, all-\(n\), or asymptotic statement.
+
+#### Independent finite oracles for \(n=10\)
+
+The independent test-only lemma oracle fixes label \(10\) to remove
+rotations, directly permutes labels \(4,\ldots,9\), and retains the
+orientation whose second label is smaller than its last. It therefore checks
+exactly \(6!/2=360\) dihedral classes. Literal cyclic sums give minimum 323
+and exactly two equality rows:
+
+| Canonical test-local order | \(P(T_7)\) | \(P(T_6)\) |
+|---|---:|---:|
+| `(10,4,7,8,6,9,5)` | 321 | 323 |
+| `(10,5,9,4,7,8,6)` | 323 | 322 |
+
+This is an exhaustive **computational** equality list. The proof above
+establishes the lower inequality but does not yet give a separate structural
+derivation of both equality cases.
+
+The same test independently enumerates duplicated-label pairing signatures
+through 322, recovers exactly the eight rows above, recognizes only the
+displayed 322 signature as a simple spanning cycle, and checks all six
+insertion corrections.
+
+A separate literal computation scores all \(2^9-1=511\) nonempty subsets
+of \(\tau_*\). It records every maximizing subset and supplies the following
+per-cardinality audit; each row has a unique maximizer.
+
+| \(|U|\) | Maximum | Unique maximizing subset |
+|---:|---:|---|
+| 1 | 100 | \(\{10\}\) |
+| 2 | 180 | \(\{9,10\}\) |
+| 3 | 242 | \(\{8,9,10\}\) |
+| 4 | 288 | \(\{7,8,9,10\}\) |
+| 5 | 318 | \(\{6,7,8,9,10\}\) |
+| 6 | 323 | \(\{5,6,7,8,9,10\}\) |
+| 7 | 321 | \(\{4,5,6,7,8,9,10\}\) |
+| 8 | 323 | \(\{3,4,5,6,7,8,9,10\}\) |
+| 9 | 319 | \(\{2,3,4,5,6,7,8,9,10\}\) |
+
+These are **VERIFIED FACTS (FINITE EXHAUSTIVE EXACT COMPUTATION)** and audit
+the proof without supplying it. The helpers call no repository canonicalizer,
+public enumerator, or production Karp scorer. Production source is unchanged,
+and the public complete-order enumeration domain remains `n<=8`.
 
 ## 7. Comparison With \(W\)
 

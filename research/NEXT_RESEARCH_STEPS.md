@@ -108,6 +108,24 @@ nor the production scorer. The public complete-order domain remains
 `n<=8`. No exact value of \(R_2^*(9)\), all-\(n\) formula, geometric
 classification, or asymptotic claim follows.
 
+The same reduced method now gives the next exact value without changing
+production. A finite pairing lemma proves
+\[
+\max\{P_\omega(\{4,\ldots,10\}),P_\omega(\{5,\ldots,10\})\}\ge323
+\]
+for every cycle on \(\{4,\ldots,10\}\). Its human-checkable proof starts at
+the duplicated-pairing baseline 320, classifies exactly the eight signatures
+at the only relevant values 320--322, and checks the label-four insertion
+correction in the sole cyclic signature. The exact shortcut-gain certificate
+for \((10,2,3,4,7,8,6,9,5)\) attains 323, so
+\[
+\Lambda_{10}=323.
+\]
+Independent test-only arithmetic checks all 360 lemma classes and all 511
+nonempty witness subsets without a repository canonicalizer, public
+enumerator, or production scorer. The public domain remains `n<=8`; the
+`n=10` core minimizers are not classified by this task.
+
 As of 2026-07-14, the former asymptotic target
 \[
 R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))
@@ -409,6 +427,25 @@ saturation for every \(n\ge3\).
   \(27+1\) argmax pattern without calling a repository canonicalizer, public
   enumerator, or production Karp scorer. This is 2,520 **core** classes, not
   an extension of the public complete-order domain beyond `n=8`.
+- EXACT THEOREM (FINITE SEVEN-LABEL LEMMA): for every cyclic order on
+  \(\{4,\ldots,10\}\),
+  \[
+  \max\{P_\omega(\{4,\ldots,10\}),
+        P_\omega(\{5,\ldots,10\})\}\ge323.
+  \]
+  The pairing relaxation on the duplicated multiset of labels 5 through 10
+  has baseline 320. The exact least-entry recurrence has one, three, and four
+  terminal signatures at values 320, 321, and 322; only one 322 signature is
+  a simple cycle, and all six insertions of label four add at least one.
+- VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT): the shortcut-gain table
+  for \(\tau=(10,2,3,4,7,8,6,9,5)\) proves \(K(\tau)=323\), with exactly
+  \(\{5,\ldots,10\}\) and \(\{3,\ldots,10\}\) maximizing. Hence the
+  accepted reduction gives \(\Lambda_{10}=323\).
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): direct test-local
+  generation checks all \(6!/2=360\) lemma classes, all eight low pairing
+  signatures, all six insertion corrections, and all 511 nonempty witness
+  subsets. These paths call no repository canonicalizer, public enumerator,
+  or production scorer. They do not classify all `n=10` core minimizers.
 - EXACT THEOREM: `research/ALL_N_LOWER_BOUND.md` proves the induced-subset
   lower-bound theorem. In particular, for every `n>=4` and `1<=m<=n-2`,
   \[
@@ -709,10 +746,12 @@ saturation for every \(n\ge3\).
    \(\Lambda_n\le(n-1)W_n\). The reduction by itself is not a closed-form
    all-\(n\) evaluation or a general minimizer classification, although the
    additional finite equality/shortcut argument now classifies all \(n=9\)
-   core \(K\)-minimizers. Insertion independence for \(\Lambda\) does not
-   transfer to the exact angular threshold. The resulting geometric upper
-   bound recovers the known coefficient \(8/(25\pi)\); it proves no exact
-   geometric optimum or new coefficient.
+   core \(K\)-minimizers and a separate pairing/shortcut argument proves the
+   value \(\Lambda_{10}=323\). The latter does not classify the `n=10`
+   minimizers. Insertion independence for \(\Lambda\) does not transfer to
+   the exact angular threshold. The resulting geometric upper bound recovers
+   the known coefficient \(8/(25\pi)\); it proves no exact geometric optimum
+   or new coefficient.
 
 ## Updated Research Questions
 
@@ -751,6 +790,13 @@ saturation for every \(n\ge3\).
   224 complete minimizer classes. The independent 2,520-core oracle records
   every argmax and recovers the same classification. This closes only the
   specified finite combinatorial case, not any geometric or all-\(n\) case.
+- CLOSED FINITE VALUE / OPEN CLASSIFICATION: the next reduced value is
+  \(\Lambda_{10}=323\), proved by the seven-label pairing lemma and exact
+  witness shortcut certificate in `research/FIXED_ORDER_CYCLE_RATIO.md` and
+  independently checked on 360 lemma classes and 511 witness subsets. The
+  oracle lists two equality cycles, but a separate structural proof of that
+  equality list and all minimizing `n=10` core orders are not supplied by the
+  value proof.
 
 ## Ranked Work
 
@@ -781,6 +827,11 @@ Completed:
   minimizer classes by exact label-one insertion, and independently checked
   all 2,520 core classes and their maximizing subsets without changing the
   public `n<=8` enumerator.
+- Proved the finite exact value \(\Lambda_{10}=323\) from a human-checkable
+  pairing classification at levels 320--322 and an exact shortcut-gain
+  witness, then independently checked all 360 lemma classes and all 511
+  witness subsets without changing production or classifying all core
+  minimizers.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -789,12 +840,16 @@ Completed:
 
 Immediate:
 
-- Decide whether to extend the same independently reviewed Arb method to one
-  additional existing checked artifact; full `n=3..6` coverage is still absent
-  and no public production-grade claim follows from the bounded `n=3` result.
+- In a fresh bounded task, prove structurally the two `n=10` seven-label
+  equality cycles already listed by the independent oracle, as the next
+  prerequisite for any later core-minimizer question. Do not yet place labels
+  `2` and `3` or enumerate the full core space.
 
 Next:
 
+- Decide whether to extend the same independently reviewed Arb method to one
+  additional existing checked artifact; full `n=3..6` coverage is still absent
+  and no public production-grade claim follows from the bounded `n=3` result.
 - Seek a geometric all-pairs construction or lower obstruction that narrows
   the remaining coefficient gap without relying on larger exhaustive finite
   certificates.
@@ -824,16 +879,19 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: extend the bounded independent Arb cross-check to the existing checked
-`n=4` artifact, without changing production verification or certified claims.
+Task: give a human-checkable structural proof that the two equality cycles
+already listed by the independent `n=10` lemma oracle are exhaustive, without
+yet classifying all `n=10` core minimizers or changing production.
 
 Acceptance criteria:
 
-- reuse the test-only direct-JSON Arb architecture without importing the
-  production verifier or its enclosures;
-- recompute every embedded `n=4` lower cycle, upper witness pair, theta, and
-  `2*pi` with outward Arb bounds;
-- require exact embedded-record, edge, pair, and slack coverage;
-- record platform, Python, python-flint, FLINT, precision, commands, and signs;
-- do not alter artifacts, schemas, brackets, supported production backends,
-  or current certified claims.
+- extend the pairing-level analysis only as far as needed to prove every
+  equality cycle with maximum 323;
+- separate the branch with `P({5,...,10})=322` from any branch with tail
+  score 323 and audit every label-four correction exactly;
+- check the proved equality list with an independent test-only sweep of the
+  same 360 lemma classes;
+- make no placement claim for labels `2` and `3`, no full core-minimizer
+  count, and no geometric inference;
+- keep the production scorer and public complete-order `n<=8` boundary
+  unchanged.

@@ -136,6 +136,101 @@ def _six_label_dihedral_orders_oracle() -> tuple[tuple[int, ...], ...]:
     )
 
 
+def _seven_label_dihedral_orders_oracle() -> tuple[tuple[int, ...], ...]:
+    """Generate the 360 dihedral classes on ``{4, ..., 10}`` locally.
+
+    Fixing label ten removes rotations, and the endpoint comparison keeps one
+    orientation from each reflection pair.  No repository canonicalizer,
+    public enumerator, or production scorer is used.
+    """
+    return tuple(
+        order
+        for tail in itertools.permutations((4, 5, 6, 7, 8, 9))
+        if (order := (10, *tail))[1] < order[-1]
+    )
+
+
+def _near_minimum_duplicated_pairings_oracle(
+    labels: tuple[int, ...],
+    ceiling: int,
+) -> tuple[int, dict[int, tuple[tuple[tuple[int, int], ...], ...]]]:
+    """Classify low-score pairings of two test-local copies of each label."""
+    duplicated = tuple(label for label in labels for _copy in range(2))
+    minimum: int | None = None
+    signatures: dict[int, set[tuple[tuple[int, int], ...]]] = {}
+
+    def visit(
+        remaining: tuple[int, ...],
+        pairs: tuple[tuple[int, int], ...],
+    ) -> None:
+        nonlocal minimum
+        if not remaining:
+            signature = tuple(
+                sorted((min(left, right), max(left, right)) for left, right in pairs)
+            )
+            score = sum(left * right for left, right in signature)
+            minimum = score if minimum is None else min(minimum, score)
+            if score <= ceiling:
+                signatures.setdefault(score, set()).add(signature)
+            return
+
+        left = remaining[0]
+        for right_position in range(1, len(remaining)):
+            right = remaining[right_position]
+            visit(
+                remaining[1:right_position] + remaining[right_position + 1 :],
+                pairs + ((left, right),),
+            )
+
+    visit(duplicated, ())
+    assert minimum is not None
+    return minimum, {
+        score: tuple(sorted(score_signatures))
+        for score, score_signatures in sorted(signatures.items())
+    }
+
+
+def _is_loopless_spanning_cycle_signature(
+    signature: tuple[tuple[int, int], ...],
+    labels: tuple[int, ...],
+) -> bool:
+    """Recognize when a duplicated-label pairing is one spanning cycle."""
+    degrees = {label: 0 for label in labels}
+    adjacency = {label: set() for label in labels}
+    for left, right in signature:
+        if left == right:
+            return False
+        degrees[left] += 1
+        degrees[right] += 1
+        adjacency[left].add(right)
+        adjacency[right].add(left)
+
+    if set(degrees.values()) != {2}:
+        return False
+
+    seen = {labels[0]}
+    frontier = [labels[0]]
+    while frontier:
+        current = frontier.pop()
+        for neighbor in adjacency[current]:
+            if neighbor not in seen:
+                seen.add(neighbor)
+                frontier.append(neighbor)
+    return seen == set(labels)
+
+
+def _undirected_cycle_edge_signature(
+    order: tuple[int, ...],
+) -> tuple[tuple[int, int], ...]:
+    """Record a literal cycle independently of its root and orientation."""
+    return tuple(
+        sorted(
+            (min(left, right), max(left, right))
+            for left, right in zip(order, order[1:] + order[:1], strict=True)
+        )
+    )
+
+
 def _nine_core_dihedral_orders_oracle() -> tuple[tuple[int, ...], ...]:
     """Generate all 2,520 core classes on ``{2, ..., 9}`` test-locally.
 
@@ -482,6 +577,127 @@ def test_lambda9_core_oracle_classifies_all_2520_dihedral_classes() -> None:
     assert len(minimizer_rows) == 28
     assert sum(len(maximizers) == 1 for _order, _score, maximizers in rows) == 2_412
     assert sum(len(maximizers) == 2 for _order, _score, maximizers in rows) == 108
+
+
+def test_lambda10_lower_bound_oracle_covers_all_360_tail_classes() -> None:
+    labels = (5, 6, 7, 8, 9, 10)
+    expected_pairings = {
+        320: (
+            ((5, 10), (5, 10), (6, 9), (6, 9), (7, 8), (7, 8)),
+        ),
+        321: (
+            ((5, 9), (5, 10), (6, 9), (6, 10), (7, 8), (7, 8)),
+            ((5, 10), (5, 10), (6, 8), (6, 9), (7, 8), (7, 9)),
+            ((5, 10), (5, 10), (6, 9), (6, 9), (7, 7), (8, 8)),
+        ),
+        322: (
+            ((5, 9), (5, 9), (6, 10), (6, 10), (7, 8), (7, 8)),
+            ((5, 9), (5, 10), (6, 8), (6, 10), (7, 8), (7, 9)),
+            ((5, 9), (5, 10), (6, 9), (6, 10), (7, 7), (8, 8)),
+            ((5, 10), (5, 10), (6, 8), (6, 8), (7, 9), (7, 9)),
+        ),
+    }
+    cycle_pairing = expected_pairings[322][1]
+
+    pairing_minimum, near_minimum_pairings = (
+        _near_minimum_duplicated_pairings_oracle(labels, ceiling=322)
+    )
+    assert pairing_minimum == 320
+    assert near_minimum_pairings == expected_pairings
+    assert tuple(
+        (score, signature)
+        for score, signatures in near_minimum_pairings.items()
+        for signature in signatures
+        if _is_loopless_spanning_cycle_signature(signature, labels)
+    ) == ((322, cycle_pairing),)
+
+    orders = _seven_label_dihedral_orders_oracle()
+    rows = []
+    for order in orders:
+        s7_score = _cyclic_product_sum(order)
+        s6_order = tuple(label for label in order if label != 4)
+        s6_score = _cyclic_product_sum(s6_order)
+        rows.append((max(s7_score, s6_score), order, s7_score, s6_score))
+
+    assert len(orders) == len(set(orders)) == 360
+    assert min(row[0] for row in rows) == 323
+    assert [row for row in rows if row[0] == 323] == [
+        (323, (10, 4, 7, 8, 6, 9, 5), 321, 323),
+        (323, (10, 5, 9, 4, 7, 8, 6), 323, 322),
+    ]
+
+    exceptional_rows = []
+    for _maximum, order, s7_score, s6_score in rows:
+        if s6_score > 322:
+            continue
+        four_position = order.index(4)
+        left = order[four_position - 1]
+        right = order[(four_position + 1) % len(order)]
+        correction = 4 * left + 4 * right - left * right
+        s6_order = tuple(label for label in order if label != 4)
+
+        assert s6_score == 322
+        assert _undirected_cycle_edge_signature(s6_order) == cycle_pairing
+        assert s7_score == s6_score + correction
+        exceptional_rows.append((tuple(sorted((left, right))), correction))
+
+    assert tuple(sorted(exceptional_rows)) == (
+        ((5, 9), 11),
+        ((5, 10), 10),
+        ((6, 8), 8),
+        ((6, 10), 4),
+        ((7, 8), 4),
+        ((7, 9), 1),
+    )
+
+
+def test_lambda10_witness_records_every_maximizing_subset_exactly() -> None:
+    core_order = (10, 2, 3, 4, 7, 8, 6, 9, 5)
+    scores = _literal_induced_label_subset_scores(core_order)
+    expected_by_size = {
+        1: (100, frozenset({10})),
+        2: (180, frozenset({9, 10})),
+        3: (242, frozenset({8, 9, 10})),
+        4: (288, frozenset({7, 8, 9, 10})),
+        5: (318, frozenset({6, 7, 8, 9, 10})),
+        6: (323, frozenset({5, 6, 7, 8, 9, 10})),
+        7: (321, frozenset({4, 5, 6, 7, 8, 9, 10})),
+        8: (323, frozenset({3, 4, 5, 6, 7, 8, 9, 10})),
+        9: (319, frozenset({2, 3, 4, 5, 6, 7, 8, 9, 10})),
+    }
+
+    assert len(scores) == 2**len(core_order) - 1 == 511
+    for subset_size, (expected_score, expected_subset) in expected_by_size.items():
+        row = {
+            subset: score
+            for subset, score in scores.items()
+            if len(subset) == subset_size
+        }
+        row_maximum = max(row.values())
+        assert row_maximum == expected_score
+        assert {subset for subset, score in row.items() if score == row_maximum} == {
+            expected_subset
+        }
+
+    maximum = max(scores.values())
+    assert maximum == 323
+    assert {subset for subset, score in scores.items() if score == maximum} == {
+        frozenset({5, 6, 7, 8, 9, 10}),
+        frozenset({3, 4, 5, 6, 7, 8, 9, 10}),
+    }
+    assert _cyclic_product_sum((10, 7, 8, 6, 9, 5)) == (
+        10 * 7 + 7 * 8 + 8 * 6 + 6 * 9 + 9 * 5 + 5 * 10
+    ) == 323
+    assert _cyclic_product_sum((10, 3, 4, 7, 8, 6, 9, 5)) == (
+        10 * 3
+        + 3 * 4
+        + 4 * 7
+        + 7 * 8
+        + 8 * 6
+        + 6 * 9
+        + 9 * 5
+        + 5 * 10
+    ) == 323
 
 
 def test_score_is_invariant_under_rotation_and_reflection() -> None:

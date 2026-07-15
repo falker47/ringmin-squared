@@ -122,6 +122,25 @@ public enumerator or production scorer. The public complete-order domain
 remains `n<=8`. These are finite exact combinatorial results, not an exact
 value of \(R_2^*(9)\), a geometric classification, or an all-\(n\) formula.
 
+The next reduced value is also exact, still with no production change. For
+every cycle on \(\{4,\ldots,10\}\), the duplicated-pairing relaxation on
+\(\{5,\ldots,10\}\), its complete human-checkable classification at the
+only relevant values 320--322, and the exact label-four insertion correction
+prove
+\[
+\max\{P_\omega(\{4,\ldots,10\}),P_\omega(\{5,\ldots,10\})\}\ge323.
+\]
+The shortcut-gain certificate for
+\(\tau=(10,2,3,4,7,8,6,9,5)\) gives \(K(\tau)=323\), with exactly the two
+maximizing subsets \(\{5,\ldots,10\}\) and \(\{3,\ldots,10\}\). Hence
+\[
+\Lambda_{10}=323.
+\]
+Independent test-only arithmetic checks all 360 lemma classes and all 511
+nonempty witness subsets without calling the public enumerator or production
+scorer. The public complete-order domain remains `n<=8`, and the full set of
+`n=10` core minimizers is not classified in this result.
+
 A strengthened all-`n` mathematical lower bound has been proved from induced
 subsets of cyclic gaps. For every `n>=4` and `1<=m<=n-2`,
 
@@ -642,11 +661,13 @@ R_2^*(n)<{\Lambda_n\over\pi}
 \qquad(n\ge3).
 \]
 `research/FIXED_ORDER_CYCLE_RATIO.md` contains the definitions, saturation
-and elimination proofs, scorer algorithm, independent bounded oracles,
+and elimination proofs, scorer algorithm, the exact reduced values
+\(\Lambda_9=239\) and \(\Lambda_{10}=323\), independent bounded oracles,
 comparison with \(W\), and asymptotic limitations. One-wrap saturation and
 insertion independence concern the product ratio; they do not reduce exact
-angular-STN feasibility to one-wrap cycle checks or make
-\(\rho_\sigma\) insertion-independent.
+angular-STN feasibility to one-wrap cycle checks or make \(\rho_\sigma\)
+insertion-independent. The `n=10` result proves the value only and does not
+classify all minimizing core orders.
 
 ## Current Knowledge Status
 
@@ -731,6 +752,27 @@ angular-STN feasibility to one-wrap cycle checks or make
 - INTERPRETATION: the \(n=9\) classification is finite and combinatorial. It
   gives no exact value of \(R_2^*(9)\), geometric minimizer classification,
   all-\(n\) formula, or asymptotic claim.
+- EXACT THEOREM (FINITE \(n=10\) SEVEN-LABEL LEMMA): every cyclic order
+  \(\omega\) on \(\{4,\ldots,10\}\) satisfies
+  \[
+  \max\{P_\omega(\{4,\ldots,10\}),
+        P_\omega(\{5,\ldots,10\})\}\ge323.
+  \]
+  The proof classifies exactly the eight duplicated-pairing signatures at
+  values 320--322 and checks the six possible label-four insertion
+  corrections in the sole cyclic signature.
+- VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT): the exact shortcut-gain
+  certificate for `(10,2,3,4,7,8,6,9,5)` gives \(K=323\), with precisely
+  \(\{5,\ldots,10\}\) and \(\{3,\ldots,10\}\) as argmax subsets. Thus the
+  accepted reduction gives \(\Lambda_{10}=323\).
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): independent test-only
+  code checks all \(6!/2=360\) lemma classes and literally evaluates all 511
+  nonempty witness subsets. It calls no repository canonicalizer, public
+  enumerator, or production Karp scorer, and the public `n<=8` boundary is
+  unchanged.
+- INTERPRETATION: the \(n=10\) result is finite and combinatorial. It gives
+  no exact value of \(R_2^*(10)\), geometric statement, all-\(n\) formula,
+  asymptotic claim, or classification of every minimizing core order.
 - EXACT THEOREM: for every `n>=3`,
   \[
   R_2^*(n)\ge \frac{n(n+1)(n+2)}{6\pi}-n^2,

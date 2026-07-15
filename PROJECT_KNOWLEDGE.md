@@ -310,6 +310,43 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   combinatorial results. They do not give an exact value of \(R_2^*(9)\), a
   geometric minimizer classification, an all-\(n\) formula, or an asymptotic
   claim.
+- EXACT THEOREM (FINITE \(n=10\) SEVEN-LABEL LEMMA): for every cyclic order
+  \(\omega\) on \(\{4,\ldots,10\}\),
+  \[
+  \max\{P_\omega(\{4,\ldots,10\}),
+        P_\omega(\{5,\ldots,10\})\}\ge323.
+  \]
+  The duplicated-multiset pairing relaxation on \(\{5,\ldots,10\}\) has
+  baseline 320. An exact least-entry recurrence classifies all pairing
+  signatures at the only relevant values 320, 321, and 322: one, three, and
+  four signatures respectively. Only one 322 signature is a simple spanning
+  cycle, and inserting label \(4\) in any of its six edges raises the score by
+  at least one.
+- VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT): the core witness
+  \(\tau=(10,2,3,4,7,8,6,9,5)\) has complete sum 319. Its exact shortcut
+  table has only the positive nontrivial gains
+  \(g(10,3)=4\), \(g(10,4)=2\), and \(g(10,7)=4\), with no nontrivial zero.
+  Hence
+  \[
+  K(\tau)=323,
+  \qquad
+  \operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,10\}}
+  P_\tau(U)
+  =\bigl\{\{5,\ldots,10\},\{3,\ldots,10\}\bigr\}.
+  \]
+  Together with the accepted reduction, this proves
+  \(\Lambda_{10}=323\).
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): independent test-only
+  helpers directly generate all \(6!/2=360\) dihedral classes in the
+  seven-label lemma, recover the exact eight low pairing signatures and six
+  insertion corrections, and literally score all \(2^9-1=511\) nonempty
+  witness subsets. They call no repository canonicalizer, public enumerator,
+  or production Karp scorer. Production source and the public complete-order
+  `n<=8` boundary are unchanged.
+- INTERPRETATION: the \(n=10\) theorem and oracles are finite exact
+  combinatorial results. They do not give an exact value of \(R_2^*(10)\), a
+  geometric statement, an all-\(n\) formula, an asymptotic claim, or a
+  classification of all `n=10` core minimizers.
 - VERIFIED FACT: `research/FIXED_ORDER_CYCLE_RATIO.md` is the authoritative
   proof, algorithm, bounded-experiment, \(W\)-comparison, and limitations
   note.
@@ -976,7 +1013,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \(\Lambda_n=\min_\tau K(\tau)\), and the all-\(n\) upper comparison
   \(R_2^*(n)<\Lambda_n/\pi\le(n-1)W_n/\pi\), plus the exact finite
   classification of all 28 \(n=9\) core minimizers, the consequent 224
-  complete minimizer classes, and the independent 2,520-core argmax oracle.
+  complete minimizer classes, and the independent 2,520-core argmax oracle,
+  plus the exact finite value \(\Lambda_{10}=323\), its seven-label pairing
+  lemma, exact witness shortcut certificate, and independent 360-class and
+  511-subset checks.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -989,9 +1029,12 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - COMPLETED PRIORITY: a bounded independent test-only Arb path now
   cross-verifies the decisive endpoint signs and complete embedded data of the
   checked `n=3` artifact without the production oracle or its enclosures.
-- RECOMMENDED NEXT TASK: in a fresh bounded task, extend the same independently
-  reviewed Arb method to the existing checked `n=4` artifact without changing
-  production verification or current certified claims.
+- RECOMMENDED NEXT TASK: in a fresh bounded task, prove structurally that the
+  two equality cycles already listed by the independent `n=10` lemma oracle
+  are exhaustive, separating the 322-tail branch from the 323-tail branch,
+  without placing labels `2` and `3`, classifying all core minimizers, or
+  changing production. Extending the independent Arb path to the checked
+  `n=4` artifact remains a separate open verification task.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
