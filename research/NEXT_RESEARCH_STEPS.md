@@ -85,12 +85,23 @@ subset \(S_6\), so
 \[
 \Lambda_9=239.
 \]
-This is a **VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT)**. A test-only
-oracle independently checks all 60 six-label dihedral classes, and a literal
-255-subset audit checks the witness. Neither uses or enlarges the public
-`n<=8` enumerator. No exact value of \(R_2^*(9)\), all-\(n\) formula,
-geometric conclusion, asymptotic claim, or complete minimizer classification
-follows.
+The equality conditions and a shortcut-gain certificate now give the full
+finite classification. Up to dihedral symmetry the induced six-cycle is
+forced to be \(\Omega=(9,5,8,6,7,4)\). Label \(3\) occupies exactly one of
+the four gaps not incident to label \(4\), and label \(2\) then occupies any
+of the seven resulting gaps. Hence there are exactly 28 dihedral core
+minimizers. Exact label-one elimination/insertion gives exactly 224 complete
+minimizer classes. All core minimizers maximize on \(S_6\); 27 do so
+uniquely, while `(9,4,7,6,8,3,2,5)` also maximizes on the full core.
+This is an **EXACT THEOREM (FINITE CORE MINIMIZER CLASSIFICATION)**.
+
+An independent test-only oracle directly checks all
+\(7!/2=2{,}520\) dihedral core classes and all 255 nonempty subsets of each,
+recording every maximizing subset and recovering exactly the proved 28
+classes. It calls neither a repository canonicalizer, the public enumerator,
+nor the production scorer. The public complete-order domain remains
+`n<=8`. No exact value of \(R_2^*(9)\), all-\(n\) formula, geometric
+classification, or asymptotic claim follows.
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -377,6 +388,22 @@ saturation for every \(n\ge3\).
   six-label dihedral classes, while a separate literal computation checks all
   255 nonempty witness subsets and records their maxima by cardinality.
   Production enumeration remains hard-bounded to `n<=8`.
+- EXACT THEOREM (FINITE CORE MINIMIZER CLASSIFICATION): equality in the lemma
+  uniquely fixes the induced \(S_6\) cycle up to dihedral symmetry. In the
+  orientation \((9,5,8,6,7,4)\), label \(3\) may occupy exactly the four gaps
+  not incident to label \(4\), and label \(2\) may then occupy every one of
+  the seven resulting gaps. These \(4\cdot7=28\) classes are all and only the
+  core orders with \(K=239\). Exact insertion of label \(1\) gives
+  \(28\cdot8=224\) complete minimizer classes. Exactly one core class,
+  canonically `(9,4,7,6,8,3,2,5)`, has the full core as a second argmax
+  beside \(S_6\).
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): a direct test-local
+  generator covers all \(7!/2=2{,}520\) \(n=9\) core dihedral classes and
+  literally evaluates all 255 nonempty subsets of each, recording every
+  argmax. It recovers minimum 239, exactly 28 minimizers, and the proved
+  \(27+1\) argmax pattern without calling a repository canonicalizer, public
+  enumerator, or production Karp scorer. This is 2,520 **core** classes, not
+  an extension of the public complete-order domain beyond `n=8`.
 - EXACT THEOREM: `research/ALL_N_LOWER_BOUND.md` proves the induced-subset
   lower-bound theorem. In particular, for every `n>=4` and `1<=m<=n-2`,
   \[
@@ -674,9 +701,11 @@ saturation for every \(n\ge3\).
    contain nonlinear \(\theta_R\) terms rather than only the separable
    products used by \(\Lambda\). Exact elimination of label \(1\) further
    reduces \(\Lambda_n\) to \(\min_\tau K(\tau)\) and proves
-   \(\Lambda_n\le(n-1)W_n\). This is not a closed-form evaluation or a
-   minimizer classification, and insertion independence for \(\Lambda\) does
-   not transfer to the exact angular threshold. The resulting geometric upper
+   \(\Lambda_n\le(n-1)W_n\). The reduction by itself is not a closed-form
+   all-\(n\) evaluation or a general minimizer classification, although the
+   additional finite equality/shortcut argument now classifies all \(n=9\)
+   core \(K\)-minimizers. Insertion independence for \(\Lambda\) does not
+   transfer to the exact angular threshold. The resulting geometric upper
    bound recovers the known coefficient \(8/(25\pi)\); it proves no exact
    geometric optimum or new coefficient.
 
@@ -711,10 +740,12 @@ saturation for every \(n\ge3\).
   oracles. Their distinction from exact angular-STN cycle criticality and
   their asymptotic non-consequences remain explicit.
 - CLOSED FINITE QUESTION: the first reduced value beyond the public
-  cyclic-ratio enumeration boundary is \(\Lambda_9=239\). Its proof and
-  independent bounded oracles are recorded in
-  `research/FIXED_ORDER_CYCLE_RATIO.md`; this closes only the specified
-  finite case.
+  cyclic-ratio enumeration boundary is \(\Lambda_9=239\). All minimizing
+  core orders are exactly the 28 placement classes recorded in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`, and exact label-one insertion gives
+  224 complete minimizer classes. The independent 2,520-core oracle records
+  every argmax and recovers the same classification. This closes only the
+  specified finite combinatorial case, not any geometric or all-\(n\) case.
 
 ## Ranked Work
 
@@ -740,6 +771,11 @@ Completed:
   six-label lower-bound lemma and an exact core witness, then independently
   checked the 60 six-label cyclic classes and all 255 witness subsets without
   changing the public `n<=8` enumerator.
+- Classified all 28 dihedral \(n=9\) core minimizers through the equality
+  conditions and a shortcut-gain placement proof, derived the 224 complete
+  minimizer classes by exact label-one insertion, and independently checked
+  all 2,520 core classes and their maximizing subsets without changing the
+  public `n<=8` enumerator.
 
 Immediate:
 
@@ -770,7 +806,8 @@ Deliberately deferred:
 - `n=7` exhaustive certificate generation.
 - Larger exhaustive enumeration without a precise discriminator.
 - Product-distance enumeration beyond the explicit `n=11` boundary.
-- Fixed-order cyclic-ratio enumeration beyond the explicit `n=8` boundary.
+- Public/production fixed-order cyclic-ratio enumeration beyond the explicit
+  `n=8` complete-order boundary.
 - Leading-order LP work in the induced-subset proof task.
 - Any claim that \(8/(25\pi)\) is the exact geometric asymptotic constant.
 - Any claim that the radius-one threshold \(12\) is minimal.

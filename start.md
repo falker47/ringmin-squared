@@ -94,6 +94,27 @@ two-arc \(n=3\) case, and recovers core minimizer counts
 reduced minimum, and \(K\) remains distinct from the regular-direction core
 surrogate \(W\).
 
+The reduced problem is now classified exactly at \(n=9\), still without
+moving the production boundary. Equality in the finite \(S_6/S_5\) lemma
+forces the induced cycle
+\(\Omega=(9,5,8,6,7,4)\) up to dihedral symmetry. Label \(3\) must occupy
+one of the four gaps of \(\Omega\) not incident to label \(4\), after which
+label \(2\) may occupy any of the seven resulting gaps. Thus
+\[
+\Lambda_9=239,
+\qquad
+\#\{\text{dihedral core minimizers}\}=28.
+\]
+Exact label-one elimination/insertion gives \(28\cdot8=224\) complete
+dihedral minimizer classes. All 28 core classes maximize on
+\(S_6=\{4,\ldots,9\}\); 27 do so uniquely, while the class represented by
+`(9,4,7,6,8,3,2,5)` also maximizes on the full core. An independent
+test-only oracle directly checks all \(7!/2=2{,}520\) core classes and all
+255 nonempty subsets of each, recording every argmax, without calling the
+public enumerator or production scorer. The public complete-order domain
+remains `n<=8`. These are finite exact combinatorial results, not an exact
+value of \(R_2^*(9)\), a geometric classification, or an all-\(n\) formula.
+
 A strengthened all-`n` mathematical lower bound has been proved from induced
 subsets of cyclic gaps. For every `n>=4` and `1<=m<=n-2`,
 
@@ -683,6 +704,26 @@ angular-STN feasibility to one-wrap cycle checks or make
   `(1,3,4,15,24,84)`. This is not the all-order proof, a closed-form
   evaluation of the reduced minimum, or a geometric exact-optimum
   computation.
+- EXACT THEOREM (FINITE \(n=9\) CORE CLASSIFICATION): equality in the
+  \(S_6/S_5\) lemma forces the induced cycle
+  \(\Omega=(9,5,8,6,7,4)\) up to dihedral symmetry. The exact core
+  minimizers are obtained by inserting label \(3\) in one of the four gaps
+  not incident to label \(4\), then inserting label \(2\) in any of the
+  seven resulting gaps. Hence \(\min_\tau K(\tau)=\Lambda_9=239\), there are
+  28 dihedral core minimizers, and exact label-one insertion gives 224
+  complete minimizer classes. Of the core classes, 27 have sole argmax
+  \(S_6\); the canonical
+  class `(9,4,7,6,8,3,2,5)` also has the full core as an argmax.
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): a test-only direct
+  generator checks all \(7!/2=2{,}520\) dihedral core classes at \(n=9\),
+  literally scores all 255 nonempty subsets of each, records every maximizing
+  subset, and recovers exactly the proved 28 classes and their \(27+1\)
+  argmax pattern. It calls no repository canonicalizer, public enumerator, or
+  production Karp scorer. The production complete-order limit remains
+  `n<=8`.
+- INTERPRETATION: the \(n=9\) classification is finite and combinatorial. It
+  gives no exact value of \(R_2^*(9)\), geometric minimizer classification,
+  all-\(n\) formula, or asymptotic claim.
 - EXACT THEOREM: for every `n>=3`,
   \[
   R_2^*(n)\ge \frac{n(n+1)(n+2)}{6\pi}-n^2,

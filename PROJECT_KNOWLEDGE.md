@@ -269,6 +269,35 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   implementation but is not the all-order proof, a closed-form evaluation of
   the reduced minimum, an exact geometric optimum, or an asymptotic theorem.
   The production bound remains `n<=8`.
+- EXACT THEOREM (FINITE \(n=9\) CORE MINIMIZER CLASSIFICATION): equality in
+  the accepted \(S_6/S_5\) lemma forces the induced six-label cycle
+  \(\Omega=(9,5,8,6,7,4)\) up to dihedral symmetry. A core order has
+  \(K=239\) exactly when label \(3\) is inserted in one of the four gaps of
+  \(\Omega\) not incident to label \(4\), and label \(2\) is then inserted
+  in any of the seven resulting gaps. Thus
+  \[
+  \Lambda_9=239,
+  \qquad
+  \#\{\text{dihedral core minimizers}\}=28.
+  \]
+  Exact index-one elimination/insertion gives 224 complete dihedral minimizer
+  classes. All 28 core classes maximize on
+  \(S_6=\{4,5,6,7,8,9\}\); 27 do so uniquely, while the canonical class
+  `(9,4,7,6,8,3,2,5)` also maximizes on the full core.
+- VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): an independent
+  test-only oracle directly generates all \(7!/2=2{,}520\) dihedral core
+  classes on \(\{2,\ldots,9\}\), literally scores all 255 nonempty subsets of
+  every class, records every maximizing subset, and recovers exactly the
+  proved minimum, 28 minimizers, and \(27+1\) minimizer-argmax pattern. The
+  oracle calls no repository canonicalizer, public enumerator, or production
+  Karp scorer. Its 2,520-row deterministic record has SHA-256
+  `557226668a82f6489274571148572076e373d49baefaa61e6d1f5a458bb857a2`.
+  This core count only happens to equal the production \(n=8\) complete-order
+  ceiling; production still hard-rejects \(n=9\).
+- INTERPRETATION: the \(n=9\) theorem and oracle are finite exact
+  combinatorial results. They do not give an exact value of \(R_2^*(9)\), a
+  geometric minimizer classification, an all-\(n\) formula, or an asymptotic
+  claim.
 - VERIFIED FACT: `research/FIXED_ORDER_CYCLE_RATIO.md` is the authoritative
   proof, algorithm, bounded-experiment, \(W\)-comparison, and limitations
   note.
@@ -928,7 +957,9 @@ Candidate-set extraction uses the following finite-certificate semantics.
   saturation of \(\Lambda(\sigma)\) for every complete order, exact
   index-one elimination \(\Lambda(\sigma)=K(\tau)\), the reduced minimum
   \(\Lambda_n=\min_\tau K(\tau)\), and the all-\(n\) upper comparison
-  \(R_2^*(n)<\Lambda_n/\pi\le(n-1)W_n/\pi\).
+  \(R_2^*(n)<\Lambda_n/\pi\le(n-1)W_n/\pi\), plus the exact finite
+  classification of all 28 \(n=9\) core minimizers, the consequent 224
+  complete minimizer classes, and the independent 2,520-core argmax oracle.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to

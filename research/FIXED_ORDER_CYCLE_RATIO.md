@@ -75,18 +75,26 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \(\Lambda_9=239\). The witness has the unique maximizing subset
   \(\{4,5,6,7,8,9\}\). This is a finite combinatorial value, not an exact
   geometric value or an all-\(n\) formula.
+- **EXACT THEOREM (FINITE CORE MINIMIZER CLASSIFICATION):** equality in the
+  six-label lemma forces the induced cycle `(9,5,8,6,7,4)` up to dihedral
+  symmetry. Label `3` may be inserted in exactly the four gaps not incident
+  to label `4`, after which label `2` may be inserted in any of the seven
+  gaps. These are exactly 28 dihedral core minimizers. Exact label-one
+  insertion gives exactly \(28\cdot8=224\) complete minimizer classes.
 - **VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION):** an independent
-  test-only oracle checks the six-label lemma on all 60 dihedral classes, and
-  a separate literal audit checks all 255 nonempty witness subsets. Neither
-  check calls the public enumerator or production Karp scorer.
+  test-only oracle checks all \(7!/2=2{,}520\) dihedral core classes and all
+  255 nonempty subsets of each, recording every maximizing subset. It finds
+  exactly the 28 proved classes. A separate oracle checks the six-label lemma
+  on all 60 dihedral classes. Neither check calls a repository canonicalizer,
+  the public enumerator, or the production Karp scorer.
 - **VERIFIED FACT:** `src/power_ringmin/fixed_order_cycle_ratio.py` implements
   a float-free exact scorer using descending-path compression and Karp's
   maximum-cycle-mean dynamic program. Direct simple-cycle enumeration is not
   used in production and exists only as an independent small-test oracle.
-- **LIMITATION:** the exact core reduction is not a closed-form evaluation of
-  its minimum or evidence for convergence to a new asymptotic constant. No
-  interval backend, verifier, certificate, checked artifact, schema, or
-  example is changed by this work.
+- **LIMITATION:** the exact `n=9` classification is not a closed-form
+  all-\(n\) evaluation or evidence for convergence to a new asymptotic
+  constant. No interval backend, verifier, certificate, checked artifact,
+  schema, or example is changed by this work.
 
 ## 1. Complete Fixed-Order STN
 
@@ -611,8 +619,10 @@ preimages. Therefore the global objective has the exact reduced form
 }
 \tag{CR28a}
 \]
-This is a reduction from complete to core orders, not a closed-form evaluation
-or a classification of the minimizing core orders.
+By itself this is a reduction from complete to core orders, not a closed-form
+evaluation or a general classification of the minimizing core orders. The
+separate finite `n=9` classification below uses additional equality and
+shortcut-gain arguments.
 
 ## 5. Exact Scorer Without Cycle Enumeration
 
@@ -831,6 +841,43 @@ For \(\{a,b\}=\{7,9\}\), the correction in (L9-2) is \(1\), so
 \]
 The argument is a proof, not a conclusion drawn from the 60-class test.
 
+The equality case is equally rigid. In the nonexceptional branch,
+simultaneously having both displayed scores at most 239 would force equality
+in (L9-3) and correction \(4\) in (L9-2). Equality in the duplicated-multiset
+pairing bound would require the five edge pairs
+
+\[
+(5,9),(5,9),(6,8),(6,8),(7,7).
+\tag{L9-4a}
+\]
+
+The loop \((7,7)\) cannot be an edge of a cyclic order on five distinct
+labels, so in that branch \(P_\omega(S_5)\ge236\) and
+\(P_\omega(S_6)\ge240\). The exceptional pair \(\{8,9\}\) is excluded by
+the lower value 242 already displayed in the table. For \(\{7,9\}\), the
+correction is \(1\), so both scores are at most 239 only when
+\(P_\omega(S_5)\le238\). The table has exactly one such row: `586`, with
+value 238. Reinserting label \(4\) between \(7\) and \(9\) gives, up to
+rotation and reflection, the unique equality cycle
+
+\[
+\Omega=(9,5,8,6,7,4),
+\qquad
+P_\Omega(S_6)=239,
+\qquad
+P_\Omega(S_5)=238.
+\tag{L9-4b}
+\]
+
+Consequently,
+
+\[
+\max\{P_\omega(S_6),P_\omega(S_5)\}=239
+\quad\Longleftrightarrow\quad
+\omega\sim_{\rm dihedral}\Omega.
+\tag{L9-4c}
+\]
+
 For any core order \(\tau\) of \(\{2,\ldots,9\}\), both \(S_6\) and
 \(S_5\) are admitted in the definition of \(K(\tau)\). Applying (L9-4) to
 the order induced by \(\tau\) gives
@@ -914,7 +961,152 @@ requested value
 This is a **VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT)**. It neither
 extends the production enumeration past \(n=8\) nor gives an exact value of
 \(R_2^*(9)\), a geometric statement, an all-\(n\) formula, an asymptotic
-claim, or a classification of all minimizing core orders.
+claim, or any conclusion about exact angular minimizers.
+
+#### Complete core classification at \(n=9\)
+
+It remains to insert labels \(3\) and \(2\) into the forced six-label cycle
+\(\Omega\). Fix the displayed orientation in (L9-4b) and name its gaps
+
+\[
+\begin{array}{lll}
+h_0:9\to5,&h_1:5\to8,&h_2:8\to6,\\
+h_3:6\to7,&h_4:7\to4,&h_5:4\to9.
+\end{array}
+\tag{L9-13}
+\]
+
+Insert label \(3\) into one gap and call the resulting seven-cycle \(C_h\).
+The six complete sums are direct one-edge replacement calculations:
+
+| Gap containing `3` | \(C_h\) | \(P(C_h)\) | Status if \(K\le239\) |
+|---|---|---:|---|
+| \(h_0\) | `(9,3,5,8,6,7,4)` | 236 | possible |
+| \(h_1\) | `(9,5,3,8,6,7,4)` | 238 | possible |
+| \(h_2\) | `(9,5,8,3,6,7,4)` | 233 | possible |
+| \(h_3\) | `(9,5,8,6,3,7,4)` | 236 | possible |
+| \(h_4\) | `(9,5,8,6,7,3,4)` | 244 | impossible |
+| \(h_5\) | `(9,5,8,6,7,4,3)` | 242 | impossible |
+
+Thus label \(3\) cannot lie in either gap incident to label \(4\). For the
+other four rows, apply the shortcut definition (L9-7) to \(C_h\). The exact
+certificate compresses to
+
+| \(h\) | Full sum | Sole positive nontrivial shortcut | Gain | Largest other nontrivial gain |
+|---:|---:|---|---:|---:|
+| 0 | 236 | \(9\to5\), deleting `3` | \(+3\) | \(-1\) |
+| 1 | 238 | \(5\to8\), deleting `3` | \(+1\) | \(-1\) |
+| 2 | 233 | \(8\to6\), deleting `3` | \(+6\) | \(-1\) |
+| 3 | 236 | \(6\to7\), deleting `3` | \(+3\) | \(-1\) |
+
+In every row the unique \(-1\) entry is \(7\to9\), deleting label \(4\);
+direct evaluation of the remaining oriented arcs gives still smaller integer
+gains. Singletons have score at most \(9^2=81\). For subsets of at least two
+labels, selected gaps partition the full cycle as in (L9-8). The sole positive
+gap cannot occur in a subset that retains label \(3\), because that shortcut
+skips \(3\). Therefore every subset retaining \(3\) has score at most the
+displayed full sum. Deleting \(3\) through the sole positive shortcut gives
+exactly \(\Omega\) and score 239, and equality forces every other selected gap
+to be adjacent. Hence each of the four \(C_h\) has \(K=239\), with \(S_6\)
+as its unique maximizing subset before label \(2\) is inserted.
+
+Now insert label \(2\) into an arbitrary gap of one of these four cycles.
+For a selected subset \(U\) containing \(2\), put \(V=U\setminus\{2\}\).
+When \(|V|\ge2\), let \(a,b\) be the two distinct neighbors of label \(2\)
+in the order induced on \(U\). Deleting \(2\) gives the exact change
+
+\[
+P(U)-P(V)
+=2(a+b)-ab
+=4-(a-2)(b-2).
+\tag{L9-14}
+\]
+
+If \(3\notin V\), then \(a,b\ge4\) and the change is at most \(-2\). If
+\(3\in V\), its maximum is \(2\), attained only for
+\(\{a,b\}=\{3,4\}\); the only other positive case is
+\(\{a,b\}=\{3,5\}\), with change \(1\). The rows \(h=0,2,3\) have full
+sum at most 236, so even the change \(2\) stays below 239. In the remaining
+row \(h=1\), the pair \(\{3,5\}\) gives at most \(238+1=239\). If the
+neighbors are \(\{3,4\}\), those labels are not adjacent in \(C_1\), so
+making them adjacent in \(V\) forces a nontrivial shortcut. It cannot be the
+positive shortcut that deletes the selected label \(3\), or the unique
+\(-1\) shortcut that deletes the selected label \(4\). Every remaining gain
+is an integer below \(-1\), so \(P(V)\le236\) and \(P(U)\le238\). In the
+\(\{3,5\}\) branch, equality \(P(U)=239\) forces \(P(V)=238\). Because
+\(V\) retains \(3\), this in turn forces \(V=C_1\) with no nontrivial
+shortcut, and label \(2\) must occupy the gap \(5\to3\). The cases
+\(|V|\le1\) have score at most \(4\cdot9=36\). Thus label \(2\) may occupy
+every gap, and the only new equality is the one just identified.
+
+This gives the promised human-checkable parametrization:
+
+1. orient the forced six-cycle as \(\Omega=(9,5,8,6,7,4)\);
+2. insert `3` in one of \(h_0,h_1,h_2,h_3\), the four gaps not incident to
+   label `4`;
+3. insert `2` immediately after any one of the seven displayed labels of the
+   resulting \(C_h\).
+
+Equivalently, after choosing the gap of `3`, label `2` may occupy any of the
+other five original gaps, or the same original gap in either internal order.
+The count is therefore
+
+\[
+4\cdot7=4(5+2)=28.
+\tag{L9-15}
+\]
+
+These are 28 distinct dihedral classes: after fixing the displayed orientation
+of the induced labelled cycle \(\Omega\), a rotation is fixed by label \(9\),
+while a reflection reverses that orientation, so no two different placements
+in the parametrization are identified. Conversely, (L9-4c) forces every
+minimizer into this list, and the preceding bounds admit every listed order.
+This proves the **EXACT THEOREM (FINITE CORE MINIMIZER CLASSIFICATION)**
+
+\[
+K(\tau)=239
+\quad\Longleftrightarrow\quad
+\tau\text{ is one of the 28 classes in (L9-15).}
+\tag{L9-16}
+\]
+
+All 28 classes maximize on \(S_6\). In 27 classes this is the unique
+maximizing subset. The sole exception is represented in the chosen orientation
+by
+
+\[
+(9,5,2,3,8,6,7,4),
+\tag{L9-17}
+\]
+
+whose canonical reflected representative is
+`(9,4,7,6,8,3,2,5)`: both \(S_6\) and the full core
+\(\{2,3,4,5,6,7,8,9\}\) have score 239. Indeed, this is the unique equality
+case \(238+1\) in the \(h=1\), \(\{3,5\}\)-neighbor branch above.
+
+Finally, (CR12p)--(CR12q) show that inserting label \(1\) into a core gap
+preserves the score and introduces no maximizing subset containing \(1\).
+For \(n=9\), the eight labelled gaps of each core class give eight distinct
+complete dihedral classes. Indeed, a dihedral equivalence between two
+insertions would restrict, after deleting label \(1\), to a label-preserving
+dihedral automorphism of the same eight-cycle. Its distinct labels force that
+automorphism to be the identity, so the two gaps coincide. Deletion of label
+\(1\) also prevents insertions from different core classes from merging.
+Hence
+
+\[
+\#\{\text{complete dihedral minimizers at }n=9\}
+=28\cdot8
+=224.
+\tag{L9-18}
+\]
+
+Of these, 216 have \(S_6\) as their sole maximizing subset, while the eight
+insertions into (L9-17) retain the two core maximizing subsets. This count is
+a consequence of the exact elimination/insertion theorem, not an enlargement
+of the public complete-order enumerator.
+
+#### Independent finite oracles
 
 The independent test-only lower-bound oracle fixes label \(9\) to remove
 rotations, generates the \(5!\) remaining permutations directly, and keeps
@@ -937,9 +1129,33 @@ reproducible per-cardinality audit:
 | 7 | 236 | \(\{3,4,5,6,7,8,9\}\) |
 | 8 | 233 | \(\{2,3,4,5,6,7,8,9\}\) |
 
-These two sweeps are **VERIFIED FACTS (FINITE EXHAUSTIVE EXACT
-COMPUTATION)** and independently audit the finite proof; they are not its
-source and do not alter a public enumeration limit.
+A third, classification-level oracle directly generates
+
+\[
+(9,\pi_2,\ldots,\pi_8),
+\qquad
+(\pi_2,\ldots,\pi_8)\in\operatorname{Perm}(2,\ldots,8),
+\qquad
+\pi_2<\pi_8.
+\tag{L9-19}
+\]
+
+It therefore covers exactly \(7!/2=2{,}520\) core dihedral classes, without
+calling `canonical_core_orders`, any repository canonicalizer, the public
+enumerator, or the production Karp scorer. For every row it literally scores
+all 255 nonempty subsets and records every maximizing subset: 642,600 exact
+integer subset evaluations in total. The deterministic 84,395-byte
+serialization of `(order, score, all maximizing subsets)` has SHA-256
+`557226668a82f6489274571148572076e373d49baefaa61e6d1f5a458bb857a2`.
+It finds minimum 239, exactly the 28 canonical representatives hard-coded in
+the test, 27 unique \(S_6\) argmax records, and the single two-argmax record
+(L9-17).
+
+These sweeps are **VERIFIED FACTS (FINITE EXHAUSTIVE EXACT COMPUTATION)** and
+independently audit the finite proofs; they are not their source. The number
+2,520 here is the `n=9` **core** space and only happens to equal the production
+ceiling at `n=8`. Production still hard-rejects `n=9`, and no public
+enumeration limit changed.
 
 ## 7. Comparison With \(W\)
 

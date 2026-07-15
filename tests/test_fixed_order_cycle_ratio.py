@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from fractions import Fraction
+import hashlib
 import itertools
 
 import pytest
@@ -135,6 +136,20 @@ def _six_label_dihedral_orders_oracle() -> tuple[tuple[int, ...], ...]:
     )
 
 
+def _nine_core_dihedral_orders_oracle() -> tuple[tuple[int, ...], ...]:
+    """Generate all 2,520 core classes on ``{2, ..., 9}`` test-locally.
+
+    Fixing label nine removes rotations, and the endpoint comparison removes
+    reflections.  This helper deliberately calls no repository canonicalizer,
+    public enumerator, or production scorer.
+    """
+    return tuple(
+        order
+        for tail in itertools.permutations(range(2, 9))
+        if (order := (9, *tail))[1] < order[-1]
+    )
+
+
 def _literal_induced_label_subset_scores(
     order: tuple[int, ...],
 ) -> dict[frozenset[int], int]:
@@ -145,6 +160,25 @@ def _literal_induced_label_subset_scores(
             induced_order = tuple(order[position] for position in positions)
             scores[frozenset(induced_order)] = _cyclic_product_sum(induced_order)
     return scores
+
+
+def _literal_score_and_maximizers(
+    order: tuple[int, ...],
+) -> tuple[int, tuple[tuple[int, ...], ...]]:
+    """Return the literal core score and every maximizing label subset."""
+    scores = _literal_induced_label_subset_scores(order)
+    maximum = max(scores.values())
+    maximizers = tuple(
+        sorted(
+            (
+                tuple(sorted(subset))
+                for subset, score in scores.items()
+                if score == maximum
+            ),
+            key=lambda subset: (len(subset), subset),
+        )
+    )
+    return maximum, maximizers
 
 
 def _insert_one_after(
@@ -345,6 +379,109 @@ def test_lambda9_witness_records_every_maximizing_subset_exactly() -> None:
     assert _cyclic_product_sum((9, 5, 8, 6, 7, 4)) == (
         9 * 5 + 5 * 8 + 8 * 6 + 6 * 7 + 7 * 4 + 4 * 9
     ) == 239
+
+
+def test_lambda9_core_oracle_classifies_all_2520_dihedral_classes() -> None:
+    expected_minimizer_orders = (
+        (9, 2, 3, 5, 8, 6, 7, 4),
+        (9, 2, 4, 7, 3, 6, 8, 5),
+        (9, 2, 4, 7, 6, 3, 8, 5),
+        (9, 2, 4, 7, 6, 8, 3, 5),
+        (9, 2, 4, 7, 6, 8, 5, 3),
+        (9, 2, 5, 3, 8, 6, 7, 4),
+        (9, 2, 5, 8, 3, 6, 7, 4),
+        (9, 2, 5, 8, 6, 3, 7, 4),
+        (9, 3, 2, 5, 8, 6, 7, 4),
+        (9, 3, 5, 2, 8, 6, 7, 4),
+        (9, 3, 5, 8, 2, 6, 7, 4),
+        (9, 3, 5, 8, 6, 2, 7, 4),
+        (9, 3, 5, 8, 6, 7, 2, 4),
+        (9, 4, 2, 7, 3, 6, 8, 5),
+        (9, 4, 2, 7, 6, 3, 8, 5),
+        (9, 4, 2, 7, 6, 8, 3, 5),
+        (9, 4, 7, 2, 3, 6, 8, 5),
+        (9, 4, 7, 2, 6, 3, 8, 5),
+        (9, 4, 7, 2, 6, 8, 3, 5),
+        (9, 4, 7, 3, 2, 6, 8, 5),
+        (9, 4, 7, 3, 6, 2, 8, 5),
+        (9, 4, 7, 3, 6, 8, 2, 5),
+        (9, 4, 7, 6, 2, 3, 8, 5),
+        (9, 4, 7, 6, 2, 8, 3, 5),
+        (9, 4, 7, 6, 3, 2, 8, 5),
+        (9, 4, 7, 6, 3, 8, 2, 5),
+        (9, 4, 7, 6, 8, 2, 3, 5),
+        (9, 4, 7, 6, 8, 3, 2, 5),
+    )
+    six_label_subset = (4, 5, 6, 7, 8, 9)
+    full_core_subset = (2, 3, 4, 5, 6, 7, 8, 9)
+    exceptional_order = (9, 4, 7, 6, 8, 3, 2, 5)
+
+    forced_six_cycle = (9, 5, 8, 6, 7, 4)
+    parameterized_orders = []
+    for three_gap in range(4):
+        seven_cycle = (
+            forced_six_cycle[: three_gap + 1]
+            + (3,)
+            + forced_six_cycle[three_gap + 1 :]
+        )
+        for two_gap in range(7):
+            oriented_order = (
+                seven_cycle[: two_gap + 1]
+                + (2,)
+                + seven_cycle[two_gap + 1 :]
+            )
+            reflected_order = (
+                oriented_order[0],
+                *reversed(oriented_order[1:]),
+            )
+            parameterized_orders.append(
+                oriented_order
+                if oriented_order[1] < oriented_order[-1]
+                else reflected_order
+            )
+
+    assert len(parameterized_orders) == len(set(parameterized_orders)) == 28
+    assert tuple(sorted(parameterized_orders)) == expected_minimizer_orders
+    assert len(parameterized_orders) * 8 == 224
+
+    orders = _nine_core_dihedral_orders_oracle()
+    rows = tuple(
+        (order, *_literal_score_and_maximizers(order)) for order in orders
+    )
+    payload = "\n".join(
+        ",".join(map(str, order))
+        + f"|{score}|"
+        + ";".join(",".join(map(str, subset)) for subset in maximizers)
+        for order, score, maximizers in rows
+    ).encode("ascii")
+
+    assert len(orders) == len(set(orders)) == 2_520
+    assert len(rows) * (2**8 - 1) == 642_600
+    assert len(payload) == 84_395
+    assert hashlib.sha256(payload).hexdigest() == (
+        "557226668a82f6489274571148572076e373d49baefaa61e6d1f5a458bb857a2"
+    )
+
+    optimum = min(score for _order, score, _maximizers in rows)
+    minimizer_rows = tuple(row for row in rows if row[1] == optimum)
+    expected_minimizer_rows = tuple(
+        (
+            order,
+            239,
+            (
+                (six_label_subset, full_core_subset)
+                if order == exceptional_order
+                else (six_label_subset,)
+            ),
+        )
+        for order in expected_minimizer_orders
+    )
+
+    assert optimum == 239
+    assert minimizer_rows == expected_minimizer_rows
+    assert len(minimizer_rows) == 28
+    assert sum(len(maximizers) == 1 for _order, _score, maximizers in rows) == 2_412
+    assert sum(len(maximizers) == 2 for _order, _score, maximizers in rows) == 108
 
 
 def test_score_is_invariant_under_rotation_and_reflection() -> None:
