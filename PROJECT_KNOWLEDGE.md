@@ -438,6 +438,11 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \]
   then, whenever \(s_n\le r_n-1\), and in particular for \(n\ge141\),
   \[
+  \gamma^{(r_n)}_{1,n}
+  \ge P_{r_n,n}+k_nL_n.
+  \]
+  Comparing separately with the exact inner simple-cycle minimum gives
+  \[
   \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
   \ge
   k_nL_n-e(q_n).
@@ -472,8 +477,38 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \]
   The displayed lower bound is positive for \(n\ge655\). Hence no
   compatible history for this block has \(o(n^3)\) excess. This proves no
-  exact residual coefficient, general linear-density classification,
-  \(\Lambda_n\) asymptotic, geometric claim, or production result.
+  exact residual coefficient or general linear-density classification.
+- EXACT GLOBAL LOWER COROLLARY (FIRST LINEAR BLOCK): for each admissible
+  \(m\), the pointwise inequality between the full subset maximum and the
+  block maximum may first be minimized over \(\sigma\). Taking the maximum
+  of the resulting separately proved lower bounds does not exchange max and
+  min. Therefore, for every \(n\ge141\),
+  \[
+  \Lambda_n
+  \ge\Gamma_n^{(r_n)}
+  \ge\gamma^{(r_n)}_{1,n}
+  \ge P_{r_n,n}+(r_n-s_n)L_n.
+  \]
+  Exact floor expansion gives
+  \(P_{r_n,n}\ge[2(\sqrt2-1)/3]n^3\) for \(n\ge5\). Together with
+  \(k_n\ge(\sqrt2-7/5)n-2\) and
+  \(L_n\ge[(20\sqrt2-27)/75]n^2\), this proves
+  \[
+  \Lambda_n
+  \ge {139-25\sqrt2\over375}n^3
+  -{40\sqrt2-54\over75}n^2
+  \qquad(n\ge141),
+  \]
+  and the strict global cyclic-ratio sandwich proves
+  \[
+  R_2^*(n)
+  >{139-25\sqrt2\over375\pi}n^3
+  -\left(1+{40\sqrt2-54\over75\pi}\right)n^2.
+  \]
+  Hence the corresponding liminf lower coefficients are
+  \((139-25\sqrt2)/375\) and that value divided by \(\pi\). These are
+  certified lower coefficients, not exact leading coefficients; no limit,
+  convergence, production, artifact, or certificate claim follows.
 - EXACT GEOMETRIC COROLLARY: the strict global cyclic-ratio sandwich gives
   \[
   R_2^*(n)>{\beta_n^{(2)}\over\pi}-n^2
@@ -521,12 +556,15 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   prefix average, and the finite lower inequality. The checks use integer and
   exact rational arithmetic only and call no production scorer,
   canonicalizer, or enumerator. They corroborate the algebra but are not the
-  all-\(n\) proof.
+  all-\(n\) proof. A further exact-rational test represents
+  \(a+b\sqrt2\) by coefficient pairs and verifies the baseline, residual,
+  global coefficient, quadratic remainder, and positivity identities without
+  floating-point arithmetic.
 - EXACT THEOREM: the additive relation transfers normalized asymptotics:
   \(\Lambda_n=\pi R_2^*(n)+O(n^2)=\Theta(n^3)\),
   \(\Lambda_n/(\pi R_2^*(n))\to1\), and
   \[
-  {2(\sqrt2-1)\over3}
+  {139-25\sqrt2\over375}
   \le\liminf{\Lambda_n\over n^3}
   \le\limsup{\Lambda_n\over n^3}
   \le{8\over25}.
@@ -747,9 +785,11 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   block extension has the same leading coefficient for every fixed \(r\)
   and every \(r=o(n)\). None of these statements is an exact asymptotic
   result for Power-Ringmin. The first explicit linear block has a positive
-  method-specific cubic residual over its inner-cycle reference; other
-  densities, its exact residual coefficient, and all global/geometric
-  consequences remain unresolved.
+  method-specific cubic residual over its inner-cycle reference and yields the
+  stronger global lower coefficient
+  \((139-25\sqrt2)/(375\pi)\). Other densities, its exact residual
+  coefficient, convergence, and the exact global leading coefficient remain
+  unresolved.
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 
@@ -1368,8 +1408,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \(r=o(n)\), linear first non-excluded scale, and bounded \(r=4\) oracle,
   plus the exact positive cubic residual for
   \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\), its base-slack identity,
-  intact/recursive local split bounds, quantitative constants, and bounded
-  exact diagnostics.
+  intact/recursive local split bounds, quantitative constants, global
+  lower-bound corollary, and bounded exact diagnostics.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -1396,8 +1436,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
   without increasing the central radius. This does not assert a fixed-order
   active-subsystem description or settle `n<=11`.
 - OPEN QUESTION: can the upper coefficient \(8/(25\pi)\) be lowered toward
-  the induced-subset coefficient \(2(\sqrt2-1)/(3\pi)\), while retaining a
-  symbolic all-pairs proof?
+  the current lower coefficient \((139-25\sqrt2)/(375\pi)\), while retaining
+  a symbolic all-pairs proof?
 - RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
 
 ## Proof Obligations And Limitations
@@ -1412,8 +1452,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: no exact geometric optimum value \(R_2^*(n)\) has been proved
   in this repository; the exact all-\(n\) classification of the combinatorial
   surrogate \(W_n\) is a different statement.
-- LIMITATION: no upper bound matching the induced-subset leading coefficient
-  has been proved in this repository.
+- LIMITATION: no upper bound matching the current first-linear-block lower
+  coefficient has been proved in this repository.
 - LIMITATION: the later indices \(n\ge94\) with strict distance-two/full
   minimizer inclusion have not been classified.
 - LIMITATION: neither existence of \(\lim R_2^*(n)/n^3\) nor a leading-term
@@ -1421,8 +1461,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: the uniform consecutive-tail comparison classifies every
   sublinear block length and leaves the general linear scale outside that
   estimate. The first explicit linear block has a positive cubic residual,
-  but other densities and the exact coefficient even for that block remain
-  unclassified.
+  but other densities and the exact residual or leading coefficient even for
+  that block remain unclassified.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.
 - LIMITATION: the sufficient radius-one threshold `12` is not known to be
   minimal, and the exact equality question remains open for `n<=11`.

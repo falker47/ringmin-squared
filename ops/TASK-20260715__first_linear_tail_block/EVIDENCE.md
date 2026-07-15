@@ -8,6 +8,7 @@
 | EV-002 | exact proof / independent audit | Positive cubic residual for the named linear block | cyclic-ratio proof note | PASS |
 | EV-003 | bounded exact test-local diagnostic | Slack identity and intact/recursive prefix arithmetic | cyclic-ratio tests | PASS |
 | EV-004 | verification / review | Complete regression, scope, and final hygiene | local worktree | PASS WITH RECORDED UNRELATED LINT |
+| EV-005 | exact correction / verification | Global lower corollary and coefficient algebra | proof notes, memory, roadmap, dossier, and tests | PASS WITH RECORDED UNRELATED LINT |
 
 ## EV-001 - Startup, Scope, And Baseline
 
@@ -48,9 +49,11 @@
   range, monotonic local floors, parity formula for the alternating excess,
   cutoff domain, and positive constant; no flaw was found.
 - **Classification:** EXACT METHOD-SPECIFIC THEOREM.
-- **Limitations:** \(c_0\) is not claimed optimal; no exact residual
-  coefficient, general density, \(\Lambda_n\), geometry, or production
-  result follows.
+- **Limitations:** \(c_0\) is not claimed optimal and is not the exact
+  residual coefficient. The global and geometric lower consequences omitted
+  in this original entry are supplied by the correcting EV-005; no exact
+  leading coefficient, convergence, general-density, or production result
+  follows.
 - **Linked log entry:** TASK_LOG.md, Exact Cubic Residual.
 
 ## EV-003 - Bounded Exact Diagnostics
@@ -96,3 +99,70 @@
 - **Limitations:** the repository-wide Ruff findings predate and lie outside
   this task; hosted GitHub Actions have not run the worktree changes.
 - **Classification:** PASS WITH RECORDED UNRELATED LINT.
+
+## EV-005 - Corrected Global Lower Corollary
+
+- **Date:** 2026-07-15
+- **Method:** For every fixed admissible block start \(m\), minimize the
+  pointwise inequality
+  \(\Lambda(\sigma)\ge\max_jP_\sigma(S_{m+j})\); only afterward maximize the
+  resulting scalar lower bounds. Select \(m=1\), apply the nonstarred pairing
+  floor in CR28bg, expand \(P_{r_n,n}\) with its exact floor remainder, and
+  transfer through the strict global cyclic-ratio sandwich.
+- **Relevant exact output:** for every \(n\ge141\),
+  \[
+  \Lambda_n
+  \ge\Gamma_n^{(r_n)}
+  \ge\gamma^{(r_n)}_{1,n}
+  \ge P_{r_n,n}+(r_n-s_n)L_n,
+  \]
+  \[
+  \Lambda_n
+  \ge {139-25\sqrt2\over375}n^3
+  -{40\sqrt2-54\over75}n^2,
+  \]
+  and
+  \[
+  R_2^*(n)
+  >{139-25\sqrt2\over375\pi}n^3
+  -\left(1+{40\sqrt2-54\over75\pi}\right)n^2.
+  \]
+  Hence the liminf lower coefficients are
+  \((139-25\sqrt2)/375\) and that number divided by \(\pi\).
+- **Exact test-local audit:** a local \(\mathbb Q(\sqrt2)\) pair arithmetic
+  check verifies
+  \[
+  {2(\sqrt2-1)\over3}
+  +{389-275\sqrt2\over375}
+  ={139-25\sqrt2\over375},
+  \]
+  the quadratic remainder \(2d=(40\sqrt2-54)/75\), and both positivity
+  comparisons without floating point or a new dependency.
+- **Commands and results:**
+  - `python -m pytest tests\test_fixed_order_cycle_ratio.py -q -k
+    "first_linear_density"`: 9 passed.
+  - `python -m pytest tests\test_fixed_order_cycle_ratio.py -q`: 57 passed.
+  - `python -m pytest`: 233 passed.
+  - `python -m power_ringmin.verify_checked_artifacts` with
+    `PYTHONPATH=src`: all 4 certificates and 76 local brackets verified.
+  - `python -m pytest tests\test_checked_artifact_schema_validation.py -q`:
+    4 passed.
+  - `python -m ruff check tests/test_fixed_order_cycle_ratio.py`: passed.
+  - `python -m ruff check .`: the same four existing findings in untouched
+    files recorded by EV-004.
+  - `git diff --check`: passed.
+  - `git diff --name-only -- src schemas examples verify.py pyproject.toml
+    .github`: no output.
+- **Independent review:** separate read-only mathematical and synchronization
+  audits checked the quantifier order, nonstarred/starred distinction, exact
+  floor expansion, finite constants, strict geometric transfer, coefficient
+  algebra, limitations, and requested scope. The mathematical audit found no
+  flaw; final synchronization findings are reflected in the handoff files.
+- **Classification:** EXACT GLOBAL LOWER-BOUND COROLLARY plus VERIFIED FACT
+  (EXACT TEST-LOCAL ALGEBRA); PASS WITH RECORDED UNRELATED LINT.
+- **Limitations:** the displayed numbers are exact coefficients of proved
+  lower bounds, not exact asymptotic leading coefficients. Neither normalized
+  sequence is proved to converge; other linear densities and the exact
+  residual coefficient remain open. No production, artifact, schema,
+  verifier, backend, certificate, or enumeration limit changed.
+- **Linked log entry:** TASK_LOG.md, Corrected Global Consequence And Handoff.

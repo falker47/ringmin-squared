@@ -30,6 +30,18 @@ makes \(\Lambda_n/\pi\), for \(n\ge3\), an additive-\(n^2\) combinatorial approx
 the geometric infimum, while proving neither a new exact constant nor
 convergence. Exact canonical enumeration is deliberately bounded to
 `n=3..8` and gives \((12,26,47,77,118,172)\).
+The first explicit linear tail block now also gives the rigorous lower
+coefficients
+\[
+\liminf_{n\to\infty}{\Lambda_n\over n^3}
+\ge {139-25\sqrt2\over375},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\ge {139-25\sqrt2\over375\pi}.
+\]
+These are one-sided bounds and do not prove convergence or identify an exact
+leading coefficient.
+
 The one-wrap saturation question is also closed exactly. If
 \[
 \Lambda^{(1)}(\sigma)=\max\{S(C):q(C)=1\},
@@ -245,9 +257,33 @@ and the prefix ending at \(s_n=\lceil2n/5\rceil\). Intact base-edge splits
 are charged once against their own slack; every recursive child-edge split
 has a separate positive local floor. The maximum over all prefixes retains
 both zero and the selected prefix. Thus no compatible history has
-\(o(n^3)\) excess for this block. The result is relative only to this
-one-block minimum and \(P^*_{r_n,n}\); it neither evaluates
-\(\Lambda_n\) nor makes a geometric or production claim.
+\(o(n^3)\) excess for this block. In addition, CR28bg uses the nonstarred
+pairing floor and gives, without exchanging a maximum and a minimum,
+\[
+\Lambda_n
+\ge\Gamma_n^{(r_n)}
+\ge\gamma^{(r_n)}_{1,n}
+\ge P_{r_n,n}+(r_n-s_n)L_n
+\qquad(n\ge141).
+\]
+Indeed, for each fixed \(m\), pointwise domination by
+\(\Lambda(\sigma)\) is minimized first; \(\Gamma_n^{(r_n)}\) then maximizes
+the resulting scalar lower bounds. With
+\[
+c={139-25\sqrt2\over375},
+\qquad
+b={40\sqrt2-54\over75},
+\]
+this proves the finite consequences
+\[
+\Lambda_n\ge cn^3-bn^2,
+\qquad
+R_2^*(n)>{c\over\pi}n^3-\left(1+{b\over\pi}\right)n^2
+\qquad(n\ge141).
+\]
+The result supplies a global and geometric lower coefficient, but not the
+exact residual coefficient, convergence, an exact leading coefficient, or a
+production-computation result.
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -266,14 +302,17 @@ The best leading coefficient obtainable from the single-subset relaxation
 \frac{2(\sqrt2-1)}{3\pi}.
 \]
 The separate relational extension to two consecutive tails has the same best
-leading coefficient after its cycle-signature constraints are enforced. These
-are method-specific optimality statements, not matching upper bounds and not
-proved exact asymptotic constants for Power-Ringmin.
+leading coefficient after its cycle-signature constraints are enforced.
+These are method-specific optimality statements. The first linear block
+strictly improves the global lower coefficient to
+\((139-25\sqrt2)/(375\pi)\), but that value is still only a proved lower
+coefficient, not an exact asymptotic constant for Power-Ringmin.
 
 The zigzag regular-direction construction historically improved the proved
 upper coefficient from \(1/\pi\) to \(1/(2\pi)\). It is now superseded by the
 product-distance construction below, which gives \(8/(25\pi)\). Neither upper
-bound matches the induced-subset geometric lower coefficient. The zigzag
+bound matches the current first-linear-block geometric lower coefficient
+\((139-25\sqrt2)/(375\pi)\). The zigzag
 theorem itself generated no leading-order LP, new finite certificate, `n=7`
 certificate, preflight artifact, permutation optimization, or exhaustive
 enumeration.
@@ -572,6 +611,31 @@ saturation for every \(n\ge3\).
   \]
   for every \(r(n)=o(n)\), and the normalized error is \(o(1)\). Linear
   \(r=\Theta(n)\) is the first scale this comparison does not settle.
+- EXACT THEOREM (FIRST LINEAR BLOCK, GLOBAL CONSEQUENCE): for
+  \(r_n=\lfloor(\sqrt2-1)n\rfloor\),
+  \(s_n=\lceil2n/5\rceil\), and \(n\ge141\),
+  \[
+  \Lambda_n
+  \ge\Gamma_n^{(r_n)}
+  \ge\gamma^{(r_n)}_{1,n}
+  \ge P_{r_n,n}+(r_n-s_n)L_n.
+  \]
+  This selects \(m=1\) only after proving
+  \(\Lambda_n\ge\gamma^{(r_n)}_{m,n}\) separately for every \(m\); it does
+  not exchange a maximum with a minimum. Exactly,
+  \[
+  \Lambda_n
+  \ge {139-25\sqrt2\over375}n^3
+  -{40\sqrt2-54\over75}n^2,
+  \]
+  and the strict global sandwich gives
+  \[
+  R_2^*(n)>
+  {139-25\sqrt2\over375\pi}n^3
+  -\left(1+{40\sqrt2-54\over75\pi}\right)n^2.
+  \]
+  The resulting liminf coefficients are rigorous lower bounds, not exact
+  leading coefficients or a convergence statement.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): the recursive block oracle
   agrees signature by signature with direct outer-cycle generation for
   bounded \(r=2,3,4\). At \((2,7,4)\), 60 histories give all 60 outer
@@ -703,6 +767,17 @@ saturation for every \(n\ge3\).
   \ge
   4(\sqrt2-1)>1.
   \]
+- EXACT THEOREM (sharpened global lower bound): the first-linear-block chain
+  gives
+  \[
+  \liminf_{n\to\infty}{\Lambda_n\over n^3}
+  \ge {139-25\sqrt2\over375},
+  \qquad
+  \liminf_{n\to\infty}{R_2^*(n)\over n^3}
+  \ge {139-25\sqrt2\over375\pi}.
+  \]
+  This strictly improves the single-subset lower coefficient, while proving
+  neither convergence nor an exact leading coefficient.
 - EXACT THEOREM: for \(S=\{s_1<\cdots<s_q\}\), the duplicated-multiset pairing
   bound is
   \[
@@ -902,17 +977,17 @@ saturation for every \(n\ge3\).
 
 ## Consequences
 
-1. The induced-subset lower bound supersedes the older full-cycle lower bound
-   \(\liminf 6\pi R_2^*(n)/n^3\ge 1\). The older statement remains true but is
-   no longer sharp enough to describe the current obstruction.
+1. The first-linear-block lower bound supersedes both the induced-subset bound
+   and the older full-cycle bound
+   \(\liminf 6\pi R_2^*(n)/n^3\ge 1\). Both older statements remain true but
+   are no longer sharp enough to describe the current obstruction.
 
 2. Any future asymptotic upper-bound target must be compatible with
    \[
-   \liminf_{n\to\infty}\frac{6\pi R_2^*(n)}{n^3}
-   \ge
-   4(\sqrt2-1)>1.
+   \liminf_{n\to\infty}{R_2^*(n)\over n^3}
+   \ge {139-25\sqrt2\over375\pi}.
    \]
-   This roadmap deliberately does not propose a new exact constant.
+   This roadmap records a lower coefficient, not a proposed exact constant.
 
 3. The proof uses induced cyclic orders on subsets, not only adjacent pairs in
    the full cyclic order. For any subset \(S\) of at least three indices, the
@@ -936,7 +1011,7 @@ saturation for every \(n\ge3\).
 6. The symbolic product-distance construction supersedes zigzag and gives the
    rigorous liminf/limsup bracket
    \[
-   {2(\sqrt2-1)\over3\pi}
+   {139-25\sqrt2\over375\pi}
    \le
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
    \le
@@ -1027,22 +1102,26 @@ saturation for every \(n\ge3\).
     It charges every intact base edge at most once and covers every recursive
     split locally, so recursive domino compatibility and the maximum over all
     prefixes remain literal. This closes the subcubic-versus-cubic
-    alternative only for the named block; it neither gives the exact
-    residual coefficient nor evaluates \(\Lambda_n\) or \(R_2^*(n)\).
+    alternative only for the named block. CR28bg nevertheless transfers it
+    to the proved global lower coefficients above. It does not give the exact
+    residual coefficient, convergence, or an exact leading coefficient for
+    \(\Lambda_n\) or \(R_2^*(n)\).
 
 ## Updated Research Questions
 
 - OPEN QUESTION: what geometric upper-bound construction, if any, narrows or
-  matches the induced-subset lower coefficient up to lower-order terms?
+  matches the current first-linear-block lower coefficient
+  \((139-25\sqrt2)/(375\pi)\) up to lower-order terms?
 - OPEN QUESTION: can the previous reduced-core observations at checked
   `n=5,6` be related to the exact feasible-radius-set equality for
   \(n\ge12\), or are their lower-cycle proxies a separate finite phenomenon?
 - OPEN QUESTION: is \(12\) the least threshold for
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
-- OPEN QUESTION: can the gap between the induced-subset geometric lower
-  coefficient and the product-distance upper coefficient \(8/(25\pi)\) be
-  narrowed by a sharper angular construction or a stronger lower bound?
+- OPEN QUESTION: can the gap between the first-linear-block geometric lower
+  coefficient \((139-25\sqrt2)/(375\pi)\) and the product-distance upper
+  coefficient \(8/(25\pi)\) be narrowed by a sharper angular construction or
+  a stronger lower bound?
 - OPEN QUESTION: for which other linear block densities and starting indices
   does a positive cubic residual survive, and what is the exact residual
   coefficient even for
@@ -1064,8 +1143,9 @@ saturation for every \(n\ge3\).
   equivalence, all-order saturation, exact index-one elimination,
   core-minimum reduction, and one-sided comparison with \(W_n\) are also
   closed there, with separate Karp-independent and all-insertion bounded
-  oracles. Their distinction from exact angular-STN cycle criticality and
-  their asymptotic non-consequences remain explicit.
+  oracles. Their distinction from exact angular-STN cycle criticality, failure
+  to imply convergence, and absence of an exact leading coefficient remain
+  explicit.
 - CLOSED METHOD QUESTION: the exact refinement from one optimized pair of
   consecutive tails \(S_m,S_{m+1}\), including all simple-cycle conditions on
   duplicated-pairing signatures, has best leading coefficient
@@ -1088,9 +1168,10 @@ saturation for every \(n\ge3\).
   \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\), the exact base-slack and
   selected-prefix proof gives a positive cubic residual above
   \(P^*_{r_n,n}\). Hence the subcubic compatible-history alternative is
-  false for this block. The coefficient is only a certified lower constant
-  for the block, not an exact value or a claim about any global or geometric
-  objective.
+  false for this block. CR28bg also yields the global and geometric lower
+  coefficients displayed above. The residual constant and the resulting
+  global constant are certified lower coefficients, not exact asymptotic
+  values or convergence results.
 - CLOSED FINITE QUESTION: the first reduced value beyond the public
   cyclic-ratio enumeration boundary is \(\Lambda_9=239\). All minimizing
   core orders are exactly the 28 placement classes recorded in
@@ -1186,7 +1267,11 @@ Completed:
   charging for intact base splits, and a separate recursive-split floor. It
   yields
   \(c_0=(389-275\sqrt2)/375>0\), keeps the full prefix maximum and literal
-  compatibility, and adds only bounded exact test-local diagnostics.
+  compatibility, and adds only bounded exact test-local diagnostics. The
+  nonstarred CR28bg floor transfers this to the exact global chain and the
+  improved lower coefficients
+  \((139-25\sqrt2)/375\) for \(\Lambda_n\) and
+  \((139-25\sqrt2)/(375\pi)\) for \(R_2^*(n)\), without a max--min exchange.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -1250,4 +1335,5 @@ Acceptance criteria:
 - preserve the distinction between a certified lower constant and the exact
   residual coefficient;
 - use exact symbolic reasoning and only bounded test-local diagnostics; do
-  not expand production enumeration or claim a geometric asymptotic constant.
+  not expand production enumeration or claim convergence or an exact
+  geometric leading coefficient.

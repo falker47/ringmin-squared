@@ -60,3 +60,46 @@ Append-only. Add a new entry to correct previous information.
   general-density, global, geometric, or production claim was introduced.
 - **Evidence:** EVIDENCE.md, EV-004.
 - **Next step:** user review and manual commit decision.
+
+## 2026-07-15 - Corrected Global Consequence And Handoff
+
+- **Correction:** The earlier statements that the first linear block had no
+  consequence for \(\Lambda_n\) or geometry were false non-consequences and
+  are superseded by this entry. The block-local residual statement itself
+  remains valid.
+- **Action:** Re-read CR28ap and CR28bg with their quantifier order, retained
+  the nonstarred duplicated-pairing floor, expanded its exact floor remainder,
+  added exact \(\mathbb Q(\sqrt2)\) coefficient checks, and synchronized the
+  proof note, all-\(n\) lower-bound note, project brief, stable knowledge,
+  roadmap, current status, and dossier.
+- **Result:** For every \(n\ge141\), without exchanging a maximum and a
+  minimum,
+  \[
+  \Lambda_n
+  \ge\Gamma_n^{(r_n)}
+  \ge\gamma^{(r_n)}_{1,n}
+  \ge P_{r_n,n}+(r_n-s_n)L_n.
+  \]
+  Consequently,
+  \[
+  \Lambda_n
+  \ge {139-25\sqrt2\over375}n^3
+  -{40\sqrt2-54\over75}n^2,
+  \]
+  and the strict global sandwich gives the same cubic lower coefficient
+  divided by \(\pi\) for \(R_2^*(n)\), with the recorded quadratic term.
+- **Verification:** The corrected focused selection has 9 passing cases, the
+  cyclic-ratio module has 57 passing tests, and the complete suite has 233.
+  All 4 checked certificates and 76 local brackets verify; the schema suite
+  has 4 passing tests; focused Ruff, diff hygiene, and the no-production-diff
+  audit pass. Repository-wide Ruff retains only the same four findings in
+  untouched files. Independent read-only proof review found no mathematical
+  flaw.
+- **Interpretation:** The coefficients
+  \((139-25\sqrt2)/375\) and \((139-25\sqrt2)/(375\pi)\) are exact
+  coefficients of rigorous lower bounds, not exact asymptotic leading
+  coefficients. No convergence, exact limit, general linear-density,
+  production, artifact, or enumeration-limit claim is introduced.
+- **Evidence:** EVIDENCE.md, EV-005.
+- **Next step:** user review and manual commit decision; any optimization of
+  the certificate belongs to a fresh task.

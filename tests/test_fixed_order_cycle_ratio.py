@@ -1258,6 +1258,63 @@ def test_first_linear_density_block_prefix_diagnostic_is_exact(
     )
 
 
+def test_first_linear_density_global_lower_coefficient_algebra_is_exact() -> None:
+    """Check the global cubic coefficient in exact ``Q(sqrt(2))`` arithmetic."""
+
+    def multiply_sqrt_two_pairs(
+        left: tuple[Fraction, Fraction],
+        right: tuple[Fraction, Fraction],
+    ) -> tuple[Fraction, Fraction]:
+        left_rational, left_radical = left
+        right_rational, right_radical = right
+        return (
+            left_rational * right_rational
+            + 2 * left_radical * right_radical,
+            left_rational * right_radical
+            + left_radical * right_rational,
+        )
+
+    alpha = (Fraction(-1), Fraction(1))
+    alpha_squared = multiply_sqrt_two_pairs(alpha, alpha)
+    tail_numerator = multiply_sqrt_two_pairs(
+        (Fraction(1) - alpha[0], -alpha[1]),
+        (
+            alpha_squared[0] + 4 * alpha[0] + 1,
+            alpha_squared[1] + 4 * alpha[1],
+        ),
+    )
+    tail_coefficient = (
+        tail_numerator[0] / 6,
+        tail_numerator[1] / 6,
+    )
+
+    block_coefficient = multiply_sqrt_two_pairs(
+        (Fraction(-7, 5), Fraction(1)),
+        (Fraction(-27, 75), Fraction(20, 75)),
+    )
+    global_coefficient = (
+        tail_coefficient[0] + block_coefficient[0],
+        tail_coefficient[1] + block_coefficient[1],
+    )
+    quadratic_remainder = (
+        2 * Fraction(-27, 75),
+        2 * Fraction(20, 75),
+    )
+
+    assert tail_coefficient == (Fraction(-2, 3), Fraction(2, 3))
+    assert block_coefficient == (
+        Fraction(389, 375),
+        Fraction(-275, 375),
+    )
+    assert global_coefficient == (
+        Fraction(139, 375),
+        Fraction(-25, 375),
+    )
+    assert quadratic_remainder == (Fraction(-18, 25), Fraction(8, 15))
+    assert 389**2 > 2 * 275**2
+    assert 139**2 > 2 * 25**2
+
+
 def test_consecutive_tail_block_keeps_admissible_domino_prefixes() -> None:
     m, n, r = 2, 7, 4
     ell = m + r - 1

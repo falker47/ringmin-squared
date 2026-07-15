@@ -131,9 +131,25 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \]
   The displayed constant is positive. Hence this particular linear block
   has a genuinely cubic residual above its exact inner-cycle reference; no
-  compatible history for this block has subcubic excess. This neither gives
-  the exact residual coefficient nor makes a claim about \(\Lambda_n\),
-  geometry, or production computation.
+  compatible history for this block has subcubic excess. Moreover, CR28bg
+  transfers directly to the global objective, without exchanging a maximum
+  and a minimum:
+  \[
+  \Lambda_n\ge\Gamma_n^{(r_n)}
+  \ge\gamma^{(r_n)}_{1,n}
+  \ge P_{r_n,n}+(r_n-s_n)L_n
+  \qquad(n\ge141).
+  \]
+  Consequently
+  \[
+  \liminf_{n\to\infty}{\Lambda_n\over n^3}
+  \ge {139-25\sqrt2\over375},
+  \qquad
+  \liminf_{n\to\infty}{R_2^*(n)\over n^3}
+  \ge {139-25\sqrt2\over375\pi}.
+  \]
+  These are rigorous lower coefficients, not exact residual or leading
+  coefficients; neither convergence nor production computation follows.
 - **VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK):** a recursive oracle at
   \((m,n,r)=(2,7,4)\) identifies all 60 compatible triple-split histories
   with all 60 outer dihedral cycles and obtains
@@ -1832,10 +1848,121 @@ its exact inner-cycle minimum, and no compatible history for this block has
 \(o(n^3)\) excess.
 
 This is an exact, method-specific result for
-\(\gamma^{(r_n)}_{1,n}-P^*_{r_n,n}\). It is not an exact residual
-coefficient, an asymptotic evaluation of any maximum over separately
-optimized blocks, or a claim about \(\Lambda_n\), exact angular geometry,
-production enumeration, or certificates.
+\(\gamma^{(r_n)}_{1,n}-P^*_{r_n,n}\). The constant \(c_0\) is a certified
+lower constant, not the exact residual coefficient. The result does have the
+global lower-bound consequence below, but it does not prove convergence, an
+exact leading coefficient, a production-enumeration result, or a certificate.
+
+### Global corollary of the first linear block
+
+The passage to the global minimum does not exchange a maximum and a minimum.
+For every admissible \(m\), define
+\[
+B_m(\sigma)
+=\max_{0\le j\le r-1}P_\sigma(S_{m+j}).
+\]
+The induced tails in this block are among the subsets defining
+\(\Lambda(\sigma)\), so pointwise in \(\sigma\),
+\(\Lambda(\sigma)\ge B_m(\sigma)\). Taking the minimum of this already
+ordered inequality gives
+\[
+\Lambda_n
+=\min_\sigma\Lambda(\sigma)
+\ge\min_\sigma B_m(\sigma)
+=\gamma^{(r)}_{m,n}
+\qquad\text{for every admissible }m.
+\]
+Taking the maximum of these separately proved lower bounds, and then selecting
+the admissible value \(m=1\), yields for \(n\ge141\)
+\[
+\boxed{
+\Lambda_n
+\ge\Gamma_n^{(r_n)}
+\ge\gamma^{(r_n)}_{1,n}
+\ge P_{r_n,n}+(r_n-s_n)L_n.
+}
+\tag{CR28bm}
+\]
+Here \(P_{r_n,n}\) is the duplicated-pairing floor, not the exact simple-cycle
+minimum \(P^*_{r_n,n}\). The latter requires the separate correction
+\(-e(q_n)\) in (CR28bi).
+
+The leading term of the pairing floor can also be controlled without a
+rounding ambiguity. Put
+\[
+\eta_n=\alpha n-r_n\in[0,1),
+\qquad
+a={2(\sqrt2-1)\over3}.
+\]
+Substitution in the exact formula for \(P_{r_n,n}\) gives
+\[
+\begin{aligned}
+P_{r_n,n}
+={}&a n^3+(\sqrt2-1)n^2\\
+&-\left(
+\eta_n+{\sqrt2\over2}\eta_n^2+{2-\sqrt2\over6}
+\right)n
++{\eta_n^3-\eta_n\over6}.
+\end{aligned}
+\tag{CR28bn}
+\]
+The coefficient in parentheses is at most \((4+\sqrt2)/3\), while the last
+term is at least \(-1/6\). Hence, for every \(n\ge5\),
+\[
+P_{r_n,n}\ge a n^3.
+\]
+Indeed, the resulting lower quadratic is increasing from \(n=5\), where its
+value is \((140\sqrt2-191)/6>0\); the latter positivity follows from
+\(2\cdot140^2=39200>36481=191^2\).
+
+Equations (CR28aw) and (CR28bk) give
+\[
+(r_n-s_n)L_n
+\ge (Dn-2)dn^2
+=c_0n^3-2dn^2.
+\]
+Combining this with (CR28bm)--(CR28bn), and using the exact coefficient
+identity
+\[
+{2(\sqrt2-1)\over3}
++{389-275\sqrt2\over375}
+={139-25\sqrt2\over375},
+\]
+proves the finite global bounds
+\[
+\boxed{
+\Lambda_n
+\ge
+{139-25\sqrt2\over375}n^3
+-{40\sqrt2-54\over75}n^2
+\qquad(n\ge141)
+}
+\tag{CR28bo}
+\]
+and, by the strict global sandwich (CR27),
+\[
+\boxed{
+R_2^*(n)
+>
+{139-25\sqrt2\over375\pi}n^3
+-\left(1+{40\sqrt2-54\over75\pi}\right)n^2
+\qquad(n\ge141).
+}
+\tag{CR28bp}
+\]
+In particular,
+\[
+\boxed{
+\liminf_{n\to\infty}{\Lambda_n\over n^3}
+\ge {139-25\sqrt2\over375},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\ge {139-25\sqrt2\over375\pi}.
+}
+\tag{CR28bq}
+\]
+These inequalities do not prove that either normalized sequence converges or
+that the displayed lower coefficient is the exact leading coefficient.
 
 Bounded exact test-local diagnostics check the new algebra without entering
 the proof. The quadratic identity (CR28ax) is checked on every dihedral cycle
@@ -1846,6 +1973,9 @@ floor/ceiling arithmetic, every local contribution, the one-use base linkage,
 the averaging step, and the finite bound (CR28bi). These paths use only
 integer and exact rational arithmetic and call no production scorer,
 canonicalizer, or enumerator.
+An additional exact-rational test represents \(a+b\sqrt2\) by coefficient
+pairs and checks the pairing-floor coefficient, \(Dd=c_0\), their sum
+\((139-25\sqrt2)/375\), and positivity without floating-point arithmetic.
 
 ## 5. Exact Scorer Without Cycle Enumeration
 
@@ -3342,7 +3472,7 @@ geometric bounds gives
 \]
 and
 \[
-{2(\sqrt2-1)\over3}
+{139-25\sqrt2\over375}
 \le
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
 \le
@@ -3380,9 +3510,10 @@ Further non-consequences are important.
 - For the explicit first linear block
   \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\), the independent slack/prefix
   argument (CR28ax)--(CR28bl) proves a positive cubic residual over
-  \(P^*_{r_n,n}\). This is a theorem only about that block minimum. It gives
-  neither its exact residual coefficient nor an exact asymptotic conclusion
-  for \(\Lambda_n\) or \(R_2^*(n)\).
+  \(P^*_{r_n,n}\). Combined directly with (CR28ap) and (CR28bg), without a
+  max--min exchange, it yields the global lower bounds (CR28bo)--(CR28bq).
+  It gives neither the exact residual coefficient nor the exact asymptotic
+  leading coefficient, and it does not prove convergence.
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality
   of minimizing order sets, or \(\Lambda_n=(n-1)W_n\). The exact global
   relation proved here is the one-sided inequality (CR38b).

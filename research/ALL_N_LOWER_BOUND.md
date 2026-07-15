@@ -37,7 +37,7 @@ Last updated: 2026-07-15
   \(m=\lfloor\rho_n\rfloor+1\); if \(\rho_n\in\mathbb Z\), the two maximizers
   are \(m=\rho_n\) and \(m=\rho_n+1\). For \(n=3\), the admissible set is the
   singleton \(m=1\).
-- EXACT THEOREM:
+- EXACT THEOREM (single-subset consequence):
   \[
   \liminf_{n\to\infty}{6\pi R_2^*(n)\over n^3}
   \ge
@@ -54,6 +54,43 @@ Last updated: 2026-07-15
   \]
   The refinement can improve finite lower terms but provably leaves this
   schema's leading lower coefficient unchanged.
+- EXACT THEOREM (first-linear-block global refinement): put
+  \[
+  r_n=\lfloor(\sqrt2-1)n\rfloor,
+  \qquad
+  s_n=\left\lceil{2n\over5}\right\rceil.
+  \]
+  With the consecutive-tail quantities defined in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`, for every \(n\ge141\),
+  \[
+  \Lambda_n
+  \ge\Gamma_n^{(r_n)}
+  \ge\gamma^{(r_n)}_{1,n}
+  \ge P_{r_n,n}+(r_n-s_n)L_n.
+  \]
+  No maximum and minimum are exchanged: for each fixed \(m\), pointwise
+  domination by \(\Lambda(\sigma)\) is minimized first, and only the resulting
+  scalar lower bounds are maximized over \(m\). Consequently, with
+  \[
+  c={139-25\sqrt2\over375},
+  \qquad
+  b={40\sqrt2-54\over75},
+  \]
+  one has the explicit finite bounds
+  \[
+  \Lambda_n\ge cn^3-bn^2,
+  \qquad
+  R_2^*(n)>{c\over\pi}n^3-\left(1+{b\over\pi}\right)n^2
+  \qquad(n\ge141),
+  \]
+  and hence
+  \[
+  \liminf_{n\to\infty}{\Lambda_n\over n^3}\ge c,
+  \qquad
+  \liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge {c\over\pi}.
+  \]
+  These are lower coefficients, not exact asymptotic coefficients or a
+  convergence theorem.
 - EXACT THEOREM: if a configuration of the core radii
   \(2^2,\dots,n^2\) is feasible at central radius \(R>0\), then a circle of
   radius \(1\) can be inserted at the same central radius whenever
@@ -128,17 +165,18 @@ Last updated: 2026-07-15
   \]
 
 The lower-bound proof uses only necessary consequences of all-pairs feasibility.
-The coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal for the single-subset
-pairing relaxation analyzed directly here. The relational extension using two
-consecutive tails is a distinct, stronger finite schema; its separate exact
-analysis proves the same leading coefficient. Neither method-specific result
-is an upper bound on the true problem. The order-independent regular-core
-baseline has upper coefficient \(1/\pi\), the zigzag refinement gives
-\(1/(2\pi)\), and the
-later product-distance construction sharpens the current coefficient to
-\(8/(25\pi)\). This still does not match the lower coefficient. Thus no exact
-leading constant, limiting coefficient, or leading-term asymptotic formula is
-proved.
+The coefficient \(2(\sqrt2-1)/(3\pi)\) remains optimal for the
+single-subset pairing relaxation analyzed directly here. The relational
+extension using two consecutive tails is a distinct, stronger finite schema;
+its separate exact analysis proves the same leading coefficient. The first
+linear block improves the global lower coefficient to
+\((139-25\sqrt2)/(375\pi)\). None of these lower-bound results is an upper
+bound on the true problem. The order-independent regular-core baseline has
+upper coefficient \(1/\pi\), the zigzag refinement gives \(1/(2\pi)\), and
+the later product-distance construction sharpens the current upper
+coefficient to \(8/(25\pi)\). This still does not match the current lower
+coefficient. Thus no exact leading constant, limiting coefficient, or
+leading-term asymptotic formula is proved.
 
 ## Domain And Definitions
 
@@ -677,6 +715,121 @@ exceed, the coefficient \(2(\sqrt2-1)/(3\pi)\) at first order. The negative
 conclusion is specific to a single optimized pair of consecutive tails; it
 does not cover simultaneous coupling of a number of tails growing with
 \(n\), nonconsecutive subsets, or other information about \(\Lambda_n\).
+
+## Global Consequence Of The First Linear Block
+
+The first explicit linear block in
+`research/FIXED_ORDER_CYCLE_RATIO.md` does yield a stronger global lower
+bound. Put
+\[
+r=r_n=\lfloor(\sqrt2-1)n\rfloor,
+\qquad
+s=s_n=\left\lceil{2n\over5}\right\rceil.
+\]
+For a fixed admissible starting index \(m\), define
+\[
+B_m(\sigma)=\max_{0\le j\le r-1}P_\sigma(S_{m+j}).
+\]
+Every score in this block is among the induced-subset scores defining
+\(\Lambda(\sigma)\). Therefore, for each fixed \(m\),
+\[
+\Lambda_n
+=\min_\sigma\Lambda(\sigma)
+\ge\min_\sigma B_m(\sigma)
+=\gamma^{(r)}_{m,n}.
+\]
+This inequality is proved separately for every \(m\). Taking the maximum of
+these already-minimized scalar lower bounds gives
+\[
+\Lambda_n\ge
+\max_{1\le m\le n-r-1}\gamma^{(r)}_{m,n}
+=\Gamma_n^{(r)}.
+\]
+Thus no maximum is interchanged with a minimum. Since \(m=1\) is admissible,
+CR28bg gives, for every \(n\ge141\),
+\[
+\boxed{
+\Lambda_n
+\ge\Gamma_n^{(r_n)}
+\ge\gamma^{(r_n)}_{1,n}
+\ge P_{r_n,n}+(r_n-s_n)L_n.
+}
+\]
+The last term uses the duplicated-pairing floor \(P_{r_n,n}\), not the exact
+inner-cycle minimum \(P^*_{r_n,n}\). The latter belongs to the separate
+residual comparison CR28bi.
+
+The finite coefficient can be read without losing the floor information.
+Write
+\[
+\varepsilon_n=(\sqrt2-1)n-r_n,
+\qquad 0\le\varepsilon_n<1.
+\]
+Substitution in the exact formula for \(P_{r_n,n}\) gives
+\[
+\begin{aligned}
+P_{r_n,n}-{2(\sqrt2-1)\over3}n^3
+={}&(\sqrt2-1)n^2\\
+&+n\left(
+-{\sqrt2\over2}\varepsilon_n^2-\varepsilon_n
+-{1\over3}+{\sqrt2\over6}
+\right)
++{\varepsilon_n^3-\varepsilon_n\over6}.
+\end{aligned}
+\]
+The right-hand side is at least
+\[
+(\sqrt2-1)n^2-{4+\sqrt2\over3}n-{1\over6}>0
+\qquad(n\ge5).
+\]
+The local estimates CR28aw and CR28bk give
+\[
+(r_n-s_n)L_n
+\ge
+{389-275\sqrt2\over375}n^3
+-{40\sqrt2-54\over75}n^2
+\qquad(n\ge141).
+\]
+Adding the two bounds and using the exact coefficient identity
+\[
+{2(\sqrt2-1)\over3}
++{389-275\sqrt2\over375}
+={139-25\sqrt2\over375}
+\]
+proves
+\[
+\boxed{
+\Lambda_n
+\ge
+{139-25\sqrt2\over375}n^3
+-{40\sqrt2-54\over75}n^2
+\qquad(n\ge141).
+}
+\]
+Finally, the strict global cyclic-ratio sandwich gives the finite geometric
+consequence
+\[
+\boxed{
+R_2^*(n)
+>
+{139-25\sqrt2\over375\pi}n^3
+-\left(1+{40\sqrt2-54\over75\pi}\right)n^2
+\qquad(n\ge141).
+}
+\]
+In particular,
+\[
+\liminf_{n\to\infty}{\Lambda_n\over n^3}
+\ge {139-25\sqrt2\over375},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\ge {139-25\sqrt2\over375\pi}.
+\]
+These are exact lower bounds with a rigorously certified lower coefficient.
+They do not prove that either normalized sequence converges or that the
+displayed coefficient is its exact leading coefficient. The exact residual
+coefficient of the selected block and the behavior of other linear densities
+also remain open.
 
 ## Exact Radius-One Insertion
 
@@ -1262,10 +1415,10 @@ Therefore
 \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over2\pi}.
 \tag{21}
 \]
-Combining (21) with the exact induced-subset lower bound already proved in
-this note yields
+Combining (21) with the sharpened first-linear-block lower bound already
+proved in this note yields
 \[
-{2(\sqrt2-1)\over3\pi}
+{139-25\sqrt2\over375\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -1280,7 +1433,7 @@ In particular,
 The later exact product-distance construction sharpens the right endpoint to
 
 \[
-{2(\sqrt2-1)\over3\pi}
+{139-25\sqrt2\over375\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -1333,10 +1486,11 @@ Neither the improved upper bound nor the lower bound proves that
   baseline. The zigzag radius \(V_n\) improves its asymptotic upper coefficient
   from \(1/\pi\) to \(1/(2\pi)\); the later product-distance construction
   improves it again to \(8/(25\pi)\), which still does not match the
-  induced-subset lower coefficient. None may be described as the exact
-  asymptotic leading constant for Power-Ringmin. The coefficient
-  \(2(\sqrt2-1)/(3\pi)\) is optimal only inside the lower-bound relaxation
-  explicitly analyzed above.
+  current first-linear-block lower coefficient
+  \((139-25\sqrt2)/(375\pi)\). None may be described as the exact asymptotic
+  leading constant for Power-Ringmin. The smaller coefficient
+  \(2(\sqrt2-1)/(3\pi)\) remains optimal only inside the single-subset
+  lower-bound relaxation explicitly analyzed above.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower
   bound only from the scalar full-problem lower bound would reverse the useful

@@ -316,9 +316,32 @@ and treating every recursive split separately on the prefix ending at
 {389-275\sqrt2\over375}n^3-O(n^2).
 \]
 Thus this one block has a genuinely cubic residual and admits no compatible
-history with subcubic excess. This is a method-specific theorem relative to
-\(P^*_{r_n,n}\), not an asymptotic evaluation of \(\Lambda_n\), a geometric
-statement, or a production-computation result.
+history with subcubic excess. More importantly, the earlier pointwise block
+comparison and CR28bg give, explicitly and without exchanging a maximum and a
+minimum,
+\[
+\Lambda_n
+\ge\Gamma_n^{(r_n)}
+\ge\gamma^{(r_n)}_{1,n}
+\ge P_{r_n,n}+(r_n-s_n)L_n
+\qquad(n\ge141).
+\]
+Here \(P_{r_n,n}\) is the nonstarred duplicated-pairing floor. Exact rounding
+then gives the finite consequences
+\[
+\Lambda_n
+\ge {139-25\sqrt2\over375}n^3
+-{40\sqrt2-54\over75}n^2,
+\]
+\[
+R_2^*(n)
+>{139-25\sqrt2\over375\pi}n^3
+-\left(1+{40\sqrt2-54\over75\pi}\right)n^2
+\qquad(n\ge141).
+\]
+Thus the same coefficient, divided by \(\pi\), is a rigorous geometric lower
+coefficient. Neither coefficient is asserted to be the exact leading
+coefficient, and no limit or production-computation result follows.
 
 There is also an exact eventual radius-one insertion theorem. Let
 \(R^*_{2:n}\) be the infimum feasible central radius for only the core radii
@@ -619,10 +642,10 @@ R_2^*(n)
 \]
 
 The cubic order is exact, but existence of a limiting coefficient, a
-leading-term asymptotic formula, and an upper bound matching the induced-subset
-lower coefficient remain unresolved. Current exact bounds give
+leading-term asymptotic formula, and an upper bound matching the current
+linear-block lower coefficient remain unresolved. Current exact bounds give
 \[
-\frac{2(\sqrt2-1)}{3\pi}
+\frac{139-25\sqrt2}{375\pi}
 \le
 \liminf_{n\to\infty}\frac{R_2^*(n)}{n^3}
 \le
@@ -806,7 +829,8 @@ and elimination proofs, scorer algorithm, the exact reduced values
 minimizer classifications, independent bounded oracles, comparison with
 \(W\), the exact arbitrary consecutive-tail split-history theorem through
 every sublinear block length, the positive cubic residual for the first
-explicit linear block, and asymptotic limitations. One-wrap saturation
+explicit linear block, its global lower-bound corollary, and asymptotic
+limitations. One-wrap saturation
 and insertion independence concern the product ratio; they do not reduce
 exact angular-STN feasibility to one-wrap cycle checks or make \(\rho_\sigma\)
 insertion-independent. The `n=10` proof classifies equality in the
@@ -977,8 +1001,21 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \(C_0=2(20\sqrt2-27)/75+1/8\). Every original base edge is charged at
   most once, recursive child edges have a separate local floor, and the
   exact maximum over all prefixes retains the selected prefix. Hence the
-  residual is genuinely cubic for this block. No exact residual coefficient,
-  \(\Lambda_n\), geometric, or production claim follows.
+  residual is genuinely cubic for this block. Moreover, for \(n\ge141\),
+  \[
+  \Lambda_n
+  \ge\Gamma_n^{(r_n)}
+  \ge\gamma^{(r_n)}_{1,n}
+  \ge P_{r_n,n}+(r_n-s_n)L_n,
+  \]
+  with no max--min exchange. It follows that
+  \[
+  \Lambda_n\ge{139-25\sqrt2\over375}n^3-O(n^2),
+  \qquad
+  R_2^*(n)\ge{139-25\sqrt2\over375\pi}n^3-O(n^2).
+  \]
+  These are lower bounds, not exact residual or leading coefficients;
+  convergence and production claims do not follow.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): at
   \((m,n,r)=(2,7,4)\), all 60 compatible triple-split histories agree
   signature by signature with all 60 directly generated outer cycles, and
@@ -1334,8 +1371,10 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   every \(r=o(n)\). This method-specific result is not a proved exact
   asymptotic coefficient for Power-Ringmin. The first explicit linear block
   \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\), has a proved positive cubic
-  residual relative to its inner-cycle reference, but general linear
-  densities and exact block coefficients remain unresolved.
+  residual and yields the stronger global lower coefficient
+  \((139-25\sqrt2)/(375\pi)\). This is not the exact leading coefficient;
+  convergence, general linear densities, and exact block coefficients remain
+  unresolved.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit
   and unresolved for public production claims. The bounded test-only Arb
   cross-check covers checked `n=3` only and is not a full backend audit.

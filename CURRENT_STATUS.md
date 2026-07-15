@@ -2,11 +2,10 @@
 
 Last update: 2026-07-15
 
-- **Current phase:** first explicit linear-block analysis for the exact
-  consecutive-tail obstruction.
-- **Current task:** decide the subcubic-history versus positive-cubic-residual
-  alternative for \(m=1\) and
-  \(r_n=\lfloor(\sqrt2-1)n\rfloor\).
+- **Current phase:** global correction of the first explicit linear-block
+  lower obstruction.
+- **Current task:** derive the global \(\Lambda_n\) and geometric lower bounds
+  already implied by CR28ap and CR28bg, without exchanging max and min.
 - **Task dossier:**
   `ops/TASK-20260715__first_linear_tail_block/`.
 - **Task status:** READY_FOR_REVIEW.
@@ -31,6 +30,9 @@ Last update: 2026-07-15
   prefixes.
 - With \(s_n=\lceil2n/5\rceil\), the selected prefix is nonempty throughout
   the explicit sufficient domain \(n\ge141\).
+- The pointwise full-score domination is minimized separately for each block
+  start before those scalar lower bounds are maximized. No max--min exchange
+  is used.
 - No production source, API, scorer, canonicalizer, enumerator, ceiling,
   schema, artifact, example, verifier, backend, or certificate contract
   changed.
@@ -69,6 +71,31 @@ Last update: 2026-07-15
   The displayed finite lower bound is positive for every \(n\ge655\).
   Hence the second requested alternative holds: no compatible history for
   this block has \(o(n^3)\) excess over \(P^*_{r_n,n}\).
+- EXACT GLOBAL COROLLARY: CR28bg uses the nonstarred duplicated-pairing floor
+  and proves, for every \(n\ge141\),
+  \[
+  \Lambda_n
+  \ge\Gamma_n^{(r_n)}
+  \ge\gamma^{(r_n)}_{1,n}
+  \ge P_{r_n,n}+(r_n-s_n)L_n.
+  \]
+  The first inequality is obtained by minimizing pointwise domination for
+  each fixed \(m\), then taking the maximum of the resulting scalar bounds.
+- EXACT FINITE GLOBAL LOWER BOUNDS: exact floor expansion gives
+  \[
+  \Lambda_n
+  \ge {139-25\sqrt2\over375}n^3
+  -{40\sqrt2-54\over75}n^2,
+  \]
+  while CR27 gives
+  \[
+  R_2^*(n)
+  >{139-25\sqrt2\over375\pi}n^3
+  -\left(1+{40\sqrt2-54\over75\pi}\right)n^2
+  \qquad(n\ge141).
+  \]
+  Thus the corresponding liminf lower coefficients are
+  \((139-25\sqrt2)/375\) and that number divided by \(\pi\).
 
 ## Bounded Exact Diagnostics
 
@@ -81,14 +108,17 @@ Last update: 2026-07-15
   comparison.
 - A fixed-seed read-only diagnostic additionally checked 200 compatible
   prefix histories across those four sizes with exact arithmetic.
+- A new test-local \(\mathbb Q(\sqrt2)\) calculation checks exactly the
+  pairing-floor coefficient, residual coefficient, their sum
+  \((139-25\sqrt2)/375\), the quadratic remainder, and positivity.
 - These bounded diagnostics call no production scorer, canonicalizer, or
   enumerator and are not the all-\(n\) proof.
 
 ## Verification
 
-- New focused selection: 9 passed.
-- Complete cyclic-ratio module: 56 passed.
-- Complete local suite: 232 passed.
+- Corrected focused selection: 9 passed.
+- Complete cyclic-ratio module: 57 passed.
+- Complete local suite: 233 passed.
 - Checked-artifact verifier: all 4 certificates and 76 local brackets
   verified; schema suite: 4 passed.
 - Focused Ruff on the modified Python test passes.
@@ -98,16 +128,18 @@ Last update: 2026-07-15
   `tests/test_finite_results.py`. They are recorded but not mixed into this
   task.
 - Independent proof, rounding, compatibility, and synchronization audits
-  found no flaw.
+  found no remaining flaw after the LaTeX handoff repair.
 - Git diff hygiene and the no-production-diff audit pass.
 - CURRENT HOSTED STATUS: GitHub Actions has not run these worktree changes.
 
 ## Files Changed
 
 - `research/FIXED_ORDER_CYCLE_RATIO.md` adds the authoritative block-local
-  theorem, finite constants, compatibility audit, and limitations.
+  theorem, finite constants, no-swap global corollary, and limitations.
+- `research/ALL_N_LOWER_BOUND.md` records the finite geometric consequence and
+  updates the current asymptotic bracket.
 - `tests/test_fixed_order_cycle_ratio.py` adds bounded independent exact
-  diagnostics only.
+  diagnostics and exact test-local coefficient algebra only.
 - `start.md`, `PROJECT_KNOWLEDGE.md`, and
   `research/NEXT_RESEARCH_STEPS.md` synchronize stable knowledge and the
   research boundary.
@@ -118,17 +150,20 @@ Last update: 2026-07-15
 - The constant \(c_0\) is a certified lower constant, not the exact residual
   coefficient and not claimed optimal.
 - Other linear densities and starting indices remain unclassified.
-- The result concerns one separately optimized block and its exact
-  inner-cycle reference. It does not exchange any global max and min.
-- No asymptotic evaluation of \(\Lambda_n\), exact angular-geometric result,
-  or production-computation claim follows.
+- The global and geometric coefficients are certified lower coefficients,
+  not exact leading coefficients. Neither normalized sequence is proved to
+  converge.
+- The proof does not identify exact minimizing orders, exact angular optima,
+  or a matching upper coefficient.
+- No production-computation, artifact, schema, verifier, backend, or
+  enumeration-limit claim follows.
 - Finite tests verify arithmetic and bounded compatible histories only; they
   are not the all-\(n\) proof.
 - Hosted GitHub Actions remain unverified.
 
 ## Proposed Next Task
 
-In a fresh chat, optimize the same block-local slack/prefix certificate over
-its cutoff and averaging weight, determining the best rigorously certified
-cubic lower constant available from that template or proving the current
-parameters optimal within it.
+After user review in a fresh chat, optimize the same block-local slack/prefix
+certificate over its cutoff and averaging weight, determining the best
+rigorously certified cubic lower constant available from that template or
+proving the current parameters optimal within it.
