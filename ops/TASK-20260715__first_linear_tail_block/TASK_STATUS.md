@@ -6,31 +6,32 @@ Last update: 2026-07-15
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Objective:** correct the prior first-linear-block handoff by deriving the
-  global corollary already implied by CR28ap and CR28bg, explicitly preserving
-  max--min order, and deduce the resulting lower coefficients for
-  \(\Lambda_n\) and \(R_2^*(n)\).
-- **Expected output:** exact finite global chain and asymptotic lower bounds,
-  exact test-local coefficient algebra, synchronized proof note, lower-bound
-  note, brief, stable memory, roadmap, current status, and dossier, with no
-  production, artifact, or enumeration-limit change.
+- **Objective:** correct only the notation collision introduced by the first
+  linear block, reserving the established full-distance symbol and assigning
+  an unambiguous superscripted symbol to the block-local floor.
+- **Expected output:** synchronized notation in the proof and handoff sources,
+  repository-wide ambiguity audit, focused and complete tests, diff hygiene,
+  and a new review handoff without mathematical or production changes.
 
 ## Scope
 
-- **In scope:** the exact split-history/prefix formula; literal recursive
-  compatibility; the maximum over every prefix; explicit floor/ceiling
-  conventions; the pointwise-to-global quantifier passage; lower coefficients
-  for \(\Lambda_n\) and \(R_2^*(n)\); exact test-local algebra; durable proof,
-  roadmap, and dossier updates.
-- **Out of scope:** exchanging a global max and min; proving convergence or an
-  exact leading/residual coefficient; classifying other linear densities;
-  production source or limits; artifact, schema, verifier, or certificate
-  changes; Git writes.
+- **In scope:** rename the local floor
+  \(\min\{G_n(s_n),J_n(s_n)\}\) as \(F_n^{\mathrm{blk}}\) in the named
+  synchronized sources and dossier; preserve \(L_n\) for the full-distance
+  obstruction; audit every repository occurrence; update the handoff.
+- **Out of scope:** formula, tag, coefficient, domain, theorem, proof,
+  mathematical-test, production, artifact, schema, verifier, certificate, or
+  enumeration-limit changes; Git writes.
 
 ## Verified Facts
 
-- The startup tree was clean on main at
-  9c39f6a621c1eca41277b2ae72a60c634aa59fe4.
+- The notation-correction startup tree was clean on main at
+  e47dfe0e8ee56158b20fc6475bb38c35219c5eaf.
+- The authoritative local definition is now
+  \[
+  F_n^{\mathrm{blk}}=\min\{G_n(s),J_n(s)\},
+  \]
+  with tag CR28bd unchanged. The full-distance obstruction retains \(L_n\).
 - The block is in the ordinary arbitrary-history domain for every \(n\ge5\).
 - For \(s_n=\lceil2n/5\rceil\), the selected prefix is certainly nonempty
   for every \(n\ge141\).
@@ -47,7 +48,7 @@ Last update: 2026-07-15
 - The direct CR28bg form is
   \[
   \gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+(r_n-s_n)L_n.
+  \ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}.
   \]
   The pairing floor here is nonstarred; comparison with \(P^*_{r_n,n}\)
   separately incurs the alternating-cycle correction.
@@ -72,7 +73,7 @@ Last update: 2026-07-15
   \Lambda_n
   \ge\Gamma_n^{(r_n)}
   \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+(r_n-s_n)L_n
+  \ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}
   \qquad(n\ge141).
   \]
 - Exact floor expansion and the existing local estimates give
@@ -98,6 +99,10 @@ Last update: 2026-07-15
 
 ## Decisions And Rationale
 
+- Use the superscripted \(F_n^{\mathrm{blk}}\), because bare \(F_n\) is
+  already used elsewhere for a feasible set and would create a new collision.
+- Preserve all full-distance uses of \(L_n\); do not perform a global blind
+  replacement.
 - Use the prefix ending at \(s_n=\lceil2n/5\rceil\) and the elementary
   inequality \(\max(0,H)\ge H/2\).
 - Preserve recursive splits rather than replacing them by base-edge choices.
@@ -110,22 +115,20 @@ Last update: 2026-07-15
 
 ## Plan And Expected Delta
 
-- Completed: correction audit, independent quantifier/algebra reviews, proof
-  note, exact coefficient test, project brief, and stable memory updates.
-- Completed: lower-bound note, roadmap, current status, dossier, complete
-  regression, final scope/diff audits, and corrected handoff.
+- Completed: classify every repository-wide use of \(L_n\), rename only the
+  28 block-local references, and synchronize the named sources and dossier.
+- Completed: focused preservation checks, complete regression, final
+  scope/diff audits, durable evidence, and notation-only handoff.
 
 ## Verification
 
-- **Checks completed:** pre-change cyclic-ratio baseline (47 passed);
-  corrected focused selection (9 passed); complete cyclic-ratio module
-  (57 passed); complete local suite (233 passed); checked-artifact verifier (4
-  certificates and 76 local brackets); schema suite (4 passed); focused
-  Ruff; independent proof, rounding, and synchronization audits; diff hygiene;
-  and no-production-diff audit.
-- **Recorded unrelated check:** repository-wide Ruff retains four existing
-  findings in untouched files: two in `critical_structure.py`, one in
-  `fixed_order_artifact.py`, and one in `test_finite_results.py`.
+- **Checks completed:** first-linear-block focused selection (9 passed),
+  full-distance-obstruction focused preservation check (1 passed), complete
+  local suite (233 passed), repository-wide primary and alternate-spelling
+  notation searches, diff hygiene, and no-production/no-test-diff audit.
+- **Notation result:** every residual \(L_n\) is the established full-distance
+  obstruction or an explicit statement reserving that name; all 28 prior
+  block-local references use \(F_n^{\mathrm{blk}}\).
 - **Limitations:** hosted GitHub Actions have not run these worktree changes.
 
 ## Blockers / Risks
@@ -142,8 +145,8 @@ Last update: 2026-07-15
 
 ## Handoff
 
-- **Last verified result:** the exact global corollary, coefficient algebra,
-  complete local regression, artifact/schema checks, documentation
-  synchronization, and final scope/diff audits pass.
+- **Last verified result:** the notation collision is removed in every named
+  source and dossier file; focused and complete tests, repository-wide
+  ambiguity search, scope audit, and diff hygiene pass without code changes.
 - **Files to read first:** research/FIXED_ORDER_CYCLE_RATIO.md,
-  tests/test_fixed_order_cycle_ratio.py, and this file.
+  research/PRODUCT_DISTANCE_SURROGATE.md, and this file.

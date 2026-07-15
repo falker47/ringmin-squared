@@ -9,6 +9,7 @@
 | EV-003 | bounded exact test-local diagnostic | Slack identity and intact/recursive prefix arithmetic | cyclic-ratio tests | PASS |
 | EV-004 | verification / review | Complete regression, scope, and final hygiene | local worktree | PASS WITH RECORDED UNRELATED LINT |
 | EV-005 | exact correction / verification | Global lower corollary and coefficient algebra | proof notes, memory, roadmap, dossier, and tests | PASS WITH RECORDED UNRELATED LINT |
+| EV-006 | notation correction / verification | Disambiguated block-local floor and reserved full-distance symbol | synchronized sources, repository audit, and tests | PASS |
 
 ## EV-001 - Startup, Scope, And Baseline
 
@@ -114,7 +115,7 @@
   \Lambda_n
   \ge\Gamma_n^{(r_n)}
   \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+(r_n-s_n)L_n,
+  \ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}},
   \]
   \[
   \Lambda_n
@@ -166,3 +167,39 @@
   residual coefficient remain open. No production, artifact, schema,
   verifier, backend, certificate, or enumeration limit changed.
 - **Linked log entry:** TASK_LOG.md, Corrected Global Consequence And Handoff.
+
+## EV-006 - Notation Collision Correction And New Handoff
+
+- **Date:** 2026-07-15
+- **Question:** does any repository source still use the full-distance symbol
+  ambiguously for the first-linear-block local floor after synchronization?
+- **Method:** classified every tracked occurrence before editing, changed only
+  the 28 block-local references to \(F_n^{\mathrm{blk}}\), preserved the
+  canonical full-distance definition and references, searched tracked and
+  non-cache repository files for primary and alternate spellings, and
+  inspected the complete diff for scope.
+- **Result:** no block-local use of \(L_n\) remains. Every residual occurrence
+  denotes the full-distance obstruction or explicitly states that the name is
+  reserved for it. The authoritative and stable-memory definitions of the
+  local minimum now use \(F_n^{\mathrm{blk}}\), and every named synchronized
+  source carries the same notation. Tags, arguments,
+  coefficients, domains, mathematical tests, and production files are
+  unchanged.
+- **Commands and results:**
+  - `python -m pytest tests\test_fixed_order_cycle_ratio.py -q -k
+    "first_linear_density"`: 9 passed.
+  - `python -m pytest
+    tests\test_product_distance.py::test_tail_obstruction_first_dominates_adjacent_formula_at_33
+    -q`: 1 passed.
+  - `python -m pytest`: 233 passed.
+  - repository-wide `git grep`/`rg` audit of \(L_n\), alternate spellings,
+    and `min\{G_n(`: no ambiguous local use remains.
+  - `git diff --name-only -- src tests examples schemas verify.py`: no output.
+  - `git diff --check`: passed.
+- **Classification:** VERIFIED FACT (REPOSITORY-WIDE NOTATION AUDIT) and
+  VERIFIED FACT (LOCAL REGRESSION); PASS.
+- **Limitations:** tests do not parse Markdown notation, so synchronization is
+  established by exhaustive source search and diff inspection. Hosted GitHub
+  Actions have not run these documentation-only changes.
+- **Linked log entry:** TASK_LOG.md, Notation Collision Correction And New
+  Handoff.

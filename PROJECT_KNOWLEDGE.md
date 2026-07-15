@@ -426,7 +426,7 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \qquad
   J_n(t)={(S_n-1)t-n(r_n-1)\over2},
   \qquad
-  L_n=\min\{G_n(s_n),J_n(s_n)\}.
+  F_n^{\mathrm{blk}}=\min\{G_n(s_n),J_n(s_n)\}.
   \]
   If
   \[
@@ -439,13 +439,13 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   then, whenever \(s_n\le r_n-1\), and in particular for \(n\ge141\),
   \[
   \gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+k_nL_n.
+  \ge P_{r_n,n}+k_nF_n^{\mathrm{blk}}.
   \]
   Comparing separately with the exact inner simple-cycle minimum gives
   \[
   \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
   \ge
-  k_nL_n-e(q_n).
+  k_nF_n^{\mathrm{blk}}-e(q_n).
   \]
 - EXACT THEOREM (BASE-SLACK IDENTITY): every simple cycle \(C\) on
   \(S_{r_n}\) satisfies
@@ -487,12 +487,12 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \Lambda_n
   \ge\Gamma_n^{(r_n)}
   \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+(r_n-s_n)L_n.
+  \ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}.
   \]
   Exact floor expansion gives
   \(P_{r_n,n}\ge[2(\sqrt2-1)/3]n^3\) for \(n\ge5\). Together with
   \(k_n\ge(\sqrt2-7/5)n-2\) and
-  \(L_n\ge[(20\sqrt2-27)/75]n^2\), this proves
+  \(F_n^{\mathrm{blk}}\ge[(20\sqrt2-27)/75]n^2\), this proves
   \[
   \Lambda_n
   \ge {139-25\sqrt2\over375}n^3

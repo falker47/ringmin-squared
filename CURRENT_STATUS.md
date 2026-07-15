@@ -2,10 +2,10 @@
 
 Last update: 2026-07-15
 
-- **Current phase:** global correction of the first explicit linear-block
+- **Current phase:** notation hygiene for the first explicit linear-block
   lower obstruction.
-- **Current task:** derive the global \(\Lambda_n\) and geometric lower bounds
-  already implied by CR28ap and CR28bg, without exchanging max and min.
+- **Current task:** remove the collision between the block-local floor and the
+  already defined full-distance obstruction, with no mathematical change.
 - **Task dossier:**
   `ops/TASK-20260715__first_linear_tail_block/`.
 - **Task status:** READY_FOR_REVIEW.
@@ -15,6 +15,10 @@ Last update: 2026-07-15
 
 ## Implemented Scope
 
+- The block-local floor is now denoted
+  \(F_n^{\mathrm{blk}}=\min\{G_n(s_n),J_n(s_n)\}\). The symbol \(L_n\)
+  remains reserved for the full-distance obstruction defined in
+  `research/PRODUCT_DISTANCE_SURROGATE.md`.
 - The ordinary exact split-history formula is specialized to
   \[
   \alpha=\sqrt2-1,
@@ -52,10 +56,10 @@ Last update: 2026-07-15
   \[
   \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
   \ge
-  (r_n-s_n)L_n-e(n-r_n+1)
+  (r_n-s_n)F_n^{\mathrm{blk}}-e(n-r_n+1)
   \qquad(n\ge141),
   \]
-  with \(L_n\), \(e\), and all rounding conventions defined in
+  with \(F_n^{\mathrm{blk}}\), \(e\), and all rounding conventions defined in
   `research/FIXED_ORDER_CYCLE_RATIO.md`.
 - EXACT METHOD-SPECIFIC CUBIC RESIDUAL: for every \(n\ge141\),
   \[
@@ -77,7 +81,7 @@ Last update: 2026-07-15
   \Lambda_n
   \ge\Gamma_n^{(r_n)}
   \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+(r_n-s_n)L_n.
+  \ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}.
   \]
   The first inequality is obtained by minimizing pointwise domination for
   each fixed \(m\), then taking the maximum of the resulting scalar bounds.
@@ -116,34 +120,26 @@ Last update: 2026-07-15
 
 ## Verification
 
-- Corrected focused selection: 9 passed.
-- Complete cyclic-ratio module: 57 passed.
+- First-linear-block focused selection: 9 passed.
+- Full-distance-obstruction focused preservation check: 1 passed.
 - Complete local suite: 233 passed.
-- Checked-artifact verifier: all 4 certificates and 76 local brackets
-  verified; schema suite: 4 passed.
-- Focused Ruff on the modified Python test passes.
-- Repository-wide Ruff reports four existing findings in untouched files:
-  two in `src/power_ringmin/critical_structure.py`, one in
-  `src/power_ringmin/fixed_order_artifact.py`, and one in
-  `tests/test_finite_results.py`. They are recorded but not mixed into this
-  task.
-- Independent proof, rounding, compatibility, and synchronization audits
-  found no remaining flaw after the LaTeX handoff repair.
-- Git diff hygiene and the no-production-diff audit pass.
+- Repository-wide notation search classifies every residual \(L_n\) as the
+  full-distance obstruction or as an explicit statement reserving that name;
+  no block-local use remains.
+- All 28 pre-existing block-local references are synchronized to
+  \(F_n^{\mathrm{blk}}\); alternate spellings of the old symbol are absent.
+- Git diff hygiene and the no-production/no-test-diff audit pass.
 - CURRENT HOSTED STATUS: GitHub Actions has not run these worktree changes.
 
 ## Files Changed
 
-- `research/FIXED_ORDER_CYCLE_RATIO.md` adds the authoritative block-local
-  theorem, finite constants, no-swap global corollary, and limitations.
-- `research/ALL_N_LOWER_BOUND.md` records the finite geometric consequence and
-  updates the current asymptotic bracket.
-- `tests/test_fixed_order_cycle_ratio.py` adds bounded independent exact
-  diagnostics and exact test-local coefficient algebra only.
-- `start.md`, `PROJECT_KNOWLEDGE.md`, and
-  `research/NEXT_RESEARCH_STEPS.md` synchronize stable knowledge and the
-  research boundary.
-- `CURRENT_STATUS.md` and the STRICT task dossier record durable handoff.
+- `research/FIXED_ORDER_CYCLE_RATIO.md` introduces only the unambiguous
+  block-local notation and explicitly preserves the full-distance name.
+- `research/ALL_N_LOWER_BOUND.md`, `start.md`, `PROJECT_KNOWLEDGE.md`, and
+  `research/NEXT_RESEARCH_STEPS.md` synchronize that notation.
+- `CURRENT_STATUS.md` and the existing STRICT task dossier record the new
+  notation-only handoff.
+- No production source, test, artifact, schema, example, or verifier changed.
 
 ## Residual Limitations
 

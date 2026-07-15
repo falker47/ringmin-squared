@@ -323,7 +323,7 @@ minimum,
 \Lambda_n
 \ge\Gamma_n^{(r_n)}
 \ge\gamma^{(r_n)}_{1,n}
-\ge P_{r_n,n}+(r_n-s_n)L_n
+\ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}
 \qquad(n\ge141).
 \]
 Here \(P_{r_n,n}\) is the nonstarred duplicated-pairing floor. Exact rounding
@@ -1006,7 +1006,7 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \Lambda_n
   \ge\Gamma_n^{(r_n)}
   \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+(r_n-s_n)L_n,
+  \ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}},
   \]
   with no max--min exchange. It follows that
   \[

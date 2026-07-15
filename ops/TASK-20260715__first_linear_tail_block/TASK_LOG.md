@@ -78,7 +78,7 @@ Append-only. Add a new entry to correct previous information.
   \Lambda_n
   \ge\Gamma_n^{(r_n)}
   \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+(r_n-s_n)L_n.
+  \ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}.
   \]
   Consequently,
   \[
@@ -103,3 +103,27 @@ Append-only. Add a new entry to correct previous information.
 - **Evidence:** EVIDENCE.md, EV-005.
 - **Next step:** user review and manual commit decision; any optimization of
   the certificate belongs to a fresh task.
+
+## 2026-07-15 - Notation Collision Correction And New Handoff
+
+- **Correction:** The first-linear-block floor had reused \(L_n\), colliding
+  with the existing full-distance obstruction. The local object is now
+  \(F_n^{\mathrm{blk}}\); the earlier formula in this append-only chronology
+  was mechanically synchronized to remove the ambiguity without changing its
+  content.
+- **Action:** Classified every repository occurrence, renamed exactly the 28
+  block-local references across the proof, lower-bound note, project brief,
+  stable knowledge, roadmap, current status, and dossier, and preserved every
+  full-distance use. No formula, tag, coefficient, domain, test, or production
+  source was changed.
+- **Verification:** The first-linear-block selection reports 9 passed, the
+  full-distance preservation check reports 1 passed, and the complete suite
+  reports 233 passed. Repository-wide primary and alternate-spelling searches
+  find no residual ambiguous local use; no production or test file appears in
+  the diff; `git diff --check` passes.
+- **Interpretation:** This is exclusively a notation correction. Every exact
+  theorem, finite bound, coefficient, domain, limitation, and production
+  contract retains its prior meaning.
+- **Evidence:** EVIDENCE.md, EV-006.
+- **Next step:** user review and manual commit decision; any certificate
+  optimization remains a separate fresh task.

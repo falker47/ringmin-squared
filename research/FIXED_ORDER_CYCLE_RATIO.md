@@ -137,7 +137,7 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \[
   \Lambda_n\ge\Gamma_n^{(r_n)}
   \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+(r_n-s_n)L_n
+  \ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}
   \qquad(n\ge141).
   \]
   Consequently
@@ -1705,10 +1705,13 @@ J_n(t+1)-J_n(t)={S-1\over2}>0.
 \]
 Consequently, with
 \[
-L_n=\min\{G_n(s),J_n(s)\},
+F_n^{\mathrm{blk}}=\min\{G_n(s),J_n(s)\},
 \tag{CR28bd}
 \]
-every selected split contributes at least \(L_n\) after assigning the
+where the superscript distinguishes this block-local floor from the
+full-distance obstruction \(L_n\) defined in
+`research/PRODUCT_DISTANCE_SURROGATE.md`. Every selected split contributes at
+least \(F_n^{\mathrm{blk}}\) after assigning the
 quadratic slack of its base edge to a base split, or half its correction to a
 recursive split.
 
@@ -1726,7 +1729,7 @@ P(C_0)+{H_k\over2}-P_{r,n}
 +
 \sum_{\substack{t:\ \text{recursive}\\\text{split}}}
 {A_t\over2}\\
-&\ge kL_n.
+&\ge kF_n^{\mathrm{blk}}.
 \end{aligned}
 \tag{CR28be}
 \]
@@ -1742,7 +1745,7 @@ Equations (CR28be)--(CR28bf) hold for every compatible history, including
 histories that repeatedly split recursive child edges. Minimizing therefore
 proves the finite lower bound
 \[
-\gamma^{(r)}_{1,n}\ge P_{r,n}+kL_n.
+\gamma^{(r)}_{1,n}\ge P_{r,n}+kF_n^{\mathrm{blk}}.
 \tag{CR28bg}
 \]
 
@@ -1769,7 +1772,7 @@ exact finite statement
 \boxed{
 \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
 \ge
-(r_n-s_n)L_n-e(n-r_n+1)
+(r_n-s_n)F_n^{\mathrm{blk}}-e(n-r_n+1)
 }
 \tag{CR28bi}
 \]
@@ -1807,7 +1810,8 @@ J_n(s)
 \tag{CR28bk}
 \]
 where the last coefficient gap is
-\((129-85\sqrt2)/150>0\). Hence \(L_n\ge dn^2\). Together with
+\((129-85\sqrt2)/150>0\). Hence
+\(F_n^{\mathrm{blk}}\ge dn^2\). Together with
 \[
 k\ge Dn-2,
 \qquad
@@ -1879,7 +1883,7 @@ the admissible value \(m=1\), yields for \(n\ge141\)
 \Lambda_n
 \ge\Gamma_n^{(r_n)}
 \ge\gamma^{(r_n)}_{1,n}
-\ge P_{r_n,n}+(r_n-s_n)L_n.
+\ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}.
 }
 \tag{CR28bm}
 \]
@@ -1917,7 +1921,7 @@ value is \((140\sqrt2-191)/6>0\); the latter positivity follows from
 
 Equations (CR28aw) and (CR28bk) give
 \[
-(r_n-s_n)L_n
+(r_n-s_n)F_n^{\mathrm{blk}}
 \ge (Dn-2)dn^2
 =c_0n^3-2dn^2.
 \]

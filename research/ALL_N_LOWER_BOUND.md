@@ -66,7 +66,7 @@ Last updated: 2026-07-15
   \Lambda_n
   \ge\Gamma_n^{(r_n)}
   \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+(r_n-s_n)L_n.
+  \ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}.
   \]
   No maximum and minimum are exchanged: for each fixed \(m\), pointwise
   domination by \(\Lambda(\sigma)\) is minimized first, and only the resulting
@@ -752,7 +752,7 @@ CR28bg gives, for every \(n\ge141\),
 \Lambda_n
 \ge\Gamma_n^{(r_n)}
 \ge\gamma^{(r_n)}_{1,n}
-\ge P_{r_n,n}+(r_n-s_n)L_n.
+\ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}.
 }
 \]
 The last term uses the duplicated-pairing floor \(P_{r_n,n}\), not the exact
@@ -784,7 +784,7 @@ The right-hand side is at least
 \]
 The local estimates CR28aw and CR28bk give
 \[
-(r_n-s_n)L_n
+(r_n-s_n)F_n^{\mathrm{blk}}
 \ge
 {389-275\sqrt2\over375}n^3
 -{40\sqrt2-54\over75}n^2

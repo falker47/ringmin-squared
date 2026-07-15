@@ -263,7 +263,7 @@ pairing floor and gives, without exchanging a maximum and a minimum,
 \Lambda_n
 \ge\Gamma_n^{(r_n)}
 \ge\gamma^{(r_n)}_{1,n}
-\ge P_{r_n,n}+(r_n-s_n)L_n
+\ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}
 \qquad(n\ge141).
 \]
 Indeed, for each fixed \(m\), pointwise domination by
@@ -618,7 +618,7 @@ saturation for every \(n\ge3\).
   \Lambda_n
   \ge\Gamma_n^{(r_n)}
   \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+(r_n-s_n)L_n.
+  \ge P_{r_n,n}+(r_n-s_n)F_n^{\mathrm{blk}}.
   \]
   This selects \(m=1\) only after proving
   \(\Lambda_n\ge\gamma^{(r_n)}_{m,n}\) separately for every \(m\); it does
