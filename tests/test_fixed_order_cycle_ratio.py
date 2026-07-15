@@ -150,12 +150,13 @@ def _seven_label_dihedral_orders_oracle() -> tuple[tuple[int, ...], ...]:
     )
 
 
-def _near_minimum_duplicated_pairings_oracle(
-    labels: tuple[int, ...],
+def _low_pairing_signatures_oracle(
+    entries: tuple[int, ...],
     ceiling: int,
 ) -> tuple[int, dict[int, tuple[tuple[tuple[int, int], ...], ...]]]:
-    """Classify low-score pairings of two test-local copies of each label."""
-    duplicated = tuple(label for label in labels for _copy in range(2))
+    """Classify low-score pairings of one explicit test-local multiset."""
+    assert len(entries) % 2 == 0
+    entries = tuple(sorted(entries))
     minimum: int | None = None
     signatures: dict[int, set[tuple[tuple[int, int], ...]]] = {}
 
@@ -182,12 +183,23 @@ def _near_minimum_duplicated_pairings_oracle(
                 pairs + ((left, right),),
             )
 
-    visit(duplicated, ())
+    visit(entries, ())
     assert minimum is not None
     return minimum, {
         score: tuple(sorted(score_signatures))
         for score, score_signatures in sorted(signatures.items())
     }
+
+
+def _near_minimum_duplicated_pairings_oracle(
+    labels: tuple[int, ...],
+    ceiling: int,
+) -> tuple[int, dict[int, tuple[tuple[tuple[int, int], ...], ...]]]:
+    """Classify low pairings of two test-local copies of each label."""
+    return _low_pairing_signatures_oracle(
+        tuple(label for label in labels for _copy in range(2)),
+        ceiling,
+    )
 
 
 def _is_loopless_spanning_cycle_signature(
@@ -579,7 +591,7 @@ def test_lambda9_core_oracle_classifies_all_2520_dihedral_classes() -> None:
     assert sum(len(maximizers) == 2 for _order, _score, maximizers in rows) == 108
 
 
-def test_lambda10_lower_bound_oracle_covers_all_360_tail_classes() -> None:
+def test_lambda10_pairing_equality_branches_and_insertions_are_exact() -> None:
     labels = (5, 6, 7, 8, 9, 10)
     expected_pairings = {
         320: (
@@ -611,6 +623,159 @@ def test_lambda10_lower_bound_oracle_covers_all_360_tail_classes() -> None:
         if _is_loopless_spanning_cycle_signature(signature, labels)
     ) == ((322, cycle_pairing),)
 
+    def edge_corrections(
+        cycle: tuple[int, ...],
+    ) -> tuple[tuple[tuple[int, int], int], ...]:
+        return tuple(
+            sorted(
+                (
+                    tuple(sorted((left, right))),
+                    4 * (left + right) - left * right,
+                )
+                for left, right in zip(
+                    cycle,
+                    cycle[1:] + cycle[:1],
+                    strict=True,
+                )
+            )
+        )
+
+    tail_322 = (10, 5, 9, 7, 8, 6)
+    tail_322_corrections = (
+        ((5, 9), 11),
+        ((5, 10), 10),
+        ((6, 8), 8),
+        ((6, 10), 4),
+        ((7, 8), 4),
+        ((7, 9), 1),
+    )
+    assert _cyclic_product_sum(tail_322) == 322
+    assert _undirected_cycle_edge_signature(tail_322) == cycle_pairing
+    assert edge_corrections(tail_322) == tail_322_corrections
+    assert [
+        edge
+        for edge, correction in tail_322_corrections
+        if max(322, 322 + correction) == 323
+    ] == [(7, 9)]
+
+    all_corrections = {
+        edge: 4 * sum(edge) - edge[0] * edge[1]
+        for edge in itertools.combinations(labels, 2)
+    }
+    assert all_corrections == {
+        (5, 6): 14,
+        (5, 7): 13,
+        (5, 8): 12,
+        (5, 9): 11,
+        (5, 10): 10,
+        (6, 7): 10,
+        (6, 8): 8,
+        (6, 9): 6,
+        (6, 10): 4,
+        (7, 8): 4,
+        (7, 9): 1,
+        (7, 10): -2,
+        (8, 9): -4,
+        (8, 10): -8,
+        (9, 10): -14,
+    }
+    assert {
+        edge: correction
+        for edge, correction in all_corrections.items()
+        if correction <= 0
+    } == {
+        (7, 10): -2,
+        (8, 9): -4,
+        (8, 10): -8,
+        (9, 10): -14,
+    }
+
+    fixed_edge_rows = {
+        (7, 10): (
+            253,
+            ((5, 9), (5, 10), (6, 8), (6, 9), (7, 8)),
+        ),
+        (8, 9): (
+            251,
+            ((5, 10), (5, 10), (6, 8), (6, 9), (7, 7)),
+        ),
+        (8, 10): (
+            246,
+            ((5, 9), (5, 10), (6, 8), (6, 9), (7, 7)),
+        ),
+        (9, 10): (
+            240,
+            ((5, 9), (5, 10), (6, 8), (6, 8), (7, 7)),
+        ),
+    }
+    duplicated = [label for label in labels for _copy in range(2)]
+    fixed_edge_full_signatures = {}
+    for edge, (expected_floor, expected_signature) in fixed_edge_rows.items():
+        residual = duplicated.copy()
+        residual.remove(edge[0])
+        residual.remove(edge[1])
+        floor, signatures = _low_pairing_signatures_oracle(
+            tuple(residual),
+            ceiling=expected_floor,
+        )
+        assert floor == expected_floor
+        assert signatures == {expected_floor: (expected_signature,)}
+        fixed_edge_full_signatures[edge] = tuple(
+            sorted((*expected_signature, edge))
+        )
+
+    assert {
+        edge: edge[0] * edge[1] + fixed_edge_rows[edge][0]
+        for edge in fixed_edge_rows
+    } == {
+        (7, 10): 323,
+        (8, 9): 323,
+        (8, 10): 326,
+        (9, 10): 330,
+    }
+    assert _is_loopless_spanning_cycle_signature(
+        fixed_edge_full_signatures[(7, 10)], labels
+    )
+    assert not _is_loopless_spanning_cycle_signature(
+        fixed_edge_full_signatures[(8, 9)], labels
+    )
+
+    tail_323 = (10, 5, 9, 6, 8, 7)
+    tail_323_corrections = (
+        ((5, 9), 11),
+        ((5, 10), 10),
+        ((6, 8), 8),
+        ((6, 9), 6),
+        ((7, 8), 4),
+        ((7, 10), -2),
+    )
+    assert _cyclic_product_sum(tail_323) == 323
+    assert _undirected_cycle_edge_signature(tail_323) == (
+        fixed_edge_full_signatures[(7, 10)]
+    )
+    assert edge_corrections(tail_323) == tail_323_corrections
+    assert [
+        edge
+        for edge, correction in tail_323_corrections
+        if max(323, 323 + correction) == 323
+    ] == [(7, 10)]
+
+    equality_orders = (
+        ((10, 4, 7, 8, 6, 9, 5), 321, 323),
+        ((10, 5, 9, 4, 7, 8, 6), 323, 322),
+    )
+    assert _undirected_cycle_edge_signature((10, 5, 9, 6, 8, 7, 4)) == (
+        _undirected_cycle_edge_signature(equality_orders[0][0])
+    )
+    for order, expected_s7, expected_s6 in equality_orders:
+        tail = tuple(label for label in order if label != 4)
+        assert order[0] == 10 and order[1] < order[-1]
+        assert _cyclic_product_sum(order) == expected_s7
+        assert _cyclic_product_sum(tail) == expected_s6
+        assert max(expected_s7, expected_s6) == 323
+
+
+def test_lambda10_equality_class_oracle_covers_all_360_tail_classes() -> None:
     orders = _seven_label_dihedral_orders_oracle()
     rows = []
     for order in orders:
@@ -625,30 +790,6 @@ def test_lambda10_lower_bound_oracle_covers_all_360_tail_classes() -> None:
         (323, (10, 4, 7, 8, 6, 9, 5), 321, 323),
         (323, (10, 5, 9, 4, 7, 8, 6), 323, 322),
     ]
-
-    exceptional_rows = []
-    for _maximum, order, s7_score, s6_score in rows:
-        if s6_score > 322:
-            continue
-        four_position = order.index(4)
-        left = order[four_position - 1]
-        right = order[(four_position + 1) % len(order)]
-        correction = 4 * left + 4 * right - left * right
-        s6_order = tuple(label for label in order if label != 4)
-
-        assert s6_score == 322
-        assert _undirected_cycle_edge_signature(s6_order) == cycle_pairing
-        assert s7_score == s6_score + correction
-        exceptional_rows.append((tuple(sorted((left, right))), correction))
-
-    assert tuple(sorted(exceptional_rows)) == (
-        ((5, 9), 11),
-        ((5, 10), 10),
-        ((6, 8), 8),
-        ((6, 10), 4),
-        ((7, 8), 4),
-        ((7, 9), 1),
-    )
 
 
 def test_lambda10_witness_records_every_maximizing_subset_exactly() -> None:

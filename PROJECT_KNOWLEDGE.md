@@ -322,6 +322,18 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   four signatures respectively. Only one 322 signature is a simple spanning
   cycle, and inserting label \(4\) in any of its six edges raises the score by
   at least one.
+- EXACT THEOREM (FINITE \(n=10\) SEVEN-LABEL EQUALITY CLASSIFICATION):
+  equality in the preceding lemma holds in exactly two dihedral classes,
+  represented by
+  `(10,4,7,8,6,9,5)` and `(10,5,9,4,7,8,6)`, with score pairs
+  \((P(T_7),P(T_6))=(321,323)\) and \((323,322)\), respectively. In the
+  tail-322 branch the unique cyclic signature and its six exact corrections
+  force insertion on \(\{7,9\}\). In the tail-323 branch, the only possible
+  nonpositive-correction edges are
+  \(\{7,10\},\{8,9\},\{8,10\},\{9,10\}\); their fixed-edge pairing floors
+  are 323, 323, 326, and 330. The unique equality signature for \(\{8,9\}\)
+  is not a simple cycle, while \(\{7,10\}\) gives the sole surviving class.
+  This proof does not use cyclic-order enumeration.
 - VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT): the core witness
   \(\tau=(10,2,3,4,7,8,6,9,5)\) has complete sum 319. Its exact shortcut
   table has only the positive nontrivial gains
@@ -338,10 +350,11 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \(\Lambda_{10}=323\).
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): independent test-only
   helpers directly generate all \(6!/2=360\) dihedral classes in the
-  seven-label lemma, recover the exact eight low pairing signatures and six
-  insertion corrections, and literally score all \(2^9-1=511\) nonempty
-  witness subsets. They call no repository canonicalizer, public enumerator,
-  or production Karp scorer. Production source and the public complete-order
+  seven-label lemma, recover the exact low-pairing and fixed-edge branch data,
+  audit every required insertion correction, confirm exactly the two proved
+  equality classes, and literally score all \(2^9-1=511\) nonempty witness
+  subsets. They call no repository canonicalizer, public enumerator, or
+  production Karp scorer. Production source and the public complete-order
   `n<=8` boundary are unchanged.
 - INTERPRETATION: the \(n=10\) theorem and oracles are finite exact
   combinatorial results. They do not give an exact value of \(R_2^*(10)\), a
@@ -1015,8 +1028,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
   classification of all 28 \(n=9\) core minimizers, the consequent 224
   complete minimizer classes, and the independent 2,520-core argmax oracle,
   plus the exact finite value \(\Lambda_{10}=323\), its seven-label pairing
-  lemma, exact witness shortcut certificate, and independent 360-class and
-  511-subset checks.
+  lemma, structural classification of its two equality classes, exact witness
+  shortcut certificate, and independent 360-class and 511-subset checks.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -1029,12 +1042,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - COMPLETED PRIORITY: a bounded independent test-only Arb path now
   cross-verifies the decisive endpoint signs and complete embedded data of the
   checked `n=3` artifact without the production oracle or its enclosures.
-- RECOMMENDED NEXT TASK: in a fresh bounded task, prove structurally that the
-  two equality cycles already listed by the independent `n=10` lemma oracle
-  are exhaustive, separating the 322-tail branch from the 323-tail branch,
-  without placing labels `2` and `3`, classifying all core minimizers, or
-  changing production. Extending the independent Arb path to the checked
-  `n=4` artifact remains a separate open verification task.
+- RECOMMENDED NEXT TASK: in a fresh bounded task, determine the exact
+  admissible insertion gaps for label `3` in the two proved `n=10`
+  seven-label equality cycles while leaving label `2` unplaced and making no
+  complete core-minimizer classification. Extending the independent Arb path
+  to the checked `n=4` artifact remains a separate open verification task.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order

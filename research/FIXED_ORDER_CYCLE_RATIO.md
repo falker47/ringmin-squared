@@ -96,6 +96,13 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \(\{5,\ldots,10\}\), classifies exactly the eight pairing signatures at
   the only relevant integer levels 320--322, and then applies the exact
   correction for inserting label \(4\).
+- **EXACT THEOREM (FINITE SEVEN-LABEL EQUALITY CLASSIFICATION):** equality in
+  the preceding lemma holds in exactly two dihedral classes, represented by
+  `(10,4,7,8,6,9,5)` and `(10,5,9,4,7,8,6)`. The proof treats separately
+  tail scores 323 and 322. In the 323 branch, the insertion correction leaves
+  four possible tail edges; fixed-edge pairing bounds eliminate two, and the
+  exact residual equality signatures eliminate a third. Exactly one insertion
+  gap survives in each score branch.
 - **VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT):** the seven-label
   lemma and the exact shortcut-gain witness
   \(\tau=(10,2,3,4,7,8,6,9,5)\) give
@@ -113,9 +120,10 @@ in `research/ALL_N_LOWER_BOUND.md`.
   used in production and exists only as an independent small-test oracle.
 - **LIMITATION:** the exact `n=9` classification and exact `n=10` value are
   not a closed-form all-\(n\) evaluation or evidence for convergence to a
-  new asymptotic constant. The `n=10` core minimizers are deliberately not
-  classified here. No interval backend, verifier, interval-certificate
-  artifact, checked artifact, schema, or example is changed by this work.
+  new asymptotic constant. The two `n=10` seven-label equality cycles do not
+  classify the `n=10` core minimizers: labels `2` and `3` are deliberately not
+  placed here. No interval backend, verifier, interval-certificate artifact,
+  checked artifact, schema, or example is changed by this work.
 
 ## 1. Complete Fixed-Order STN
 
@@ -1431,6 +1439,151 @@ give an exact value of \(R_2^*(10)\), change the production scorer, enlarge
 the public enumeration domain, classify the `n=10` core minimizers, or imply
 a geometric, all-\(n\), or asymptotic statement.
 
+#### Structural equality classification for the seven-label lemma
+
+The equality cases of (L10-12) can be classified without enumerating cyclic
+orders. Write
+\[
+s=P_\omega(T_6),
+\qquad
+q=P_\omega(T_7),
+\qquad
+q=s+\delta(a,b),
+\tag{L10-25}
+\]
+where \(\{a,b\}\) is the edge of the induced tail cycle split by label \(4\)
+and
+\[
+\delta(a,b)=4(a+b)-ab=16-(a-4)(b-4).
+\tag{L10-26}
+\]
+Suppose \(\max\{q,s\}=323\). Then \(s\le323\). The pairing lower bound
+(L10-4) and the complete 320--322 signature table show that a simple tail
+cycle cannot have score 320 or 321. Hence only the two branches
+\[
+s=322
+\qquad\hbox{or}\qquad
+s=323
+\tag{L10-27}
+\]
+remain.
+
+In the branch \(s=322\), the same table forces the unique dihedral tail class
+\[
+C_*=(10,5,9,7,8,6).
+\tag{L10-28}
+\]
+All six corrections were computed in the insertion table above. Since
+\[
+\max\{322,322+\delta(a,b)\}=323
+\quad\Longleftrightarrow\quad
+\delta(a,b)=1,
+\tag{L10-29}
+\]
+only the edge \(\{7,9\}\) survives. Inserting label \(4\) there gives
+\[
+\omega_{322}=(10,5,9,4,7,8,6),
+\qquad
+(q,s)=(323,322).
+\tag{L10-30}
+\]
+
+It remains to treat the genuinely different branch \(s=323\). Here equality
+requires \(q\le323\), or equivalently \(\delta(a,b)\le0\). For completeness,
+the correction on every one of the 15 possible unordered pairs of distinct
+tail labels is
+
+| \(a\backslash b\) | 6 | 7 | 8 | 9 | 10 |
+|---:|---:|---:|---:|---:|---:|
+| 5 | 14 | 13 | 12 | 11 | 10 |
+| 6 | -- | 10 | 8 | 6 | 4 |
+| 7 | -- | -- | 4 | 1 | -2 |
+| 8 | -- | -- | -- | -4 | -8 |
+| 9 | -- | -- | -- | -- | -14 |
+
+Thus exactly four candidate edges have nonpositive correction:
+\[
+\{7,10\},\quad \{8,9\},\quad \{8,10\},\quad \{9,10\}.
+\tag{L10-31}
+\]
+Fix one such edge \(e=\{a,b\}\). The other five edges pair the residual
+multiset \(N_e=M\setminus\{a,b\}\), with one copy of each endpoint removed.
+The rearrangement bound therefore sharpens to
+\[
+s\ge ab+A(N_e).
+\tag{L10-32}
+\]
+The four exact residual calculations are:
+
+| Fixed edge \(e\) | \(A(N_e)\) | \(ab+A(N_e)\) | Anti-sorted residual signature |
+|---|---:|---:|---|
+| \(\{7,10\}\) | 253 | 323 | \((5,9),(5,10),(6,8),(6,9),(7,8)\) |
+| \(\{8,9\}\) | 251 | 323 | \((5,10)^2,(6,8),(6,9),(7,7)\) |
+| \(\{8,10\}\) | 246 | 326 | \((5,9),(5,10),(6,8),(6,9),(7,7)\) |
+| \(\{9,10\}\) | 240 | 330 | \((5,9),(5,10),(6,8)^2,(7,7)\) |
+
+The last two edges are impossible because their fixed-edge lower bounds
+already exceed 323. For each of the first two, apply the exact least-entry
+recurrence (L10-6)--(L10-7) to \(N_e\), with residual cutoff \(A(N_e)\).
+At depths zero through five its surviving-state counts are, respectively,
+\[
+(1,2,1,2,1,1)
+\qquad\hbox{and}\qquad
+(1,1,1,2,1,1),
+\tag{L10-33}
+\]
+and in each case the displayed anti-sorted residual signature is the unique
+leaf. This is the same exhaustive pairing recurrence used for the 320--322
+classification, now restricted by the candidate insertion edge; no cyclic-
+order enumeration enters the argument.
+
+Adding back \(\{8,9\}\) to its unique residual signature produces both the
+loop \((7,7)\) and the repeated edge \((5,10)^2\), so it cannot be a simple
+tail cycle. Adding back \(\{7,10\}\), on the other hand, gives the simple
+cycle
+\[
+D_*=(10,5,9,6,8,7).
+\tag{L10-34}
+\]
+Its six exact corrections are
+
+| Edge \(\{a,b\}\) | \(\delta(a,b)\) |
+|---|---:|
+| \(\{5,10\}\) | 10 |
+| \(\{5,9\}\) | 11 |
+| \(\{6,9\}\) | 6 |
+| \(\{6,8\}\) | 8 |
+| \(\{7,8\}\) | 4 |
+| \(\{7,10\}\) | -2 |
+
+Thus its only admissible insertion gap is the already fixed edge
+\(\{7,10\}\). Inserting label \(4\) there gives
+\((10,5,9,6,8,7,4)\); reflecting while fixing label \(10\) gives the chosen
+representative
+\[
+\omega_{323}=(10,4,7,8,6,9,5),
+\qquad
+(q,s)=(321,323).
+\tag{L10-35}
+\]
+
+Conversely, the literal scores in (L10-30) and (L10-35) show that both
+classes attain equality. Their tail scores differ, so the classes are
+distinct. We have therefore proved the exact finite structural theorem
+\[
+\boxed{
+\max\{P_\omega(T_7),P_\omega(T_6)\}=323
+\quad\Longleftrightarrow\quad
+\omega\sim_{\rm dihedral}(10,4,7,8,6,9,5)
+\qquad\hbox{or}\qquad
+\omega\sim_{\rm dihedral}(10,5,9,4,7,8,6).
+}
+\tag{L10-36}
+\]
+This classifies equality in the seven-label lemma only. It places neither
+label \(2\) nor label \(3\), and it does not classify the minimizing
+`n=10` core orders.
+
 #### Independent finite oracles for \(n=10\)
 
 The independent test-only lemma oracle fixes label \(10\) to remove
@@ -1444,14 +1597,14 @@ and exactly two equality rows:
 | `(10,4,7,8,6,9,5)` | 321 | 323 |
 | `(10,5,9,4,7,8,6)` | 323 | 322 |
 
-This is an exhaustive **computational** equality list. The proof above
-establishes the lower inequality but does not yet give a separate structural
-derivation of both equality cases.
+This exhaustive **computational** equality list agrees with the structural
+theorem (L10-36). It remains an independent test-only oracle and is not the
+source of that theorem.
 
 The same test independently enumerates duplicated-label pairing signatures
 through 322, recovers exactly the eight rows above, recognizes only the
-displayed 322 signature as a simple spanning cycle, and checks all six
-insertion corrections.
+displayed 322 signature as a simple spanning cycle, and checks the exact
+correction and fixed-edge pairing data used in both equality branches.
 
 A separate literal computation scores all \(2^9-1=511\) nonempty subsets
 of \(\tau_*\). It records every maximizing subset and supplies the following

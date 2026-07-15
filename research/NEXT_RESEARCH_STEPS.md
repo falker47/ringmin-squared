@@ -121,10 +121,16 @@ for \((10,2,3,4,7,8,6,9,5)\) attains 323, so
 \[
 \Lambda_{10}=323.
 \]
-Independent test-only arithmetic checks all 360 lemma classes and all 511
-nonempty witness subsets without a repository canonicalizer, public
-enumerator, or production scorer. The public domain remains `n<=8`; the
-`n=10` core minimizers are not classified by this task.
+Equality in the seven-label lemma is now classified structurally. Separating
+tail scores 322 and 323 and applying exact label-four corrections plus
+fixed-edge residual pairing bounds and the residual equality-signature
+recurrence leave exactly the two dihedral classes represented by
+`(10,4,7,8,6,9,5)` and `(10,5,9,4,7,8,6)`. Independent
+test-only arithmetic confirms this proved list over all 360 lemma classes and
+checks all 511 nonempty witness subsets without a repository canonicalizer,
+public enumerator, or production scorer. The public domain remains `n<=8`;
+the equality classification makes no placement claim for label `2` or `3`,
+and the `n=10` core minimizers are not classified.
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -437,15 +443,23 @@ saturation for every \(n\ge3\).
   has baseline 320. The exact least-entry recurrence has one, three, and four
   terminal signatures at values 320, 321, and 322; only one 322 signature is
   a simple cycle, and all six insertions of label four add at least one.
+- EXACT THEOREM (FINITE SEVEN-LABEL EQUALITY CLASSIFICATION): the only
+  dihedral equality classes are represented by `(10,4,7,8,6,9,5)` and
+  `(10,5,9,4,7,8,6)`, with tail scores 323 and 322, respectively. The proof
+  handles those branches separately. In the tail-323 branch, exact correction
+  signs leave four candidate insertion edges; fixed-edge pairing floors and
+  their unique residual equality signatures leave only \(\{7,10\}\). This
+  proof uses no sweep over cyclic orders.
 - VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT): the shortcut-gain table
   for \(\tau=(10,2,3,4,7,8,6,9,5)\) proves \(K(\tau)=323\), with exactly
   \(\{5,\ldots,10\}\) and \(\{3,\ldots,10\}\) maximizing. Hence the
   accepted reduction gives \(\Lambda_{10}=323\).
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): direct test-local
-  generation checks all \(6!/2=360\) lemma classes, all eight low pairing
-  signatures, all six insertion corrections, and all 511 nonempty witness
-  subsets. These paths call no repository canonicalizer, public enumerator,
-  or production scorer. They do not classify all `n=10` core minimizers.
+  generation confirms the proved equality list over all \(6!/2=360\) lemma
+  classes, independently audits the low-pairing and fixed-edge correction
+  data, and checks all 511 nonempty witness subsets. These paths call no
+  repository canonicalizer, public enumerator, or production scorer. They do
+  not classify all `n=10` core minimizers.
 - EXACT THEOREM: `research/ALL_N_LOWER_BOUND.md` proves the induced-subset
   lower-bound theorem. In particular, for every `n>=4` and `1<=m<=n-2`,
   \[
@@ -747,11 +761,13 @@ saturation for every \(n\ge3\).
    all-\(n\) evaluation or a general minimizer classification, although the
    additional finite equality/shortcut argument now classifies all \(n=9\)
    core \(K\)-minimizers and a separate pairing/shortcut argument proves the
-   value \(\Lambda_{10}=323\). The latter does not classify the `n=10`
-   minimizers. Insertion independence for \(\Lambda\) does not transfer to
-   the exact angular threshold. The resulting geometric upper bound recovers
-   the known coefficient \(8/(25\pi)\); it proves no exact geometric optimum
-   or new coefficient.
+   value \(\Lambda_{10}=323\) and exactly classifies equality in its
+   seven-label lemma. The latter classification places neither label `2` nor
+   label `3` and does not classify the `n=10` core minimizers. Insertion
+   independence for \(\Lambda\) does not transfer to the exact angular
+   threshold. The resulting geometric upper bound recovers the known
+   coefficient \(8/(25\pi)\); it proves no exact geometric optimum or new
+   coefficient.
 
 ## Updated Research Questions
 
@@ -790,13 +806,14 @@ saturation for every \(n\ge3\).
   224 complete minimizer classes. The independent 2,520-core oracle records
   every argmax and recovers the same classification. This closes only the
   specified finite combinatorial case, not any geometric or all-\(n\) case.
-- CLOSED FINITE VALUE / OPEN CLASSIFICATION: the next reduced value is
+- CLOSED FINITE VALUE AND SEVEN-LABEL EQUALITY CLASSIFICATION / OPEN CORE
+  CLASSIFICATION: the next reduced value is
   \(\Lambda_{10}=323\), proved by the seven-label pairing lemma and exact
   witness shortcut certificate in `research/FIXED_ORDER_CYCLE_RATIO.md` and
-  independently checked on 360 lemma classes and 511 witness subsets. The
-  oracle lists two equality cycles, but a separate structural proof of that
-  equality list and all minimizing `n=10` core orders are not supplied by the
-  value proof.
+  independently checked on 360 lemma classes and 511 witness subsets. A
+  separate structural branch proof now establishes exactly the two
+  seven-label equality cycles. Labels `2` and `3` and all minimizing `n=10`
+  core orders remain unclassified.
 
 ## Ranked Work
 
@@ -832,6 +849,10 @@ Completed:
   witness, then independently checked all 360 lemma classes and all 511
   witness subsets without changing production or classifying all core
   minimizers.
+- Classified structurally the two and only two seven-label equality cycles at
+  `n=10` by separating tail scores 322 and 323, auditing exact label-four
+  corrections, and using fixed-edge residual pairing bounds; retained the
+  360-class sweep solely as an independent test oracle.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -840,10 +861,10 @@ Completed:
 
 Immediate:
 
-- In a fresh bounded task, prove structurally the two `n=10` seven-label
-  equality cycles already listed by the independent oracle, as the next
-  prerequisite for any later core-minimizer question. Do not yet place labels
-  `2` and `3` or enumerate the full core space.
+- In a fresh bounded task, determine exactly which insertion gaps for label
+  `3` in the two proved `n=10` seven-label equality cycles can still satisfy
+  \(K\le323\). Leave label `2` unplaced and do not enumerate or classify the
+  complete core space.
 
 Next:
 
@@ -879,19 +900,19 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: give a human-checkable structural proof that the two equality cycles
-already listed by the independent `n=10` lemma oracle are exhaustive, without
-yet classifying all `n=10` core minimizers or changing production.
+Task: classify the admissible placements of label `3` into the two proved
+`n=10` seven-label equality cycles, while leaving label `2` unplaced and
+without classifying the complete core minimizers or changing production.
 
 Acceptance criteria:
 
-- extend the pairing-level analysis only as far as needed to prove every
-  equality cycle with maximum 323;
-- separate the branch with `P({5,...,10})=322` from any branch with tail
-  score 323 and audit every label-four correction exactly;
-- check the proved equality list with an independent test-only sweep of the
-  same 360 lemma classes;
-- make no placement claim for labels `2` and `3`, no full core-minimizer
-  count, and no geometric inference;
+- analyze all seven insertion gaps of each proved seven-label class through
+  exact induced-subset score changes rather than a full core sweep;
+- prove which partial orders on labels `3..10` can still have maximum score
+  at most 323, recording every equality subset needed for the later label-two
+  step;
+- keep any bounded enumeration independent and test-only;
+- make no placement claim for label `2`, no full core-minimizer count, and no
+  geometric inference;
 - keep the production scorer and public complete-order `n<=8` boundary
   unchanged.

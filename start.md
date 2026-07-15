@@ -136,10 +136,19 @@ maximizing subsets \(\{5,\ldots,10\}\) and \(\{3,\ldots,10\}\). Hence
 \[
 \Lambda_{10}=323.
 \]
-Independent test-only arithmetic checks all 360 lemma classes and all 511
-nonempty witness subsets without calling the public enumerator or production
-scorer. The public complete-order domain remains `n<=8`, and the full set of
-`n=10` core minimizers is not classified in this result.
+Equality in the seven-label lemma is also classified structurally. The tail
+score can only be 322 or 323. In the first branch the unique low cyclic
+signature permits only the insertion edge \(\{7,9\}\); in the second branch,
+the four possible nonpositive corrections lead to fixed-edge pairing floors
+that eliminate \(\{8,10\}\) and \(\{9,10\}\), while the unique residual
+equality signature eliminates \(\{8,9\}\), leaving only \(\{7,10\}\). Thus
+the equality classes are exactly those
+represented by `(10,4,7,8,6,9,5)` and `(10,5,9,4,7,8,6)`. Independent
+test-only arithmetic confirms this list over all 360 lemma classes and checks
+all 511 nonempty witness subsets without calling the public enumerator or
+production scorer. The public complete-order domain remains `n<=8`, labels
+`2` and `3` are not placed by the equality proof, and the full set of `n=10`
+core minimizers is not classified.
 
 A strengthened all-`n` mathematical lower bound has been proved from induced
 subsets of cyclic gaps. For every `n>=4` and `1<=m<=n-2`,
@@ -666,8 +675,9 @@ and elimination proofs, scorer algorithm, the exact reduced values
 comparison with \(W\), and asymptotic limitations. One-wrap saturation and
 insertion independence concern the product ratio; they do not reduce exact
 angular-STN feasibility to one-wrap cycle checks or make \(\rho_\sigma\)
-insertion-independent. The `n=10` result proves the value only and does not
-classify all minimizing core orders.
+insertion-independent. The `n=10` results prove the value and classify
+equality in the seven-label lemma, but do not place labels `2` or `3` and do
+not classify all minimizing core orders.
 
 ## Current Knowledge Status
 
@@ -761,15 +771,23 @@ classify all minimizing core orders.
   The proof classifies exactly the eight duplicated-pairing signatures at
   values 320--322 and checks the six possible label-four insertion
   corrections in the sole cyclic signature.
+- EXACT THEOREM (FINITE \(n=10\) SEVEN-LABEL EQUALITY CLASSIFICATION):
+  equality in the preceding lemma holds in exactly the two dihedral classes
+  represented by `(10,4,7,8,6,9,5)` and `(10,5,9,4,7,8,6)`, with
+  \((P(T_7),P(T_6))=(321,323)\) and \((323,322)\), respectively. The proof
+  separates the two tail-score branches, audits every needed label-four
+  correction, and uses fixed-edge residual pairing bounds rather than the
+  360-class sweep.
 - VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT): the exact shortcut-gain
   certificate for `(10,2,3,4,7,8,6,9,5)` gives \(K=323\), with precisely
   \(\{5,\ldots,10\}\) and \(\{3,\ldots,10\}\) as argmax subsets. Thus the
   accepted reduction gives \(\Lambda_{10}=323\).
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): independent test-only
-  code checks all \(6!/2=360\) lemma classes and literally evaluates all 511
-  nonempty witness subsets. It calls no repository canonicalizer, public
-  enumerator, or production Karp scorer, and the public `n<=8` boundary is
-  unchanged.
+  code confirms the proved equality list over all \(6!/2=360\) lemma classes,
+  independently checks the pairing/correction branch data, and literally
+  evaluates all 511 nonempty witness subsets. It calls no repository
+  canonicalizer, public enumerator, or production Karp scorer, and the public
+  `n<=8` boundary is unchanged.
 - INTERPRETATION: the \(n=10\) result is finite and combinatorial. It gives
   no exact value of \(R_2^*(10)\), geometric statement, all-\(n\) formula,
   asymptotic claim, or classification of every minimizing core order.
