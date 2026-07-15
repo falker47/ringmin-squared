@@ -112,6 +112,41 @@ def _induced_subset_one_wrap_oracle(order: tuple[int, ...]) -> Fraction:
     return Fraction(best)
 
 
+def _cyclic_product_sum(values: tuple[int, ...]) -> int:
+    """Return the literal cyclic adjacent-product sum for one nonempty tuple."""
+    assert values
+    return sum(
+        left * right
+        for left, right in zip(values, values[1:] + values[:1], strict=True)
+    )
+
+
+def _six_label_dihedral_orders_oracle() -> tuple[tuple[int, ...], ...]:
+    """Generate the 60 dihedral classes on ``{4, ..., 9}`` test-locally.
+
+    Fixing label nine removes rotations.  The endpoint comparison retains
+    exactly one orientation from each reflection pair.  This helper does not
+    call a repository canonicalizer or either public enumeration path.
+    """
+    return tuple(
+        order
+        for tail in itertools.permutations((4, 5, 6, 7, 8))
+        if (order := (9, *tail))[1] < order[-1]
+    )
+
+
+def _literal_induced_label_subset_scores(
+    order: tuple[int, ...],
+) -> dict[frozenset[int], int]:
+    """Score every nonempty induced label subset without production code."""
+    scores: dict[frozenset[int], int] = {}
+    for subset_size in range(1, len(order) + 1):
+        for positions in itertools.combinations(range(len(order)), subset_size):
+            induced_order = tuple(order[position] for position in positions)
+            scores[frozenset(induced_order)] = _cyclic_product_sum(induced_order)
+    return scores
+
+
 def _insert_one_after(
     core_order: tuple[int, ...],
     left_position: int,
@@ -253,6 +288,63 @@ def test_index_one_elimination_on_all_core_orders_and_insertions_n3_to_n8() -> N
     assert total_core_orders == 437
     assert total_insertion_trials == 2_957
     assert total_complete_orders == 2_956
+
+
+def test_lambda9_lower_bound_oracle_covers_all_sixty_tail_classes() -> None:
+    orders = _six_label_dihedral_orders_oracle()
+    rows = []
+    for order in orders:
+        s6_score = _cyclic_product_sum(order)
+        s5_order = tuple(label for label in order if label != 4)
+        s5_score = _cyclic_product_sum(s5_order)
+        rows.append((max(s6_score, s5_score), order, s6_score, s5_score))
+
+    assert len(orders) == 60
+    assert len(set(orders)) == 60
+    assert min(row[0] for row in rows) == 239
+    assert [row for row in rows if row[0] == 239] == [
+        (239, (9, 4, 7, 6, 8, 5), 239, 238)
+    ]
+    assert [row for row in rows if row[2] < 239] == [
+        (242, (9, 4, 8, 6, 7, 5), 238, 242)
+    ]
+
+
+def test_lambda9_witness_records_every_maximizing_subset_exactly() -> None:
+    core_order = (9, 2, 3, 5, 8, 6, 7, 4)
+    scores = _literal_induced_label_subset_scores(core_order)
+    expected_by_size = {
+        1: (81, frozenset({9})),
+        2: (144, frozenset({8, 9})),
+        3: (191, frozenset({7, 8, 9})),
+        4: (225, frozenset({6, 7, 8, 9})),
+        5: (238, frozenset({5, 6, 7, 8, 9})),
+        6: (239, frozenset({4, 5, 6, 7, 8, 9})),
+        7: (236, frozenset({3, 4, 5, 6, 7, 8, 9})),
+        8: (233, frozenset({2, 3, 4, 5, 6, 7, 8, 9})),
+    }
+
+    assert len(scores) == 2**len(core_order) - 1 == 255
+    for subset_size, (expected_score, expected_subset) in expected_by_size.items():
+        row = {
+            subset: score
+            for subset, score in scores.items()
+            if len(subset) == subset_size
+        }
+        row_maximum = max(row.values())
+        assert row_maximum == expected_score
+        assert {subset for subset, score in row.items() if score == row_maximum} == {
+            expected_subset
+        }
+
+    maximum = max(scores.values())
+    assert maximum == 239
+    assert {subset for subset, score in scores.items() if score == maximum} == {
+        frozenset({4, 5, 6, 7, 8, 9})
+    }
+    assert _cyclic_product_sum((9, 5, 8, 6, 7, 4)) == (
+        9 * 5 + 5 * 8 + 8 * 6 + 6 * 7 + 7 * 4 + 4 * 9
+    ) == 239
 
 
 def test_score_is_invariant_under_rotation_and_reflection() -> None:

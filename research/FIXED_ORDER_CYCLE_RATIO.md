@@ -61,6 +61,24 @@ in `research/ALL_N_LOWER_BOUND.md`.
   2,957 insertion gaps for \(n=3,\ldots,8\). It covers the same 2,956
   complete rotation/reflection classes; the extra trial is the explicit
   two-arc degeneracy at \(n=3\).
+- **EXACT THEOREM (FINITE SIX-LABEL LEMMA):** for every cyclic order
+  \(\omega\) on \(S_6=\{4,\ldots,9\}\), with
+  \(S_5=\{5,\ldots,9\}\),
+  \[
+  \max\{P_\omega(S_6),P_\omega(S_5)\}\ge239.
+  \]
+  The proof uses a general rearrangement lower bound and only twelve explicit
+  exceptional cyclic sums, rather than enumerating the 60 classes.
+- **VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT):** the accepted core
+  reduction, the six-label lemma, and the exact witness
+  \(\tau=(9,2,3,5,8,6,7,4)\) give
+  \(\Lambda_9=239\). The witness has the unique maximizing subset
+  \(\{4,5,6,7,8,9\}\). This is a finite combinatorial value, not an exact
+  geometric value or an all-\(n\) formula.
+- **VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION):** an independent
+  test-only oracle checks the six-label lemma on all 60 dihedral classes, and
+  a separate literal audit checks all 255 nonempty witness subsets. Neither
+  check calls the public enumerator or production Karp scorer.
 - **VERIFIED FACT:** `src/power_ringmin/fixed_order_cycle_ratio.py` implements
   a float-free exact scorer using descending-path compression and Karp's
   maximum-cycle-mean dynamic program. Direct simple-cycle enumeration is not
@@ -686,7 +704,9 @@ and `Fraction` result: the new induced-subset and subset/path implementations
 remain test-only independent oracles, and the hard production enumeration
 domain is unchanged.
 
-## 6. Bounded Exact Experiment, \(n=3,\ldots,8\)
+## 6. Finite Exact Results
+
+### Public bounded enumeration, \(n=3,\ldots,8\)
 
 The production scorer was minimized over every canonical complete order using
 the repository convention: put \(n\) first and retain the reflection with
@@ -753,6 +773,173 @@ count. Each insertion is checked both by literal exact subset maximization and
 by the production scorer. This is a **VERIFIED FACT (FINITE EXHAUSTIVE EXACT
 COMPUTATION)**, not the proof of (CR12p), and it does not extend the production
 domain beyond \(n=8\).
+
+### Reduced exact evaluation at \(n=9\), without public enumeration
+
+Put
+\[
+S_6=\{4,5,6,7,8,9\},
+\qquad
+S_5=\{5,6,7,8,9\}.
+\tag{L9-1}
+\]
+For a cyclic order \(\omega\) on \(S_6\), write \(P_\omega(S)\) for the
+cyclic adjacent-product sum in the order induced on \(S\). Let \(a,b\) be
+the two neighbors of label \(4\) in \(\omega\). Deleting \(4\) replaces
+the contributions \(4a+4b\) by \(ab\), so
+\[
+P_\omega(S_6)
+=P_\omega(S_5)+4(a+b)-ab
+=P_\omega(S_5)+16-(a-4)(b-4).
+\tag{L9-2}
+\]
+
+The duplicated-multiset rearrangement bound, applied to any cyclic order on
+\(S_5\), gives the human-checkable baseline
+\[
+P_\omega(S_5)
+\ge5\cdot9+6\cdot8+7^2+8\cdot6+9\cdot5
+=235.
+\tag{L9-3}
+\]
+If \(\{a,b\}\) is neither \(\{7,9\}\) nor \(\{8,9\}\), then the distinct
+integers \(a-4,b-4\in\{1,\ldots,5\}\) have product at most \(12\).
+Equations (L9-2)--(L9-3) therefore give
+\(P_\omega(S_6)\ge235+4=239\).
+
+Only two neighbor pairs remain. Name them so that \(a<b\), and reflect the
+cycle if necessary so that the new edge created by deleting label \(4\) is
+oriented \(a\to b\). The induced five-cycle can then be written
+\((a,b,x,y,z)\). The following table lists all six possibilities for the
+three remaining labels, in lexicographic order. Every entry is a direct sum
+of five integer products.
+
+| \(\{a,b\}\) | Permutations \((x,y,z)\) | Corresponding values of \(P_\omega(S_5)\) | Minimum |
+|---|---|---|---:|
+| \(\{7,9\}\) | `568, 586, 658, 685, 856, 865` | `242, 238, 243, 240, 247, 248` | 238 |
+| \(\{8,9\}\) | `567, 576, 657, 675, 756, 765` | `245, 242, 247, 243, 248, 247` | 242 |
+
+For \(\{a,b\}=\{7,9\}\), the correction in (L9-2) is \(1\), so
+\(P_\omega(S_6)\ge239\). For \(\{a,b\}=\{8,9\}\), the table already gives
+\(P_\omega(S_5)\ge242\). This proves the finite exact lemma
+\[
+\boxed{
+\max\{P_\omega(S_6),P_\omega(S_5)\}\ge239
+\quad\text{for every cyclic order \(\omega\) on \(S_6\)}.
+}
+\tag{L9-4}
+\]
+The argument is a proof, not a conclusion drawn from the 60-class test.
+
+For any core order \(\tau\) of \(\{2,\ldots,9\}\), both \(S_6\) and
+\(S_5\) are admitted in the definition of \(K(\tau)\). Applying (L9-4) to
+the order induced by \(\tau\) gives
+\[
+K(\tau)
+\ge\max\{P_\tau(S_6),P_\tau(S_5)\}
+\ge239.
+\tag{L9-5}
+\]
+
+For the reverse inequality, consider the supplied core order
+\[
+\tau_*=(9,2,3,5,8,6,7,4).
+\tag{L9-6}
+\]
+Its complete-core cyclic sum is \(233\). For an oriented arc from \(i\) to
+\(j\) in this order, define its shortcut gain by
+\[
+g(i,j)
+=ij-
+\sum_{xy\text{ an edge on the oriented arc from }i\text{ to }j}xy.
+\tag{L9-7}
+\]
+Adjacent endpoints have gain zero. The following table gives every
+nontrivial gain; \(r\) is the number of skipped internal vertices, and each
+cell has the form `endpoint:gain`.
+
+| Start | \(r=1\) | \(r=2\) | \(r=3\) | \(r=4\) | \(r=5\) | \(r=6\) |
+|---:|---:|---:|---:|---:|---:|---:|
+| 9 | `3:+3` | `5:+6` | `8:-7` | `6:-73` | `7:-106` | `4:-161` |
+| 2 | `5:-11` | `8:-45` | `6:-97` | `7:-137` | `4:-171` | `9:-197` |
+| 3 | `8:-31` | `6:-85` | `7:-124` | `4:-161` | `9:-182` | `2:-221` |
+| 5 | `6:-58` | `7:-95` | `4:-138` | `9:-149` | `2:-202` | `3:-203` |
+| 8 | `7:-34` | `4:-86` | `9:-82` | `2:-156` | `3:-154` | `5:-153` |
+| 6 | `4:-46` | `9:-52` | `2:-112` | `3:-112` | `5:-115` | `8:-137` |
+| 7 | `9:-1` | `2:-68` | `3:-67` | `5:-68` | `8:-87` | `6:-149` |
+| 4 | `2:-46` | `3:-48` | `5:-55` | `8:-83` | `6:-139` | `7:-177` |
+
+Let \(U\) be an induced subset with \(|U|\ge2\). The oriented arcs from
+each selected label to the next selected label partition the eight edges of
+the complete core cycle. Consequently
+\[
+P_{\tau_*}(U)-233
+=\sum_{(i,j)\text{ a selected gap}}g(i,j).
+\tag{L9-8}
+\]
+For \(|U|=2\), the two complementary arcs contribute the two shortcuts
+\(ij+ji=2ij\), exactly matching the adopted two-element convention.
+
+The only positive nontrivial gains in the table are \(g(9,3)=3\) and
+\(g(9,5)=6\). Exactly one selected gap can leave label \(9\), so (L9-8) is
+at most \(6\). Equality forces the gap \(9\to5\), skipping labels \(2,3\),
+and every other gap to be adjacent because there is no nontrivial zero gain.
+Thus equality forces
+\[
+U=S_6,
+\qquad
+\tau_*|_{S_6}=(9,5,8,6,7,4),
+\tag{L9-9}
+\]
+whose score is
+\[
+9\cdot5+5\cdot8+8\cdot6+6\cdot7+7\cdot4+4\cdot9=239.
+\tag{L9-10}
+\]
+Singleton scores are at most \(9^2=81\). Therefore
+\[
+K(\tau_*)=239,
+\qquad
+\operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,9\}}
+P_{\tau_*}(U)=\{S_6\}.
+\tag{L9-11}
+\]
+
+Combining (L9-5), (L9-11), and the accepted reduction (CR28a) proves the
+requested value
+\[
+\boxed{\Lambda_9=239.}
+\tag{L9-12}
+\]
+This is a **VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT)**. It neither
+extends the production enumeration past \(n=8\) nor gives an exact value of
+\(R_2^*(9)\), a geometric statement, an all-\(n\) formula, an asymptotic
+claim, or a classification of all minimizing core orders.
+
+The independent test-only lower-bound oracle fixes label \(9\) to remove
+rotations, generates the \(5!\) remaining permutations directly, and keeps
+the orientation whose second label is smaller than its last. It therefore
+checks exactly \(5!/2=60\) dihedral classes without calling repository
+canonicalizers, the public enumerator, or the production scorer. Its minimum
+of \(\max\{P(S_6),P(S_5)\}\) is 239. A separate literal enumeration of all
+\(2^8-1=255\) nonempty subsets of \(\tau_*\) verifies (L9-11), records
+\(S_6\) as the sole global maximizer, and gives the following independently
+reproducible per-cardinality audit:
+
+| \(|U|\) | Maximum score | Unique maximizing subset |
+|---:|---:|---|
+| 1 | 81 | \(\{9\}\) |
+| 2 | 144 | \(\{8,9\}\) |
+| 3 | 191 | \(\{7,8,9\}\) |
+| 4 | 225 | \(\{6,7,8,9\}\) |
+| 5 | 238 | \(S_5\) |
+| 6 | 239 | \(S_6\) |
+| 7 | 236 | \(\{3,4,5,6,7,8,9\}\) |
+| 8 | 233 | \(\{2,3,4,5,6,7,8,9\}\) |
+
+These two sweeps are **VERIFIED FACTS (FINITE EXHAUSTIVE EXACT
+COMPUTATION)** and independently audit the finite proof; they are not its
+source and do not alter a public enumeration limit.
 
 ## 7. Comparison With \(W\)
 

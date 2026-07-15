@@ -71,6 +71,27 @@ common minimizing orders. An exact test-only sweep covers all 437 canonical
 core orders and 2,957 insertion gaps through `n=8`, representing the same
 2,956 complete classes. The duplicate is the explicit two-arc `n=3` case.
 
+The reduced formulation has now yielded one exact value beyond the public
+enumeration boundary, without moving that boundary. For
+\(S_6=\{4,\ldots,9\}\) and \(S_5=\{5,\ldots,9\}\), a finite hand-checkable
+lemma proves
+\[
+\max\{P_\omega(S_6),P_\omega(S_5)\}\ge239
+\]
+for every cyclic order \(\omega\) on \(S_6\). Therefore every core order has
+\(K(\tau)\ge239\). The explicit witness
+\(\tau=(9,2,3,5,8,6,7,4)\) has \(K(\tau)=239\), with the unique maximizing
+subset \(S_6\), so
+\[
+\Lambda_9=239.
+\]
+This is a **VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT)**. A test-only
+oracle independently checks all 60 six-label dihedral classes, and a literal
+255-subset audit checks the witness. Neither uses or enlarges the public
+`n<=8` enumerator. No exact value of \(R_2^*(9)\), all-\(n\) formula,
+geometric conclusion, asymptotic claim, or complete minimizer classification
+follows.
+
 As of 2026-07-14, the former asymptotic target
 \[
 R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))
@@ -337,6 +358,25 @@ saturation for every \(n\ge3\).
   minimizer counts are `(1,1,1,3,4,12)` and complete minimizer counts are
   `(1,3,4,15,24,84)`. At `n=3`, the two insertions into
   \(\tau=(3,2)\) are reflections and give the same canonical complete class.
+- EXACT THEOREM (FINITE SIX-LABEL LEMMA): for every cyclic order \(\omega\)
+  on \(S_6=\{4,\ldots,9\}\), with \(S_5=\{5,\ldots,9\}\),
+  \[
+  \max\{P_\omega(S_6),P_\omega(S_5)\}\ge239.
+  \]
+  The proof starts from the exact rearrangement bound
+  \(P_\omega(S_5)\ge235\), uses
+  the insertion identity
+  \(P_\omega(S_6)-P_\omega(S_5)=16-(a-4)(b-4)\) for the two neighbors
+  \(a,b\) of label four, and checks only the exceptional pairs \(\{7,9\}\) and
+  \(\{8,9\}\) by twelve displayed integer sums.
+- VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT): the six-label lemma and
+  the exact shortcut-gain certificate for
+  \(\tau=(9,2,3,5,8,6,7,4)\) prove \(\Lambda_9=239\) through the accepted
+  reduction. The sole maximizing witness subset is
+  \(\{4,5,6,7,8,9\}\). An independent test-only oracle checks all 60
+  six-label dihedral classes, while a separate literal computation checks all
+  255 nonempty witness subsets and records their maxima by cardinality.
+  Production enumeration remains hard-bounded to `n<=8`.
 - EXACT THEOREM: `research/ALL_N_LOWER_BOUND.md` proves the induced-subset
   lower-bound theorem. In particular, for every `n>=4` and `1<=m<=n-2`,
   \[
@@ -670,6 +710,11 @@ saturation for every \(n\ge3\).
   closed there, with separate Karp-independent and all-insertion bounded
   oracles. Their distinction from exact angular-STN cycle criticality and
   their asymptotic non-consequences remain explicit.
+- CLOSED FINITE QUESTION: the first reduced value beyond the public
+  cyclic-ratio enumeration boundary is \(\Lambda_9=239\). Its proof and
+  independent bounded oracles are recorded in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`; this closes only the specified
+  finite case.
 
 ## Ranked Work
 
@@ -691,6 +736,10 @@ Completed:
   \(\Lambda_n\le(n-1)W_n\) and its all-\(n\) geometric upper bound, and
   checked every canonical core order and insertion gap through `n=8` without
   changing production limits or certification claims.
+- Proved the finite exact value \(\Lambda_9=239\) from a hand-checkable
+  six-label lower-bound lemma and an exact core witness, then independently
+  checked the 60 six-label cyclic classes and all 255 witness subsets without
+  changing the public `n<=8` enumerator.
 
 Immediate:
 
