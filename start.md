@@ -260,6 +260,38 @@ shows that optimizing this three-tail obstruction still gives
 This is a method-specific limitation, not an asymptotic evaluation of
 \(\Lambda_n\) or \(R_2^*(n)\).
 
+The entire consecutive-tail hierarchy is now parametrized on the ordinary
+simple-cycle domain. For
+\(2\le r\le n-2\), \(1\le m\le n-r-1\), put
+\(\ell=m+r-1\). A cycle on \(S_m\) is uniquely a simple base cycle on
+\(S_\ell\) followed by insertion of
+\(\ell-1,\ell-2,\ldots,m\) through compatible edge splits. If the
+successive corrections are \(A_1,\ldots,A_{r-1}\), the exact block score is
+\[
+P(C)+\max_{0\le j\le r-1}\sum_{i=1}^j A_i.
+\]
+Every intermediate cycle and literal split linkage is required. In
+particular, recursively nested child-edge dominoes are admissible and cannot
+in general be replaced by distinct base edges. Writing \(P^*_{\ell,n}\) for
+the exact inner simple-cycle minimum, the resulting exact obstruction obeys
+\[
+0\le\gamma^{(r)}_{m,n}-P^*_{\ell,n}
+\le\sum_{t=m}^{\ell-1}[t^2-2]_+
+<(r-1)n^2,
+\]
+and the duplicated-pairing comparison is
+\[
+P_{\ell,n}\le\gamma^{(r)}_{m,n}<P_{\ell,n}+rn^2.
+\]
+Thus every fixed block, and more generally every \(r=r(n)=o(n)\), preserves
+the coefficient \(2(\sqrt2-1)/3\) for this separately optimized one-block
+method. Linear \(r=\Theta(n)\) is the first scale not excluded by the error
+bound; no improvement is proved there. A bounded exact test-local oracle for
+\((m,n,r)=(2,7,4)\) matches all 60 compatible triple-split histories with all
+60 outer dihedral cycles and obtains \((106,107,118)\) for the pairing floor,
+inner cycle minimum, and four-tail obstruction. Production code and limits
+remain unchanged.
+
 There is also an exact eventual radius-one insertion theorem. Let
 \(R^*_{2:n}\) be the infimum feasible central radius for only the core radii
 \(2^2,\dots,n^2\). A core configuration at radius \(R\) admits insertion of
@@ -744,9 +776,10 @@ R_2^*(n)<{\Lambda_n\over\pi}
 and elimination proofs, scorer algorithm, the exact reduced values
 \(\Lambda_9=239\) and \(\Lambda_{10}=323\), their complete finite core
 minimizer classifications, independent bounded oracles, comparison with
-\(W\), and asymptotic limitations. One-wrap saturation and insertion
-independence concern the product ratio; they do not reduce exact angular-STN
-feasibility to one-wrap cycle checks or make \(\rho_\sigma\)
+\(W\), the exact arbitrary consecutive-tail split-history theorem through
+every sublinear block length, and asymptotic limitations. One-wrap saturation
+and insertion independence concern the product ratio; they do not reduce
+exact angular-STN feasibility to one-wrap cycle checks or make \(\rho_\sigma\)
 insertion-independent. The `n=10` proof classifies equality in the
 seven-label lemma, then labels `3` and `2`, and only afterward derives the
 783 complete classes by inserting label `1`.
@@ -864,6 +897,44 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \((46,47,47)\), \((116,117,118)\), \((235,237,239)\), and
   \((320,322,323)\) for the checked small cases. These are test-local finite
   checks, not the all-\(n\) proof.
+- EXACT THEOREM (ARBITRARY NESTED-TAIL BLOCK): for
+  \(2\le r\le n-2\), \(1\le m\le n-r-1\), and
+  \(\ell=m+r-1\), deletion followed by reverse insertion is a bijection
+  between cycles on \(S_m\) and a base cycle on \(S_\ell\) with
+  \(r-1\) compatible descending edge splits. With exact corrections
+  \(A_i\),
+  \[
+  \gamma^{(r)}_{m,n}
+  =\min_{\text{compatible histories}}\left[P(C)+
+  \max_{0\le j\le r-1}\sum_{i=1}^jA_i\right].
+  \]
+  Every intermediate signature must be a connected simple spanning cycle and
+  satisfy the literal split identity. Long nested domino histories remain
+  admissible; the three-tail reduction to distinct base edges is not a
+  general parametrization.
+- EXACT METHOD-SPECIFIC THEOREM: uniformly,
+  \[
+  0\le\gamma^{(r)}_{m,n}-P^*_{m+r-1,n}
+  \le\sum_{t=m}^{m+r-2}[t^2-2]_+<(r-1)n^2,
+  \]
+  and
+  \[
+  P_{m+r-1,n}\le\gamma^{(r)}_{m,n}
+  <P_{m+r-1,n}+rn^2.
+  \]
+  Consequently fixed \(r\) gives the old cubic coefficient with
+  \(O_r(n^2)\) error, every \(r=o(n)\) gives the same coefficient with
+  \(o(n^3)\) error, and linear \(r=\Theta(n)\) is only the first scale not
+  excluded from changing it.
+- VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): at
+  \((m,n,r)=(2,7,4)\), all 60 compatible triple-split histories agree
+  signature by signature with all 60 directly generated outer cycles, and
+  \[
+  (P_{5,7},P^*_{5,7},\gamma^{(4)}_{2,7})=(106,107,118).
+  \]
+  Bounded specializations for \(r=2,3\), a multi-base \(r=4\) row, and an
+  exact admissible-domino prefix are also checked test-locally without
+  production code.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): the exact bounded
   `Fraction` scorer gives
   \((\Lambda_3,\dots,\Lambda_8)=(12,26,47,77,118,172)\) over all 2,956
@@ -1205,11 +1276,11 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   independent of the finite certificates; the upper and lower leading
   coefficients do not currently match.
 - INTERPRETATION: the coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal for the
-  documented single-subset relaxation, and the distinct two-consecutive-tail
-  and three-consecutive-tail extensions have the same leading coefficient.
-  None of these method-specific results is a proved exact asymptotic
-  coefficient for Power-Ringmin or excludes coupling a number of tails that
-  grows with \(n\).
+  documented single-subset relaxation. The exact consecutive-tail block
+  extension has the same leading coefficient for every fixed length and for
+  every \(r=o(n)\). This method-specific result is not a proved exact
+  asymptotic coefficient for Power-Ringmin; it leaves linear-size blocks
+  \(r=\Theta(n)\) unresolved.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit
   and unresolved for public production claims. The bounded test-only Arb
   cross-check covers checked `n=3` only and is not a full backend audit.

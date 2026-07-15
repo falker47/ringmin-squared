@@ -452,6 +452,143 @@ def _three_nested_tail_bound_oracle(
     )
 
 
+def _consecutive_tail_block_oracle(
+    m: int,
+    n: int,
+    r: int,
+) -> tuple[
+    int,
+    int,
+    dict[tuple[tuple[int, int], ...], int],
+    int,
+    int,
+]:
+    """Enumerate compatible descending splits for one bounded tail block."""
+    ell = m + r - 1
+    assert m >= 1
+    assert r >= 2
+    assert ell <= n - 2
+
+    base_labels = tuple(range(ell, n + 1))
+    base_orders = _dihedral_orders_on_labels_oracle(base_labels)
+    minimum_base_score: int | None = None
+    objectives_by_signature: dict[tuple[tuple[int, int], ...], int] = {}
+    history_count = 0
+    fully_nested_history_count = 0
+
+    for base in base_orders:
+        base_score = _cyclic_product_sum(base)
+        minimum_base_score = (
+            base_score
+            if minimum_base_score is None
+            else min(minimum_base_score, base_score)
+        )
+        base_signature = _undirected_cycle_edge_signature(base)
+        assert _is_loopless_spanning_cycle_signature(
+            base_signature,
+            base_labels,
+        )
+
+        def visit(
+            current: tuple[int, ...],
+            next_label: int,
+            prefixes: tuple[int, ...],
+            previous_children: frozenset[tuple[int, int]] | None,
+            fully_nested: bool,
+        ) -> None:
+            nonlocal history_count, fully_nested_history_count
+
+            if next_label < m:
+                history_count += 1
+                fully_nested_history_count += int(fully_nested)
+                final_signature = _undirected_cycle_edge_signature(current)
+                assert final_signature not in objectives_by_signature
+
+                induced_scores = tuple(
+                    _cyclic_product_sum(
+                        tuple(label for label in current if label >= threshold)
+                    )
+                    for threshold in range(ell, m - 1, -1)
+                )
+                prefix_scores = tuple(
+                    base_score + prefix for prefix in prefixes
+                )
+                assert induced_scores == prefix_scores
+                objectives_by_signature[final_signature] = max(prefix_scores)
+                return
+
+            current_signature = _undirected_cycle_edge_signature(current)
+            current_edges = set(current_signature)
+            current_score = _cyclic_product_sum(current)
+
+            for position, left in enumerate(current):
+                right = current[(position + 1) % len(current)]
+                split_edge = (min(left, right), max(left, right))
+                inserted = _split_cycle_edge_oracle(
+                    current,
+                    position,
+                    next_label,
+                )
+                correction = next_label * (left + right) - left * right
+                inserted_score = _cyclic_product_sum(inserted)
+                inserted_signature = _undirected_cycle_edge_signature(inserted)
+                inserted_edges = set(inserted_signature)
+                child_edges = frozenset(
+                    {
+                        (min(left, next_label), max(left, next_label)),
+                        (min(next_label, right), max(next_label, right)),
+                    }
+                )
+
+                assert correction == next_label * next_label - (
+                    left - next_label
+                ) * (right - next_label)
+                assert inserted_score == current_score + correction
+                assert inserted_edges == (
+                    current_edges - {split_edge}
+                ) | set(child_edges)
+                assert _is_loopless_spanning_cycle_signature(
+                    inserted_signature,
+                    tuple(range(next_label, n + 1)),
+                )
+
+                visit(
+                    inserted,
+                    next_label - 1,
+                    (*prefixes, prefixes[-1] + correction),
+                    child_edges,
+                    fully_nested
+                    and (
+                        previous_children is None
+                        or split_edge in previous_children
+                    ),
+                )
+
+        visit(base, ell - 1, (0,), None, True)
+
+    direct_objectives: dict[tuple[tuple[int, int], ...], int] = {}
+    for outer in _dihedral_orders_on_labels_oracle(tuple(range(m, n + 1))):
+        signature = _undirected_cycle_edge_signature(outer)
+        assert signature not in direct_objectives
+        direct_objectives[signature] = max(
+            _cyclic_product_sum(
+                tuple(label for label in outer if label >= threshold)
+            )
+            for threshold in range(m, ell + 1)
+        )
+
+    assert minimum_base_score is not None
+    assert objectives_by_signature == direct_objectives
+    assert history_count == len(objectives_by_signature)
+    return (
+        minimum_base_score,
+        min(objectives_by_signature.values()),
+        objectives_by_signature,
+        history_count,
+        fully_nested_history_count,
+    )
+
+
 def _alternating_tail_cycle_oracle(m: int, n: int) -> tuple[int, ...]:
     """Construct the exact near-pairing cycle used in the asymptotic squeeze."""
     labels = tuple(range(m + 1, n + 1))
@@ -922,6 +1059,116 @@ def test_three_nested_tail_alternating_base_has_uniform_quadratic_excess() -> No
                 pairing_excess + (m + 1) * (m + 1) + m * m
                 < 2 * n * n
             )
+
+
+@pytest.mark.parametrize(
+    (
+        "m",
+        "n",
+        "r",
+        "expected_pairing",
+        "expected_base",
+        "expected_block",
+        "expected_cycles",
+        "expected_minimizers",
+        "expected_fully_nested",
+    ),
+    (
+        (1, 4, 2, 25, 26, 26, 3, 3, 3),
+        (1, 5, 3, 46, 47, 47, 12, 4, 6),
+        (1, 6, 4, 73, 74, 77, 60, 15, 12),
+        (2, 7, 4, 106, 107, 118, 60, 4, 12),
+        (2, 8, 4, 164, 165, 172, 360, 12, 48),
+    ),
+)
+def test_consecutive_tail_block_oracle_matches_every_outer_cycle(
+    m: int,
+    n: int,
+    r: int,
+    expected_pairing: int,
+    expected_base: int,
+    expected_block: int,
+    expected_cycles: int,
+    expected_minimizers: int,
+    expected_fully_nested: int,
+) -> None:
+    ell = m + r - 1
+    base_labels = tuple(range(ell, n + 1))
+    pairing_floor = sum(
+        label * (ell + n - label) for label in base_labels
+    )
+    base_minimum, block_minimum, objectives, histories, fully_nested = (
+        _consecutive_tail_block_oracle(m, n, r)
+    )
+
+    assert pairing_floor == expected_pairing
+    assert base_minimum == expected_base
+    assert block_minimum == expected_block
+    assert histories == len(objectives) == expected_cycles
+    assert sum(value == block_minimum for value in objectives.values()) == (
+        expected_minimizers
+    )
+    assert fully_nested == expected_fully_nested
+
+
+def test_consecutive_tail_block_keeps_admissible_domino_prefixes() -> None:
+    m, n, r = 2, 7, 4
+    ell = m + r - 1
+    current = (7, 5, 6)
+    base_score = _cyclic_product_sum(current)
+    prefixes = [0]
+
+    for label in range(ell - 1, m - 1, -1):
+        target_edge = {label + 1, label + 2}
+        position = next(
+            position
+            for position, left in enumerate(current)
+            if {left, current[(position + 1) % len(current)]} == target_edge
+        )
+        left = current[position]
+        right = current[(position + 1) % len(current)]
+        old_edges = set(_undirected_cycle_edge_signature(current))
+        split_edge = (min(left, right), max(left, right))
+        inserted = _split_cycle_edge_oracle(current, position, label)
+        correction = label * (left + right) - left * right
+        new_edges = set(_undirected_cycle_edge_signature(inserted))
+
+        assert correction == label * label - 2
+        assert _cyclic_product_sum(inserted) == (
+            _cyclic_product_sum(current) + correction
+        )
+        assert new_edges == (
+            old_edges - {split_edge}
+        ) | {
+            (min(left, label), max(left, label)),
+            (min(label, right), max(label, right)),
+        }
+        assert _is_loopless_spanning_cycle_signature(
+            tuple(sorted(new_edges)),
+            tuple(range(label, n + 1)),
+        )
+
+        prefixes.append(prefixes[-1] + correction)
+        current = inserted
+
+    exact_envelope = sum(
+        max(0, label * label - 2) for label in range(m, ell)
+    )
+    induced_scores = tuple(
+        _cyclic_product_sum(
+            tuple(label for label in current if label >= threshold)
+        )
+        for threshold in range(ell, m - 1, -1)
+    )
+
+    assert tuple(prefixes) == (0, 14, 21, 23)
+    assert induced_scores == tuple(base_score + prefix for prefix in prefixes)
+    assert max(prefixes) == exact_envelope == 23
+
+
+def test_consecutive_tail_block_rejects_two_label_inner_cycle() -> None:
+    with pytest.raises(AssertionError):
+        _consecutive_tail_block_oracle(1, 5, 4)
 
 
 def test_lambda9_lower_bound_oracle_covers_all_sixty_tail_classes() -> None:

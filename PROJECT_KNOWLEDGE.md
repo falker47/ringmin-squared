@@ -331,6 +331,86 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   This preserves the one-tail coefficient only for the optimized three-tail
   obstruction. Although \(\Lambda_n\ge\Gamma_n^{(3)}\), it is not an
   asymptotic evaluation of \(\Lambda_n\) or \(R_2^*(n)\).
+- DEFINITION / EXACT THEOREM (ARBITRARY NESTED-TAIL BLOCK): for
+  \(2\le r\le n-2\), \(1\le m\le n-r-1\), put
+  \(\ell=m+r-1\) and \(q=n-\ell+1\ge3\). Start with a simple cycle
+  \(C_0\) on \(S_\ell\). For \(j=1,\ldots,r-1\), set
+  \[
+  z_j=\ell-j,
+  \qquad
+  e_j=\{u_j,v_j\}\in E(C_{j-1}),
+  \qquad
+  C_j=C_{j-1}\mathbin\oplus_{e_j}z_j,
+  \]
+  and
+  \[
+  A_j=z_j(u_j+v_j)-u_jv_j,
+  \qquad
+  H_0=0,
+  \qquad
+  H_j=\sum_{i=1}^jA_i.
+  \]
+  Deletion and reverse insertion are inverse bijections, and
+  \[
+  \gamma^{(r)}_{m,n}
+  :=\min_\sigma\max_{0\le j\le r-1}P_\sigma(S_{m+j})
+  =\min_{C_0,e_1,\ldots,e_{r-1}}
+  \left[P(C_0)+\max_{0\le j\le r-1}H_j\right].
+  \]
+  The history count is
+  \((q-1)!q(q+1)\cdots(q+r-2)/2=(q+r-2)!/2\), exactly the number of outer
+  dihedral cycles. The specializations are
+  \(\gamma^{(2)}_{m,n}=\beta_{m,n}\) and
+  \(\gamma^{(3)}_{m,n}=\gamma^*_{m,n}\).
+- EXACT THEOREM (GENERAL BLOCK COMPATIBILITY): every intermediate signature
+  must be one connected loopless degree-two spanning cycle with no repeated
+  unordered edge, and successive signatures must satisfy the literal split
+  identities. Recursively nested child-edge splits are admissible. Starting
+  from an edge \(\{\ell,\ell+1\}\) and repeatedly splitting
+  \(\{t+1,t+2\}\) gives the exact domino corrections \(t^2-2\).
+  Therefore the three-tail distinct-base-edge reduction cannot be assumed for
+  general \(r\); it is impossible once \(r-1>q\).
+- EXACT METHOD-SPECIFIC THEOREM: define
+  \[
+  E_{m,\ell}=\sum_{t=m}^{\ell-1}[t^2-2]_+.
+  \]
+  Then uniformly over the full domain,
+  \[
+  0\le\gamma^{(r)}_{m,n}-P^*_{\ell,n}
+  \le E_{m,\ell}<(r-1)n^2,
+  \]
+  while the alternating-cycle excess \(g(q)\le q^2/8\) gives
+  \[
+  P_{\ell,n}\le\gamma^{(r)}_{m,n}
+  \le P_{\ell,n}+g(q)+E_{m,\ell}
+  <P_{\ell,n}+rn^2.
+  \]
+  For
+  \(\Gamma_n^{(r)}=\max_m\gamma^{(r)}_{m,n}\), every fixed \(r\) has
+  \[
+  \Gamma_n^{(r)}
+  ={2(\sqrt2-1)\over3}n^3+O_r(n^2),
+  \]
+  and every integer sequence \(r=r(n)=o(n)\) has
+  \[
+  \Gamma_n^{(r(n))}
+  ={2(\sqrt2-1)\over3}n^3+O(r(n)n^2)
+  ={2(\sqrt2-1)\over3}n^3+o(n^3).
+  \]
+  Linear \(r=\Theta(n)\) is the first scale not excluded by this error
+  estimate. This is not proof of a changed coefficient, an asymptotic
+  evaluation of \(\Lambda_n\), or a geometric asymptotic theorem.
+- EXACT METHOD-SPECIFIC LOWER AUDIT: every tail index belongs to an admissible
+  block, so for every allowed \(r\),
+  \[
+  \Gamma_n^{(r)}
+  \ge\max_{1\le t\le n-2}P^*_{t,n}
+  \ge\max_{1\le t\le n-2}P_{t,n}.
+  \]
+  Thus a linear block's truncated *inner-cycle reference* cannot be used to
+  infer a drop below the one-tail coefficient. Also,
+  \(\Gamma_n^{(r)}\) is a maximum of separately minimized one-block
+  obstructions; no exchange of max and min is asserted.
 - EXACT GEOMETRIC COROLLARY: the strict global cyclic-ratio sandwich gives
   \[
   R_2^*(n)>{\beta_n^{(2)}\over\pi}-n^2
@@ -358,6 +438,18 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \((m,n)=(1,5),(2,7),(3,9),(3,10)\). A separate exact grid checks the
   alternating-cycle quadratic squeeze. The new paths call no production
   scorer, canonicalizer, or enumerator and are not the all-\(n\) proof.
+- VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): a recursive general-block
+  oracle specializes correctly to \(r=2,3\) and checks \(r=4\) at three
+  bounded rows. At \((m,n,r)=(2,7,4)\), all 60 compatible histories agree
+  signature by signature with all 60 direct outer cycles and
+  \[
+  (P_{5,7},P^*_{5,7},\gamma^{(4)}_{2,7})=(106,107,118).
+  \]
+  At \((2,8,4)\), three base classes expand to all 360 outer classes and
+  give \((164,165,172)\). The oracle audits every prefix, edge-set linkage,
+  and intermediate connected cycle; a separate exact check realizes the
+  admissible-domino envelope \(E_{2,5}=23\). All paths are test-local and
+  call no production scorer, canonicalizer, or enumerator.
 - EXACT THEOREM: the additive relation transfers normalized asymptotics:
   \(\Lambda_n=\pi R_2^*(n)+O(n^2)=\Theta(n^3)\),
   \(\Lambda_n/(\pi R_2^*(n))\to1\), and
@@ -579,10 +671,10 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - INTERPRETATION: the induced-subset lower bound uses only necessary consequences of all-pairs feasibility; it does not require constructing a feasible order or controlling all non-adjacent constraints for an upper bound.
 - INTERPRETATION: this proves a strict lower obstruction above the former \(n^3/(6\pi)\) target; it does not prove exact optima, a matching upper bound, or an exact asymptotic constant.
 - INTERPRETATION: the coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal only
-  within the single-subset relaxation named above. The distinct exact
-  two- and three-consecutive-tail extensions have the same leading
-  coefficient. None of these statements is an exact asymptotic result for
-  Power-Ringmin.
+  within the single-subset relaxation named above. The exact consecutive-tail
+  block extension has the same leading coefficient for every fixed \(r\)
+  and every \(r=o(n)\). None of these statements is an exact asymptotic
+  result for Power-Ringmin; linear-size blocks remain unresolved.
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 
@@ -1195,7 +1287,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   finite geometric corollary, plus the exact three-consecutive-tail
   compatible-double-split reduction, its exhaustive interaction taxonomy,
   uniform quadratic squeeze, preserved cubic coefficient, and bounded
-  test-local checks.
+  test-local checks, plus the arbitrary consecutive-tail split-history
+  bijection, signed prefix maximum, admissible-domino audit, uniform
+  \(O(rn^2)\) squeeze, preservation of the coefficient for every
+  \(r=o(n)\), linear first non-excluded scale, and bounded \(r=4\) oracle.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -1208,11 +1303,12 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - COMPLETED PRIORITY: a bounded independent test-only Arb path now
   cross-verifies the decisive endpoint signs and complete embedded data of the
   checked `n=3` artifact without the production oracle or its enclosures.
-- RECOMMENDED NEXT TASK: in a fresh bounded task, generalize the proved
-  three-tail limitation to a fixed symbolic block of \(r\ge4\) consecutive
-  nested tails and determine which growth scale of \(r=r(n)\) is first not
-  excluded from affecting the cubic coefficient. Keep the result
-  method-specific and do not change production enumeration.
+- RECOMMENDED NEXT TASK: in a fresh bounded task, formulate and analyze one
+  linear-density block, for example
+  \(r_n=\lfloor(\sqrt2-1)n\rfloor\), and determine whether a compatible
+  split strategy gives an \(o(n^3)\) excess or whether a genuinely cubic
+  obstruction survives. Keep the result method-specific and do not change
+  production enumeration.
 - OPEN VERIFICATION TASK: extend the independent test-only Arb endpoint-sign
   path from checked `n=3` to the existing checked `n=4` artifact, covering
   every embedded local record without changing production verification,
@@ -1244,6 +1340,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   minimizer inclusion have not been classified.
 - LIMITATION: neither existence of \(\lim R_2^*(n)/n^3\) nor a leading-term
   asymptotic formula has been proved in this repository.
+- LIMITATION: the optimized consecutive-tail obstruction is classified only
+  through sublinear block lengths. Linear \(r=\Theta(n)\) is the first scale
+  not excluded by the uniform error bound, but no improvement or coefficient
+  change has been proved there.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.
 - LIMITATION: the sufficient radius-one threshold `12` is not known to be
   minimal, and the exact equality question remains open for `n<=11`.

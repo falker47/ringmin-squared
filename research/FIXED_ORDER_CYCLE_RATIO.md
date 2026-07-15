@@ -87,6 +87,40 @@ in `research/ALL_N_LOWER_BOUND.md`.
   counts 24 nested, 24 distinct-incident, and 12 distinct-disjoint. Four
   bounded rows check the pairing floor, exact base minimum, and three-tail
   obstruction without calling production scoring or enumeration.
+- **EXACT THEOREM (ARBITRARY NESTED-TAIL BLOCK):** for
+  \(2\le r\le n-2\) and \(1\le m\le n-r-1\), every cycle on
+  \(S_m\) is uniquely a simple base cycle on \(S_{m+r-1}\) followed by
+  \(r-1\) compatible descending edge splits. If the successive exact
+  corrections are \(A_1,\ldots,A_{r-1}\), the block maximum is the base
+  score plus
+  \[
+  \max_{0\le j\le r-1}\sum_{i=1}^j A_i.
+  \]
+  Every intermediate signature and every literal split linkage is part of
+  the parametrization. Recursively nested child-edge splits cannot in
+  general be replaced by distinct base edges.
+- **EXACT METHOD-SPECIFIC LIMITATION (ARBITRARY BLOCK):** if
+  \(P^*_{m+r-1,n}\) is the exact minimum inner simple-cycle score, then
+  uniformly in all three parameters,
+  \[
+  0\le\gamma^{(r)}_{m,n}-P^*_{m+r-1,n}
+  \le\sum_{t=m}^{m+r-2}[t^2-2]_+
+  <(r-1)n^2.
+  \]
+  Including the alternating-cycle excess gives the pairing-floor comparison
+  \(P_{m+r-1,n}\le\gamma^{(r)}_{m,n}<P_{m+r-1,n}+rn^2\).
+  Consequently every fixed \(r\), and more generally every
+  \(r=r(n)=o(n)\), preserves the coefficient
+  \(2(\sqrt2-1)/3\) for this separately optimized one-block obstruction.
+  Linear \(r=\Theta(n)\) is the first scale this error bound does not
+  exclude from changing the coefficient; that is not evidence that it does.
+- **VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK):** a recursive oracle at
+  \((m,n,r)=(2,7,4)\) identifies all 60 compatible triple-split histories
+  with all 60 outer dihedral cycles and obtains
+  \((P_{5,7},P^*_{5,7},\gamma^{(4)}_{2,7})=(106,107,118)\).
+  Separate bounded checks retain fully nested domino histories and verify the
+  exact prefix envelope. No production scorer, canonicalizer, enumerator, or
+  limit is changed.
 - **VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION):** bounded canonical
   enumeration for \(n=3,\ldots,8\) gives
   \((12,26,47,77,118,172)\), with no counterexample to the supplied
@@ -972,7 +1006,7 @@ For later comparison, define the exact one-tail cycle minimum
 P^*_{\ell,n}
 =
 \min_{C\in\mathcal C(S_\ell)}P(C)
-\qquad(3\le\ell\le n-2).
+\qquad(1\le\ell\le n-2).
 \tag{CR28r}
 \]
 This is distinct from the established duplicated-pairing floor
@@ -1233,6 +1267,255 @@ for \((m,n)=(1,5),(2,7),(3,9),(3,10)\), respectively. A separate bounded
 grid checks the alternating-cycle excess and the uniform quadratic
 construction. These finite computations verify arithmetic and compatibility;
 they are not the all-\(n\) proof.
+
+### Exact obstruction from an arbitrary block of nested tails
+
+The preceding two constructions have one uniform form. Fix
+\[
+2\le r\le n-2,
+\qquad
+1\le m\le n-r-1,
+\qquad
+\ell=m+r-1,
+\qquad
+q=n-\ell+1\ge3.
+\tag{CR28ae}
+\]
+Thus the block is
+\(S_m,S_{m+1},\ldots,S_\ell\), and the innermost tail \(S_\ell\)
+has at least three labels. The ordinary simple-cycle convention therefore
+applies at every level; the two-label double-edge exception lies outside this
+domain.
+
+Let \(C_0\in\mathcal C(S_\ell)\). For
+\(j=1,\ldots,r-1\), define
+\[
+z_j=\ell-j,
+\qquad
+e_j=\{u_j,v_j\}\in E(C_{j-1}),
+\qquad
+C_j=C_{j-1}\mathbin\oplus_{e_j}z_j.
+\tag{CR28af}
+\]
+Equivalently, the literal edge linkage at level \(j\) is
+\[
+E(C_j)
+=
+\bigl(E(C_{j-1})\setminus\{e_j\}\bigr)
+\cup
+\{\{u_j,z_j\},\{z_j,v_j\}\}.
+\tag{CR28ag}
+\]
+Put
+\[
+A_j
+=\delta_{z_j}(u_j,v_j)
+=z_j(u_j+v_j)-u_jv_j
+=z_j^2-(u_j-z_j)(v_j-z_j),
+\tag{CR28ah}
+\]
+and define the correction prefixes
+\[
+H_0=0,
+\qquad
+H_j=\sum_{i=1}^j A_i
+\quad(1\le j\le r-1).
+\tag{CR28ai}
+\]
+Every current endpoint is larger than the newly inserted label. Literal
+insertion therefore gives, at every level,
+\[
+P(C_j)=P(C_{j-1})+A_j=P(C_0)+H_j,
+\qquad
+C_j\text{ is the cycle induced on }S_{\ell-j}.
+\tag{CR28aj}
+\]
+
+Deleting \(m,m+1,\ldots,\ell-1\), in that order, from a cycle on
+\(S_m\) records a unique history (CR28af). Inserting the labels in the
+reverse order reconstructs the original cycle. Hence deletion and insertion
+are inverse bijections. The count supplies a useful independent audit:
+\[
+{(q-1)!\over2}\,q(q+1)\cdots(q+r-2)
+={(q+r-2)!\over2},
+\tag{CR28ak}
+\]
+which is exactly the number of undirected simple cycles on the
+\(q+r-1\) labels of \(S_m\), modulo dihedral symmetry.
+Every such cycle extends to a complete order by inserting
+\(1,\ldots,m-1\) arbitrarily, without changing any score in the stated
+tail block.
+
+Define the strongest separately optimized obstruction using precisely this
+one block by
+\[
+\gamma^{(r)}_{m,n}
+=
+\min_{\sigma\in\Omega_n}
+\max_{0\le j\le r-1}P_\sigma(S_{m+j}).
+\]
+The bijection and (CR28aj) give the exact parametrization
+\[
+\boxed{
+\gamma^{(r)}_{m,n}
+=
+\min_{\substack{C_0\in\mathcal C(S_\ell)\\
+                  e_j\in E(C_{j-1}),\ 1\le j\le r-1}}
+\left[
+P(C_0)+\max_{0\le j\le r-1}H_j
+\right].
+}
+\tag{CR28al}
+\]
+Here \(\gamma^{(2)}_{m,n}=\beta_{m,n}\), while
+\(\gamma^{(3)}_{m,n}=\gamma^*_{m,n}\). The displayed maximum is a
+maximum of signed prefixes. Replacing it by
+\(\sum_j[A_j]_+\) is only an upper bound, not an exact formula.
+
+If the history is specified through pairing signatures rather than literal
+cycles, compatibility must be audited at every level. Each \(C_j\) must be
+one connected, loopless, degree-two spanning graph with no repeated
+unordered edge, and (CR28ag) must hold literally. Reverse contraction must
+restore \(C_{r-2},C_{r-3},\ldots,C_0\) in that order. Independently valid
+signatures, degree conditions alone, or independently chosen insertion edges
+do not encode the same object.
+
+In particular, the distinct-base-edge simplification proved for three tails
+does not extend automatically. A fully nested admissible domino starts from
+any base cycle containing \(\{\ell,\ell+1\}\) and, for
+\(t=\ell-1,\ldots,m\), splits the surviving child edge
+\(\{t+1,t+2\}\) with label \(t\). Its corrections are exactly
+\[
+\delta_t(t+1,t+2)=t^2-2.
+\tag{CR28am}
+\]
+Thus the positive-prefix envelope below is attained by a compatible history
+whenever \(m\ge2\). This is a statement about admissible histories, not a
+lower bound on the minimized excess. It shows both that compatibility does
+not force the corrections to cancel and that a bound independent of \(r\)
+cannot be justified merely by dismissing nested splits. Moreover, when
+\(r-1>q\), using distinct base edges for every insertion is combinatorially
+impossible even though the exact histories continue to exist.
+
+We now prove the uniform comparison. At the insertion of \(t\), the two
+endpoints are distinct elements of \(S_{t+1}\). Hence their positive
+differences from \(t\) are distinct, their product is at least two, and
+\[
+A_j\le z_j^2-2.
+\]
+For every signed sequence,
+\(\max_j H_j\le\sum_j[A_j]_+\). Therefore, with
+\[
+E_{m,\ell}
+=\sum_{t=m}^{\ell-1}[t^2-2]_+,
+\]
+choosing a base cycle attaining \(P^*_{\ell,n}\) and any compatible
+history proves
+\[
+\boxed{
+0\le
+\gamma^{(r)}_{m,n}-P^*_{\ell,n}
+\le E_{m,\ell}
+<(r-1)n^2.
+}
+\tag{CR28an}
+\]
+The positive part is essential when \(t=1\). This proves the requested
+uniform \(O(rn^2)\) bound relative to the exact inner-cycle minimum; for
+fixed \(r\) it is \(O_r(n^2)\).
+
+The comparison with the duplicated-pairing floor is equally uniform. The
+alternating cycle from (CR28l), now on the \(q\) labels of \(S_\ell\),
+gives
+\[
+P_{\ell,n}
+\le P^*_{\ell,n}
+\le P_{\ell,n}+g(q),
+\qquad
+0\le g(q)\le {q^2\over8}.
+\]
+Combining this with (CR28an) yields the explicit squeeze
+\[
+\boxed{
+P_{\ell,n}
+\le\gamma^{(r)}_{m,n}
+\le P_{\ell,n}+g(q)+E_{m,\ell}
+<P_{\ell,n}+rn^2.
+}
+\tag{CR28ao}
+\]
+
+Now put
+\[
+\Gamma_n^{(r)}
+=\max_{1\le m\le n-r-1}\gamma^{(r)}_{m,n},
+\qquad
+M_{n,r}=\max_{r\le\ell\le n-2}P_{\ell,n}.
+\tag{CR28ap}
+\]
+Every score in a block is at most \(\Lambda(\sigma)\), so
+\(\Lambda_n\ge\Gamma_n^{(r)}\). This is a maximum of separately
+optimized one-block obstructions; it does not exchange the maximum over
+\(m\) with the minimum over complete orders. From (CR28ao),
+\[
+M_{n,r}
+\le\Gamma_n^{(r)}
+<M_{n,r}+rn^2.
+\tag{CR28aq}
+\]
+There is also a useful lower audit for long blocks. Every
+\(t\in\{1,\ldots,n-2\}\) belongs to at least one admissible block of
+length \(r\), and every induced cycle on \(S_t\) has score at least
+\(P^*_{t,n}\). Consequently
+\[
+\Gamma_n^{(r)}
+\ge\max_{1\le t\le n-2}P^*_{t,n}
+\ge\max_{1\le t\le n-2}P_{t,n}.
+\tag{CR28ar}
+\]
+Thus truncating the *inner-reference* range to \(\ell\ge r\) never proves
+that the full block obstruction has a smaller coefficient.
+
+Let \(r=r(n)\) be any integer sequence satisfying the domain above and
+\(r=o(n)\). The exact maximizing tail index is
+\((\sqrt2-1)n+O(1)\), so it lies in \([r,n-2]\) for all sufficiently
+large \(n\). Hence \(M_{n,r}\) is then the unrestricted one-tail maximum.
+Using (CR28ac), (CR28aq), and \(rn^2=o(n^3)\) gives
+\[
+\boxed{
+\Gamma_n^{(r(n))}
+={2(\sqrt2-1)\over3}n^3+O(r(n)n^2)
+={2(\sqrt2-1)\over3}n^3+o(n^3).
+}
+\tag{CR28as}
+\]
+In particular, every fixed \(r\) has remainder \(O_r(n^2)\), and every
+sublinear block length preserves the one-tail cubic coefficient for this
+method.
+
+The normalized error in (CR28aq) is bounded by \(r/n\). It vanishes for
+every sublinear block and first becomes potentially order one when
+\(r=\Theta(n)\), the largest possible growth scale in the present domain.
+At that linear scale the admissible domino (CR28am) can accumulate
+\(\Theta(rn^2)=\Theta(n^3)\) correction along one history, so recursive
+compatibility alone supplies no hidden subcubic cancellation. This does
+**not** prove that the minimized obstruction improves, or even changes, its
+coefficient. It proves only that linear-size blocks are the first scale not
+excluded by this uniform comparison. Determining their optimized behavior
+remains open.
+
+A bounded exact test-local oracle checks the first new case without touching
+production code. At \((m,n,r)=(2,7,4)\), the base has three labels. The
+\(3\cdot4\cdot5=60\) compatible triple-split histories have distinct final
+signatures and equal all 60 directly generated outer dihedral cycles,
+signature by signature. Literal prefix scoring gives
+\[
+\bigl(P_{5,7},P^*_{5,7},\gamma^{(4)}_{2,7}\bigr)
+=(106,107,118).
+\]
+The same bounded checks retain the 12 fully child-edge-nested histories and
+verify a domino attaining \(E_{2,5}=23\). These are finite exact arithmetic
+and coverage checks, not the proof of (CR28al)--(CR28as).
 
 ## 5. Exact Scorer Without Cycle Enumeration
 
@@ -2754,8 +3037,17 @@ Further non-consequences are important.
   reduction (CR28w)--(CR28y). Its uniform squeeze (CR28z)--(CR28aa) and
   optimized result (CR28ad) again preserve the one-tail cubic coefficient.
   This is a method-specific limitation for one block of three tails, not an
-  asymptotic evaluation of \(\Lambda_n\) or \(R_2^*(n)\), and it does not
-  settle blocks whose length grows with \(n\).
+  asymptotic evaluation of \(\Lambda_n\) or \(R_2^*(n)\). By itself it does
+  not settle growing blocks; the following general result settles every
+  sublinear length but leaves the linear scale open.
+- The arbitrary-block reduction (CR28al) retains every compatible recursive
+  split and every signed correction prefix. Its uniform squeeze
+  (CR28an)--(CR28ao) proves that all fixed blocks and, more generally, every
+  sublinear length \(r=o(n)\) preserve the one-tail coefficient for this
+  separately optimized obstruction. The first scale not excluded is linear
+  \(r=\Theta(n)\); neither the error estimate nor the admissible-domino audit
+  proves improvement there. No exact asymptotic conclusion for
+  \(\Lambda_n\) or \(R_2^*(n)\) follows.
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality
   of minimizing order sets, or \(\Lambda_n=(n-1)W_n\). The exact global
   relation proved here is the one-sided inequality (CR38b).

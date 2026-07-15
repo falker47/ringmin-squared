@@ -187,8 +187,37 @@ The analogous comparison with the pairing floor \(P_{m+2,n}\) proves
 ={2(\sqrt2-1)\over3}n^3+O(n^2).
 \]
 Thus three tails still do not improve the cubic coefficient. This is not an
-asymptotic evaluation of \(\Lambda_n\) or \(R_2^*(n)\), and it leaves blocks
-whose length grows with \(n\) open.
+asymptotic evaluation of \(\Lambda_n\) or \(R_2^*(n)\).
+
+The arbitrary consecutive block is now closed through every sublinear
+length. For \(2\le r\le n-2\), \(1\le m\le n-r-1\), and
+\(\ell=m+r-1\), deleting the labels below \(\ell\) gives a simple base
+cycle on \(S_\ell\); reinserting
+\(\ell-1,\ldots,m\) gives \(r-1\) compatible edge splits. With exact
+corrections \(A_i\), the obstruction is
+\[
+\gamma^{(r)}_{m,n}
+=\min_{\text{compatible histories}}
+\left[P(C)+\max_{0\le j\le r-1}\sum_{i=1}^jA_i\right].
+\]
+Every intermediate cycle and literal edge split is part of the data. Long
+nested domino histories remain admissible, so the three-tail replacement by
+distinct base edges is not a general reduction. Uniformly,
+\[
+0\le\gamma^{(r)}_{m,n}-P^*_{\ell,n}
+\le\sum_{t=m}^{\ell-1}[t^2-2]_+<(r-1)n^2,
+\]
+and
+\[
+P_{\ell,n}\le\gamma^{(r)}_{m,n}<P_{\ell,n}+rn^2.
+\]
+It follows that every fixed \(r\), and every \(r=o(n)\), preserves the
+coefficient \(2(\sqrt2-1)/3\) for this separately optimized one-block
+method. Linear \(r=\Theta(n)\) is the first scale not excluded from changing
+the coefficient; this is not proof that it does. A bounded test-local oracle
+matches all 60 triple-split histories at \((m,n,r)=(2,7,4)\) with all 60
+outer cycles and obtains \((106,107,118)\) for the pairing floor, exact inner
+minimum, and four-tail obstruction. Production boundaries remain unchanged.
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -488,6 +517,38 @@ saturation for every \(n\ge3\).
   \(2(\sqrt2-1)/3\). Exact test-local double-split checks recover all 60
   cycles and all three interaction classes at \((m,n)=(2,7)\), plus four
   small exact score rows, without a production change.
+- EXACT THEOREM (ARBITRARY NESTED-TAIL BLOCK): with
+  \(\ell=m+r-1\), a base cycle on \(S_\ell\) followed by insertion of
+  \(\ell-1,\ldots,m\) gives every outer cycle exactly once. If
+  \(H_j\) is the sum of the first \(j\) exact insertion corrections, then
+  \[
+  \gamma^{(r)}_{m,n}
+  =\min_{\text{compatible histories}}
+  \left[P(C)+\max_{0\le j\le r-1}H_j\right].
+  \]
+  Every intermediate signature must be one connected simple spanning cycle
+  linked by the literal split. A recursively nested domino can attain the
+  history envelope \(\sum[t^2-2]_+\), so nested histories cannot be dropped.
+- EXACT METHOD-SPECIFIC THEOREM (SUBLINEAR BLOCKS): uniformly,
+  \[
+  0\le\gamma^{(r)}_{m,n}-P^*_{m+r-1,n}<(r-1)n^2,
+  \qquad
+  P_{m+r-1,n}\le\gamma^{(r)}_{m,n}<P_{m+r-1,n}+rn^2.
+  \]
+  Therefore
+  \[
+  \Gamma_n^{(r(n))}
+  ={2(\sqrt2-1)\over3}n^3+O(r(n)n^2)
+  \]
+  for every \(r(n)=o(n)\), and the normalized error is \(o(1)\). Linear
+  \(r=\Theta(n)\) is the first scale this comparison does not settle.
+- VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): the recursive block oracle
+  agrees signature by signature with direct outer-cycle generation for
+  bounded \(r=2,3,4\). At \((2,7,4)\), 60 histories give all 60 outer
+  classes and \((P_{5,7},P^*_{5,7},\gamma^{(4)}_{2,7})=(106,107,118)\);
+  at \((2,8,4)\), three base classes give all 360 outer classes and
+  \((164,165,172)\). Exact linkage, prefixes, and a fully nested domino are
+  checked without calling production code.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): a descending-path/Karp
   `Fraction` scorer, independently checked by direct simple-cycle enumeration
   on every canonical order through `n=6`, gives
@@ -914,8 +975,17 @@ saturation for every \(n\ge3\).
     remain one connected simple spanning cycle. Its excess over both the
     exact base-cycle minimum and the inner pairing floor is uniformly
     \(O(n^2)\), so optimizing one three-tail block again leaves the cubic
-    coefficient \(2(\sqrt2-1)/3\). This still does not address a block whose
-    length grows with \(n\).
+    coefficient \(2(\sqrt2-1)/3\).
+
+12. The exact arbitrary-block obstruction is a compatible history of
+    \(r-1\) descending edge splits, with the objective equal to the maximum
+    of the signed correction prefixes. Its excess over the exact inner-cycle
+    minimum is at most \(\sum[t^2-2]_+<rn^2\); an admissible nested domino
+    shows this history-level envelope is not an artifact of incompatible
+    splits. Therefore all \(r=o(n)\) preserve the one-tail coefficient for
+    this method. The first unresolved scale is linear \(r=\Theta(n)\), where
+    the error can be cubic. This neither proves an improvement nor evaluates
+    \(\Lambda_n\) or \(R_2^*(n)\) asymptotically.
 
 ## Updated Research Questions
 
@@ -930,9 +1000,10 @@ saturation for every \(n\ge3\).
 - OPEN QUESTION: can the gap between the induced-subset geometric lower
   coefficient and the product-distance upper coefficient \(8/(25\pi)\) be
   narrowed by a sharper angular construction or a stronger lower bound?
-- OPEN QUESTION: can a simultaneous obstruction involving a number of nested
-  tails that grows with \(n\) improve the coefficient, now that one optimized
-  block of two or three consecutive tails is proved unable to do so?
+- OPEN QUESTION: can a linear-size block \(r=\Theta(n)\) of nested tails
+  improve the method coefficient? Every sublinear block is now excluded from
+  doing so by the uniform \(O(rn^2)\) comparison, but no sufficiency or
+  improvement is claimed at the linear scale.
 - OPEN QUESTION: for which \(n\ge94\) do positional distances at least three
   strictly restrict the minimizer set? The sufficient equality criterion
   \(n(n-1)/3\le B_n\) holds again at \(n=94\), so no persistence from the
@@ -962,6 +1033,12 @@ saturation for every \(n\ge3\).
   excess proves that its optimized cubic coefficient is again
   \(2(\sqrt2-1)/3\). This is not an asymptotic statement about \(\Lambda_n\)
   or \(R_2^*(n)\).
+- CLOSED METHOD QUESTION: the general consecutive-tail refinement has an
+  exact descending split-history bijection and signed-prefix formula. Its
+  uniform \(O(rn^2)\) excess proves that every fixed and every sublinear block
+  preserves the coefficient \(2(\sqrt2-1)/3\). This does not settle the
+  linear scale or the true asymptotic behavior of \(\Lambda_n\) or
+  \(R_2^*(n)\).
 - CLOSED FINITE QUESTION: the first reduced value beyond the public
   cyclic-ratio enumeration boundary is \(\Lambda_9=239\). All minimizing
   core orders are exactly the 28 placement classes recorded in
@@ -1044,6 +1121,13 @@ Completed:
   simple-cycle audit. Its uniform \(O(n^2)\) excess over the exact base
   minimum and pairing floor leaves the optimized coefficient exactly
   \(2(\sqrt2-1)/3\). Added only bounded exact test-local checks.
+- Proved the exact arbitrary-\(r\) consecutive-tail obstruction through a
+  descending compatible-split history and the maximum of all signed
+  correction prefixes. The uniform bound
+  \(\sum[t^2-2]_+<rn^2\) preserves the old coefficient for every
+  \(r=o(n)\), while an admissible nested domino identifies linear
+  \(r=\Theta(n)\) as the first scale not excluded. Added a bounded exact
+  \(r=4\) oracle only; production code and limits remain unchanged.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -1052,10 +1136,10 @@ Completed:
 
 Immediate:
 
-- In a fresh bounded task, generalize the now-proved three-tail limitation to
-  an arbitrary fixed number \(r\ge4\) of consecutive nested tails and
-  determine which growth scale of \(r=r(n)\) is first not excluded from
-  affecting the cubic coefficient.
+- In a fresh bounded task, formulate the linear-density tail-block problem
+  for one explicit sequence such as
+  \(r_n=\lfloor(\sqrt2-1)n\rfloor\), and seek either a compatible-history
+  strategy with \(o(n^3)\) excess or a rigorous cubic residual obstruction.
 
 Next:
 
@@ -1091,19 +1175,18 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: generalize the method-specific no-improvement theorem from the proved
-three-tail case to a fixed block of \(r\ge4\) consecutive nested tails.
+Task: reduce one linear-density consecutive-tail block to a tractable
+limiting optimization problem.
 
 Acceptance criteria:
 
-- define the strongest obstruction using
-  \(S_m,S_{m+1},\ldots,S_{m+r-1}\) for fixed symbolic \(r\), with every
-  insertion edge, prefix maximum, and simple-cycle compatibility condition
-  explicit;
-- prove or disprove uniformly that its excess over one inner-tail pairing
-  floor is \(O_r(n^2)\), and hence whether every fixed \(r\) retains the
-  coefficient \(2(\sqrt2-1)/3\);
-- identify, without claiming sufficiency, the first growth scale of
-  \(r=r(n)\) not excluded by that error bound;
-- use exact algebra and only bounded independent verification; do not expand
-  production enumeration or make a geometric asymptotic-constant claim.
+- fix one explicit linear sequence, preferably
+  \(r_n=\lfloor(\sqrt2-1)n\rfloor\), with all rounding and admissible-domain
+  boundaries explicit;
+- use the exact split-history/prefix formula to derive either an
+  \(o(n^3)\) compatible upper strategy or a nonzero cubic residual lower
+  obstruction for that one-block minimum;
+- keep max/min order, recursive domino compatibility, and the distinction
+  between the inner-cycle reference and other block tails explicit;
+- use exact symbolic reasoning and only bounded test-local diagnostics; do
+  not expand production enumeration or claim a geometric asymptotic constant.
