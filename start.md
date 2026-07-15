@@ -21,7 +21,14 @@ place all of them externally tangent to one central circle while requiring pairw
 Definition: \(R_2^*(n)\) is the infimum feasible central radius. No general
 attainment assumption is needed for the current theorems.
 
-The quadratic-radii computational foundation has been implemented. Checked finite interval certificate artifacts currently exist for `n=3,4,5,6`; they provide finite global radius brackets under the documented guarded `mpmath.iv` interval-backend contract.
+The quadratic-radii computational foundation has been implemented. Checked
+finite interval certificate artifacts currently exist for `n=3,4,5,6`; they
+provide finite global radius brackets under the documented guarded `mpmath.iv`
+interval-backend contract. A separate test-only 384-bit Arb path through
+python-flint independently corroborates the decisive endpoint signs and
+complete embedded coverage of the checked `n=3` record. It does not cover
+`n=4,5,6` or change any production backend, artifact, bracket, schema,
+classification, or certified claim.
 
 The fixed-order certification semantics are now proved independently in
 `research/FIXED_ORDER_ANGULAR_STN.md`: exact all-pairs geometry is equivalent
@@ -977,6 +984,8 @@ angular-STN feasibility to one-wrap cycle checks or make
 - INTERPRETATION: the coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal for the
   documented relaxation only; it is not a proved exact asymptotic coefficient
   for Power-Ringmin.
-- LIMITATION: the interval-backend trust/provenance limitation remains explicit and unresolved for public production claims.
+- LIMITATION: the interval-backend trust/provenance limitation remains explicit
+  and unresolved for public production claims. The bounded test-only Arb
+  cross-check covers checked `n=3` only and is not a full backend audit.
 - DISPROVED CLAIM: \(R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=\frac{n^3}{6\pi}+O(n^2)\).

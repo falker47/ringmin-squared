@@ -100,6 +100,18 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - CONDITIONAL COMPUTER-CERTIFIED RESULT: the checked \(n=3,4,5,6\)
   artifacts instantiate these abstract implications only under the documented
   guarded `mpmath.iv` enclosure contract.
+- LOCAL VERIFIED FACT (FINITE TEST-ONLY INDEPENDENT BACKEND CROSS-CHECK):
+  `tests/test_n3_arb_interval_crosscheck.py` reads the checked `n=3` artifact
+  directly and, at 384-bit precision with python-flint 0.9.0 / FLINT 3.6.0,
+  independently recomputes each required theta with Arb `sqrt` and direct
+  `asin`, recomputes `2*pi`, checks all three lower-cycle edge occurrences,
+  and checks both directional slacks for all three upper-witness pairs. The
+  recomputed cycle upper bound is strictly negative and all six slack lower
+  bounds are nonnegative.
+- INTERPRETATION: the bounded Arb result corroborates the decisive endpoint
+  signs for checked `n=3` only. It neither audits Arb/FLINT nor covers
+  `n=4,5,6`, and it changes no artifact, schema, bracket, supported production
+  backend, classification, or certified claim.
 - VERIFIED FACT: `research/FIXED_ORDER_ANGULAR_STN.md` is the authoritative
   proof; `docs/INTERVAL_BACKEND_TRUST.md` records the separate guarded
   `mpmath.iv` trust premise.
@@ -869,6 +881,11 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - VERIFIED FACT: JSON Schema validation is structural only; semantic Python validators remain authoritative for interval verification, checked-artifact source freshness, and derived summary consistency.
 - VERIFIED FACT: `src/power_ringmin/verify_checked_artifacts.py` provides `power-ringmin-verify-checked-artifacts`, a deterministic checked-artifact verification command that discovers checked finite certificates, validates JSON Schema structure, reloads semantic validators, explicitly re-verifies embedded local interval brackets, validates the finite-results summary, and rejects summary source mismatches.
 - VERIFIED FACT: `docs/INTERVAL_BACKEND_TRUST.md` documents the current guarded `mpmath.iv` backend trust contract, guards, tested coverage, unproved/audited gaps, classification implications, and possible stronger future trust paths.
+- VERIFIED FACT: `python-flint==0.9.0` is an optional test dependency, not a
+  runtime dependency or supported production verifier backend. The checked
+  `n=3` Arb cross-check uses a fixed 384-bit working precision and skips only
+  when that optional top-level module is absent; native import failures remain
+  failures.
 - VERIFIED FACT (WORKFLOW CONFIGURATION): `.github/workflows/verification.yml` defines a GitHub Actions workflow for Python `3.11`, `3.12`, and `3.13` that installs package test and crosscheck extras, runs the full test suite, runs checked-artifact semantic verification, runs schema validation tests, and runs diff/trailing-whitespace hygiene checks.
 - VERIFIED FACT: `pyproject.toml` registers console scripts for fixed-order export, batch fixed-order export, fixed-order interval bracket export, checked `n=3`/`n=4` interval certificate export, general small-`n` interval certificate export, fixed-order artifact verification, small-`n` float64 search, derived finite-results summary generation, critical-structure analysis, and checked-artifact verification.
 - LOCAL VERIFIED FACT: successful local tests, checked-artifact verification,
@@ -969,9 +986,12 @@ Candidate-set extraction uses the following finite-certificate semantics.
   fixed-order angular/STN equivalence, negative-cycle and potential theorems,
   radius dependence, half-open endpoint semantics, and explicit interval
   trust boundary.
-- RECOMMENDED NEXT TASK: design a bounded independent interval-backend
-  cross-verification path for the existing checked artifacts, without
-  generating a larger finite certificate or changing current claims.
+- COMPLETED PRIORITY: a bounded independent test-only Arb path now
+  cross-verifies the decisive endpoint signs and complete embedded data of the
+  checked `n=3` artifact without the production oracle or its enclosures.
+- RECOMMENDED NEXT TASK: in a fresh bounded task, extend the same independently
+  reviewed Arb method to the existing checked `n=4` artifact without changing
+  production verification or current certified claims.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
@@ -985,7 +1005,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
 
 - CLOSED PROOF OBLIGATION: the fixed-order angular/STN equivalence and
   endpoint semantics are proved in `research/FIXED_ORDER_ANGULAR_STN.md`.
-- LIMITATION: the current certified finite results depend on the documented guarded `mpmath.iv` interval-backend contract; backend trust/provenance remains a production-review item.
+- LIMITATION: the current certified finite results depend on the documented
+  guarded `mpmath.iv` interval-backend contract; backend trust/provenance
+  remains a production-review item. The test-only Arb cross-check covers
+  checked `n=3` only and is not a full independent backend audit.
 - LIMITATION: finite computation for `n=3..6` is not proof for all `n`.
 - LIMITATION: no exact geometric optimum value \(R_2^*(n)\) has been proved
   in this repository; the exact all-\(n\) classification of the combinatorial
@@ -1028,5 +1051,6 @@ Rules:
 ## Canonical Commands
 
 - `python -m pytest`
+- `python -m pytest tests\test_n3_arb_interval_crosscheck.py`
 - `$env:PYTHONPATH='src'; python -m power_ringmin.verify_checked_artifacts`
 - `python -m pytest tests\test_checked_artifact_schema_validation.py`

@@ -16,7 +16,7 @@ dependencies = [
 
 [project.optional-dependencies]
 crosscheck = ["numpy>=2", "scipy>=1.14"]
-test = ["pytest>=8", "jsonschema>=4.22"]
+test = ["pytest>=8", "jsonschema>=4.22", "python-flint==0.9.0"]
 
 [project.scripts]
 power-ringmin-export-fixed-order = "power_ringmin.export_fixed_order_cli:main"

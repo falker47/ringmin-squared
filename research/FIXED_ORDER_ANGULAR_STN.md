@@ -599,12 +599,22 @@ metadata values such as outward_enclosure: true and certification_capable:
 true state the contract but do not audit it.
 
 Repository tests exercise sampled containment, metadata refusal, artifact
-tampering, strict lower signs, and closed upper signs. They do not constitute
-an independent audit of mpmath.iv, an independent backend re-verification, or
-a machine proof of rounding. Accordingly, the checked \(n=3,4,5,6\) results
-remain **computer-certified finite results under the documented guarded
-mpmath.iv contract**, not publication-grade independently audited
-certificates.
+tampering, strict lower signs, and closed upper signs. A separate bounded
+test-only cross-check now reads the checked `n=3` JSON directly and recomputes
+its three-edge cycle upper bound and all six witness-slack lower bounds with
+384-bit Arb through python-flint, using direct `asin` rather than the
+production `atan2` path. It calls neither `MPMathIntervalAngularOracle` nor
+its enclosures and obtains a strictly negative cycle upper bound and
+nonnegative slack lower bounds with complete one-record coverage.
+
+That bounded cross-check is independent implementation evidence for the
+`n=3` endpoint signs, not an audit or proof of Arb/FLINT, its bindings, decimal
+conversion, or the test code. It does not cover `n=4,5,6`, provide a machine
+proof of rounding, or make the full checked set publication-grade.
+Accordingly, the checked \(n=3,4,5,6\) results remain
+**computer-certified finite results under the documented guarded mpmath.iv
+contract**, with no artifact, schema, bracket, supported production backend,
+or certified claim changed.
 
 ## 8. Consequences And Non-Consequences
 
@@ -625,7 +635,9 @@ certificates.
 - **WARNING:** a bracket proves neither an exact threshold value nor equality
   of thresholds for orders with identical serialized brackets.
 - **LIMITATION:** no result here is an all-\(n\) asymptotic theorem, a new
-  finite certificate, or an independent interval-backend audit.
+  finite certificate, or a publication-grade independent interval-backend
+  audit of the full checked artifact set. The bounded `n=3` Arb cross-check is
+  test-only corroborating evidence.
 - **EXACT DERIVED THEOREM:**
   `research/FIXED_ORDER_CYCLE_RATIO.md` combines the cycle-weight semantics
   proved here with the accepted angular lower and upper comparisons to define

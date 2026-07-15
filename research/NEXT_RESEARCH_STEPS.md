@@ -16,6 +16,11 @@ The fixed-order certification debt is now closed mathematically by
 equivalence, the negative-cycle criterion, potential recovery, radius
 dependence, and half-open bracket semantics while preserving the guarded
 `mpmath.iv` trust boundary.
+A bounded independent test-only path now also cross-checks the checked `n=3`
+record with 384-bit Arb through python-flint. It recomputes every required
+theta and `2*pi`, all three lower-cycle edges, and all three upper-witness
+pairs without the production oracle. This corroborates one finite record and
+does not change the guarded production contract or any certified claim.
 The complete fixed-order maximum cyclic ratio is now formalized separately in
 `research/FIXED_ORDER_CYCLE_RATIO.md`. Its exact global relation
 \[
@@ -776,12 +781,17 @@ Completed:
   minimizer classes by exact label-one insertion, and independently checked
   all 2,520 core classes and their maximizing subsets without changing the
   public `n<=8` enumerator.
+- Implemented the first bounded independent interval-backend cross-check:
+  checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
+  with exact coverage of one record, three lower-cycle edges, three witness
+  pairs, and six slacks, while production verification and claims remain
+  unchanged.
 
 Immediate:
 
-- Design an independent interval-backend cross-verification path for the
-  existing checked artifacts before making public production-grade certificate
-  claims.
+- Decide whether to extend the same independently reviewed Arb method to one
+  additional existing checked artifact; full `n=3..6` coverage is still absent
+  and no public production-grade claim follows from the bounded `n=3` result.
 
 Next:
 
@@ -814,17 +824,16 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: design an independent interval-backend cross-verification path for the
-existing checked finite artifacts.
+Task: extend the bounded independent Arb cross-check to the existing checked
+`n=4` artifact, without changing production verification or certified claims.
 
 Acceptance criteria:
 
-- choose one independently implemented outward-enclosure backend or a small
-  exact rational enclosure pipeline for the operations actually required;
-- specify how every existing local cycle and witness would be recomputed
-  without trusting the current `mpmath.iv` path;
-- keep generator, verifier, and artifact provenance roles separate;
-- begin with a bounded checked fixture and explicit platform/version
-  requirements;
-- do not generate a larger-\(n\) certificate or change any current certified
-  claim during the design task.
+- reuse the test-only direct-JSON Arb architecture without importing the
+  production verifier or its enclosures;
+- recompute every embedded `n=4` lower cycle, upper witness pair, theta, and
+  `2*pi` with outward Arb bounds;
+- require exact embedded-record, edge, pair, and slack coverage;
+- record platform, Python, python-flint, FLINT, precision, commands, and signs;
+- do not alter artifacts, schemas, brackets, supported production backends,
+  or current certified claims.

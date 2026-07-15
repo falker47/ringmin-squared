@@ -36,6 +36,80 @@ endpoint extraction, conversion to `mp.mpf`, decimal parsing, scalar bound
 arithmetic, and the final sign comparisons; these steps have not been replaced
 by a separately audited exact-arithmetic pipeline.
 
+## Bounded Independent Arb Cross-Check
+
+LOCAL VERIFIED FACT (FINITE TEST-ONLY INDEPENDENT BACKEND CROSS-CHECK):
+`tests/test_n3_arb_interval_crosscheck.py` independently rechecks the existing
+checked `n=3` artifact with Arb through python-flint. This path is test-only;
+the production/default verifier remains `MPMathIntervalAngularOracle` with
+backend identifier `mpmath_iv_guarded_atan2_v1`.
+
+The test reads `examples/small_n_interval_certificate_n3.json` directly with
+the standard JSON parser. It imports no production verifier, artifact loader,
+geometry helper, or high-precision proposal code, and it neither calls
+`MPMathIntervalAngularOracle` nor reads its theta/tau enclosures or stored
+mpmath-derived sign summaries. Every artifact decimal used in the check is
+passed to Arb as its original string, never through binary float. At 384-bit
+working precision the test independently evaluates
+
+\[
+\theta_R(a,b)
+=
+2\arcsin\sqrt{\frac{ab}{(R+a)(R+b)}}
+\]
+
+with Arb's direct `sqrt` and `asin`, and independently evaluates
+\(2\pi=2\operatorname{arb.pi}()\). Arb ball operations and directed
+`lower()` / `upper()` extraction provide the outward bounds used by this
+cross-check.
+
+The embedded-data coverage contract is exact and bounded: one canonical
+`n=3` local bracket, all three serialized lower-cycle edge occurrences, all
+three unordered upper-witness pairs, and both directional slacks for each pair
+(six slack lower bounds). The recomputed relaxed-cycle upper bound is
+
+```text
+-0.000345795701878590132147302156819834911873698761077819835981980
+```
+
+and the least recomputed upper-witness slack lower bound is
+
+```text
+7.81249999999907777683967055517418065596493567633097672062408e-5
+```
+
+so the lower sign is strictly negative and every upper-witness slack lower
+bound is nonnegative.
+
+The reproducibility record for the 2026-07-15 local Windows run is:
+
+```text
+Python:       3.14.3
+python-flint: 0.9.0
+FLINT:        3.6.0
+Arb precision: 384 bits
+
+python -m pip install -e ".[test,crosscheck]"
+  PASS; installed power-ringmin 0.1.0 editable and python-flint 0.9.0
+
+python -m pytest tests\test_n3_arb_interval_crosscheck.py -vv
+  3 passed in 0.14s
+
+python -m pytest
+  204 passed in 61.24s
+
+$env:PYTHONPATH='src'; python -m power_ringmin.verify_checked_artifacts
+  verified checked artifacts certificates=4 local_brackets=76
+  summary=examples/finite_results_summary_n3_n6.json summary_n_values=3,4,5,6
+```
+
+This result independently corroborates the decisive endpoint signs for the
+single checked `n=3` record. It does not audit or prove python-flint, FLINT,
+Arb, decimal-to-Arb conversion, or the test implementation correct; it does
+not cover `n=4,5,6`; and it is not a publication-grade verification of the
+complete checked-artifact set. No checked artifact, schema, bracket,
+production-supported backend, or certified claim is changed or reclassified.
+
 ## Metadata Contract
 
 Checked local interval brackets must declare backend metadata exactly matching
@@ -102,6 +176,10 @@ The repository tests check that:
 - the checked finite-results summary reloads its source certificates, recomputes
   source content digests and derived content, and rejects stale summaries;
 - JSON Schema tests validate the structural contract for checked examples.
+- the bounded test-only Arb path independently recomputes the checked `n=3`
+  lower cycle and all upper-witness slacks, requires complete embedded-record,
+  edge, and pair coverage, and obtains decisive signs without the production
+  oracle or its enclosures.
 
 ## What Has Not Been Proved
 
@@ -115,7 +193,8 @@ The repository has not formally proved or independently audited:
   `mp.mpf` bound arithmetic on every supported platform;
 - a machine-checkable proof that the guard magnitude compensates for every
   possible backend issue;
-- an independent interval-backend re-verification of the checked artifacts;
+- an independent interval-backend re-verification of the full checked artifact
+  set; the bounded test-only Arb path covers `n=3` only, not `n=4,5,6`;
 - exact optimum values, matching upper bounds, or asymptotic equality
   theorems.
 
@@ -136,6 +215,11 @@ exact leading constant. Their exact endpoint meaning is half-open: each strict
 lower endpoint is excluded and each upper witness endpoint is included, so the
 certified threshold infimum lies in \((L,U]\).
 
+The bounded Arb `n=3` result is additional independent implementation evidence
+for one checked record. It does not alter the preceding classification because
+the production verifier and serialized artifact contract remain unchanged and
+the other checked artifacts have not been independently cross-verified.
+
 ## Stronger Trust Requirements
 
 A stronger publication-grade trust claim would require at least one of the
@@ -151,10 +235,11 @@ following:
   implications;
 - published review of the backend contract and generated certificates.
 
-Possible future backends or cross-check paths include Arb/FLINT interval
-arithmetic, MPFI-like interval arithmetic, a small custom rational interval
-implementation for the required formulas, or independent high-precision
-interval verification in another language.
+A bounded Arb/FLINT cross-check now exists for checked `n=3`. Possible future
+trust paths include extending independently reviewed Arb coverage to the
+remaining checked artifacts, MPFI-like interval arithmetic, a small custom
+rational interval implementation for the required formulas, or independent
+high-precision interval verification in another language.
 
 ## Bounded Generation Meaning
 
