@@ -300,6 +300,20 @@ def _insert_one_after(
     )
 
 
+def _dihedral_cycle_key_oracle(order: tuple[int, ...]) -> tuple[int, ...]:
+    """Root a labelled cycle test-locally and retain one orientation.
+
+    The largest label is unique, so rooting there removes every rotation.
+    Comparing the two resulting orientations then removes reflection.  This
+    helper deliberately calls no repository canonicalizer.
+    """
+    assert len(order) == len(set(order))
+    root_position = order.index(max(order))
+    rooted = order[root_position:] + order[:root_position]
+    reflected = (rooted[0], *reversed(rooted[1:]))
+    return min(rooted, reflected)
+
+
 def test_two_cycle_counts_both_edge_occurrences() -> None:
     score = fixed_order_cycle_ratio_score((3, 1, 2))
 
@@ -1033,6 +1047,136 @@ def test_lambda10_label_three_gap_oracle_checks_all_fourteen_insertions() -> Non
         for cycle_name, gap, score, _maximizers in rows
         if (cycle_name, gap) not in excluded
     )
+
+
+def test_lambda10_label_two_gap_oracle_checks_all_eighty_eight_insertions() -> None:
+    """Check every surviving core and argmax without production code."""
+
+    six_label_subset = tuple(range(5, 11))
+    seven_label_subset = tuple(range(4, 11))
+    eight_label_subset = tuple(range(3, 11))
+    full_core_subset = tuple(range(2, 11))
+    parent_cases = (
+        (
+            "first",
+            (10, 4, 7, 8, 6, 9, 5),
+            {frozenset((4, 7))},
+        ),
+        (
+            "second",
+            (10, 5, 9, 4, 7, 8, 6),
+            {frozenset((4, 9)), frozenset((4, 7))},
+        ),
+    )
+
+    surviving_partial_orders = []
+    for cycle_name, cycle, excluded_three_gaps in parent_cases:
+        for left_position, left in enumerate(cycle):
+            right = cycle[(left_position + 1) % len(cycle)]
+            three_gap = frozenset((left, right))
+            if three_gap in excluded_three_gaps:
+                continue
+            partial_order = (
+                cycle[: left_position + 1]
+                + (3,)
+                + cycle[left_position + 1 :]
+            )
+            surviving_partial_orders.append(
+                (cycle_name, three_gap, partial_order)
+            )
+
+    assert len(surviving_partial_orders) == 11
+    assert len({row[2] for row in surviving_partial_orders}) == 11
+    assert len(
+        {_dihedral_cycle_key_oracle(row[2]) for row in surviving_partial_orders}
+    ) == 11
+
+    rows = []
+    core_orders = []
+    subset_evaluations = 0
+    for cycle_name, three_gap, partial_order in surviving_partial_orders:
+        for left_position, left in enumerate(partial_order):
+            right = partial_order[(left_position + 1) % len(partial_order)]
+            two_gap = frozenset((left, right))
+            core_order = (
+                partial_order[: left_position + 1]
+                + (2,)
+                + partial_order[left_position + 1 :]
+            )
+            assert set(core_order) == set(range(2, 11))
+            assert 1 not in core_order
+
+            scores = _literal_induced_label_subset_scores(core_order)
+            assert len(scores) == 2**len(core_order) - 1 == 511
+            maximum = max(scores.values())
+            maximizers = tuple(
+                sorted(
+                    (
+                        tuple(sorted(subset))
+                        for subset, score in scores.items()
+                        if score == maximum
+                    ),
+                    key=lambda subset: (len(subset), subset),
+                )
+            )
+
+            exceptional = (
+                cycle_name == "first"
+                and three_gap == frozenset((4, 10))
+                and two_gap == frozenset((3, 4))
+            )
+            if exceptional:
+                assert core_order == (10, 3, 2, 4, 7, 8, 6, 9, 5)
+                expected_score = 325
+                expected_maximizers = (full_core_subset,)
+            elif cycle_name == "first" and three_gap == frozenset((4, 10)):
+                expected_score = 323
+                expected_maximizers = (six_label_subset, eight_label_subset)
+            elif cycle_name == "first":
+                expected_score = 323
+                expected_maximizers = (six_label_subset,)
+            else:
+                expected_score = 323
+                expected_maximizers = (seven_label_subset,)
+
+            assert maximum == expected_score
+            assert maximizers == expected_maximizers
+            rows.append(
+                (
+                    cycle_name,
+                    three_gap,
+                    two_gap,
+                    maximum,
+                    maximizers,
+                )
+            )
+            core_orders.append(core_order)
+            subset_evaluations += len(scores)
+
+    assert len(rows) == len(core_orders) == 11 * 8 == 88
+    assert len(set(core_orders)) == 88
+    assert subset_evaluations == 88 * (2**9 - 1) == 44_968
+
+    core_class_keys = tuple(
+        _dihedral_cycle_key_oracle(order) for order in core_orders
+    )
+    assert len(set(core_class_keys)) == 88
+    assert sum(score == 325 for _name, _three, _two, score, _args in rows) == 1
+    assert sum(score == 323 for _name, _three, _two, score, _args in rows) == 87
+
+    minimizing_core_orders = tuple(
+        order
+        for order, row in zip(core_orders, rows, strict=True)
+        if row[3] == 323
+    )
+    complete_class_keys = tuple(
+        _dihedral_cycle_key_oracle(_insert_one_after(order, left_position))
+        for order in minimizing_core_orders
+        for left_position in range(len(order))
+    )
+    assert len(minimizing_core_orders) == 87
+    assert len(complete_class_keys) == 87 * 9 == 783
+    assert len(set(complete_class_keys)) == 783
 
 
 def test_lambda10_witness_records_every_maximizing_subset_exactly() -> None:

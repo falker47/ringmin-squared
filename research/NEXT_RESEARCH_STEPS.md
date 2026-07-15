@@ -130,15 +130,17 @@ test-only arithmetic confirms this proved list over all 360 lemma classes and
 checks all 511 nonempty witness subsets without a repository canonicalizer,
 public enumerator, or production scorer.
 
-The exact label-three insertion step over these two classes is also closed.
-Writing \(K_{\ge3}\) for the induced-subset maximum on labels
-\(3,\ldots,10\), the insertion correction and complete shortcut-gain
-certificates exclude only \(\{4,7\}\) in the first cycle and exactly
-\(\{4,9\}\), \(\{4,7\}\) in the second; all eleven other insertions have
-\(K_{\ge3}=323\). A separate literal oracle checks all 14 inserted orders,
-all 255 nonempty subsets of each, and every argmax. The public domain remains
-`n<=8`; label `2` is unplaced, the surviving partial cycles are not yet proved
-extendible at score 323, and the `n=10` core minimizers are not classified.
+The label-three and label-two insertion steps over these classes are also
+closed. The label-three correction and complete shortcut-gain certificates
+leave eleven partial cycles at \(K_{\ge3}=323\). Their 88 label-two
+insertions form 88 distinct dihedral core classes. The exact variation
+\(2(a+b)-ab=4-(a-2)(b-2)\), the recorded partial argmaxes, and the pruning
+certificates prove that exactly 87 have \(K=323\); the sole exception is
+`(10,3,2,4,7,8,6,9,5)`, with score 325. Only after this proof, exact
+label-one insertion gives 783 complete dihedral minimizer classes. Separate
+literal oracles check all 14-by-255 label-three cases and all 88-by-511
+label-two cases, including every argmax and the dihedral counts. The public
+domain remains `n<=8`.
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -464,6 +466,14 @@ saturation for every \(n\ge3\).
   gap. The second has value 326 on \(\{4,9\}\), 328 on \(\{4,7\}\), and
   323 on every other gap. The proof uses the exact insertion formula and a
   complete shortcut-gain certificate and records every maximizing subset.
+- EXACT THEOREM (FINITE `n=10` CORE MINIMIZER CLASSIFICATION): the eleven
+  surviving partial cycles and their eight label-two gaps give 88 distinct
+  dihedral core classes. Exactly 87 have \(K=323\); the sole exception is
+  `(10,3,2,4,7,8,6,9,5)`, with \(K=325\). The proof uses
+  \(2(a+b)-ab=4-(a-2)(b-2)\), the exact constrained argmaxes inherited from
+  the shortcut certificates, and a separate dihedral-equivalence argument.
+  Exact label-one elimination/insertion gives 783 complete dihedral minimizer
+  classes. Every core and complete argmax is classified.
 - VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT): the shortcut-gain table
   for \(\tau=(10,2,3,4,7,8,6,9,5)\) proves \(K(\tau)=323\), with exactly
   \(\{5,\ldots,10\}\) and \(\{3,\ldots,10\}\) maximizing. Hence the
@@ -471,11 +481,13 @@ saturation for every \(n\ge3\).
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): direct test-local
   generation confirms the proved equality list over all \(6!/2=360\) lemma
   classes, independently audits the low-pairing and fixed-edge correction
-  data, and checks all 511 nonempty witness subsets. A separate literal oracle
-  checks the 14 label-three insertions and all 3,570 corresponding nonempty
-  subset scores, independently of the proof certificate. These paths call no
-  repository canonicalizer, public enumerator, or production scorer. They do
-  not place label `2` or classify all `n=10` core minimizers.
+  data, and checks all 511 nonempty witness subsets. Separate literal oracles
+  check the 14 label-three insertions and all 3,570 corresponding subset
+  scores, then the 88 label-two insertions and all 44,968 corresponding
+  subset scores, independently of the proof certificates. Test-local
+  dihedral keys recover 88 core candidate classes and 783 complete minimizer
+  classes. These paths call no repository canonicalizer, public enumerator,
+  or production scorer.
 - EXACT THEOREM: `research/ALL_N_LOWER_BOUND.md` proves the induced-subset
   lower-bound theorem. In particular, for every `n>=4` and `1<=m<=n-2`,
   \[
@@ -778,10 +790,10 @@ saturation for every \(n\ge3\).
    additional finite equality/shortcut argument now classifies all \(n=9\)
    core \(K\)-minimizers and a separate pairing/shortcut argument proves the
    value \(\Lambda_{10}=323\) and exactly classifies equality in its
-   seven-label lemma. The subsequent exact partial analysis classifies every
-   insertion gap for label `3` over those two equality cycles and leaves
-   eleven candidates with \(K_{\ge3}=323\). Label `2` remains unplaced, and
-   the `n=10` core minimizers remain unclassified. Insertion independence for
+   seven-label lemma. The subsequent exact insertion analyses classify labels
+   `3` and `2`, prove that 87 of the 88 forced candidates are precisely the
+   dihedral core minimizers, and derive 783 complete minimizer classes only
+   after that proof. Insertion independence for
    \(\Lambda\) does not transfer to the exact angular threshold. The resulting
    geometric upper bound recovers the known coefficient \(8/(25\pi)\); it
    proves no exact geometric optimum or new coefficient.
@@ -823,18 +835,18 @@ saturation for every \(n\ge3\).
   224 complete minimizer classes. The independent 2,520-core oracle records
   every argmax and recovers the same classification. This closes only the
   specified finite combinatorial case, not any geometric or all-\(n\) case.
-- CLOSED FINITE VALUE, SEVEN-LABEL EQUALITY, AND LABEL-THREE GAP
-  CLASSIFICATION / OPEN LABEL-TWO AND CORE CLASSIFICATION: the next reduced
-  value is
+- CLOSED FINITE VALUE AND CORE CLASSIFICATION: the next reduced value is
   \(\Lambda_{10}=323\), proved by the seven-label pairing lemma and exact
   witness shortcut certificate in `research/FIXED_ORDER_CYCLE_RATIO.md` and
   independently checked on 360 lemma classes and 511 witness subsets. A
   separate structural branch proof now establishes exactly the two
   seven-label equality cycles. Exact insertion and shortcut certificates
   classify all label-three gaps over them, leaving eleven partial cycles with
-  \(K_{\ge3}=323\); an independent 14-by-255 oracle confirms every score and
-  argmax. Label `2` and all minimizing `n=10` core orders remain
-  unclassified.
+  \(K_{\ge3}=323\). Exact label-two variation and constrained shortcut
+  certificates then classify 87 core minimizer classes and one score-325
+  exception among their 88 gaps; only afterward, label-one insertion gives
+  783 complete classes. Independent 14-by-255 and 88-by-511 oracles confirm
+  every score, argmax, and dihedral count.
 
 ## Ranked Work
 
@@ -880,6 +892,12 @@ Completed:
   \(\{4,9\}\) and \(\{4,7\}\); every other partial score is 323. A separate
   literal oracle checks all 3,570 induced subsets and every argmax without
   production code.
+- Classified all 88 label-two insertions over the eleven surviving partial
+  cycles by the exact variation and constrained shortcut-gain certificates.
+  Exactly 87 are the distinct dihedral core minimizers; the sole exception
+  has score 325. Derived 783 complete classes only after the proof and checked
+  all 44,968 core subset scores, every argmax, and the dihedral counts with an
+  independent test-only oracle.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -888,16 +906,12 @@ Completed:
 
 Immediate:
 
-- In a fresh bounded task, classify insertion of label `2` into the eleven
-  surviving partial `n=10` cycles. Use the recorded argmax and shortcut data,
-  keep any exhaustive check independent and test-only, and do not state a
-  full-core count until the label-two proof is complete.
+- In a fresh bounded task, extend the independent test-only Arb endpoint-sign
+  cross-check from the checked `n=3` artifact to the existing checked `n=4`
+  artifact, without changing production verification or certification claims.
 
 Next:
 
-- Decide whether to extend the same independently reviewed Arb method to one
-  additional existing checked artifact; full `n=3..6` coverage is still absent
-  and no public production-grade claim follows from the bounded `n=3` result.
 - Seek a geometric all-pairs construction or lower obstruction that narrows
   the remaining coefficient gap without relying on larger exhaustive finite
   certificates.
@@ -927,17 +941,18 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: classify insertion of label `2` into the eleven surviving partial
-`n=10` cycles on labels `3..10`, without changing production.
+Task: extend the independent test-only Arb endpoint-sign cross-check to the
+existing checked `n=4` interval certificate.
 
 Acceptance criteria:
 
-- analyze every label-two insertion through the exact change
-  \(2(a+b)-ab=4-(a-2)(b-2)\) and the recorded partial argmax/shortcut data;
-- prove exactly which resulting core orders have \(K\le323\), recording all
-  equality subsets and resolving any duplicate dihedral classes before a
-  count is stated;
-- keep any bounded enumeration independent and test-only;
-- make no geometric inference or production-domain extension;
-- keep the production scorer and public complete-order `n<=8` boundary
-  unchanged.
+- read the checked `n=4` artifact directly and account for every embedded
+  local bracket, lower-cycle edge occurrence, upper-witness pair, and
+  directional slack;
+- recompute the decisive endpoint signs with fixed high-precision Arb
+  arithmetic independently of the production interval oracle and its stored
+  enclosures;
+- record exact coverage and deterministic test evidence, with optional
+  python-flint absence handled consistently with the existing `n=3` test;
+- make no production-backend, artifact, bracket, schema, classification, or
+  certification-claim change.

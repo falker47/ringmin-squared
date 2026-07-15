@@ -351,6 +351,19 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   its other five admissible gaps. Every admissible gap of the second cycle
   has sole argmax \(\{4,\ldots,10\}\). Each excluded row has the full
   partial set as its sole argmax.
+- EXACT THEOREM (FINITE \(n=10\) CORE MINIMIZER CLASSIFICATION): inserting
+  label \(2\) in the eight gaps of each of the eleven surviving partial
+  cycles gives 88 pairwise distinct dihedral core classes. The exact
+  variation \(\Delta_2(a,b)=2(a+b)-ab=4-(a-2)(b-2)\), together with the
+  preceding argmax and shortcut-gain certificates, proves that exactly 87
+  classes have \(K=323\). The sole exception is
+  `(10,3,2,4,7,8,6,9,5)`, which has \(K=325\) and sole argmax
+  \(\{2,\ldots,10\}\). Of the 87 core minimizers, seven have exactly
+  the argmaxes \(\{5,\ldots,10\}\) and \(\{3,\ldots,10\}\), 40
+  have sole argmax \(\{5,\ldots,10\}\), and 40 have sole argmax
+  \(\{4,\ldots,10\}\). Exact index-one elimination/insertion gives
+  exactly \(87\cdot9=783\) complete dihedral minimizer classes, distributed
+  as 63 with two argmaxes and 360 in each sole-argmax family.
 - VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT): the core witness
   \(\tau=(10,2,3,4,7,8,6,9,5)\) has complete sum 319. Its exact shortcut
   table has only the positive nontrivial gains
@@ -370,18 +383,20 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   seven-label lemma, recover the exact low-pairing and fixed-edge branch data,
   audit every required insertion correction, confirm exactly the two proved
   equality classes, and literally score all \(2^9-1=511\) nonempty witness
-  subsets. A separate oracle constructs the 14 label-three insertions and
-  literally scores all \(14(2^8-1)=3{,}570\) nonempty subsets, recording
-  every argmax independently of the structural certificate. These paths call
-  no repository canonicalizer, public enumerator, or production Karp scorer.
-  Production source and the public complete-order `n<=8` boundary are
-  unchanged.
+  subsets. Separate oracles construct the 14 label-three insertions and score
+  all \(14(2^8-1)=3{,}570\) corresponding nonempty subsets, then construct
+  the 88 label-two insertions and score all
+  \(88(2^9-1)=44{,}968\) corresponding nonempty subsets. They record every
+  argmax; a test-local dihedral key confirms 88 distinct core classes and
+  783 distinct label-one insertions. These paths call no repository
+  canonicalizer, public enumerator, or production Karp scorer. Production
+  source and the public complete-order `n<=8` boundary are unchanged.
 - INTERPRETATION: the \(n=10\) theorem and oracles are finite exact
-  combinatorial results. They do not give an exact value of \(R_2^*(10)\), a
-  geometric statement, an all-\(n\) formula, an asymptotic claim, or a
-  classification of all `n=10` core minimizers. Label \(2\) remains
-  unplaced. A partial order with \(K_{\ge3}=323\) is a surviving necessary
-  case, not yet a proved full-core minimizer.
+  combinatorial results. They do not give an exact value of \(R_2^*(10)\),
+  a geometric minimizer statement, an all-\(n\) formula, or an asymptotic
+  claim. The score-325 exception is unique among the 88 candidates forced by
+  the earlier equality classifications, not among every nonminimizing core
+  order.
 - VERIFIED FACT: `research/FIXED_ORDER_CYCLE_RATIO.md` is the authoritative
   proof, algorithm, bounded-experiment, \(W\)-comparison, and limitations
   note.
@@ -1051,9 +1066,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   complete minimizer classes, and the independent 2,520-core argmax oracle,
   plus the exact finite value \(\Lambda_{10}=323\), its seven-label pairing
   lemma, structural classification of its two equality classes, exact witness
-  shortcut certificate, exact label-three insertion-gap classification over
-  the two equality cycles, and independent 360-class, 511-subset, and
-  14-by-255 checks.
+  shortcut certificate, exact label-three and label-two insertion
+  classifications, all 87 core and 783 complete dihedral minimizer classes,
+  every argmax, and independent 360-class, 511-subset, 14-by-255, and
+  88-by-511 checks.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -1066,12 +1082,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - COMPLETED PRIORITY: a bounded independent test-only Arb path now
   cross-verifies the decisive endpoint signs and complete embedded data of the
   checked `n=3` artifact without the production oracle or its enclosures.
-- RECOMMENDED NEXT TASK: in a fresh bounded task, classify insertion of label
-  `2` into the eleven surviving partial `n=10` cycles, using the recorded
-  argmax and shortcut data and an independent bounded oracle. Do not infer a
-  full-core count until the label-two proof is complete. Extending the
-  independent Arb path to the checked `n=4` artifact remains a separate open
-  verification task.
+- RECOMMENDED NEXT TASK: in a fresh bounded task, extend the independent
+  test-only Arb endpoint-sign path from checked `n=3` to the existing checked
+  `n=4` artifact, covering every embedded local record without changing
+  production verification, artifacts, schemas, or certification claims.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order

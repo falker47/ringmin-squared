@@ -148,17 +148,22 @@ test-only arithmetic confirms this list over all 360 lemma classes and checks
 all 511 nonempty witness subsets without calling the public enumerator or
 production scorer.
 
-Label `3` is now classified exactly over those two equality cycles. For the
-partial induced-subset maximum \(K_{\ge3}\) on labels \(3,\ldots,10\), the
-insertion formula and complete shortcut-gain certificates show that the first
-cycle excludes only \(\{4,7\}\), with score 326 there, while the second
-excludes exactly \(\{4,9\}\) and \(\{4,7\}\), with scores 326 and 328.
-Every other insertion has \(K_{\ge3}=323\). A separate test-only oracle
-literally checks all 14 inserted orders and all 255 nonempty subsets of each,
-including every argmax, without using the proof certificate or production
-code. The public complete-order domain remains `n<=8`. Label `2` is not
-placed, a surviving partial order is not yet proved extendible at score 323,
-and the full set of `n=10` core minimizers is not classified.
+Labels `3` and `2` are now classified exactly over those two equality
+cycles. For the partial induced-subset maximum \(K_{\ge3}\), the label-three
+insertion formula and complete shortcut-gain certificates leave exactly
+eleven of the fourteen partial cycles at score 323. Inserting label \(2\)
+in their 88 labelled gaps, the exact variation
+\(2(a+b)-ab=4-(a-2)(b-2)\), the recorded argmaxes, and the same pruning
+certificates prove that exactly 87 have \(K=323\). The sole exception is
+`(10,3,2,4,7,8,6,9,5)`, obtained by splitting \(\{3,4\}\) in
+`(10,3,4,7,8,6,9,5)`; it has score 325. The 88 candidates are distinct
+dihedral core classes, so there are exactly 87 core minimizer classes.
+Only after this classification, exact label-one insertion gives
+\(87\cdot9=783\) complete dihedral minimizer classes. Independent test-only
+arithmetic checks all 88 core orders and all 511 nonempty subsets of each,
+including every argmax and the dihedral counts, without using production
+enumerators, scorers, or canonicalizers. The public complete-order domain
+remains `n<=8`.
 
 A strengthened all-`n` mathematical lower bound has been proved from induced
 subsets of cyclic gaps. For every `n>=4` and `1<=m<=n-2`,
@@ -681,14 +686,14 @@ R_2^*(n)<{\Lambda_n\over\pi}
 \]
 `research/FIXED_ORDER_CYCLE_RATIO.md` contains the definitions, saturation
 and elimination proofs, scorer algorithm, the exact reduced values
-\(\Lambda_9=239\) and \(\Lambda_{10}=323\), independent bounded oracles,
-comparison with \(W\), and asymptotic limitations. One-wrap saturation and
-insertion independence concern the product ratio; they do not reduce exact
-angular-STN feasibility to one-wrap cycle checks or make \(\rho_\sigma\)
-insertion-independent. The `n=10` results prove the value and classify
-equality in the seven-label lemma; they now also classify label `3` over the
-two equality cycles. They do not place label `2` or classify all minimizing
-core orders.
+\(\Lambda_9=239\) and \(\Lambda_{10}=323\), their complete finite core
+minimizer classifications, independent bounded oracles, comparison with
+\(W\), and asymptotic limitations. One-wrap saturation and insertion
+independence concern the product ratio; they do not reduce exact angular-STN
+feasibility to one-wrap cycle checks or make \(\rho_\sigma\)
+insertion-independent. The `n=10` proof classifies equality in the
+seven-label lemma, then labels `3` and `2`, and only afterward derives the
+783 complete classes by inserting label `1`.
 
 ## Current Knowledge Status
 
@@ -801,6 +806,16 @@ core orders.
   \(\{5,\ldots,10\}\) and the full partial label set; its other admissible
   gaps maximize only on \(\{5,\ldots,10\}\). Every admissible insertion in
   the second cycle maximizes only on \(\{4,\ldots,10\}\).
+- EXACT THEOREM (FINITE \(n=10\) CORE MINIMIZER CLASSIFICATION): the eleven
+  surviving label-three cycles give 88 pairwise distinct dihedral core
+  classes after label \(2\) is inserted. Exactly 87 have \(K=323\); the
+  sole exception is `(10,3,2,4,7,8,6,9,5)`, with \(K=325\) and sole
+  argmax \(\{2,\ldots,10\}\). Among the 87 core minimizers, seven have
+  exactly the two argmaxes \(\{5,\ldots,10\}\) and
+  \(\{3,\ldots,10\}\), 40 have sole argmax \(\{5,\ldots,10\}\),
+  and 40 have sole argmax \(\{4,\ldots,10\}\). Exact label-one
+  elimination/insertion then gives exactly 783 complete dihedral minimizer
+  classes.
 - VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT): the exact shortcut-gain
   certificate for `(10,2,3,4,7,8,6,9,5)` gives \(K=323\), with precisely
   \(\{5,\ldots,10\}\) and \(\{3,\ldots,10\}\) as argmax subsets. Thus the
@@ -808,16 +823,19 @@ core orders.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): independent test-only
   code confirms the proved equality list over all \(6!/2=360\) lemma classes,
   independently checks the pairing/correction branch data, and literally
-  evaluates all 511 nonempty witness subsets. A separate literal oracle checks
-  all 14 label-three insertions and all \(14(2^8-1)=3{,}570\) nonempty-subset
-  scores, recording every argmax. It calls no repository canonicalizer,
-  public enumerator, or production Karp scorer, and the public `n<=8`
-  boundary is unchanged.
+  evaluates all 511 nonempty witness subsets. Separate literal oracles check
+  all 14 label-three insertions and all \(14(2^8-1)=3{,}570\) corresponding
+  subset scores, then all 88 label-two insertions and all
+  \(88(2^9-1)=44{,}968\) corresponding subset scores, recording every
+  argmax. Test-local dihedral keys also confirm 88 distinct core classes and
+  783 distinct label-one insertions. These paths call no repository
+  canonicalizer, public enumerator, or production Karp scorer, and the public
+  `n<=8` boundary is unchanged.
 - INTERPRETATION: the \(n=10\) result is finite and combinatorial. It gives
-  no exact value of \(R_2^*(10)\), geometric statement, all-\(n\) formula,
-  asymptotic claim, placement of label `2`, or classification of every
-  minimizing core order. A partial order with \(K_{\ge3}=323\) is only a
-  surviving candidate until label `2` is analyzed.
+  no exact value of \(R_2^*(10)\), geometric minimizer statement, all-\(n\)
+  formula, or asymptotic claim. The exceptional score-325 class is unique
+  among the 88 candidates forced by the earlier equality classifications,
+  not among all nonminimizing core orders.
 - EXACT THEOREM: for every `n>=3`,
   \[
   R_2^*(n)\ge \frac{n(n+1)(n+2)}{6\pi}-n^2,

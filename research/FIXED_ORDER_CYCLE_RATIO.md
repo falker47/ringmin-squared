@@ -112,6 +112,15 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \(\{4,9\}\) and \(\{4,7\}\), where it gives 326 and 328. The proof uses
   the exact insertion correction and a complete shortcut-gain certificate,
   not subset enumeration.
+- **EXACT THEOREM (FINITE \(n=10\) CORE MINIMIZER CLASSIFICATION):** the
+  eleven surviving label-three cycles have 88 labelled gaps for label \(2\).
+  Using \(2(a+b)-ab=4-(a-2)(b-2)\), the recorded argmaxes, and the
+  shortcut-gain pruning certificates, exactly 87 insertions have \(K=323\).
+  The sole exception is (10,3,2,4,7,8,6,9,5), obtained by splitting the
+  \(\{3,4\}\) gap of (10,3,4,7,8,6,9,5); it has \(K=325\). The 88
+  candidates are distinct dihedral core classes, so there are exactly 87
+  core minimizer classes. Exact label-one insertion then gives exactly
+  \(87\cdot9=783\) complete minimizer classes.
 - **VERIFIED FACT (FINITE EXACT COMBINATORIAL RESULT):** the seven-label
   lemma and the exact shortcut-gain witness
   \(\tau=(10,2,3,4,7,8,6,9,5)\) give
@@ -122,19 +131,21 @@ in `research/ALL_N_LOWER_BOUND.md`.
   test-only code checks the lemma on all \(6!/2=360\) seven-label dihedral
   classes, literally scores all \(2^9-1=511\) nonempty witness subsets, and
   separately checks all 14 label-three insertions and all 255 nonempty
-  subsets of each. None of these paths calls a repository canonicalizer, the
-  public enumerator, or the production scorer.
+  subsets of each. A further independent oracle checks all 88 label-two
+  insertions and all 511 nonempty subsets of each, recording every argmax and
+  confirming 88 distinct core classes and 783 distinct label-one insertions.
+  None of these paths calls a repository canonicalizer, the public enumerator,
+  or the production scorer.
 - **VERIFIED FACT:** `src/power_ringmin/fixed_order_cycle_ratio.py` implements
   a float-free exact scorer using descending-path compression and Karp's
   maximum-cycle-mean dynamic program. Direct simple-cycle enumeration is not
   used in production and exists only as an independent small-test oracle.
-- **LIMITATION:** the exact `n=9` classification and exact `n=10` value are
+- **LIMITATION:** the exact `n=9` and `n=10` classifications are
   not a closed-form all-\(n\) evaluation or evidence for convergence to a
-  new asymptotic constant. Label `3` is now classified only relative to the
-  two `n=10` seven-label equality cycles; label `2` remains unplaced, and the
-  `n=10` core minimizers remain unclassified. No interval backend, verifier,
-  interval-certificate artifact, checked artifact, schema, or example is
-  changed by this work.
+  new asymptotic constant. They are finite combinatorial classifications, not
+  exact values or minimizer classifications for \(R_2^*(9)\) or
+  \(R_2^*(10)\). No interval backend, verifier, interval-certificate artifact,
+  checked artifact, schema, or example is changed by this work.
 
 ## 1. Complete Fixed-Order STN
 
@@ -1197,7 +1208,7 @@ independently audit the finite proofs; they are not their source. The number
 ceiling at `n=8`. Production still hard-rejects `n=9`, and no public
 enumeration limit changed.
 
-### Reduced exact evaluation at \(n=10\), without public enumeration or core classification
+### Reduced exact evaluation and core classification at \(n=10\), without public enumeration
 
 Put
 \[
@@ -1777,6 +1788,154 @@ an **EXACT THEOREM (FINITE LABEL-THREE INSERTION-GAP CLASSIFICATION)**. It
 makes no placement claim for label \(2\) and is not a classification or count
 of the full `n=10` core minimizers.
 
+#### Exact label-two insertion and complete core classification
+
+The preceding result leaves six insertions in \(\omega_A\) and five in
+\(\omega_B\). Denote them by \(A0,\ldots,A5,B0,\ldots,B4\) in the gap order
+shown below, put
+\[
+T_9=\{2,\ldots,10\},
+\qquad
+M_3(\nu)=
+\max_{\substack{\varnothing\ne V\subseteq T_8\\3\in V}}P_\nu(V),
+\tag{L10-51}
+\]
+and retain the names \(T_6,T_7,T_8\) from (L10-1) and (L10-37). The complete
+shortcut-gain certificates above give the following exact constrained
+maxima:
+
+| ID | Parent | Gap containing \(3\) | \(B_\nu=P_\nu(T_8)\) | \(M_3(\nu)\) | Constrained argmax |
+|---|---|---|---:|---:|---|
+| \(A0\) | \(\omega_A\) | \(\{4,10\}\) | 323 | 323 | \(T_8\) |
+| \(A1\) | \(\omega_A\) | \(\{7,8\}\) | 310 | 312 | \(T_8\setminus\{4\}\) |
+| \(A2\) | \(\omega_A\) | \(\{6,8\}\) | 315 | 317 | \(T_8\setminus\{4\}\) |
+| \(A3\) | \(\omega_A\) | \(\{6,9\}\) | 312 | 314 | \(T_8\setminus\{4\}\) |
+| \(A4\) | \(\omega_A\) | \(\{5,9\}\) | 318 | 320 | \(T_8\setminus\{4\}\) |
+| \(A5\) | \(\omega_A\) | \(\{5,10\}\) | 316 | 318 | \(T_8\setminus\{4\}\) |
+| \(B0\) | \(\omega_B\) | \(\{5,10\}\) | 318 | 318 | \(T_8\) |
+| \(B1\) | \(\omega_B\) | \(\{5,9\}\) | 320 | 320 | \(T_8\) |
+| \(B2\) | \(\omega_B\) | \(\{7,8\}\) | 312 | 312 | \(T_8\) |
+| \(B3\) | \(\omega_B\) | \(\{6,8\}\) | 317 | 317 | \(T_8\) |
+| \(B4\) | \(\omega_B\) | \(\{6,10\}\) | 311 | 311 | \(T_8\) |
+
+Here is the pruning argument behind the table, using no subset sweep. In rows
+\(A1,\ldots,A5\), the only positive shortcut compatible with retaining label
+\(3\) is \(10\to7\), of gain \(2\), which deletes label \(4\). Every other
+positive shortcut in those rows deletes label \(3\), as does the zero
+shortcut in \(A5\). Thus the exact constrained maximum is \(B_\nu+2\),
+attained uniquely on \(T_8\setminus\{4\}\). In every \(B\)-row, each
+nontrivial nonnegative shortcut deletes label \(3\), so retaining \(3\)
+leaves the full set \(T_8\) as the unique constrained maximizer. In row
+\(A0\), \(T_8\) has score 323. Its zero shortcut \(10\to7\) deletes labels
+\(3,4\), while \(g(10,4)=-2\) deletes label \(3\); every other nontrivial
+gain is at most \(-5\). The compatible shortcut \(9\to10\), which deletes
+label \(5\), has gain \(-5\). The complete gain audit in
+(L10-42)--(L10-48) therefore gives the sharper fact
+\[
+\max_{\substack{3\in V\subsetneq T_8}}P_{A0}(V)=318.
+\tag{L10-52}
+\]
+
+Now insert label \(2\) into one of the eight labelled gaps of a surviving
+cycle \(\nu\), obtaining a core order \(\tau\). Let \(U\subseteq T_9\)
+contain \(2\), and put \(V=U\setminus\{2\}\). If \(|V|\ge2\), let \(a,b\)
+be the two distinct neighbors of \(2\) in the order induced on \(U\).
+Deleting \(2\) gives the exact variation
+\[
+P_\tau(U)-P_\nu(V)
+=2(a+b)-ab
+=4-(a-2)(b-2)
+\le2.
+\tag{L10-53}
+\]
+If \(3\notin V\), then \(a,b\ge4\), so the variation is at most \(-2\) and
+\(P_\tau(U)\le321\). The cases \(|V|\le1\) have score at most
+\(2\cdot2\cdot10=40\). If \(3\in V\) and \(\nu\ne A0\), the table gives
+\[
+P_\tau(U)\le M_3(\nu)+2\le322.
+\tag{L10-54}
+\]
+
+It remains only to inspect \(A0=(10,3,4,7,8,6,9,5)\). Every proper
+\(V\) containing \(3\) gives at most \(318+2=320\). For \(V=T_8\), the
+neighbors \(a,b\) are the endpoints of the actual insertion gap of label
+\(2\), and (L10-53) gives:
+
+| Gap containing \(2\) | \(\{3,10\}\) | \(\{3,4\}\) | \(\{4,7\}\) | \(\{7,8\}\) | \(\{6,8\}\) | \(\{6,9\}\) | \(\{5,9\}\) | \(\{5,10\}\) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Variation | -4 | 2 | -6 | -26 | -20 | -24 | -17 | -20 |
+
+Consequently the sole insertion above 323 among the 88 candidates is
+\[
+\tau_{\rm exc}=(10,3,2,4,7,8,6,9,5),
+\qquad
+K(\tau_{\rm exc})=P_{\tau_{\rm exc}}(T_9)=325.
+\tag{L10-55}
+\]
+Its full sum is
+\[
+30+6+8+28+56+48+54+45+50=325.
+\]
+Equality at 325 requires both \(V=T_8\) and the \(\{3,4\}\) variation, so
+\(T_9\) is its unique maximizing subset. For every other insertion, all
+subsets containing label \(2\) score strictly below 323. The score is
+therefore 323 and the complete argmax list is inherited unchanged from its
+partial parent:
+
+| Core family | Number of classes | Exact argmax subsets |
+|---|---:|---|
+| \(A0\), gap of \(2\ne\{3,4\}\) | 7 | \(T_6,T_8\) |
+| \(A1,\ldots,A5\), every gap of \(2\) | 40 | \(T_6\) only |
+| \(B0,\ldots,B4\), every gap of \(2\) | 40 | \(T_7\) only |
+| Exceptional \(A0,\{3,4\}\) insertion | 1 | \(T_9\) only |
+
+It remains to prove completeness and count dihedral classes, rather than
+counting displayed rows. The eleven partial parents are pairwise
+dihedrally inequivalent. Deleting label \(3\) from a hypothetical equivalence
+would either identify \(\omega_A\) with \(\omega_B\), impossible because
+their induced \(T_6\) scores are respectively 323 and 322, or give a
+label-preserving dihedral automorphism of one seven-cycle carrying one gap
+to another. All seven labels are distinct, so that automorphism is the
+identity and the gaps coincide.
+
+The same deletion argument for label \(2\) proves that the \(11\cdot8=88\)
+insertions are 88 distinct dihedral core classes. Conversely, if a core
+order has \(K=323\), equality is forced in the seven-label lemma (L10-12);
+(L10-36) then forces \(\omega_A\) or \(\omega_B\), and
+(L10-49)--(L10-50) force one of the eleven partial parents. The label-two
+classification above excludes exactly \(\tau_{\rm exc}\). Hence
+\[
+\boxed{
+K(\tau)=323
+\quad\Longleftrightarrow\quad
+\tau\text{ belongs to one of exactly 87 dihedral core classes.}
+}
+\tag{L10-56}
+\]
+
+Only now may the complete-order count be derived. Exact index-one elimination
+(CR12p)--(CR12q) preserves the score, introduces no maximizing subset
+containing label \(1\), and is surjective from complete orders to core
+orders. Each nine-label core has nine labelled insertion gaps. As above, a
+dihedral equivalence between two insertions restricts after deleting \(1\)
+to a label-preserving automorphism of the core, which is trivial; deleting
+\(1\) also prevents different core classes from merging. Therefore
+\[
+\boxed{
+\#\{\text{complete dihedral minimizer classes at }n=10\}
+=87\cdot9
+=783.
+}
+\tag{L10-57}
+\]
+Among these complete classes, 63 retain argmaxes \(T_6,T_8\), 360 have sole
+argmax \(T_6\), and 360 have sole argmax \(T_7\). This is an **EXACT THEOREM
+(FINITE \(n=10\) CORE AND COMPLETE MINIMIZER CLASSIFICATION)**. It is not a
+classification of geometric minimizers or an exact evaluation of
+\(R_2^*(10)\). The exceptional class is unique only among the 88 candidates
+forced by the preceding equality classifications; many unrelated core
+orders can of course have score above 323.
+
 #### Independent finite oracles for \(n=10\)
 
 The independent test-only lemma oracle fixes label \(10\) to remove
@@ -1811,7 +1970,7 @@ gaps, and scores all \(2^8-1=255\) nonempty induced subsets of every resulting
 order. It performs exactly
 \[
 14\cdot255=3{,}570
-\tag{L10-51}
+\tag{L10-58}
 \]
 integer subset evaluations, without using the insertion formula, shortcut
 gains, a repository canonicalizer, the public enumerator, or the production
@@ -1821,12 +1980,30 @@ scorer. It independently returns the score rows
 \omega_A:&\quad(323,326,323,323,323,323,323),\\
 \omega_B:&\quad(323,323,326,328,323,323,323),
 \end{aligned}
-\tag{L10-52}
+\tag{L10-59}
 \]
 in the gap order of the certificate table. It also recovers every displayed
 argmax: \(T_6,T_8\) in the first \(\omega_A\) row; only \(T_8\) in each
 excluded row; only \(T_6\) in the other five admissible \(\omega_A\) rows;
 and only \(T_7\) in all five admissible \(\omega_B\) rows.
+
+A further independent literal oracle constructs the eleven surviving
+label-three cycles directly from the two fixed parent tuples, inserts label
+\(2\) in every one of their eight labelled gaps, and scores all 511 nonempty
+subsets of every resulting core. It performs
+\[
+88\cdot511=44{,}968
+\tag{L10-60}
+\]
+exact integer subset evaluations. It finds 87 rows of score 323 and the sole
+score-325 row \((10,3,2,4,7,8,6,9,5)\), and it recovers every argmax in the
+four-row family table above. A test-local dihedral key roots each labelled
+cycle at its unique largest label and compares the two orientations directly;
+it obtains 88 distinct core keys without calling a repository canonicalizer.
+After the mathematical classification has selected the 87 minimizing cores,
+the same local key checks all nine label-one insertions of each and obtains
+783 distinct complete classes. This finite oracle audits (L10-56)--(L10-57);
+it is not their source.
 
 A separate literal computation scores all \(2^9-1=511\) nonempty subsets
 of \(\tau_*\). It records every maximizing subset and supplies the following
