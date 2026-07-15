@@ -283,6 +283,54 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   coefficient. This limitation is specific to one optimized pair of
   consecutive tails; it is not an asymptotic evaluation of \(\Lambda_n\)
   and does not cover coupling a number of tails growing with \(n\).
+- DEFINITION / EXACT THEOREM (THREE NESTED TAILS): for \(n\ge5\) and
+  \(1\le m\le n-4\), put \(x=m+1\), \(y=m\), \(T=S_{m+2}\), and define
+  \[
+  P^*_{m+2,n}
+  =\min_{C\in\mathcal C(T)}P(C).
+  \]
+  Deleting \(y\), then \(x\), gives a bijection between cycles on \(S_m\)
+  and triples consisting of a simple base cycle \(C\) on \(T\), a first edge
+  \(e\in E(C)\), and a second edge
+  \(f\in E(C\mathbin\oplus_e x)\). With
+  \(\delta_t(u,v)=t(u+v)-uv\), the exact obstruction is
+  \[
+  \gamma^*_{m,n}
+  =
+  \min_{C,e,f}
+  \left[
+  P(C)+
+  \max\{0,\delta_x(e),\delta_x(e)+\delta_y(f)\}
+  \right].
+  \]
+  The second split is either one of the two children of \(e\), one of the
+  two surviving base edges incident to \(e\), or one of the \(q-3\) disjoint
+  base edges. Nested splits can tie but are weakly dominated in the minimum,
+  so an equivalent formula minimizes over two distinct base edges.
+- EXACT THEOREM (THREE-TAIL COMPATIBILITY): every base, intermediate, and
+  final pairing signature must be one connected loopless degree-two spanning
+  graph with no repeated unordered edge, and consecutive signatures must be
+  linked by the literal split identities. Independently valid signatures or
+  degree conditions alone do not suffice; contraction restores the second
+  split edge first and the first split edge second.
+- EXACT METHOD-SPECIFIC THEOREM: uniformly over the full domain,
+  \[
+  0\le\gamma^*_{m,n}-P^*_{m+2,n}<2n^2,
+  \qquad
+  P_{m+2,n}\le\gamma^*_{m,n}<P_{m+2,n}+2n^2.
+  \]
+  Hence, for
+  \(\Gamma_n^{(3)}=\max_{1\le m\le n-4}\gamma^*_{m,n}\),
+  \[
+  \Gamma_n^{(3)}
+  ={2(\sqrt2-1)\over3}n^3+O(n^2),
+  \qquad
+  \lim_{n\to\infty}{\Gamma_n^{(3)}\over n^3}
+  ={2(\sqrt2-1)\over3}.
+  \]
+  This preserves the one-tail coefficient only for the optimized three-tail
+  obstruction. Although \(\Lambda_n\ge\Gamma_n^{(3)}\), it is not an
+  asymptotic evaluation of \(\Lambda_n\) or \(R_2^*(n)\).
 - EXACT GEOMETRIC COROLLARY: the strict global cyclic-ratio sandwich gives
   \[
   R_2^*(n)>{\beta_n^{(2)}\over\pi}-n^2
@@ -299,6 +347,17 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   `(m,n)=(1,4),(2,6),(3,8),(4,10)`. A separate exact check verifies the
   alternating-cycle excess formula. These tests call no production scorer,
   canonicalizer, or enumerator and are not the all-`n` proof.
+- VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): compatible double insertion
+  is checked literally on small tails. At \((m,n)=(2,7)\), the 60 triples
+  (base cycle, first edge, second edge) give exactly all 60 dihedral cycles
+  on \(S_2\), split into 24 nested, 24 distinct-incident, and 12
+  distinct-disjoint interactions. Exact rows
+  \((P_{m+2,n},P^*_{m+2,n},\gamma^*_{m,n})\) are
+  \((46,47,47)\), \((116,117,118)\), \((235,237,239)\), and
+  \((320,322,323)\) for
+  \((m,n)=(1,5),(2,7),(3,9),(3,10)\). A separate exact grid checks the
+  alternating-cycle quadratic squeeze. The new paths call no production
+  scorer, canonicalizer, or enumerator and are not the all-\(n\) proof.
 - EXACT THEOREM: the additive relation transfers normalized asymptotics:
   \(\Lambda_n=\pi R_2^*(n)+O(n^2)=\Theta(n^3)\),
   \(\Lambda_n/(\pi R_2^*(n))\to1\), and
@@ -521,8 +580,9 @@ This file is stable durable project memory. Chronology, command transcripts, fai
 - INTERPRETATION: this proves a strict lower obstruction above the former \(n^3/(6\pi)\) target; it does not prove exact optima, a matching upper bound, or an exact asymptotic constant.
 - INTERPRETATION: the coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal only
   within the single-subset relaxation named above. The distinct exact
-  two-consecutive-tail extension has the same leading coefficient. Neither
-  statement is an exact asymptotic result for Power-Ringmin.
+  two- and three-consecutive-tail extensions have the same leading
+  coefficient. None of these statements is an exact asymptotic result for
+  Power-Ringmin.
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 
@@ -1132,7 +1192,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   88-by-511 checks, plus the exact two-consecutive-tail obstruction
   \(\beta_n^{(2)}\), its connected simple-cycle signature criterion, the
   method-specific no-improvement theorem for its cubic coefficient, and its
-  finite geometric corollary.
+  finite geometric corollary, plus the exact three-consecutive-tail
+  compatible-double-split reduction, its exhaustive interaction taxonomy,
+  uniform quadratic squeeze, preserved cubic coefficient, and bounded
+  test-local checks.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -1145,11 +1208,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - COMPLETED PRIORITY: a bounded independent test-only Arb path now
   cross-verifies the decisive endpoint signs and complete embedded data of the
   checked `n=3` artifact without the production oracle or its enclosures.
-- RECOMMENDED NEXT TASK: in a fresh bounded task, generalize the two-tail
-  limitation to a fixed symbolic block of \(r\) consecutive nested tails and
-  determine which growth scale of \(r=r(n)\) is first not excluded from
-  affecting the cubic coefficient. Keep the result method-specific and do not
-  change production enumeration.
+- RECOMMENDED NEXT TASK: in a fresh bounded task, generalize the proved
+  three-tail limitation to a fixed symbolic block of \(r\ge4\) consecutive
+  nested tails and determine which growth scale of \(r=r(n)\) is first not
+  excluded from affecting the cubic coefficient. Keep the result
+  method-specific and do not change production enumeration.
 - OPEN VERIFICATION TASK: extend the independent test-only Arb endpoint-sign
   path from checked `n=3` to the existing checked `n=4` artifact, covering
   every embedded local record without changing production verification,

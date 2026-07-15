@@ -165,6 +165,31 @@ formula for \(\Lambda_n\). The strict cyclic-ratio sandwich also gives the
 new finite geometric bound
 \(R_2^*(n)>\beta_n^{(2)}/\pi-n^2\).
 
+The next fixed block, consisting of three consecutive tails, is also closed
+exactly as a proof method. Deleting \(m\), then \(m+1\), gives a simple base
+cycle on \(S_{m+2}\) and two compatible edge splits. If their corrections are
+\(A,B\), then the exact obstruction is
+\[
+\gamma^*_{m,n}
+=
+\min_{C,e,f}\left[P(C)+\max\{0,A,A+B\}\right].
+\]
+The second split is nested in the first edge, distinct but incident, or
+disjoint; literal edge-set linkage and connected simple-cycle validity are
+required at every level. If \(P^*_{m+2,n}\) is the exact base-cycle minimum,
+then uniformly
+\[
+0\le\gamma^*_{m,n}-P^*_{m+2,n}<2n^2.
+\]
+The analogous comparison with the pairing floor \(P_{m+2,n}\) proves
+\[
+\max_m\gamma^*_{m,n}
+={2(\sqrt2-1)\over3}n^3+O(n^2).
+\]
+Thus three tails still do not improve the cubic coefficient. This is not an
+asymptotic evaluation of \(\Lambda_n\) or \(R_2^*(n)\), and it leaves blocks
+whose length grows with \(n\) open.
+
 As of 2026-07-14, the former asymptotic target
 \[
 R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))
@@ -437,6 +462,32 @@ saturation for every \(n\ge3\).
   it also gives
   \(R_2^*(n)>\beta_n^{(2)}/\pi-n^2\), with no improved leading geometric
   coefficient.
+- EXACT THEOREM (THREE NESTED TAILS): for \(n\ge5\),
+  \(1\le m\le n-4\), a simple base cycle \(C\) on \(S_{m+2}\), a first
+  split edge \(e\), and a compatible second split edge \(f\) give
+  \[
+  \gamma^*_{m,n}
+  =
+  \min_{C,e,f}
+  \left[
+  P(C)+\max\{0,\delta_{m+1}(e),
+  \delta_{m+1}(e)+\delta_m(f)\}
+  \right].
+  \]
+  The base/intermediate/final signatures must each be connected simple
+  cycles and satisfy the two literal split identities. The nested,
+  distinct-incident, and distinct-disjoint second splits are exhaustive.
+- EXACT METHOD-SPECIFIC THEOREM (THREE TAILS): with \(P^*_{m+2,n}\) the
+  exact minimum base-cycle score,
+  \[
+  0\le\gamma^*_{m,n}-P^*_{m+2,n}<2n^2,
+  \qquad
+  P_{m+2,n}\le\gamma^*_{m,n}<P_{m+2,n}+2n^2.
+  \]
+  Hence the optimized obstruction has cubic coefficient
+  \(2(\sqrt2-1)/3\). Exact test-local double-split checks recover all 60
+  cycles and all three interaction classes at \((m,n)=(2,7)\), plus four
+  small exact score rows, without a production change.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): a descending-path/Karp
   `Fraction` scorer, independently checked by direct simple-cycle enumeration
   on every canonical order through `n=6`, gives
@@ -857,6 +908,15 @@ saturation for every \(n\ge3\).
     \(2(\sqrt2-1)/3\), exactly the old one-tail coefficient. This does not
     rule out coupling a number of tails that grows with \(n\).
 
+11. The exact three-nested-tail obstruction requires two linked edge splits,
+    not three separately minimized cycle signatures. The second split is
+    nested, distinct-incident, or distinct-disjoint, and every level must
+    remain one connected simple spanning cycle. Its excess over both the
+    exact base-cycle minimum and the inner pairing floor is uniformly
+    \(O(n^2)\), so optimizing one three-tail block again leaves the cubic
+    coefficient \(2(\sqrt2-1)/3\). This still does not address a block whose
+    length grows with \(n\).
+
 ## Updated Research Questions
 
 - OPEN QUESTION: what geometric upper-bound construction, if any, narrows or
@@ -872,7 +932,7 @@ saturation for every \(n\ge3\).
   narrowed by a sharper angular construction or a stronger lower bound?
 - OPEN QUESTION: can a simultaneous obstruction involving a number of nested
   tails that grows with \(n\) improve the coefficient, now that one optimized
-  consecutive pair is proved unable to do so?
+  block of two or three consecutive tails is proved unable to do so?
 - OPEN QUESTION: for which \(n\ge94\) do positional distances at least three
   strictly restrict the minimizer set? The sufficient equality criterion
   \(n(n-1)/3\le B_n\) holds again at \(n=94\), so no persistence from the
@@ -896,6 +956,12 @@ saturation for every \(n\ge3\).
   \(2(\sqrt2-1)/3\) and therefore does not improve the one-tail coefficient
   at first order. This is not a statement about methods using many coupled
   tails or about the true asymptotic behavior of \(\Lambda_n\).
+- CLOSED METHOD QUESTION: the exact three-consecutive-tail refinement has the
+  compatible double-split reduction, including every nested/incident/disjoint
+  interaction and every connected simple-cycle audit. Its uniform quadratic
+  excess proves that its optimized cubic coefficient is again
+  \(2(\sqrt2-1)/3\). This is not an asymptotic statement about \(\Lambda_n\)
+  or \(R_2^*(n)\).
 - CLOSED FINITE QUESTION: the first reduced value beyond the public
   cyclic-ratio enumeration boundary is \(\Lambda_9=239\). All minimizing
   core orders are exactly the 28 placement classes recorded in
@@ -972,6 +1038,12 @@ Completed:
   terms can improve, but its optimized leading coefficient remains exactly
   \(2(\sqrt2-1)/3\). Added independent test-only pairing, cycle, insertion,
   and construction checks without changing production.
+- Proved the exact all-\(n\) three-nested-tail obstruction through a
+  base-cycle/compatible-double-split bijection, classified every
+  nested/incident/disjoint interaction, and retained the full connected
+  simple-cycle audit. Its uniform \(O(n^2)\) excess over the exact base
+  minimum and pairing floor leaves the optimized coefficient exactly
+  \(2(\sqrt2-1)/3\). Added only bounded exact test-local checks.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -980,9 +1052,10 @@ Completed:
 
 Immediate:
 
-- In a fresh bounded task, generalize the two-tail limitation to every fixed
-  number \(r\) of consecutive nested tails and determine which growth scale
-  of \(r=r(n)\) is first not excluded from affecting the cubic coefficient.
+- In a fresh bounded task, generalize the now-proved three-tail limitation to
+  an arbitrary fixed number \(r\ge4\) of consecutive nested tails and
+  determine which growth scale of \(r=r(n)\) is first not excluded from
+  affecting the cubic coefficient.
 
 Next:
 
@@ -1018,14 +1091,15 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: generalize the method-specific no-improvement theorem from two
-consecutive tails to a fixed block of \(r\) consecutive nested tails.
+Task: generalize the method-specific no-improvement theorem from the proved
+three-tail case to a fixed block of \(r\ge4\) consecutive nested tails.
 
 Acceptance criteria:
 
 - define the strongest obstruction using
   \(S_m,S_{m+1},\ldots,S_{m+r-1}\) for fixed symbolic \(r\), with every
-  insertion edge and simple-cycle compatibility condition explicit;
+  insertion edge, prefix maximum, and simple-cycle compatibility condition
+  explicit;
 - prove or disprove uniformly that its excess over one inner-tail pairing
   floor is \(O_r(n^2)\), and hence whether every fixed \(r\) retains the
   coefficient \(2(\sqrt2-1)/3\);

@@ -233,6 +233,33 @@ consecutive tails and is not an asymptotic evaluation of \(\Lambda_n\).
 The strict cyclic-ratio sandwich also gives the geometric finite bound
 \(R_2^*(n)>\beta_n^{(2)}/\pi-n^2\).
 
+The exact obstruction from three consecutive tails is now reduced as well.
+For \(n\ge5\), \(1\le m\le n-4\), deleting \(m\) and then \(m+1\) leaves a
+simple base cycle \(C\) on \(S_{m+2}\) and two compatible edge splits. If
+their corrections are \(A\) and \(B\), then
+\[
+\gamma^*_{m,n}
+=
+\min_{C,e,f}
+\left[P(C)+\max\{0,A,A+B\}\right].
+\]
+The second split is exhaustively nested in the first edge, on a surviving
+incident base edge, or on a disjoint base edge. Base, intermediate, and final
+pairing signatures must be linked by the literal splits and must each form
+one connected simple spanning cycle. Writing \(P^*_{m+2,n}\) for the exact
+minimum base-cycle score, one has uniformly
+\[
+0\le\gamma^*_{m,n}-P^*_{m+2,n}<2n^2.
+\]
+The analogous squeeze against the duplicated-pairing floor \(P_{m+2,n}\)
+shows that optimizing this three-tail obstruction still gives
+\[
+\max_m\gamma^*_{m,n}
+={2(\sqrt2-1)\over3}n^3+O(n^2).
+\]
+This is a method-specific limitation, not an asymptotic evaluation of
+\(\Lambda_n\) or \(R_2^*(n)\).
+
 There is also an exact eventual radius-one insertion theorem. Let
 \(R^*_{2:n}\) be the infimum feasible central radius for only the core radii
 \(2^2,\dots,n^2\). A core configuration at radius \(R\) admits insertion of
@@ -798,6 +825,45 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   coefficient, although it may improve finite values. It also gives
   \(R_2^*(n)>\beta_n^{(2)}/\pi-n^2\), with the same leading geometric
   coefficient.
+- EXACT THEOREM (THREE NESTED TAILS): for \(n\ge5\) and
+  \(1\le m\le n-4\), deletion of \(m\), then \(m+1\), gives a bijection
+  between cycles on \(S_m\) and a simple cycle \(C\) on \(S_{m+2}\) followed
+  by two compatible edge splits. With
+  \(\delta_t(u,v)=t(u+v)-uv\), their exact score is
+  \[
+  \gamma^*_{m,n}
+  =
+  \min_{C,e,f}
+  \left[
+  P(C)+
+  \max\{0,\delta_{m+1}(e),
+           \delta_{m+1}(e)+\delta_m(f)\}
+  \right].
+  \]
+  The second split is nested, distinct-incident, or distinct-disjoint. Every
+  signature must be connected, loopless, degree two, and linked to its
+  neighbors by the literal split identities.
+- EXACT METHOD-SPECIFIC THEOREM: if
+  \(P^*_{m+2,n}=\min_{C\text{ simple on }S_{m+2}}P(C)\), then
+  \[
+  0\le\gamma^*_{m,n}-P^*_{m+2,n}<2n^2,
+  \qquad
+  P_{m+2,n}\le\gamma^*_{m,n}<P_{m+2,n}+2n^2.
+  \]
+  Therefore the optimized obstruction
+  \(\Gamma_n^{(3)}=\max_m\gamma^*_{m,n}\) satisfies
+  \[
+  \Gamma_n^{(3)}
+  ={2(\sqrt2-1)\over3}n^3+O(n^2).
+  \]
+  This is not an asymptotic claim about \(\Lambda_n\) or \(R_2^*(n)\).
+- VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): compatible double splits
+  cover all 60 dihedral cycles for \((m,n)=(2,7)\), with interaction counts
+  24 nested, 24 distinct-incident, and 12 distinct-disjoint. Exact rows
+  \((P_{m+2,n},P^*_{m+2,n},\gamma^*_{m,n})\) are
+  \((46,47,47)\), \((116,117,118)\), \((235,237,239)\), and
+  \((320,322,323)\) for the checked small cases. These are test-local finite
+  checks, not the all-\(n\) proof.
 - VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION): the exact bounded
   `Fraction` scorer gives
   \((\Lambda_3,\dots,\Lambda_8)=(12,26,47,77,118,172)\) over all 2,956
@@ -1140,9 +1206,10 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   coefficients do not currently match.
 - INTERPRETATION: the coefficient \(2(\sqrt2-1)/(3\pi)\) is optimal for the
   documented single-subset relaxation, and the distinct two-consecutive-tail
-  extension has the same leading coefficient. Neither method-specific result
-  is a proved exact asymptotic coefficient for Power-Ringmin or excludes
-  simultaneous coupling of many tails.
+  and three-consecutive-tail extensions have the same leading coefficient.
+  None of these method-specific results is a proved exact asymptotic
+  coefficient for Power-Ringmin or excludes coupling a number of tails that
+  grows with \(n\).
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit
   and unresolved for public production claims. The bounded test-only Arb
   cross-check covers checked `n=3` only and is not a full backend audit.

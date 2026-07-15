@@ -65,6 +65,28 @@ in `research/ALL_N_LOWER_BOUND.md`.
   improve the leading coefficient \(2(\sqrt2-1)/3\). This does not determine
   the leading behavior of \(\Lambda_n\) or exclude arguments coupling many
   tails simultaneously.
+- **EXACT THEOREM (THREE NESTED TAILS):** for \(n\ge5\) and
+  \(1\le m\le n-4\), deleting \(m\) and then \(m+1\) identifies a simple
+  base cycle on \(S_{m+2}\) and two compatible edge splits. If their exact
+  corrections are \(A\) and \(B\), the three-tail maximum is the base score
+  plus \(\max(0,A,A+B)\). The second split is either nested in the first
+  split edge or uses a distinct incident/disjoint base edge; these are all
+  possibilities.
+- **EXACT METHOD-SPECIFIC LIMITATION (THREE TAILS):** writing
+  \(P^*_{m+2,n}\) for the minimum simple-cycle score on \(S_{m+2}\), the
+  exact obstruction satisfies, uniformly,
+  \[
+  0\le\gamma^*_{m,n}-P^*_{m+2,n}<2n^2.
+  \]
+  The same comparison holds with the established duplicated-pairing floor
+  \(P_{m+2,n}\). Consequently the optimized three-tail obstruction still has
+  cubic coefficient \(2(\sqrt2-1)/3\). This is not an asymptotic evaluation
+  of \(\Lambda_n\) or \(R_2^*(n)\).
+- **VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK):** compatible double splits
+  give every outer simple cycle at \((m,n)=(2,7)\), with exact interaction
+  counts 24 nested, 24 distinct-incident, and 12 distinct-disjoint. Four
+  bounded rows check the pairing floor, exact base minimum, and three-tail
+  obstruction without calling production scoring or enumeration.
 - **VERIFIED FACT (FINITE EXHAUSTIVE EXACT COMPUTATION):** bounded canonical
   enumeration for \(n=3,\ldots,8\) gives
   \((12,26,47,77,118,172)\), with no counterexample to the supplied
@@ -916,6 +938,301 @@ two-consecutive-tail schema (CR28e)--(CR28g), not an upper bound on
 \(\Lambda_n\). It does not exclude a gain from coupling a number of tails
 that grows with \(n\), from nonconsecutive subsets, or from additional global
 structure.
+
+### Exact obstruction from three nested tails
+
+Fix \(n\ge5\) and \(1\le m\le n-4\), and put
+\[
+y=m,
+\qquad x=m+1,
+\qquad T=S_{m+2},
+\qquad q=|T|=n-m-1\ge3.
+\tag{CR28o}
+\]
+For a simple cycle \(C\) on a vertex set \(V\), an edge
+\(e=\{a,b\}\in E(C)\), and a new label \(z\notin V\), write
+\(C\mathbin\oplus_e z\) for the edge split
+\[
+E(C\mathbin\oplus_e z)
+=
+\bigl(E(C)\setminus\{\{a,b\}\}\bigr)
+\cup\{\{a,z\},\{z,b\}\}.
+\tag{CR28p}
+\]
+This is again a simple spanning cycle. Also put
+\[
+\delta_t(u,v)
+=t(u+v)-uv
+=t^2-(u-t)(v-t).
+\tag{CR28q}
+\]
+
+For later comparison, define the exact one-tail cycle minimum
+\[
+P^*_{\ell,n}
+=
+\min_{C\in\mathcal C(S_\ell)}P(C)
+\qquad(3\le\ell\le n-2).
+\tag{CR28r}
+\]
+This is distinct from the established duplicated-pairing floor
+\(P_{\ell,n}\), although the alternating cycle in the preceding proof puts
+them within \(O(n^2)\) of one another.
+
+Delete \(y=m\) and then \(x=m+1\) from the cycle induced by a complete order
+on \(S_m\). The result is uniquely a triple
+\[
+C\in\mathcal C(T),
+\qquad e=\{a,b\}\in E(C),
+\qquad
+f=\{u,v\}\in E(C\mathbin\oplus_e x).
+\tag{CR28s}
+\]
+Conversely, splitting \(e\) with \(x\), then \(f\) with \(y\), reconstructs
+a unique cycle on \(S_m\); inserting \(1,\ldots,m-1\) arbitrarily extends it
+to a complete order without changing the three tail scores. Thus this is a
+bijection, not a relaxation. Indeed, modulo dihedral symmetry, its cardinality
+is
+\[
+{(q-1)!\over2}\,q(q+1)={(q+1)!\over2},
+\]
+the number of simple cycles on the \(q+2\) labels of \(S_m\).
+
+Let
+\[
+A=\delta_x(a,b),
+\qquad B=\delta_y(u,v).
+\]
+Literal deletion and insertion give
+\[
+\begin{aligned}
+P_\sigma(S_{m+2})&=P(C),\\
+P_\sigma(S_{m+1})&=P(C)+A,\\
+P_\sigma(S_m)&=P(C)+A+B.
+\end{aligned}
+\tag{CR28t}
+\]
+Consequently, for
+\[
+\gamma^*_{m,n}
+=
+\min_{\sigma\in\Omega_n}
+\max\{P_\sigma(S_m),P_\sigma(S_{m+1}),P_\sigma(S_{m+2})\},
+\]
+one has the exact reduction
+\[
+\boxed{
+\gamma^*_{m,n}
+=
+\min_{\substack{C\in\mathcal C(T),\ e=\{a,b\}\in E(C)\\
+                  f=\{u,v\}\in E(C\mathbin\oplus_e x)}}
+\left(
+P(C)+\max\{0,A,A+B\}
+\right).
+}
+\tag{CR28u}
+\]
+The prefix maximum is essential. If
+\(h(A,B)=\max(0,A,A+B)\), then
+\[
+h(A,B)=
+\begin{cases}
+A+[B]_+,&A\ge0,\\
+[A+B]_+,&A<0,
+\end{cases}
+\qquad
+h(A,B)\le[A]_++[B]_+,
+\tag{CR28v}
+\]
+but the upper bound is not an exact replacement in general.
+
+The simple-cycle and compatibility conditions in (CR28u) cannot be reduced
+to three independently optimized pairing signatures. On a vertex set of at
+least three labels, a duplicated-label pairing signature represents one
+simple spanning cycle exactly when it has the following properties: it has
+one unordered edge per vertex, every endpoint lies in the vertex set, every
+vertex has degree two, there are no loops or repeated unordered edges, and
+the resulting graph is connected. Degree two alone permits a disjoint union
+of proper subcycles. Starting from a valid \(C\), each genuine split in
+(CR28p) preserves every condition automatically. Starting from proposed
+signatures instead, one must also verify the two exact linkage identities
+\[
+E(C_1)=
+\bigl(E(C)\setminus\{e\}\bigr)\cup\{\{a,x\},\{x,b\}\},
+\]
+\[
+E(C_0)=
+\bigl(E(C_1)\setminus\{f\}\bigr)\cup\{\{u,y\},\{y,v\}\},
+\tag{CR28w}
+\]
+and audit the connected simple cycle after restoring \(f\), then \(e\), in
+that order. Separate fixed-edge pairing floors need not satisfy this audit.
+The exceptional two-label double edge never occurs because \(q\ge3\).
+
+For fixed \(C\) and \(e=\{a,b\}\), the \(q+1\) possible choices of \(f\)
+are exhaustive:
+
+1. \(f=\{a,x\}\) or \(f=\{x,b\}\). These are the two nested splits of the
+   same base edge and replace the local arc \(a-b\) by, respectively,
+   \(a-y-x-b\) or \(a-x-y-b\).
+2. \(f\in E(C)\setminus\{e\}\) shares one endpoint with \(e\). There are
+   exactly two such surviving base edges.
+3. \(f\in E(C)\setminus\{e\}\) is disjoint from \(e\). There are \(q-3\)
+   such edges, none when \(q=3\).
+
+There is no fourth case: \(e\) itself was removed by the first split. In the
+last two cases the two splits use distinct base edges and commute, including
+when the edges share one endpoint. In the nested cases the second corrections
+are explicitly
+\[
+\delta_y(a,x)=m^2+m-a,
+\qquad
+\delta_y(x,b)=m^2+m-b.
+\tag{CR28x}
+\]
+They can be positive, so the three-tail obstruction does not collapse to the
+two-tail obstruction.
+
+Nested splits remain part of the bijection and can tie at the minimum, but
+they are weakly dominated for purposes of minimizing (CR28u). For example,
+if \(f=\{a,x\}\) and \(\{a,a'\}\ne e\) is the other base edge incident to
+\(a\), then
+\[
+\delta_y(a,a')-\delta_y(a,x)
+=(a'-x)(y-a)<0.
+\]
+The function \(h(A,B)\) is nondecreasing in \(B\), so replacing the nested
+split by the surviving edge \(\{a,a'\}\) cannot increase the objective. The
+case \(f=\{x,b\}\) is identical. Hence the minimum also has the simpler exact
+form
+\[
+\boxed{
+\gamma^*_{m,n}
+=
+\min_{\substack{C\in\mathcal C(T)\\e,g\in E(C),\ e\ne g}}
+\left(
+P(C)+h\bigl(\delta_{m+1}(e),\delta_m(g)\bigr)
+\right).
+}
+\tag{CR28y}
+\]
+
+We can now prove the requested uniform comparison. Since \(h\ge0\), every
+candidate in (CR28u) is at least \(P(C)\), and therefore
+\(\gamma^*_{m,n}\ge P^*_{m+2,n}\). Conversely, choose a cycle attaining
+\(P^*_{m+2,n}\) and two distinct base edges as in (CR28y). The endpoints of
+the first edge are distinct labels greater than \(x\), while those of the
+second are distinct labels at least \(y+2\). Thus
+\[
+\delta_x(e)\le (m+1)^2-2,
+\qquad
+\delta_y(g)\le m^2-6.
+\]
+Using (CR28v) gives the explicit uniform bound
+\[
+\boxed{
+0\le
+\gamma^*_{m,n}-P^*_{m+2,n}
+\le (m+1)^2-2+[m^2-6]_+
+<2n^2.
+}
+\tag{CR28z}
+\]
+Thus the proposed \(P^*_{m+2,n}+O(n^2)\) statement is true, uniformly over
+the full stated two-parameter domain.
+
+It is also true with the duplicated-pairing floor \(P_{m+2,n}\). The exact
+alternating cycle on \(q=n-m-1\) consecutive labels satisfies
+\[
+P_{m+2,n}\le P^*_{m+2,n}\le P_{m+2,n}+g(q),
+\qquad
+0\le g(q)\le {q^2\over8}.
+\]
+Combining this with the preceding construction and
+\[
+2n^2-\left((m+1)^2+m^2+{q^2\over8}\right)
+=4mq+2m+{15q^2\over8}+4q+1>0
+\]
+proves the second uniform squeeze
+\[
+\boxed{
+P_{m+2,n}
+\le\gamma^*_{m,n}
+<P_{m+2,n}+2n^2.
+}
+\tag{CR28aa}
+\]
+
+Finally define the strongest obstruction obtained by optimizing one block of
+three consecutive tails,
+\[
+\Gamma_n^{(3)}
+=\max_{1\le m\le n-4}\gamma^*_{m,n}.
+\]
+Each of the three subset scores is at most \(\Lambda(\sigma)\), so
+\(\Lambda_n\ge\Gamma_n^{(3)}\); this is only a one-sided method bound. From
+(CR28aa),
+\[
+M_n^{(3)}
+:=\max_{3\le\ell\le n-2}P_{\ell,n}
+\le\Gamma_n^{(3)}
+<M_n^{(3)}+2n^2.
+\tag{CR28ab}
+\]
+For \(\alpha=\ell/n\), the exact tail polynomial can be written
+\[
+P_{\ell,n}
+=n^3\phi(\alpha)+\alpha n^2+{\alpha-1\over6}n,
+\qquad
+\phi(\alpha)
+={(1-\alpha)(\alpha^2+4\alpha+1)\over6}.
+\tag{CR28ac}
+\]
+The lower-order terms are uniform for \(0\le\alpha\le1\). As already used in
+the two-tail proof, \(\phi\) is strictly concave, has unique maximizer
+\(\alpha_0=\sqrt2-1\), and
+\(\phi(\alpha_0)=2(\sqrt2-1)/3\). An integer within one of
+\(\alpha_0n\) lies in \(3\le\ell\le n-2\) for all sufficiently large \(n\),
+so the discrete restriction does not remove the leading maximizer. Therefore
+\[
+M_n^{(3)}
+={2(\sqrt2-1)\over3}n^3+O(n^2),
+\]
+and (CR28ab) proves
+\[
+\boxed{
+\Gamma_n^{(3)}
+={2(\sqrt2-1)\over3}n^3+O(n^2),
+\qquad
+\lim_{n\to\infty}{\Gamma_n^{(3)}\over n^3}
+={2(\sqrt2-1)\over3}.
+}
+\tag{CR28ad}
+\]
+This is an exact limitation of the obstruction formed from one optimized
+block of three consecutive tails. It is not an asymptotic formula, upper
+bound, or convergence result for \(\Lambda_n\), and it makes no exact
+asymptotic claim about \(R_2^*(n)\).
+
+Independent exact test-local checks exercise the full reduction without
+production scoring or enumeration. For \((m,n)=(2,7)\), the 60 compatible
+double splits are exactly all 60 dihedral cycles on \(S_2\), with interaction
+counts 24 nested, 24 distinct-incident, and 12 distinct-disjoint. The exact
+rows
+\[
+\bigl(P_{m+2,n},P^*_{m+2,n},\gamma^*_{m,n}\bigr)
+\]
+are
+\[
+(46,47,47),\quad
+(116,117,118),\quad
+(235,237,239),\quad
+(320,322,323)
+\]
+for \((m,n)=(1,5),(2,7),(3,9),(3,10)\), respectively. A separate bounded
+grid checks the alternating-cycle excess and the uniform quadratic
+construction. These finite computations verify arithmetic and compatibility;
+they are not the all-\(n\) proof.
 
 ## 5. Exact Scorer Without Cycle Enumeration
 
@@ -2433,6 +2750,12 @@ Further non-consequences are important.
   (CR28n) proves only that this specific proof schema has the same leading
   coefficient as the one-tail pairing bound. It neither evaluates
   \(\Lambda_n\) asymptotically nor excludes methods coupling many tails.
+- The three-nested-tail obstruction (CR28u) has the complete compatible-split
+  reduction (CR28w)--(CR28y). Its uniform squeeze (CR28z)--(CR28aa) and
+  optimized result (CR28ad) again preserve the one-tail cubic coefficient.
+  This is a method-specific limitation for one block of three tails, not an
+  asymptotic evaluation of \(\Lambda_n\) or \(R_2^*(n)\), and it does not
+  settle blocks whose length grows with \(n\).
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality
   of minimizing order sets, or \(\Lambda_n=(n-1)W_n\). The exact global
   relation proved here is the one-sided inequality (CR38b).

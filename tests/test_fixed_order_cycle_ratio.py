@@ -305,6 +305,153 @@ def _nested_tail_bound_oracle(m: int, n: int) -> tuple[int, int]:
     return minimum_cycle_score, minimum_two_tail_score
 
 
+def _split_cycle_edge_oracle(
+    order: tuple[int, ...],
+    position: int,
+    label: int,
+) -> tuple[int, ...]:
+    """Split one literal cyclic edge with a new label."""
+    assert label not in order
+    assert 0 <= position < len(order)
+    return order[: position + 1] + (label,) + order[position + 1 :]
+
+
+def _three_nested_tail_bound_oracle(
+    m: int,
+    n: int,
+) -> tuple[
+    int,
+    int,
+    frozenset[tuple[tuple[int, int], ...]],
+    dict[str, int],
+]:
+    """Enumerate the exact compatible double splits without production code."""
+    x = m + 1
+    base_labels = tuple(range(m + 2, n + 1))
+    assert len(base_labels) >= 3
+
+    minimum_base_score: int | None = None
+    minimum_three_tail_score: int | None = None
+    minimum_distinct_edge_score: int | None = None
+    final_signatures: set[tuple[tuple[int, int], ...]] = set()
+    interaction_counts = {
+        "nested": 0,
+        "separate_adjacent": 0,
+        "separate_disjoint": 0,
+    }
+
+    for base in _dihedral_orders_on_labels_oracle(base_labels):
+        base_score = _cyclic_product_sum(base)
+        minimum_base_score = (
+            base_score
+            if minimum_base_score is None
+            else min(minimum_base_score, base_score)
+        )
+        base_signature = _undirected_cycle_edge_signature(base)
+        base_edges = set(base_signature)
+        assert _is_loopless_spanning_cycle_signature(
+            base_signature,
+            base_labels,
+        )
+
+        for first_position, a in enumerate(base):
+            b = base[(first_position + 1) % len(base)]
+            first_edge = (min(a, b), max(a, b))
+            intermediate = _split_cycle_edge_oracle(base, first_position, x)
+            intermediate_score = _cyclic_product_sum(intermediate)
+            first_correction = x * (a + b) - a * b
+            intermediate_signature = _undirected_cycle_edge_signature(intermediate)
+            intermediate_edges = set(intermediate_signature)
+            child_edges = {
+                (min(a, x), max(a, x)),
+                (min(x, b), max(x, b)),
+            }
+
+            assert first_correction == x * x - (a - x) * (b - x)
+            assert intermediate_score == base_score + first_correction
+            assert intermediate_edges == (
+                base_edges - {first_edge}
+            ) | child_edges
+            assert _is_loopless_spanning_cycle_signature(
+                intermediate_signature,
+                (x, *base_labels),
+            )
+
+            for second_position, u in enumerate(intermediate):
+                v = intermediate[(second_position + 1) % len(intermediate)]
+                second_edge = (min(u, v), max(u, v))
+                final = _split_cycle_edge_oracle(
+                    intermediate,
+                    second_position,
+                    m,
+                )
+                final_score = _cyclic_product_sum(final)
+                second_correction = m * (u + v) - u * v
+                final_signature = _undirected_cycle_edge_signature(final)
+                final_edges = set(final_signature)
+
+                assert second_correction == m * m - (u - m) * (v - m)
+                assert final_score == intermediate_score + second_correction
+                assert final_edges == (
+                    intermediate_edges - {second_edge}
+                ) | {
+                    (min(u, m), max(u, m)),
+                    (min(m, v), max(m, v)),
+                }
+                assert _is_loopless_spanning_cycle_signature(
+                    final_signature,
+                    (m, x, *base_labels),
+                )
+
+                if second_edge in child_edges:
+                    interaction = "nested"
+                else:
+                    assert second_edge in base_edges - {first_edge}
+                    common_endpoints = len(
+                        set(first_edge).intersection(second_edge)
+                    )
+                    assert common_endpoints in {0, 1}
+                    interaction = (
+                        "separate_adjacent"
+                        if common_endpoints == 1
+                        else "separate_disjoint"
+                    )
+                interaction_counts[interaction] += 1
+
+                candidate = max(
+                    base_score,
+                    intermediate_score,
+                    final_score,
+                )
+                assert candidate == base_score + max(
+                    0,
+                    first_correction,
+                    first_correction + second_correction,
+                )
+                minimum_three_tail_score = (
+                    candidate
+                    if minimum_three_tail_score is None
+                    else min(minimum_three_tail_score, candidate)
+                )
+                if interaction != "nested":
+                    minimum_distinct_edge_score = (
+                        candidate
+                        if minimum_distinct_edge_score is None
+                        else min(minimum_distinct_edge_score, candidate)
+                    )
+                final_signatures.add(final_signature)
+
+    assert minimum_base_score is not None
+    assert minimum_three_tail_score is not None
+    assert minimum_distinct_edge_score == minimum_three_tail_score
+    return (
+        minimum_base_score,
+        minimum_three_tail_score,
+        frozenset(final_signatures),
+        interaction_counts,
+    )
+
+
 def _alternating_tail_cycle_oracle(m: int, n: int) -> tuple[int, ...]:
     """Construct the exact near-pairing cycle used in the asymptotic squeeze."""
     labels = tuple(range(m + 1, n + 1))
@@ -647,6 +794,133 @@ def test_alternating_tail_cycle_has_exact_subcubic_pairing_excess() -> None:
                     for correction in corrections
                 )
                 <= pairing_floor + excess + m * m
+            )
+
+
+def test_three_nested_tail_compatible_splits_cover_every_simple_cycle() -> None:
+    base_minimum, gamma, final_signatures, interaction_counts = (
+        _three_nested_tail_bound_oracle(2, 7)
+    )
+    literal_final_signatures = {
+        _undirected_cycle_edge_signature(order)
+        for order in _dihedral_orders_on_labels_oracle(tuple(range(2, 8)))
+    }
+
+    assert base_minimum == 117
+    assert gamma == 118
+    assert interaction_counts == {
+        "nested": 24,
+        "separate_adjacent": 24,
+        "separate_disjoint": 12,
+    }
+    assert len(final_signatures) == 60
+    assert final_signatures == literal_final_signatures
+
+
+def test_three_nested_tail_bound_matches_literal_double_insertions() -> None:
+    expected = {
+        (1, 5): (46, 47, 47, 12),
+        (2, 7): (116, 117, 118, 60),
+        (3, 9): (235, 237, 239, 360),
+        (3, 10): (320, 322, 323, 2520),
+    }
+
+    for (m, n), (
+        expected_pairing,
+        expected_base,
+        expected_gamma,
+        expected_cycle_count,
+    ) in expected.items():
+        base_labels = tuple(range(m + 2, n + 1))
+        pairing_floor = sum(
+            label * (m + 2 + n - label) for label in base_labels
+        )
+        base_minimum, gamma, final_signatures, _ = (
+            _three_nested_tail_bound_oracle(m, n)
+        )
+        direct_gamma = min(
+            max(
+                _cyclic_product_sum(
+                    tuple(label for label in order if label >= threshold)
+                )
+                for threshold in (m, m + 1, m + 2)
+            )
+            for order in _dihedral_orders_on_labels_oracle(
+                tuple(range(m, n + 1))
+            )
+        )
+
+        assert pairing_floor == expected_pairing
+        assert base_minimum == expected_base
+        assert gamma == direct_gamma == expected_gamma
+        assert len(final_signatures) == expected_cycle_count
+
+
+def test_three_nested_tail_alternating_base_has_uniform_quadratic_excess() -> None:
+    for m in range(1, 7):
+        for q in range(3, 13):
+            n = m + q + 1
+            x = m + 1
+            base_labels = tuple(range(m + 2, n + 1))
+            base = _alternating_tail_cycle_oracle(m + 1, n)
+            base_score = _cyclic_product_sum(base)
+            pairing_floor = sum(
+                label * (m + 2 + n - label) for label in base_labels
+            )
+            half = q // 2
+            pairing_excess = (
+                half * (half - 1) // 2
+                if q % 2 == 0
+                else half * (half + 1) // 2
+            )
+            best_compatible_excess: int | None = None
+
+            assert base_score == pairing_floor + pairing_excess
+            assert 8 * pairing_excess <= q * q
+
+            for first_position, a in enumerate(base):
+                b = base[(first_position + 1) % len(base)]
+                first_correction = x * (a + b) - a * b
+                intermediate = _split_cycle_edge_oracle(
+                    base,
+                    first_position,
+                    x,
+                )
+
+                for second_position, u in enumerate(intermediate):
+                    v = intermediate[
+                        (second_position + 1) % len(intermediate)
+                    ]
+                    second_correction = m * (u + v) - u * v
+                    prefix_excess = max(
+                        0,
+                        first_correction,
+                        first_correction + second_correction,
+                    )
+
+                    assert prefix_excess <= max(0, first_correction) + max(
+                        0,
+                        second_correction,
+                    )
+                    assert first_correction <= x * x - 2
+                    assert second_correction <= m * m - 2
+                    best_compatible_excess = (
+                        prefix_excess
+                        if best_compatible_excess is None
+                        else min(best_compatible_excess, prefix_excess)
+                    )
+
+            assert best_compatible_excess is not None
+            assert (
+                base_score + best_compatible_excess
+                <= pairing_floor
+                + pairing_excess
+                + (m + 1) * (m + 1)
+                + m * m
+            )
+            assert (
+                pairing_excess + (m + 1) * (m + 1) + m * m
+                < 2 * n * n
             )
 
 
