@@ -217,6 +217,32 @@ in `research/ALL_N_LOWER_BOUND.md`.
   no finite rounding of the irrational optimizer is asserted.  The optimized
   number is still a method-specific lower coefficient, not an exact leading
   coefficient, convergence theorem, or production result.
+- **EXACT THEOREM (NORMALIZED \(k\)-PREFIX SIMPLEX):** for every \(k\ge1\),
+  the compact normalized polynomial (CR28cr) has one strictly interior
+  maximizer. Its ratios satisfy
+  \[
+  r_k={2\over3},
+  \qquad r_i={2\over3-r_{i+1}^2},
+  \]
+  and its exact values satisfy
+  \[
+  M_0=0,
+  \qquad M_k={4\over27(1-M_{k-1})^2}.
+  \]
+  The sequence is strictly increasing and converges to \(1/3\). A global
+  nonnegative telescoping certificate proves uniqueness, rather than only
+  stationarity. The cases \(k=1,2,3\) recover exactly the previously proved
+  one-, two-, and three-prefix simplex data.
+- **EXACT NORMALIZED-ENVELOPE CLASSIFICATION:** the formal limiting envelope
+  \(p(\alpha)+(3\alpha-1)^3/24\) has unique compact-closure maximum
+  \(1/3\) at the degenerate endpoint \(\alpha=1\); on \(\alpha<1\) this is
+  only a supremum. Restricted to the limiting all-middle closure
+  \([1/3,1/2]\), its unique maximum is
+  \((434+4\sqrt2)/1587\) at
+  \((13-2\sqrt2)/23\).
+- **LIMITATION:** the normalized theorem proves no charging statement for
+  \(k\ge4\), no uniform interchange of \(k\) and \(n\), and no new lower
+  bound for \(\Lambda_n\) or \(R_2^*(n)\).
 - **VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK):** a recursive oracle at
   \((m,n,r)=(2,7,4)\) identifies all 60 compatible triple-split histories
   with all 60 outer dihedral cycles and obtains
@@ -3616,6 +3642,223 @@ coefficient, minimal polynomial, isolating interval, and strict comparison
 with \(C_{2,*}\), without calling production scorers, canonicalizers, or
 enumerators.
 
+### Normalized \(k\)-prefix simplex lemma
+
+The compact polynomial behind the one-, two-, and three-prefix optimizations
+has an exact all-\(k\) solution which is independent of the charging
+argument. For \(k\ge1\), put
+
+\[
+F_k(x_1,\ldots,x_k)
+=\sum_{i=1}^k(x_{i-1}-x_i)x_i^2,
+\qquad x_0=1,
+\]
+\[
+M_k=\max_{1\ge x_1\ge\cdots\ge x_k\ge0}F_k(x_1,\ldots,x_k),
+\qquad M_0=0.
+\tag{CR28cr}
+\]
+
+The feasible simplex is compact and \(F_k\) is continuous, so a maximizer
+exists. More is true. Homogeneity of degree three in the tail gives the
+exact Bellman reduction
+
+\[
+M_m
+=\max_{0\le y\le1}
+\left((1-y)y^2+y^3M_{m-1}\right)
+=\max_{0\le y\le1}y^2\left(1-(1-M_{m-1})y\right).
+\tag{CR28cs}
+\]
+
+Assume inductively that \(0\le M_{m-1}<1/3\), and define
+
+\[
+q_m={2\over3(1-M_{m-1})}.
+\]
+
+Then \(0<q_m<1\), and for every \(a,b\ge0\) the following exact identity
+holds:
+
+\[
+\begin{aligned}
+a^3M_m-(a-b)b^2-b^3M_{m-1}
+={}&(1-M_{m-1})(b-q_ma)^2
+\left(b+{q_ma\over2}\right),\\
+M_m={q_m^2\over3}
+={4\over27(1-M_{m-1})^2}.
+\end{aligned}
+\tag{CR28ct}
+\]
+
+The second line follows either by substituting \(b=q_ma\), or by the unique
+positive interior critical point in (CR28cs). The derivative is positive on
+\((0,q_m)\) and negative on \((q_m,1]\), so this point is the unique global
+maximum. Since \(q_m<1\), it also proves \(M_m<1/3\), closing the induction.
+Summing the first line of (CR28ct) for
+\((a,b)=(x_{i-1},x_i)\) and remaining lengths \(m=k-i+1\) telescopes to the
+global certificate
+
+\[
+\boxed{
+M_k-F_k(x_1,\ldots,x_k)
+=\sum_{i=1}^k(1-M_{k-i})
+ (x_i-q_{k-i+1}x_{i-1})^2
+ \left(x_i+{q_{k-i+1}x_{i-1}\over2}\right).
+}
+\tag{CR28cu}
+\]
+
+Every summand is nonnegative. Equality forces, successively,
+
+\[
+x_i=q_{k-i+1}x_{i-1}
+\qquad(1\le i\le k).
+\tag{CR28cv}
+\]
+
+Thus the maximizer is unique. Moreover \(q_1=2/3\), while
+\(2/3<q_m<1\) for \(m\ge2\). Consequently the unique point is strictly
+interior:
+
+\[
+1>x_1>x_2>\cdots>x_k>0.
+\]
+
+For its consecutive ratios \(r_i=x_i/x_{i-1}\), equations
+(CR28ct)--(CR28cv) give
+
+\[
+r_i=q_{k-i+1},
+\qquad
+q_1={2\over3},
+\qquad
+q_{m+1}={2\over3-q_m^2}.
+\]
+
+Hence the proposed backward recurrence is confirmed exactly, without a
+correction:
+
+\[
+\boxed{
+r_k={2\over3},
+\qquad
+r_i={2\over3-r_{i+1}^2}
+\quad(1\le i<k).
+}
+\tag{CR28cw}
+\]
+
+The scalar recurrence in (CR28ct) is an exact recursive formula for every
+\(M_k\). If
+
+\[
+T(u)={4\over27(1-u)^2},
+\]
+
+then, for \(0\le u<1/3\),
+
+\[
+T(u)-u
+={(1-3u)^2(4-3u)\over27(1-u)^2}>0.
+\tag{CR28cx}
+\]
+
+Therefore \(M_k=T(M_{k-1})\) is strictly increasing and bounded above by
+\(1/3\). Its limit \(L\) satisfies \(T(L)=L\). Equivalently,
+\((1-3L)^2(4-3L)=0\); since \(L\le1/3\),
+
+\[
+\boxed{M_k\nearrow{1\over3}.}
+\tag{CR28cy}
+\]
+
+The first three rows recover, exactly and in the same normalization, all
+previously documented simplex values:
+
+| \(k\) | unique maximizer \((x_1,\ldots,x_k)\) | ratios \((r_1,\ldots,r_k)\) | \(M_k\) | \(M_k/8\) |
+|---:|---|---|---:|---:|
+| 1 | \((2/3)\) | \((2/3)\) | \(4/27\) | \(1/54\) |
+| 2 | \((18/23,12/23)\) | \((18/23,2/3)\) | \(108/529\) | \(27/1058\) |
+| 3 | \((1058/1263,276/421,184/421)\) | \((1058/1263,18/23,2/3)\) | \(1119364/4785507\) | \(279841/9571014\) |
+
+The last column is the scale appearing after
+\(X_i=(3\alpha-1)x_i\): it reproduces respectively the one-prefix residual
+coefficient, (CR28bw12), and (CR28cn).
+
+Purely at the normalized-polynomial level, define on
+\(1/3\le\alpha\le1\)
+
+\[
+E_k(\alpha)
+=p(\alpha)+{M_k\over8}(3\alpha-1)^3.
+\tag{CR28cz}
+\]
+
+Then (CR28cy) gives uniform monotone convergence on this compact interval:
+
+\[
+E_k(\alpha)\nearrow E_\infty(\alpha)
+=p(\alpha)+{(3\alpha-1)^3\over24}
+={23\alpha^3-39\alpha^2+21\alpha+3\over24}.
+\tag{CR28da}
+\]
+
+The full formal envelope has the exact factorization
+
+\[
+{1\over3}-E_\infty(\alpha)
+={(1-\alpha)(23\alpha^2-16\alpha+5)\over24}.
+\tag{CR28db}
+\]
+
+The quadratic factor is strictly positive because its discriminant is
+\(-204\). Thus on the compact closure \([1/3,1]\), the unique global maximum
+is
+
+\[
+\boxed{\alpha=1,\qquad E_\infty(1)={1\over3}.}
+\tag{CR28dc}
+\]
+
+On the strict density domain \(\alpha\in[1/3,1)\), this is only a supremum
+and is not attained. This endpoint statement must also be separated from the
+branch on which the quadratic relaxation (CR28bw10) is an equality. For finite
+\(k\), \(x_1=q_k\) is the largest normalized coordinate, so all cutoffs
+remain in the middle-branch closure if and only if
+\((3\alpha-1)q_k\le(1+\alpha)/3\). Its exact density interval is
+\[
+{1\over3}\le\alpha\le{3q_k+1\over9q_k-1}.
+\]
+Since \(q_k\to1\), these intervals converge to
+\(1/3\le\alpha\le1/2\). On that limiting interval,
+
+\[
+E_\infty'(\alpha)={23\alpha^2-26\alpha+7\over8}
+\]
+
+has the unique maximizing root
+
+\[
+\boxed{
+\alpha_{\rm mid}={13-2\sqrt2\over23},
+\qquad
+E_\infty(\alpha_{\rm mid})={434+4\sqrt2\over1587}.
+}
+\tag{CR28dd}
+\]
+
+The other root \((13+2\sqrt2)/23\) is a local minimum of the full cubic.
+In particular, (CR28dd) is a middle-branch normalized candidate, whereas
+(CR28dc) is the global maximum of the displayed formal compact envelope.
+
+No charging theorem with \(k\ge4\) selected prefixes is proved here. The
+recurrence, the limit \(M_k\to1/3\), and both envelope optimizations are
+statements about the normalized compact polynomial only. They do not permit
+an interchange of \(k\) with \(n\), do not promote either value in
+(CR28dc) or (CR28dd) to a lower bound for \(\Lambda_n\), and do not change
+any established statement about \(R_2^*(n)\).
+
 ## 5. Exact Scorer Without Cycle Enumeration
 
 The proof that simple cycles suffice does not make their enumeration the
@@ -5179,6 +5422,14 @@ Further non-consequences are important.
   This updates the asymptotic lower coefficient without finite rounding of
   the irrational optimizer or any exact residual, convergence, production,
   or geometric-leading-constant claim.
+- The normalized simplex theorem (CR28cr)--(CR28dd) solves the compact
+  polynomial for every fixed \(k\), proves its unique interior maximizer and
+  the exact recurrence \(M_k\nearrow1/3\), and explains the three previously
+  observed rational simplex points. It does not extend the combined-height
+  or one-use charging proof beyond three prefixes. In particular, neither the
+  formal endpoint value \(1/3\) nor the all-middle value
+  \((434+4\sqrt2)/1587\) is a new coefficient bound for \(\Lambda_n\) or
+  \(R_2^*(n)\).
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality
   of minimizing order sets, or \(\Lambda_n=(n-1)W_n\). The exact global
   relation proved here is the one-sided inequality (CR38b).
