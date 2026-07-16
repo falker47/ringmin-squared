@@ -171,8 +171,32 @@ in `research/ALL_N_LOWER_BOUND.md`.
   +(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_{\rm lo}).
   \]
   Every original base edge is charged at most once across both segments, and
-  every recursively nested child edge retains the local recursive floor. The
-  exact rational witness
+  every recursively nested child edge retains the local recursive floor.
+  Exact reduction of the ordered weights and complete branch/boundary
+  analysis give the unique global maximizer
+  \[
+  \alpha_*={629-23\sqrt{143}\over829},
+  \quad
+  \beta_{1,*}={2286-77\sqrt{143}\over3316},
+  \quad
+  \beta_{2,*}={2010-59\sqrt{143}\over3316},
+  \]
+  \[
+  \lambda_{{\rm hi},*}={6264-288\sqrt{143}\over5281},
+  \qquad
+  \lambda_{{\rm lo},*}={3888-192\sqrt{143}\over4273},
+  \]
+  with exact coefficient
+  \[
+  C_{2,*}={491596+6578\sqrt{143}\over2061723}.
+  \]
+  Consequently
+  \[
+  \liminf{\Lambda_n\over n^3}\ge C_{2,*},
+  \qquad
+  \liminf{R_2^*(n)\over n^3}\ge{C_{2,*}\over\pi}.
+  \]
+  Separately, the exact rational witness
   \[
   (\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})
   =(3/7,2/5,3/8,1/2,1/4)
@@ -189,8 +213,10 @@ in `research/ALL_N_LOWER_BOUND.md`.
   R_2^*(n)>{72825421\over263424000\pi}n^3-n^2
   \quad(n\ge59).
   \]
-  This is a strict certificate improvement, not a five-parameter optimum,
-  exact leading coefficient, convergence theorem, or production result.
+  This rational specialization remains the explicit finite-\(n\) theorem;
+  no finite rounding of the irrational optimizer is asserted.  The optimized
+  number is still a method-specific lower coefficient, not an exact leading
+  coefficient, convergence theorem, or production result.
 - **VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK):** a recursive oracle at
   \((m,n,r)=(2,7,4)\) identifies all 60 compatible triple-split histories
   with all 60 outer dihedral cycles and obtains
@@ -2427,7 +2453,539 @@ C_2
 }
 \tag{CR28bw}
 \]
-This derivation does not optimize the five parameters.
+The charging derivation itself does not optimize the five parameters.  That
+optimization can nevertheless be completed exactly without changing any
+part of the charging proof.
+
+#### Exact ordered-weight reduction
+
+Put \(s=1+\alpha\), \(L=s/4\), and \(U=s/3\).  For fixed
+\((\alpha,\beta)\), write
+\(g_\beta(\lambda)=g(\alpha,\beta,\lambda)\).
+Direct differentiation gives
+\[
+g_\beta'(\lambda)
+=
+{(s-\lambda\beta)(4\beta-s-\lambda\beta)
+ \over(2-\lambda)^2},
+\qquad
+g_\beta''(\lambda)
+=-{2(s-2\beta)^2\over(2-\lambda)^3}<0.
+\tag{CR28bw1}
+\]
+The last inequality is strict on the density domain because
+\(s-2\beta>1-\alpha>0\).  Hence the unique maximum on \([0,1]\) is
+\[
+\psi_s(\beta)
+=
+\begin{cases}
+0,&0\le\beta\le L,\\
+4-s/\beta,&L<\beta<U,\\
+1,&U\le\beta.
+\end{cases}
+\tag{CR28bw2}
+\]
+This function is nondecreasing.  Therefore
+\(\beta_2<\beta_1\) implies
+\(\psi_s(\beta_2)\le\psi_s(\beta_1)\): the two separate maxima already
+satisfy the prescribed order
+\(\lambda_{\rm lo}\le\lambda_{\rm hi}\).  Strict concavity shows that no
+pooled KKT branch on the open diagonal has been lost.
+
+Substitution gives the exact reduced floor
+\[
+\Phi_s(\beta)
+:=\max_{0\le\lambda\le1}g_\beta(\lambda)
+=
+\begin{cases}
+0,&0\le\beta\le L,\\[2mm]
+(4\beta-s)^2/2,&L\le\beta\le U,\\[2mm]
+(4s\beta-s^2-2\beta^2)/2,&U\le\beta.
+\end{cases}
+\tag{CR28bw3}
+\]
+The values and first derivatives agree at \(L\) and \(U\).  Thus the ordered
+weight optimization reduces CR28bw exactly to
+\[
+\overline C_2
+=p(\alpha)+(\alpha-\beta_1)\Phi_s(\beta_1)
+ +(\beta_1-\beta_2)\Phi_s(\beta_2).
+\tag{CR28bw4}
+\]
+
+There are exactly six ordered weight branches.  In the table, \(M\) means
+the middle expression in (CR28bw2), while \(H\) means the saturated value
+one.
+
+| branch | density region | \((\lambda_{\rm hi},\lambda_{\rm lo})\) |
+|---|---|---|
+| `00` | \(\beta_1\le L\) | \((0,0)\) |
+| `M0` | \(\beta_2\le L<\beta_1<U\) | \((4-s/\beta_1,0)\) |
+| `H0` | \(\beta_2\le L\), \(U\le\beta_1\) | \((1,0)\) |
+| `MM` | \(L<\beta_2<\beta_1<U\) | \((4-s/\beta_1,4-s/\beta_2)\) |
+| `HM` | \(L<\beta_2<U\le\beta_1\) | \((1,4-s/\beta_2)\) |
+| `HH` | \(U\le\beta_2\) | \((1,1)\) |
+
+Consequently the three vertices of the ordered weight triangle are exactly
+`00`, `H0`, and `HH`; its two non-diagonal open edges are `M0` and `HM`;
+and `MM` is its interior.  There is no optimizer with
+\(0<\lambda_{\rm lo}=\lambda_{\rm hi}<1\).  The only diagonal optima for
+positive segment lengths are the clipped vertices \((0,0)\) and \((1,1)\).
+Indeed the two feasible one-sided normal directions on an open diagonal
+would require
+\[
+g_{\beta_1}'(\lambda)\le0,
+\qquad
+g_{\beta_2}'(\lambda)\ge0,
+\]
+hence
+\(\lambda\ge\psi_s(\beta_1)>\psi_s(\beta_2)\ge\lambda\) unless both
+individual optima are clipped to the same endpoint.  A stationary point of
+the *restricted* diagonal can therefore exist, but it always has an
+improving direction in the full ordered triangle and is not a KKT branch of
+CR28bw.
+The transition faces are
+\(\beta_i=L\), where the corresponding weight is zero, and
+\(\beta_i=U\), where it is one.
+
+#### All remaining density branches and transitions
+
+The density classification is cleanest after the normalization
+\[
+\tau={\alpha\over1+\alpha},
+\qquad
+x_i={\beta_i\over1+\alpha},
+\qquad
+0\le x_2\le x_1\le\tau\le{1\over2}.
+\]
+Then the residual part of (CR28bw4) is
+\[
+(1+\alpha)^3V_\tau(x_1,x_2),
+\qquad
+V_\tau=(\tau-x_1)\phi(x_1)+(x_1-x_2)\phi(x_2),
+\tag{CR28bw5}
+\]
+where
+\[
+\phi(x)=
+\begin{cases}
+0,&x\le1/4,\\
+(4x-1)^2/2,&1/4\le x\le1/3,\\
+-x^2+2x-1/2,&x\ge1/3.
+\end{cases}
+\]
+
+For fixed \(x_1\), first maximize
+\((x_1-x_2)\phi(x_2)\).  Its unique positive optimizer is
+\[
+z(x_1)=
+\begin{cases}
+(8x_1+1)/12,&1/4<x_1<3/8,\\[1mm]
+\displaystyle
+{2x_1+4-\sqrt{4x_1^2-8x_1+10}\over6},
+&3/8\le x_1\le1/2.
+\end{cases}
+\tag{CR28bw6}
+\]
+At \(x_1=3/8\), both formulas give \(z=1/3\).  This follows by solving
+\((x_1-z)\phi'(z)=\phi(z)\).  On the middle piece its derivative has one
+zero; on the high piece it is strictly decreasing, so no second maximum is
+hidden.
+
+Substitute \(x_2=z(x_1)\) and optimize in \(x_1\).  On the `MM` branch the
+outer derivative factors as
+\[
+{(4x_1-1)(72\tau+5-92x_1)\over18}.
+\]
+On the `HM` branch its zero is equivalently
+\[
+\tau
+={-118x_1^2+104x_1-13\over36(1-x_1)},
+\qquad
+x_2={8x_1+1\over12}.
+\tag{CR28bw7}
+\]
+The right-hand side is strictly increasing on
+\(1/3<x_1<3/8\).  The endpoint values are \(77/216\) and \(301/720\).
+If \(F(x_1)\) denotes that right-hand side, the outer derivative is
+\[
+2(1-x_1)\bigl(\tau-F(x_1)\bigr).
+\]
+It therefore changes sign from positive to negative at the unique zero, so
+the `HM` stationary point is the regional maximum.
+
+On `HH`, put
+\[
+u=1-x_1,
+\qquad v=1-x_2,
+\qquad h=1-\tau.
+\]
+The two stationary equations are exactly
+\[
+6v^2-4uv-1=0,
+\qquad
+3u^2-2hu-v^2=0.
+\tag{CR28bw8}
+\]
+The positive first root is
+\[
+v(u)={u+\sqrt{u^2+3/2}\over3}.
+\]
+The function
+\[
+H(u)={3u^2-v(u)^2\over2u}
+\]
+is strictly increasing on \(1/2<u<5/8\), because
+\[
+H'(u)
+=
+{(50u^2+3)\sqrt{2u^2+3}-4\sqrt2\,u^3
+ \over36u^2\sqrt{2u^2+3}}>0.
+\]
+Indeed \(\sqrt{2u^2+3}>\sqrt2\,u\) and
+\(50u^2+3>4u^2\).  Moreover,
+\[
+H(1/2)={19\over36}-{\sqrt7\over18}<{1\over2},
+\qquad
+H(5/8)={419\over720}.
+\]
+Hence \(H(u)=h\) gives exactly one `HH` stationary point for every
+\(301/720<\tau<1/2\).  Equations (CR28bw6)--(CR28bw8),
+not a numerical solver, classify that entire later branch.  On the inner
+best response, the outer derivative is
+\[
+2u\bigl(H(u)-h\bigr).
+\]
+As \(x_1\) increases, \(u=1-x_1\) and hence \(H(u)\) decrease.  The sign
+again changes from positive to negative, so this unique point is the
+regional maximum.
+
+The complete fixed-\(\alpha\) maximizing-branch sequence is therefore
+\[
+\begin{array}{c|c|c}
+\text{range of }\alpha&\text{range of }\tau&\text{branch}\\ \hline
+0\le\alpha\le1/3&0\le\tau\le1/4&00\\
+1/3<\alpha<77/139&1/4<\tau<77/216&MM\\
+77/139<\alpha<301/419&77/216<\tau<301/720&HM\\
+301/419<\alpha<1&301/720<\tau<1/2&HH.
+\end{array}
+\tag{CR28bw9}
+\]
+For \(\tau\le1/4\), the value is unique but the density pair is not: the
+whole triangle \(0\le x_2\le x_1\le\tau\) has zero residual.  For
+\(\tau>1/4\), the maximizing density pair is unique, including at both
+branch junctions.
+At the first transition,
+\((x_1,x_2)=(1/3,11/36)\); at the second,
+\((x_1,x_2)=(3/8,1/3)\).  The adjacent formulas join there.  At
+\(\alpha=1/3\), the positive branch is born at the closure collision
+\(x_1=x_2=\tau=1/4\).
+In the original variables, the two nontrivial junctions are
+\[
+\left(
+{\alpha},{\beta_1},{\beta_2},
+{\lambda_{\rm hi}},{\lambda_{\rm lo}}
+\right)
+=
+\left({77\over139},{72\over139},{66\over139},1,{8\over11}\right)
+\]
+and
+\[
+\left(
+{\alpha},{\beta_1},{\beta_2},
+{\lambda_{\rm hi}},{\lambda_{\rm lo}}
+\right)
+=
+\left({301\over419},{270\over419},{240\over419},1,1\right).
+\]
+The `MM`, `HM`, and `HH` interior stationary families exist exactly on the
+three open intervals shown in (CR28bw9); outside those intervals, the
+corresponding regional maximum lies on the adjacent transition face.
+
+For completeness, the nonwinning active strata `M0` and `H0` are precisely
+the old one-prefix stationary branches.  In the interior of `M0`,
+\[
+\beta_1={9\alpha+1\over12},
+\qquad
+\lambda_{\rm hi}={8(3\alpha-1)\over9\alpha+1},
+\qquad {1\over3}<\alpha<{3\over5};
+\]
+for \(\alpha\ge3/5\), its regional maximum is on the closure
+\(\beta_1=U\).  On `H0`, that same closure is active for
+\(1/2\le\alpha\le3/5\), while its interior stationary family for
+\(\alpha>3/5\) is
+\[
+\beta_1
+=\alpha+{2\over3}
+-{\sqrt{6\alpha^2+12\alpha+10}\over6},
+\qquad
+\lambda_{\rm hi}=1,
+\qquad {3\over5}<\alpha<1.
+\]
+They join at \(\alpha=3/5\), \(\beta_1=U\).  The low cutoff is flat on
+these strata, but they are never the fixed-\(\alpha\) two-prefix maximum:
+as soon as \(x_1>1/4\), (CR28bw6) has \(z(x_1)>1/4\) and adds a strictly
+positive second contribution.  Together with `00`, `MM`, `HM`, and `HH`,
+this exhausts every smooth density branch.
+
+#### Global upper envelope and exact maximizer
+
+The preceding branch classification can be compared globally without
+solving the radicals on `HM` or `HH`.  If \(\alpha\le1/3\), every allowed
+cutoff is at most \(L\), so the reduced coefficient is just \(p(\alpha)\).
+Here \(p'(\alpha)=(1-2\alpha-\alpha^2)/2>0\), so
+\(p(\alpha)\le p(1/3)=22/81<C_{2,*}\).
+Suppose \(\alpha>1/3\), and put \(A=3\alpha-1>0\).  For every active cutoff,
+\[
+\Phi_s(\beta)\le{(4\beta-s)^2\over2},
+\tag{CR28bw10}
+\]
+Indeed the middle expression minus the high expression is
+\((3\beta-s)^2\).  Thus (CR28bw10) has equality on the middle branch and
+strict inequality above \(U\).
+For two active cutoffs set
+\(X=4\beta_1-s\) and \(Y=4\beta_2-s\).  If the second cutoff is inactive,
+set \(Y=0\) and omit its zero term; if both are inactive, the residual is
+zero.  In either active case,
+\[
+0\le Y\le X\le A,
+\]
+and the total residual is at most
+\[
+{(A-X)X^2+(X-Y)Y^2\over8}.
+\tag{CR28bw11}
+\]
+Writing \(r=X/A\) and \(q=Y/A\), first maximize in \(q\):
+\[
+\max_{0\le q\le r}(r-q)q^2={4r^3\over27},
+\qquad q={2r\over3}.
+\]
+The remaining function is
+\(r^2(1-23r/27)\), whose unique maximum on \([0,1]\) is
+\[
+{108\over529}
+\quad\text{at}\quad
+(r,q)=\left({18\over23},{12\over23}\right).
+\]
+Consequently every point in the compact density closure satisfies
+\[
+\overline C_2\le
+E(\alpha)
+:=p(\alpha)+{27(3\alpha-1)^3\over1058}
+={829\alpha^3-1887\alpha^2+1158\alpha+224\over1587}
+\tag{CR28bw12}
+\]
+when \(\alpha\ge1/3\).  Moreover,
+\[
+E'(\alpha)={829\alpha^2-1258\alpha+386\over529}.
+\]
+Its roots are
+\[
+{629\mathbin\pm23\sqrt{143}\over829}.
+\]
+The plus root exceeds one.  The minus root lies strictly between \(1/3\)
+and \(1/2\), hence inside the `MM` validity interval
+\((1/3,77/139)\).  Thus the relaxation is attained there rather than merely
+bounding the true piecewise envelope.
+
+The exact global maximizer is
+\[
+\boxed{
+\begin{aligned}
+\alpha_*&={629-23\sqrt{143}\over829},\\
+\beta_{1,*}&={2286-77\sqrt{143}\over3316},\\
+\beta_{2,*}&={2010-59\sqrt{143}\over3316},\\
+\lambda_{{\rm hi},*}&={6264-288\sqrt{143}\over5281},\\
+\lambda_{{\rm lo},*}&={3888-192\sqrt{143}\over4273}.
+\end{aligned}
+}
+\tag{CR28bw13}
+\]
+Equivalently, along the full `MM` stationary family,
+\[
+\beta_1={5+77\alpha\over92},
+\qquad
+\beta_2={11+59\alpha\over92},
+\]
+\[
+\lambda_{\rm hi}={72(3\alpha-1)\over77\alpha+5},
+\qquad
+\lambda_{\rm lo}={48(3\alpha-1)\over59\alpha+11}.
+\]
+The simplex maximum, the relevant root of \(E'\), and both strictly concave
+weight maxima are unique.  Hence (CR28bw13) is the only maximizer in the
+original strict domain.
+
+The exact optimized coefficient is
+\[
+\boxed{
+C_{2,*}
+={491596+6578\sqrt{143}\over2061723}
+=0.276592655350947\ldots
+}
+\tag{CR28bw14}
+\]
+and it satisfies the independent quadratic equation
+\[
+6185169C_{2,*}^2-2949576C_{2,*}+342644=0.
+\]
+The five decimal coordinates are
+\[
+(0.426972259238\ldots,
+ 0.411705043058\ldots,
+ 0.393384383642\ldots,
+ 0.533993733381\ldots,
+ 0.372575225211\ldots),
+\]
+so the proposed numerical point is recovered rather than assumed.
+
+#### Boundary and collision audit
+
+It remains to make explicit why the compact closure introduces no additional
+maximizer.
+
+- On \(\alpha=0\), all densities collide and the value is \(p(0)=1/6\).
+  On \(\alpha=1\), the unique maximizing density pair is the `HH` solution
+  of (CR28bw8) with \(h=1/2\).  Equivalently, \(u\) is the unique root in
+  \((1/2,5/8)\) of
+  \[
+  276u^4-200u^3+12u+1=0,
+  \]
+  after which \(v=v(u)\), \(x_1=1-u\), and \(x_2=1-v\).  In particular,
+  the coarser bound (CR28bw12) gives \(C_2\le108/529\) on this face.
+- Each density face
+  \(\beta_1=\alpha\), \(\beta_2=\beta_1\), or \(\beta_2=0\) deletes one
+  residual term and reduces exactly to the already optimized one-prefix
+  coefficient.  Its maximum is \((4+2\sqrt3)/27<C_{2,*}\).  Intersections
+  of these faces reduce further to the pairing term.
+- On \(\beta_1=\alpha\), the maximizing low weight is
+  \(\psi_s(\beta_2)\), while the unused high weight may be any value in
+  \([\lambda_{\rm lo},1]\).  On \(\beta_2=\beta_1\), the maximizing high
+  weight is \(\psi_s(\beta_1)\), while the unused low weight may be any
+  value in \([0,\lambda_{\rm hi}]\).  If all three densities collide, every
+  ordered weight pair is irrelevant.  These are nonunique parametrizations
+  of strictly smaller collision-face values, not extra global maximizers.
+- On \(\beta_2=0\) with positive second-segment length, the unique low
+  weight is zero.  The remaining high weight is the one-prefix optimum.
+- The internal transition faces \(\beta_i=L,U\) are already included because
+  both \(\Phi_s\) and its first derivative join there.  The ordered-weight
+  table above classifies every pointwise unrestricted weight optimum.  The
+  restricted order-diagonal face is treated separately below.
+
+The exact closure maxima of the six reduced branches are
+\[
+\begin{array}{c|cccccc}
+\text{branch}&00&M0&H0&MM&HM&HH\\ \hline
+\max C_2&
+{2(\sqrt2-1)\over3}&
+{4+2\sqrt3\over27}&
+{13\over48}&
+C_{2,*}&
+{59\over216}&
+{13\over48}.
+\end{array}
+\tag{CR28bw15}
+\]
+For `00` and `M0`, these are respectively the pairing and one-prefix
+envelopes already differentiated above.  Direct differentiation on the high
+pieces gives the remaining three non-`MM` values: `H0` decreases from its
+\(\alpha=1/2\) collision value; along `HM`,
+\[
+{dC_2\over d\alpha}
+\le {5\alpha^2-17\alpha+5\over27}<0,
+\]
+and along `HH`,
+\[
+{dC_2\over d\alpha}
+\le {\alpha^2-4\alpha+1\over6}<0.
+\]
+Thus `HM` and `HH` decrease from their respective closure values
+\(59/216\) and \(13/48\).  The transition surfaces themselves have maxima
+\[
+\begin{array}{c|cccc}
+\text{surface}&\beta_1=L&\beta_2=L&\beta_1=U&\beta_2=U\\ \hline
+\max C_2&
+{2(\sqrt2-1)\over3}&
+{4+2\sqrt3\over27}&
+{59\over216}&
+{13\over48}.
+\end{array}
+\tag{CR28bw16}
+\]
+All five non-`MM` values are separated from the global coefficient by the
+single rational number \(553/2000\).  The comparisons use only integers:
+\[
+C_{2,*}>{553\over2000},
+\qquad
+143(13156000)^2-(156940819)^2
+=120067379609239>0,
+\]
+\[
+{4+2\sqrt3\over27}<{553\over2000},
+\qquad
+6931^2-3(4000)^2=38761>0,
+\]
+\[
+{2(\sqrt2-1)\over3}<{553\over2000},
+\qquad
+5659^2-2(4000)^2=24281>0.
+\]
+The rational comparisons
+\(59/216<553/2000\) and \(13/48<553/2000\) are immediate.
+
+The three boundary faces of the ordered weight triangle require one final
+distinction from the pointwise optimal-branch table.  On
+\(\lambda_{\rm lo}=0\), the low term vanishes and the exact face maximum is
+the one-prefix value \((4+2\sqrt3)/27\).  On
+\(\lambda_{\rm hi}=1\), direct differentiation gives
+\[
+{\partial C_2\over\partial\alpha}
+=-(\alpha-\beta_1)(2\alpha-3\beta_1+3)
++(\beta_1-\beta_2)
+ {\lambda_{\rm lo}(2\beta_2-1-\alpha)\over2-\lambda_{\rm lo}}
+\le0.
+\]
+Lowering \(\alpha\) to the collision \(\alpha=\beta_1\) therefore reduces
+this closure face again to the one-prefix maximum.  On the order face
+\(\lambda_{\rm lo}=\lambda_{\rm hi}\), equality with \(C_{2,*}\) would
+force the unique densities in (CR28bw13), but termwise equality in
+(CR28bw3) would then require the one common weight to equal two distinct
+middle optima.  Hence the compact diagonal face is strictly below
+\(C_{2,*}\).  Its endpoint intersections \((0,0)\) and \((1,1)\) have the
+pairing maximum \(2(\sqrt2-1)/3\).
+
+For an entirely exact comparison with the prior rational witness,
+\[
+C_{2,*}-{72825421\over263424000}
+={-6882553585461+577601024000\sqrt{143}
+  \over181035773184000}>0,
+\]
+because
+\[
+143(577601024000)^2-(6882553585461)^2
+=338536981654279737417479>0.
+\]
+Thus every boundary and collision face is strictly below the unique interior
+point.  This completes the global optimization of CR28bw itself.  It does
+not identify an exact block residual, prove convergence, or determine the
+geometric leading coefficient.
+
+Because the optimizer (CR28bw13) lies strictly in the proof-valid domain,
+the fixed-parameter limit of (CR28bu) gives the sharpened asymptotic
+corollary
+\[
+\boxed{
+\liminf_{n\to\infty}{\Lambda_n\over n^3}
+\ge C_{2,*},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\ge {C_{2,*}\over\pi}.
+}
+\tag{CR28bw17}
+\]
+No finite floor/ceiling rounding of the irrational optimizer is asserted
+here.  The rational specialization below remains the current explicit
+finite-\(n\) theorem.
 
 #### Exact rational witness and finite threshold
 
@@ -2589,9 +3147,10 @@ and therefore
 }
 \tag{CR28cc}
 \]
-These improve the previous one-prefix lower coefficients. They neither
-optimize the five two-prefix parameters nor assert convergence, an exact
-leading coefficient, or a matching upper bound.
+These remain the explicit finite-\(n\) improvement over the one-prefix
+theorem.  The globally optimized asymptotic coefficient is (CR28bw14), while
+(CR28bw17) supersedes these two liminf inequalities.  Neither statement
+asserts convergence, an exact leading coefficient, or a matching upper bound.
 
 Independent test-local `Fraction` diagnostics exercise both the valid and
 invalid charging routes. At \(n=59\), all
@@ -4105,7 +4664,7 @@ geometric bounds gives
 \]
 and
 \[
-{72825421\over263424000}
+C_{2,*}
 \le
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
 \le
@@ -4153,11 +4712,13 @@ Further non-consequences are important.
   convergence.
 - The two-prefix extension (CR28br)--(CR28cc) combines the selected heights
   before drawing from the unique base-slack pool. It therefore charges each
-  original edge at most once and covers every recursive child edge. The
-  rational witness gives the strictly larger certified coefficient
-  \(72825421/263424000\), but no global optimization over the five
-  two-prefix parameters has been attempted. The new number is still only a
-  lower coefficient, not an exact residual, limit, or leading constant.
+  original edge at most once and covers every recursive child edge. The exact
+  ordered-weight reduction, six-branch density classification, compact-face
+  audit, and cubic relaxation prove the unique optimizer (CR28bw13) and the
+  coefficient \(C_{2,*}\) in (CR28bw14). The older rational witness retains
+  the explicit \(n\ge59\) theorem because finite rounding of the irrational
+  optimizer is outside this task. Neither number is an exact residual,
+  limit, or geometric leading constant.
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality
   of minimizing order sets, or \(\Lambda_n=(n-1)W_n\). The exact global
   relation proved here is the one-sided inequality (CR38b).

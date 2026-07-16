@@ -26,6 +26,93 @@ from power_ringmin.search_small_n import (
 
 
 _SqrtThreePair = tuple[Fraction, Fraction]
+_QuadraticPair = tuple[Fraction, Fraction]
+
+
+def _quadratic_pair(
+    rational: int | Fraction = 0,
+    radical: int | Fraction = 0,
+) -> _QuadraticPair:
+    """Represent ``rational + radical * sqrt(d)`` for an external ``d``."""
+    return (Fraction(rational), Fraction(radical))
+
+
+def _quadratic_pair_add(
+    left: _QuadraticPair,
+    right: _QuadraticPair,
+) -> _QuadraticPair:
+    return (left[0] + right[0], left[1] + right[1])
+
+
+def _quadratic_pair_subtract(
+    left: _QuadraticPair,
+    right: _QuadraticPair,
+) -> _QuadraticPair:
+    return (left[0] - right[0], left[1] - right[1])
+
+
+def _quadratic_pair_multiply(
+    left: _QuadraticPair,
+    right: _QuadraticPair,
+    *,
+    radicand: int,
+) -> _QuadraticPair:
+    return (
+        left[0] * right[0] + radicand * left[1] * right[1],
+        left[0] * right[1] + left[1] * right[0],
+    )
+
+
+def _quadratic_pair_scale(
+    value: _QuadraticPair,
+    factor: int | Fraction,
+) -> _QuadraticPair:
+    factor = Fraction(factor)
+    return (factor * value[0], factor * value[1])
+
+
+def _quadratic_pair_divide(
+    numerator: _QuadraticPair,
+    denominator: _QuadraticPair,
+    *,
+    radicand: int,
+) -> _QuadraticPair:
+    conjugate = (denominator[0], -denominator[1])
+    norm = denominator[0] ** 2 - radicand * denominator[1] ** 2
+    assert norm
+    return _quadratic_pair_scale(
+        _quadratic_pair_multiply(
+            numerator,
+            conjugate,
+            radicand=radicand,
+        ),
+        1 / norm,
+    )
+
+
+def _quadratic_pair_sign(
+    value: _QuadraticPair,
+    *,
+    radicand: int,
+) -> int:
+    """Return the exact sign of ``a + b * sqrt(radicand)``."""
+    rational, radical = value
+    if radical == 0:
+        return (rational > 0) - (rational < 0)
+    if rational == 0:
+        return (radical > 0) - (radical < 0)
+    if rational > 0 and radical > 0:
+        return 1
+    if rational < 0 and radical < 0:
+        return -1
+
+    rational_square = rational * rational
+    radical_square = radicand * radical * radical
+    if rational_square == radical_square:
+        return 0
+    if rational > 0:
+        return 1 if rational_square > radical_square else -1
+    return 1 if radical_square > rational_square else -1
 
 
 def _sqrt_three_pair(
@@ -2029,6 +2116,570 @@ def test_two_prefix_rational_witness_coefficient_is_exact() -> None:
         12748069910521,
         30840979456000000,
     )
+
+
+def test_two_prefix_global_lambda_reduction_is_exact_on_rational_grid() -> None:
+    def local_floor(
+        alpha: Fraction,
+        beta: Fraction,
+        weight: Fraction,
+    ) -> Fraction:
+        center = 1 + alpha
+        return weight * (
+            4 * center * beta
+            - center * center
+            - 2 * weight * beta * beta
+        ) / (2 * (2 - weight))
+
+    def optimal_weight(alpha: Fraction, beta: Fraction) -> Fraction:
+        center = 1 + alpha
+        if 4 * beta <= center:
+            return Fraction(0)
+        if 3 * beta >= center:
+            return Fraction(1)
+        return 4 - center / beta
+
+    def reduced_floor(alpha: Fraction, beta: Fraction) -> Fraction:
+        center = 1 + alpha
+        if 4 * beta <= center:
+            return Fraction(0)
+        if 3 * beta <= center:
+            return Fraction((4 * beta - center) ** 2, 2)
+        return (
+            4 * center * beta - center * center - 2 * beta * beta
+        ) / 2
+
+    branch_pairs: set[tuple[str, str]] = set()
+    denominator = 16
+    weight_denominator = 12
+    for alpha_numerator in range(3, denominator):
+        alpha = Fraction(alpha_numerator, denominator)
+        for beta_high_numerator in range(2, alpha_numerator):
+            beta_high = Fraction(beta_high_numerator, denominator)
+            for beta_low_numerator in range(1, beta_high_numerator):
+                beta_low = Fraction(beta_low_numerator, denominator)
+                weight_high = optimal_weight(alpha, beta_high)
+                weight_low = optimal_weight(alpha, beta_low)
+                assert 0 <= weight_low <= weight_high <= 1
+                assert local_floor(
+                    alpha,
+                    beta_high,
+                    weight_high,
+                ) == reduced_floor(alpha, beta_high)
+                assert local_floor(
+                    alpha,
+                    beta_low,
+                    weight_low,
+                ) == reduced_floor(alpha, beta_low)
+
+                def weight_branch(weight: Fraction) -> str:
+                    if weight == 0:
+                        return "0"
+                    if weight == 1:
+                        return "1"
+                    return "M"
+
+                branch_pairs.add(
+                    (
+                        weight_branch(weight_high),
+                        weight_branch(weight_low),
+                    )
+                )
+                optimum = (
+                    (alpha - beta_high)
+                    * local_floor(alpha, beta_high, weight_high)
+                    + (beta_high - beta_low)
+                    * local_floor(alpha, beta_low, weight_low)
+                )
+                for high_numerator in range(weight_denominator + 1):
+                    trial_high = Fraction(
+                        high_numerator,
+                        weight_denominator,
+                    )
+                    for low_numerator in range(high_numerator + 1):
+                        trial_low = Fraction(
+                            low_numerator,
+                            weight_denominator,
+                        )
+                        trial = (
+                            (alpha - beta_high)
+                            * local_floor(alpha, beta_high, trial_high)
+                            + (beta_high - beta_low)
+                            * local_floor(alpha, beta_low, trial_low)
+                        )
+                        assert trial <= optimum
+
+    assert branch_pairs == {
+        ("0", "0"),
+        ("M", "0"),
+        ("M", "M"),
+        ("1", "0"),
+        ("1", "M"),
+        ("1", "1"),
+    }
+
+
+def test_two_prefix_global_density_branch_transitions_are_exact() -> None:
+    def middle(value: Fraction) -> Fraction:
+        return Fraction((4 * value - 1) ** 2, 2)
+
+    def middle_prime(value: Fraction) -> Fraction:
+        return 4 * (4 * value - 1)
+
+    def high(value: Fraction) -> Fraction:
+        return -(value**2) + 2 * value - Fraction(1, 2)
+
+    def high_prime(value: Fraction) -> Fraction:
+        return 2 * (1 - value)
+
+    for outer_density in (Fraction(3, 10), Fraction(77, 216)):
+        beta_high = Fraction(5 + 72 * outer_density, 92)
+        beta_low = Fraction(11 + 48 * outer_density, 92)
+        assert (beta_high - beta_low) * middle_prime(beta_low) == middle(
+            beta_low
+        )
+        assert (outer_density - beta_high) * middle_prime(
+            beta_high
+        ) == middle(beta_high) - middle(beta_low)
+
+    transition_one = Fraction(77, 216)
+    transition_high = Fraction(1, 3)
+    transition_low = Fraction(11, 36)
+    assert Fraction(5 + 72 * transition_one, 92) == transition_high
+    assert Fraction(11 + 48 * transition_one, 92) == transition_low
+    assert transition_one / (1 - transition_one) == Fraction(77, 139)
+
+    for beta_high in (
+        Fraction(1, 3),
+        Fraction(17, 48),
+        Fraction(3, 8),
+    ):
+        beta_low = Fraction(8 * beta_high + 1, 12)
+        outer_density = (
+            -118 * beta_high**2 + 104 * beta_high - 13
+        ) / (36 * (1 - beta_high))
+        assert (beta_high - beta_low) * middle_prime(beta_low) == middle(
+            beta_low
+        )
+        assert (outer_density - beta_high) * high_prime(
+            beta_high
+        ) == high(beta_high) - middle(beta_low)
+
+    transition_two = Fraction(301, 720)
+    assert (
+        -118 * Fraction(3, 8) ** 2 + 104 * Fraction(3, 8) - 13
+    ) / (36 * (1 - Fraction(3, 8))) == transition_two
+    assert Fraction(8 * Fraction(3, 8) + 1, 12) == Fraction(1, 3)
+    assert transition_two / (1 - transition_two) == Fraction(301, 419)
+
+    for beta_low in (Fraction(1, 3), Fraction(7, 20), Fraction(17, 48)):
+        beta_high = beta_low + high(beta_low) / (2 * (1 - beta_low))
+        outer_density = beta_high + (
+            high(beta_high) - high(beta_low)
+        ) / (2 * (1 - beta_high))
+        assert Fraction(3, 8) <= beta_high < outer_density < Fraction(1, 2)
+        assert (beta_high - beta_low) * high_prime(beta_low) == high(
+            beta_low
+        )
+        assert (outer_density - beta_high) * high_prime(
+            beta_high
+        ) == high(beta_high) - high(beta_low)
+
+
+def test_two_prefix_global_boundary_face_identities_are_exact() -> None:
+    def alpha_one_quartic(value: Fraction) -> Fraction:
+        return 276 * value**4 - 200 * value**3 + 12 * value + 1
+
+    assert alpha_one_quartic(Fraction(1, 2)) == Fraction(-3, 4)
+    assert alpha_one_quartic(Fraction(5, 8)) == Fraction(1829, 1024)
+    for numerator in range(9, 15):
+        value = Fraction(numerator, 24)
+        if value <= Fraction(1, 2):
+            continue
+        derivative = 12 * (2 * value - 1) * (
+            46 * value**2 - 2 * value - 1
+        )
+        assert derivative > 0
+
+    def local_floor(
+        alpha: Fraction,
+        beta: Fraction,
+        weight: Fraction,
+    ) -> Fraction:
+        center = 1 + alpha
+        return weight * (
+            4 * center * beta
+            - center * center
+            - 2 * weight * beta * beta
+        ) / (2 * (2 - weight))
+
+    samples = (
+        (Fraction(3, 5), Fraction(1, 2), Fraction(2, 5), Fraction(1, 3)),
+        (Fraction(4, 5), Fraction(3, 5), Fraction(1, 2), Fraction(2, 3)),
+        (Fraction(9, 10), Fraction(3, 4), Fraction(1, 3), Fraction(1)),
+    )
+    for alpha, beta_high, beta_low, weight_low in samples:
+        center = 1 + alpha
+        pairing_derivative = (1 - 2 * alpha - alpha**2) / 2
+        high_floor = local_floor(alpha, beta_high, Fraction(1))
+        direct_derivative = (
+            pairing_derivative
+            + high_floor
+            + (alpha - beta_high) * (2 * beta_high - center)
+            + (beta_high - beta_low)
+            * weight_low
+            * (2 * beta_low - center)
+            / (2 - weight_low)
+        )
+        reduced_derivative = -(
+            (alpha - beta_high) * (2 * alpha - 3 * beta_high + 3)
+        ) + (beta_high - beta_low) * weight_low * (
+            2 * beta_low - center
+        ) / (2 - weight_low)
+        assert direct_derivative == reduced_derivative
+        assert reduced_derivative <= 0
+
+
+def test_two_prefix_global_cubic_relaxation_and_rational_grid_are_exact() -> None:
+    simplex_denominator = 46
+    simplex_values: dict[tuple[Fraction, Fraction], Fraction] = {}
+    for high_numerator in range(simplex_denominator + 1):
+        high = Fraction(high_numerator, simplex_denominator)
+        for low_numerator in range(high_numerator + 1):
+            low = Fraction(low_numerator, simplex_denominator)
+            value = (1 - high) * high**2 + (high - low) * low**2
+            simplex_values[(high, low)] = value
+            assert value <= Fraction(108, 529)
+
+    maximum = max(simplex_values.values())
+    maximizers = tuple(
+        point for point, value in simplex_values.items() if value == maximum
+    )
+    assert maximum == Fraction(108, 529)
+    assert maximizers == ((Fraction(18, 23), Fraction(12, 23)),)
+
+    exact_coefficient = _quadratic_pair(
+        Fraction(491596, 2061723),
+        Fraction(6578, 2061723),
+    )
+
+    def reduced_floor(alpha: Fraction, beta: Fraction) -> Fraction:
+        center = 1 + alpha
+        if 4 * beta <= center:
+            return Fraction(0)
+        if 3 * beta <= center:
+            return Fraction((4 * beta - center) ** 2, 2)
+        return (
+            4 * center * beta - center * center - 2 * beta * beta
+        ) / 2
+
+    def reduced_coefficient(
+        alpha: Fraction,
+        beta_high: Fraction,
+        beta_low: Fraction,
+    ) -> Fraction:
+        pairing = (1 - alpha) * (alpha**2 + 4 * alpha + 1) / 6
+        return (
+            pairing
+            + (alpha - beta_high) * reduced_floor(alpha, beta_high)
+            + (beta_high - beta_low) * reduced_floor(alpha, beta_low)
+        )
+
+    density_denominator = 32
+    for alpha_numerator in range(density_denominator + 1):
+        alpha = Fraction(alpha_numerator, density_denominator)
+        pairing = (1 - alpha) * (alpha**2 + 4 * alpha + 1) / 6
+        for beta_high_numerator in range(alpha_numerator + 1):
+            beta_high = Fraction(
+                beta_high_numerator,
+                density_denominator,
+            )
+            for beta_low_numerator in range(beta_high_numerator + 1):
+                beta_low = Fraction(
+                    beta_low_numerator,
+                    density_denominator,
+                )
+                coefficient = reduced_coefficient(
+                    alpha,
+                    beta_high,
+                    beta_low,
+                )
+                if alpha <= Fraction(1, 3):
+                    upper_bound = pairing
+                    assert coefficient == pairing
+                else:
+                    upper_bound = pairing + Fraction(27, 1058) * (
+                        3 * alpha - 1
+                    ) ** 3
+                assert coefficient <= upper_bound
+                center = 1 + alpha
+                if 3 * beta_low >= center:
+                    assert coefficient <= Fraction(13, 48)
+                elif 3 * beta_high >= center and 4 * beta_low > center:
+                    assert coefficient <= Fraction(59, 216)
+                elif 3 * beta_high >= center and 4 * beta_low <= center:
+                    assert coefficient <= Fraction(13, 48)
+                assert (
+                    _quadratic_pair_sign(
+                        _quadratic_pair_subtract(
+                            exact_coefficient,
+                            _quadratic_pair(coefficient),
+                        ),
+                        radicand=143,
+                    )
+                    > 0
+                )
+
+    assert reduced_coefficient(
+        Fraction(1, 2),
+        Fraction(1, 2),
+        Fraction(0),
+    ) == Fraction(13, 48)
+    assert reduced_coefficient(
+        Fraction(1, 2),
+        Fraction(1, 2),
+        Fraction(11, 24),
+    ) == Fraction(59, 216)
+    assert reduced_coefficient(
+        Fraction(1, 2),
+        Fraction(1, 2),
+        Fraction(1, 2),
+    ) == Fraction(13, 48)
+
+
+def test_two_prefix_global_quadratic_surd_candidate_is_exact() -> None:
+    radicand = 143
+    one = _quadratic_pair(1)
+
+    def add(left: _QuadraticPair, right: _QuadraticPair) -> _QuadraticPair:
+        return _quadratic_pair_add(left, right)
+
+    def subtract(
+        left: _QuadraticPair,
+        right: _QuadraticPair,
+    ) -> _QuadraticPair:
+        return _quadratic_pair_subtract(left, right)
+
+    def multiply(
+        left: _QuadraticPair,
+        right: _QuadraticPair,
+    ) -> _QuadraticPair:
+        return _quadratic_pair_multiply(
+            left,
+            right,
+            radicand=radicand,
+        )
+
+    def scale(
+        value: _QuadraticPair,
+        factor: int | Fraction,
+    ) -> _QuadraticPair:
+        return _quadratic_pair_scale(value, factor)
+
+    def divide(
+        numerator: _QuadraticPair,
+        denominator: _QuadraticPair,
+    ) -> _QuadraticPair:
+        return _quadratic_pair_divide(
+            numerator,
+            denominator,
+            radicand=radicand,
+        )
+
+    def sign(value: _QuadraticPair) -> int:
+        return _quadratic_pair_sign(value, radicand=radicand)
+
+    alpha = _quadratic_pair(Fraction(629, 829), Fraction(-23, 829))
+    beta_high = _quadratic_pair(
+        Fraction(1143, 1658),
+        Fraction(-77, 3316),
+    )
+    beta_low = _quadratic_pair(
+        Fraction(1005, 1658),
+        Fraction(-59, 3316),
+    )
+    weight_high = _quadratic_pair(
+        Fraction(6264, 5281),
+        Fraction(-288, 5281),
+    )
+    weight_low = _quadratic_pair(
+        Fraction(3888, 4273),
+        Fraction(-192, 4273),
+    )
+
+    assert beta_high == scale(
+        add(_quadratic_pair(5), scale(alpha, 77)),
+        Fraction(1, 92),
+    )
+    assert beta_low == scale(
+        add(_quadratic_pair(11), scale(alpha, 59)),
+        Fraction(1, 92),
+    )
+    center = add(one, alpha)
+    assert multiply(weight_high, beta_high) == subtract(
+        scale(beta_high, 4),
+        center,
+    )
+    assert multiply(weight_low, beta_low) == subtract(
+        scale(beta_low, 4),
+        center,
+    )
+
+    for positive in (
+        beta_low,
+        subtract(beta_high, beta_low),
+        subtract(alpha, beta_high),
+        subtract(one, alpha),
+        weight_low,
+        subtract(weight_high, weight_low),
+        subtract(one, weight_high),
+    ):
+        assert sign(positive) > 0
+
+    alpha_square = multiply(alpha, alpha)
+    assert add(
+        subtract(scale(alpha_square, 829), scale(alpha, 1258)),
+        _quadratic_pair(386),
+    ) == _quadratic_pair()
+
+    raw_high = subtract(scale(beta_high, 4), center)
+    raw_low = subtract(scale(beta_low, 4), center)
+    density_span = subtract(scale(alpha, 3), one)
+    assert raw_high == scale(density_span, Fraction(18, 23))
+    assert raw_low == scale(density_span, Fraction(12, 23))
+    assert raw_low == scale(raw_high, Fraction(2, 3))
+
+    def quadratic_polynomial(
+        value: _QuadraticPair,
+        quadratic: int,
+        linear: int,
+        constant: int,
+    ) -> _QuadraticPair:
+        return add(
+            add(
+                scale(multiply(value, value), quadratic),
+                scale(value, linear),
+            ),
+            _quadratic_pair(constant),
+        )
+
+    assert quadratic_polynomial(beta_high, 13264, -18288, 5281) == (
+        _quadratic_pair()
+    )
+    assert quadratic_polynomial(beta_low, 13264, -16080, 4273) == (
+        _quadratic_pair()
+    )
+    assert quadratic_polynomial(weight_high, 5281, -12528, 5184) == (
+        _quadratic_pair()
+    )
+    assert quadratic_polynomial(weight_low, 4273, -7776, 2304) == (
+        _quadratic_pair()
+    )
+
+    def local_floor(
+        beta: _QuadraticPair,
+        weight: _QuadraticPair,
+    ) -> _QuadraticPair:
+        bracket = subtract(
+            subtract(
+                scale(multiply(center, beta), 4),
+                multiply(center, center),
+            ),
+            scale(multiply(weight, multiply(beta, beta)), 2),
+        )
+        return divide(
+            multiply(weight, bracket),
+            scale(subtract(_quadratic_pair(2), weight), 2),
+        )
+
+    pairing = scale(
+        multiply(
+            subtract(one, alpha),
+            add(
+                add(multiply(alpha, alpha), scale(alpha, 4)),
+                one,
+            ),
+        ),
+        Fraction(1, 6),
+    )
+    coefficient = add(
+        pairing,
+        add(
+            multiply(
+                subtract(alpha, beta_high),
+                local_floor(beta_high, weight_high),
+            ),
+            multiply(
+                subtract(beta_high, beta_low),
+                local_floor(beta_low, weight_low),
+            ),
+        ),
+    )
+    expected_coefficient = _quadratic_pair(
+        Fraction(491596, 2061723),
+        Fraction(6578, 2061723),
+    )
+    assert coefficient == expected_coefficient
+
+    coefficient_square = multiply(coefficient, coefficient)
+    assert add(
+        subtract(
+            scale(coefficient_square, 6185169),
+            scale(coefficient, 2949576),
+        ),
+        _quadratic_pair(342644),
+    ) == _quadratic_pair()
+    assert sign(
+        subtract(
+            coefficient,
+            _quadratic_pair(Fraction(72825421, 263424000)),
+        )
+    ) > 0
+
+    separator = Fraction(553, 2000)
+    assert sign(subtract(coefficient, _quadratic_pair(separator))) > 0
+    assert 13156000**2 * 143 - 156940819**2 == 120067379609239
+    assert 6931**2 - 3 * 4000**2 == 38761
+    assert 5659**2 - 2 * 4000**2 == 24281
+    one_prefix_gap = separator - Fraction(4, 27)
+    assert one_prefix_gap > 0
+    assert one_prefix_gap**2 - 3 * Fraction(2, 27) ** 2 > 0
+    pairing_comparator = separator + Fraction(2, 3)
+    assert pairing_comparator**2 - 2 * Fraction(2, 3) ** 2 > 0
+    assert Fraction(59, 216) < separator
+    assert Fraction(13, 48) < separator
+
+    rational_brackets = (
+        (alpha, Fraction(426972258, 10**9), Fraction(426972260, 10**9)),
+        (
+            beta_high,
+            Fraction(411705042, 10**9),
+            Fraction(411705044, 10**9),
+        ),
+        (
+            beta_low,
+            Fraction(393384383, 10**9),
+            Fraction(393384385, 10**9),
+        ),
+        (
+            weight_high,
+            Fraction(533993733, 10**9),
+            Fraction(533993734, 10**9),
+        ),
+        (
+            weight_low,
+            Fraction(372575225, 10**9),
+            Fraction(372575226, 10**9),
+        ),
+        (
+            coefficient,
+            Fraction(276592655350, 10**12),
+            Fraction(276592655352, 10**12),
+        ),
+    )
+    for value, lower, upper in rational_brackets:
+        assert sign(subtract(value, _quadratic_pair(lower))) > 0
+        assert sign(subtract(_quadratic_pair(upper), value)) > 0
 
 
 def test_two_prefix_rational_witness_finite_bounds_are_exact() -> None:

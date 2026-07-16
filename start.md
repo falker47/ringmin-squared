@@ -374,7 +374,33 @@ C_2=p(\alpha)
 +(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_{\rm hi})
 +(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_{\rm lo}).
 \]
-The exact rational witness
+Exact reduction of the ordered weights leaves six branches and no pooled
+interior KKT branch. Complete density, transition, face, and collision
+analysis gives the unique global maximizer
+\[
+\left(
+{629-23\sqrt{143}\over829},
+{2286-77\sqrt{143}\over3316},
+{2010-59\sqrt{143}\over3316},
+{6264-288\sqrt{143}\over5281},
+{3888-192\sqrt{143}\over4273}
+\right),
+\]
+in the order
+\((\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})\). Its exact
+coefficient is
+\[
+C_{2,*}
+={491596+6578\sqrt{143}\over2061723}
+=0.276592655350947\ldots .
+\]
+Consequently
+\[
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{2,*},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{2,*}\over\pi}.
+\]
+The earlier exact rational witness
 \[
 (\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})
 =\left({3\over7},{2\over5},{3\over8},{1\over2},{1\over4}\right)
@@ -391,8 +417,10 @@ proves
 R_2^*(n)>{72825421\over263424000\pi}n^3-n^2
 \quad(n\ge59).
 \]
-The five two-prefix parameters have not been optimized, and the new number is
-not an exact residual, limit, or leading coefficient.
+This rational specialization remains the current explicit finite-\(n\)
+theorem. Finite rounding of the irrational optimizer has not been performed.
+Neither coefficient is an exact residual, limit, or geometric leading
+coefficient.
 
 There is also an exact eventual radius-one insertion theorem. Let
 \(R^*_{2:n}\) be the infimum feasible central radius for only the core radii
@@ -696,7 +724,7 @@ The cubic order is exact, but existence of a limiting coefficient, a
 leading-term asymptotic formula, and an upper bound matching the current
 linear-block lower coefficient remain unresolved. Current exact bounds give
 \[
-\frac{72825421}{263424000\pi}
+\frac{491596+6578\sqrt{143}}{2061723\pi}
 \le
 \liminf_{n\to\infty}\frac{R_2^*(n)}{n^3}
 \le
@@ -1087,11 +1115,37 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   +(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_{\rm lo}).
   \]
   The base-slack partition uses every original edge at most once across both
-  segments, and the recursive floor covers every child-edge split. At the
-  rational witness \((3/7,2/5,3/8,1/2,1/4)\),
+  segments, and the recursive floor covers every child-edge split. The
+  ordered weights reduce exactly to independent clipped optima because their
+  order is automatic. The six resulting branches, both transition surfaces,
+  every density collision, and every compact boundary face give the unique
+  global optimizer
   \[
-  C_2={72825421\over263424000}>{4+2\sqrt3\over27}.
+  \left(
+  \alpha_*,\beta_{1,*},\beta_{2,*},
+  \lambda_{{\rm hi},*},\lambda_{{\rm lo},*}
+  \right)
+  =
+  \left(
+  {629-23\sqrt{143}\over829},
+  {2286-77\sqrt{143}\over3316},
+  {2010-59\sqrt{143}\over3316},
+  {6264-288\sqrt{143}\over5281},
+  {3888-192\sqrt{143}\over4273}
+  \right),
   \]
+  with
+  \[
+  C_{2,*}={491596+6578\sqrt{143}\over2061723}.
+  \]
+  Hence
+  \[
+  \liminf{\Lambda_n\over n^3}\ge C_{2,*},
+  \qquad
+  \liminf{R_2^*(n)\over n^3}\ge{C_{2,*}\over\pi}.
+  \]
+  At the rational witness \((3/7,2/5,3/8,1/2,1/4)\), the smaller exact
+  coefficient \(72825421/263424000\) retains the explicit finite theorem.
   With \(r_n=\lfloor3n/7\rfloor\),
   \(s_{1,n}=\lceil2n/5\rceil\), and
   \(s_{2,n}=\lceil3n/8\rceil\), the exact uniform threshold is \(n=59\),
@@ -1102,8 +1156,17 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   R_2^*(n)>{C_2\over\pi}n^3-n^2
   \quad(n\ge59).
   \]
-  This is a verified witness, not a five-parameter optimum or an exact
-  leading coefficient.
+  No finite rounding theorem for the irrational optimizer is asserted, and
+  \(C_{2,*}\) is a template-optimal lower coefficient rather than an exact
+  residual or geometric leading coefficient.
+- VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): independent rational and
+  \(\mathbb Q(\sqrt{143})\) diagnostics verify the ordered-weight reduction,
+  all six branches, exact transitions \(77/139\) and \(301/419\), the cubic
+  simplex maximum, the optimizer coordinates and their minimal polynomials,
+  the coefficient polynomial
+  \(6185169z^2-2949576z+342644\), exact rational isolating intervals, and a
+  bounded rational grid over the compact closure. These checks use no
+  production scorer or floating-point premise.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): test-local
   \(\mathbb Q(\sqrt3)\) arithmetic checks the optimizer, boundary identities,
   every rounded finite bound for \(86\le n\le1000\), and deterministic
@@ -1477,10 +1540,15 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   coefficient \((4+2\sqrt3)/27\) is optimal only inside the one-prefix
   specialization of CR28ax--CR28bg; the
   associated residual contribution is \((26-15\sqrt3)/54\), not a separately
-  optimized residual. The two-prefix rational witness further raises the
-  global lower coefficient to \(72825421/(263424000\pi)\), without a
-  five-parameter optimization. These are not exact residual or leading
-  coefficients; convergence and exact block coefficients remain unresolved.
+  optimized residual. The globally optimized two-prefix CR28bw template
+  further raises the lower coefficient to
+  \[
+  {491596+6578\sqrt{143}\over2061723\pi}.
+  \]
+  Its unique five-parameter optimizer is exact, while the older rational
+  witness remains the explicit finite-\(n\) theorem. This is not an exact
+  residual or leading coefficient; convergence, finite rounding at the
+  irrational optimizer, and exact block coefficients remain unresolved.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit
   and unresolved for public production claims. The bounded test-only Arb
   cross-check covers checked `n=3` only and is not a full backend audit.

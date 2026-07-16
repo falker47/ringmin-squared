@@ -2,12 +2,12 @@
 
 Last update: 2026-07-16
 
-- **Current phase:** exact two-prefix extension of the first linear-block
-  certificate.
-- **Current task:** generalize CR28ax--CR28bg to two selected prefixes,
-  verify the supplied rational witness, and derive its finite/global
-  consequences without optimizing five parameters.
-- **Task dossier:** `ops/TASK-20260716__two_prefix_linear_block/`.
+- **Current phase:** exact global optimization of the two-prefix CR28bw
+  coefficient.
+- **Current task:** reduce the ordered weights, classify every internal
+  branch, transition, compact face, and density collision, and determine the
+  exact global coefficient.
+- **Task dossier:** `ops/TASK-20260716__global_cr28bw_optimization/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
@@ -15,178 +15,201 @@ Last update: 2026-07-16
 
 ## Implemented Scope
 
-- Added the exact two-prefix theorem for
-  \(r_n=\lfloor\alpha n\rfloor\),
-  \(s_{1,n}=\lceil\beta_1n\rceil\), and
-  \(s_{2,n}=\lceil\beta_2n\rceil\), with
-  \(0<\beta_2<\beta_1<\alpha<1\) and
-  \(0\le\lambda_{\rm lo}\le\lambda_{\rm hi}\le1\).
-- Used exactly
-  \[
-  \max(0,H_1,H_2)\ge
-  (\lambda_{\rm hi}-\lambda_{\rm lo})H_1+\lambda_{\rm lo}H_2.
-  \]
-- Added exact rational witness arithmetic, a minimal uniform floor/ceiling
-  threshold, global lower corollaries, and independent test-local diagnostics.
-- No production source, API, artifact, schema, example, verifier, backend,
-  certificate, enumerator, or enumeration limit changed.
-- No global optimization over the five two-prefix parameters was performed.
+- Reduced the ordered \(\lambda\)-optimization exactly.
+- Classified all six reduced branches, both nontrivial fixed-density
+  transitions, the endpoint faces, the order diagonal, and every density
+  collision.
+- Proved the unique global maximizer and exact coefficient without assuming
+  the supplied numerical point.
+- Added independent rational and \(\mathbb Q(\sqrt{143})\) diagnostics.
+- Kept finite rounding at the irrational optimizer, production code,
+  artifacts, schemas, backends, certificates, enumerators, and enumeration
+  limits outside scope.
 
-## Exact Charging Result
+## Exact Ordered-Weight Reduction
 
-Let
+With \(s=1+\alpha\), each weight summand is strictly concave and has unique
+optimum
 \[
-H_1=\sum_{t=s_1}^{r-1}A_t,
+\psi_s(\beta)=
+\begin{cases}
+0,&\beta\le s/4,\\
+4-s/\beta,&s/4<\beta<s/3,\\
+1,&\beta\ge s/3.
+\end{cases}
+\]
+Since \(\psi_s\) is nondecreasing,
+\(\beta_2<\beta_1\) automatically gives
+\(\lambda_{\rm lo}\le\lambda_{\rm hi}\). There is no pooled interior KKT
+branch. The exact reduced floor is
+\[
+\Phi_s(\beta)=
+\begin{cases}
+0,&\beta\le s/4,\\
+(4\beta-s)^2/2,&s/4\le\beta\le s/3,\\
+(4s\beta-s^2-2\beta^2)/2,&\beta\ge s/3,
+\end{cases}
+\]
+and
+\[
+\overline C_2
+=p(\alpha)+(\alpha-\beta_1)\Phi_s(\beta_1)
++(\beta_1-\beta_2)\Phi_s(\beta_2).
+\]
+
+## Branches And Transitions
+
+The six exhaustive branches are `00`, `M0`, `H0`, `MM`, `HM`, and `HH`.
+For the fixed-\(\alpha\) global density envelope:
+\[
+\begin{array}{c|c}
+\alpha\text{ range}&\text{branch}\\ \hline
+[0,1/3]&00\\
+(1/3,77/139)&MM\\
+(77/139,301/419)&HM\\
+(301/419,1)&HH.
+\end{array}
+\]
+The nontrivial junctions are
+\[
+\left({77\over139},{72\over139},{66\over139},1,{8\over11}\right),
 \qquad
-H_2=\sum_{t=s_2}^{r-1}A_t.
+\left({301\over419},{270\over419},{240\over419},1,1\right),
 \]
-Expanding the prescribed linear form before charging gives weight
-\(\lambda_{\rm hi}\) on \([s_1,r-1]\) and
-\(\lambda_{\rm lo}\) on \([s_2,s_1-1]\).
+in the order
+\((\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})\).
 
-- Every selected intact-base split is mapped injectively to its original base
-  edge. Once split, that edge is removed and cannot be recreated with the same
-  two original endpoints.
-- The quadratic slack of each original base edge is therefore used exactly
-  once: beside its unique selected split or in the unused nonnegative pool.
-- Every recursive current edge contains a previously inserted endpoint in
-  \(\{t+1,\ldots,r-1\}\), including fully nested child edges crossing the
-  prefix boundary. CR28ba and \(J_{n,\lambda}\ge G_{n,\lambda}\) cover all of
-  them.
-- Summing two independently charged copies of CR28be is explicitly rejected:
-  it would duplicate the same base-slack pool.
-
-Consequently,
+The exact closure maxima of the six branches are
 \[
-\gamma^{(r)}_{1,n}
-\ge P_{r,n}
-+(r-s_1)G_{n,\lambda_{\rm hi}}(s_1)
-+(s_1-s_2)G_{n,\lambda_{\rm lo}}(s_2).
+\begin{array}{c|cccccc}
+&00&M0&H0&MM&HM&HH\\ \hline
+\max C_2&
+2(\sqrt2-1)/3&
+(4+2\sqrt3)/27&
+13/48&
+C_{2,*}&
+59/216&
+13/48.
+\end{array}
+\]
+Every density collision
+\(\beta_2=0\), \(\beta_2=\beta_1\), or \(\beta_1=\alpha\) reduces to the
+one-prefix problem. Vanishing segment lengths make the corresponding weight
+nonunique but create no further global maximizer.
+
+## Unique Global Maximizer
+
+The exact global point is
+\[
+\boxed{
+\begin{aligned}
+\alpha_*&={629-23\sqrt{143}\over829},\\
+\beta_{1,*}&={2286-77\sqrt{143}\over3316},\\
+\beta_{2,*}&={2010-59\sqrt{143}\over3316},\\
+\lambda_{{\rm hi},*}&={6264-288\sqrt{143}\over5281},\\
+\lambda_{{\rm lo},*}&={3888-192\sqrt{143}\over4273}.
+\end{aligned}}
+\]
+The exact coefficient is
+\[
+\boxed{
+C_{2,*}={491596+6578\sqrt{143}\over2061723}
+}
+=0.276592655350947\ldots .
+\]
+The point reproduces the supplied decimals but was derived independently.
+It satisfies
+\[
+829\alpha_*^2-1258\alpha_*+386=0,
+\]
+\[
+6185169C_{2,*}^2-2949576C_{2,*}+342644=0.
 \]
 
-## Coefficient And Witness
+## Global Proof And Consequence
 
-The certified total coefficient is
+For \(A=3\alpha-1\), \(X=4\beta_1-s\), and \(Y=4\beta_2-s\),
 \[
-C_2=p(\alpha)
-+(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_{\rm hi})
-+(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_{\rm lo}).
-\]
-For
-\[
-(\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})
-=\left({3\over7},{2\over5},{3\over8},{1\over2},{1\over4}\right),
-\]
-exact arithmetic gives
-\[
-p={284\over1029},
+\Phi_s(\beta)\le{(4\beta-s)^2\over2},
 \qquad
-g_{\rm hi}={52\over3675},
+R\le{(A-X)X^2+(X-Y)Y^2\over8}.
+\]
+The normalized simplex has the unique maximum
+\((X/A,Y/A)=(18/23,12/23)\), giving
+\[
+C_2\le
+p(\alpha)+{27(3\alpha-1)^3\over1058}.
+\]
+The unique relevant critical point of this cubic is \(\alpha_*\), and the
+upper bound is attained there on `MM`. Therefore
+\[
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{2,*},
 \qquad
-g_{\rm lo}={199\over87808},
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{2,*}\over\pi}.
 \]
-\[
-\boxed{C_2={72825421\over263424000}>{4+2\sqrt3\over27}.}
-\]
-The comparison is proved by
-\[
-\left({27C_2-4\over2}\right)^2-3
-={12748069910521\over30840979456000000}>0.
-\]
-
-## Finite And Global Theorem
-
-Put
-\[
-r_n=\left\lfloor{3n\over7}\right\rfloor,
-\qquad
-s_{1,n}=\left\lceil{2n\over5}\right\rceil,
-\qquad
-s_{2,n}=\left\lceil{3n\over8}\right\rceil.
-\]
-The minimal uniform threshold with both selected segments nonempty is
-\(n=59\). Indeed,
-\[
-r_n-s_{1,n}\ge{n-58\over35},
-\qquad
-s_{1,n}-s_{2,n}\ge{n-35\over40},
-\]
-whereas \((r_{58},s_{1,58},s_{2,58})=(24,24,22)\).
-
-For every \(n\ge59\), with the explicit rational floors \(F_{1,n},F_{2,n}\),
-\[
-\Lambda_n
-\ge\Gamma_n^{(r_n)}
-\ge\gamma^{(r_n)}_{1,n}
-\ge P_{r_n,n}
-+(r_n-s_{1,n})F_{1,n}
-+(s_{1,n}-s_{2,n})F_{2,n}.
-\]
-Exact rounding gives
-\[
-\Lambda_n
-\ge C_2n^3+{106196857\over263424000}n^2
--{1520\over1029}n-{22\over343}
-\ge C_2n^3,
-\]
-and the strict cyclic-ratio sandwich gives
-\[
-R_2^*(n)>{C_2\over\pi}n^3-n^2.
-\]
-The separate residual lower polynomial is positive for \(n\ge327\); it is
-not the exact residual or its exact coefficient.
+This is a method-specific template optimum, not an exact residual, limit, or
+geometric leading coefficient.
 
 ## Independent Diagnostics
 
-- Exhaustive \(n=59\) depth-two oracle: all 1,260 literal histories pass;
-  exactly 70 have a recursive second split.
-- Fully nested \(n=100\) domino: recursive child edges cross the high/low
-  boundary, including edges whose two endpoints were inserted earlier.
-- Deterministic intact-base and recursive policies pass at
-  \(n=59,100,200,1000\).
-- An explicit negative regression shows that two separately charged prefix
-  inequalities overdraw an edge by exactly its base slack.
-- Exact coefficient, surd comparison, threshold 58/59, finite rounding
-  through \(n=1000\), and coarse residual signs at 326/327 pass using only
-  test-local integer and `Fraction` arithmetic.
+- Exact rational ordered-weight scans realize all six branches and verify
+  the clipped optima against an ordered weight grid.
+- Rational branch checks verify the transition values
+  \(77/139\) and \(301/419\).
+- A denominator-46 simplex scan has the unique maximum
+  \((18/23,12/23)\).
+- A denominator-32 compact-closure grid lies below the exact surd
+  coefficient.
+- \(\mathbb Q(\sqrt{143})\) arithmetic verifies the five coordinates, their
+  minimal polynomials, strict domain inequalities, coefficient equation, and
+  rational isolating intervals.
+- The rational separator \(553/2000\) distinguishes \(C_{2,*}\) from every
+  competing branch maximum using pure-integer square differences.
 
 ## Verification
 
-- Two-prefix focused selection: 20 passed.
-- Complete fixed-order-cycle-ratio module: 89 passed.
-- Complete local suite: 265 passed.
+- Global-optimization selection: 5 passed.
+- Complete fixed-order-cycle-ratio module: 94 passed.
+- Complete local suite: 270 passed.
 - Checked-artifact verifier: all 4 certificates, 76 local brackets, and the
   \(n=3,4,5,6\) summary verified.
 - Checked-artifact schema selection: 4 passed.
 - Ruff on the changed test module: passed.
 - Repository-wide Ruff retains exactly four known findings in untouched
   files; none belongs to this task.
-- `git diff --check` and the protected-scope audit pass.
-- Three independent read-only audits found no charging, arithmetic, finite,
-  recursive-coverage, or test defect before final synchronization.
+- `git diff --check`, mathematical-delimiter checks, changed-path inspection,
+  and the protected-scope audit pass.
+- Three independent read-only audits found no remaining mathematical,
+  formatting, synchronization, or scope defect.
 - CURRENT HOSTED STATUS: GitHub Actions has not run these worktree changes.
 
 ## Files Changed
 
-- `research/FIXED_ORDER_CYCLE_RATIO.md`: two-prefix charging theorem,
-  coefficient, witness, finite/global consequences, and limitations.
-- `tests/test_fixed_order_cycle_ratio.py`: independent exact base/recursive
-  diagnostics only.
-- `research/ALL_N_LOWER_BOUND.md`, `start.md`, `PROJECT_KNOWLEDGE.md`, and
-  `research/NEXT_RESEARCH_STEPS.md`: synchronized authoritative consequences.
+- `research/FIXED_ORDER_CYCLE_RATIO.md`: exact ordered-weight reduction, six
+  branches, transitions, faces/collisions, global proof, optimizer, and
+  coefficient.
+- `tests/test_fixed_order_cycle_ratio.py`: independent rational and
+  \(\mathbb Q(\sqrt{143})\) diagnostics only.
+- `research/ALL_N_LOWER_BOUND.md`, `start.md`,
+  `PROJECT_KNOWLEDGE.md`, and `research/NEXT_RESEARCH_STEPS.md`:
+  synchronized authoritative consequences and roadmap.
 - `CURRENT_STATUS.md` and the new STRICT task dossier: durable handoff.
 
 ## Residual Limitations
 
-- \(C_2\) is one certified rational witness, not the global optimum of the
-  five two-prefix parameters.
-- The residual polynomial is a lower bound, not the exact block residual.
-- No convergence, exact leading coefficient, matching upper coefficient,
-  production computation, artifact, or certificate claim follows.
+- No finite floor/ceiling rounding theorem or threshold for the irrational
+  optimizer was derived.
+- The rational witness \(72825421/263424000\) remains the explicit
+  finite-\(n\) theorem from \(n=59\).
+- No production, API, artifact, schema, example, verifier, backend,
+  certificate, enumerator, or enumeration-limit path changed.
+- No exact block residual, convergence theorem, matching upper bound, or
+  exact geometric leading coefficient follows.
 - Hosted GitHub Actions remain unverified.
 
 ## Proposed Next Task
 
-In a fresh STRICT task, optimize the five two-prefix parameters globally,
-including every boundary face, while preserving combined one-use charging and
-keeping production, artifacts, schemas, and limits unchanged.
+In a fresh STRICT task, derive an explicit finite floor/ceiling theorem for
+the irrational CR28bw optimizer, including a minimal or rigorously sufficient
+uniform threshold, without changing production, artifacts, schemas, backends,
+or enumeration limits.

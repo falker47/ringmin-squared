@@ -592,6 +592,57 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   +(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_{\rm hi})
   +(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_{\rm lo}).
   \]
+- EXACT TEMPLATE OPTIMIZATION (GLOBAL TWO-PREFIX CR28bw): for fixed
+  densities the two weight summands are strictly concave. Their clipped
+  individual optima are nondecreasing in the cutoff, so
+  \(\beta_2<\beta_1\) automatically enforces
+  \(\lambda_{\rm lo}\le\lambda_{\rm hi}\) and creates no pooled KKT branch.
+  The six reduced branches are `00`, `M0`, `H0`, `MM`, `HM`, and `HH`.
+  Their exact fixed-\(\alpha\) transition values are
+  \[
+  \alpha={1\over3},\qquad {77\over139},\qquad {301\over419}.
+  \]
+  Complete transition, compact-face, and collision analysis proves the
+  unique global optimizer
+  \[
+  \left(
+  \alpha_*,\beta_{1,*},\beta_{2,*},
+  \lambda_{{\rm hi},*},\lambda_{{\rm lo},*}
+  \right)
+  =
+  \left(
+  {629-23\sqrt{143}\over829},
+  {2286-77\sqrt{143}\over3316},
+  {2010-59\sqrt{143}\over3316},
+  {6264-288\sqrt{143}\over5281},
+  {3888-192\sqrt{143}\over4273}
+  \right).
+  \]
+  The exact template-optimal coefficient is
+  \[
+  C_{2,*}
+  ={491596+6578\sqrt{143}\over2061723}
+  =0.276592655350947\ldots .
+  \]
+  It is the root satisfying
+  \[
+  {276592655350\over10^{12}}<C_{2,*}
+  <{276592655352\over10^{12}}
+  \]
+  of \(6185169z^2-2949576z+342644\). The global proof uses the exact relaxation
+  \[
+  C_2\le
+  p(\alpha)+{27(3\alpha-1)^3\over1058},
+  \]
+  whose unique equality point is the optimizer above.
+- EXACT ASYMPTOTIC LOWER COROLLARY (GLOBAL TWO-PREFIX CR28bw):
+  \[
+  \liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{2,*},
+  \qquad
+  \liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{2,*}\over\pi}.
+  \]
+  This task derives no finite floor/ceiling rounding theorem for the
+  irrational optimizer.
 - EXACT GLOBAL LOWER COROLLARY (TWO-PREFIX RATIONAL WITNESS): at
   \[
   (\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})
@@ -623,8 +674,9 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \quad(n\ge59).
   \]
   The separate residual lower polynomial is positive for \(n\ge327\).
-  No five-parameter optimization, exact residual, convergence, exact leading
-  coefficient, production, artifact, or certificate claim follows.
+  This remains the current explicit finite-\(n\) specialization. It is below
+  \(C_{2,*}\), and no exact residual, convergence, exact leading coefficient,
+  production, artifact, or certificate claim follows.
 - EXACT GEOMETRIC COROLLARY: the strict global cyclic-ratio sandwich gives
   \[
   R_2^*(n)>{\beta_n^{(2)}\over\pi}-n^2
@@ -688,11 +740,21 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   arithmetic, and a \(59\le n\le1000\) rounding scan all pass without using
   production scorers, canonicalizers, or enumerators. These computations
   corroborate the proof but do not replace it.
+- VERIFIED FACT (BOUNDED EXACT TEST-LOCAL DIAGNOSTIC): independent
+  \(\mathbb Q(\sqrt{143})\) arithmetic verifies every optimizer coordinate,
+  all five coordinate minimal polynomials, the coefficient polynomial
+  \(6185169z^2-2949576z+342644\), exact rational isolating intervals, and
+  the strict parameter order. A separate rational oracle checks the ordered
+  weight reduction and all six branches, the exact fixed-density transitions
+  at \(77/139\) and \(301/419\), the unique simplex maximum
+  \((18/23,12/23)\), and every point of a denominator-32 compact-closure
+  grid. These checks use no production scorer, canonicalizer, enumerator,
+  floating-point premise, or enumeration-limit change.
 - EXACT THEOREM: the additive relation transfers normalized asymptotics:
   \(\Lambda_n=\pi R_2^*(n)+O(n^2)=\Theta(n^3)\),
   \(\Lambda_n/(\pi R_2^*(n))\to1\), and
   \[
-  {72825421\over263424000}
+  {491596+6578\sqrt{143}\over2061723}
   \le\liminf{\Lambda_n\over n^3}
   \le\limsup{\Lambda_n\over n^3}
   \le{8\over25}.
@@ -919,10 +981,15 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \((4+2\sqrt3)/27\) is optimal only within the one-prefix specialization of
   CR28ax--CR28bg; the associated
   residual contribution at that optimizer is \((26-15\sqrt3)/54\), not a
-  separately maximized residual. The two-prefix rational witness raises the
-  global coefficient to \(72825421/(263424000\pi)\) without a five-parameter
-  optimization. Its exact residual coefficient, convergence, and the exact
-  global leading coefficient remain unresolved.
+  separately maximized residual. The globally optimized two-prefix CR28bw
+  template raises the lower coefficient to
+  \[
+  {491596+6578\sqrt{143}\over2061723\pi}.
+  \]
+  The optimizer is exact and unique inside that five-parameter template; the
+  older rational witness remains the explicit finite-\(n\) theorem. The exact
+  block residual, finite rounding at the irrational optimizer, convergence,
+  and the exact global leading coefficient remain unresolved.
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 
@@ -1545,8 +1612,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   maximin triple, template-optimal cubic coefficient, explicit finite/global
   lower bounds, and bounded exact diagnostics, plus the two-selected-prefix
   extension, combined one-use charging identity, recursive coverage, exact
-  rational witness, minimal threshold 59, improved global coefficient, and
-  independent depth-two and nested-child diagnostics.
+  rational witness, minimal threshold 59, independent depth-two and
+  nested-child diagnostics, exact ordered-weight reduction, all six density
+  branches and transitions, complete compact-face/collision audit, and the
+  unique global CR28bw optimizer with its
+  \(\mathbb Q(\sqrt{143})\) coefficient.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -1569,19 +1639,25 @@ Candidate-set extraction uses the following finite-certificate semantics.
   single-use charging across both selected segments, recursive child-edge
   coverage, the exact coefficient formula, and the rational witness
   \(72825421/263424000\), with minimal uniform threshold 59, a strict global
-  lower improvement, and independent bounded diagnostics. No five-parameter
-  optimization or production change was made.
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, optimize the five
-  two-prefix parameters globally, including all boundary faces, while
-  preserving the combined one-use charging proof and keeping production and
-  artifact scope unchanged.
+  lower improvement, and independent bounded diagnostics.
+- COMPLETED PRIORITY: the five-parameter CR28bw optimization now reduces the
+  ordered weights exactly, classifies all six branches, both nontrivial
+  transitions, every endpoint/collision face, and proves the unique optimizer
+  (CR28bw13) with coefficient
+  \((491596+6578\sqrt{143})/2061723\). Independent rational and quadratic-surd
+  diagnostics corroborate the proof without production or limit changes.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, derive an explicit finite
+  floor/ceiling theorem for the irrational CR28bw optimizer, including a
+  minimal or rigorously sufficient uniform threshold, without changing
+  production, artifacts, schemas, backends, or enumeration limits.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
   active-subsystem description or settle `n<=11`.
 - OPEN QUESTION: can the upper coefficient \(8/(25\pi)\) be lowered toward
-  the current lower coefficient \(72825421/(263424000\pi)\), while retaining
-  a symbolic all-pairs proof?
+  the current lower coefficient
+  \((491596+6578\sqrt{143})/(2061723\pi)\), while retaining a symbolic
+  all-pairs proof?
 - RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
 
 ## Proof Obligations And Limitations
@@ -1604,10 +1680,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   asymptotic formula has been proved in this repository.
 - LIMITATION: the uniform consecutive-tail comparison classifies every
   sublinear block length. The one-prefix CR28ax--CR28bg specialization is
-  jointly optimized over all constant densities, while the new two-prefix
-  five-parameter coefficient is not. The exact residual and exact leading
-  coefficient of the selected block, and linear-density methods outside this
-  template, remain unclassified.
+  jointly optimized over all constant densities, and CR28bw is now globally
+  optimized over all five two-prefix parameters. Finite rounding at the
+  irrational optimizer, the exact residual and exact leading coefficient of
+  the selected block, and linear-density methods outside this template remain
+  unclassified.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.
 - LIMITATION: the sufficient radius-one threshold `12` is not known to be
   minimal, and the exact equality question remains open for `n<=11`.

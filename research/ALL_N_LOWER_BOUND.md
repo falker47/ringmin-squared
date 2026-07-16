@@ -92,7 +92,38 @@ Last updated: 2026-07-16
   \]
   These are lower coefficients, not exact asymptotic coefficients or a
   convergence theorem.
-- EXACT THEOREM (two-prefix linear-block refinement): with
+- EXACT THEOREM (globally optimized two-prefix linear-block refinement): for
+  arbitrary constants
+  \(0<\beta_2<\beta_1<\alpha<1\) and
+  \(0\le\lambda_{\rm lo}\le\lambda_{\rm hi}\le1\), the exact two-prefix
+  theorem in `research/FIXED_ORDER_CYCLE_RATIO.md` charges every original
+  base-edge slack at most once and covers all recursive child-edge splits.
+  Exact reduction of the ordered weights, all six density branches, both
+  nontrivial transitions, and every compact boundary/collision face gives
+  the unique global optimizer
+  \[
+  \left(
+  {629-23\sqrt{143}\over829},
+  {2286-77\sqrt{143}\over3316},
+  {2010-59\sqrt{143}\over3316},
+  {6264-288\sqrt{143}\over5281},
+  {3888-192\sqrt{143}\over4273}
+  \right),
+  \]
+  in the order
+  \((\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})\). Its
+  exact template-optimal coefficient is
+  \[
+  C_{2,*}={491596+6578\sqrt{143}\over2061723}.
+  \]
+  Hence
+  \[
+  \liminf{\Lambda_n\over n^3}\ge C_{2,*},
+  \qquad
+  \liminf{R_2^*(n)\over n^3}\ge{C_{2,*}\over\pi}.
+  \]
+  No finite rounding theorem for this irrational optimizer is asserted.
+- EXACT FINITE THEOREM (two-prefix rational specialization): with
   \[
   r_n=\left\lfloor{3n\over7}\right\rfloor,
   \qquad
@@ -102,10 +133,8 @@ Last updated: 2026-07-16
   \]
   and weights
   \((\lambda_{\rm hi},\lambda_{\rm lo})=(1/2,1/4)\), the exact two-prefix
-  theorem in `research/FIXED_ORDER_CYCLE_RATIO.md` charges every original
-  base-edge slack at most once and covers all recursive child-edge splits.
-  Its uniform floor/ceiling domain starts at the minimal threshold \(n=59\),
-  and
+  theorem has a uniform floor/ceiling domain starting at the minimal
+  threshold \(n=59\), and
   \[
   \Lambda_n\ge {72825421\over263424000}n^3,
   \qquad
@@ -113,8 +142,8 @@ Last updated: 2026-07-16
   \quad(n\ge59).
   \]
   The rational coefficient is strictly larger than
-  \((4+2\sqrt3)/27\). It is a verified witness, not the result of optimizing
-  the five two-prefix parameters and not an exact asymptotic coefficient.
+  \((4+2\sqrt3)/27\) and strictly smaller than \(C_{2,*}\). It remains the
+  explicit finite-\(n\) witness, not an exact asymptotic coefficient.
 - EXACT THEOREM: if a configuration of the core radii
   \(2^2,\dots,n^2\) is feasible at central radius \(R>0\), then a circle of
   radius \(1\) can be inserted at the same central radius whenever
@@ -194,8 +223,9 @@ single-subset pairing relaxation analyzed directly here. The relational
 extension using two consecutive tails is a distinct, stronger finite schema;
 its separate exact analysis proves the same leading coefficient. The jointly
 optimized one-prefix linear block first improves the global lower coefficient
-to \((4+2\sqrt3)/(27\pi)\), and the two-prefix rational witness improves it
-again to \(72825421/(263424000\pi)\). None of these lower-bound results is
+to \((4+2\sqrt3)/(27\pi)\), and the globally optimized two-prefix CR28bw
+template improves it again to
+\((491596+6578\sqrt{143})/(2061723\pi)\). None of these lower-bound results is
 an upper
 bound on the true problem. The order-independent regular-core baseline has
 upper coefficient \(1/\pi\), the zigzag refinement gives \(1/(2\pi)\), and
@@ -909,7 +939,7 @@ specialization of CR28ax--CR28bg. Its associated residual contribution is
 residual coefficient of the selected block; the total is not an exact
 geometric constant.
 
-## Global Consequence Of Two Selected Prefixes
+## Global Consequence And Optimization Of Two Selected Prefixes
 
 The two-prefix extension in `research/FIXED_ORDER_CYCLE_RATIO.md` uses
 \[
@@ -924,6 +954,55 @@ base edge receives its quadratic slack only at its unique split. Every
 non-base current edge contains a previously inserted endpoint, so recursive
 and fully nested child-edge splits remain covered by the same local recursive
 floor.
+
+For \(s=1+\alpha\), the exact optimizer of one weight is
+\[
+\psi_s(\beta)=
+\begin{cases}
+0,&\beta\le s/4,\\
+4-s/\beta,&s/4<\beta<s/3,\\
+1,&\beta\ge s/3.
+\end{cases}
+\]
+It is nondecreasing in \(\beta\), so the two independent weight optima
+automatically satisfy the order constraint. The reduced density envelope has
+exactly the six branches `00`, `M0`, `H0`, `MM`, `HM`, and `HH`, with global
+fixed-\(\alpha\) transitions at
+\[
+\alpha={1\over3},\qquad {77\over139},\qquad {301\over419}.
+\]
+The complete derivation in `research/FIXED_ORDER_CYCLE_RATIO.md` proves that
+the unique global point is
+\[
+\left(
+\alpha_*,\beta_{1,*},\beta_{2,*},
+\lambda_{{\rm hi},*},\lambda_{{\rm lo},*}
+\right)
+=
+\left(
+{629-23\sqrt{143}\over829},
+{2286-77\sqrt{143}\over3316},
+{2010-59\sqrt{143}\over3316},
+{6264-288\sqrt{143}\over5281},
+{3888-192\sqrt{143}\over4273}
+\right),
+\]
+and
+\[
+\boxed{
+C_{2,*}={491596+6578\sqrt{143}\over2061723}.
+}
+\]
+Therefore
+\[
+\boxed{
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\ge {491596+6578\sqrt{143}\over2061723\pi}.
+}
+\]
+This is the globally optimized CR28bw coefficient, not an exact geometric
+leading constant. No finite rounding theorem for these irrational densities
+is asserted here.
 
 For
 \[
@@ -985,10 +1064,9 @@ R_2^*(n)>{72825421\over263424000\pi}n^3-n^2
 \qquad(n\ge59).
 }
 \]
-This is the current strongest proved global lower coefficient in the
-repository. No optimization over the five two-prefix parameters was
-performed, and no exact residual, convergence, exact leading coefficient, or
-matching upper bound follows.
+This remains the current strongest explicit finite-\(n\) specialization in
+the repository. Its coefficient is below \(C_{2,*}\). No exact residual,
+convergence, exact leading coefficient, or matching upper bound follows.
 
 ## Exact Radius-One Insertion
 
@@ -1577,7 +1655,7 @@ Therefore
 Combining (21) with the sharpened two-prefix linear-block lower bound
 proved in this note yields
 \[
-{72825421\over263424000\pi}
+{491596+6578\sqrt{143}\over2061723\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -1592,7 +1670,7 @@ In particular,
 The later exact product-distance construction sharpens the right endpoint to
 
 \[
-{72825421\over263424000\pi}
+{491596+6578\sqrt{143}\over2061723\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -1646,7 +1724,7 @@ Neither the improved upper bound nor the lower bound proves that
   from \(1/\pi\) to \(1/(2\pi)\); the later product-distance construction
   improves it again to \(8/(25\pi)\), which still does not match the
   current two-prefix linear-block lower coefficient
-  \(72825421/(263424000\pi)\). None may be described as the exact asymptotic
+  \((491596+6578\sqrt{143})/(2061723\pi)\). None may be described as the exact asymptotic
   leading constant for Power-Ringmin. The smaller coefficient
   \(2(\sqrt2-1)/(3\pi)\) remains optimal only inside the single-subset
   lower-bound relaxation explicitly analyzed above.
@@ -1656,10 +1734,13 @@ Neither the improved upper bound nor the lower bound proves that
   at that optimizer, not the separate maximum of the residual coefficient.
   This does not make it the exact residual of the block or the total an exact
   geometric leading coefficient, and it proves no convergence theorem.
-- The two-prefix coefficient \(72825421/263424000\) comes from one exact
-  rational witness. It is strictly larger than the one-prefix optimum, but no
-  five-parameter optimization has been performed; it is not an exact block
-  residual, leading coefficient, limit, or geometric constant.
+- The two-prefix rational coefficient \(72825421/263424000\) remains the
+  explicit \(n\ge59\) specialization. The globally optimized CR28bw
+  coefficient is
+  \((491596+6578\sqrt{143})/2061723\), attained uniquely at the exact
+  five-parameter point recorded above. No finite rounding theorem for that
+  irrational point has been derived, and the optimized coefficient is not an
+  exact block residual, leading coefficient, limit, or geometric constant.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower
   bound only from the scalar full-problem lower bound would reverse the useful

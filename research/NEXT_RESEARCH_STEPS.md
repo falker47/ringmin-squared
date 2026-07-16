@@ -31,17 +31,18 @@ the geometric infimum, while proving neither a new exact constant nor
 convergence. Exact canonical enumeration is deliberately bounded to
 `n=3..8` and gives \((12,26,47,77,118,172)\).
 The jointly optimized one-prefix linear tail block first gave the coefficient
-\((4+2\sqrt3)/27\). The exact two-prefix rational witness now gives the
-strictly stronger rigorous lower coefficients
+\((4+2\sqrt3)/27\). The exact global optimization of the two-prefix CR28bw
+template now gives the strictly stronger rigorous lower coefficients
 \[
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
-\ge {72825421\over263424000},
+\ge {491596+6578\sqrt{143}\over2061723},
 \qquad
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-\ge {72825421\over263424000\pi}.
+\ge {491596+6578\sqrt{143}\over2061723\pi}.
 \]
 These are one-sided bounds and do not prove convergence or identify an exact
-leading coefficient. The five two-prefix parameters have not been optimized.
+leading coefficient. The older rational witness remains the current explicit
+finite-\(n\) theorem.
 
 The one-wrap saturation question is also closed exactly. If
 \[
@@ -332,8 +333,31 @@ R_2^*(n)>{C_2\over\pi}n^3-n^2
 \]
 Bounded rational diagnostics exhaust all 1,260 depth-two histories at
 \(n=59\), including 70 recursive second splits, and retain a fully nested
-child-edge history across the prefix boundary. No five-parameter optimization
-or production change was made.
+child-edge history across the prefix boundary.
+
+The subsequent five-parameter optimization is also exact. The ordered weight
+constraint introduces no pooling because the clipped individual optimum is
+nondecreasing in the cutoff. The reduced branches are `00`, `M0`, `H0`,
+`MM`, `HM`, and `HH`, with transitions at
+\(\alpha=1/3,77/139,301/419\). Complete compact-face and collision analysis
+gives the unique global point
+\[
+\left(
+{629-23\sqrt{143}\over829},
+{2286-77\sqrt{143}\over3316},
+{2010-59\sqrt{143}\over3316},
+{6264-288\sqrt{143}\over5281},
+{3888-192\sqrt{143}\over4273}
+\right),
+\]
+and coefficient
+\[
+C_{2,*}={491596+6578\sqrt{143}\over2061723}.
+\]
+Independent rational and \(\mathbb Q(\sqrt{143})\) diagnostics verify the
+branches, transitions, simplex maximum, minimal polynomials, and rational
+isolating intervals without production changes. Finite rounding at the
+irrational optimizer remains deliberately unperformed.
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -355,16 +379,16 @@ The separate relational extension to two consecutive tails has the same best
 leading coefficient after its cycle-signature constraints are enforced.
 These are method-specific optimality statements. The jointly optimized
 one-prefix block first improves the global lower coefficient to
-\((4+2\sqrt3)/(27\pi)\); the two-prefix witness improves it again to
-\(72825421/(263424000\pi)\). The latter is still only a proved lower
-coefficient, not a five-parameter optimum or an exact asymptotic constant for
-Power-Ringmin.
+\((4+2\sqrt3)/(27\pi)\); the globally optimized two-prefix template improves
+it again to
+\((491596+6578\sqrt{143})/(2061723\pi)\). This is still only a proved lower
+coefficient, not an exact asymptotic constant for Power-Ringmin.
 
 The zigzag regular-direction construction historically improved the proved
 upper coefficient from \(1/\pi\) to \(1/(2\pi)\). It is now superseded by the
 product-distance construction below, which gives \(8/(25\pi)\). Neither upper
 bound matches the current linear-block geometric lower coefficient
-\(72825421/(263424000\pi)\). The zigzag
+\((491596+6578\sqrt{143})/(2061723\pi)\). The zigzag
 theorem itself generated no leading-order LP, new finite certificate, `n=7`
 certificate, preflight artifact, permutation optimization, or exhaustive
 enumeration.
@@ -713,6 +737,27 @@ saturation for every \(n\ge3\).
   +(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_{\rm hi})
   +(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_{\rm lo}).
   \]
+  Exact ordered-weight reduction and complete density/face analysis give the
+  unique global coefficient
+  \[
+  C_{2,*}={491596+6578\sqrt{143}\over2061723}
+  \]
+  at
+  \[
+  \left(
+  {629-23\sqrt{143}\over829},
+  {2286-77\sqrt{143}\over3316},
+  {2010-59\sqrt{143}\over3316},
+  {6264-288\sqrt{143}\over5281},
+  {3888-192\sqrt{143}\over4273}
+  \right).
+  \]
+  Thus
+  \[
+  \liminf{\Lambda_n\over n^3}\ge C_{2,*},
+  \qquad
+  \liminf{R_2^*(n)\over n^3}\ge{C_{2,*}\over\pi}.
+  \]
   At \((3/7,2/5,3/8,1/2,1/4)\),
   \[
   C_2={72825421\over263424000}>{4+2\sqrt3\over27}.
@@ -724,7 +769,14 @@ saturation for every \(n\ge3\).
   \qquad
   R_2^*(n)>{C_2\over\pi}n^3-n^2.
   \]
-  This is one witness, not a global optimization over five parameters.
+  The rational point remains the explicit finite-\(n\) theorem; no finite
+  rounding of the irrational optimizer is asserted.
+- VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): independent rational and
+  \(\mathbb Q(\sqrt{143})\) arithmetic verifies the six branch reductions,
+  exact transition points, cubic simplex maximum, every optimizer coordinate
+  and minimal polynomial, the coefficient equation
+  \(6185169z^2-2949576z+342644=0\), and a bounded compact-closure grid without
+  production code or floating-point assumptions.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): rational two-prefix
   diagnostics exhaust all 1,260 depth-two histories at \(n=59\), including
   70 recursive second splits; test a nested child-edge chain across the
@@ -861,15 +913,14 @@ saturation for every \(n\ge3\).
   \ge
   4(\sqrt2-1)>1.
   \]
-- EXACT THEOREM (sharpened global lower bound): the two-prefix rational
-  witness
-  gives
+- EXACT THEOREM (sharpened global lower bound): the globally optimized
+  two-prefix CR28bw template gives
   \[
   \liminf_{n\to\infty}{\Lambda_n\over n^3}
-  \ge {72825421\over263424000},
+  \ge {491596+6578\sqrt{143}\over2061723},
   \qquad
   \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-  \ge {72825421\over263424000\pi}.
+  \ge {491596+6578\sqrt{143}\over2061723\pi}.
   \]
   This strictly improves the single-subset lower coefficient, while proving
   neither convergence nor an exact leading coefficient.
@@ -1081,7 +1132,7 @@ saturation for every \(n\ge3\).
 2. Any future asymptotic upper-bound target must be compatible with
    \[
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-   \ge {72825421\over263424000\pi}.
+   \ge {491596+6578\sqrt{143}\over2061723\pi}.
    \]
    This roadmap records a lower coefficient, not a proposed exact constant.
 
@@ -1107,7 +1158,7 @@ saturation for every \(n\ge3\).
 6. The symbolic product-distance construction supersedes zigzag and gives the
    rigorous liminf/limsup bracket
    \[
-   {72825421\over263424000\pi}
+   {491596+6578\sqrt{143}\over2061723\pi}
    \le
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
    \le
@@ -1226,14 +1277,20 @@ saturation for every \(n\ge3\).
     \]
     The exact witness \((3/7,2/5,3/8,1/2,1/4)\) gives
     \(72825421/263424000\), strictly above the one-prefix optimum, with
-    uniform finite threshold 59. All recursive splits remain literal. No
-    global five-parameter optimization has yet been performed.
+    uniform finite threshold 59. All recursive splits remain literal. The
+    subsequent global five-parameter optimization has unique coefficient
+    \[
+    C_{2,*}={491596+6578\sqrt{143}\over2061723},
+    \]
+    after exact ordered-weight reduction, six-branch classification, and a
+    complete boundary/collision audit. No finite rounding theorem for the
+    irrational optimizer has been performed.
 
 ## Updated Research Questions
 
 - OPEN QUESTION: what geometric upper-bound construction, if any, narrows or
   matches the current two-prefix lower coefficient
-  \(72825421/(263424000\pi)\) up to lower-order terms?
+  \((491596+6578\sqrt{143})/(2061723\pi)\) up to lower-order terms?
 - OPEN QUESTION: can the previous reduced-core observations at checked
   `n=5,6` be related to the exact feasible-radius-set equality for
   \(n\ge12\), or are their lower-cycle proxies a separate finite phenomenon?
@@ -1241,13 +1298,16 @@ saturation for every \(n\ge3\).
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
 - OPEN QUESTION: can the gap between the two-prefix geometric lower
-  coefficient \(72825421/(263424000\pi)\) and the product-distance upper
+  coefficient \((491596+6578\sqrt{143})/(2061723\pi)\) and the
+  product-distance upper
   coefficient \(8/(25\pi)\) be narrowed by a sharper angular construction or
   a stronger lower bound?
-- OPEN QUESTION: what is the global optimum of the five-parameter two-prefix
-  certificate, including every boundary face, and can the exact residual of
-  the selected block be bounded from above? The present theorem supplies one
-  strict rational improvement, not a matching residual or global asymptotic
+- CLOSED QUESTION: the global optimum of the five-parameter two-prefix
+  certificate, including every boundary and collision face, is
+  \(C_{2,*}\) at the unique point displayed above.
+- OPEN QUESTION: can finite rounding at the irrational optimizer be made
+  explicit, and can the exact residual of the selected block be bounded from
+  above? The current theorem gives no matching residual or global asymptotic
   evaluation.
 - OPEN QUESTION: for which \(n\ge94\) do positional distances at least three
   strictly restrict the minimizer set? The sufficient equality criterion
@@ -1402,7 +1462,15 @@ Completed:
   exact global/geometric lower corollary. Independent tests exhaust 1,260
   depth-two histories at \(n=59\), retain a nested cross-boundary domino,
   reject the duplicated-slack route, and scan exact rounding through
-  \(n=1000\). No five-parameter optimization or production change was made.
+  \(n=1000\).
+- Globally optimized the five CR28bw parameters. The ordered weights reduce
+  exactly with no pooled KKT branch; all six density branches, both
+  nontrivial transitions, every compact face, and every density collision
+  are classified. The unique coefficient is
+  \((491596+6578\sqrt{143})/2061723\), corroborated by independent rational
+  and \(\mathbb Q(\sqrt{143})\) diagnostics. No finite optimizer rounding,
+  production, artifact, schema, backend, or enumeration-limit change was
+  made.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -1411,9 +1479,10 @@ Completed:
 
 Immediate:
 
-- In a fresh STRICT task, optimize the five two-prefix parameters globally,
-  including every boundary face, while preserving combined one-use charging
-  and keeping production, artifacts, schemas, and limits unchanged.
+- In a fresh STRICT task, derive an explicit finite floor/ceiling theorem for
+  the irrational CR28bw optimizer, including a minimal or rigorously
+  sufficient uniform threshold, while keeping production, artifacts, schemas,
+  backends, and enumeration limits unchanged.
 
 Next:
 
@@ -1446,16 +1515,18 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: extend the independent test-only Arb endpoint-sign cross-check to the
-existing checked `n=4` certificate.
+Task: derive an explicit finite floor/ceiling theorem for the exact irrational
+CR28bw optimizer.
 
 Acceptance criteria:
 
-- keep the path test-local and independent of the guarded production interval
-  backend and its stored enclosures;
-- cover every embedded lower-cycle and upper-witness local record in the
-  checked `n=4` artifact, including decisive endpoint signs and slack counts;
-- record exact artifact coverage and bounded Arb precision in the task
-  evidence;
-- do not alter production verification, schemas, checked artifacts,
-  certification semantics, or enumeration limits.
+- retain the exact optimizer in \(\mathbb Q(\sqrt{143})\) without decimal
+  substitution;
+- derive literal floor/ceiling parameters and a rigorously sufficient uniform
+  threshold, testing minimality if feasible;
+- prove the finite lower chain and its transfer to \(\Lambda_n\) and
+  \(R_2^*(n)\) without treating the asymptotic coefficient as an exact
+  residual;
+- add independent exact rounding diagnostics;
+- do not alter production code, schemas, artifacts, backends, certificates,
+  enumerators, or enumeration limits.
