@@ -2,7 +2,7 @@
 
 Date: 2026-07-13
 
-Last updated: 2026-07-15
+Last updated: 2026-07-16
 
 ## Classification
 
@@ -54,44 +54,41 @@ Last updated: 2026-07-15
   \]
   The refinement can improve finite lower terms but provably leaves this
   schema's leading lower coefficient unchanged.
-- EXACT THEOREM (first-linear-block global refinement): put
+- EXACT THEOREM (jointly optimized linear-block global refinement): put
   \[
-  r_n=\lfloor(\sqrt2-1)n\rfloor,
+  r_n^*=\left\lfloor\left(1-{\sqrt3\over3}\right)n\right\rfloor,
   \qquad
   s_n^*=\left\lceil
-  \left({3\sqrt2\over4}-{2\over3}\right)n
+  \left({5\over6}-{\sqrt3\over4}\right)n
   \right\rceil,
   \qquad
-  \lambda_*={88-48\sqrt2\over49}.
+  \lambda_*={88-32\sqrt3\over73}.
   \]
   With the consecutive-tail quantities defined in
-  `research/FIXED_ORDER_CYCLE_RATIO.md`, for every \(n\ge99\),
+  `research/FIXED_ORDER_CYCLE_RATIO.md`, the literal floor/ceiling statement
+  holds for every \(n\ge86\):
   \[
   \Lambda_n
-  \ge\Gamma_n^{(r_n)}
-  \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+(r_n-s_n^*)F_n^*.
+  \ge\Gamma_n^{(r_n^*)}
+  \ge\gamma^{(r_n^*)}_{1,n}
+  \ge P_{r_n^*,n}+(r_n^*-s_n^*)F_n^*.
   \]
   No maximum and minimum are exchanged: for each fixed \(m\), pointwise
   domination by \(\Lambda(\sigma)\) is minimized first, and only the resulting
-  scalar lower bounds are maximized over \(m\). Consequently, with
+  scalar lower bounds are maximized over \(m\). Consequently, for
+  \(n\ge90\), one has the explicit finite bounds
   \[
-  c={117\sqrt2-158\over27},
+  \Lambda_n\ge {4+2\sqrt3\over27}n^3,
   \qquad
-  b={136-96\sqrt2\over9},
-  \]
-  one has the explicit finite bounds
-  \[
-  \Lambda_n\ge cn^3-bn^2,
-  \qquad
-  R_2^*(n)>{c\over\pi}n^3-\left(1+{b\over\pi}\right)n^2
-  \qquad(n\ge99),
+  R_2^*(n)>{4+2\sqrt3\over27\pi}n^3-n^2,
   \]
   and hence
   \[
-  \liminf_{n\to\infty}{\Lambda_n\over n^3}\ge c,
+  \liminf_{n\to\infty}{\Lambda_n\over n^3}
+  \ge {4+2\sqrt3\over27},
   \qquad
-  \liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge {c\over\pi}.
+  \liminf_{n\to\infty}{R_2^*(n)\over n^3}
+  \ge {4+2\sqrt3\over27\pi}.
   \]
   These are lower coefficients, not exact asymptotic coefficients or a
   convergence theorem.
@@ -172,9 +169,9 @@ The lower-bound proof uses only necessary consequences of all-pairs feasibility.
 The coefficient \(2(\sqrt2-1)/(3\pi)\) remains optimal for the
 single-subset pairing relaxation analyzed directly here. The relational
 extension using two consecutive tails is a distinct, stronger finite schema;
-its separate exact analysis proves the same leading coefficient. The optimized
-first linear block improves the global lower coefficient to
-\((117\sqrt2-158)/(27\pi)\). None of these lower-bound results is an upper
+its separate exact analysis proves the same leading coefficient. The jointly
+optimized linear block improves the global lower coefficient to
+\((4+2\sqrt3)/(27\pi)\). None of these lower-bound results is an upper
 bound on the true problem. The order-independent regular-core baseline has
 upper coefficient \(1/\pi\), the zigzag refinement gives \(1/(2\pi)\), and
 the later product-distance construction sharpens the current upper
@@ -720,19 +717,40 @@ conclusion is specific to a single optimized pair of consecutive tails; it
 does not cover simultaneous coupling of a number of tails growing with
 \(n\), nonconsecutive subsets, or other information about \(\Lambda_n\).
 
-## Global Consequence Of The First Linear Block
+## Global Consequence Of The Jointly Optimized Linear Block
 
-The first explicit linear block in
-`research/FIXED_ORDER_CYCLE_RATIO.md` does yield a stronger global lower
-bound. Put
+The generalized linear block in `research/FIXED_ORDER_CYCLE_RATIO.md` yields
+a stronger global lower bound. Its exact proof-valid region is
 \[
-r=r_n=\lfloor(\sqrt2-1)n\rfloor,
+0<\alpha<1,
 \qquad
-s=s_n^*=\left\lceil
-\left({3\sqrt2\over4}-{2\over3}\right)n
-\right\rceil,
+0<\beta<\alpha,
 \qquad
-\lambda_*={88-48\sqrt2\over49}.
+0\le\lambda\le1.
+\]
+For fixed parameters, the pairing-floor and residual coefficients are
+\[
+p(\alpha)={(1-\alpha)(\alpha^2+4\alpha+1)\over6},
+\]
+\[
+c_{\rm res}(\alpha,\beta,\lambda)
+=(\alpha-\beta)
+{\lambda\left(4(1+\alpha)\beta-(1+\alpha)^2
+-2\lambda\beta^2\right)\over2(2-\lambda)}.
+\]
+Complete optimization, including every boundary face, gives the unique triple
+\[
+\alpha_*=1-{\sqrt3\over3},
+\qquad
+\beta_*={5\over6}-{\sqrt3\over4},
+\qquad
+\lambda_*={88-32\sqrt3\over73}.
+\]
+Put
+\[
+r=r_n^*=\lfloor\alpha_*n\rfloor,
+\qquad
+s=s_n^*=\lceil\beta_*n\rceil.
 \]
 For a fixed admissible starting index \(m\), define
 \[
@@ -753,77 +771,90 @@ these already-minimized scalar lower bounds gives
 \max_{1\le m\le n-r-1}\gamma^{(r)}_{m,n}
 =\Gamma_n^{(r)}.
 \]
-Thus no maximum is interchanged with a minimum. Since \(m=1\) is admissible,
-CR28bg gives, for every \(n\ge99\),
+Thus no maximum is interchanged with a minimum. The floor/ceiling conditions
+are uniformly valid for \(n\ge86\), and this threshold is sharp:
+\((r_{85}^*,s_{85}^*)=(35,35)\), whereas the selected prefix is nonempty for
+every \(n\ge86\). Since \(m=1\) is then admissible, CR28bg gives
 \[
 \boxed{
 \Lambda_n
-\ge\Gamma_n^{(r_n)}
-\ge\gamma^{(r_n)}_{1,n}
-\ge P_{r_n,n}+(r_n-s_n^*)F_n^*.
+\ge\Gamma_n^{(r_n^*)}
+\ge\gamma^{(r_n^*)}_{1,n}
+\ge P_{r_n^*,n}+(r_n^*-s_n^*)F_n^*.
 }
 \]
-The last term uses the duplicated-pairing floor \(P_{r_n,n}\), not the exact
-inner-cycle minimum \(P^*_{r_n,n}\). The latter belongs to the separate
+The last term uses the duplicated-pairing floor \(P_{r_n^*,n}\), not the exact
+inner-cycle minimum \(P^*_{r_n^*,n}\). The latter belongs to the separate
 residual comparison CR28bi.
 
-The proof-valid parameter region is exactly
-\((0,\sqrt2-1)\times[0,1]\), while the strictly positive-cubic subregion is
+The strictly positive-cubic region of the generalized certificate is exactly
 \[
-{\sqrt2\over4}<\beta<\sqrt2-1,
-\qquad
-0<\lambda<{2\sqrt2\,\beta-1\over\beta^2}.
+\begin{aligned}
+{1\over3}<\alpha<1,
+\qquad {1+\alpha\over4}<\beta<\alpha,
+\qquad 0<\lambda\le1,\\
+2\lambda\beta^2<4(1+\alpha)\beta-(1+\alpha)^2.
+\end{aligned}
 \]
-Exact elimination in `research/FIXED_ORDER_CYCLE_RATIO.md` proves that
-\((\beta_*,\lambda_*)\) above is the unique maximizer and gives the residual
-coefficient \((99\sqrt2-140)/27\). This is template-specific optimality, not
-an exact residual or geometric asymptotic coefficient.
+At the optimizer, the local, residual, pairing, and total coefficients are
+\[
+g_*={14-8\sqrt3\over9},
+\qquad
+c_{{\rm res},*}={26-15\sqrt3\over54},
+\]
+\[
+p(\alpha_*)={19\sqrt3-18\over54},
+\qquad
+p(\alpha_*)+c_{{\rm res},*}={4+2\sqrt3\over27}.
+\]
+The total-coefficient optimality is template-specific. The displayed
+\(c_{{\rm res},*}\) is its residual contribution at that optimizer, not the
+separate maximum of \(c_{\rm res}\), and neither value is an exact residual
+or geometric asymptotic coefficient. The density \(\alpha_*\) differs from the one-tail
+maximizer \(\sqrt2-1\): its slightly smaller pairing contribution is more
+than offset by the certified block residual.
 
 The finite coefficient can be read without losing the floor information.
 Write
 \[
-\varepsilon_n=(\sqrt2-1)n-r_n,
-\qquad 0\le\varepsilon_n<1.
+\eta_n=\alpha_*n-r_n^*,
+\qquad 0\le\eta_n<1.
 \]
-Substitution in the exact formula for \(P_{r_n,n}\) gives
+Substitution in the exact formula for \(P_{r_n^*,n}\) gives
 \[
 \begin{aligned}
-P_{r_n,n}-{2(\sqrt2-1)\over3}n^3
-={}&(\sqrt2-1)n^2\\
-&+n\left(
--{\sqrt2\over2}\varepsilon_n^2-\varepsilon_n
--{1\over3}+{\sqrt2\over6}
-\right)
-+{\varepsilon_n^3-\varepsilon_n\over6}.
+P_{r_n^*,n}
+={}&{19\sqrt3-18\over54}n^3\\
+&+\left(\alpha_*+{7-4\sqrt3\over6}\eta_n\right)n^2\\
+&-\left(
+\left(1-{\sqrt3\over6}\right)\eta_n^2
++\eta_n+{\sqrt3\over18}
+\right)n
++{\eta_n^3-\eta_n\over6}.
 \end{aligned}
 \]
-The right-hand side is at least
+In particular,
 \[
-(\sqrt2-1)n^2-{4+\sqrt2\over3}n-{1\over6}>0
-\qquad(n\ge5).
+P_{r_n^*,n}
+\ge {19\sqrt3-18\over54}n^3
++\alpha_*n^2-2n-{1\over6}.
 \]
-The optimized floor estimate and CR28bk give
+The optimized floor estimate and CR28bk give, for \(n\ge90\),
 \[
-(r_n-s_n^*)F_n^*
+(r_n^*-s_n^*)F_n^*
 \ge
-{99\sqrt2-140\over27}n^3
--{136-96\sqrt2\over9}n^2
-\qquad(n\ge99).
+{26-15\sqrt3\over54}n^3
+-{28-16\sqrt3\over9}n^2.
 \]
-Adding the two bounds and using the exact coefficient identity
-\[
-{2(\sqrt2-1)\over3}
-+{99\sqrt2-140\over27}
-={117\sqrt2-158\over27}
-\]
-proves
+Adding the two bounds proves
 \[
 \boxed{
 \Lambda_n
 \ge
-{117\sqrt2-158\over27}n^3
--{136-96\sqrt2\over9}n^2
-\qquad(n\ge99).
+{4+2\sqrt3\over27}n^3
++{13\sqrt3-19\over9}n^2-2n-{1\over6}
+\ge {4+2\sqrt3\over27}n^3
+\qquad(n\ge90).
 }
 \]
 Finally, the strict global cyclic-ratio sandwich gives the finite geometric
@@ -832,25 +863,26 @@ consequence
 \boxed{
 R_2^*(n)
 >
-{117\sqrt2-158\over27\pi}n^3
--\left(1+{136-96\sqrt2\over9\pi}\right)n^2
-\qquad(n\ge99).
+{4+2\sqrt3\over27\pi}n^3-n^2
+\qquad(n\ge90).
 }
 \]
 In particular,
 \[
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
-\ge {117\sqrt2-158\over27},
+\ge {4+2\sqrt3\over27},
 \qquad
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-\ge {117\sqrt2-158\over27\pi}.
+\ge {4+2\sqrt3\over27\pi}.
 \]
 These are exact lower bounds with a rigorously certified lower coefficient.
 They do not prove that either normalized sequence converges or that the
-displayed coefficient is its exact leading coefficient. The residual
-coefficient \((99\sqrt2-140)/27\) is optimal only inside the parameterized
-CR28ax--CR28bg certificate; it is not the exact residual coefficient of the
-selected block. The behavior of other linear densities also remains open.
+displayed coefficient is its exact leading coefficient. The total coefficient
+\((4+2\sqrt3)/27\) is optimal only inside the parameterized CR28ax--CR28bg
+certificate. Its associated residual contribution is
+\((26-15\sqrt3)/54\), which is neither separately maximized nor the exact
+residual coefficient of the selected block; the total is not an exact
+geometric constant.
 
 ## Exact Radius-One Insertion
 
@@ -1436,10 +1468,10 @@ Therefore
 \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over2\pi}.
 \tag{21}
 \]
-Combining (21) with the sharpened first-linear-block lower bound already
+Combining (21) with the sharpened jointly optimized linear-block lower bound
 proved in this note yields
 \[
-{117\sqrt2-158\over27\pi}
+{4+2\sqrt3\over27\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -1454,7 +1486,7 @@ In particular,
 The later exact product-distance construction sharpens the right endpoint to
 
 \[
-{117\sqrt2-158\over27\pi}
+{4+2\sqrt3\over27\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -1507,15 +1539,17 @@ Neither the improved upper bound nor the lower bound proves that
   baseline. The zigzag radius \(V_n\) improves its asymptotic upper coefficient
   from \(1/\pi\) to \(1/(2\pi)\); the later product-distance construction
   improves it again to \(8/(25\pi)\), which still does not match the
-  current first-linear-block lower coefficient
-  \((117\sqrt2-158)/(27\pi)\). None may be described as the exact asymptotic
+  current jointly optimized linear-block lower coefficient
+  \((4+2\sqrt3)/(27\pi)\). None may be described as the exact asymptotic
   leading constant for Power-Ringmin. The smaller coefficient
   \(2(\sqrt2-1)/(3\pi)\) remains optimal only inside the single-subset
   lower-bound relaxation explicitly analyzed above.
-- The optimized first-linear-block residual coefficient
-  \((99\sqrt2-140)/27\) is maximal only in the parameterized
-  CR28ax--CR28bg certificate. This does not make it the exact residual of the
-  block, an exact geometric leading coefficient, or a convergence theorem.
+- The jointly optimized linear-block total coefficient
+  \((4+2\sqrt3)/27\) is maximal only in the parameterized CR28ax--CR28bg
+  certificate. The value \((26-15\sqrt3)/54\) is its residual contribution
+  at that optimizer, not the separate maximum of the residual coefficient.
+  This does not make it the exact residual of the block or the total an exact
+  geometric leading coefficient, and it proves no convergence theorem.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower
   bound only from the scalar full-problem lower bound would reverse the useful

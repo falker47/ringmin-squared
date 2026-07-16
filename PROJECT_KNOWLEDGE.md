@@ -1,6 +1,6 @@
 # PROJECT_KNOWLEDGE - power-ringmin
 
-Last reviewed: 2026-07-15
+Last reviewed: 2026-07-16
 
 This file is stable durable project memory. Chronology, command transcripts, failed attempts, and task-local evidence belong in `ops/`.
 
@@ -411,23 +411,17 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   infer a drop below the one-tail coefficient. Also,
   \(\Gamma_n^{(r)}\) is a maximum of separately minimized one-block
   obstructions; no exchange of max and min is asserted.
-- EXACT METHOD-SPECIFIC THEOREM (FIRST LINEAR BLOCK): put
+- EXACT METHOD-SPECIFIC THEOREM (GENERAL LINEAR BLOCK): with \(m=1\),
+  \(r_n=\lfloor\alpha n\rfloor\), \(s_n=\lceil\beta n\rceil\),
+  \(S_n=n+r_n\), \(q_n=n-r_n+1\), and \(k_n=r_n-s_n\), the exact eventually
+  proof-valid region is
   \[
-  \alpha=\sqrt2-1,
-  \qquad
-  r_n=\lfloor\alpha n\rfloor
-  =\lfloor\sqrt{2n^2}\rfloor-n.
+  0<\alpha<1,
+  \qquad 0<\beta<\alpha,
+  \qquad 0\le\lambda\le1.
   \]
-  With \(m=1\), the ordinary split-history domain holds for every \(n\ge5\).
-  For \(s_n=\lceil\beta n\rceil\), \(S_n=n+r_n\), \(q_n=n-r_n+1\), and
-  \(k_n=r_n-s_n\), the proof-valid parameter region is exactly
-  \[
-  0<\beta<\sqrt2-1,
-  \qquad
-  0\le\lambda\le1.
-  \]
-  At fixed \(n\), the exact prefix condition is
-  \(1\le s_n\le r_n-1\). Define
+  At fixed \(n\), the complete conditions are
+  \(2\le r_n\le n-2\) and \(1\le s_n\le r_n-1\). Define
   \[
   G_{n,\lambda}(t)
   ={\lambda(4S_nt-S_n^2-2\lambda t^2)\over2(2-\lambda)},
@@ -435,7 +429,7 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   J_{n,\lambda}(t)
   =\lambda((S_n-1)t-n(r_n-1)),
   \qquad
-  F_n^{\mathrm{blk}}(\beta,\lambda)
+  F_n^{\mathrm{blk}}(\alpha,\beta,\lambda)
   =\min\{G_{n,\lambda}(s_n),J_{n,\lambda}(s_n)\}.
   \]
   Exact subtraction proves
@@ -457,13 +451,13 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   then, whenever \(s_n\le r_n-1\),
   \[
   \gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+k_nF_n^{\mathrm{blk}}(\beta,\lambda).
+  \ge P_{r_n,n}+k_nF_n^{\mathrm{blk}}(\alpha,\beta,\lambda).
   \]
   Comparing separately with the exact inner simple-cycle minimum gives
   \[
   \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
   \ge
-  k_nF_n^{\mathrm{blk}}(\beta,\lambda)-e(q_n).
+  k_nF_n^{\mathrm{blk}}(\alpha,\beta,\lambda)-e(q_n).
   \]
 - EXACT THEOREM (BASE-SLACK IDENTITY): every simple cycle \(C\) on
   \(S_{r_n}\) satisfies
@@ -481,82 +475,101 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   in \(t\), no base edge can be recreated, and
   \(\max\{0,H_{k_n}\}\ge\lambda H_{k_n}\). Thus the proof retains literal
   recursive compatibility and the maximum over all prefixes.
-- EXACT TEMPLATE OPTIMIZATION (FIRST LINEAR BLOCK): the strictly
-  positive-cubic region is exactly
+- EXACT TEMPLATE OPTIMIZATION (JOINT LINEAR BLOCK): the limiting base and
+  recursive floors are
   \[
-  {\sqrt2\over4}<\beta<\sqrt2-1,
+  g(\alpha,\beta,\lambda)
+  ={\lambda\left(4(1+\alpha)\beta-(1+\alpha)^2
+  -2\lambda\beta^2\right)\over2(2-\lambda)},
   \qquad
-  0<\lambda<{2\sqrt2\,\beta-1\over\beta^2}.
+  j(\alpha,\beta,\lambda)=\lambda((1+\alpha)\beta-\alpha),
   \]
-  The limiting local floors are
+  and
   \[
-  g(\beta,\lambda)
-  ={\lambda(2\sqrt2\,\beta-1-\lambda\beta^2)\over2-\lambda},
-  \qquad
-  j(\beta,\lambda)=\lambda(\sqrt2\,\beta-\sqrt2+1),
+  j-g={\lambda\left((1-\alpha)^2
+  +2\lambda(\alpha-\beta)(1-\beta)\right)\over2(2-\lambda)}>0.
   \]
-  with \(j>g\). Exact elimination proves that the unique maximin parameters
-  are
+  Thus the total pairing-plus-residual coefficient is
   \[
-  \beta_*={3\sqrt2\over4}-{2\over3},
-  \qquad
-  \lambda_*={88-48\sqrt2\over49}.
+  \mathcal C(\alpha,\beta,\lambda)
+  ={(1-\alpha)(\alpha^2+4\alpha+1)\over6}
+  +(\alpha-\beta)g(\alpha,\beta,\lambda).
   \]
-  They give
+  The strictly positive-cubic region is exactly
   \[
-  g_*={68-48\sqrt2\over9},
-  \qquad
-  c_*={99\sqrt2-140\over27}.
+  {1\over3}<\alpha<1,
+  \quad {1+\alpha\over4}<\beta<\alpha,
+  \quad 0<\lambda\le1,
+  \quad
+  2\lambda\beta^2<4(1+\alpha)\beta-(1+\alpha)^2.
   \]
-  The old \((2/5,1/2)\) coefficient is strictly smaller by
-  \((14850\sqrt2-21001)/3375>0\). Thus \(c_*\) is optimal within
-  CR28ax--CR28bg, not the exact residual coefficient.
+  Complete exact boundary analysis proves the unique global maximizer
+  \[
+  \alpha_*=1-{\sqrt3\over3},
+  \qquad
+  \beta_*={5\over6}-{\sqrt3\over4},
+  \qquad
+  \lambda_*={88-32\sqrt3\over73}.
+  \]
+  It gives
+  \[
+  g_*={14-8\sqrt3\over9},
+  \qquad
+  c_{{\rm res},*}={26-15\sqrt3\over54},
+  \qquad
+  \mathcal C_*={4+2\sqrt3\over27}.
+  \]
+  The total coefficient is optimal only within CR28ax--CR28bg. The displayed
+  residual coefficient is its contribution at that total-coefficient
+  optimizer, not the separate maximum of \(c_{\rm res}\). Neither quantity
+  is an exact residual or geometric leading coefficient.
 - EXACT METHOD-SPECIFIC CUBIC RESIDUAL: put
-  \(s_n^*=\lceil\beta_*n\rceil\) and let \(F_n^*\) be the explicit optimized
-  base floor. For every \(n\ge99\),
+  \(r_n^*=\lfloor\alpha_*n\rfloor\),
+  \(s_n^*=\lceil\beta_*n\rceil\), and let \(F_n^*\) be the explicit optimized
+  base floor. The exact floor/ceiling domain is uniformly \(n\ge86\). For
+  \(n\ge90\),
   \[
-  \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
+  \gamma^{(r_n^*)}_{1,n}-P^*_{r_n^*,n}
   \ge
-  c_*n^3-Q_*n^2,
+  c_{{\rm res},*}n^3-Q_*n^2,
   \]
   where
   \[
-  c_*={99\sqrt2-140\over27}>0,
+  c_{{\rm res},*}={26-15\sqrt3\over54}>0,
   \qquad
-  Q_*={1097-768\sqrt2\over72}.
+  Q_*={233-128\sqrt3\over72}.
   \]
-  The displayed lower bound is positive for \(n\ge572\). Hence no
-  compatible history for this block has \(o(n^3)\) excess. This proves no
-  exact residual coefficient or general linear-density classification.
-- EXACT GLOBAL LOWER COROLLARY (FIRST LINEAR BLOCK): for each admissible
+  The displayed lower polynomial is positive for \(n\ge441\). Hence no
+  compatible history for this selected block has \(o(n^3)\) excess. This
+  proves no exact residual coefficient.
+- EXACT GLOBAL LOWER COROLLARY (JOINTLY OPTIMIZED LINEAR BLOCK): for each
+  admissible
   \(m\), the pointwise inequality between the full subset maximum and the
   block maximum may first be minimized over \(\sigma\). Taking the maximum
   of the resulting separately proved lower bounds does not exchange max and
-  min. Therefore, for every \(n\ge99\),
+  min. Therefore, for every \(n\ge86\),
   \[
   \Lambda_n
-  \ge\Gamma_n^{(r_n)}
-  \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+(r_n-s_n^*)F_n^*.
+  \ge\Gamma_n^{(r_n^*)}
+  \ge\gamma^{(r_n^*)}_{1,n}
+  \ge P_{r_n^*,n}+(r_n^*-s_n^*)F_n^*.
   \]
-  Exact floor expansion gives
-  \(P_{r_n,n}\ge[2(\sqrt2-1)/3]n^3\) for \(n\ge5\). Together with
-  \(r_n-s_n^*\ge[(3\sqrt2-4)/12]n-2\) and
-  \(F_n^*\ge[(68-48\sqrt2)/9]n^2\), this proves
+  Exact floor expansion and the residual contribution at the optimized
+  triple prove
   \[
   \Lambda_n
-  \ge {117\sqrt2-158\over27}n^3
-  -{136-96\sqrt2\over9}n^2
-  \qquad(n\ge99),
+  \ge {4+2\sqrt3\over27}n^3
+  +{13\sqrt3-19\over9}n^2-2n-{1\over6}
+  \ge {4+2\sqrt3\over27}n^3
+  \qquad(n\ge90),
   \]
   and the strict global cyclic-ratio sandwich proves
   \[
   R_2^*(n)
-  >{117\sqrt2-158\over27\pi}n^3
-  -\left(1+{136-96\sqrt2\over9\pi}\right)n^2.
+  >{4+2\sqrt3\over27\pi}n^3-n^2.
   \]
   Hence the corresponding liminf lower coefficients are
-  \((117\sqrt2-158)/27\) and that value divided by \(\pi\). These are
+  \((4+2\sqrt3)/27\) and that value divided by \(\pi\). These are
   certified lower coefficients, not exact leading coefficients; no limit,
   convergence, production, artifact, or certificate claim follows.
 - EXACT GEOMETRIC COROLLARY: the strict global cyclic-ratio sandwich gives
@@ -598,25 +611,26 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   and intermediate connected cycle; a separate exact check realizes the
   admissible-domino envelope \(E_{2,5}=23\). All paths are test-local and
   call no production scorer, canonicalizer, or enumerator.
-- VERIFIED FACT (BOUNDED EXACT TEST-LOCAL DIAGNOSTIC): the first-linear-block
+- VERIFIED FACT (BOUNDED EXACT TEST-LOCAL DIAGNOSTIC): the jointly optimized
+  linear-block
   checks verify the base-slack identity on every dihedral cycle of tail sizes
-  three through six. At \(n=99,141,200,500,1000\), two deterministic history
+  three through six. At \(n=86,90,141,200,500,1000\), two deterministic history
   policies exercise intact-base and recursive child-edge splits and verify
   exact floor/ceiling rounding, one-use base linkage, every local floor, the
   weighted-prefix step, and the finite lower inequality. At \(n=141\), a
-  separate oracle checks all 7,140 depth-two literal histories from one base,
-  including all 168 recursive second splits. An exact bounded scan covers
-  every \(99\le n\le1000\). The checks use integer, rational, and test-local
-  \(\mathbb Q(\sqrt2)\) coefficient-pair arithmetic and call no production
+  separate oracle checks all 6,972 depth-two literal histories from one base,
+  including all 166 recursive second splits. An exact bounded scan covers
+  every \(86\le n\le1000\). The checks use integer, rational, and test-local
+  \(\mathbb Q(\sqrt3)\) coefficient-pair arithmetic and call no production
   scorer, canonicalizer, or enumerator. They also verify the stationary
-  equations, old specialization, strict improvement, finite constants, and
-  decisive signs without floating point. They corroborate the algebra but are
-  not the all-\(n\) proof.
+  branch identities, candidate equations, a bounded rational grid, finite
+  constants, and decisive signs without floating point. They corroborate the
+  algebra but are not the all-\(n\) proof.
 - EXACT THEOREM: the additive relation transfers normalized asymptotics:
   \(\Lambda_n=\pi R_2^*(n)+O(n^2)=\Theta(n^3)\),
   \(\Lambda_n/(\pi R_2^*(n))\to1\), and
   \[
-  {117\sqrt2-158\over27}
+  {4+2\sqrt3\over27}
   \le\liminf{\Lambda_n\over n^3}
   \le\limsup{\Lambda_n\over n^3}
   \le{8\over25}.
@@ -836,13 +850,14 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   within the single-subset relaxation named above. The exact consecutive-tail
   block extension has the same leading coefficient for every fixed \(r\)
   and every \(r=o(n)\). None of these statements is an exact asymptotic
-  result for Power-Ringmin. The first explicit linear block has a positive
-  method-specific cubic residual over its inner-cycle reference and yields the
-  stronger global lower coefficient
-  \((117\sqrt2-158)/(27\pi)\). Its residual coefficient
-  \((99\sqrt2-140)/27\) is optimal only within CR28ax--CR28bg. Other
-  densities, its exact residual coefficient, convergence, and the exact global
-  leading coefficient remain unresolved.
+  result for Power-Ringmin. Joint optimization of the linear block has a
+  positive method-specific certified cubic residual over its inner-cycle
+  reference and yields the stronger global lower coefficient
+  \((4+2\sqrt3)/(27\pi)\). Its total coefficient
+  \((4+2\sqrt3)/27\) is optimal only within CR28ax--CR28bg; the associated
+  residual contribution at that optimizer is \((26-15\sqrt3)/54\), not a
+  separately maximized residual. Its exact residual coefficient, convergence,
+  and the exact global leading coefficient remain unresolved.
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 
@@ -1459,11 +1474,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   bijection, signed prefix maximum, admissible-domino audit, uniform
   \(O(rn^2)\) squeeze, preservation of the coefficient for every
   \(r=o(n)\), linear first non-excluded scale, and bounded \(r=4\) oracle,
-  plus the exact positive cubic residual for
-  \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\), its base-slack identity,
-  exact proof-valid and positive parameter regions, intact/recursive local
-  split bounds, unique maximin parameters, template-optimal cubic coefficient,
-  explicit finite/global lower bounds, and bounded exact diagnostics.
+  plus the joint first-linear-block certificate for \(m=1\),
+  \(r_n=\lfloor\alpha n\rfloor\), its base-slack identity, exact proof-valid
+  and positive parameter regions, intact/recursive local split bounds, unique
+  maximin triple, template-optimal cubic coefficient, explicit finite/global
+  lower bounds, and bounded exact diagnostics.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -1476,10 +1491,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - COMPLETED PRIORITY: a bounded independent test-only Arb path now
   cross-verifies the decisive endpoint signs and complete embedded data of the
   checked `n=3` artifact without the production oracle or its enclosures.
-- COMPLETED PRIORITY: the CR28ax--CR28bg cutoff/weight optimization now proves
-  the exact admissible regions, unique optimizer
-  \((\beta_*,\lambda_*)\), and template-optimal residual coefficient
-  \((99\sqrt2-140)/27\), with explicit finite bounds and no production or
+- COMPLETED PRIORITY: the joint CR28ax--CR28bg density/cutoff/weight
+  optimization now proves the exact admissible regions, unique optimizer
+  \((\alpha_*,\beta_*,\lambda_*)\) of the total coefficient
+  \((4+2\sqrt3)/27\), whose associated residual contribution is
+  \((26-15\sqrt3)/54\), with explicit finite bounds and no production or
   enumeration-limit change.
 - RECOMMENDED NEXT TASK: extend the independent test-only Arb endpoint-sign
   path from checked `n=3` to the existing checked `n=4` artifact, covering
@@ -1490,7 +1506,7 @@ Candidate-set extraction uses the following finite-certificate semantics.
   without increasing the central radius. This does not assert a fixed-order
   active-subsystem description or settle `n<=11`.
 - OPEN QUESTION: can the upper coefficient \(8/(25\pi)\) be lowered toward
-  the current lower coefficient \((117\sqrt2-158)/(27\pi)\), while retaining
+  the current lower coefficient \((4+2\sqrt3)/(27\pi)\), while retaining
   a symbolic all-pairs proof?
 - RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
 
@@ -1513,10 +1529,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: neither existence of \(\lim R_2^*(n)/n^3\) nor a leading-term
   asymptotic formula has been proved in this repository.
 - LIMITATION: the uniform consecutive-tail comparison classifies every
-  sublinear block length and leaves the general linear scale outside that
-  estimate. The first explicit linear block has a positive cubic residual,
-  but other densities and the exact residual or leading coefficient even for
-  that block remain unclassified.
+  sublinear block length. The CR28ax--CR28bg template is now jointly optimized
+  over all constant linear densities, but the exact residual and exact leading
+  coefficient of the selected block, and linear-density methods outside this
+  template, remain unclassified.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.
 - LIMITATION: the sufficient radius-one threshold `12` is not known to be
   minimal, and the exact equality question remains open for `n<=11`.

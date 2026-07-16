@@ -1,13 +1,13 @@
 # CURRENT_STATUS - power-ringmin
 
-Last update: 2026-07-15
+Last update: 2026-07-16
 
-- **Current phase:** exact optimization of the first-linear-block
-  slack/prefix certificate.
-- **Current task:** optimize CR28ax--CR28bg over the cutoff and prefix weight,
-  with literal recursive linkage and one-use base-edge charging.
+- **Current phase:** joint exact optimization of the generalized first-linear-block certificate.
+- **Current task:** generalize CR28ax--CR28bg to
+  \(r_n=\lfloor\alpha n\rfloor\) and solve the maximin in
+  \((\alpha,\beta,\lambda)\), including finite rounding and every boundary.
 - **Task dossier:**
-  `ops/TASK-20260715__optimize_linear_block_certificate/`.
+  `ops/TASK-20260716__joint_linear_block_optimization/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
@@ -15,190 +15,188 @@ Last update: 2026-07-15
 
 ## Implemented Scope
 
-- The block remains
+- The certificate keeps \(m=1\) and now uses
   \[
-  m=1,
-  \qquad
-  r_n=\lfloor(\sqrt2-1)n\rfloor.
+  r_n=\lfloor\alpha n\rfloor,\qquad
+  s_n=\lceil\beta n\rceil,\qquad
+  \max(0,H)\ge\lambda H.
   \]
-- The former fixed choices \(s_n=\lceil2n/5\rceil\) and
-  \(\max(0,H)\ge H/2\) are replaced in the certificate by
-  \(s_n=\lceil\beta n\rceil\) and
-  \(\max(0,H)\ge\lambda H\).
-- Every split still uses a literal current edge. Each intact original base
-  edge is charged at most once, and every recursive child-edge split retains
-  its previously inserted endpoint.
-- No production source, API, scorer, canonicalizer, enumerator, enumeration
-  limit, artifact, schema, example, verifier, backend, or certificate contract
-  changed.
+- Every split remains a literal current-edge split; intact original edges are
+  charged at most once and recursive child-edge splits retain their inserted
+  endpoint.
+- No production source, API, artifact, schema, example, verifier, backend,
+  enumerator, or enumeration limit changed.
 
-## Exact Parameter Regions And Local Floors
+## Exact Joint Certificate
 
-- EXACT METHOD-SPECIFIC THEOREM: the proof-valid asymptotic parameter region is
-  exactly
+- EXACT METHOD-SPECIFIC THEOREM: the proof-valid asymptotic region is
   \[
-  \mathcal A=(0,\sqrt2-1)\times[0,1].
+  0<\alpha<1,\qquad 0<\beta<\alpha,\qquad 0\le\lambda\le1.
   \]
-  At fixed \(n\), the exact cutoff condition is
+  At fixed \(n\), the exact block conditions are
   \[
-  1\le\lceil\beta n\rceil
-  \le\lfloor(\sqrt2-1)n\rfloor-1.
+  2\le\lfloor\alpha n\rfloor\le n-2,\qquad
+  1\le\lceil\beta n\rceil\le\lfloor\alpha n\rfloor-1.
   \]
-- EXACT METHOD-SPECIFIC THEOREM: the parameters producing a strictly positive
-  cubic certificate are exactly
+- With
   \[
-  {\sqrt2\over4}<\beta<\sqrt2-1,
+  p(\alpha)={(1-\alpha)(\alpha^2+4\alpha+1)\over6},
+  \]
+  the intact and recursive limiting local floors are
+  \[
+  g={\lambda\{4(1+\alpha)\beta-(1+\alpha)^2
+                    -2\lambda\beta^2\}\over2(2-\lambda)},
   \qquad
-  0<\lambda<{2\sqrt2\,\beta-1\over\beta^2}.
+  j=\lambda\{(1+\alpha)\beta-\alpha\}.
   \]
-- For \(S=n+r_n\), the intact-base and recursive local floors are
+  Exact subtraction gives
   \[
-  G_{n,\lambda}(t)
-  ={\lambda(4St-S^2-2\lambda t^2)\over2(2-\lambda)},
-  \qquad
-  J_{n,\lambda}(t)
-  =\lambda((S-1)t-n(r_n-1)).
+  j-g={\lambda\{(1-\alpha)^2
+              +2\lambda(\alpha-\beta)(1-\beta)\}\over2(2-\lambda)}>0
   \]
-  Both increase along the selected prefix, and the exact finite identity
+  whenever \(\lambda>0\). Thus \(g\), not \(j\), is always active.
+- The global method coefficient is exactly
   \[
-  J_{n,\lambda}(t)-G_{n,\lambda}(t)
-  ={\lambda\bigl((n-r_n)^2+4(n-t)
-  +2\lambda(r_n-1-t)(n-t)\bigr)\over2(2-\lambda)}
+  C(\alpha,\beta,\lambda)
+  =p(\alpha)+(\alpha-\beta)g(\alpha,\beta,\lambda).
   \]
-  proves that the recursive floor is strictly larger for \(\lambda>0\) and
-  every selected \(t\le r_n-1\).
+- The strictly positive-residual region is exactly
+  \[
+  \alpha>{1\over3},\qquad
+  {1+\alpha\over4}<\beta<\alpha,\qquad
+  0<\lambda\le1,\qquad
+  \lambda<{4(1+\alpha)\beta-(1+\alpha)^2\over2\beta^2}.
+  \]
 
-## Exact Maximin Result
+## Exact Maximin And Boundary Closure
 
-- EXACT TEMPLATE-OPTIMAL THEOREM: the unique maximizer is
+- EXACT TEMPLATE-OPTIMAL THEOREM: the unique global maximizer is
   \[
-  \beta_*={3\sqrt2\over4}-{2\over3},
-  \qquad
-  \lambda_*={88-48\sqrt2\over49}.
+  \alpha_*=1-{\sqrt3\over3},\qquad
+  \beta_*={5\over6}-{\sqrt3\over4},\qquad
+  \lambda_*={88-32\sqrt3\over73},
   \]
-  The limiting active local floor and residual coefficient are
+  and the candidate in the task statement is therefore confirmed.
+- At that point,
   \[
-  g_*={68-48\sqrt2\over9},
-  \qquad
-  c_*={99\sqrt2-140\over27}
-  \approx2.645435161633\times10^{-4}.
+  g_*={14-8\sqrt3\over9},\qquad
+  (\alpha_*-\beta_*)g_*={26-15\sqrt3\over54},
   \]
-- The former coefficient is not optimal inside this template:
   \[
-  c_*-{389-275\sqrt2\over375}
-  ={14850\sqrt2-21001\over3375}>0,
+  p(\alpha_*)={19\sqrt3-18\over54},\qquad
+  C_*={4+2\sqrt3\over27}.
   \]
-  with exact square gap \(2\cdot14850^2-21001^2=2999\).
-- This is template optimality only. It is not the exact residual coefficient
-  of the block.
+- For fixed \((\alpha,\beta)\), exact differentiation reduces the optimum in
+  \(\lambda\) to \(0\), \(1\), or
+  \(4-(1+\alpha)/\beta\). On the interior branch the unique cutoff is
+  \(\beta=(9\alpha+1)/12\), and the reduced coefficient is strictly concave
+  on \(1/3<\alpha<3/5\), with its unique stationary point at \(\alpha_*\).
+- The faces \(\alpha\le1/3\), \(\alpha\ge3/5\), \(\lambda=0\),
+  \(\lambda=1\), \(\beta=0\), \(\beta=\alpha\), \(g=0\), \(\alpha=0\),
+  and \(\alpha=1\) are all explicitly evaluated or monotonically reduced.
+  Every one is strictly below \(C_*\); hence there is no omitted boundary
+  maximizer and global uniqueness is literal.
 
 ## Explicit Finite And Global Bounds
 
 - Put
   \[
-  s_n^*=\left\lceil
-  \left({3\sqrt2\over4}-{2\over3}\right)n
-  \right\rceil,
+  r_n^*=\left\lfloor\left(1-{\sqrt3\over3}\right)n\right\rfloor,
   \qquad
-  k_n^*=r_n-s_n^*.
-  \]
-  With
-  \[
-  F_n^*=
-  {\lambda_*\left(
-  4(n+r_n)s_n^*-(n+r_n)^2-2\lambda_*(s_n^*)^2
-  \right)\over2(2-\lambda_*)},
-  \]
-  the exact floor/ceiling statement is
-  \[
-  \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
-  \ge k_n^*F_n^*-e(n-r_n+1)
-  \]
-  whenever \(s_n^*\le r_n-1\), where \(e\) retains its exact parity formula.
-- The simple uniform domain \(n\ge99\) is sufficient. On it,
-  \[
-  \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
-  \ge c_*n^3-Q_*n^2,
-  \qquad
-  Q_*={1097-768\sqrt2\over72}.
-  \]
-  This displayed bound is positive for every \(n\ge572\).
-- EXACT GLOBAL LOWER COROLLARY: without a max--min exchange,
-  \[
-  \Lambda_n
-  \ge\Gamma_n^{(r_n)}
-  \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+k_n^*F_n^*,
-  \]
-  and hence, for \(n\ge99\),
-  \[
-  \Lambda_n
-  \ge {117\sqrt2-158\over27}n^3
-  -{136-96\sqrt2\over9}n^2,
+  s_n^*=\left\lceil\left({5\over6}-{\sqrt3\over4}\right)n\right\rceil,
   \]
   \[
-  R_2^*(n)
-  >{117\sqrt2-158\over27\pi}n^3
-  -\left(1+{136-96\sqrt2\over9\pi}\right)n^2.
+  F_n^*={\lambda_*\{4(n+r_n^*)s_n^*-(n+r_n^*)^2
+                         -2\lambda_*(s_n^*)^2\}\over2(2-\lambda_*)}.
   \]
-  The corresponding liminf lower coefficients are
-  \((117\sqrt2-158)/27\) and that value divided by \(\pi\).
+  The exact floor/ceiling theorem is uniform for every \(n\ge86\):
+  \[
+  \Lambda_n\ge\Gamma_n^{(r_n^*)}
+  \ge\gamma_{1,n}^{(r_n^*)}
+  \ge P_{r_n^*,n}+(r_n^*-s_n^*)F_n^*.
+  \]
+  The threshold \(86\) is minimal for the stated uniform block conditions;
+  \(n=85\) has \(r_n^*=s_n^*=35\).
+- With the exact parity term \(e(q)\) from CR28bh,
+  \[
+  \gamma_{1,n}^{(r_n^*)}-P^*_{r_n^*,n}
+  \ge(r_n^*-s_n^*)F_n^*-e(n-r_n^*+1).
+  \]
+  For every \(n\ge90\), a simpler rounded polynomial bound is
+  \[
+  \gamma_{1,n}^{(r_n^*)}-P^*_{r_n^*,n}
+  \ge {26-15\sqrt3\over54}n^3
+      -{233-128\sqrt3\over72}n^2.
+  \]
+  This lower bound is positive from \(n=441\). Separately, the bounded exact
+  diagnostic checks the sharper floor/ceil expression on \(176\le n\le440\)
+  (and its failure at 175), while the coarse theorem covers every
+  \(n\ge441\). Thus its exact sign transition is 175/176. This positivity
+  threshold is not a new certificate domain.
+- Combining the rounded pairing and residual terms gives, for \(n\ge90\),
+  \[
+  \Lambda_n\ge {4+2\sqrt3\over27}n^3
+    +{13\sqrt3-19\over9}n^2-2n-{1\over6}
+  \ge {4+2\sqrt3\over27}n^3,
+  \]
+  and
+  \[
+  R_2^*(n)>{4+2\sqrt3\over27\pi}n^3
+  +\left({13\sqrt3-19\over9\pi}-1\right)n^2
+  -{2n\over\pi}-{1\over6\pi}
+  >{4+2\sqrt3\over27\pi}n^3-n^2.
+  \]
 
 ## Bounded Exact Diagnostics
 
-- VERIFIED FACT (FINITE EXACT TEST-ONLY COMPUTATION): the base-slack identity
-  is still checked on every dihedral cycle of tail sizes three through six.
-- Optimized deterministic histories at \(n=99,141,200,500,1000\) exercise
-  intact-base and forced-recursive policies using exact
-  \(\mathbb Q(\sqrt2)\) pair arithmetic.
-- A separate \(n=141\) oracle exhausts all 7,140 literal depth-two histories
-  from one base cycle, including all 168 recursive second splits. It checks
-  connected cycle signatures, exact edge updates, one-use charging, local
-  floors, signed prefixes, and the weighted-prefix objective.
-- A bounded exact scan over every \(99\le n\le1000\) verifies the optimized
-  floor/ceiling arithmetic and both finite polynomial bounds.
-- These diagnostics call no production scorer, canonicalizer, or enumerator
-  and are not the all-\(n\) proof.
+- The base-slack identity remains checked on every dihedral cycle of tail
+  sizes three through six.
+- Candidate histories at \(n=86,90,141,200,500,1000\) use exact
+  \(\mathbb Q(\sqrt3)\) arithmetic and exercise intact and recursive splits.
+- A separate \(n=141\) oracle exhausts all 6,972 literal depth-two histories,
+  including all 166 recursive second splits, checking cycle linkage, edge
+  updates, one-use charging, local floors, signed prefixes, and the weighted
+  objective without production scorers or enumerators.
+- An exact scan over every \(86\le n\le1000\) checks floor/ceil arithmetic,
+  the minimal admissibility threshold, and both polynomial estimates.
+- These are independent bounded diagnostics, not the all-\(n\) proof.
 
 ## Verification
 
-- First-linear-block focused selection: 18 passed.
-- Complete fixed-order-cycle-ratio module: 66 passed.
-- Complete local suite: 242 passed.
-- Checked-artifact verification: all 4 certificates and 76 local brackets
-  verified.
+- Complete fixed-order-cycle-ratio module: 69 passed.
+- Complete local suite: 245 passed.
+- Checked-artifact verifier: all 4 certificates, 76 local brackets, and the
+  \(n=3,4,5,6\) summary verified.
 - Checked-artifact schema selection: 4 passed.
 - Ruff on the changed test module: passed.
-- Repository-wide Ruff retains the same four findings in untouched files.
-- Git diff hygiene and the no-production/no-limit-change audit pass.
-- Three independent read-only reviews found no mathematical, test-oracle, or
-  synchronization defect after the recorded notation cleanup.
+- Repository-wide Ruff retains exactly four known findings in untouched
+  files; no Ruff finding belongs to this task's diff.
+- Final status, diff, whitespace, and protected-scope audits pass.
+- Three independent read-only reviews checked the algebra, all boundary
+  branches, finite rounding, test independence, synchronization, and scope.
+  Their findings were corrected and the final reviews report no remaining
+  defect.
 - CURRENT HOSTED STATUS: GitHub Actions has not run these worktree changes.
 
 ## Files Changed
 
-- `research/FIXED_ORDER_CYCLE_RATIO.md` contains the exact generalized proof,
-  maximin solution, finite bounds, and limitations.
-- `tests/test_fixed_order_cycle_ratio.py` contains only independent bounded
-  exact diagnostics.
+- `research/FIXED_ORDER_CYCLE_RATIO.md`: generalized algebra, admissible
+  region, exact maximin, full boundary proof, finite theorem, limitations.
+- `tests/test_fixed_order_cycle_ratio.py`: bounded independent exact
+  \(\mathbb Q(\sqrt3)\) diagnostics only.
 - `research/ALL_N_LOWER_BOUND.md`, `start.md`, `PROJECT_KNOWLEDGE.md`, and
-  `research/NEXT_RESEARCH_STEPS.md` synchronize the stable consequence and
-  roadmap.
-- `CURRENT_STATUS.md` and the new STRICT task dossier record this handoff.
-- No production, artifact, schema, example, verifier, or enumeration-limit
-  file changed.
+  `research/NEXT_RESEARCH_STEPS.md`: synchronized authoritative consequences.
+- `CURRENT_STATUS.md` and the new STRICT task dossier: durable handoff.
+- No production, artifact, schema, example, verifier, or limit file changed.
 
 ## Residual Limitations
 
-- The coefficient \(c_*\) is the best certified by this template, not the
-  exact residual coefficient of the selected block.
-- The global and geometric coefficients are certified lower coefficients,
-  not exact leading coefficients or limits.
-- Neither normalized sequence is proved to converge, and no matching upper
-  coefficient is known.
-- Other linear densities and starting indices remain unclassified.
-- Finite diagnostics corroborate arithmetic and linkage only; they are not the
-  all-\(n\) proof.
+- \((26-15\sqrt3)/54\) is a certified residual lower coefficient inside this
+  template, not the exact residual coefficient of the selected block.
+- \(C_*\) and \(C_*/\pi\) are method-specific lower coefficients, not exact
+  leading constants or limits.
+- No convergence, matching upper coefficient, or exact geometric constant is
+  proved. Finite diagnostics corroborate arithmetic and linkage only.
 - Hosted GitHub Actions remain unverified.
 
 ## Proposed Next Task

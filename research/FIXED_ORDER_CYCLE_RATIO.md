@@ -2,7 +2,7 @@
 
 Date: 2026-07-14
 
-Last updated: 2026-07-15
+Last updated: 2026-07-16
 
 ## Scope And Classification
 
@@ -114,51 +114,52 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \(2(\sqrt2-1)/3\) for this separately optimized one-block obstruction.
   Linear \(r=\Theta(n)\) is the first scale this error bound does not
   exclude from changing the coefficient; that is not evidence that it does.
-- **EXACT METHOD-SPECIFIC THEOREM (FIRST LINEAR BLOCK):** put
+- **EXACT METHOD-SPECIFIC THEOREM (JOINTLY OPTIMIZED LINEAR BLOCK):** for
+  \(m=1\), \(r_n=\lfloor\alpha n\rfloor\),
+  \(s_n=\lceil\beta n\rceil\), and prefix weight \(\lambda\), the exact
+  proof-valid region is
   \[
-  \alpha=\sqrt2-1,
+  0<\alpha<1,
+  \qquad 0<\beta<\alpha,
+  \qquad 0\le\lambda\le1.
+  \]
+  The pairing floor plus certified residual has cubic coefficient
+  \[
+  \mathcal C(\alpha,\beta,\lambda)
+  ={(1-\alpha)(\alpha^2+4\alpha+1)\over6}
+  +(\alpha-\beta)
+  {\lambda\left(4(1+\alpha)\beta-(1+\alpha)^2
+  -2\lambda\beta^2\right)\over2(2-\lambda)}.
+  \]
+  Complete exact boundary analysis proves the unique global maximizer
+  \[
+  \alpha_*=1-{\sqrt3\over3},
   \qquad
-  r_n=\lfloor\alpha n\rfloor.
-  \]
-  The block \(S_1,\ldots,S_{r_n}\) is in the ordinary split-history domain
-  for every \(n\ge5\). Optimizing the base-edge slack/prefix certificate over
-  \(s_n=\lceil\beta n\rceil\) and
-  \(\max(0,H)\ge\lambda H\) gives the unique parameters
-  \[
-  \beta_*={3\sqrt2\over4}-{2\over3},
+  \beta_*={5\over6}-{\sqrt3\over4},
   \qquad
-  \lambda_*={88-48\sqrt2\over49}.
+  \lambda_*={88-32\sqrt3\over73},
   \]
-  Literal recursive linkage and one-use base-edge charging then prove, for
-  every \(n\ge99\),
+  with associated residual contribution \((26-15\sqrt3)/54\) and total coefficient
   \[
-  \gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
-  \ge
-  {99\sqrt2-140\over27}n^3
-  -{1097-768\sqrt2\over72}n^2.
+  \mathcal C_*={4+2\sqrt3\over27}.
   \]
-  The cubic coefficient is the exact maximum certified by this template and
-  strictly improves its former \((2/5,1/2)\) specialization. Hence this block
-  has a genuinely cubic residual above its exact inner-cycle reference; no
-  compatible history for this block has subcubic excess. Moreover, CR28bg
-  transfers directly to the global objective, without exchanging a maximum
-  and a minimum:
+  The exact floor/ceiling certificate is uniformly admissible for
+  \(n\ge86\). For \(n\ge90\), it gives
   \[
-  \Lambda_n\ge\Gamma_n^{(r_n)}
-  \ge\gamma^{(r_n)}_{1,n}
-  \ge P_{r_n,n}+k_n^*F_n^*
-  \qquad(n\ge99).
+  \gamma^{(r_n^*)}_{1,n}-P^*_{r_n^*,n}
+  \ge {26-15\sqrt3\over54}n^3
+  -{233-128\sqrt3\over72}n^2
   \]
-  Consequently
+  and
   \[
-  \liminf_{n\to\infty}{\Lambda_n\over n^3}
-  \ge {117\sqrt2-158\over27},
+  \Lambda_n\ge {4+2\sqrt3\over27}n^3,
   \qquad
-  \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-  \ge {117\sqrt2-158\over27\pi}.
+  R_2^*(n)>{4+2\sqrt3\over27\pi}n^3-n^2.
   \]
-  These are rigorous lower coefficients, not exact residual or leading
-  coefficients; neither convergence nor production computation follows.
+  These are rigorous method-specific lower coefficients, not exact residual
+  or leading coefficients; neither convergence nor production computation
+  follows. The one-tail and sublinear-block coefficient
+  \(2(\sqrt2-1)/3\) remains unchanged and logically separate.
 - **VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK):** a recursive oracle at
   \((m,n,r)=(2,7,4)\) identifies all 60 compatible triple-split histories
   with all 60 outer dihedral cycles and obtains
@@ -1563,25 +1564,21 @@ The same bounded checks retain the 12 fully child-edge-nested histories and
 verify a domino attaining \(E_{2,5}=23\). These are finite exact arithmetic
 and coverage checks, not the proof of (CR28al)--(CR28as).
 
-### A cubic residual in the first linear-density block
+### Joint optimization of the first linear-density certificate
 
-The first scale left open by (CR28as) can already be separated from the
-inner-cycle reference. Put
+The first scale left open by (CR28as) can be separated from the inner-cycle
+reference for an arbitrary constant density. Put
 \[
-\alpha=\sqrt2-1,
+0<\alpha<1,
 \qquad
 r=r_n=\lfloor\alpha n\rfloor.
 \tag{CR28at}
 \]
-For integer arithmetic the rounding is equivalently
+Whenever
 \[
-r_n=\lfloor\sqrt{2n^2}\rfloor-n.
+2\le r_n\le n-2,
 \]
-For every integer \(n\ge5\), one has
-\[
-2\le r_n\le n-2.
-\]
-Thus (CR28ae)--(CR28al) apply with \(m=1\), block length \(r_n\), and
+equations (CR28ae)--(CR28al) apply with \(m=1\), block length \(r_n\), and
 \(\ell=r_n\). In particular, the exact object under study is
 \[
 \gamma^{(r_n)}_{1,n}
@@ -1611,29 +1608,33 @@ q=n-r+1,
 k=r-s.
 \tag{CR28av}
 \]
-These are exactly the eventually proof-admissible parameters. At a fixed
-\(n\), the selected prefix is legal and nonempty exactly when
+Thus the exact eventually proof-valid region is
 \[
-1\le \lceil\beta n\rceil
-\le \lfloor\alpha n\rfloor-1.
+\mathcal A
+=\{(\alpha,\beta,\lambda):
+0<\alpha<1,\ 0<\beta<\alpha,\ 0\le\lambda\le1\}.
 \]
-For constant \(\beta\), this holds for all sufficiently large \(n\) if and
-only if \(0<\beta<\alpha\). The elementary weighted-prefix step used below is
-valid for every real \(H\) if and only if
+At a fixed \(n\), the complete finite conditions are
+\[
+2\le\lfloor\alpha n\rfloor\le n-2,
+\qquad
+1\le\lceil\beta n\rceil\le\lfloor\alpha n\rfloor-1.
+\]
+The elementary weighted-prefix step used below is valid for every real \(H\)
+if and only if
 \[
 \max(0,H)\ge\lambda H
 \quad\hbox{for every }H\in\mathbb R
 \quad\Longleftrightarrow\quad
 0\le\lambda\le1;
 \]
-the two reverse implications are witnessed by \(H=-1\) and \(H=1\).
-The rounding estimate
+the reverse implications are witnessed by \(H=-1\) and \(H=1\). The
+rounding estimate
 \[
 k\ge(\alpha-\beta)n-2
 \tag{CR28aw}
 \]
-gives a simple sufficient finite domain. The original block itself remains
-defined on the larger domain \(n\ge5\).
+gives a uniform finite domain for every fixed admissible triple.
 
 The base pairing floor has an exact quadratic slack decomposition. For every
 simple cycle \(C\) on \(S_r\),
@@ -1659,7 +1660,8 @@ P_{r,n}
 \sum_{x=r}^n x(S-x)
 ={qS^2\over2}-\sum_{x=r}^n x^2.
 \]
-Thus (CR28ax) is an identity, not a stability heuristic.
+Thus (CR28ax) is an identity, not a stability heuristic, and it is independent
+of the density \(\alpha\).
 
 Fix an arbitrary compatible history in (CR28au), and retain only its first
 \(k\) insertions, namely \(t=r-1,r-2,\ldots,s\). Write
@@ -1741,17 +1743,14 @@ J_{n,\lambda}(t)-G_{n,\lambda}(t)
 It is positive for \(\lambda>0\) and \(t\le r-1\), while both floors vanish
 for \(\lambda=0\). Consequently the exact local floor is
 \[
-F_n^{\mathrm{blk}}(\beta,\lambda)
+F_n^{\mathrm{blk}}(\alpha,\beta,\lambda)
 =\min\{G_{n,\lambda}(s),J_{n,\lambda}(s)\}
 =G_{n,\lambda}(s),
 \tag{CR28bd}
 \]
-where the superscript distinguishes this block-local floor from the
-full-distance obstruction \(L_n\) defined in
-`research/PRODUCT_DISTANCE_SURROGATE.md`. Every selected split contributes at
-least \(F_n^{\mathrm{blk}}(\beta,\lambda)\) after assigning the full
-quadratic slack plus \(\lambda A_t\) to a base split, or \(\lambda A_t\) to a
-recursive split.
+where \(r=\lfloor\alpha n\rfloor\). Every selected split contributes at
+least this floor after assigning the full quadratic slack plus
+\(\lambda A_t\) to a base split, or \(\lambda A_t\) to a recursive split.
 
 This assignment respects compatibility and uses each base slack at most
 once. Discarding the nonnegative slack of unused base edges in (CR28ax)
@@ -1767,7 +1766,7 @@ P(C_0)+\lambda H_k-P_{r,n}
 +
 \sum_{\substack{t:\ \text{recursive}\\\text{split}}}
 \lambda A_t\\
-&\ge kF_n^{\mathrm{blk}}(\beta,\lambda).
+&\ge kF_n^{\mathrm{blk}}(\alpha,\beta,\lambda).
 \end{aligned}
 \tag{CR28be}
 \]
@@ -1785,132 +1784,243 @@ proves the finite lower bound
 \[
 \boxed{
 \gamma^{(r)}_{1,n}
-\ge P_{r,n}+kF_n^{\mathrm{blk}}(\beta,\lambda).
+\ge P_{r,n}+kF_n^{\mathrm{blk}}(\alpha,\beta,\lambda).
 }
 \tag{CR28bg}
 \]
 
-The asymptotic maximin can now be stated without a rounding ambiguity. For
-fixed proof-admissible parameters,
+#### Exact coefficient and positive region
+
+For fixed proof-admissible parameters,
 \[
 {G_{n,\lambda}(s)\over n^2}\longrightarrow
-g(\beta,\lambda)
-={\lambda(2\sqrt2\,\beta-1-\lambda\beta^2)\over2-\lambda},
+g(\alpha,\beta,\lambda)
+=
+{\lambda\bigl(4(1+\alpha)\beta-(1+\alpha)^2
+-2\lambda\beta^2\bigr)\over2(2-\lambda)},
 \]
 \[
 {J_{n,\lambda}(s)\over n^2}\longrightarrow
-j(\beta,\lambda)
-=\lambda(\sqrt2\,\beta-\alpha),
+j(\alpha,\beta,\lambda)
+=\lambda\bigl((1+\alpha)\beta-\alpha\bigr),
 \qquad
 {k\over n}\longrightarrow\alpha-\beta.
 \]
-The recursive branch is never active when \(\lambda>0\) and \(\beta<\alpha\),
-because
+The recursive branch is never active when \(\lambda>0\), because
 \[
-j(\beta,\lambda)-g(\beta,\lambda)
+j-g
 =
-{\lambda\bigl(\alpha^2
-+\lambda(\alpha-\beta)(1-\beta)\bigr)\over2-\lambda}>0.
+{\lambda\bigl((1-\alpha)^2
++2\lambda(\alpha-\beta)(1-\beta)\bigr)\over2(2-\lambda)}>0.
 \]
-The proof remains valid throughout
+The residual coefficient certified by (CR28bg) and the total coefficient
+after adding the pairing floor are therefore
 \[
-\mathcal A=(0,\alpha)\times[0,1],
+c_{\rm res}(\alpha,\beta,\lambda)
+=(\alpha-\beta)g(\alpha,\beta,\lambda),
 \]
-but it gives a strictly positive cubic residual exactly on
 \[
+\boxed{
+\mathcal C(\alpha,\beta,\lambda)
+=p(\alpha)+c_{\rm res}(\alpha,\beta,\lambda),
+\qquad
+p(\alpha)={(1-\alpha)(\alpha^2+4\alpha+1)\over6}.
+}
+\]
+Here \(p(\alpha)\) is exactly the cubic coefficient of
+\(P_{\lfloor\alpha n\rfloor,n}\).
+
+The template produces a strictly positive cubic residual exactly on
+\[
+\boxed{
 \begin{aligned}
 \mathcal A_+
-&=\left\{(\beta,\lambda):
-{\sqrt2\over4}<\beta<\alpha,
-\quad
-0<\lambda<{2\sqrt2\,\beta-1\over\beta^2}
-\right\}\\
-&=\left\{(\beta,\lambda):
-0<\lambda<1,
-\quad
-{1\over\sqrt2+\sqrt{2-\lambda}}<\beta<\alpha
-\right\}.
+=\{(\alpha,\beta,\lambda):{}&
+{1\over3}<\alpha<1,
+\quad {1+\alpha\over4}<\beta<\alpha,
+\quad 0<\lambda\le1,\\
+&2\lambda\beta^2
+<4(1+\alpha)\beta-(1+\alpha)^2\}.
 \end{aligned}
-\]
-Indeed the local base floor is positive precisely when
-\(2\sqrt2\,\beta-1-\lambda\beta^2>0\). The displayed upper bound on
-\(\lambda\) is below one because
-\[
-\beta^2-(2\sqrt2\,\beta-1)
-=(\alpha-\beta)(\sqrt2+1-\beta)>0.
-\]
-
-Thus the cubic residual certified by this template is
-\[
-c(\beta,\lambda)
-=(\alpha-\beta)
-{\lambda(2\sqrt2\,\beta-1-\lambda\beta^2)\over2-\lambda}.
-\]
-It vanishes on the boundary of the closure of \(\mathcal A_+\), while the old
-choice gives a positive value, so a maximizer is interior. Its two stationary
-equations are
-\[
-\begin{aligned}
-E_\lambda
-&=\beta^2\lambda^2-4\beta^2\lambda+4\sqrt2\,\beta-2=0,\\
-E_\beta
-&=3\lambda\beta^2-2\alpha\lambda\beta
-  -4\sqrt2\,\beta+5-2\sqrt2=0.
-\end{aligned}
-\]
-Exact elimination gives
-\[
-\operatorname {Res}_\lambda(E_\lambda,E_\beta)
-=-12\sqrt2\,\beta^2
-\left(\beta-{\sqrt2\over2}\right)^2
-\left(\beta-{3\sqrt2\over4}+{2\over3}\right),
-\]
-\[
-\operatorname {Res}_\beta(E_\lambda,E_\beta)
-=(9-4\sqrt2)\lambda(\lambda-2)^2
-\left(\lambda-{88-48\sqrt2\over49}\right).
-\]
-Only one common zero belongs to \(\mathcal A_+\):
-\[
-\boxed{
-\beta_*={3\sqrt2\over4}-{2\over3},
-\qquad
-\lambda_*={88-48\sqrt2\over49}.
 }
 \]
-It is therefore the unique global maximizer of the template. At this point
+For fixed \(0<\lambda\le1\), this is equivalently
 \[
-g_*={68-48\sqrt2\over9},
+\alpha>{1\over1+\sqrt{4-2\lambda}},
 \qquad
-\alpha-\beta_*={3\sqrt2-4\over12},
+{1+\alpha\over2+\sqrt{4-2\lambda}}<\beta<\alpha.
 \]
-and the optimal cubic residual coefficient is
+This description includes the admissible part of the boundary \(\lambda=1\).
+The condition \(\alpha>1/3\) is necessary and sufficient for some positive
+choice to exist.
+
+#### Complete maximin and boundary analysis
+
+Optimize on the compact closure
+\(0\le\beta\le\alpha\le1\), \(0\le\lambda\le1\). Direct differentiation
+factors as
+\[
+{\partial\mathcal C\over\partial\lambda}
+=
+{(\alpha-\beta)(1+\alpha-\lambda\beta)
+(4\beta-1-\alpha-\lambda\beta)\over(2-\lambda)^2}.
+\]
+The two numerator factors preceding the last parenthesis are nonnegative and
+are strictly positive in the interior; the denominator is positive. Thus the
+maximum in \(\lambda\), for fixed
+\((\alpha,\beta)\), is
+\[
+\lambda_{\max}=
+\begin{cases}
+0,&0\le\beta\le(1+\alpha)/4,\\
+4-(1+\alpha)/\beta,
+  &(1+\alpha)/4<\beta<(1+\alpha)/3,\\
+1,&(1+\alpha)/3\le\beta\le\alpha.
+\end{cases}
+\]
+The last interval is nonempty only for \(\alpha\ge1/2\).
+
+On the interior branch,
+\[
+\widehat{\mathcal C}(\alpha,\beta)
+=p(\alpha)+{(\alpha-\beta)(1+\alpha-4\beta)^2\over2},
+\]
+and
+\[
+{\partial\widehat{\mathcal C}\over\partial\beta}
+=-{(1+\alpha-4\beta)(9\alpha+1-12\beta)\over2}.
+\]
+Its unique maximizing point is
+\[
+\beta_0(\alpha)={9\alpha+1\over12},
+\qquad
+\lambda_0(\alpha)={8(3\alpha-1)\over9\alpha+1},
+\]
+and it belongs to this branch exactly when
+\(1/3<\alpha<3/5\). At that point
+\[
+g_0(\alpha)={2(3\alpha-1)^2\over9},
+\qquad
+c_{{\rm res},0}(\alpha)={(3\alpha-1)^3\over54},
+\]
+so the one-variable envelope is
+\[
+\overline{\mathcal C}(\alpha)
+={9\alpha^3-27\alpha^2+18\alpha+4\over27},
+\qquad
+\overline{\mathcal C}'(\alpha)
+={3\alpha^2-6\alpha+2\over3},
+\qquad
+\overline{\mathcal C}''(\alpha)=2(\alpha-1)<0.
+\]
+It has the unique critical point
 \[
 \boxed{
-c_*=(\alpha-\beta_*)g_*
-={99\sqrt2-140\over27}
-\approx2.645435161633\times10^{-4}.
+\alpha_*=1-{\sqrt3\over3}.
 }
 \]
-The former specialization \((\beta,\lambda)=(2/5,1/2)\) recovers literally
-the old floors
+Substitution gives
 \[
-G_{n,1/2}(t)={4St-S^2-t^2\over6},
+\boxed{
+\beta_*={5\over6}-{\sqrt3\over4},
 \qquad
-J_{n,1/2}(t)={(S-1)t-n(r-1)\over2},
+\lambda_*={88-32\sqrt3\over73},
+\qquad
+\mathcal C_*={4+2\sqrt3\over27}.
+}
 \]
-and its coefficient \(c_0=(389-275\sqrt2)/375\). It is not optimal in this
-template, since
+The corresponding local and residual coefficients are
 \[
-c_*-c_0
-={14850\sqrt2-21001\over3375}>0,
+g_*={14-8\sqrt3\over9},
 \qquad
-2\cdot14850^2-21001^2=2999.
+c_{{\rm res},*}={26-15\sqrt3\over54},
+\qquad
+p(\alpha_*)={19\sqrt3-18\over54}.
 \]
+The optimization target here is the total \(\mathcal C=p+c_{\rm res}\), not
+the residual summand by itself. For example, the admissible rational triple
+\[
+(\alpha,\beta,\lambda)=\left({4\over5},{3\over5},1\right)
+\]
+has
+\[
+g={9\over50},\qquad c_{\rm res}={9\over250}>
+{26-15\sqrt3\over54},
+\qquad
+\mathcal C={74\over375}<\mathcal C_*.
+\]
+Thus \(c_{{\rm res},*}\) means the residual contribution at the unique
+total-coefficient optimizer; it is not a claim of separate residual
+optimality.
 
-For comparison with the requested exact inner-cycle reference, recall the
-explicit alternating cycle on the \(q\) labels of \(S_r\). Its excess over
-the pairing floor is
+It remains to audit every boundary rather than infer globality from the
+stationary equations. For \(0\le\alpha\le1/3\), no positive branch exists;
+the envelope is \(p(\alpha)\), increasing to
+\(p(1/3)=22/81\). On the \(\lambda=1\) branch,
+\[
+{\partial^2\mathcal C\over\partial\beta^2}
+=-2(3\alpha-3\beta+2)<0,
+\]
+and the endpoint derivatives are
+\[
+\left.{\partial\mathcal C\over\partial\beta}\right|_
+ {\beta=(1+\alpha)/3,\lambda=1}
+={(1+\alpha)(5\alpha-3)\over6},
+\qquad
+\left.{\partial\mathcal C\over\partial\beta}\right|_
+ {\beta=\alpha,\lambda=1}
+=-{\,\alpha^2+2\alpha-1\,\over2}.
+\]
+Thus for \(1/2\le\alpha\le3/5\) this face is maximized at its lower
+endpoint, already included in the closure of the interior branch. For
+\(\alpha\ge3/5\), the endpoint signs and strict concavity put the unique
+maximizing cutoff at
+\[
+\beta_1(\alpha)
+=\alpha+{2\over3}-{\sqrt{6\alpha^2+12\alpha+10}\over6}.
+\]
+Along this envelope, the envelope theorem and direct differentiation give
+\[
+{d\mathcal C(\alpha,\beta_1(\alpha),1)\over d\alpha}
+=-(\alpha-\beta_1)(2\alpha-3\beta_1+3)<0.
+\]
+It therefore decreases from
+\(\overline{\mathcal C}(3/5)=878/3375\).
+
+The remaining exterior faces introduce no hidden maximum. On
+\(\lambda=0\), \(\beta=0\), \(\beta=\alpha\), or the frontier \(g=0\), the
+value is at most
+\[
+p_{\max}={2(\sqrt2-1)\over3}.
+\]
+On the entire face \(\lambda=1\), holding \(\beta\) fixed gives
+\[
+{\partial\mathcal C\over\partial\alpha}
+=-(\alpha-\beta)(2\alpha-3\beta+3)\le0,
+\]
+with strict inequality when \(\alpha>\beta\). Thus its value is below
+\(p(\beta)\le p_{\max}\) unless
+\(\alpha=\beta\). The endpoint envelopes give \(1/6\) at \(\alpha=0\) and
+\((-34+14\sqrt7)/27\) at \(\alpha=1\). Finally,
+\[
+\mathcal C_*-p_{\max}
+={2(11+\sqrt3-9\sqrt2)\over27}>0:
+\]
+indeed \(11+\sqrt3>9\sqrt2\) is equivalent after two positive squarings to
+\(363>361\). Also
+\[
+\mathcal C_*-{22\over81}={6\sqrt3-10\over81}>0,
+\qquad
+\mathcal C_*-{878\over3375}={250\sqrt3-378\over3375}>0.
+\]
+This exhausts the compact boundary and proves that
+\((\alpha_*,\beta_*,\lambda_*)\) is the unique global maximizer of the
+generalized CR28ax--CR28bg template.
+
+#### Explicit finite floor/ceiling form
+
+For comparison with the exact inner-cycle reference, recall the alternating
+cycle excess
 \[
 e(q)=
 \begin{cases}
@@ -1922,115 +2032,122 @@ q(q-2)/8,&q\text{ even},\\
 \tag{CR28bh}
 \]
 Only the proved upper comparison
-\[
-P^*_{r,n}\le P_{r,n}+e(q)
-\]
-is needed; equality is not assumed. Combining it with (CR28bg) gives the
-exact finite statement
+\(P^*_{r,n}\le P_{r,n}+e(q)\) is used; equality is not assumed. Hence
+(CR28bg) gives the exact finite statement
 \[
 \boxed{
-\gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
-\ge
-(r_n-s_n)F_n^{\mathrm{blk}}(\beta,\lambda)-e(n-r_n+1)
+\gamma^{(r)}_{1,n}-P^*_{r,n}
+\ge kF_n^{\mathrm{blk}}(\alpha,\beta,\lambda)-e(q).
 }
 \tag{CR28bi}
 \]
-whenever the exact floor/ceiling condition
-\(1\le\lceil\beta n\rceil\le\lfloor\alpha n\rfloor-1\) holds.
 
-For the optimal parameters, write
+At the unique optimizer, put
 \[
+r_n^*=\left\lfloor
+\left(1-{\sqrt3\over3}\right)n
+\right\rfloor,
+\qquad
 s_n^*=\left\lceil
-\left({3\sqrt2\over4}-{2\over3}\right)n
+\left({5\over6}-{\sqrt3\over4}\right)n
 \right\rceil,
 \qquad
-k_n^*=\lfloor(\sqrt2-1)n\rfloor-s_n^*,
+k_n^*=r_n^*-s_n^*.
 \tag{CR28bj}
 \]
-and define the fully explicit finite floor
+Define \(S_n^*=n+r_n^*\), \(q_n^*=n-r_n^*+1\), and
 \[
 F_n^*
 =
 {\lambda_*\left(
-4(n+\lfloor(\sqrt2-1)n\rfloor)s_n^*
--(n+\lfloor(\sqrt2-1)n\rfloor)^2
--2\lambda_*(s_n^*)^2\right)
-\over2(2-\lambda_*)}.
+4S_n^*s_n^*-(S_n^*)^2-2\lambda_*(s_n^*)^2
+\right)\over2(2-\lambda_*)}.
 \]
-The recursive floor is still
+The recursive floor
 \[
-\lambda_*\left[
-(n+\lfloor(\sqrt2-1)n\rfloor-1)s_n^*
--n(\lfloor(\sqrt2-1)n\rfloor-1)
-\right]
+\lambda_*\bigl((S_n^*-1)s_n^*-n(r_n^*-1)\bigr)
 \]
-and exceeds \(F_n^*\) by the exact positive identity following (CR28bc).
-Thus (CR28bi), with \((\beta,\lambda)=(\beta_*,\lambda_*)\), is an explicit
-floor/ceiling bound, not merely an asymptotic statement.
+exceeds \(F_n^*\) by the exact positive identity following (CR28bc).
 
-There is also a clean polynomial finite consequence. View
-\(G_{n,\lambda_*}(t)\) as the same displayed polynomial in the real variables
-\((S,t)\). Since \(\beta_*<1/2\), it increases in
-\(t\) and decreases in \(S\) between the actual \(S\) and \(\sqrt2 n\) at
-\(t=\beta_*n\). Using \(s_n^*\ge\beta_*n\) and \(S\le\sqrt2 n\) gives
+The exact minimal uniform admissibility threshold is \(n\ge86\). Direct
+evaluation gives
 \[
-F_n^*\ge
-G_{\lambda_*}(\sqrt2 n,\beta_*n)
-=g_*n^2.
+\begin{array}{c|ccccc}
+n&85&86&87&88&89\\ \hline
+r_n^*&35&36&36&37&37\\
+s_n^*&35&35&35&36&36,
+\end{array}
 \]
-Moreover,
+so \(n=85\) fails and \(86\le n\le89\) are admissible. For \(n\ge90\),
 \[
-k_n^*\ge(\alpha-\beta_*)n-2.
+k_n^*\ge(\alpha_*-\beta_*)n-2,
+\qquad
+\alpha_*-\beta_*={2-\sqrt3\over12},
 \tag{CR28bk}
 \]
-The prefix is therefore nonempty for every \(n\ge99\), because
+and
 \[
-99(\alpha-\beta_*)-2={99\sqrt2-140\over4}>0,
+90(\alpha_*-\beta_*)-2={26-15\sqrt3\over2}>0,
 \qquad
-2\cdot99^2-140^2=2.
+26^2-3\cdot15^2=1.
 \]
-Together with \(e(q)\le q^2/8\le n^2/8\), equation (CR28bi) proves, for every
-\(n\ge99\),
+Thus \(k_n^*\ge1\); the other block conditions are immediate. Equivalently,
+the exact roundings can be evaluated without floating point as
+\[
+r_n^*=n-1-\left\lfloor{n\over\sqrt3}\right\rfloor,
+\qquad
+s_n^*=\left\lceil{10n-\lfloor3\sqrt3\,n\rfloor\over12}\right\rceil.
+\]
+
+For every \(n\ge86\), equations (CR28bg) and (CR28bi) now read
 \[
 \boxed{
-\gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
-\ge
-c_*n^3-Q_*n^2,
+\Lambda_n\ge\Gamma_n^{(r_n^*)}
+\ge\gamma^{(r_n^*)}_{1,n}
+\ge P_{r_n^*,n}+k_n^*F_n^*,
 }
-\qquad
-\begin{aligned}
-c_*&={99\sqrt2-140\over27},\\
-Q_*&=2g_*+{1\over8}
-={1097-768\sqrt2\over72}.
-\end{aligned}
+\]
+\[
+\boxed{
+\gamma^{(r_n^*)}_{1,n}-P^*_{r_n^*,n}
+\ge k_n^*F_n^*-e(q_n^*).
+}
+\]
+These are literal floor/ceiling inequalities, not asymptotic shorthand and
+not an identity for the residual.
+
+There is also a clean polynomial consequence. Since \(\beta_*<1/2\),
+\(G_{n,\lambda_*}(t)\) increases with \(t\) and decreases with \(S\) between
+the actual \((S_n^*,s_n^*)\) and
+\(((1+\alpha_*)n,\beta_*n)\). Hence
+\[
+F_n^*\ge g_*n^2.
+\]
+Combining this with (CR28bk) and \(e(q_n^*)\le n^2/8\) proves, for every
+\(n\ge90\),
+\[
+\boxed{
+\gamma^{(r_n^*)}_{1,n}-P^*_{r_n^*,n}
+\ge
+{26-15\sqrt3\over54}n^3
+-{233-128\sqrt3\over72}n^2.
+}
 \tag{CR28bl}
 \]
-Numerically,
+The displayed lower polynomial is positive for every \(n\ge441\), because
 \[
-c_*\approx2.645435161633\times10^{-4},
-\qquad
-Q_*\approx0.151166445799.
+441{26-15\sqrt3\over54}-{233-128\sqrt3\over72}
+={15055-8692\sqrt3\over72}>0,
 \]
-The displayed finite lower bound is positive for every \(n\ge572\): indeed,
-\[
-572c_*-Q_*={-643931+455328\sqrt2\over216}>0,
-\]
-and \(2\cdot455328^2-643931^2=42407\). In particular the bound is
-\(c_*n^3-O(n^2)=c_*n^3-o(n^3)\). Positivity of \(c_*\) follows from the
-square gap \(2\cdot99^2-140^2=2\). Thus the second alternative remains proved,
-now with the optimal coefficient available from this certificate:
-this particular linear-density block has a genuinely cubic residual above
-its exact inner-cycle minimum, and no compatible history for this block has
-\(o(n^3)\) excess.
+and \(15055^2-3\cdot8692^2=433\). It is negative at \(n=440\), so 441 is
+the exact positivity threshold of this coarse cubic--quadratic expression.
 
-This is an exact, method-specific result for
-\(\gamma^{(r_n)}_{1,n}-P^*_{r_n,n}\). The constant \(c_*\) is the largest
-certified lower constant within the parameterized CR28ax--CR28bg template;
-it is not the exact residual coefficient. The result does have the
-global lower-bound consequence below, but it does not prove convergence, an
-exact leading coefficient, a production-enumeration result, or a certificate.
+This proves a genuinely cubic *certified lower residual* for the selected
+block. It does not identify the exact residual coefficient. It also does not
+prove convergence, an exact leading coefficient, a production-enumeration
+result, or a finite certificate artifact.
 
-### Global corollary of the first linear block
+### Global corollary of the jointly optimized linear block
 
 The passage to the global minimum does not exchange a maximum and a minimum.
 For every admissible \(m\), define
@@ -2040,89 +2157,72 @@ B_m(\sigma)
 \]
 The induced tails in this block are among the subsets defining
 \(\Lambda(\sigma)\), so pointwise in \(\sigma\),
-\(\Lambda(\sigma)\ge B_m(\sigma)\). Taking the minimum of this already
-ordered inequality gives
-\[
-\Lambda_n
-=\min_\sigma\Lambda(\sigma)
-\ge\min_\sigma B_m(\sigma)
-=\gamma^{(r)}_{m,n}
-\qquad\text{for every admissible }m.
-\]
-Taking the maximum of these separately proved lower bounds, and then selecting
-the admissible value \(m=1\), yields for \(n\ge99\)
+\(\Lambda(\sigma)\ge B_m(\sigma)\). Minimizing this already ordered
+inequality and then taking the maximum of the separately proved lower bounds
+gives, on the exact finite domain \(n\ge86\),
 \[
 \boxed{
 \Lambda_n
-\ge\Gamma_n^{(r_n)}
-\ge\gamma^{(r_n)}_{1,n}
-\ge P_{r_n,n}+k_n^*F_n^*.
+\ge\Gamma_n^{(r_n^*)}
+\ge\gamma^{(r_n^*)}_{1,n}
+\ge P_{r_n^*,n}+k_n^*F_n^*.
 }
 \tag{CR28bm}
 \]
-Here \(P_{r_n,n}\) is the duplicated-pairing floor, not the exact simple-cycle
-minimum \(P^*_{r_n,n}\). The latter requires the separate correction
-\(-e(n-r_n+1)\) in (CR28bi).
+Here \(P_{r_n^*,n}\) is the duplicated-pairing floor, not the exact
+simple-cycle minimum \(P^*_{r_n^*,n}\); the latter requires the separate
+correction in (CR28bi).
 
-The leading term of the pairing floor can also be controlled without a
-rounding ambiguity. Put
+The rounding of the pairing floor can be retained exactly. Put
 \[
-\eta_n=\alpha n-r_n\in[0,1),
-\qquad
-a={2(\sqrt2-1)\over3}.
+\eta_n=\alpha_*n-r_n^*\in[0,1).
 \]
-Substitution in the exact formula for \(P_{r_n,n}\) gives
+Then
 \[
 \begin{aligned}
-P_{r_n,n}
-={}&a n^3+(\sqrt2-1)n^2\\
+P_{r_n^*,n}
+={}&{19\sqrt3-18\over54}n^3\\
+&+\left(\alpha_*+{7-4\sqrt3\over6}\eta_n\right)n^2\\
 &-\left(
-\eta_n+{\sqrt2\over2}\eta_n^2+{2-\sqrt2\over6}
+\left(1-{\sqrt3\over6}\right)\eta_n^2
++\eta_n+{\sqrt3\over18}
 \right)n
 +{\eta_n^3-\eta_n\over6}.
 \end{aligned}
 \tag{CR28bn}
 \]
-The coefficient in parentheses is at most \((4+\sqrt2)/3\), while the last
-term is at least \(-1/6\). Hence, for every \(n\ge5\),
+Since \(7-4\sqrt3>0\), the bracket multiplying \(-n\) is less than
+two, and \((\eta_n^3-\eta_n)/6\ge-1/6\), this implies
 \[
-P_{r_n,n}\ge a n^3.
+P_{r_n^*,n}
+\ge {19\sqrt3-18\over54}n^3
++\alpha_*n^2-2n-{1\over6}.
 \]
-Indeed, the resulting lower quadratic is increasing from \(n=5\), where its
-value is \((140\sqrt2-191)/6>0\); the latter positivity follows from
-\(2\cdot140^2=39200>36481=191^2\).
-
-The preceding floor bound and (CR28bk) give
-\[
-k_n^*F_n^*
-\ge c_*n^3-2g_*n^2.
-\]
-Combining this with (CR28bm)--(CR28bn), and using the exact coefficient
-identity
-\[
-{2(\sqrt2-1)\over3}
-+{99\sqrt2-140\over27}
-={117\sqrt2-158\over27},
-\]
-proves the finite global bounds
+Together with \(k_n^*F_n^*\ge c_{{\rm res},*}n^3-2g_*n^2\), this proves
 \[
 \boxed{
 \Lambda_n
-\ge
-{117\sqrt2-158\over27}n^3
--{136-96\sqrt2\over9}n^2
-\qquad(n\ge99)
+\ge {4+2\sqrt3\over27}n^3
++{13\sqrt3-19\over9}n^2-2n-{1\over6}
+\ge {4+2\sqrt3\over27}n^3
+\quad(n\ge90).
 }
 \tag{CR28bo}
 \]
-and, by the strict global sandwich (CR27),
+The final inequality follows already from
+\((13\sqrt3-19)/9>1/3\) and \(n\ge90\).
+
+The strict global sandwich (CR27) therefore gives
 \[
 \boxed{
+\begin{aligned}
 R_2^*(n)
->
-{117\sqrt2-158\over27\pi}n^3
--\left(1+{136-96\sqrt2\over9\pi}\right)n^2
-\qquad(n\ge99).
+>{}&{4+2\sqrt3\over27\pi}n^3
++\left({13\sqrt3-19\over9\pi}-1\right)n^2\\
+&-{2\over\pi}n-{1\over6\pi}
+>{4+2\sqrt3\over27\pi}n^3-n^2
+\qquad(n\ge90).
+\end{aligned}
 }
 \tag{CR28bp}
 \]
@@ -2130,31 +2230,34 @@ In particular,
 \[
 \boxed{
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
-\ge {117\sqrt2-158\over27},
+\ge {4+2\sqrt3\over27},
 \qquad
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-\ge {117\sqrt2-158\over27\pi}.
+\ge {4+2\sqrt3\over27\pi}.
 }
 \tag{CR28bq}
 \]
-These inequalities do not prove that either normalized sequence converges or
-that the displayed lower coefficient is the exact leading coefficient.
+These are method-specific lower coefficients. They do not prove that either
+normalized sequence converges, that either lower coefficient is exact, or
+that the geometric leading constant exists.
 
-Bounded exact test-local diagnostics check the new algebra without entering
-the proof. The quadratic identity (CR28ax) is checked on every dihedral cycle
-of tail sizes three through six. At
-\(n=99,141,200,500,1000\), deterministic histories that prefer intact base
-edges and histories that force recursive child edges check the optimized
+Bounded exact test-local diagnostics check the algebra without entering the
+proof. The quadratic identity (CR28ax) is checked on every dihedral cycle of
+tail sizes three through six. At
+\(n=86,90,141,200,500,1000\), deterministic histories that prefer intact
+base edges and histories that force recursive child edges check the optimized
 floor/ceiling arithmetic, every local contribution, the one-use base linkage,
 the weighted-prefix step, and (CR28bi). At \(n=141\), a separate exhaustive
-depth-two oracle checks all \(84\cdot85=7140\) literal histories from one
-base cycle, including all 168 recursive child-edge second splits. A bounded
-scan over every \(99\le n\le1000\) checks the explicit finite inequalities.
-These paths use only integer, rational, and exact test-local
-\(\mathbb Q(\sqrt2)\) pair arithmetic and call no production scorer,
-canonicalizer, or enumerator. The same exact pair arithmetic checks the
-stationary equations, old specialization, optimized coefficients, strict
-improvement, and all decisive signs without floating point.
+depth-two oracle checks all \(83\cdot84=6972\) literal histories from one
+base cycle, including all 166 recursive child-edge second splits. A bounded
+scan over every \(86\le n\le1000\) checks the exact finite formulas and the
+uniform-domain boundary. These paths use only integer, rational, and exact
+test-local \(\mathbb Q(\sqrt3)\) pair arithmetic and call no production
+scorer, canonicalizer, or enumerator. The same arithmetic checks the optimizer
+identities, coefficient decompositions, a bounded rational maximin grid, and
+all decisive signs without floating point. In particular, it finds the exact
+floor/ceil residual expression negative at \(n=175\) and positive throughout
+\(176\le n\le440\); (CR28bl) then proves positivity for every \(n\ge441\).
 
 ## 5. Exact Scorer Without Cycle Enumeration
 
@@ -3651,7 +3754,7 @@ geometric bounds gives
 \]
 and
 \[
-{117\sqrt2-158\over27}
+{4+2\sqrt3\over27}
 \le
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
 \le
@@ -3686,16 +3789,16 @@ Further non-consequences are important.
   separately optimized obstruction. The first scale not excluded is linear
   \(r=\Theta(n)\); neither the error estimate nor the admissible-domino audit
   alone proves improvement there.
-- For the explicit first linear block
-  \(m=1\), \(r_n=\lfloor(\sqrt2-1)n\rfloor\), the independent slack/prefix
-  argument (CR28ax)--(CR28bl) proves a positive cubic residual over
-  \(P^*_{r_n,n}\). Its parameter optimization proves that
-  \((99\sqrt2-140)/27\) is the largest cubic residual coefficient certified
-  by this template, not the exact block residual. Combined directly with
-  (CR28ap) and (CR28bg), without a max--min exchange, it yields the global
-  lower bounds (CR28bo)--(CR28bq). It gives neither the exact residual
-  coefficient nor the exact asymptotic leading coefficient, and it does not
-  prove convergence.
+- For the jointly optimized linear block
+  \(m=1\), \(r_n=\lfloor(1-\sqrt3/3)n\rfloor\), the independent
+  slack/prefix argument (CR28ax)--(CR28bl) proves a positive cubic certified
+  residual over \(P^*_{r_n,n}\). The complete three-parameter optimization
+  proves that \((4+2\sqrt3)/27\) is the largest *total* pairing-plus-residual
+  coefficient certified by this template. Combined directly with (CR28ap)
+  and (CR28bg), without a max--min exchange, it yields the global lower
+  bounds (CR28bo)--(CR28bq). It gives neither the exact residual coefficient
+  nor the exact asymptotic leading coefficient, and it does not prove
+  convergence.
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality
   of minimizing order sets, or \(\Lambda_n=(n-1)W_n\). The exact global
   relation proved here is the one-sided inequality (CR38b).

@@ -25,63 +25,63 @@ from power_ringmin.search_small_n import (
 )
 
 
-_SqrtTwoPair = tuple[Fraction, Fraction]
+_SqrtThreePair = tuple[Fraction, Fraction]
 
 
-def _sqrt_two_pair(
+def _sqrt_three_pair(
     rational: int | Fraction = 0,
     radical: int | Fraction = 0,
-) -> _SqrtTwoPair:
-    """Represent ``rational + radical * sqrt(2)`` exactly in test code."""
+) -> _SqrtThreePair:
+    """Represent ``rational + radical * sqrt(3)`` exactly in test code."""
     return (Fraction(rational), Fraction(radical))
 
 
-def _sqrt_two_pair_add(
-    left: _SqrtTwoPair,
-    right: _SqrtTwoPair,
-) -> _SqrtTwoPair:
+def _sqrt_three_pair_add(
+    left: _SqrtThreePair,
+    right: _SqrtThreePair,
+) -> _SqrtThreePair:
     return (left[0] + right[0], left[1] + right[1])
 
 
-def _sqrt_two_pair_subtract(
-    left: _SqrtTwoPair,
-    right: _SqrtTwoPair,
-) -> _SqrtTwoPair:
+def _sqrt_three_pair_subtract(
+    left: _SqrtThreePair,
+    right: _SqrtThreePair,
+) -> _SqrtThreePair:
     return (left[0] - right[0], left[1] - right[1])
 
 
-def _sqrt_two_pair_multiply(
-    left: _SqrtTwoPair,
-    right: _SqrtTwoPair,
-) -> _SqrtTwoPair:
+def _sqrt_three_pair_multiply(
+    left: _SqrtThreePair,
+    right: _SqrtThreePair,
+) -> _SqrtThreePair:
     return (
-        left[0] * right[0] + 2 * left[1] * right[1],
+        left[0] * right[0] + 3 * left[1] * right[1],
         left[0] * right[1] + left[1] * right[0],
     )
 
 
-def _sqrt_two_pair_scale(
-    value: _SqrtTwoPair,
+def _sqrt_three_pair_scale(
+    value: _SqrtThreePair,
     factor: int | Fraction,
-) -> _SqrtTwoPair:
+) -> _SqrtThreePair:
     factor = Fraction(factor)
     return (factor * value[0], factor * value[1])
 
 
-def _sqrt_two_pair_divide(
-    numerator: _SqrtTwoPair,
-    denominator: _SqrtTwoPair,
-) -> _SqrtTwoPair:
+def _sqrt_three_pair_divide(
+    numerator: _SqrtThreePair,
+    denominator: _SqrtThreePair,
+) -> _SqrtThreePair:
     conjugate = (denominator[0], -denominator[1])
-    norm = denominator[0] ** 2 - 2 * denominator[1] ** 2
+    norm = denominator[0] ** 2 - 3 * denominator[1] ** 2
     assert norm
-    return _sqrt_two_pair_scale(
-        _sqrt_two_pair_multiply(numerator, conjugate),
+    return _sqrt_three_pair_scale(
+        _sqrt_three_pair_multiply(numerator, conjugate),
         1 / norm,
     )
 
 
-def _sqrt_two_pair_sign(value: _SqrtTwoPair) -> int:
+def _sqrt_three_pair_sign(value: _SqrtThreePair) -> int:
     """Return the exact sign of one rational quadratic surd."""
     rational, radical = value
     if radical == 0:
@@ -94,18 +94,18 @@ def _sqrt_two_pair_sign(value: _SqrtTwoPair) -> int:
         return -1
 
     rational_square = rational * rational
-    radical_square = 2 * radical * radical
+    radical_square = 3 * radical * radical
     assert rational_square != radical_square
     if rational > 0:
         return 1 if rational_square > radical_square else -1
     return 1 if radical_square > rational_square else -1
 
 
-def _sqrt_two_pair_ge(
-    left: _SqrtTwoPair,
-    right: _SqrtTwoPair,
+def _sqrt_three_pair_ge(
+    left: _SqrtThreePair,
+    right: _SqrtThreePair,
 ) -> bool:
-    return _sqrt_two_pair_sign(_sqrt_two_pair_subtract(left, right)) >= 0
+    return _sqrt_three_pair_sign(_sqrt_three_pair_subtract(left, right)) >= 0
 
 
 def _simple_cycle_ratio_oracle(order: tuple[int, ...]) -> Fraction:
@@ -679,26 +679,33 @@ def _linear_density_prefix_diagnostic_oracle(
     force_recursive: bool,
 ) -> None:
     """Audit the optimized linear-block inequalities on one bounded history."""
-    r = isqrt(2 * n * n) - n
-    cutoff = 1 + (isqrt(162 * n * n) - 8 * n) // 12
+    r = n - isqrt(n * n // 3) - 1
+    cutoff = (10 * n - isqrt(27 * n * n) + 11) // 12
     assert cutoff < r
 
-    beta_times_n = _sqrt_two_pair(Fraction(-2 * n, 3), Fraction(3 * n, 4))
-    assert _sqrt_two_pair_sign(
-        _sqrt_two_pair_subtract(beta_times_n, _sqrt_two_pair(cutoff - 1))
+    alpha_times_n = _sqrt_three_pair(n, Fraction(-n, 3))
+    beta_times_n = _sqrt_three_pair(Fraction(5 * n, 6), Fraction(-n, 4))
+    assert _sqrt_three_pair_sign(
+        _sqrt_three_pair_subtract(alpha_times_n, _sqrt_three_pair(r))
     ) > 0
-    assert _sqrt_two_pair_sign(
-        _sqrt_two_pair_subtract(_sqrt_two_pair(cutoff), beta_times_n)
+    assert _sqrt_three_pair_sign(
+        _sqrt_three_pair_subtract(_sqrt_three_pair(r + 1), alpha_times_n)
+    ) > 0
+    assert _sqrt_three_pair_sign(
+        _sqrt_three_pair_subtract(beta_times_n, _sqrt_three_pair(cutoff - 1))
+    ) > 0
+    assert _sqrt_three_pair_sign(
+        _sqrt_three_pair_subtract(_sqrt_three_pair(cutoff), beta_times_n)
     ) > 0
 
-    prefix_weight = _sqrt_two_pair(Fraction(88, 49), Fraction(-48, 49))
-    two_minus_weight = _sqrt_two_pair_subtract(
-        _sqrt_two_pair(2),
+    prefix_weight = _sqrt_three_pair(Fraction(88, 73), Fraction(-32, 73))
+    two_minus_weight = _sqrt_three_pair_subtract(
+        _sqrt_three_pair(2),
         prefix_weight,
     )
-    assert _sqrt_two_pair_sign(prefix_weight) > 0
-    assert _sqrt_two_pair_sign(
-        _sqrt_two_pair_subtract(_sqrt_two_pair(1), prefix_weight)
+    assert _sqrt_three_pair_sign(prefix_weight) > 0
+    assert _sqrt_three_pair_sign(
+        _sqrt_three_pair_subtract(_sqrt_three_pair(1), prefix_weight)
     ) > 0
 
     base = _alternating_tail_cycle_oracle(r - 1, n)
@@ -722,28 +729,28 @@ def _linear_density_prefix_diagnostic_oracle(
     assert 2 * (base_score - pairing_floor) == base_slack
     assert base_score == pairing_floor + alternating_excess
 
-    def base_split_floor(label: int) -> _SqrtTwoPair:
-        inner = _sqrt_two_pair_subtract(
-            _sqrt_two_pair(4 * center * label - center * center),
-            _sqrt_two_pair_scale(prefix_weight, 2 * label * label),
+    def base_split_floor(label: int) -> _SqrtThreePair:
+        inner = _sqrt_three_pair_subtract(
+            _sqrt_three_pair(4 * center * label - center * center),
+            _sqrt_three_pair_scale(prefix_weight, 2 * label * label),
         )
-        return _sqrt_two_pair_divide(
-            _sqrt_two_pair_multiply(prefix_weight, inner),
-            _sqrt_two_pair_scale(two_minus_weight, 2),
+        return _sqrt_three_pair_divide(
+            _sqrt_three_pair_multiply(prefix_weight, inner),
+            _sqrt_three_pair_scale(two_minus_weight, 2),
         )
 
-    def recursive_split_floor(label: int) -> _SqrtTwoPair:
-        return _sqrt_two_pair_scale(
+    def recursive_split_floor(label: int) -> _SqrtThreePair:
+        return _sqrt_three_pair_scale(
             prefix_weight,
             (center - 1) * label - n * (r - 1),
         )
 
     local_floor = base_split_floor(cutoff)
-    assert _sqrt_two_pair_ge(recursive_split_floor(cutoff), local_floor)
+    assert _sqrt_three_pair_ge(recursive_split_floor(cutoff), local_floor)
     current = base
     prefixes = [0]
     used_base_edges: set[tuple[int, int]] = set()
-    local_contributions = _sqrt_two_pair()
+    local_contributions = _sqrt_three_pair()
 
     for label in range(r - 1, cutoff - 1, -1):
         candidates = []
@@ -766,13 +773,13 @@ def _linear_density_prefix_diagnostic_oracle(
             assert edge not in used_base_edges
             used_base_edges.add(edge)
             edge_slack = Fraction((left + right - center) ** 2, 2)
-            contribution = _sqrt_two_pair_add(
-                _sqrt_two_pair(edge_slack),
-                _sqrt_two_pair_scale(prefix_weight, correction),
+            contribution = _sqrt_three_pair_add(
+                _sqrt_three_pair(edge_slack),
+                _sqrt_three_pair_scale(prefix_weight, correction),
             )
-            relaxed_contribution = _sqrt_two_pair_add(
-                _sqrt_two_pair(edge_slack),
-                _sqrt_two_pair_scale(
+            relaxed_contribution = _sqrt_three_pair_add(
+                _sqrt_three_pair(edge_slack),
+                _sqrt_three_pair_scale(
                     prefix_weight,
                     Fraction(
                         4 * label * (left + right) - (left + right) ** 2,
@@ -780,30 +787,30 @@ def _linear_density_prefix_diagnostic_oracle(
                     ),
                 ),
             )
-            square_argument = _sqrt_two_pair_subtract(
-                _sqrt_two_pair_scale(two_minus_weight, left + right),
-                _sqrt_two_pair_subtract(
-                    _sqrt_two_pair(2 * center),
-                    _sqrt_two_pair_scale(prefix_weight, 2 * label),
+            square_argument = _sqrt_three_pair_subtract(
+                _sqrt_three_pair_scale(two_minus_weight, left + right),
+                _sqrt_three_pair_subtract(
+                    _sqrt_three_pair(2 * center),
+                    _sqrt_three_pair_scale(prefix_weight, 2 * label),
                 ),
             )
-            square_term = _sqrt_two_pair_divide(
-                _sqrt_two_pair_multiply(square_argument, square_argument),
-                _sqrt_two_pair_scale(two_minus_weight, 4),
+            square_term = _sqrt_three_pair_divide(
+                _sqrt_three_pair_multiply(square_argument, square_argument),
+                _sqrt_three_pair_scale(two_minus_weight, 4),
             )
-            assert contribution == _sqrt_two_pair_add(
+            assert contribution == _sqrt_three_pair_add(
                 relaxed_contribution,
-                _sqrt_two_pair_scale(
+                _sqrt_three_pair_scale(
                     prefix_weight,
                     Fraction((left - right) ** 2, 4),
                 ),
             )
-            assert relaxed_contribution == _sqrt_two_pair_add(
+            assert relaxed_contribution == _sqrt_three_pair_add(
                 base_split_floor(label),
                 square_term,
             )
-            assert _sqrt_two_pair_ge(contribution, base_split_floor(label))
-            assert _sqrt_two_pair_ge(
+            assert _sqrt_three_pair_ge(contribution, base_split_floor(label))
+            assert _sqrt_three_pair_ge(
                 base_split_floor(label),
                 base_split_floor(cutoff),
             )
@@ -811,41 +818,41 @@ def _linear_density_prefix_diagnostic_oracle(
             assert min(left, right) < r
             recursive_lower = (center - 1) * label - n * (r - 1)
             assert correction >= recursive_lower
-            contribution = _sqrt_two_pair_scale(prefix_weight, correction)
-            assert _sqrt_two_pair_ge(
+            contribution = _sqrt_three_pair_scale(prefix_weight, correction)
+            assert _sqrt_three_pair_ge(
                 contribution,
                 recursive_split_floor(label),
             )
-            assert _sqrt_two_pair_ge(
+            assert _sqrt_three_pair_ge(
                 recursive_split_floor(label),
                 recursive_split_floor(cutoff),
             )
 
-        finite_gap_numerator = _sqrt_two_pair_add(
-            _sqrt_two_pair((n - r) ** 2 + 4 * (n - label)),
-            _sqrt_two_pair_scale(
+        finite_gap_numerator = _sqrt_three_pair_add(
+            _sqrt_three_pair((n - r) ** 2 + 4 * (n - label)),
+            _sqrt_three_pair_scale(
                 prefix_weight,
                 2 * (r - 1 - label) * (n - label),
             ),
         )
-        finite_gap = _sqrt_two_pair_divide(
-            _sqrt_two_pair_multiply(prefix_weight, finite_gap_numerator),
-            _sqrt_two_pair_scale(two_minus_weight, 2),
+        finite_gap = _sqrt_three_pair_divide(
+            _sqrt_three_pair_multiply(prefix_weight, finite_gap_numerator),
+            _sqrt_three_pair_scale(two_minus_weight, 2),
         )
-        assert _sqrt_two_pair_subtract(
+        assert _sqrt_three_pair_subtract(
             recursive_split_floor(label),
             base_split_floor(label),
         ) == finite_gap
-        assert _sqrt_two_pair_sign(finite_gap) > 0
+        assert _sqrt_three_pair_sign(finite_gap) > 0
 
-        local_contributions = _sqrt_two_pair_add(
+        local_contributions = _sqrt_three_pair_add(
             local_contributions,
             contribution,
         )
         prefixes.append(prefixes[-1] + correction)
         current = _split_cycle_edge_oracle(current, position, label)
 
-    unused_base_slack = _sqrt_two_pair(
+    unused_base_slack = _sqrt_three_pair(
         Fraction(
             sum(
                 (left + right - center) ** 2
@@ -855,27 +862,27 @@ def _linear_density_prefix_diagnostic_oracle(
         )
     )
     prefix_length = r - cutoff
-    weighted_excess = _sqrt_two_pair_add(
-        _sqrt_two_pair(base_score - pairing_floor),
-        _sqrt_two_pair_scale(prefix_weight, prefixes[-1]),
+    weighted_excess = _sqrt_three_pair_add(
+        _sqrt_three_pair(base_score - pairing_floor),
+        _sqrt_three_pair_scale(prefix_weight, prefixes[-1]),
     )
     objective = base_score + max(prefixes)
-    objective_excess = _sqrt_two_pair(objective - pairing_floor)
-    prefix_floor = _sqrt_two_pair_scale(local_floor, prefix_length)
+    objective_excess = _sqrt_three_pair(objective - pairing_floor)
+    prefix_floor = _sqrt_three_pair_scale(local_floor, prefix_length)
 
-    assert weighted_excess == _sqrt_two_pair_add(
+    assert weighted_excess == _sqrt_three_pair_add(
         local_contributions,
         unused_base_slack,
     )
-    assert _sqrt_two_pair_ge(local_contributions, prefix_floor)
-    assert _sqrt_two_pair_ge(weighted_excess, prefix_floor)
-    assert _sqrt_two_pair_ge(objective_excess, weighted_excess)
-    assert _sqrt_two_pair_ge(objective_excess, prefix_floor)
-    assert _sqrt_two_pair_ge(
-        _sqrt_two_pair(objective - pairing_floor - alternating_excess),
-        _sqrt_two_pair_subtract(
+    assert _sqrt_three_pair_ge(local_contributions, prefix_floor)
+    assert _sqrt_three_pair_ge(weighted_excess, prefix_floor)
+    assert _sqrt_three_pair_ge(objective_excess, weighted_excess)
+    assert _sqrt_three_pair_ge(objective_excess, prefix_floor)
+    assert _sqrt_three_pair_ge(
+        _sqrt_three_pair(objective - pairing_floor - alternating_excess),
+        _sqrt_three_pair_subtract(
             prefix_floor,
-            _sqrt_two_pair(alternating_excess),
+            _sqrt_three_pair(alternating_excess),
         ),
     )
 
@@ -1424,7 +1431,7 @@ def test_tail_pairing_floor_has_exact_quadratic_edge_slack() -> None:
             )
 
 
-@pytest.mark.parametrize("n", (99, 141, 200, 500, 1_000))
+@pytest.mark.parametrize("n", (86, 90, 141, 200, 500, 1_000))
 @pytest.mark.parametrize("force_recursive", (False, True))
 def test_first_linear_density_block_prefix_diagnostic_is_exact(
     n: int,
@@ -1439,12 +1446,12 @@ def test_first_linear_density_block_prefix_diagnostic_is_exact(
 def test_first_linear_density_all_depth_two_literal_histories_are_exact() -> None:
     """Exhaust one bounded base's intact and recursive depth-two splits."""
     n = 141
-    r = isqrt(2 * n * n) - n
-    cutoff = 1 + (isqrt(162 * n * n) - 8 * n) // 12
-    assert (r, cutoff) == (58, 56)
+    r = n - isqrt(n * n // 3) - 1
+    cutoff = (10 * n - isqrt(27 * n * n) + 11) // 12
+    assert (r, cutoff) == (59, 57)
 
-    weight = _sqrt_two_pair(Fraction(88, 49), Fraction(-48, 49))
-    two_minus_weight = _sqrt_two_pair_subtract(_sqrt_two_pair(2), weight)
+    weight = _sqrt_three_pair(Fraction(88, 73), Fraction(-32, 73))
+    two_minus_weight = _sqrt_three_pair_subtract(_sqrt_three_pair(2), weight)
     center = n + r
     base = _alternating_tail_cycle_oracle(r - 1, n)
     base_edges = set(_undirected_cycle_edge_signature(base))
@@ -1453,14 +1460,14 @@ def test_first_linear_density_all_depth_two_literal_histories_are_exact() -> Non
         label * (center - label) for label in range(r, n + 1)
     )
 
-    def base_floor(label: int) -> _SqrtTwoPair:
-        inner = _sqrt_two_pair_subtract(
-            _sqrt_two_pair(4 * center * label - center * center),
-            _sqrt_two_pair_scale(weight, 2 * label * label),
+    def base_floor(label: int) -> _SqrtThreePair:
+        inner = _sqrt_three_pair_subtract(
+            _sqrt_three_pair(4 * center * label - center * center),
+            _sqrt_three_pair_scale(weight, 2 * label * label),
         )
-        return _sqrt_two_pair_divide(
-            _sqrt_two_pair_multiply(weight, inner),
-            _sqrt_two_pair_scale(two_minus_weight, 2),
+        return _sqrt_three_pair_divide(
+            _sqrt_three_pair_multiply(weight, inner),
+            _sqrt_three_pair_scale(two_minus_weight, 2),
         )
 
     local_floor = base_floor(cutoff)
@@ -1474,11 +1481,11 @@ def test_first_linear_density_all_depth_two_literal_histories_are_exact() -> Non
         first_correction = (r - 1) * (first_left + first_right) - (
             first_left * first_right
         )
-        first_contribution = _sqrt_two_pair_add(
-            _sqrt_two_pair(Fraction((first_left + first_right - center) ** 2, 2)),
-            _sqrt_two_pair_scale(weight, first_correction),
+        first_contribution = _sqrt_three_pair_add(
+            _sqrt_three_pair(Fraction((first_left + first_right - center) ** 2, 2)),
+            _sqrt_three_pair_scale(weight, first_correction),
         )
-        assert _sqrt_two_pair_ge(first_contribution, base_floor(r - 1))
+        assert _sqrt_three_pair_ge(first_contribution, base_floor(r - 1))
         first_cycle = _split_cycle_edge_oracle(base, first_position, r - 1)
         assert len(set(first_cycle)) == len(first_cycle)
 
@@ -1493,23 +1500,23 @@ def test_first_linear_density_all_depth_two_literal_histories_are_exact() -> Non
             if second_edge in base_edges:
                 assert second_edge != first_edge
                 used_base_edges.add(second_edge)
-                second_contribution = _sqrt_two_pair_add(
-                    _sqrt_two_pair(
+                second_contribution = _sqrt_three_pair_add(
+                    _sqrt_three_pair(
                         Fraction((second_left + second_right - center) ** 2, 2)
                     ),
-                    _sqrt_two_pair_scale(weight, second_correction),
+                    _sqrt_three_pair_scale(weight, second_correction),
                 )
-                assert _sqrt_two_pair_ge(second_contribution, local_floor)
+                assert _sqrt_three_pair_ge(second_contribution, local_floor)
             else:
                 recursive_second_count += 1
                 assert min(second_left, second_right) == r - 1
                 recursive_lower = (center - 1) * cutoff - n * (r - 1)
                 assert second_correction >= recursive_lower
-                second_contribution = _sqrt_two_pair_scale(
+                second_contribution = _sqrt_three_pair_scale(
                     weight,
                     second_correction,
                 )
-                assert _sqrt_two_pair_ge(second_contribution, local_floor)
+                assert _sqrt_three_pair_ge(second_contribution, local_floor)
 
             final_cycle = _split_cycle_edge_oracle(
                 first_cycle,
@@ -1522,7 +1529,7 @@ def test_first_linear_density_all_depth_two_literal_histories_are_exact() -> Non
             assert len(set(final_cycle)) == len(final_cycle)
             assert len(final_signature) == len(final_cycle)
 
-            unused_slack = _sqrt_two_pair(
+            unused_slack = _sqrt_three_pair(
                 Fraction(
                     sum(
                         (left + right - center) ** 2
@@ -1531,34 +1538,34 @@ def test_first_linear_density_all_depth_two_literal_histories_are_exact() -> Non
                     2,
                 )
             )
-            local_sum = _sqrt_two_pair_add(
+            local_sum = _sqrt_three_pair_add(
                 first_contribution,
                 second_contribution,
             )
             selected_prefix = first_correction + second_correction
-            weighted_excess = _sqrt_two_pair_add(
-                _sqrt_two_pair(base_score - pairing_floor),
-                _sqrt_two_pair_scale(weight, selected_prefix),
+            weighted_excess = _sqrt_three_pair_add(
+                _sqrt_three_pair(base_score - pairing_floor),
+                _sqrt_three_pair_scale(weight, selected_prefix),
             )
-            objective_excess = _sqrt_two_pair(
+            objective_excess = _sqrt_three_pair(
                 base_score
                 + max(0, first_correction, selected_prefix)
                 - pairing_floor
             )
-            assert weighted_excess == _sqrt_two_pair_add(
+            assert weighted_excess == _sqrt_three_pair_add(
                 local_sum,
                 unused_slack,
             )
-            assert _sqrt_two_pair_ge(
+            assert _sqrt_three_pair_ge(
                 local_sum,
-                _sqrt_two_pair_scale(local_floor, 2),
+                _sqrt_three_pair_scale(local_floor, 2),
             )
-            assert _sqrt_two_pair_ge(objective_excess, weighted_excess)
+            assert _sqrt_three_pair_ge(objective_excess, weighted_excess)
             history_count += 1
 
-    assert history_count == len(base) * (len(base) + 1) == 7_140
+    assert history_count == len(base) * (len(base) + 1) == 6_972
     assert len(final_signatures) == history_count
-    assert recursive_second_count == 2 * len(base) == 168
+    assert recursive_second_count == 2 * len(base) == 166
 
 
 @pytest.mark.parametrize(
@@ -1582,245 +1589,276 @@ def test_first_linear_density_prefix_weight_region_is_exact(
 
 
 def test_first_linear_density_parameter_optimization_is_exact() -> None:
-    """Check the optimizer and coefficients in exact ``Q(sqrt(2))`` arithmetic."""
-    one = _sqrt_two_pair(1)
-    two = _sqrt_two_pair(2)
-    sqrt_two = _sqrt_two_pair(0, 1)
-    alpha = _sqrt_two_pair(-1, 1)
-    beta = _sqrt_two_pair(Fraction(-2, 3), Fraction(3, 4))
-    weight = _sqrt_two_pair(Fraction(88, 49), Fraction(-48, 49))
-    beta_squared = _sqrt_two_pair_multiply(beta, beta)
-    weight_squared = _sqrt_two_pair_multiply(weight, weight)
+    """Check the joint optimizer in exact test-local ``Q(sqrt(3))`` arithmetic."""
+    one = _sqrt_three_pair(1)
+    two = _sqrt_three_pair(2)
+    alpha = _sqrt_three_pair(1, Fraction(-1, 3))
+    beta = _sqrt_three_pair(Fraction(5, 6), Fraction(-1, 4))
+    weight = _sqrt_three_pair(Fraction(88, 73), Fraction(-32, 73))
+    one_plus_alpha = _sqrt_three_pair_add(one, alpha)
+    alpha_squared = _sqrt_three_pair_multiply(alpha, alpha)
+    beta_squared = _sqrt_three_pair_multiply(beta, beta)
 
-    assert _sqrt_two_pair_sign(beta) > 0
-    assert _sqrt_two_pair_sign(_sqrt_two_pair_subtract(alpha, beta)) > 0
-    assert _sqrt_two_pair_sign(weight) > 0
-    assert _sqrt_two_pair_sign(_sqrt_two_pair_subtract(one, weight)) > 0
+    assert _sqrt_three_pair_sign(alpha) > 0
+    assert _sqrt_three_pair_sign(_sqrt_three_pair_subtract(one, alpha)) > 0
+    assert _sqrt_three_pair_sign(beta) > 0
+    assert _sqrt_three_pair_sign(_sqrt_three_pair_subtract(alpha, beta)) > 0
+    assert _sqrt_three_pair_sign(weight) > 0
+    assert _sqrt_three_pair_sign(_sqrt_three_pair_subtract(one, weight)) > 0
 
-    weight_stationarity = _sqrt_two_pair_add(
-        _sqrt_two_pair_subtract(
-            _sqrt_two_pair_multiply(beta_squared, weight_squared),
-            _sqrt_two_pair_scale(
-                _sqrt_two_pair_multiply(beta_squared, weight),
-                4,
-            ),
-        ),
-        _sqrt_two_pair_subtract(
-            _sqrt_two_pair_scale(
-                _sqrt_two_pair_multiply(sqrt_two, beta),
-                4,
-            ),
-            _sqrt_two_pair(2),
-        ),
-    )
-    beta_stationarity = _sqrt_two_pair_add(
-        _sqrt_two_pair_subtract(
-            _sqrt_two_pair_scale(
-                _sqrt_two_pair_multiply(weight, beta_squared),
-                3,
-            ),
-            _sqrt_two_pair_scale(
-                _sqrt_two_pair_multiply(
-                    _sqrt_two_pair_multiply(weight, alpha),
-                    beta,
-                ),
-                2,
-            ),
-        ),
-        _sqrt_two_pair_add(
-            _sqrt_two_pair_scale(
-                _sqrt_two_pair_multiply(sqrt_two, beta),
-                -4,
-            ),
-            _sqrt_two_pair(5, -2),
-        ),
-    )
-    assert weight_stationarity == _sqrt_two_pair()
-    assert beta_stationarity == _sqrt_two_pair()
-
-    limiting_base_numerator = _sqrt_two_pair_subtract(
-        _sqrt_two_pair_subtract(
-            _sqrt_two_pair_scale(
-                _sqrt_two_pair_multiply(sqrt_two, beta),
-                2,
-            ),
+    assert _sqrt_three_pair_subtract(
+        _sqrt_three_pair_scale(beta, 12),
+        _sqrt_three_pair_add(
+            _sqrt_three_pair_scale(alpha, 9),
             one,
         ),
-        _sqrt_two_pair_multiply(weight, beta_squared),
-    )
-    limiting_base_floor = _sqrt_two_pair_divide(
-        _sqrt_two_pair_multiply(weight, limiting_base_numerator),
-        _sqrt_two_pair_subtract(two, weight),
-    )
-    limiting_recursive_floor = _sqrt_two_pair_multiply(
-        weight,
-        _sqrt_two_pair_subtract(
-            _sqrt_two_pair_multiply(sqrt_two, beta),
-            alpha,
+    ) == _sqrt_three_pair()
+    assert _sqrt_three_pair_subtract(
+        _sqrt_three_pair_multiply(
+            beta,
+            _sqrt_three_pair_subtract(_sqrt_three_pair(4), weight),
         ),
-    )
-    residual_coefficient = _sqrt_two_pair_multiply(
-        _sqrt_two_pair_subtract(alpha, beta),
-        limiting_base_floor,
-    )
-    tail_coefficient = _sqrt_two_pair(Fraction(-2, 3), Fraction(2, 3))
-    global_coefficient = _sqrt_two_pair_add(
-        tail_coefficient,
-        residual_coefficient,
-    )
+        one_plus_alpha,
+    ) == _sqrt_three_pair()
+    assert _sqrt_three_pair_add(
+        _sqrt_three_pair_subtract(
+            _sqrt_three_pair_scale(alpha_squared, 3),
+            _sqrt_three_pair_scale(alpha, 6),
+        ),
+        two,
+    ) == _sqrt_three_pair()
 
-    assert limiting_base_floor == _sqrt_two_pair(
-        Fraction(68, 9),
-        Fraction(-16, 3),
-    )
-    assert _sqrt_two_pair_subtract(
-        limiting_recursive_floor,
-        limiting_base_floor,
-    ) == _sqrt_two_pair_scale(weight, Fraction(1, 9))
-    assert residual_coefficient == _sqrt_two_pair(
-        Fraction(-140, 27),
-        Fraction(11, 3),
-    )
-    assert global_coefficient == _sqrt_two_pair(
-        Fraction(-158, 27),
-        Fraction(13, 3),
-    )
-
-    old_beta = _sqrt_two_pair(Fraction(2, 5))
-    old_weight = _sqrt_two_pair(Fraction(1, 2))
-    old_base_floor = _sqrt_two_pair_divide(
-        _sqrt_two_pair_multiply(
-            old_weight,
-            _sqrt_two_pair_subtract(
-                _sqrt_two_pair_subtract(
-                    _sqrt_two_pair_scale(
-                        _sqrt_two_pair_multiply(sqrt_two, old_beta),
-                        2,
-                    ),
-                    one,
-                ),
-                _sqrt_two_pair_multiply(
-                    old_weight,
-                    _sqrt_two_pair_multiply(old_beta, old_beta),
-                ),
+    local_numerator = _sqrt_three_pair_subtract(
+        _sqrt_three_pair_subtract(
+            _sqrt_three_pair_scale(
+                _sqrt_three_pair_multiply(one_plus_alpha, beta),
+                4,
             ),
+            _sqrt_three_pair_multiply(one_plus_alpha, one_plus_alpha),
         ),
-        _sqrt_two_pair_subtract(two, old_weight),
-    )
-    old_coefficient = _sqrt_two_pair_multiply(
-        _sqrt_two_pair_subtract(alpha, old_beta),
-        old_base_floor,
-    )
-    assert old_coefficient == _sqrt_two_pair(
-        Fraction(389, 375),
-        Fraction(-275, 375),
-    )
-
-    finite_n = 141
-    finite_r = 58
-    center = finite_n + finite_r
-    label = 56
-    old_finite_base = _sqrt_two_pair_divide(
-        _sqrt_two_pair_multiply(
-            old_weight,
-            _sqrt_two_pair_subtract(
-                _sqrt_two_pair(4 * center * label - center * center),
-                _sqrt_two_pair_scale(old_weight, 2 * label * label),
-            ),
-        ),
-        _sqrt_two_pair_scale(
-            _sqrt_two_pair_subtract(two, old_weight),
+        _sqrt_three_pair_scale(
+            _sqrt_three_pair_multiply(weight, beta_squared),
             2,
         ),
     )
-    old_finite_recursive = _sqrt_two_pair_scale(
-        old_weight,
-        (center - 1) * label - finite_n * (finite_r - 1),
+    assert local_numerator == _sqrt_three_pair(Fraction(1, 9))
+
+    limiting_base_floor = _sqrt_three_pair_divide(
+        _sqrt_three_pair_multiply(weight, local_numerator),
+        _sqrt_three_pair_scale(
+            _sqrt_three_pair_subtract(two, weight),
+            2,
+        ),
     )
-    assert old_finite_base == _sqrt_two_pair(
-        Fraction(4 * center * label - center * center - label * label, 6)
+    limiting_recursive_floor = _sqrt_three_pair_multiply(
+        weight,
+        _sqrt_three_pair_subtract(
+            _sqrt_three_pair_multiply(one_plus_alpha, beta),
+            alpha,
+        ),
     )
-    assert old_finite_recursive == _sqrt_two_pair(
-        Fraction((center - 1) * label - finite_n * (finite_r - 1), 2)
+    residual_coefficient = _sqrt_three_pair_multiply(
+        _sqrt_three_pair_subtract(alpha, beta),
+        limiting_base_floor,
     )
-    assert _sqrt_two_pair_subtract(
+    pairing_coefficient = _sqrt_three_pair_divide(
+        _sqrt_three_pair_multiply(
+            _sqrt_three_pair_subtract(one, alpha),
+            _sqrt_three_pair_add(
+                _sqrt_three_pair_add(
+                    alpha_squared,
+                    _sqrt_three_pair_scale(alpha, 4),
+                ),
+                one,
+            ),
+        ),
+        _sqrt_three_pair(6),
+    )
+    global_coefficient = _sqrt_three_pair_add(
+        pairing_coefficient,
         residual_coefficient,
-        old_coefficient,
-    ) == _sqrt_two_pair(
-        Fraction(-21001, 3375),
-        Fraction(14850, 3375),
     )
 
-    assert 2 * 99**2 - 140**2 == 2
-    assert 2 * 14_850**2 - 21_001**2 == 2_999
-    assert _sqrt_two_pair_sign(residual_coefficient) > 0
-    assert _sqrt_two_pair_sign(
-        _sqrt_two_pair_subtract(residual_coefficient, old_coefficient)
+    assert limiting_base_floor == _sqrt_three_pair(
+        Fraction(14, 9),
+        Fraction(-8, 9),
+    )
+    assert _sqrt_three_pair_subtract(
+        limiting_recursive_floor,
+        limiting_base_floor,
+    ) == _sqrt_three_pair_scale(weight, Fraction(1, 9))
+    assert residual_coefficient == _sqrt_three_pair(
+        Fraction(13, 27),
+        Fraction(-5, 18),
+    )
+    assert pairing_coefficient == _sqrt_three_pair(
+        Fraction(-1, 3),
+        Fraction(19, 54),
+    )
+    assert global_coefficient == _sqrt_three_pair(
+        Fraction(4, 27),
+        Fraction(2, 27),
+    )
+
+    example_alpha = Fraction(4, 5)
+    example_beta = Fraction(3, 5)
+    example_weight = Fraction(1)
+    example_local_floor = example_weight * (
+        4 * (1 + example_alpha) * example_beta
+        - (1 + example_alpha) ** 2
+        - 2 * example_weight * example_beta**2
+    ) / (2 * (2 - example_weight))
+    example_residual = (
+        example_alpha - example_beta
+    ) * example_local_floor
+    example_pairing = (
+        (1 - example_alpha)
+        * (example_alpha**2 + 4 * example_alpha + 1)
+        / 6
+    )
+    example_total = example_pairing + example_residual
+    assert example_local_floor == Fraction(9, 50)
+    assert example_residual == Fraction(9, 250)
+    assert example_total == Fraction(74, 375)
+    assert _sqrt_three_pair_sign(
+        _sqrt_three_pair_subtract(
+            _sqrt_three_pair(example_residual),
+            residual_coefficient,
+        )
     ) > 0
+    assert _sqrt_three_pair_sign(
+        _sqrt_three_pair_subtract(
+            global_coefficient,
+            _sqrt_three_pair(example_total),
+        )
+    ) > 0
+
+    assert _sqrt_three_pair_sign(
+        _sqrt_three_pair_subtract(
+            global_coefficient,
+            _sqrt_three_pair(Fraction(22, 81)),
+        )
+    ) > 0
+    assert _sqrt_three_pair_sign(
+        _sqrt_three_pair_subtract(
+            global_coefficient,
+            _sqrt_three_pair(Fraction(878, 3375)),
+        )
+    ) > 0
+    assert 3 * 11**2 - 19**2 == 2
+    assert _sqrt_three_pair_sign(residual_coefficient) > 0
+
+
+def test_first_linear_density_joint_maximin_grid_has_no_counterexample() -> None:
+    """Scan a bounded rational grid independently of the symbolic proof."""
+    candidate = _sqrt_three_pair(Fraction(4, 27), Fraction(2, 27))
+
+    for alpha_numerator in range(25):
+        alpha = Fraction(alpha_numerator, 24)
+        pairing = (1 - alpha) * (alpha * alpha + 4 * alpha + 1) / 6
+        for beta_numerator in range(alpha_numerator + 1):
+            beta = Fraction(beta_numerator, 24)
+            for weight_numerator in range(9):
+                weight = Fraction(weight_numerator, 8)
+                local_floor = weight * (
+                    4 * (1 + alpha) * beta
+                    - (1 + alpha) ** 2
+                    - 2 * weight * beta * beta
+                ) / (2 * (2 - weight))
+                coefficient = pairing + (alpha - beta) * local_floor
+                assert _sqrt_three_pair_sign(
+                    _sqrt_three_pair_subtract(
+                        candidate,
+                        _sqrt_three_pair(coefficient),
+                    )
+                ) > 0
 
 
 def test_first_linear_density_optimized_finite_bounds_are_exact() -> None:
     """Audit every rounded finite ingredient on a bounded exact range."""
-    alpha = _sqrt_two_pair(-1, 1)
-    beta = _sqrt_two_pair(Fraction(-2, 3), Fraction(3, 4))
-    weight = _sqrt_two_pair(Fraction(88, 49), Fraction(-48, 49))
-    two_minus_weight = _sqrt_two_pair_subtract(_sqrt_two_pair(2), weight)
-    limiting_floor = _sqrt_two_pair(Fraction(68, 9), Fraction(-16, 3))
-    residual_coefficient = _sqrt_two_pair(
-        Fraction(-140, 27),
-        Fraction(11, 3),
+    alpha = _sqrt_three_pair(1, Fraction(-1, 3))
+    beta = _sqrt_three_pair(Fraction(5, 6), Fraction(-1, 4))
+    weight = _sqrt_three_pair(Fraction(88, 73), Fraction(-32, 73))
+    two_minus_weight = _sqrt_three_pair_subtract(_sqrt_three_pair(2), weight)
+    limiting_floor = _sqrt_three_pair(Fraction(14, 9), Fraction(-8, 9))
+    residual_coefficient = _sqrt_three_pair(
+        Fraction(13, 27),
+        Fraction(-5, 18),
     )
-    residual_quadratic = _sqrt_two_pair(
-        Fraction(1097, 72),
-        Fraction(-32, 3),
+    residual_quadratic = _sqrt_three_pair(
+        Fraction(233, 72),
+        Fraction(-16, 9),
     )
-    global_coefficient = _sqrt_two_pair(
-        Fraction(-158, 27),
-        Fraction(13, 3),
+    pairing_coefficient = _sqrt_three_pair(Fraction(-1, 3), Fraction(19, 54))
+    global_coefficient = _sqrt_three_pair(
+        Fraction(4, 27),
+        Fraction(2, 27),
     )
-    global_quadratic = _sqrt_two_pair(
-        Fraction(136, 9),
-        Fraction(-32, 3),
+    global_quadratic = _sqrt_three_pair(
+        Fraction(28, 9),
+        Fraction(-16, 9),
+    )
+    positive_global_quadratic = _sqrt_three_pair(
+        Fraction(-19, 9),
+        Fraction(13, 9),
     )
 
-    for n in range(99, 1_001):
-        r = isqrt(2 * n * n) - n
-        cutoff = 1 + (isqrt(162 * n * n) - 8 * n) // 12
+    rounded_rows = tuple(
+        (
+            n,
+            n - isqrt(n * n // 3) - 1,
+            (10 * n - isqrt(27 * n * n) + 11) // 12,
+        )
+        for n in range(85, 90)
+    )
+    assert rounded_rows == (
+        (85, 35, 35),
+        (86, 36, 35),
+        (87, 36, 35),
+        (88, 37, 36),
+        (89, 37, 36),
+    )
+
+    exact_residual_signs: dict[int, int] = {}
+    for n in range(86, 1_001):
+        r = n - isqrt(n * n // 3) - 1
+        cutoff = (10 * n - isqrt(27 * n * n) + 11) // 12
         center = n + r
         prefix_length = r - cutoff
         tail_size = n - r + 1
+        assert 2 <= r <= n - 2
         assert prefix_length >= 1
 
-        beta_times_n = _sqrt_two_pair_scale(beta, n)
-        assert _sqrt_two_pair_sign(
-            _sqrt_two_pair_subtract(beta_times_n, _sqrt_two_pair(cutoff - 1))
+        alpha_times_n = _sqrt_three_pair_scale(alpha, n)
+        beta_times_n = _sqrt_three_pair_scale(beta, n)
+        assert _sqrt_three_pair_sign(
+            _sqrt_three_pair_subtract(alpha_times_n, _sqrt_three_pair(r))
         ) > 0
-        assert _sqrt_two_pair_sign(
-            _sqrt_two_pair_subtract(_sqrt_two_pair(cutoff), beta_times_n)
+        assert _sqrt_three_pair_sign(
+            _sqrt_three_pair_subtract(_sqrt_three_pair(r + 1), alpha_times_n)
         ) > 0
-        assert _sqrt_two_pair_sign(
-            _sqrt_two_pair_subtract(
-                _sqrt_two_pair(r),
-                _sqrt_two_pair_scale(alpha, n),
-            )
-        ) < 0
-
-        base_floor_inner = _sqrt_two_pair_subtract(
-            _sqrt_two_pair(4 * center * cutoff - center * center),
-            _sqrt_two_pair_scale(weight, 2 * cutoff * cutoff),
+        assert _sqrt_three_pair_sign(
+            _sqrt_three_pair_subtract(beta_times_n, _sqrt_three_pair(cutoff - 1))
+        ) > 0
+        assert _sqrt_three_pair_sign(
+            _sqrt_three_pair_subtract(_sqrt_three_pair(cutoff), beta_times_n)
+        ) > 0
+        base_floor_inner = _sqrt_three_pair_subtract(
+            _sqrt_three_pair(4 * center * cutoff - center * center),
+            _sqrt_three_pair_scale(weight, 2 * cutoff * cutoff),
         )
-        base_floor = _sqrt_two_pair_divide(
-            _sqrt_two_pair_multiply(weight, base_floor_inner),
-            _sqrt_two_pair_scale(two_minus_weight, 2),
+        base_floor = _sqrt_three_pair_divide(
+            _sqrt_three_pair_multiply(weight, base_floor_inner),
+            _sqrt_three_pair_scale(two_minus_weight, 2),
         )
-        recursive_floor = _sqrt_two_pair_scale(
+        recursive_floor = _sqrt_three_pair_scale(
             weight,
             (center - 1) * cutoff - n * (r - 1),
         )
-        assert _sqrt_two_pair_ge(recursive_floor, base_floor)
-        assert _sqrt_two_pair_ge(
+        assert _sqrt_three_pair_ge(recursive_floor, base_floor)
+        assert _sqrt_three_pair_ge(
             base_floor,
-            _sqrt_two_pair_scale(limiting_floor, n * n),
+            _sqrt_three_pair_scale(limiting_floor, n * n),
         )
 
         alternating_excess = (
@@ -1828,42 +1866,89 @@ def test_first_linear_density_optimized_finite_bounds_are_exact() -> None:
             if tail_size % 2 == 0
             else (tail_size * tail_size - 1) // 8
         )
-        exact_residual_floor = _sqrt_two_pair_subtract(
-            _sqrt_two_pair_scale(base_floor, prefix_length),
-            _sqrt_two_pair(alternating_excess),
+        exact_residual_floor = _sqrt_three_pair_subtract(
+            _sqrt_three_pair_scale(base_floor, prefix_length),
+            _sqrt_three_pair(alternating_excess),
         )
-        coarse_residual_floor = _sqrt_two_pair_subtract(
-            _sqrt_two_pair_scale(residual_coefficient, n**3),
-            _sqrt_two_pair_scale(residual_quadratic, n * n),
-        )
-        assert _sqrt_two_pair_ge(
-            exact_residual_floor,
-            coarse_residual_floor,
-        )
+        if n >= 176:
+            assert _sqrt_three_pair_sign(exact_residual_floor) > 0
+        if n in (175, 176):
+            exact_residual_signs[n] = _sqrt_three_pair_sign(exact_residual_floor)
+        if n >= 90:
+            coarse_residual_floor = _sqrt_three_pair_subtract(
+                _sqrt_three_pair_scale(residual_coefficient, n**3),
+                _sqrt_three_pair_scale(residual_quadratic, n * n),
+            )
+            assert _sqrt_three_pair_ge(
+                exact_residual_floor,
+                coarse_residual_floor,
+            )
 
         pairing_floor = sum(
             label * (center - label) for label in range(r, n + 1)
         )
-        exact_global_floor = _sqrt_two_pair_add(
-            _sqrt_two_pair(pairing_floor),
-            _sqrt_two_pair_scale(base_floor, prefix_length),
+        pairing_lower = _sqrt_three_pair_add(
+            _sqrt_three_pair_scale(pairing_coefficient, n**3),
+            _sqrt_three_pair_subtract(
+                _sqrt_three_pair_scale(alpha, n * n),
+                _sqrt_three_pair(Fraction(12 * n + 1, 6)),
+            ),
         )
-        coarse_global_floor = _sqrt_two_pair_subtract(
-            _sqrt_two_pair_scale(global_coefficient, n**3),
-            _sqrt_two_pair_scale(global_quadratic, n * n),
+        assert _sqrt_three_pair_ge(
+            _sqrt_three_pair(pairing_floor),
+            pairing_lower,
         )
-        assert _sqrt_two_pair_ge(exact_global_floor, coarse_global_floor)
+        exact_global_floor = _sqrt_three_pair_add(
+            _sqrt_three_pair(pairing_floor),
+            _sqrt_three_pair_scale(base_floor, prefix_length),
+        )
+        if n >= 90:
+            coarse_global_floor = _sqrt_three_pair_subtract(
+                _sqrt_three_pair_scale(global_coefficient, n**3),
+                _sqrt_three_pair_scale(global_quadratic, n * n),
+            )
+            strengthened_global_floor = _sqrt_three_pair_subtract(
+                _sqrt_three_pair_add(
+                    _sqrt_three_pair_scale(global_coefficient, n**3),
+                    _sqrt_three_pair_scale(
+                        positive_global_quadratic,
+                        n * n,
+                    ),
+                ),
+                _sqrt_three_pair(Fraction(12 * n + 1, 6)),
+            )
+            assert _sqrt_three_pair_ge(exact_global_floor, coarse_global_floor)
+            assert _sqrt_three_pair_ge(
+                exact_global_floor,
+                strengthened_global_floor,
+            )
+            assert _sqrt_three_pair_ge(
+                strengthened_global_floor,
+                _sqrt_three_pair_scale(global_coefficient, n**3),
+            )
 
-    residual_at_572 = _sqrt_two_pair_subtract(
-        _sqrt_two_pair_scale(residual_coefficient, 572),
+    assert exact_residual_signs == {175: -1, 176: 1}
+
+    residual_at_441 = _sqrt_three_pair_subtract(
+        _sqrt_three_pair_scale(residual_coefficient, 441),
         residual_quadratic,
     )
-    assert residual_at_572 == _sqrt_two_pair(
-        Fraction(-643931, 216),
-        Fraction(455328, 216),
+    residual_at_440 = _sqrt_three_pair_subtract(
+        _sqrt_three_pair_scale(residual_coefficient, 440),
+        residual_quadratic,
     )
-    assert 2 * 455_328**2 - 643_931**2 == 42_407
-    assert _sqrt_two_pair_sign(residual_at_572) > 0
+    assert residual_at_441 == _sqrt_three_pair(
+        Fraction(15055, 72),
+        Fraction(-2173, 18),
+    )
+    assert residual_at_440 == _sqrt_three_pair(
+        Fraction(45061, 216),
+        Fraction(-1084, 9),
+    )
+    assert 15_055**2 - 3 * 8_692**2 == 433
+    assert 45_061**2 - 3 * 26_016**2 == -3_047
+    assert _sqrt_three_pair_sign(residual_at_441) > 0
+    assert _sqrt_three_pair_sign(residual_at_440) < 0
 
 
 def test_consecutive_tail_block_keeps_admissible_domino_prefixes() -> None:
