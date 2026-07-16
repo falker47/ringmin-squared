@@ -32,13 +32,17 @@ convergence. Exact canonical enumeration is deliberately bounded to
 `n=3..8` and gives \((12,26,47,77,118,172)\).
 The jointly optimized one-prefix linear tail block first gave the coefficient
 \((4+2\sqrt3)/27\). The exact global optimization of the two-prefix CR28bw
-template now gives the strictly stronger rigorous lower coefficients
+template then gave \(C_{2,*}\). The three-prefix extension now gives the
+strictly stronger rigorous lower coefficients
 \[
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
-\ge {491596+6578\sqrt{143}\over2061723},
+\ge
+{753972193324+106042322\sqrt{377823}\over2960667770787},
 \qquad
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-\ge {491596+6578\sqrt{143}\over2061723\pi}.
+\ge
+{753972193324+106042322\sqrt{377823}
+ \over2960667770787\pi}.
 \]
 These are one-sided bounds and do not prove convergence or identify an exact
 leading coefficient. The older rational witness remains the current explicit
@@ -359,6 +363,27 @@ branches, transitions, simplex maximum, minimal polynomials, and rational
 isolating intervals without production changes. Finite rounding at the
 irrational optimizer remains deliberately unperformed.
 
+The three-prefix extension is exact as well. Combining all three selected
+heights before charging gives one partition of the base-slack pool and covers
+every recursive split through both segment boundaries. The three individual
+clipped optima are automatically ordered. On the full compact closure, the
+normalized simplex has the unique maximum
+\[
+\left({1058\over1263},{276\over421},{184\over421}\right),
+\]
+and the remaining one-variable envelope gives
+\[
+\alpha_*={685623-421\sqrt{377823}\over993423},
+\qquad
+C_{3,*}
+={753972193324+106042322\sqrt{377823}\over2960667770787}.
+\]
+All densities and weights are strictly ordered in the middle clipped branch,
+so the upper envelope is attained. Exact arithmetic proves
+\(C_{3,*}>C_{2,*}\). A bounded oracle covers all 46,620 depth-three histories,
+including every recursive second and third split from one base. Finite
+rounding of this irrational optimizer remains deliberately unperformed.
+
 As of 2026-07-14, the former asymptotic target
 \[
 R_2^*(n)=\frac{n^3}{6\pi}(1+o(1))
@@ -381,14 +406,24 @@ These are method-specific optimality statements. The jointly optimized
 one-prefix block first improves the global lower coefficient to
 \((4+2\sqrt3)/(27\pi)\); the globally optimized two-prefix template improves
 it again to
-\((491596+6578\sqrt{143})/(2061723\pi)\). This is still only a proved lower
-coefficient, not an exact asymptotic constant for Power-Ringmin.
+\((491596+6578\sqrt{143})/(2061723\pi)\), and the globally optimized
+three-prefix template improves it further to
+\[
+{753972193324+106042322\sqrt{377823}
+ \over2960667770787\pi}.
+\]
+This is still only a proved lower coefficient, not an exact asymptotic
+constant for Power-Ringmin.
 
 The zigzag regular-direction construction historically improved the proved
 upper coefficient from \(1/\pi\) to \(1/(2\pi)\). It is now superseded by the
 product-distance construction below, which gives \(8/(25\pi)\). Neither upper
 bound matches the current linear-block geometric lower coefficient
-\((491596+6578\sqrt{143})/(2061723\pi)\). The zigzag
+\[
+{753972193324+106042322\sqrt{377823}
+ \over2960667770787\pi}.
+\]
+The zigzag
 theorem itself generated no leading-order LP, new finite certificate, `n=7`
 certificate, preflight artifact, permutation optimization, or exhaustive
 enumeration.
@@ -771,6 +806,44 @@ saturation for every \(n\ge3\).
   \]
   The rational point remains the explicit finite-\(n\) theorem; no finite
   rounding of the irrational optimizer is asserted.
+- EXACT THEOREM (THREE SELECTED PREFIXES): combining all three heights before
+  charging uses the original base-slack pool once and covers every recursive
+  child edge through both segment boundaries. The exact coefficient is
+  \[
+  C_3=p(\alpha)
+  +(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_1)
+  +(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_2)
+  +(\beta_2-\beta_3)g(\alpha,\beta_3,\lambda_3).
+  \]
+  The three clipped individual optima are automatically ordered. The complete
+  compact-closure proof gives the unique normalized point
+  \[
+  \left({1058\over1263},{276\over421},{184\over421}\right)
+  \]
+  and
+  \[
+  \alpha_*={685623-421\sqrt{377823}\over993423},
+  \qquad
+  C_{3,*}
+  ={753972193324+106042322\sqrt{377823}\over2960667770787}.
+  \]
+  Thus
+  \[
+  \liminf{\Lambda_n\over n^3}\ge C_{3,*},
+  \qquad
+  \liminf{R_2^*(n)\over n^3}\ge{C_{3,*}\over\pi},
+  \]
+  with \(C_{3,*}>C_{2,*}\). No finite rounding of the irrational optimizer is
+  asserted.
+- VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): a rational oracle checks all
+  46,620 depth-three histories from one bounded base, including 70 distinct
+  recursive second-step prefixes (2,590 full-history occurrences), 4,970
+  recursive third splits, and 70 fully nested third splits. Separate exact
+  grids verify all ten clipped regimes, the compact
+  closure, and the simplex factorization. Exact
+  \(\mathbb Q(\sqrt{377823})\) arithmetic verifies the optimizer, coefficient
+  polynomial, rational isolation, and strict improvement over \(C_{2,*}\)
+  without production code or floating-point premises.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): independent rational and
   \(\mathbb Q(\sqrt{143})\) arithmetic verifies the six branch reductions,
   exact transition points, cubic simplex maximum, every optimizer coordinate
@@ -914,13 +987,16 @@ saturation for every \(n\ge3\).
   4(\sqrt2-1)>1.
   \]
 - EXACT THEOREM (sharpened global lower bound): the globally optimized
-  two-prefix CR28bw template gives
+  three-prefix template gives
   \[
   \liminf_{n\to\infty}{\Lambda_n\over n^3}
-  \ge {491596+6578\sqrt{143}\over2061723},
+  \ge
+  {753972193324+106042322\sqrt{377823}\over2960667770787},
   \qquad
   \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-  \ge {491596+6578\sqrt{143}\over2061723\pi}.
+  \ge
+  {753972193324+106042322\sqrt{377823}
+   \over2960667770787\pi}.
   \]
   This strictly improves the single-subset lower coefficient, while proving
   neither convergence nor an exact leading coefficient.
@@ -1123,7 +1199,7 @@ saturation for every \(n\ge3\).
 
 ## Consequences
 
-1. The two-prefix linear-block lower bound supersedes both the
+1. The three-prefix linear-block lower bound supersedes both the
    induced-subset bound
    and the older full-cycle bound
    \(\liminf 6\pi R_2^*(n)/n^3\ge 1\). Both older statements remain true but
@@ -1132,7 +1208,9 @@ saturation for every \(n\ge3\).
 2. Any future asymptotic upper-bound target must be compatible with
    \[
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-   \ge {491596+6578\sqrt{143}\over2061723\pi}.
+   \ge
+   {753972193324+106042322\sqrt{377823}
+    \over2960667770787\pi}.
    \]
    This roadmap records a lower coefficient, not a proposed exact constant.
 
@@ -1158,7 +1236,8 @@ saturation for every \(n\ge3\).
 6. The symbolic product-distance construction supersedes zigzag and gives the
    rigorous liminf/limsup bracket
    \[
-   {491596+6578\sqrt{143}\over2061723\pi}
+   {753972193324+106042322\sqrt{377823}
+    \over2960667770787\pi}
    \le
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
    \le
@@ -1286,26 +1365,55 @@ saturation for every \(n\ge3\).
     complete boundary/collision audit. No finite rounding theorem for the
     irrational optimizer has been performed.
 
+15. Three selected prefixes share the same slack pool when all heights are
+    combined first. Every recursive split remains literal through both
+    boundaries. The three clipped weights reduce independently and are
+    automatically ordered. An exact nonnegative factorization proves the
+    unique normalized compact-simplex point
+    \[
+    \left({1058\over1263},{276\over421},{184\over421}\right),
+    \]
+    after which the full compact closure has the unique coefficient
+    \[
+    C_{3,*}
+    ={753972193324+106042322\sqrt{377823}\over2960667770787}
+    >C_{2,*}.
+    \]
+    No finite rounding theorem for this irrational optimizer has been
+    performed.
+
 ## Updated Research Questions
 
 - OPEN QUESTION: what geometric upper-bound construction, if any, narrows or
-  matches the current two-prefix lower coefficient
-  \((491596+6578\sqrt{143})/(2061723\pi)\) up to lower-order terms?
+  matches the current three-prefix lower coefficient
+  \[
+  {753972193324+106042322\sqrt{377823}
+   \over2960667770787\pi}
+  \]
+  up to lower-order terms?
 - OPEN QUESTION: can the previous reduced-core observations at checked
   `n=5,6` be related to the exact feasible-radius-set equality for
   \(n\ge12\), or are their lower-cycle proxies a separate finite phenomenon?
 - OPEN QUESTION: is \(12\) the least threshold for
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
-- OPEN QUESTION: can the gap between the two-prefix geometric lower
-  coefficient \((491596+6578\sqrt{143})/(2061723\pi)\) and the
+- OPEN QUESTION: can the gap between the three-prefix geometric lower
+  coefficient
+  \[
+  {753972193324+106042322\sqrt{377823}
+   \over2960667770787\pi}
+  \]
+  and the
   product-distance upper
   coefficient \(8/(25\pi)\) be narrowed by a sharper angular construction or
   a stronger lower bound?
 - CLOSED QUESTION: the global optimum of the five-parameter two-prefix
   certificate, including every boundary and collision face, is
   \(C_{2,*}\) at the unique point displayed above.
-- OPEN QUESTION: can finite rounding at the irrational optimizer be made
+- CLOSED QUESTION: the global optimum of the seven-parameter three-prefix
+  certificate, including the complete compact closure, is \(C_{3,*}\) at the
+  unique point displayed above.
+- OPEN QUESTION: can finite rounding at the three-prefix irrational optimizer be made
   explicit, and can the exact residual of the selected block be bounded from
   above? The current theorem gives no matching residual or global asymptotic
   evaluation.
@@ -1471,6 +1579,20 @@ Completed:
   and \(\mathbb Q(\sqrt{143})\) diagnostics. No finite optimizer rounding,
   production, artifact, schema, backend, or enumeration-limit change was
   made.
+- Extended the one-use charging proof to three selected prefixes. Combining
+  all three heights first preserves one base-slack pool and every recursive
+  child-edge floor through both boundaries. The clipped weights reduce
+  independently, and an exact compact-simplex factorization plus the complete
+  closure audit gives the unique coefficient
+  \[
+  C_{3,*}
+  ={753972193324+106042322\sqrt{377823}\over2960667770787}
+  >C_{2,*}.
+  \]
+  Independent exact diagnostics cover 46,620 depth-three histories, all ten
+  clipped regimes, the compact closure, and the quadratic-surd optimizer.
+  No finite rounding, production, artifact, schema, backend, or
+  enumeration-limit change was made.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -1480,7 +1602,7 @@ Completed:
 Immediate:
 
 - In a fresh STRICT task, derive an explicit finite floor/ceiling theorem for
-  the irrational CR28bw optimizer, including a minimal or rigorously
+  the irrational three-prefix optimizer, including a minimal or rigorously
   sufficient uniform threshold, while keeping production, artifacts, schemas,
   backends, and enumeration limits unchanged.
 
@@ -1516,11 +1638,11 @@ Deliberately deferred:
 ## Recommended Next Atomic Task
 
 Task: derive an explicit finite floor/ceiling theorem for the exact irrational
-CR28bw optimizer.
+three-prefix optimizer.
 
 Acceptance criteria:
 
-- retain the exact optimizer in \(\mathbb Q(\sqrt{143})\) without decimal
+- retain the exact optimizer in \(\mathbb Q(\sqrt{377823})\) without decimal
   substitution;
 - derive literal floor/ceiling parameters and a rigorously sufficient uniform
   threshold, testing minimality if feasible;

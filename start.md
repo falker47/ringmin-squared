@@ -422,6 +422,48 @@ theorem. Finite rounding of the irrational optimizer has not been performed.
 Neither coefficient is an exact residual, limit, or geometric leading
 coefficient.
 
+Selecting three prefixes improves the asymptotic template again while using
+the base-slack pool only once. For ordered weights
+\(0\le\lambda_3\le\lambda_2\le\lambda_1\le1\),
+\[
+\max(0,H_1,H_2,H_3)
+\ge(\lambda_1-\lambda_2)H_1
++(\lambda_2-\lambda_3)H_2+\lambda_3H_3.
+\]
+After expanding this combination, each split lies in exactly one weighted
+segment; all recursive and fully nested child edges retain their local floor.
+The three individual clipped weight optima are automatically ordered. With
+\[
+A=3\alpha-1,
+\qquad
+X_i=4\beta_i-(1+\alpha),
+\]
+the exact compact-simplex maximum is uniquely
+\[
+\left({X_1\over A},{X_2\over A},{X_3\over A}\right)
+=
+\left({1058\over1263},{276\over421},{184\over421}\right).
+\]
+The remaining one-variable compact optimization gives
+\[
+\alpha_*={685623-421\sqrt{377823}\over993423}
+\]
+and the exact coefficient
+\[
+C_{3,*}
+={753972193324+106042322\sqrt{377823}\over2960667770787}
+=0.276678647461945\ldots>C_{2,*}.
+\]
+Consequently
+\[
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{3,*},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{3,*}\over\pi}.
+\]
+No finite floor/ceiling rounding of this irrational optimizer is performed,
+and the result is a three-prefix template optimum rather than an exact
+residual, limit, or geometric leading coefficient.
+
 There is also an exact eventual radius-one insertion theorem. Let
 \(R^*_{2:n}\) be the infimum feasible central radius for only the core radii
 \(2^2,\dots,n^2\). A core configuration at radius \(R\) admits insertion of
@@ -724,7 +766,8 @@ The cubic order is exact, but existence of a limiting coefficient, a
 leading-term asymptotic formula, and an upper bound matching the current
 linear-block lower coefficient remain unresolved. Current exact bounds give
 \[
-\frac{491596+6578\sqrt{143}}{2061723\pi}
+\frac{753972193324+106042322\sqrt{377823}}
+     {2960667770787\pi}
 \le
 \liminf_{n\to\infty}\frac{R_2^*(n)}{n^3}
 \le
@@ -1159,6 +1202,52 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   No finite rounding theorem for the irrational optimizer is asserted, and
   \(C_{2,*}\) is a template-optimal lower coefficient rather than an exact
   residual or geometric leading coefficient.
+- EXACT METHOD-SPECIFIC THEOREM (THREE SELECTED PREFIXES): for
+  \(0<\beta_3<\beta_2<\beta_1<\alpha<1\) and
+  \(0\le\lambda_3\le\lambda_2\le\lambda_1\le1\), combining all three
+  prefix heights before charging assigns one weight to each disjoint segment.
+  One base-slack partition then uses every original edge at most once, while
+  the recursive floor covers every child edge through both boundaries,
+  including fully nested edges with two inserted endpoints. The exact
+  coefficient is
+  \[
+  C_3=p(\alpha)
+  +(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_1)
+  +(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_2)
+  +(\beta_2-\beta_3)g(\alpha,\beta_3,\lambda_3).
+  \]
+  The three clipped individual optima are automatically ordered. Exact
+  optimization on the full compact closure gives the unique normalized point
+  \[
+  \left({X_1\over A},{X_2\over A},{X_3\over A}\right)
+  =
+  \left({1058\over1263},{276\over421},{184\over421}\right),
+  \]
+  with
+  \[
+  \alpha_*={685623-421\sqrt{377823}\over993423},
+  \qquad
+  C_{3,*}
+  ={753972193324+106042322\sqrt{377823}\over2960667770787}.
+  \]
+  Hence
+  \[
+  \liminf{\Lambda_n\over n^3}\ge C_{3,*},
+  \qquad
+  \liminf{R_2^*(n)\over n^3}\ge{C_{3,*}\over\pi},
+  \]
+  and \(C_{3,*}>C_{2,*}\). No finite rounding theorem is asserted; this is a
+  template optimum, not an exact residual or geometric leading coefficient.
+- VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): a test-local Fraction
+  oracle checks all 46,620 depth-three histories from one bounded base,
+  including 70 distinct recursive second-step prefixes (2,590 full-history
+  occurrences), 4,970 recursive third splits, and 70 fully nested third
+  splits. Separate exact grids verify the ordered-weight
+  reduction, all ten clipped regimes, the compact closure, and the simplex
+  factorization. Test-local \(\mathbb Q(\sqrt{377823})\) arithmetic verifies
+  the optimizer, strict domain, coefficient polynomial, isolating interval,
+  and strict comparison with \(C_{2,*}\), without production code or a limit
+  change.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): independent rational and
   \(\mathbb Q(\sqrt{143})\) diagnostics verify the ordered-weight reduction,
   all six branches, exact transitions \(77/139\) and \(301/419\), the cubic
@@ -1545,10 +1634,16 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \[
   {491596+6578\sqrt{143}\over2061723\pi}.
   \]
-  Its unique five-parameter optimizer is exact, while the older rational
-  witness remains the explicit finite-\(n\) theorem. This is not an exact
-  residual or leading coefficient; convergence, finite rounding at the
-  irrational optimizer, and exact block coefficients remain unresolved.
+  The globally optimized three-prefix template raises it further to
+  \[
+  {753972193324+106042322\sqrt{377823}
+   \over2960667770787\pi}.
+  \]
+  Both irrational optimizers are exact and unique in their respective
+  templates, while the older rational witness remains the explicit
+  finite-\(n\) theorem. Neither coefficient is an exact residual or leading
+  coefficient; convergence, finite rounding at either irrational optimizer,
+  and exact block coefficients remain unresolved.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit
   and unresolved for public production claims. The bounded test-only Arb
   cross-check covers checked `n=3` only and is not a full backend audit.

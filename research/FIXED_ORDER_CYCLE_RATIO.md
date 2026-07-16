@@ -3148,8 +3148,9 @@ and therefore
 \tag{CR28cc}
 \]
 These remain the explicit finite-\(n\) improvement over the one-prefix
-theorem.  The globally optimized asymptotic coefficient is (CR28bw14), while
-(CR28bw17) supersedes these two liminf inequalities.  Neither statement
+theorem. The optimized two-prefix asymptotic coefficient is (CR28bw14), while
+(CR28bw17) supersedes these two liminf inequalities within that template.
+Neither statement
 asserts convergence, an exact leading coefficient, or a matching upper bound.
 
 Independent test-local `Fraction` diagnostics exercise both the valid and
@@ -3168,6 +3169,452 @@ coefficient, finite polynomial, and the coarse residual sign change between
 326 and 327. These bounded computations corroborate the bookkeeping and
 arithmetic; the all-\(n\) statements rest on the written proof and use no
 production scorer, canonicalizer, or enumerator.
+
+### Three selected prefixes in one linear block
+
+The preceding one-use argument extends to three selected prefixes, provided
+that all three heights are combined before any base slack is assigned. Fix
+
+\[
+0<\beta_3<\beta_2<\beta_1<\alpha<1,
+\qquad
+0\le\lambda_3\le\lambda_2\le\lambda_1\le1,
+\]
+
+and put
+
+\[
+r=\lfloor\alpha n\rfloor,
+\qquad
+s_i=\lceil\beta_i n\rceil\quad(i=1,2,3).
+\tag{CR28cd}
+\]
+
+At fixed \(n\), require
+
+\[
+2\le r\le n-2,
+\qquad
+1\le s_3<s_2<s_1\le r-1.
+\]
+
+For one arbitrary compatible split history, let
+
+\[
+H_i=\sum_{t=s_i}^{r-1}A_t\quad(i=1,2,3).
+\]
+
+The four numbers
+
+\[
+1-\lambda_1,
+\quad\lambda_1-\lambda_2,
+\quad\lambda_2-\lambda_3,
+\quad\lambda_3
+\]
+
+are nonnegative and sum to one. Therefore the exact prefix objective gives
+
+\[
+\boxed{
+\max(0,H_1,H_2,H_3)
+\ge
+(\lambda_1-\lambda_2)H_1
++(\lambda_2-\lambda_3)H_2
++\lambda_3H_3.
+}
+\tag{CR28ce}
+\]
+
+Expanding this linear form before charging gives
+
+\[
+\lambda_1\sum_{t=s_1}^{r-1}A_t
++\lambda_2\sum_{t=s_2}^{s_1-1}A_t
++\lambda_3\sum_{t=s_3}^{s_2-1}A_t.
+\]
+
+Thus the three disjoint split segments carry the three ordered weights. Put
+
+\[
+F_{i,n}=G_{n,\lambda_i}(s_i)\quad(i=1,2,3),
+\]
+
+with \(G\) as in (CR28az). On segment \(i\), an intact original-base
+split at \(t\) receives its unique slack and contributes at least
+\(G_{n,\lambda_i}(t)\ge F_{i,n}\). A recursive split contributes at least
+\(J_{n,\lambda_i}(t)\ge G_{n,\lambda_i}(t)\ge F_{i,n}\).
+
+The recursive invariant used here is independent of the number of segment
+boundaries crossed. At the moment label \(t\) is inserted, every current
+edge is either an untouched original base edge or contains a previously
+inserted label in \(\{t+1,\ldots,r-1\}\). Splitting an edge preserves that
+dichotomy for every later label. Hence (CR28ba) covers arbitrarily nested
+child edges, including edges whose two endpoints were inserted earlier and
+histories crossing both selected-prefix boundaries.
+
+Let \(\lambda_t\) be the weight of the segment containing \(t\), and retain
+\(\Delta_e=(u+v-n-r)^2/2\) for an original edge \(e=\{u,v\}\). The single
+exact base-slack partition is
+
+\[
+\begin{aligned}
+P(C_0)-P_{r,n}+\sum_{t=s_3}^{r-1}\lambda_tA_t
+={}&
+\sum_{\substack{t:\ \mathrm{base}\\\mathrm{split}}}
+  (\Delta_{e_t}+\lambda_tA_t)
++\sum_{\substack{t:\ \mathrm{recursive}\\\mathrm{split}}}
+  \lambda_tA_t
++\sum_{e\text{ unused by the selected prefixes}}\Delta_e.
+\end{aligned}
+\tag{CR28cf}
+\]
+
+Every original slack occurs exactly once, either beside its unique selected
+split or in the sum over edges unused by the three selected prefixes. In
+contrast, adding three separately slack-charged copies
+of the one-prefix inequality would count early-segment slack three times and
+middle-segment slack twice.
+
+Discarding only the nonnegative unused sum in (CR28cf), and then applying
+(CR28ce), proves
+
+\[
+\boxed{
+\gamma^{(r)}_{1,n}
+\ge P_{r,n}
++(r-s_1)F_{1,n}
++(s_1-s_2)F_{2,n}
++(s_2-s_3)F_{3,n}.
+}
+\tag{CR28cg}
+\]
+
+The exact comparison with the inner simple-cycle minimum remains
+
+\[
+\boxed{
+\gamma^{(r)}_{1,n}-P^*_{r,n}
+\ge
+(r-s_1)F_{1,n}
++(s_1-s_2)F_{2,n}
++(s_2-s_3)F_{3,n}
+-e(n-r+1).
+}
+\tag{CR28ch}
+\]
+
+No recursive edge has been replaced by a base-edge choice. Taking the
+fixed-parameter limit in (CR28cg) gives the certified total coefficient
+
+\[
+\boxed{
+\begin{aligned}
+C_3={}&p(\alpha)
++(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_1)\\
+&+(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_2)
++(\beta_2-\beta_3)g(\alpha,\beta_3,\lambda_3).
+\end{aligned}
+}
+\tag{CR28ci}
+\]
+
+#### Exact reduction of the three ordered weights
+
+For fixed densities, each positive-length summand in (CR28ci) has the same
+strictly concave weight factor \(g_\beta\) as in (CR28bw1). Its unique
+clipped optimum is \(\psi_s(\beta)\) from (CR28bw2), where \(s=1+\alpha\).
+Because \(\psi_s\) is nondecreasing,
+
+\[
+\psi_s(\beta_3)\le\psi_s(\beta_2)\le\psi_s(\beta_1),
+\]
+
+so the three individual optima already satisfy the prescribed weight order.
+Termwise maximization gives an upper bound, and this ordered triple attains
+it. Hence the reduction is exact on the full compact closure:
+
+\[
+\boxed{
+\begin{aligned}
+\overline C_3={}&p(\alpha)
++(\alpha-\beta_1)\Phi_s(\beta_1)\\
+&+(\beta_1-\beta_2)\Phi_s(\beta_2)
++(\beta_2-\beta_3)\Phi_s(\beta_3),
+\end{aligned}
+}
+\tag{CR28cj}
+\]
+
+where \(\Phi_s\) is (CR28bw3). Thus there is no pooled interior KKT branch.
+The ten possible clipped regimes are
+
+\[
+000,\ M00,\ H00,\ MM0,\ HM0,\ HH0,
+\quad MMM,\ HMM,\ HHM,\ HHH.
+\]
+
+They include every transition \(\beta_i=s/4,s/3\). On a density-collision
+face, a zero-length segment makes its weight irrelevant and possibly
+nonunique, but the value reduction (CR28cj) remains exact. The only closure
+point at which (CR28bw1) loses strictness is
+\((\alpha,\beta)=(1,1)\), where the incident segment has zero length; it
+cannot affect uniqueness at the strict global point below.
+
+#### Compact-closure maximum
+
+For \(0\le\alpha\le1/3\), every cutoff satisfies
+\(\beta_i\le\alpha\le(1+\alpha)/4\), so all three residual terms vanish and
+\(\overline C_3=p(\alpha)\). Since
+\(p'(\alpha)=(1-2\alpha-\alpha^2)/2>0\) on this interval, its maximum there
+is \(p(1/3)=22/81\).
+
+Now suppose \(\alpha>1/3\), and put
+
+\[
+A=3\alpha-1>0.
+\]
+
+The active cutoffs form an initial prefix because the densities are ordered.
+For each active cutoff set
+\(X_i=4\beta_i-(1+\alpha)\); replace an inactive suffix by \(X_i=0\) and
+omit its zero terms. Then
+
+\[
+0\le X_3\le X_2\le X_1\le A.
+\]
+
+Using (CR28bw10) on every active term gives
+
+\[
+\overline C_3-p(\alpha)
+\le
+{(A-X_1)X_1^2+(X_1-X_2)X_2^2+(X_2-X_3)X_3^2\over8}.
+\tag{CR28ck}
+\]
+
+Set \(x=X_1/A\), \(y=X_2/A\), and \(z=X_3/A\). On the entire compact
+simplex \(0\le z\le y\le x\le1\), put
+
+\[
+f(x,y,z)
+=(1-x)x^2+(x-y)y^2+(y-z)z^2.
+\]
+
+The following exact identity proves the global maximum directly:
+
+\[
+\begin{aligned}
+{1119364\over4785507}-f(x,y,z)
+={}&{(1263x-1058)^2(1263x+529)\over2531533203}\\
+&+{(23y-18x)^2(23y+9x)\over14283}
++{(3z-2y)^2(3z+y)\over27}.
+\end{aligned}
+\tag{CR28cl}
+\]
+
+Every term on the right is nonnegative. Equality is possible only at
+
+\[
+\boxed{
+(x,y,z)
+=\left({1058\over1263},{276\over421},{184\over421}\right).
+}
+\tag{CR28cm}
+\]
+
+Thus the supplied normalized point is derived rather than assumed, and
+
+\[
+\max f={1119364\over4785507}
+={4\cdot529^2\over27\cdot421^2}.
+\]
+
+Equations (CR28ck)--(CR28cm) give the one-variable compact envelope
+
+\[
+\begin{aligned}
+E_3(\alpha)
+&=p(\alpha)+{529^2\over54\cdot421^2}(3\alpha-1)^3\\
+&={2980269\alpha^3-6170607\alpha^2
+       +3652038\alpha+657664\over4785507},
+\end{aligned}
+\tag{CR28cn}
+\]
+
+whose derivative is
+
+\[
+E_3'(\alpha)
+={993423\alpha^2-1371246\alpha+405782\over531723}.
+\]
+
+The two roots are
+
+\[
+\alpha_\pm
+={685623\mathbin\pm421\sqrt{377823}\over993423}.
+\]
+
+Writing \(Q\) for the derivative numerator,
+
+\[
+Q(1/3)={177241\over3}>0,
+\qquad
+Q(1/2)=-{125941\over4}<0,
+\qquad
+Q(1)=27959>0.
+\]
+
+Hence \(\alpha_-\in(1/3,1/2)\) is the first local maximum and
+\(\alpha_+\in(1/2,1)\) is a later local minimum. The latter cannot hide a
+larger endpoint value, because
+
+\[
+E_3(1/3)={22\over81},
+\qquad
+E_3(1)={1119364\over4785507},
+\qquad
+E_3(1/3)-E_3(1)={541210\over14356521}>0.
+\]
+
+Together with the derivative signs, this proves that the unique global
+maximizing density is
+
+\[
+\boxed{
+\alpha_*={685623-421\sqrt{377823}\over993423}.
+}
+\tag{CR28co}
+\]
+
+Let \(A_*=3\alpha_*-1\) and let \(x_i\) be the three coordinates in
+(CR28cm). Equality in the compact bound requires
+
+\[
+\beta_{i,*}={1+\alpha_*+x_iA_*\over4},
+\qquad
+\lambda_{i,*}=4-{1+\alpha_*\over\beta_{i,*}}
+={x_iA_*\over\beta_{i,*}}.
+\]
+
+Equivalently,
+
+\[
+\begin{aligned}
+\beta_{1,*}&={205+4437\alpha_*\over5052},&
+\lambda_{1,*}&={4232A_*\over205+4437\alpha_*},\\
+\beta_{2,*}&={145+1249\alpha_*\over1684},&
+\lambda_{2,*}&={1104A_*\over145+1249\alpha_*},\\
+\beta_{3,*}&={237+973\alpha_*\over1684},&
+\lambda_{3,*}&={736A_*\over237+973\alpha_*}.
+\end{aligned}
+\]
+
+Because \(1/3<\alpha_*<1/2\), one has
+\(0<X_3<X_2<X_1<A_*<(1+\alpha_*)/3\). Therefore
+
+\[
+{1+\alpha_*\over4}
+<\beta_{3,*}<\beta_{2,*}<\beta_{1,*}
+<\alpha_*<{1+\alpha_*\over3}.
+\]
+
+All three densities lie strictly in the middle clipped branch, all three
+segments are positive, and
+\(0<\lambda_{3,*}<\lambda_{2,*}<\lambda_{1,*}<1\). Consequently every
+inequality used in the envelope is an equality at this point. Conversely,
+equality in (CR28cl), in (CR28bw10), and in the one-variable envelope forces
+exactly these data. This also audits the full compact closure: inactive
+suffixes, density collisions, high branches, and weight-tetrahedron faces
+cannot tie the strict point; unused weights on zero-length faces merely give
+nonunique parametrizations of smaller values.
+
+The exact three-prefix template optimum is
+
+\[
+\boxed{
+C_{3,*}
+={753972193324+106042322\sqrt{377823}\over2960667770787}
+=0.2766786474619455709\ldots .
+}
+\tag{CR28cp}
+\]
+
+It satisfies
+
+\[
+79938029811249C_{3,*}^2
+-40714498439496C_{3,*}+5145490327924=0
+\]
+
+and the exact isolation
+
+\[
+{276678647461\over10^{12}}
+<C_{3,*}
+<{276678647462\over10^{12}}.
+\]
+
+The improvement over the two-prefix optimum is strict without comparing two
+different quadratic fields. Write the strict data in (CR28bw13) as
+\(\alpha_{2,*},\beta_{1,2,*},\beta_{2,2,*}\). Choose any
+\(\widetilde\beta_3\) with
+\[
+{1+\alpha_{2,*}\over4}
+<\widetilde\beta_3<\beta_{2,2,*}.
+\]
+Keeping the other two-prefix data, the ordered clipped choice adds the
+strictly positive term
+\((\beta_{2,2,*}-\widetilde\beta_3)
+\Phi_{1+\alpha_{2,*}}(\widetilde\beta_3)\). Thus
+\(C_{3,*}>C_{2,*}\). As an independent exact separator,
+
+\[
+C_{2,*}<{27663\over100000}<C_{3,*};
+\]
+
+after clearing the positive denominators, the two squared comparisons have
+respective positive differences
+
+\[
+121188964591535801,
+\qquad
+187552646082113657670204830039.
+\]
+
+Finally, the optimizer is strictly proof-valid, so the pointwise global
+comparison followed by the fixed-parameter limit in (CR28cg) gives
+
+\[
+\boxed{
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{3,*},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{3,*}\over\pi}.
+}
+\tag{CR28cq}
+\]
+
+No finite floor/ceiling rounding of this irrational optimizer is performed.
+The result is the optimum of the documented three-prefix template, not an
+exact block residual, a convergence theorem, an exact geometric leading
+coefficient, or a production-computation claim.
+
+Independent test-local exact arithmetic checks this proof without entering
+it. A bounded oracle exhausts all
+\(35\cdot36\cdot37=46{,}620\) literal depth-three histories from one
+\(n=59\) base cycle. It includes 70 distinct recursive second-step prefixes,
+occurring in 2,590 complete histories, plus 4,970 recursive third splits and
+all 70 fully nested third splits of the edge formed by the two earlier labels.
+Every history checks literal linkage, the one-use base
+map, every local floor, the combined weighted identity, the unused-slack
+partition, and the selected-prefix maximum. Further Fraction grids check
+the exact ordered-weight reduction, all ten clipped regimes, the compact
+density closure, and the factorization (CR28cl). Test-local
+\(\mathbb Q(\sqrt{377823})\) arithmetic verifies the optimizer, strict domain,
+coefficient, minimal polynomial, isolating interval, and strict comparison
+with \(C_{2,*}\), without calling production scorers, canonicalizers, or
+enumerators.
 
 ## 5. Exact Scorer Without Cycle Enumeration
 
@@ -4719,6 +5166,19 @@ Further non-consequences are important.
   the explicit \(n\ge59\) theorem because finite rounding of the irrational
   optimizer is outside this task. Neither number is an exact residual,
   limit, or geometric leading constant.
+- The three-prefix extension (CR28cd)--(CR28cq) combines all three heights
+  before charging and retains the same one-use base-slack partition through
+  every nested child edge. The clipped individual weights are automatically
+  ordered. The exact compact-simplex factorization proves the predicted
+  normalized point uniquely, and the complete closure audit gives
+  \[
+  C_{3,*}
+  ={753972193324+106042322\sqrt{377823}\over2960667770787}
+  >C_{2,*}.
+  \]
+  This updates the asymptotic lower coefficient without finite rounding of
+  the irrational optimizer or any exact residual, convergence, production,
+  or geometric-leading-constant claim.
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality
   of minimizing order sets, or \(\Lambda_n=(n-1)W_n\). The exact global
   relation proved here is the one-sided inequality (CR38b).

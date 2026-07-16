@@ -2774,6 +2774,641 @@ def test_two_prefix_rational_witness_finite_bounds_are_exact() -> None:
     assert residual_signs == {326: -1, 327: 1}
 
 
+def test_three_prefix_weight_region_is_exact_on_rational_grid() -> None:
+    """Check the four convex coefficients defining the ordered tetrahedron."""
+    weights = tuple(Fraction(numerator, 4) for numerator in range(-1, 6))
+    heights = tuple(Fraction(value) for value in (-1, 0, 1))
+
+    for weight_high in weights:
+        for weight_middle in weights:
+            for weight_low in weights:
+                holds = all(
+                    max(0, high, middle, low)
+                    >= (weight_high - weight_middle) * high
+                    + (weight_middle - weight_low) * middle
+                    + weight_low * low
+                    for high in heights
+                    for middle in heights
+                    for low in heights
+                )
+                expected = (
+                    0 <= weight_low <= weight_middle <= weight_high <= 1
+                )
+                assert holds is expected
+
+
+def test_three_prefix_all_depth_three_literal_histories_are_exact() -> None:
+    """Exhaust base and recursive splits through both segment boundaries."""
+    n, r = 59, 25
+    cutoff_high, cutoff_middle, cutoff_low = 24, 23, 22
+    weight_high = Fraction(1, 2)
+    weight_middle = Fraction(3, 8)
+    weight_low = Fraction(1, 4)
+    center = n + r
+    base = _alternating_tail_cycle_oracle(r - 1, n)
+    base_edges = set(_undirected_cycle_edge_signature(base))
+    base_score = _cyclic_product_sum(base)
+    pairing_floor = sum(
+        label * (center - label) for label in range(r, n + 1)
+    )
+    assert 2 * (base_score - pairing_floor) == sum(
+        (left + right - center) ** 2 for left, right in base_edges
+    )
+
+    def base_floor(weight: Fraction, label: int) -> Fraction:
+        return weight * (
+            4 * center * label
+            - center * center
+            - 2 * weight * label * label
+        ) / (2 * (2 - weight))
+
+    def recursive_floor(weight: Fraction, label: int) -> Fraction:
+        return weight * ((center - 1) * label - n * (r - 1))
+
+    floor_high = base_floor(weight_high, cutoff_high)
+    floor_middle = base_floor(weight_middle, cutoff_middle)
+    floor_low = base_floor(weight_low, cutoff_low)
+    assert (floor_high, floor_middle, floor_low) == (
+        Fraction(72),
+        Fraction(3303, 104),
+        Fraction(47, 7),
+    )
+    assert (
+        recursive_floor(weight_high, cutoff_high),
+        recursive_floor(weight_middle, cutoff_middle),
+        recursive_floor(weight_low, cutoff_low),
+    ) == (Fraction(288), Fraction(1479, 8), Fraction(205, 2))
+
+    final_cycles: set[tuple[int, ...]] = set()
+    history_count = 0
+    recursive_second_prefix_count = 0
+    recursive_second_history_count = 0
+    recursive_third_count = 0
+    fully_nested_third_count = 0
+
+    for first_position, first_left in enumerate(base):
+        first_right = base[(first_position + 1) % len(base)]
+        first_edge = tuple(sorted((first_left, first_right)))
+        first_correction = cutoff_high * (first_left + first_right) - (
+            first_left * first_right
+        )
+        first_contribution = Fraction(
+            (first_left + first_right - center) ** 2,
+            2,
+        ) + weight_high * first_correction
+        assert first_contribution >= floor_high
+        first_cycle = _split_cycle_edge_oracle(
+            base,
+            first_position,
+            cutoff_high,
+        )
+
+        for second_position, second_left in enumerate(first_cycle):
+            second_right = first_cycle[(second_position + 1) % len(first_cycle)]
+            second_edge = tuple(sorted((second_left, second_right)))
+            second_correction = cutoff_middle * (
+                second_left + second_right
+            ) - second_left * second_right
+            used_after_second = {first_edge}
+
+            if second_edge in base_edges:
+                assert second_edge not in used_after_second
+                used_after_second.add(second_edge)
+                second_contribution = Fraction(
+                    (second_left + second_right - center) ** 2,
+                    2,
+                ) + weight_middle * second_correction
+            else:
+                recursive_second_prefix_count += 1
+                assert cutoff_high in second_edge
+                assert second_correction >= recursive_floor(
+                    weight_middle,
+                    cutoff_middle,
+                ) / weight_middle
+                second_contribution = weight_middle * second_correction
+            assert second_contribution >= floor_middle
+            second_cycle = _split_cycle_edge_oracle(
+                first_cycle,
+                second_position,
+                cutoff_middle,
+            )
+
+            for third_position, third_left in enumerate(second_cycle):
+                if second_edge not in base_edges:
+                    recursive_second_history_count += 1
+                third_right = second_cycle[
+                    (third_position + 1) % len(second_cycle)
+                ]
+                third_edge = tuple(sorted((third_left, third_right)))
+                third_correction = cutoff_low * (
+                    third_left + third_right
+                ) - third_left * third_right
+                used_base_edges = set(used_after_second)
+
+                if third_edge in base_edges:
+                    assert third_edge not in used_base_edges
+                    used_base_edges.add(third_edge)
+                    third_contribution = Fraction(
+                        (third_left + third_right - center) ** 2,
+                        2,
+                    ) + weight_low * third_correction
+                else:
+                    recursive_third_count += 1
+                    assert min(third_edge) < r
+                    if set(third_edge) == {cutoff_high, cutoff_middle}:
+                        fully_nested_third_count += 1
+                    assert third_correction >= recursive_floor(
+                        weight_low,
+                        cutoff_low,
+                    ) / weight_low
+                    third_contribution = weight_low * third_correction
+                assert third_contribution >= floor_low
+
+                final_cycle = _split_cycle_edge_oracle(
+                    second_cycle,
+                    third_position,
+                    cutoff_low,
+                )
+                assert final_cycle not in final_cycles
+                final_cycles.add(final_cycle)
+                assert _is_loopless_spanning_cycle_signature(
+                    _undirected_cycle_edge_signature(final_cycle),
+                    tuple(range(cutoff_low, n + 1)),
+                )
+
+                selected_high = first_correction
+                selected_middle = first_correction + second_correction
+                selected_low = selected_middle + third_correction
+                prescribed_linear_form = (
+                    (weight_high - weight_middle) * selected_high
+                    + (weight_middle - weight_low) * selected_middle
+                    + weight_low * selected_low
+                )
+                assert prescribed_linear_form == (
+                    weight_high * first_correction
+                    + weight_middle * second_correction
+                    + weight_low * third_correction
+                )
+
+                unused_slack = Fraction(
+                    sum(
+                        (left + right - center) ** 2
+                        for left, right in base_edges - used_base_edges
+                    ),
+                    2,
+                )
+                local_sum = (
+                    first_contribution
+                    + second_contribution
+                    + third_contribution
+                )
+                weighted_excess = (
+                    base_score - pairing_floor + prescribed_linear_form
+                )
+                selected_excess = base_score - pairing_floor + max(
+                    0,
+                    selected_high,
+                    selected_middle,
+                    selected_low,
+                )
+                assert weighted_excess == local_sum + unused_slack
+                assert local_sum >= floor_high + floor_middle + floor_low
+                assert selected_excess >= weighted_excess
+                history_count += 1
+
+    assert history_count == len(base) * (len(base) + 1) * (len(base) + 2)
+    assert history_count == 46_620
+    assert len(final_cycles) == history_count
+    assert recursive_second_prefix_count == 70
+    assert recursive_second_history_count == 2_590
+    assert recursive_third_count == 4_970
+    assert fully_nested_third_count == 70
+
+
+def test_three_separately_charged_prefixes_overdraw_base_slack() -> None:
+    """Record why three copies of the one-prefix charging are invalid."""
+    center = 84
+    left, right = 25, 42
+    label = 24
+    weight_high = Fraction(1, 2)
+    weight_middle = Fraction(3, 8)
+    weight_low = Fraction(1, 4)
+    height_coefficients = (
+        weight_high - weight_middle,
+        weight_middle - weight_low,
+        weight_low,
+    )
+    correction = label * (left + right) - left * right
+    edge_slack = Fraction((left + right - center) ** 2, 2)
+    separately_charged = sum(
+        edge_slack + coefficient * correction
+        for coefficient in height_coefficients
+    )
+    assert sum(height_coefficients) == weight_high
+    combined_once = edge_slack + weight_high * correction
+
+    assert edge_slack == Fraction(289, 2)
+    assert separately_charged - combined_once == 2 * edge_slack == 289
+
+
+def test_three_prefix_global_lambda_reduction_is_exact_on_rational_grid() -> None:
+    def local_floor(
+        alpha: Fraction,
+        beta: Fraction,
+        weight: Fraction,
+    ) -> Fraction:
+        center = 1 + alpha
+        return weight * (
+            4 * center * beta
+            - center * center
+            - 2 * weight * beta * beta
+        ) / (2 * (2 - weight))
+
+    def optimal_weight(alpha: Fraction, beta: Fraction) -> Fraction:
+        center = 1 + alpha
+        if 4 * beta <= center:
+            return Fraction(0)
+        if 3 * beta >= center:
+            return Fraction(1)
+        return 4 - center / beta
+
+    def reduced_floor(alpha: Fraction, beta: Fraction) -> Fraction:
+        center = 1 + alpha
+        if 4 * beta <= center:
+            return Fraction(0)
+        if 3 * beta <= center:
+            return Fraction((4 * beta - center) ** 2, 2)
+        return (
+            4 * center * beta - center * center - 2 * beta * beta
+        ) / 2
+
+    def branch(weight: Fraction) -> str:
+        if weight == 0:
+            return "0"
+        if weight == 1:
+            return "H"
+        return "M"
+
+    branch_triples: set[str] = set()
+    denominator = 16
+    weight_denominator = 4
+    for alpha_numerator in range(4, denominator):
+        alpha = Fraction(alpha_numerator, denominator)
+        for beta_high_numerator in range(3, alpha_numerator):
+            beta_high = Fraction(beta_high_numerator, denominator)
+            for beta_middle_numerator in range(2, beta_high_numerator):
+                beta_middle = Fraction(beta_middle_numerator, denominator)
+                for beta_low_numerator in range(1, beta_middle_numerator):
+                    beta_low = Fraction(beta_low_numerator, denominator)
+                    betas = (beta_high, beta_middle, beta_low)
+                    weights = tuple(
+                        optimal_weight(alpha, beta) for beta in betas
+                    )
+                    assert 0 <= weights[2] <= weights[1] <= weights[0] <= 1
+                    assert all(
+                        local_floor(alpha, beta, weight)
+                        == reduced_floor(alpha, beta)
+                        for beta, weight in zip(betas, weights, strict=True)
+                    )
+                    branch_triples.add("".join(branch(weight) for weight in weights))
+
+                    lengths = (
+                        alpha - beta_high,
+                        beta_high - beta_middle,
+                        beta_middle - beta_low,
+                    )
+                    optimum = sum(
+                        length * reduced_floor(alpha, beta)
+                        for length, beta in zip(lengths, betas, strict=True)
+                    )
+                    for high_numerator in range(weight_denominator + 1):
+                        trial_high = Fraction(
+                            high_numerator,
+                            weight_denominator,
+                        )
+                        for middle_numerator in range(high_numerator + 1):
+                            trial_middle = Fraction(
+                                middle_numerator,
+                                weight_denominator,
+                            )
+                            for low_numerator in range(middle_numerator + 1):
+                                trial_low = Fraction(
+                                    low_numerator,
+                                    weight_denominator,
+                                )
+                                trial_weights = (
+                                    trial_high,
+                                    trial_middle,
+                                    trial_low,
+                                )
+                                trial = sum(
+                                    length
+                                    * local_floor(alpha, beta, weight)
+                                    for length, beta, weight in zip(
+                                        lengths,
+                                        betas,
+                                        trial_weights,
+                                        strict=True,
+                                    )
+                                )
+                                assert trial <= optimum
+
+    assert branch_triples == {
+        "000",
+        "M00",
+        "H00",
+        "MM0",
+        "HM0",
+        "HH0",
+        "MMM",
+        "HMM",
+        "HHM",
+        "HHH",
+    }
+
+
+def test_three_prefix_global_simplex_factorization_is_exact() -> None:
+    maximum = Fraction(1_119_364, 4_785_507)
+
+    def objective(
+        high: Fraction,
+        middle: Fraction,
+        low: Fraction,
+    ) -> Fraction:
+        return (
+            (1 - high) * high**2
+            + (high - middle) * middle**2
+            + (middle - low) * low**2
+        )
+
+    def remainders(
+        high: Fraction,
+        middle: Fraction,
+        low: Fraction,
+    ) -> tuple[Fraction, Fraction, Fraction]:
+        outer = (
+            (1263 * high - 1058) ** 2 * (1263 * high + 529)
+        ) / 2_531_533_203
+        central = (
+            (23 * middle - 18 * high) ** 2
+            * (23 * middle + 9 * high)
+        ) / 14_283
+        inner = (
+            (3 * low - 2 * middle) ** 2 * (3 * low + middle)
+        ) / 27
+        return (outer, central, inner)
+
+    denominator = 18
+    for high_numerator in range(denominator + 1):
+        high = Fraction(high_numerator, denominator)
+        for middle_numerator in range(high_numerator + 1):
+            middle = Fraction(middle_numerator, denominator)
+            for low_numerator in range(middle_numerator + 1):
+                low = Fraction(low_numerator, denominator)
+                residuals = remainders(high, middle, low)
+                assert all(residual >= 0 for residual in residuals)
+                assert maximum - objective(high, middle, low) == sum(residuals)
+
+    candidate = (
+        Fraction(1058, 1263),
+        Fraction(276, 421),
+        Fraction(184, 421),
+    )
+    assert remainders(*candidate) == (Fraction(0),) * 3
+    assert objective(*candidate) == maximum
+    assert candidate[2] == Fraction(2, 3) * candidate[1]
+    assert candidate[1] == Fraction(18, 23) * candidate[0]
+
+
+def test_three_prefix_global_compact_closure_grid_is_exact() -> None:
+    exact_coefficient = _quadratic_pair(
+        Fraction(753972193324, 2960667770787),
+        Fraction(106042322, 2960667770787),
+    )
+    residual_factor = Fraction(279841, 9571014)
+
+    def reduced_floor(alpha: Fraction, beta: Fraction) -> Fraction:
+        center = 1 + alpha
+        if 4 * beta <= center:
+            return Fraction(0)
+        if 3 * beta <= center:
+            return Fraction((4 * beta - center) ** 2, 2)
+        return (
+            4 * center * beta - center * center - 2 * beta * beta
+        ) / 2
+
+    denominator = 16
+    for alpha_numerator in range(denominator + 1):
+        alpha = Fraction(alpha_numerator, denominator)
+        pairing = (1 - alpha) * (alpha**2 + 4 * alpha + 1) / 6
+        for beta_high_numerator in range(alpha_numerator + 1):
+            beta_high = Fraction(beta_high_numerator, denominator)
+            for beta_middle_numerator in range(beta_high_numerator + 1):
+                beta_middle = Fraction(beta_middle_numerator, denominator)
+                for beta_low_numerator in range(beta_middle_numerator + 1):
+                    beta_low = Fraction(beta_low_numerator, denominator)
+                    coefficient = (
+                        pairing
+                        + (alpha - beta_high)
+                        * reduced_floor(alpha, beta_high)
+                        + (beta_high - beta_middle)
+                        * reduced_floor(alpha, beta_middle)
+                        + (beta_middle - beta_low)
+                        * reduced_floor(alpha, beta_low)
+                    )
+                    if alpha <= Fraction(1, 3):
+                        upper_bound = pairing
+                        assert coefficient == pairing
+                    else:
+                        upper_bound = pairing + residual_factor * (
+                            3 * alpha - 1
+                        ) ** 3
+                    assert coefficient <= upper_bound
+                    assert (
+                        _quadratic_pair_sign(
+                            _quadratic_pair_subtract(
+                                exact_coefficient,
+                                _quadratic_pair(coefficient),
+                            ),
+                            radicand=377823,
+                        )
+                        > 0
+                    )
+
+
+def test_three_prefix_global_quadratic_surd_candidate_is_exact() -> None:
+    radicand = 377823
+    zero = _quadratic_pair()
+    one = _quadratic_pair(1)
+
+    def add(left: _QuadraticPair, right: _QuadraticPair) -> _QuadraticPair:
+        return _quadratic_pair_add(left, right)
+
+    def subtract(
+        left: _QuadraticPair,
+        right: _QuadraticPair,
+    ) -> _QuadraticPair:
+        return _quadratic_pair_subtract(left, right)
+
+    def multiply(
+        left: _QuadraticPair,
+        right: _QuadraticPair,
+    ) -> _QuadraticPair:
+        return _quadratic_pair_multiply(
+            left,
+            right,
+            radicand=radicand,
+        )
+
+    def scale(
+        value: _QuadraticPair,
+        factor: int | Fraction,
+    ) -> _QuadraticPair:
+        return _quadratic_pair_scale(value, factor)
+
+    def divide(
+        numerator: _QuadraticPair,
+        denominator: _QuadraticPair,
+    ) -> _QuadraticPair:
+        return _quadratic_pair_divide(
+            numerator,
+            denominator,
+            radicand=radicand,
+        )
+
+    def sign(value: _QuadraticPair) -> int:
+        return _quadratic_pair_sign(value, radicand=radicand)
+
+    alpha = _quadratic_pair(
+        Fraction(685623, 993423),
+        Fraction(-421, 993423),
+    )
+    alpha_square = multiply(alpha, alpha)
+    assert add(
+        add(scale(alpha_square, 993423), scale(alpha, -1371246)),
+        _quadratic_pair(405782),
+    ) == zero
+    assert sign(subtract(alpha, _quadratic_pair(Fraction(1, 3)))) > 0
+    assert sign(subtract(_quadratic_pair(Fraction(1, 2)), alpha)) > 0
+
+    center = add(one, alpha)
+    span = subtract(scale(alpha, 3), one)
+    ratios = (
+        Fraction(1058, 1263),
+        Fraction(276, 421),
+        Fraction(184, 421),
+    )
+    raw_values = tuple(scale(span, ratio) for ratio in ratios)
+    betas = tuple(
+        scale(add(center, raw_value), Fraction(1, 4))
+        for raw_value in raw_values
+    )
+    weights = tuple(
+        divide(raw_value, beta)
+        for raw_value, beta in zip(raw_values, betas, strict=True)
+    )
+    beta_high, beta_middle, beta_low = betas
+    weight_high, weight_middle, weight_low = weights
+
+    for positive in (
+        beta_low,
+        subtract(beta_middle, beta_low),
+        subtract(beta_high, beta_middle),
+        subtract(alpha, beta_high),
+        weight_low,
+        subtract(weight_middle, weight_low),
+        subtract(weight_high, weight_middle),
+        subtract(one, weight_high),
+    ):
+        assert sign(positive) > 0
+    for beta, weight, raw_value in zip(
+        betas,
+        weights,
+        raw_values,
+        strict=True,
+    ):
+        assert sign(subtract(scale(beta, 4), center)) > 0
+        assert sign(subtract(center, scale(beta, 3))) > 0
+        assert multiply(weight, beta) == raw_value
+
+    def local_floor(
+        beta: _QuadraticPair,
+        weight: _QuadraticPair,
+    ) -> _QuadraticPair:
+        bracket = subtract(
+            subtract(
+                scale(multiply(center, beta), 4),
+                multiply(center, center),
+            ),
+            scale(multiply(weight, multiply(beta, beta)), 2),
+        )
+        return divide(
+            multiply(weight, bracket),
+            scale(subtract(_quadratic_pair(2), weight), 2),
+        )
+
+    pairing = scale(
+        multiply(
+            subtract(one, alpha),
+            add(
+                add(multiply(alpha, alpha), scale(alpha, 4)),
+                one,
+            ),
+        ),
+        Fraction(1, 6),
+    )
+    coefficient = add(
+        pairing,
+        add(
+            multiply(
+                subtract(alpha, beta_high),
+                local_floor(beta_high, weight_high),
+            ),
+            add(
+                multiply(
+                    subtract(beta_high, beta_middle),
+                    local_floor(beta_middle, weight_middle),
+                ),
+                multiply(
+                    subtract(beta_middle, beta_low),
+                    local_floor(beta_low, weight_low),
+                ),
+            ),
+        ),
+    )
+    expected = _quadratic_pair(
+        Fraction(753972193324, 2960667770787),
+        Fraction(106042322, 2960667770787),
+    )
+    assert coefficient == expected
+    assert add(
+        add(
+            scale(multiply(coefficient, coefficient), 79938029811249),
+            scale(coefficient, -40714498439496),
+        ),
+        _quadratic_pair(5145490327924),
+    ) == zero
+
+    lower = Fraction(276678647461, 10**12)
+    upper = Fraction(276678647462, 10**12)
+    assert sign(subtract(coefficient, _quadratic_pair(lower))) > 0
+    assert sign(subtract(_quadratic_pair(upper), coefficient)) > 0
+
+    separator = Fraction(27663, 100000)
+    prior = _quadratic_pair(
+        Fraction(491596, 2061723),
+        Fraction(6578, 2061723),
+    )
+    assert sign(subtract(coefficient, _quadratic_pair(separator))) > 0
+    assert (
+        _quadratic_pair_sign(
+            _quadratic_pair_subtract(_quadratic_pair(separator), prior),
+            radicand=143,
+        )
+        > 0
+    )
+
+
 @pytest.mark.parametrize(
     ("weight", "expected_admissible"),
     (

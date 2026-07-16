@@ -643,6 +643,61 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \]
   This task derives no finite floor/ceiling rounding theorem for the
   irrational optimizer.
+- EXACT METHOD-SPECIFIC THEOREM (THREE SELECTED PREFIXES): let
+  \(0<\beta_3<\beta_2<\beta_1<\alpha<1\) and
+  \(0\le\lambda_3\le\lambda_2\le\lambda_1\le1\). Combining the three
+  selected heights before assigning slack gives one weight on each disjoint
+  split segment. A single partition of the quadratic base-slack pool charges
+  every original edge at most once. Every recursive current edge retains a
+  previously inserted endpoint, including fully nested histories crossing
+  both segment boundaries. Therefore
+  \[
+  C_3=p(\alpha)
+  +(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_1)
+  +(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_2)
+  +(\beta_2-\beta_3)g(\alpha,\beta_3,\lambda_3).
+  \]
+- EXACT TEMPLATE OPTIMIZATION (GLOBAL THREE-PREFIX COMPACT CLOSURE): the
+  three clipped individual weight optima are automatically ordered, so no
+  pooled KKT branch occurs. The ten clipped regimes, all transition faces,
+  density collisions, and weight faces are covered by the exact reduction.
+  For \(A=3\alpha-1\) and \(X_i=4\beta_i-(1+\alpha)\), the normalized
+  compact-simplex maximum is unique at
+  \[
+  \left({X_1\over A},{X_2\over A},{X_3\over A}\right)
+  =
+  \left({1058\over1263},{276\over421},{184\over421}\right).
+  \]
+  The remaining envelope has the unique global maximizing density
+  \[
+  \alpha_*={685623-421\sqrt{377823}\over993423},
+  \]
+  and all three densities and weights are strictly ordered in the middle
+  clipped branch. The exact template-optimal coefficient is
+  \[
+  C_{3,*}
+  ={753972193324+106042322\sqrt{377823}\over2960667770787}
+  =0.276678647461945\ldots .
+  \]
+  It is the root in
+  \[
+  {276678647461\over10^{12}}
+  <C_{3,*}
+  <{276678647462\over10^{12}}
+  \]
+  of
+  \(79938029811249z^2-40714498439496z+5145490327924\).
+  Exact extension of the strict two-prefix optimizer by one active cutoff
+  proves \(C_{3,*}>C_{2,*}\).
+- EXACT ASYMPTOTIC LOWER COROLLARY (GLOBAL THREE-PREFIX TEMPLATE):
+  \[
+  \liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{3,*},
+  \qquad
+  \liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{3,*}\over\pi}.
+  \]
+  No finite floor/ceiling rounding theorem for this irrational optimizer is
+  derived, and the coefficient is not an exact residual, limit, or geometric
+  leading coefficient.
 - EXACT GLOBAL LOWER COROLLARY (TWO-PREFIX RATIONAL WITNESS): at
   \[
   (\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})
@@ -675,8 +730,8 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \]
   The separate residual lower polynomial is positive for \(n\ge327\).
   This remains the current explicit finite-\(n\) specialization. It is below
-  \(C_{2,*}\), and no exact residual, convergence, exact leading coefficient,
-  production, artifact, or certificate claim follows.
+  \(C_{2,*}<C_{3,*}\), and no exact residual, convergence, exact leading
+  coefficient, production, artifact, or certificate claim follows.
 - EXACT GEOMETRIC COROLLARY: the strict global cyclic-ratio sandwich gives
   \[
   R_2^*(n)>{\beta_n^{(2)}\over\pi}-n^2
@@ -750,11 +805,24 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \((18/23,12/23)\), and every point of a denominator-32 compact-closure
   grid. These checks use no production scorer, canonicalizer, enumerator,
   floating-point premise, or enumeration-limit change.
+- VERIFIED FACT (BOUNDED EXACT TEST-LOCAL DIAGNOSTIC): a test-local rational
+  oracle exhausts all \(35\cdot36\cdot37=46{,}620\) literal depth-three
+  histories from one \(n=59\) base cycle, including 70 distinct recursive
+  second-step prefixes (2,590 full-history occurrences), 4,970 recursive
+  third splits, and 70 fully nested third splits of
+  the edge formed by the two earlier labels. It verifies one-use slack,
+  literal linkage, every local floor, the combined weighted identity, and
+  the selected-prefix maximum. Separate exact grids check the ordered-weight
+  reduction, all ten clipped regimes, the compact closure, and the unique
+  simplex factorization. Test-local \(\mathbb Q(\sqrt{377823})\) arithmetic
+  verifies the optimizer, strict domain, coefficient polynomial, rational
+  isolation, and \(C_{3,*}>C_{2,*}\). These paths use no production scorer,
+  canonicalizer, enumerator, floating-point premise, or limit change.
 - EXACT THEOREM: the additive relation transfers normalized asymptotics:
   \(\Lambda_n=\pi R_2^*(n)+O(n^2)=\Theta(n^3)\),
   \(\Lambda_n/(\pi R_2^*(n))\to1\), and
   \[
-  {491596+6578\sqrt{143}\over2061723}
+  {753972193324+106042322\sqrt{377823}\over2960667770787}
   \le\liminf{\Lambda_n\over n^3}
   \le\limsup{\Lambda_n\over n^3}
   \le{8\over25}.
@@ -986,9 +1054,14 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \[
   {491596+6578\sqrt{143}\over2061723\pi}.
   \]
-  The optimizer is exact and unique inside that five-parameter template; the
+  The globally optimized three-prefix template raises it again to
+  \[
+  {753972193324+106042322\sqrt{377823}
+   \over2960667770787\pi}.
+  \]
+  Both optimizers are exact and unique inside their respective templates; the
   older rational witness remains the explicit finite-\(n\) theorem. The exact
-  block residual, finite rounding at the irrational optimizer, convergence,
+  block residual, finite rounding at either irrational optimizer, convergence,
   and the exact global leading coefficient remain unresolved.
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
@@ -1616,7 +1689,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   nested-child diagnostics, exact ordered-weight reduction, all six density
   branches and transitions, complete compact-face/collision audit, and the
   unique global CR28bw optimizer with its
-  \(\mathbb Q(\sqrt{143})\) coefficient.
+  \(\mathbb Q(\sqrt{143})\) coefficient, plus the three-prefix extension,
+  one-use charging through both boundaries and every recursive split,
+  automatic reduction of all three ordered weights, the exact compact-simplex
+  factorization, the unique global optimizer, and its
+  \(\mathbb Q(\sqrt{377823})\) coefficient.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -1646,8 +1723,20 @@ Candidate-set extraction uses the following finite-certificate semantics.
   (CR28bw13) with coefficient
   \((491596+6578\sqrt{143})/2061723\). Independent rational and quadratic-surd
   diagnostics corroborate the proof without production or limit changes.
+- COMPLETED PRIORITY: the three-prefix extension combines all three heights
+  before charging, uses the base-slack pool once, retains every recursive
+  child edge, reduces all ordered weights through their clipped individual
+  optima, and proves the unique compact-closure coefficient
+  \[
+  C_{3,*}
+  ={753972193324+106042322\sqrt{377823}\over2960667770787}
+  >C_{2,*}.
+  \]
+  Independent rational and quadratic-surd diagnostics cover all 46,620
+  depth-three histories from the bounded base and the exact global algebra
+  without production or limit changes.
 - RECOMMENDED NEXT TASK: in a fresh STRICT task, derive an explicit finite
-  floor/ceiling theorem for the irrational CR28bw optimizer, including a
+  floor/ceiling theorem for the irrational three-prefix optimizer, including a
   minimal or rigorously sufficient uniform threshold, without changing
   production, artifacts, schemas, backends, or enumeration limits.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
@@ -1656,8 +1745,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   active-subsystem description or settle `n<=11`.
 - OPEN QUESTION: can the upper coefficient \(8/(25\pi)\) be lowered toward
   the current lower coefficient
-  \((491596+6578\sqrt{143})/(2061723\pi)\), while retaining a symbolic
-  all-pairs proof?
+  \[
+  {753972193324+106042322\sqrt{377823}
+   \over2960667770787\pi},
+  \]
+  while retaining a symbolic all-pairs proof?
 - RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
 
 ## Proof Obligations And Limitations
@@ -1672,7 +1764,7 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: no exact geometric optimum value \(R_2^*(n)\) has been proved
   in this repository; the exact all-\(n\) classification of the combinatorial
   surrogate \(W_n\) is a different statement.
-- LIMITATION: no upper bound matching the current two-prefix linear-block lower
+- LIMITATION: no upper bound matching the current three-prefix linear-block lower
   coefficient has been proved in this repository.
 - LIMITATION: the later indices \(n\ge94\) with strict distance-two/full
   minimizer inclusion have not been classified.
@@ -1681,10 +1773,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: the uniform consecutive-tail comparison classifies every
   sublinear block length. The one-prefix CR28ax--CR28bg specialization is
   jointly optimized over all constant densities, and CR28bw is now globally
-  optimized over all five two-prefix parameters. Finite rounding at the
-  irrational optimizer, the exact residual and exact leading coefficient of
-  the selected block, and linear-density methods outside this template remain
-  unclassified.
+  optimized over all five two-prefix parameters. The three-prefix extension
+  is globally optimized over its seven parameters on the compact closure.
+  Finite rounding at either irrational optimizer, the exact residual and exact
+  leading coefficient of the selected block, and linear-density methods
+  outside these templates remain unclassified.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.
 - LIMITATION: the sufficient radius-one threshold `12` is not known to be
   minimal, and the exact equality question remains open for `n<=11`.

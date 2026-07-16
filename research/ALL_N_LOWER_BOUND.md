@@ -123,6 +123,40 @@ Last updated: 2026-07-16
   \liminf{R_2^*(n)\over n^3}\ge{C_{2,*}\over\pi}.
   \]
   No finite rounding theorem for this irrational optimizer is asserted.
+- EXACT THEOREM (globally optimized three-prefix linear-block refinement):
+  combine the three selected heights before assigning any edge slack, with
+  \[
+  0<\beta_3<\beta_2<\beta_1<\alpha<1,
+  \qquad
+  0\le\lambda_3\le\lambda_2\le\lambda_1\le1.
+  \]
+  One global partition then uses every original base-edge slack at most once
+  and covers every recursive child edge, including fully nested histories
+  across both segment boundaries. The three clipped individual weight optima
+  are automatically ordered. Exact optimization on the full compact closure
+  gives
+  \[
+  {X_1\over A}={1058\over1263},
+  \qquad
+  {X_2\over A}={276\over421},
+  \qquad
+  {X_3\over A}={184\over421},
+  \]
+  where \(A=3\alpha-1\) and \(X_i=4\beta_i-(1+\alpha)\), and the unique
+  template-optimal coefficient is
+  \[
+  C_{3,*}
+  ={753972193324+106042322\sqrt{377823}\over2960667770787}
+  =0.276678647461945\ldots>C_{2,*}.
+  \]
+  Hence
+  \[
+  \liminf{\Lambda_n\over n^3}\ge C_{3,*},
+  \qquad
+  \liminf{R_2^*(n)\over n^3}\ge{C_{3,*}\over\pi}.
+  \]
+  No finite floor/ceiling rounding theorem for this irrational optimizer is
+  asserted.
 - EXACT FINITE THEOREM (two-prefix rational specialization): with
   \[
   r_n=\left\lfloor{3n\over7}\right\rfloor,
@@ -225,8 +259,12 @@ its separate exact analysis proves the same leading coefficient. The jointly
 optimized one-prefix linear block first improves the global lower coefficient
 to \((4+2\sqrt3)/(27\pi)\), and the globally optimized two-prefix CR28bw
 template improves it again to
-\((491596+6578\sqrt{143})/(2061723\pi)\). None of these lower-bound results is
-an upper
+\((491596+6578\sqrt{143})/(2061723\pi)\). The globally optimized
+three-prefix template raises it further to
+\[
+{753972193324+106042322\sqrt{377823}\over2960667770787\pi}.
+\]
+None of these lower-bound results is an upper
 bound on the true problem. The order-independent regular-core baseline has
 upper coefficient \(1/\pi\), the zigzag refinement gives \(1/(2\pi)\), and
 the later product-distance construction sharpens the current upper
@@ -1004,6 +1042,68 @@ This is the globally optimized CR28bw coefficient, not an exact geometric
 leading constant. No finite rounding theorem for these irrational densities
 is asserted here.
 
+### Global Consequence And Optimization Of Three Selected Prefixes
+
+For three heights \(H_1,H_2,H_3\), the exact ordered-weight step is
+\[
+\max(0,H_1,H_2,H_3)
+\ge
+(\lambda_1-\lambda_2)H_1
++(\lambda_2-\lambda_3)H_2+\lambda_3H_3.
+\]
+Expanding this expression before charging assigns one weight to each of the
+three disjoint split segments. The proof in
+research/FIXED_ORDER_CYCLE_RATIO.md then partitions the original
+base-slack pool once across all three segments. Every recursive edge retains
+a previously inserted endpoint, even after crossing both boundaries or when
+both endpoints were inserted earlier.
+
+The three clipped individual weight optima are automatically ordered, so the
+exact reduced coefficient is
+\[
+\overline C_3
+=p(\alpha)+(\alpha-\beta_1)\Phi_s(\beta_1)
++(\beta_1-\beta_2)\Phi_s(\beta_2)
++(\beta_2-\beta_3)\Phi_s(\beta_3).
+\]
+For \(A=3\alpha-1\) and \(X_i=4\beta_i-(1+\alpha)\), the exact compact
+simplex factorization has its unique equality point at
+\[
+\left({X_1\over A},{X_2\over A},{X_3\over A}\right)
+=
+\left({1058\over1263},{276\over421},{184\over421}\right).
+\]
+The resulting one-variable envelope is
+\[
+E_3(\alpha)
+=p(\alpha)+{279841\over9571014}(3\alpha-1)^3,
+\]
+and its unique global maximum occurs at
+\[
+\alpha_*={685623-421\sqrt{377823}\over993423}.
+\]
+Every density and weight is strictly ordered and lies in the middle clipped
+branch at this point. Therefore the compact upper bound is attained and
+\[
+\boxed{
+C_{3,*}
+={753972193324+106042322\sqrt{377823}\over2960667770787}
+>C_{2,*}.
+}
+\]
+Consequently
+\[
+\boxed{
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\ge
+{753972193324+106042322\sqrt{377823}
+ \over2960667770787\pi}.
+}
+\]
+This is a three-prefix template optimum. No finite floor/ceiling rounding,
+exact block residual, convergence, or exact geometric leading constant is
+claimed.
+
 For
 \[
 r_n=\left\lfloor{3n\over7}\right\rfloor,
@@ -1065,8 +1165,9 @@ R_2^*(n)>{72825421\over263424000\pi}n^3-n^2
 }
 \]
 This remains the current strongest explicit finite-\(n\) specialization in
-the repository. Its coefficient is below \(C_{2,*}\). No exact residual,
-convergence, exact leading coefficient, or matching upper bound follows.
+the repository. Its coefficient is below both \(C_{2,*}\) and \(C_{3,*}\).
+No exact residual, convergence, exact leading coefficient, or matching upper
+bound follows.
 
 ## Exact Radius-One Insertion
 
@@ -1652,10 +1753,11 @@ Therefore
 \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over2\pi}.
 \tag{21}
 \]
-Combining (21) with the sharpened two-prefix linear-block lower bound
+Combining (21) with the sharpened three-prefix linear-block lower bound
 proved in this note yields
 \[
-{491596+6578\sqrt{143}\over2061723\pi}
+{753972193324+106042322\sqrt{377823}
+ \over2960667770787\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -1670,7 +1772,8 @@ In particular,
 The later exact product-distance construction sharpens the right endpoint to
 
 \[
-{491596+6578\sqrt{143}\over2061723\pi}
+{753972193324+106042322\sqrt{377823}
+ \over2960667770787\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -1723,9 +1826,13 @@ Neither the improved upper bound nor the lower bound proves that
   baseline. The zigzag radius \(V_n\) improves its asymptotic upper coefficient
   from \(1/\pi\) to \(1/(2\pi)\); the later product-distance construction
   improves it again to \(8/(25\pi)\), which still does not match the
-  current two-prefix linear-block lower coefficient
-  \((491596+6578\sqrt{143})/(2061723\pi)\). None may be described as the exact asymptotic
-  leading constant for Power-Ringmin. The smaller coefficient
+  current three-prefix linear-block lower coefficient
+  \[
+  {753972193324+106042322\sqrt{377823}
+   \over2960667770787\pi}.
+  \]
+  None may be described as the exact asymptotic leading constant for
+  Power-Ringmin. The smaller coefficient
   \(2(\sqrt2-1)/(3\pi)\) remains optimal only inside the single-subset
   lower-bound relaxation explicitly analyzed above.
 - The jointly optimized one-prefix total coefficient
@@ -1741,6 +1848,16 @@ Neither the improved upper bound nor the lower bound proves that
   five-parameter point recorded above. No finite rounding theorem for that
   irrational point has been derived, and the optimized coefficient is not an
   exact block residual, leading coefficient, limit, or geometric constant.
+- The globally optimized three-prefix coefficient is
+  \[
+  C_{3,*}
+  ={753972193324+106042322\sqrt{377823}\over2960667770787}
+  >C_{2,*}.
+  \]
+  Its proof uses one slack pool, every recursive split, automatic clipped
+  weight ordering, and the complete compact closure. No finite rounding
+  theorem for this irrational optimizer is asserted, and it is not an exact
+  residual, limit, or geometric leading coefficient.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower
   bound only from the scalar full-problem lower bound would reverse the useful
