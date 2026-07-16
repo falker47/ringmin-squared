@@ -417,10 +417,10 @@ proves
 R_2^*(n)>{72825421\over263424000\pi}n^3-n^2
 \quad(n\ge59).
 \]
-This rational specialization remains the current explicit finite-\(n\)
-theorem. Finite rounding of the irrational optimizer has not been performed.
-Neither coefficient is an exact residual, limit, or geometric leading
-coefficient.
+This rational specialization remains the earlier explicit finite two-prefix
+theorem. Finite rounding of the irrational two-prefix optimizer has not been
+performed. Neither coefficient is an exact residual, limit, or geometric
+leading coefficient.
 
 Selecting three prefixes improves the asymptotic template again while using
 the base-slack pool only once. For ordered weights
@@ -460,9 +460,49 @@ Consequently
 \qquad
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{3,*}\over\pi}.
 \]
-No finite floor/ceiling rounding of this irrational optimizer is performed,
-and the result is a three-prefix template optimum rather than an exact
-residual, limit, or geometric leading coefficient.
+This irrational optimizer also has an exact finite specialization. With
+\[
+b_i={1+\alpha_*+x_i(3\alpha_*-1)\over4},
+\quad
+(x_1,x_2,x_3)
+=\left({1058\over1263},{276\over421},{184\over421}\right),
+\]
+put \(r_n=\lfloor\alpha_*n\rfloor\),
+\(s_{i,n}=\lceil b_i n\rceil\), and \(S_n=n+r_n\). The exact finite
+middle-clipped weights give
+\[
+\widehat F_{i,n}={(4s_{i,n}-S_n)^2\over2}
+\]
+and the literal charging expression
+\[
+\begin{aligned}
+\mathcal B_{3,n}={}&P_{r_n,n}
+ +(r_n-s_{1,n})\widehat F_{1,n}\\
+&+(s_{1,n}-s_{2,n})\widehat F_{2,n}
+ +(s_{2,n}-s_{3,n})\widehat F_{3,n}.
+\end{aligned}
+\]
+Let \(\mathcal I_{3,n}=\lceil\mathcal B_{3,n}\rceil\). Because
+\(\Lambda_n\) is integral, this is the stronger finite lower expression.
+The minimal uniform threshold is \(n=159\): the first segment is empty at
+\(n=158\), exact arithmetic covers \(159\le n\le170\), and the symbolic
+tail starts at \(171\). For every \(n\ge159\),
+\[
+\Lambda_n\ge\mathcal I_{3,n}\ge\mathcal B_{3,n}>C_{3,*}n^3,
+\qquad
+R_2^*(n)>{\mathcal I_{3,n}\over\pi}-n^2.
+\]
+The controlled remainder is
+\[
+\mathcal B_{3,n}
+>C_{3,*}n^3+\kappa_*n^2-{\alpha_*+5\over3}n-{1\over15},
+\quad
+\kappa_*
+={-535396585939+1466777893\sqrt{377823}\over986889256929}>{1\over3}.
+\]
+This is a finite three-prefix template theorem, not an exact residual, limit,
+or geometric leading coefficient, and it does not extend charging to four
+prefixes.
 
 Independently of that charging theorem, the normalized prefix simplex is
 solved exactly in every fixed dimension. For \(k\ge1\), let
@@ -1034,9 +1074,11 @@ and elimination proofs, scorer algorithm, the exact reduced values
 minimizer classifications, independent bounded oracles, comparison with
 \(W\), the exact arbitrary consecutive-tail split-history theorem through
 every sublinear block length, the positive cubic residual for the first
-explicit linear block, its global lower-bound corollary, the exact normalized
-prefix-simplex lemma for every fixed \(k\), its envelope classification, and
-asymptotic limitations. One-wrap saturation
+explicit linear block, its global lower-bound corollary, the exact two- and
+three-prefix optimizations, the minimal-threshold finite theorem at the
+irrational three-prefix optimizer, the exact normalized prefix-simplex lemma
+for every fixed \(k\), its envelope classification, and asymptotic
+limitations. One-wrap saturation
 and insertion independence concern the product ratio; they do not reduce
 exact angular-STN feasibility to one-wrap cycle checks or make \(\rho_\sigma\)
 insertion-independent. The `n=10` proof classifies equality in the
@@ -1283,9 +1325,9 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   R_2^*(n)>{C_2\over\pi}n^3-n^2
   \quad(n\ge59).
   \]
-  No finite rounding theorem for the irrational optimizer is asserted, and
-  \(C_{2,*}\) is a template-optimal lower coefficient rather than an exact
-  residual or geometric leading coefficient.
+  No finite rounding theorem for the irrational two-prefix optimizer is
+  asserted, and \(C_{2,*}\) is a template-optimal lower coefficient rather
+  than an exact residual or geometric leading coefficient.
 - EXACT METHOD-SPECIFIC THEOREM (THREE SELECTED PREFIXES): for
   \(0<\beta_3<\beta_2<\beta_1<\alpha<1\) and
   \(0\le\lambda_3\le\lambda_2\le\lambda_1\le1\), combining all three
@@ -1320,8 +1362,20 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \qquad
   \liminf{R_2^*(n)\over n^3}\ge{C_{3,*}\over\pi},
   \]
-  and \(C_{3,*}>C_{2,*}\). No finite rounding theorem is asserted; this is a
-  template optimum, not an exact residual or geometric leading coefficient.
+  and \(C_{3,*}>C_{2,*}\). The exact floor/ceiling theorem at this optimizer
+  has minimal uniform threshold \(159\). Its finite clipped weights and
+  literal expression \(\mathcal B_{3,n}\) and integer closure
+  \(\mathcal I_{3,n}=\lceil\mathcal B_{3,n}\rceil\) satisfy
+  \[
+  \Lambda_n\ge\mathcal I_{3,n}\ge\mathcal B_{3,n}>C_{3,*}n^3,
+  \qquad
+  R_2^*(n)>{\mathcal I_{3,n}\over\pi}-n^2
+  \quad(n\ge159).
+  \]
+  The explicit polynomial remainder has quadratic coefficient
+  \(\kappa_*>1/3\). This is a finite template theorem, not an exact residual
+  or geometric leading coefficient, and no charging beyond three prefixes is
+  asserted.
 - EXACT THEOREM (NORMALIZED PREFIX SIMPLEX): for every fixed \(k\ge1\),
   \[
   M_k=\max_{1\ge x_1\ge\cdots\ge x_k\ge0}
@@ -1388,6 +1442,15 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   the optimizer, strict domain, coefficient polynomial, isolating interval,
   and strict comparison with \(C_{2,*}\), without production code or a limit
   change.
+- VERIFIED FACT (FINITE EXACT DOSSIER DIAGNOSTIC): the standalone
+  `ops/TASK-20260716__three_prefix_finite_theorem/exact_diagnostic.py`
+  independently implements \(\mathbb Q(\sqrt{377823})\), exact surd
+  floor/ceil, and finite clipped weights. It scans \(1\le n\le170\), checks
+  the boundary rows \(158,159,170,171\), verifies the symbolic tail
+  thresholds, and checks the literal, polynomial, and
+  \(C_{3,*}n^3\) comparisons through \(n=1000\). This bounded exact
+  computation corroborates the finite arithmetic; the written charging and
+  symbolic tail prove the all-\(n\ge159\) theorem.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): independent rational and
   \(\mathbb Q(\sqrt{143})\) diagnostics verify the ordered-weight reduction,
   all six branches, exact transitions \(77/139\) and \(301/419\), the cubic
@@ -1780,10 +1843,12 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
    \over2960667770787\pi}.
   \]
   Both irrational optimizers are exact and unique in their respective
-  templates, while the older rational witness remains the explicit
-  finite-\(n\) theorem. Neither coefficient is an exact residual or leading
-  coefficient; convergence, finite rounding at either irrational optimizer,
-  and exact block coefficients remain unresolved.
+  templates. The older rational witness remains the finite two-prefix theorem
+  from \(n=59\); the irrational three-prefix optimizer now has the stronger
+  finite theorem \(\Lambda_n>C_{3,*}n^3\) from the minimal uniform threshold
+  \(159\). Neither coefficient is an exact residual or leading coefficient;
+  convergence, finite rounding at the irrational two-prefix optimizer, and
+  exact block coefficients remain unresolved.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit
   and unresolved for public production claims. The bounded test-only Arb
   cross-check covers checked `n=3` only and is not a full backend audit.

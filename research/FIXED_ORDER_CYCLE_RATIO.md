@@ -213,10 +213,30 @@ in `research/ALL_N_LOWER_BOUND.md`.
   R_2^*(n)>{72825421\over263424000\pi}n^3-n^2
   \quad(n\ge59).
   \]
-  This rational specialization remains the explicit finite-\(n\) theorem;
-  no finite rounding of the irrational optimizer is asserted.  The optimized
-  number is still a method-specific lower coefficient, not an exact leading
-  coefficient, convergence theorem, or production result.
+  This rational specialization remains the previous explicit finite
+  two-prefix theorem; no finite rounding of the irrational *two-prefix*
+  optimizer is asserted. The optimized number is still a method-specific
+  lower coefficient, not an exact leading coefficient, convergence theorem,
+  or production result.
+- **EXACT FINITE METHOD-SPECIFIC THEOREM (THREE SELECTED PREFIXES):** the
+  unique irrational three-prefix optimizer admits exact integer cutoffs
+  \(r_n=\lfloor\alpha_*n\rfloor\) and
+  \(s_{i,n}=\lceil\beta_{i,*}n\rceil\). From the minimal uniform threshold
+  \(n=159\), they are strictly ordered, all three segments are nonempty, and
+  every cutoff lies in its finite middle clipped branch. The finite clipped
+  weights give the literal charging expression \(\mathcal B_{3,n}\) in
+  (CR28cq7). Its integer closure
+  \(\mathcal I_{3,n}=\lceil\mathcal B_{3,n}\rceil\) satisfies
+  \[
+  \Lambda_n\ge\mathcal I_{3,n}\ge\mathcal B_{3,n}>C_{3,*}n^3,
+  \qquad
+  R_2^*(n)>{\mathcal I_{3,n}\over\pi}-n^2
+  \quad(n\ge159).
+  \]
+  The controlled polynomial remainder is (CR28cq12)--(CR28cq13). The
+  threshold is minimal because the first segment is empty at \(n=158\).
+  This finite theorem does not identify an exact residual or leading
+  coefficient and does not extend charging to four prefixes.
 - **EXACT THEOREM (NORMALIZED \(k\)-PREFIX SIMPLEX):** for every \(k\ge1\),
   the compact normalized polynomial (CR28cr) has one strictly interior
   maximizer. Its ratios satisfy
@@ -3009,9 +3029,9 @@ corollary
 }
 \tag{CR28bw17}
 \]
-No finite floor/ceiling rounding of the irrational optimizer is asserted
-here.  The rational specialization below remains the current explicit
-finite-\(n\) theorem.
+No finite floor/ceiling rounding of the irrational two-prefix optimizer is
+asserted here. The rational specialization below remains the explicit finite
+theorem within the two-prefix branch.
 
 #### Exact rational witness and finite threshold
 
@@ -3621,10 +3641,11 @@ comparison followed by the fixed-parameter limit in (CR28cg) gives
 \tag{CR28cq}
 \]
 
-No finite floor/ceiling rounding of this irrational optimizer is performed.
-The result is the optimum of the documented three-prefix template, not an
-exact block residual, a convergence theorem, an exact geometric leading
-coefficient, or a production-computation claim.
+The derivation through (CR28cq) is the asymptotic optimization of the
+documented three-prefix template. The finite floor/ceiling specialization is
+proved below. Neither result identifies an exact block residual, proves
+convergence or an exact geometric leading coefficient, or makes a
+production-computation claim.
 
 Independent test-local exact arithmetic checks this proof without entering
 it. A bounded oracle exhausts all
@@ -3641,6 +3662,381 @@ density closure, and the factorization (CR28cl). Test-local
 coefficient, minimal polynomial, isolating interval, and strict comparison
 with \(C_{2,*}\), without calling production scorers, canonicalizers, or
 enumerators.
+
+#### Finite theorem at the irrational three-prefix optimizer
+
+The exact optimizer can be rounded without replacing its three-prefix
+charging argument. Write
+
+\[
+d=377823,
+\qquad
+a=\alpha_*={685623-421\sqrt d\over993423},
+\qquad
+A=3a-1,
+\]
+
+\[
+(x_1,x_2,x_3)
+=\left({1058\over1263},{276\over421},{184\over421}\right),
+\qquad
+b_i={1+a+x_iA\over4}.
+\tag{CR28cq1}
+\]
+
+Thus \(b_i=\beta_{i,*}\) from the strict middle-branch optimizer above. For
+an integer \(n\ge1\), define
+
+\[
+r_n=\lfloor an\rfloor,
+\qquad
+s_{i,n}=\lceil b_i n\rceil\quad(i=1,2,3),
+\qquad
+S_n=n+r_n.
+\tag{CR28cq2}
+\]
+
+Whenever the three cutoffs lie in the finite middle clipped branch, put
+
+\[
+\widehat\lambda_{i,n}=4-{S_n\over s_{i,n}},
+\qquad
+\widehat F_{i,n}
+=G_{n,\widehat\lambda_{i,n}}(s_{i,n})
+={\left(4s_{i,n}-S_n\right)^2\over2}.
+\tag{CR28cq3}
+\]
+
+These are the exact finite clipped optima, not the fixed irrational weights
+\(\lambda_{i,*}\). If
+\(S_n/4<s_{3,n}<s_{2,n}<s_{1,n}<S_n/3\), then
+
+\[
+0<\widehat\lambda_{3,n}
+<\widehat\lambda_{2,n}
+<\widehat\lambda_{1,n}<1.
+\]
+
+Consequently the ordered-weight hypothesis in (CR28cd)--(CR28cg) holds
+pointwise at this finite \(n\).
+
+We next prove the exact uniform domain. The derivative polynomial in
+(CR28cn) takes the exact values \(27959/49>0\) at \(3/7\) and
+\(-1021633/256<0\) at \(7/16\). Because \(a\) is its first root in
+\((1/3,1/2)\), this proves
+
+\[
+{3\over7}<a<{7\over16}.
+\]
+
+The consecutive density gaps simplify to
+
+\[
+a-b_1={205A\over5052},
+\qquad
+b_1-b_2={230A\over5052},
+\qquad
+b_2-b_3={276A\over5052}.
+\tag{CR28cq4}
+\]
+
+For \(n\ge171\), the first and smallest segment satisfies
+
+\[
+r_n-s_{1,n}>(a-b_1)n-2>0,
+\]
+
+because
+
+\[
+171(a-b_1)-2
+={21568926-35055\sqrt d\over3973692}>0,
+\qquad
+21568926^2-d\,35055^2=929632328901>0.
+\tag{CR28cq5}
+\]
+
+The other two gaps in (CR28cq4) are larger, while their floor/ceiling losses
+are only one, so they are positive as well. The remaining block conditions
+\(2\le r_n\le n-2\) and \(s_{3,n}\ge1\) follow immediately from
+\(3/7<a<7/16\) and \(0<b_3<a\).
+
+The middle clipped conditions also hold uniformly. Put
+\(\eta_n=an-r_n\in[0,1)\) and
+\(\varepsilon_{i,n}=s_{i,n}-b_i n\in[0,1)\). Then
+
+\[
+4s_{i,n}-S_n=x_iAn+4\varepsilon_{i,n}+\eta_n>0.
+\]
+
+Since \(b_i\le b_1\), the smallest upper-clip density gap is
+\(u_1=(1+a)-3b_1\). Exact arithmetic gives
+
+\[
+23u_1-4
+={-38744394+63319\sqrt d\over3973692}>0,
+\qquad
+d\,63319^2-38744394^2=13676085881067>0.
+\]
+
+Hence
+
+\[
+S_n-3s_{i,n}
+>((1+a)-3b_i)n-4\ge u_1n-4>0
+\qquad(n\ge23).
+\tag{CR28cq6}
+\]
+
+At \(n=22\), the last coarse expression is negative, so \(23\) is the exact
+threshold of this uniform upper-clip rounding estimate. The actual cutoffs
+are checked separately below where needed.
+
+Only the finite gap before the symbolic tail remains. The exact rational
+isolation
+
+\[
+{614673083842134\over10^{12}}
+<\sqrt d<
+{614673083842135\over10^{12}}
+\]
+
+follows by squaring integers; the two positive gaps are respectively
+\(906132566326044\) and \(323213601358225\) after the common scaling.
+It gives the following exact cutoffs.
+
+| \(n\) | \(r_n\) | \(s_{1,n}\) | \(s_{2,n}\) | \(s_{3,n}\) |
+|---:|---:|---:|---:|---:|
+| 158 | 67 | 67 | 64 | 62 |
+| 159 | 68 | 67 | 65 | 62 |
+| 160 | 68 | 67 | 65 | 63 |
+| 161 | 69 | 68 | 66 | 63 |
+| 162 | 69 | 68 | 66 | 64 |
+| 163 | 70 | 69 | 66 | 64 |
+| 164 | 70 | 69 | 67 | 64 |
+| 165 | 70 | 69 | 67 | 65 |
+| 166 | 71 | 70 | 68 | 65 |
+| 167 | 71 | 70 | 68 | 65 |
+| 168 | 72 | 71 | 69 | 66 |
+| 169 | 72 | 71 | 69 | 66 |
+| 170 | 73 | 72 | 69 | 67 |
+
+Thus every required order, non-vacuity, block, and clipped-branch condition
+holds for \(159\le n\le170\), and the symbolic argument covers every
+\(n\ge171\). At \(n=158\), however, the first segment is empty because
+\(r_{158}=s_{1,158}=67\). Therefore
+
+\[
+\boxed{n=159}
+\]
+
+is the minimal uniform threshold for this three-nonempty-prefix rounded
+specialization.
+
+Define the literal finite lower expression
+
+\[
+\begin{aligned}
+\mathcal B_{3,n}:={}&P_{r_n,n}
+ +(r_n-s_{1,n})\widehat F_{1,n}\\
+&+(s_{1,n}-s_{2,n})\widehat F_{2,n}
+ +(s_{2,n}-s_{3,n})\widehat F_{3,n}.
+\end{aligned}
+\tag{CR28cq7}
+\]
+
+Since \(P_{r_n,n}\) is an integer and the three added terms are
+half-integers, define the explicit integer closure
+
+\[
+\mathcal I_{3,n}:=\left\lceil\mathcal B_{3,n}\right\rceil
+=P_{r_n,n}
++\left\lceil
+{1\over2}\sum_{i=1}^3
+L_{i,n}(4s_{i,n}-S_n)^2
+\right\rceil,
+\tag{CR28cq7a}
+\]
+
+where
+\(L_{1,n}=r_n-s_{1,n}\),
+\(L_{2,n}=s_{1,n}-s_{2,n}\), and
+\(L_{3,n}=s_{2,n}-s_{3,n}\).
+The closure can be strict; for example,
+\[
+\mathcal B_{3,162}={2374661\over2},
+\qquad
+\mathcal I_{3,162}=1187331.
+\]
+
+The one-use charging theorem (CR28cf)--(CR28cg), applied with the finite
+ordered weights (CR28cq3), proves the first chain below. Since \(\Lambda_n\)
+is an integer by (CR12h), it also proves the stronger integer conclusion
+
+\[
+\boxed{
+\Lambda_n
+\ge\Gamma_n^{(r_n)}
+\ge\gamma^{(r_n)}_{1,n}
+\ge\mathcal B_{3,n},
+\qquad
+\Lambda_n\ge\mathcal I_{3,n}\ge\mathcal B_{3,n}
+}
+\qquad(n\ge159).
+\tag{CR28cq8}
+\]
+
+The inner simple-cycle comparison remains a distinct statement:
+
+\[
+\gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
+\ge
+\mathcal B_{3,n}-P_{r_n,n}-e(n-r_n+1).
+\tag{CR28cq9}
+\]
+
+In particular, (CR28cq8) does not silently replace \(P_{r_n,n}\) by
+\(P^*_{r_n,n}\).
+
+There is a controlled polynomial consequence with the same exact cubic
+coefficient. Put
+
+\[
+g_i={x_i^2A^2\over2},
+\qquad
+c_{{\rm res},3,*}
+=(a-b_1)g_1+(b_1-b_2)g_2+(b_2-b_3)g_3.
+\]
+
+The identity \(4s_{i,n}-S_n=x_iAn+4\varepsilon_{i,n}+\eta_n\) gives
+\(\widehat F_{i,n}\ge g_i n^2\). The exact segment lengths are
+
+\[
+\begin{aligned}
+r_n-s_{1,n}&=(a-b_1)n-\eta_n-\varepsilon_{1,n},\\
+s_{1,n}-s_{2,n}&=(b_1-b_2)n
+ +\varepsilon_{1,n}-\varepsilon_{2,n},\\
+s_{2,n}-s_{3,n}&=(b_2-b_3)n
+ +\varepsilon_{2,n}-\varepsilon_{3,n}.
+\end{aligned}
+\]
+
+Together with \(g_1>g_2>g_3>0\), they give the rounding telescope
+
+\[
+\begin{aligned}
+&-g_1\eta_n+(g_2-g_1)\varepsilon_{1,n}
+ +(g_3-g_2)\varepsilon_{2,n}-g_3\varepsilon_{3,n}\\
+&\hspace{35mm}>-2g_1.
+\end{aligned}
+\]
+
+Consequently
+
+\[
+\mathcal B_{3,n}-P_{r_n,n}
+>c_{{\rm res},3,*}n^3-2g_1n^2.
+\tag{CR28cq10}
+\]
+
+For the pairing term, direct substitution of
+\(r_n=an-\eta_n\) gives the identity
+
+\[
+\begin{aligned}
+P_{r_n,n}={}&p(a)n^3
++\left[a+{a^2+2a-1\over2}\eta_n\right]n^2\\
+&-\left[{1+a\over2}\eta_n^2+\eta_n+{1-a\over6}\right]n
++{\eta_n^3-\eta_n\over6}.
+\end{aligned}
+\tag{CR28cq11}
+\]
+
+Since \(3/7<a<7/16\), one has
+\((a^2+2a-1)/2>0\), while the bracket multiplying \(-n\) is less than
+\((a+5)/3\), and elementary one-variable maximization gives
+\[
+{\eta_n^3-\eta_n\over6}
+\ge-{1\over9\sqrt3}>-{1\over15},
+\]
+where the last comparison is \(25<27\). Combining
+(CR28cq10)--(CR28cq11), and using
+\(C_{3,*}=p(a)+c_{{\rm res},3,*}\), yields
+
+\[
+\boxed{
+\mathcal B_{3,n}
+>
+C_{3,*}n^3+\kappa_*n^2-\ell_*n-{1\over15}
+}
+\qquad(n\ge159),
+\tag{CR28cq12}
+\]
+
+where
+
+\[
+\kappa_*=a-2g_1
+=a-x_1^2A^2
+={-535396585939+1466777893\sqrt d\over986889256929},
+\qquad
+\ell_*={a+5\over3}.
+\tag{CR28cq13}
+\]
+
+It remains to check rather than assume the sign of this remainder. Since
+
+\[
+\kappa_*-{1\over3}
+=A\left({1\over3}-x_1^2A\right)>0,
+\qquad
+\ell_*<{11\over6},
+\]
+
+where \(0<A<5/16<1/3\) and \(0<x_1<1\), one has
+
+\[
+\kappa_*n^2-\ell_*n-{1\over15}
+>{10n^2-55n-2\over30}>0
+\qquad(n\ge6).
+\]
+
+Thus the rounded finite theorem does imply the bare optimized cubic bound,
+and does so on its whole minimal uniform domain:
+
+\[
+\boxed{
+\Lambda_n\ge\mathcal I_{3,n}
+\ge\mathcal B_{3,n}>C_{3,*}n^3
+\qquad(n\ge159).
+}
+\tag{CR28cq14}
+\]
+
+The integer expression \(\mathcal I_{3,n}\) is the strongest explicit
+cutoff-only consequence of this rounded bound established here;
+\(\mathcal B_{3,n}\) is the underlying literal charging expression. The
+strict global cyclic-ratio sandwich also gives
+
+\[
+\boxed{
+R_2^*(n)
+>{\mathcal I_{3,n}\over\pi}-n^2
+\ge{\mathcal B_{3,n}\over\pi}-n^2
+>{C_{3,*}\over\pi}n^3-n^2
+\qquad(n\ge159).
+}
+\tag{CR28cq15}
+\]
+
+This is an exact finite method-specific theorem obtained from the established
+three-prefix charging identity. It is not an exact value of \(\Lambda_n\)
+or \(R_2^*(n)\), an exact residual, a convergence theorem, a matching upper
+bound, or an extension of charging to four prefixes. The standalone dossier
+diagnostic independently evaluates \(\mathbb Q(\sqrt{377823})\), checks the
+boundary table and the finite region before the symbolic tail, and verifies
+the literal and polynomial inequalities through \(n=1000\), without importing
+production code or changing any enumeration limit.
 
 ### Normalized \(k\)-prefix simplex lemma
 
@@ -5354,7 +5750,7 @@ geometric bounds gives
 \]
 and
 \[
-C_{2,*}
+C_{3,*}
 \le
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
 \le
@@ -5406,10 +5802,10 @@ Further non-consequences are important.
   ordered-weight reduction, six-branch density classification, compact-face
   audit, and cubic relaxation prove the unique optimizer (CR28bw13) and the
   coefficient \(C_{2,*}\) in (CR28bw14). The older rational witness retains
-  the explicit \(n\ge59\) theorem because finite rounding of the irrational
-  optimizer is outside this task. Neither number is an exact residual,
-  limit, or geometric leading constant.
-- The three-prefix extension (CR28cd)--(CR28cq) combines all three heights
+  the explicit \(n\ge59\) two-prefix theorem; finite rounding of the
+  irrational two-prefix optimizer remains open. Neither number is an exact
+  residual, limit, or geometric leading constant.
+- The three-prefix extension (CR28cd)--(CR28cq15) combines all three heights
   before charging and retains the same one-use base-slack partition through
   every nested child edge. The clipped individual weights are automatically
   ordered. The exact compact-simplex factorization proves the predicted
@@ -5419,9 +5815,12 @@ Further non-consequences are important.
   ={753972193324+106042322\sqrt{377823}\over2960667770787}
   >C_{2,*}.
   \]
-  This updates the asymptotic lower coefficient without finite rounding of
-  the irrational optimizer or any exact residual, convergence, production,
-  or geometric-leading-constant claim.
+  The finite clipped specialization (CR28cq1)--(CR28cq15) has minimal uniform
+  threshold \(159\), gives the literal expression \(\mathcal B_{3,n}\) and
+  its stronger integer closure \(\mathcal I_{3,n}\), controls the polynomial
+  remainder, and proves
+  \(\Lambda_n>C_{3,*}n^3\) throughout that domain. It makes no exact
+  residual, convergence, production, or geometric-leading-constant claim.
 - The normalized simplex theorem (CR28cr)--(CR28dd) solves the compact
   polynomial for every fixed \(k\), proves its unique interior maximizer and
   the exact recurrence \(M_k\nearrow1/3\), and explains the three previously

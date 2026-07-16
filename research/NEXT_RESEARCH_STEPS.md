@@ -45,8 +45,19 @@ strictly stronger rigorous lower coefficients
  \over2960667770787\pi}.
 \]
 These are one-sided bounds and do not prove convergence or identify an exact
-leading coefficient. The older rational witness remains the current explicit
-finite-\(n\) theorem.
+leading coefficient. The irrational three-prefix optimizer now also has the
+exact finite theorem
+\[
+\mathcal I_{3,n}:=\lceil\mathcal B_{3,n}\rceil,
+\qquad
+\Lambda_n\ge\mathcal I_{3,n}\ge\mathcal B_{3,n}>C_{3,*}n^3,
+\qquad
+R_2^*(n)>{\mathcal I_{3,n}\over\pi}-n^2
+\quad(n\ge159),
+\]
+where \(159\) is the minimal uniform three-nonempty-prefix threshold. The
+older rational witness remains the earlier finite two-prefix theorem from
+\(n=59\).
 
 The normalized compact simplex common to the one-, two-, and three-prefix
 proofs is now solved for every fixed dimension \(k\). Its unique maximizer is
@@ -398,7 +409,18 @@ All densities and weights are strictly ordered in the middle clipped branch,
 so the upper envelope is attained. Exact arithmetic proves
 \(C_{3,*}>C_{2,*}\). A bounded oracle covers all 46,620 depth-three histories,
 including every recursive second and third split from one base. Finite
-rounding of this irrational optimizer remains deliberately unperformed.
+rounding is now exact as well. With
+\(r_n=\lfloor\alpha_*n\rfloor\),
+\(s_{i,n}=\lceil\beta_{i,*}n\rceil\), and finite middle-clipped weights,
+the literal expression \(\mathcal B_{3,n}\) and its integer closure
+\(\mathcal I_{3,n}=\lceil\mathcal B_{3,n}\rceil\) are uniformly valid from
+the minimal threshold \(159\). A controlled remainder with
+\[
+\kappa_*
+={-535396585939+1466777893\sqrt{377823}\over986889256929}>{1\over3}
+\]
+proves \(\mathcal B_{3,n}>C_{3,*}n^3\). Exact finite arithmetic covers
+\(159\le n\le170\), and the symbolic tail starts at \(171\).
 
 The normalized simplex behind these three cases now has an exact
 all-\(k\) solution. A Bellman reduction and a telescoping nonnegative
@@ -842,8 +864,8 @@ saturation for every \(n\ge3\).
   \qquad
   R_2^*(n)>{C_2\over\pi}n^3-n^2.
   \]
-  The rational point remains the explicit finite-\(n\) theorem; no finite
-  rounding of the irrational optimizer is asserted.
+  The rational point remains the explicit finite two-prefix theorem; no finite
+  rounding of the irrational two-prefix optimizer is asserted.
 - EXACT THEOREM (THREE SELECTED PREFIXES): combining all three heights before
   charging uses the original base-slack pool once and covers every recursive
   child edge through both segment boundaries. The exact coefficient is
@@ -871,8 +893,15 @@ saturation for every \(n\ge3\).
   \qquad
   \liminf{R_2^*(n)\over n^3}\ge{C_{3,*}\over\pi},
   \]
-  with \(C_{3,*}>C_{2,*}\). No finite rounding of the irrational optimizer is
-  asserted.
+  with \(C_{3,*}>C_{2,*}\). Exact floor/ceil cutoffs and finite clipped
+  weights give the literal \(\mathcal B_{3,n}\) expression and integer closure
+  \(\mathcal I_{3,n}=\lceil\mathcal B_{3,n}\rceil\) from the minimal uniform
+  threshold \(159\), and
+  \[
+  \Lambda_n\ge\mathcal I_{3,n}\ge\mathcal B_{3,n}>C_{3,*}n^3,
+  \qquad
+  R_2^*(n)>{\mathcal I_{3,n}\over\pi}-n^2.
+  \]
 - EXACT THEOREM (NORMALIZED \(k\)-PREFIX SIMPLEX): for every \(k\ge1\),
   \[
   M_k=\max_{1\ge x_1\ge\cdots\ge x_k\ge0}
@@ -912,6 +941,13 @@ saturation for every \(n\ge3\).
   \(\mathbb Q(\sqrt{377823})\) arithmetic verifies the optimizer, coefficient
   polynomial, rational isolation, and strict improvement over \(C_{2,*}\)
   without production code or floating-point premises.
+- VERIFIED FACT (FINITE EXACT DOSSIER DIAGNOSTIC): the standalone
+  `ops/TASK-20260716__three_prefix_finite_theorem/exact_diagnostic.py`
+  independently implements \(\mathbb Q(\sqrt{377823})\), exact surd
+  floor/ceil, finite clipped weights, and the rounded lower expression. It
+  scans \(1\le n\le170\), checks \(158,159,170,171\), verifies the symbolic
+  thresholds, and checks the literal and polynomial inequalities through
+  \(n=1000\), without production or enumeration-limit changes.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): independent rational and
   \(\mathbb Q(\sqrt{143})\) arithmetic verifies the six branch reductions,
   exact transition points, cubic simplex maximum, every optimizer coordinate
@@ -1068,6 +1104,22 @@ saturation for every \(n\ge3\).
   \]
   This strictly improves the single-subset lower coefficient, while proving
   neither convergence nor an exact leading coefficient.
+- EXACT FINITE THEOREM (rounded three-prefix optimizer): the integer cutoffs
+  \(r_n=\lfloor\alpha_*n\rfloor\) and
+  \(s_{i,n}=\lceil\beta_{i,*}n\rceil\) satisfy every block, ordering,
+  non-vacuity, and middle-clipped condition uniformly from the minimal
+  threshold \(n=159\). The literal one-use expression \(\mathcal B_{3,n}\)
+  and its stronger integer closure
+  \(\mathcal I_{3,n}=\lceil\mathcal B_{3,n}\rceil\) give the finite lower
+  theorem. The literal expression has the controlled polynomial estimate
+  \[
+  \mathcal B_{3,n}
+  >C_{3,*}n^3+\kappa_*n^2-{\alpha_*+5\over3}n-{1\over15},
+  \qquad \kappa_*>{1\over3},
+  \]
+  and therefore \(\Lambda_n>C_{3,*}n^3\) for every \(n\ge159\). The
+  finite check covers \(159\le n\le170\), while the symbolic tail begins at
+  \(171\); \(n=158\) has an empty first segment.
 - EXACT THEOREM: for \(S=\{s_1<\cdots<s_q\}\), the duplicated-multiset pairing
   bound is
   \[
@@ -1431,7 +1483,7 @@ saturation for every \(n\ge3\).
     \]
     after exact ordered-weight reduction, six-branch classification, and a
     complete boundary/collision audit. No finite rounding theorem for the
-    irrational optimizer has been performed.
+    irrational two-prefix optimizer has been performed.
 
 15. Three selected prefixes share the same slack pool when all heights are
     combined first. Every recursive split remains literal through both
@@ -1447,8 +1499,13 @@ saturation for every \(n\ge3\).
     ={753972193324+106042322\sqrt{377823}\over2960667770787}
     >C_{2,*}.
     \]
-    No finite rounding theorem for this irrational optimizer has been
-    performed.
+    Exact floor/ceil cutoffs and finite clipped weights give the literal
+    \(\mathcal B_{3,n}\) expression and stronger integer closure
+    \(\mathcal I_{3,n}\) from the minimal uniform threshold \(159\).
+    Its controlled remainder has \(\kappa_*>1/3\), so
+    \(\Lambda_n>C_{3,*}n^3\) throughout that domain. The boundary
+    \(n=158\), the finite bridge through \(170\), and the symbolic tail from
+    \(171\) are all explicit.
 
 16. The compact normalized simplex itself is no longer an open optimization
     problem. For every fixed \(k\), its unique maximizer is generated by the
@@ -1499,9 +1556,12 @@ saturation for every \(n\ge3\).
   from three to arbitrary fixed \(k\) selected prefixes so that the normalized
   simplex is actually realized? Any such task must remain finite-\(k\) until
   a separate uniform argument justifies an interchange with \(n\).
-- OPEN QUESTION: can finite rounding at the three-prefix irrational optimizer be made
-  explicit, and can the exact residual of the selected block be bounded from
-  above? The current theorem gives no matching residual or global asymptotic
+- CLOSED QUESTION: finite rounding at the three-prefix irrational optimizer is
+  explicit with minimal uniform threshold \(159\), literal expression
+  \(\mathcal B_{3,n}\), integer closure \(\mathcal I_{3,n}\), and a positive
+  controlled polynomial remainder.
+- OPEN QUESTION: can the exact residual of the selected block be bounded from
+  above? The finite theorem gives no matching residual or global asymptotic
   evaluation.
 - OPEN QUESTION: for which \(n\ge94\) do positional distances at least three
   strictly restrict the minimizer set? The sufficient equality criterion
@@ -1662,9 +1722,9 @@ Completed:
   nontrivial transitions, every compact face, and every density collision
   are classified. The unique coefficient is
   \((491596+6578\sqrt{143})/2061723\), corroborated by independent rational
-  and \(\mathbb Q(\sqrt{143})\) diagnostics. No finite optimizer rounding,
-  production, artifact, schema, backend, or enumeration-limit change was
-  made.
+  and \(\mathbb Q(\sqrt{143})\) diagnostics. No finite two-prefix optimizer
+  rounding, production, artifact, schema, backend, or enumeration-limit
+  change was made.
 - Extended the one-use charging proof to three selected prefixes. Combining
   all three heights first preserves one base-slack pool and every recursive
   child-edge floor through both boundaries. The clipped weights reduce
@@ -1677,8 +1737,13 @@ Completed:
   \]
   Independent exact diagnostics cover 46,620 depth-three histories, all ten
   clipped regimes, the compact closure, and the quadratic-surd optimizer.
-  No finite rounding, production, artifact, schema, backend, or
-  enumeration-limit change was made.
+  The exact finite follow-up now adds floor/ceil cutoffs, finite clipped
+  weights, the minimal uniform threshold \(159\), the literal
+  \(\mathcal B_{3,n}\) expression, integer closure \(\mathcal I_{3,n}\), and
+  a positive controlled polynomial remainder.
+  A standalone surd diagnostic checks the boundary region and the first 1,000
+  indices. No production, artifact, schema, backend, or enumeration-limit
+  change was made.
 - Solved the normalized compact simplex for every fixed \(k\). An exact
   Bellman recurrence and telescoping nonnegative certificate prove existence,
   strict interiority, uniqueness, the proposed backward ratio recurrence,
@@ -1694,10 +1759,10 @@ Completed:
 
 Immediate:
 
-- In a fresh STRICT task, derive an explicit finite floor/ceiling theorem for
-  the irrational three-prefix optimizer, including a minimal or rigorously
-  sufficient uniform threshold, while keeping production, artifacts, schemas,
-  backends, and enumeration limits unchanged.
+- In a fresh STRICT task, analyze one explicit parametric perturbation of the
+  current \(8/25\) product-distance upper construction and prove either a
+  strict symbolic improvement or a precise obstruction, without extending
+  cyclic-order enumeration.
 
 Next:
 
@@ -1734,18 +1799,17 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: derive an explicit finite floor/ceiling theorem for the exact irrational
-three-prefix optimizer.
+Task: audit one explicit parametric perturbation family of the current
+\(8/25\) product-distance upper construction.
 
 Acceptance criteria:
 
-- retain the exact optimizer in \(\mathbb Q(\sqrt{377823})\) without decimal
-  substitution;
-- derive literal floor/ceiling parameters and a rigorously sufficient uniform
-  threshold, testing minimality if feasible;
-- prove the finite lower chain and its transfer to \(\Lambda_n\) and
-  \(R_2^*(n)\) without treating the asymptotic coefficient as an exact
-  residual;
-- add independent exact rounding diagnostics;
-- do not alter production code, schemas, artifacts, backends, certificates,
-  enumerators, or enumeration limits.
+- define one finite-parameter symbolic family without search or expanded
+  enumeration;
+- prove all distance-one, distance-two, distance-three, closing, and automatic
+  long-distance constraints for the family;
+- prove either a strict upper-coefficient improvement or an exact obstruction
+  within that family;
+- keep the finite three-prefix lower theorem logically separate;
+- do not alter production enumeration limits, checked artifacts, schemas,
+  interval backends, or certificates.

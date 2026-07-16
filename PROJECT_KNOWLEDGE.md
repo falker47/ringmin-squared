@@ -641,8 +641,8 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \qquad
   \liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{2,*}\over\pi}.
   \]
-  This task derives no finite floor/ceiling rounding theorem for the
-  irrational optimizer.
+  No finite floor/ceiling theorem is currently proved for the irrational
+  two-prefix optimizer.
 - EXACT METHOD-SPECIFIC THEOREM (THREE SELECTED PREFIXES): let
   \(0<\beta_3<\beta_2<\beta_1<\alpha<1\) and
   \(0\le\lambda_3\le\lambda_2\le\lambda_1\le1\). Combining the three
@@ -695,9 +695,68 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \qquad
   \liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{3,*}\over\pi}.
   \]
-  No finite floor/ceiling rounding theorem for this irrational optimizer is
-  derived, and the coefficient is not an exact residual, limit, or geometric
-  leading coefficient.
+  The coefficient is not an exact residual, limit, or geometric leading
+  coefficient.
+- EXACT FINITE METHOD-SPECIFIC THEOREM (IRRATIONAL THREE-PREFIX OPTIMIZER):
+  put
+  \[
+  a=\alpha_*,\quad A=3a-1,
+  \quad
+  (x_1,x_2,x_3)
+  =\left({1058\over1263},{276\over421},{184\over421}\right),
+  \quad
+  b_i={1+a+x_iA\over4}.
+  \]
+  Define
+  \[
+  r_n=\lfloor an\rfloor,
+  \qquad
+  s_{i,n}=\lceil b_i n\rceil,
+  \qquad
+  S_n=n+r_n,
+  \qquad
+  \widehat F_{i,n}={(4s_{i,n}-S_n)^2\over2}.
+  \]
+  The exact order, non-vacuity, block, and finite middle-clipped conditions
+  hold uniformly from the minimal threshold \(n=159\). The failure at
+  \(n=158\) is \((r_n,s_{1,n},s_{2,n},s_{3,n})=(67,67,64,62)\); exact
+  arithmetic covers \(159\le n\le170\), and the symbolic tail begins at
+  \(171\). Define
+  \[
+  \begin{aligned}
+  \mathcal B_{3,n}={}&P_{r_n,n}
+   +(r_n-s_{1,n})\widehat F_{1,n}\\
+  &+(s_{1,n}-s_{2,n})\widehat F_{2,n}
+   +(s_{2,n}-s_{3,n})\widehat F_{3,n},
+  \end{aligned}
+  \]
+  and its integer closure
+  \[
+  \mathcal I_{3,n}=\lceil\mathcal B_{3,n}\rceil.
+  \]
+  Then the exact one-use charging theorem gives
+  \[
+  \Lambda_n\ge\mathcal I_{3,n}\ge\mathcal B_{3,n}>C_{3,*}n^3,
+  \qquad
+  R_2^*(n)>{\mathcal I_{3,n}\over\pi}-n^2
+  \quad(n\ge159).
+  \]
+  More precisely,
+  \[
+  \mathcal B_{3,n}
+  >C_{3,*}n^3+\kappa_*n^2-{a+5\over3}n-{1\over15},
+  \]
+  where
+  \[
+  \kappa_*
+  ={-535396585939+1466777893\sqrt{377823}\over986889256929}
+  >{1\over3}.
+  \]
+  The integer closure \(\mathcal I_{3,n}\) is the strongest explicit
+  cutoff-only consequence of this rounded bound; \(\mathcal B_{3,n}\) is the
+  literal charging expression. This theorem proves no exact residual,
+  convergence, exact leading coefficient, production computation, or charging
+  beyond three prefixes.
 - EXACT THEOREM (NORMALIZED PREFIX SIMPLEX): for every fixed \(k\ge1\), put
   \[
   F_k(x_1,\ldots,x_k)
@@ -799,9 +858,10 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \quad(n\ge59).
   \]
   The separate residual lower polynomial is positive for \(n\ge327\).
-  This remains the current explicit finite-\(n\) specialization. It is below
-  \(C_{2,*}<C_{3,*}\), and no exact residual, convergence, exact leading
-  coefficient, production, artifact, or certificate claim follows.
+  This remains the earlier exact rational two-prefix specialization. It is
+  below \(C_{2,*}<C_{3,*}\); the rounded three-prefix theorem is stronger
+  from \(n=159\). No exact residual, convergence, exact leading coefficient,
+  production, artifact, or certificate claim follows.
 - EXACT GEOMETRIC COROLLARY: the strict global cyclic-ratio sandwich gives
   \[
   R_2^*(n)>{\beta_n^{(2)}\over\pi}-n^2
@@ -888,6 +948,17 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   verifies the optimizer, strict domain, coefficient polynomial, rational
   isolation, and \(C_{3,*}>C_{2,*}\). These paths use no production scorer,
   canonicalizer, enumerator, floating-point premise, or limit change.
+- VERIFIED FACT (FINITE EXACT DOSSIER DIAGNOSTIC):
+  `ops/TASK-20260716__three_prefix_finite_theorem/exact_diagnostic.py`
+  imports no project or test helper and implements
+  \(\mathbb Q(\sqrt{377823})\), exact signs, and exact surd floor/ceil
+  independently. It reconstructs the optimizer and coefficient, scans
+  \(1\le n\le170\), checks the boundary rows \(158,159,170,171\), verifies
+  the symbolic segment thresholds \((171,77,64)\) and symbolic upper-clip
+  estimate threshold \(23\), and checks the literal and polynomial theorem
+  through \(n=1000\).
+  This bounded exact computation corroborates the arithmetic; the written
+  finite table and symbolic tail prove the uniform all-\(n\ge159\) theorem.
 - VERIFIED FACT (FINITE EXACT DOSSIER DIAGNOSTIC): the standalone
   `ops/TASK-20260716__normalized_prefix_simplex/fraction_diagnostic.py` uses
   only integer and `Fraction` arithmetic. For \(k=1,\ldots,8\), it checks the
@@ -1138,10 +1209,12 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   {753972193324+106042322\sqrt{377823}
    \over2960667770787\pi}.
   \]
-  Both optimizers are exact and unique inside their respective templates; the
-  older rational witness remains the explicit finite-\(n\) theorem. The exact
-  block residual, finite rounding at either irrational optimizer, convergence,
-  and the exact global leading coefficient remain unresolved.
+  Both optimizers are exact and unique inside their respective templates. The
+  older rational witness remains the finite two-prefix theorem from \(n=59\),
+  while the irrational three-prefix optimizer has the stronger finite theorem
+  \(\Lambda_n>C_{3,*}n^3\) from the minimal uniform threshold \(159\). The
+  exact block residual, finite rounding at the irrational two-prefix optimizer,
+  convergence, and the exact global leading coefficient remain unresolved.
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 
@@ -1772,9 +1845,13 @@ Candidate-set extraction uses the following finite-certificate semantics.
   one-use charging through both boundaries and every recursive split,
   automatic reduction of all three ordered weights, the exact compact-simplex
   factorization, the unique global optimizer, and its
-  \(\mathbb Q(\sqrt{377823})\) coefficient, plus the exact normalized
-  prefix-simplex lemma for every fixed \(k\), its unique strict-interior
-  maximizer, value and ratio recurrences, monotone limit \(M_k\to1/3\),
+  \(\mathbb Q(\sqrt{377823})\) coefficient, its minimal-threshold finite
+  floor/ceil theorem, literal \(\mathcal B_{3,n}\) expression, integer closure
+  \(\mathcal I_{3,n}\), controlled positive remainder, and independent exact
+  boundary diagnostic, plus the exact
+  normalized prefix-simplex lemma for every fixed \(k\), its unique
+  strict-interior maximizer, value and ratio recurrences, monotone limit
+  \(M_k\to1/3\),
   exact \(k=1,2,3\) agreement, formal and all-middle envelope
   classifications, and independent bounded `Fraction` diagnostic.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
@@ -1818,6 +1895,15 @@ Candidate-set extraction uses the following finite-certificate semantics.
   Independent rational and quadratic-surd diagnostics cover all 46,620
   depth-three histories from the bounded base and the exact global algebra
   without production or limit changes.
+- COMPLETED PRIORITY: the irrational three-prefix optimizer now has one exact
+  finite theorem. Exact floor/ceil cutoffs, finite middle-clipped weights, and
+  the established one-use charging give the literal \(\mathcal B_{3,n}\)
+  expression and stronger integer closure \(\mathcal I_{3,n}\) from the
+  minimal uniform threshold \(159\). A telescoping rounding
+  audit gives a controlled polynomial remainder with \(\kappa_*>1/3\), hence
+  \(\Lambda_n>C_{3,*}n^3\) throughout the domain. An independent dossier
+  diagnostic covers the boundary region and exact arithmetic without changing
+  production, artifacts, or enumeration limits.
 - COMPLETED PRIORITY: the normalized prefix simplex is solved exactly for
   every fixed \(k\ge1\). A Bellman recurrence and telescoping nonnegative
   certificate prove the unique strict-interior maximizer, the value and ratio
@@ -1826,10 +1912,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   and limiting all-middle envelopes are classified exactly. This result adds
   no charging beyond three prefixes, no uniform \(k\)-to-\(n\) interchange,
   and no new bound for \(\Lambda_n\) or \(R_2^*(n)\).
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, derive an explicit finite
-  floor/ceiling theorem for the irrational three-prefix optimizer, including a
-  minimal or rigorously sufficient uniform threshold, without changing
-  production, artifacts, schemas, backends, or enumeration limits.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, analyze one explicit
+  parametric perturbation of the current \(8/25\) product-distance upper
+  construction and prove either a strict symbolic improvement or a precise
+  obstruction, without extending cyclic-order enumeration.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
@@ -1866,9 +1952,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   jointly optimized over all constant densities, and CR28bw is now globally
   optimized over all five two-prefix parameters. The three-prefix extension
   is globally optimized over its seven parameters on the compact closure.
-  Finite rounding at either irrational optimizer, the exact residual and exact
-  leading coefficient of the selected block, and linear-density methods
-  outside these templates remain unclassified.
+  Finite rounding at the irrational two-prefix optimizer, the exact residual
+  and exact leading coefficient of the selected block, and linear-density
+  methods outside these templates remain unclassified. The irrational
+  three-prefix optimizer has the exact finite theorem recorded above.
 - LIMITATION: the normalized simplex theorem is proved for every fixed
   \(k\), but combined-height one-use charging is proved only through three
   selected prefixes. No uniform interchange between \(k\) and \(n\) and no

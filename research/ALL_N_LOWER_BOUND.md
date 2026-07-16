@@ -122,7 +122,8 @@ Last updated: 2026-07-16
   \qquad
   \liminf{R_2^*(n)\over n^3}\ge{C_{2,*}\over\pi}.
   \]
-  No finite rounding theorem for this irrational optimizer is asserted.
+  No finite rounding theorem for this irrational two-prefix optimizer is
+  asserted.
 - EXACT THEOREM (globally optimized three-prefix linear-block refinement):
   combine the three selected heights before assigning any edge slack, with
   \[
@@ -155,8 +156,18 @@ Last updated: 2026-07-16
   \qquad
   \liminf{R_2^*(n)\over n^3}\ge{C_{3,*}\over\pi}.
   \]
-  No finite floor/ceiling rounding theorem for this irrational optimizer is
-  asserted.
+  Its exact floor/ceiling specialization has minimal uniform threshold
+  \(n=159\). With \(r_n=\lfloor\alpha_*n\rfloor\),
+  \(s_{i,n}=\lceil\beta_{i,*}n\rceil\), \(S_n=n+r_n\), and finite
+  middle-clipped floors \(\widehat F_{i,n}=(4s_{i,n}-S_n)^2/2\), the literal
+  expression \(\mathcal B_{3,n}\) and integer closure
+  \(\mathcal I_{3,n}=\lceil\mathcal B_{3,n}\rceil\) satisfy
+  \[
+  \Lambda_n\ge\mathcal I_{3,n}\ge\mathcal B_{3,n}>C_{3,*}n^3,
+  \qquad
+  R_2^*(n)>{\mathcal I_{3,n}\over\pi}-n^2
+  \quad(n\ge159).
+  \]
 - EXACT FINITE THEOREM (two-prefix rational specialization): with
   \[
   r_n=\left\lfloor{3n\over7}\right\rfloor,
@@ -177,7 +188,8 @@ Last updated: 2026-07-16
   \]
   The rational coefficient is strictly larger than
   \((4+2\sqrt3)/27\) and strictly smaller than \(C_{2,*}\). It remains the
-  explicit finite-\(n\) witness, not an exact asymptotic coefficient.
+  earlier explicit rational two-prefix finite-\(n\) witness, not an exact
+  asymptotic coefficient.
 - EXACT THEOREM: if a configuration of the core radii
   \(2^2,\dots,n^2\) is feasible at central radius \(R>0\), then a circle of
   radius \(1\) can be inserted at the same central radius whenever
@@ -1039,8 +1051,8 @@ Therefore
 }
 \]
 This is the globally optimized CR28bw coefficient, not an exact geometric
-leading constant. No finite rounding theorem for these irrational densities
-is asserted here.
+leading constant. No finite rounding theorem for these irrational two-prefix
+densities is asserted here.
 
 ### Global Consequence And Optimization Of Three Selected Prefixes
 
@@ -1100,9 +1112,89 @@ Consequently
  \over2960667770787\pi}.
 }
 \]
-This is a three-prefix template optimum. No finite floor/ceiling rounding,
-exact block residual, convergence, or exact geometric leading constant is
-claimed.
+This is the three-prefix template optimum. It is not an exact block residual,
+a convergence theorem, or an exact geometric leading constant.
+
+The optimizer also has an exact finite specialization. Put
+\[
+a=\alpha_*,
+\qquad A=3a-1,
+\qquad
+(x_1,x_2,x_3)
+=\left({1058\over1263},{276\over421},{184\over421}\right),
+\]
+\[
+b_i={1+a+x_iA\over4},
+\qquad
+r_n=\lfloor an\rfloor,
+\qquad
+s_{i,n}=\lceil b_i n\rceil,
+\qquad
+S_n=n+r_n.
+\]
+For every \(n\ge159\), the cutoffs obey
+\[
+1\le s_{3,n}<s_{2,n}<s_{1,n}\le r_n-1,
+\qquad
+{S_n\over4}<s_{i,n}<{S_n\over3}.
+\]
+The finite clipped weights
+\(\widehat\lambda_{i,n}=4-S_n/s_{i,n}\) are therefore strictly ordered and
+give
+\[
+\widehat F_{i,n}={(4s_{i,n}-S_n)^2\over2}.
+\]
+Define
+\[
+\begin{aligned}
+\mathcal B_{3,n}={}&P_{r_n,n}
+ +(r_n-s_{1,n})\widehat F_{1,n}\\
+&+(s_{1,n}-s_{2,n})\widehat F_{2,n}
+ +(s_{2,n}-s_{3,n})\widehat F_{3,n}.
+\end{aligned}
+\]
+and put
+\[
+\mathcal I_{3,n}=\lceil\mathcal B_{3,n}\rceil.
+\]
+Then the exact one-use charging theorem gives
+\[
+\Lambda_n\ge\mathcal I_{3,n}\ge\mathcal B_{3,n}
+\qquad(n\ge159).
+\]
+The threshold is minimal uniformly: at \(n=158\),
+\((r_n,s_{1,n},s_{2,n},s_{3,n})=(67,67,64,62)\), so the first segment is
+empty; exact evaluation covers \(159\le n\le170\), and the symbolic tail
+starts at \(171\).
+
+The rounding remainder is controlled explicitly. With
+\[
+\kappa_*
+={-535396585939+1466777893\sqrt{377823}\over986889256929},
+\qquad
+\ell_*={a+5\over3},
+\]
+one has
+\[
+\mathcal B_{3,n}
+>C_{3,*}n^3+\kappa_*n^2-\ell_*n-{1\over15}.
+\]
+Exact comparison gives \(\kappa_*>1/3\) and \(\ell_*<11/6\), so the
+remainder is positive already for \(n\ge6\). Hence, throughout the finite
+theorem's domain,
+\[
+\boxed{
+\Lambda_n\ge\mathcal I_{3,n}\ge\mathcal B_{3,n}>C_{3,*}n^3,
+\qquad
+R_2^*(n)>{\mathcal I_{3,n}\over\pi}-n^2
+>{C_{3,*}\over\pi}n^3-n^2
+\quad(n\ge159).
+}
+\]
+The integer closure \(\mathcal I_{3,n}\) is the strongest explicit cutoff-only
+consequence of this rounded bound; \(\mathcal B_{3,n}\) is the underlying
+literal charging expression. No charging statement beyond three selected
+prefixes is used.
 
 For
 \[
@@ -1164,10 +1256,10 @@ R_2^*(n)>{72825421\over263424000\pi}n^3-n^2
 \qquad(n\ge59).
 }
 \]
-This remains the current strongest explicit finite-\(n\) specialization in
-the repository. Its coefficient is below both \(C_{2,*}\) and \(C_{3,*}\).
-No exact residual, convergence, exact leading coefficient, or matching upper
-bound follows.
+This remains the earlier exact rational two-prefix specialization. Its
+coefficient is below both \(C_{2,*}\) and \(C_{3,*}\); the finite
+three-prefix theorem above is stronger from \(n=159\). No exact residual,
+convergence, exact leading coefficient, or matching upper bound follows.
 
 ## Exact Radius-One Insertion
 
@@ -1842,8 +1934,8 @@ Neither the improved upper bound nor the lower bound proves that
   This does not make it the exact residual of the block or the total an exact
   geometric leading coefficient, and it proves no convergence theorem.
 - The two-prefix rational coefficient \(72825421/263424000\) remains the
-  explicit \(n\ge59\) specialization. The globally optimized CR28bw
-  coefficient is
+  earlier explicit \(n\ge59\) two-prefix specialization. The globally
+  optimized CR28bw coefficient is
   \((491596+6578\sqrt{143})/2061723\), attained uniquely at the exact
   five-parameter point recorded above. No finite rounding theorem for that
   irrational point has been derived, and the optimized coefficient is not an
@@ -1855,9 +1947,13 @@ Neither the improved upper bound nor the lower bound proves that
   >C_{2,*}.
   \]
   Its proof uses one slack pool, every recursive split, automatic clipped
-  weight ordering, and the complete compact closure. No finite rounding
-  theorem for this irrational optimizer is asserted, and it is not an exact
-  residual, limit, or geometric leading coefficient.
+  weight ordering, and the complete compact closure. The rounded finite
+  clipped theorem has minimal uniform threshold \(159\), literal expression
+  \(\mathcal B_{3,n}\), integer closure \(\mathcal I_{3,n}\), and a
+  controlled cubic--quadratic--linear remainder. It proves
+  \(\Lambda_n>C_{3,*}n^3\) on that domain. It is not an exact
+  residual, limit, or geometric leading coefficient, and it does not extend
+  charging to four prefixes.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower
   bound only from the scalar full-problem lower bound would reverse the useful

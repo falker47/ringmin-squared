@@ -2,179 +2,175 @@
 
 Last update: 2026-07-16
 
-- **Current phase:** corrective synchronization of the exact normalized
-  prefix-simplex theorem.
-- **Current task:** synchronize the normalized-prefix result across
-  authoritative project memory and correct the task dossier's obsolete
-  file-scope claims.
-- **Task dossier:** `ops/TASK-20260716__normalized_prefix_simplex/`.
+- **Current phase:** exact finite three-prefix theorem completed.
+- **Current task:** round the exact irrational \(C_{3,*}\) optimizer and prove
+  one reproducible finite lower theorem.
+- **Task dossier:** `ops/TASK-20260716__three_prefix_finite_theorem/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
-## Corrective Scope
+## Exact Finite Three-Prefix Theorem
 
-- Synchronized `start.md`, `PROJECT_KNOWLEDGE.md`, and this status with the
-  exact fixed-\(k\) normalized simplex lemma already proved in
-  `research/FIXED_ORDER_CYCLE_RATIO.md`.
-- Corrected the normalized-prefix dossier so it no longer claims that the
-  authoritative project-memory files were intentionally excluded.
-- Preserved the later exact three-prefix charging theorem and its coefficient
-  \(C_{3,*}\); this correction does not supersede or weaken those results.
-- Inspected the mathematical proof and dossier-local `Fraction` diagnostic;
-  no real defect was found, so neither is modified.
-- Kept production code, tests, artifacts, schemas, backends, certificates,
-  enumerators, and enumeration limits unchanged.
-
-## Exact Normalized Prefix-Simplex Theorem
-
-For every fixed \(k\ge1\), define
-
+Put
 \[
-F_k(x_1,\ldots,x_k)
-=\sum_{i=1}^k(x_{i-1}-x_i)x_i^2,
-\qquad x_0=1,
-\]
-
-and
-
-\[
-M_k=\max_{1\ge x_1\ge\cdots\ge x_k\ge0}F_k(x_1,\ldots,x_k),
-\qquad M_0=0.
-\]
-
-The compact maximum exists and has a unique strictly interior maximizer:
-
-\[
-1>x_1>x_2>\cdots>x_k>0.
-\]
-
-Writing
-
-\[
-q_k={2\over3(1-M_{k-1})},
-\]
-
-the value and forward-ratio recurrences are
-
-\[
-M_k={q_k^2\over3}
-={4\over27(1-M_{k-1})^2},
+d=377823,
 \qquad
-q_1={2\over3},
+a=\alpha_*={685623-421\sqrt d\over993423},
 \qquad
-q_{m+1}={2\over3-q_m^2}.
+A=3a-1,
 \]
-
-At the maximizer, the consecutive ratios \(r_i=x_i/x_{i-1}\) satisfy
-
 \[
-r_i=q_{k-i+1},
+(x_1,x_2,x_3)
+=\left({1058\over1263},{276\over421},{184\over421}\right),
 \qquad
-r_k={2\over3},
+b_i={1+a+x_iA\over4}.
+\]
+For integer \(n\), define
+\[
+r_n=\lfloor an\rfloor,
 \qquad
-r_i={2\over3-r_{i+1}^2}
-\quad(1\le i<k).
-\]
-
-Moreover, \(M_k\) is strictly increasing and
-
-\[
-M_k\nearrow{1\over3}.
-\]
-
-## Exact Agreement With \(k=1,2,3\)
-
-The all-\(k\) theorem recovers exactly:
-
-| \(k\) | unique maximizer \((x_1,\ldots,x_k)\) | \(M_k\) | \(M_k/8\) |
-|---:|---|---:|---:|
-| 1 | \((2/3)\) | \(4/27\) | \(1/54\) |
-| 2 | \((18/23,12/23)\) | \(108/529\) | \(27/1058\) |
-| 3 | \((1058/1263,276/421,184/421)\) | \(1119364/4785507\) | \(279841/9571014\) |
-
-These are the previously documented one-, two-, and three-prefix simplex
-points and residual scale factors.
-
-## Exact Normalized-Envelope Classification
-
-For
-
-\[
-p(\alpha)={(1-\alpha)(\alpha^2+4\alpha+1)\over6},
+s_{i,n}=\lceil b_i n\rceil,
 \qquad
-E_k(\alpha)=p(\alpha)+{M_k\over8}(3\alpha-1)^3,
+S_n=n+r_n.
+\]
+From the minimal uniform threshold \(n=159\), all block, order,
+non-vacuity, and finite middle-clipped conditions hold. The finite weights
+\[
+\widehat\lambda_{i,n}=4-{S_n\over s_{i,n}}
+\]
+are strictly ordered and give
+\[
+\widehat F_{i,n}={(4s_{i,n}-S_n)^2\over2}.
+\]
+The literal lower expression is
+\[
+\begin{aligned}
+\mathcal B_{3,n}={}&P_{r_n,n}
+ +(r_n-s_{1,n})\widehat F_{1,n}\\
+&+(s_{1,n}-s_{2,n})\widehat F_{2,n}
+ +(s_{2,n}-s_{3,n})\widehat F_{3,n}.
+\end{aligned}
+\]
+Define the integer closure
+\[
+\mathcal I_{3,n}=\lceil\mathcal B_{3,n}\rceil.
+\]
+The established one-use charging theorem gives
+\[
+\boxed{
+\Lambda_n\ge\mathcal I_{3,n}\ge\mathcal B_{3,n}
+\qquad(n\ge159).
+}
 \]
 
-one has uniform monotone convergence on \([1/3,1]\):
+## Threshold And Boundary Region
 
+- At \(n=158\),
+  \((r_n,s_{1,n},s_{2,n},s_{3,n})=(67,67,64,62)\), so the first segment is
+  empty.
+- Exact floor/ceil arithmetic checks every case \(159\le n\le170\).
+- The symbolic non-vacuity tail starts at \(n=171\).
+- Therefore \(159\) is the minimal uniform threshold for three nonempty
+  selected segments.
+- The symbolic middle-clipping estimate is uniform by \(n=23\); it is not the active
+  threshold.
+
+## Controlled Polynomial Remainder
+
+The literal bound satisfies
 \[
-E_k(\alpha)\nearrow
-E_\infty(\alpha)
-=p(\alpha)+{(3\alpha-1)^3\over24}.
+\mathcal B_{3,n}
+>C_{3,*}n^3+\kappa_*n^2-\ell_*n-{1\over15},
 \]
-
-On the full compact interval, the unique maximum is the degenerate endpoint
-
+where
 \[
-\alpha=1,
+C_{3,*}
+={753972193324+106042322\sqrt{377823}\over2960667770787},
+\]
+\[
+\kappa_*
+={-535396585939+1466777893\sqrt{377823}\over986889256929}
+>{1\over3},
 \qquad
-E_\infty(1)={1\over3}.
+\ell_*={a+5\over3}<{11\over6}.
 \]
-
-On the strict domain \([1/3,1)\), this value is only a nonattained supremum.
-On the limiting all-middle closure \([1/3,1/2]\), the unique maximum is
-
+Hence the remainder is larger than
+\((10n^2-55n-2)/30>0\) for every \(n\ge6\). In particular, the finite
+theorem does imply the bare optimized cubic bound on its entire domain:
 \[
-\alpha_{\rm mid}={13-2\sqrt2\over23},
+\boxed{
+\Lambda_n\ge\mathcal I_{3,n}\ge\mathcal B_{3,n}>C_{3,*}n^3,
 \qquad
-E_\infty(\alpha_{\rm mid})={434+4\sqrt2\over1587}.
+R_2^*(n)>{\mathcal I_{3,n}\over\pi}-n^2
+\ge{\mathcal B_{3,n}\over\pi}-n^2
+>{C_{3,*}\over\pi}n^3-n^2
+\quad(n\ge159).
+}
 \]
+The integer \(\mathcal I_{3,n}\) inequality is the strongest explicit
+cutoff-only consequence of this rounded bound; \(\mathcal B_{3,n}\) is the
+literal charging expression.
 
-## Protected Limitations
+## Evidence Classification
 
-- The theorem concerns the normalized compact polynomial for each fixed
-  \(k\).
-- No combined-height or one-use charging theorem has been proved beyond three
-  selected prefixes.
-- No uniform interchange between \(k\) and \(n\) has been justified.
-- Neither \(M_k\to1/3\) nor either envelope value gives a new bound for
-  \(\Lambda_n\) or \(R_2^*(n)\).
-- No production path or established three-prefix bound is changed.
+- EXACT FINITE METHOD-SPECIFIC THEOREM: cutoff admissibility, minimal uniform
+  threshold, finite clipped weights, literal charging expression, integer
+  closure, controlled polynomial remainder, and strict \(C_{3,*}n^3\)
+  consequence.
+- VERIFIED BOUNDED EXACT COMPUTATION: the standalone dossier diagnostic
+  implements \(\mathbb Q(\sqrt{377823})\) independently, scans through the
+  finite bridge, and checks all finite formulas through \(n=1000\).
+- LIMITATION: the theorem does not give an exact value of \(\Lambda_n\) or
+  \(R_2^*(n)\), an exact residual, convergence, a matching upper bound, or an
+  exact geometric leading coefficient.
+- SCOPE: no four-prefix charging, production code, test, artifact, schema,
+  backend, certificate, enumerator, or enumeration-limit change.
 
 ## Verification
 
-- `python -B ops\TASK-20260716__normalized_prefix_simplex\fraction_diagnostic.py`:
-  all exact checks passed for \(k=1,\ldots,8\), including 203,489 literal
-  denominator-12 grid tuples.
-- Focused historical/simplex pytest selection: 8 passed.
-- Ruff on the unchanged standalone diagnostic: passed.
-- Anchored display delimiters, inline delimiters, LaTeX environments, code
-  fences, and trailing whitespace are balanced or clean in all synchronized
-  sources and the canonical proof/roadmap.
-- The cyclic-ratio proof note retains 273 unique equation tags with no
-  duplicate.
-- Cross-source theorem values, domains, evidence classifications, and
-  protected limitations agree.
-- The corrective diff contains only the six documentation files listed below;
-  the proof, diagnostic, tests, production, and protected paths have no diff.
-- `git diff --check` and final changed-path inspection pass.
-- Independent read-only audits found no residual mathematical,
-  diagnostic, synchronization, Markdown, equation, or scope defect after the
-  corrective findings were applied.
+- Independent exact diagnostic: passed through \(n=1000\).
+- Focused three-/two-/one-prefix selection: 12 passed.
+- Complete fixed-order-cycle-ratio module: 101 passed.
+- Complete local suite: 277 passed.
+- Checked-artifact semantic verification: 4 certificates and 76 local
+  brackets passed.
+- Schema selection: 4 passed.
+- Ruff check and format check on the standalone diagnostic: passed.
+- Equation-tag audit: 289 tags, all unique.
+- Changed-source delimiter deltas and LaTeX environments: balanced.
+- Three independent read-only audits found no remaining mathematical,
+  diagnostic, synchronization, Markdown, or scope defect after the
+  integer-closure and wording corrections were applied.
+- Protected-path inspection, final changed-path inspection,
+  `git diff --check`, and final diff review passed.
 
-## Files In Corrective Diff
+## Files Changed
 
-- `start.md`, `PROJECT_KNOWLEDGE.md`, and `CURRENT_STATUS.md`: synchronized
-  authoritative project memory.
-- `ops/TASK-20260716__normalized_prefix_simplex/TASK_STATUS.md`,
-  `TASK_LOG.md`, and `EVIDENCE.md`: corrected durable task handoff.
-- The proof and `fraction_diagnostic.py` remain unmodified after inspection.
+- `research/FIXED_ORDER_CYCLE_RATIO.md`: primary exact proof and finite
+  theorem; also corrects CR42 from the obsolete \(C_{2,*}\) lower endpoint to
+  the already-proved \(C_{3,*}\) endpoint.
+- `research/ALL_N_LOWER_BOUND.md` and `research/NEXT_RESEARCH_STEPS.md`:
+  synchronized all-\(n\) note and roadmap.
+- `start.md`, `PROJECT_KNOWLEDGE.md`, and this file: synchronized authoritative
+  project memory.
+- `ops/TASK-20260716__three_prefix_finite_theorem/`: STRICT task status, log,
+  evidence, and independent exact diagnostic.
+
+## Protected Limitations
+
+- No charging theorem beyond three selected prefixes is inferred from the
+  normalized simplex.
+- Finite rounding of the irrational two-prefix optimizer remains unresolved.
+- Neither normalized sequence is proved to converge.
+- No upper bound matching \(C_{3,*}/\pi\) is known.
+- Production, artifacts, schemas, interval backends, certificates, tests,
+  enumerators, and enumeration limits remain unchanged.
 
 ## Proposed Next Task
 
-In a fresh STRICT task, derive an explicit finite floor/ceiling theorem for
-the exact irrational three-prefix optimizer, including a minimal or
-rigorously sufficient uniform threshold, without changing production,
-artifacts, schemas, backends, certificates, or enumeration limits.
+In a fresh STRICT task, analyze one explicit parametric perturbation of the
+current \(8/25\) product-distance upper construction and prove either a strict
+symbolic improvement or a precise obstruction, without extending cyclic-order
+enumeration.
