@@ -237,6 +237,17 @@ in `research/ALL_N_LOWER_BOUND.md`.
   threshold is minimal because the first segment is empty at \(n=158\).
   This finite theorem does not identify an exact residual or leading
   coefficient and does not extend charging to four prefixes.
+- **EXACT METHOD-SPECIFIC THEOREM (FOUR SELECTED PREFIXES):** for strictly
+  ordered cutoffs and ordered weights
+  \(0\le\lambda_4\le\lambda_3\le\lambda_2\le\lambda_1\le1\), the five
+  coefficients
+  \(1-\lambda_1,\lambda_1-\lambda_2,\lambda_2-\lambda_3,
+  \lambda_3-\lambda_4,\lambda_4\) combine the four selected heights before
+  any slack is assigned. The resulting four split segments use one canonical
+  partition of the original-edge slack, while the recursive invariant covers
+  every child edge through all three boundaries. Equations
+  (CR28de)--(CR28dk) give the exact finite lower bound and its unoptimized
+  fixed-parameter consequence.
 - **EXACT THEOREM (NORMALIZED \(k\)-PREFIX SIMPLEX):** for every \(k\ge1\),
   the compact normalized polynomial (CR28cr) has one strictly interior
   maximizer. Its ratios satisfy
@@ -260,9 +271,19 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \([1/3,1/2]\), its unique maximum is
   \((434+4\sqrt2)/1587\) at
   \((13-2\sqrt2)/23\).
-- **LIMITATION:** the normalized theorem proves no charging statement for
-  \(k\ge4\), no uniform interchange of \(k\) and \(n\), and no new lower
-  bound for \(\Lambda_n\) or \(R_2^*(n)\).
+- **LIMITATION:** the normalized theorem by itself proves no charging
+  statement. The separate direct argument now proves one-use charging for
+  four selected prefixes, but no charging statement for \(k\ge5\), no
+  uniform interchange of \(k\) and \(n\), and no optimized four-prefix
+  coefficient.
+- **VERIFIED FACT (BOUNDED EXACT FOUR-PREFIX ORACLE):** a standalone
+  Fraction oracle literally checks all 840 four-split histories from the
+  bounded base \(C_0=(11,14,12,13)\). It imports no project or test helper and
+  verifies the convex telescoping identity, canonical original-edge slack
+  partition, recursive invariant, local floors, and four-segment lower bound,
+  including 120 fourth splits whose two endpoints were inserted earlier.
+  This bounded computation corroborates but does not replace the all-history
+  proof.
 - **VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK):** a recursive oracle at
   \((m,n,r)=(2,7,4)\) identifies all 60 compatible triple-split histories
   with all 60 outer dihedral cycles and obtains
@@ -4038,6 +4059,233 @@ boundary table and the finite region before the symbolic tail, and verifies
 the literal and polynomial inequalities through \(n=1000\), without importing
 production code or changing any enumeration limit.
 
+### Four selected prefixes with one slack partition
+
+The next direct charging case also closes, without using the normalized
+simplex lemma and without optimizing any parameter. Fix
+
+\[
+0<\beta_4<\beta_3<\beta_2<\beta_1<\alpha<1,
+\qquad
+0\le\lambda_4\le\lambda_3\le\lambda_2\le\lambda_1\le1,
+\]
+
+and put
+
+\[
+r=\lfloor\alpha n\rfloor,
+\qquad
+s_i=\lceil\beta_i n\rceil\quad(i=1,2,3,4),
+\qquad
+s_0=r.
+\tag{CR28de}
+\]
+
+At fixed \(n\), require exactly the finite admissibility conditions
+
+\[
+2\le r\le n-2,
+\qquad
+1\le s_4<s_3<s_2<s_1\le r-1.
+\]
+
+Strict ordering of the real densities guarantees these integer conditions
+eventually, not at every finite \(n\). For an arbitrary compatible literal
+split history, define the four selected heights
+
+\[
+H_i=\sum_{t=s_i}^{r-1}A_t\quad(i=1,2,3,4).
+\]
+
+The five numbers
+
+\[
+1-\lambda_1,\quad
+\lambda_1-\lambda_2,\quad
+\lambda_2-\lambda_3,\quad
+\lambda_3-\lambda_4,\quad
+\lambda_4
+\]
+
+are nonnegative and sum to one. Hence
+
+\[
+\boxed{
+\begin{aligned}
+\max(0,H_1,H_2,H_3,H_4)
+\ge{}&
+(\lambda_1-\lambda_2)H_1
++(\lambda_2-\lambda_3)H_2\\
+&+(\lambda_3-\lambda_4)H_3+\lambda_4H_4.
+\end{aligned}
+}
+\tag{CR28df}
+\]
+
+This ordered region is exact for an inequality required to hold for all real
+height quadruples. Indeed, a linear form is bounded by
+\(\max(0,H_1,H_2,H_3,H_4)\) for every quadruple exactly when its four
+coefficients are nonnegative and have sum at most one. Negative coefficients
+are excluded by sending the corresponding height to \(-\infty\), and a sum
+larger than one is excluded by taking all heights equal and positive.
+
+Expanding the right side of (CR28df) before assigning any edge slack
+telescopes to
+
+\[
+\lambda_1\sum_{t=s_1}^{s_0-1}A_t
++\lambda_2\sum_{t=s_2}^{s_1-1}A_t
++\lambda_3\sum_{t=s_3}^{s_2-1}A_t
++\lambda_4\sum_{t=s_4}^{s_3-1}A_t.
+\]
+
+Thus the four disjoint segments
+\(I_i=\{s_i,\ldots,s_{i-1}-1\}\) carry the four weights. Write
+\(\lambda_t=\lambda_i\) on \(I_i\), retain
+
+\[
+\Delta_e={(u+v-n-r)^2\over2}
+\qquad(e=\{u,v\}\in E(C_0)),
+\]
+
+and define
+
+\[
+F_{i,n}=G_{n,\lambda_i}(s_i)\quad(i=1,2,3,4).
+\]
+
+There is one canonical partition of the original-edge slack for each literal
+history. If \(B\) is the set of selected labels whose split uses an untouched
+edge \(e_t\in E(C_0)\), then \(t\mapsto e_t\) is injective. A removed original
+edge is never recreated, because later splits insert a label below \(r\) and
+never join two original endpoints. Consequently
+
+\[
+\begin{aligned}
+P(C_0)-P_{r,n}+\sum_{t=s_4}^{r-1}\lambda_tA_t
+={}&
+\sum_{\substack{t:\ \mathrm{base}\\\mathrm{split}}}
+  (\Delta_{e_t}+\lambda_tA_t)
++\sum_{\substack{t:\ \mathrm{recursive}\\\mathrm{split}}}
+  \lambda_tA_t\\
+&+\sum_{e\in E(C_0)\setminus\{e_t:t\in B\}}\Delta_e.
+\end{aligned}
+\tag{CR28dg}
+\]
+
+The word canonical here is combinatorial: the original edge set is uniquely
+partitioned into the injectively charged edges and the unused edges. It does
+not assert uniqueness among arbitrary numerical decompositions when some
+\(\Delta_e=0\).
+
+The recursive invariant is unchanged by any of the three segment boundaries.
+Immediately before label \(t\) is inserted, every current edge is either an
+untouched original edge or has an endpoint in
+\(\{t+1,\ldots,r-1\}\). This holds initially. Splitting either kind of edge
+creates two children incident to \(t\); for every later label \(t'<t\), that
+endpoint belongs to \(\{t'+1,\ldots,r-1\}\). Induction therefore covers every
+recursive child, including arbitrarily nested edges and edges whose two
+endpoints were inserted earlier.
+
+On segment \(I_i\), the base estimate (CR28ay), monotonicity (CR28bc), and the
+recursive estimate (CR28ba)--(CR28bd) give respectively
+
+\[
+\Delta_{e_t}+\lambda_iA_t
+\ge G_{n,\lambda_i}(t)\ge F_{i,n},
+\]
+
+and
+
+\[
+\lambda_iA_t
+\ge J_{n,\lambda_i}(t)
+\ge G_{n,\lambda_i}(t)
+\ge F_{i,n}.
+\]
+
+These inequalities include \(\lambda_i=0\), when all displayed local floors
+vanish. Discarding only the nonnegative unused slack in (CR28dg), and then
+using (CR28df), proves the exact four-segment lower bound
+
+\[
+\boxed{
+\begin{aligned}
+\gamma^{(r)}_{1,n}\ge{}& P_{r,n}
++(r-s_1)F_{1,n}
++(s_1-s_2)F_{2,n}\\
+&+(s_2-s_3)F_{3,n}
++(s_3-s_4)F_{4,n}.
+\end{aligned}
+}
+\tag{CR28dh}
+\]
+
+No positivity of the individual \(F_{i,n}\) is assumed. The comparison with
+the inner simple-cycle minimum is, exactly as before,
+
+\[
+\boxed{
+\begin{aligned}
+\gamma^{(r)}_{1,n}-P^*_{r,n}\ge{}
+&(r-s_1)F_{1,n}
++(s_1-s_2)F_{2,n}\\
+&+(s_2-s_3)F_{3,n}
++(s_3-s_4)F_{4,n}
+-e(n-r+1).
+\end{aligned}
+}
+\tag{CR28di}
+\]
+
+For fixed admissible real parameters, taking only the usual \(n\to\infty\)
+limit in (CR28dh) gives the unoptimized coefficient
+
+\[
+\boxed{
+\begin{aligned}
+C_4={}&p(\alpha)
++(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_1)\\
+&+(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_2)\\
+&+(\beta_2-\beta_3)g(\alpha,\beta_3,\lambda_3)\\
+&+(\beta_3-\beta_4)g(\alpha,\beta_4,\lambda_4).
+\end{aligned}
+}
+\tag{CR28dj}
+\]
+
+Equations (CR28ap) and (CR28) therefore imply, without any parameter
+optimization or finite rounding theorem,
+
+\[
+\boxed{
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_4,
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge {C_4\over\pi}.
+}
+\tag{CR28dk}
+\]
+
+No comparison with \(C_{3,*}\) is claimed. No \(k\ge5\) charging statement,
+uniform \(k\)-to-\(n\) interchange, exact residual, convergence result, or
+geometric leading coefficient follows.
+
+The standalone dossier oracle uses
+\[
+(n,r,C_0)=(14,11,(11,14,12,13)),
+\quad
+(s_1,s_2,s_3,s_4)=(10,9,8,7),
+\quad
+(\lambda_1,\lambda_2,\lambda_3,\lambda_4)=(4/5,3/5,2/5,1/5).
+\]
+It checks all \(4\cdot5\cdot6\cdot7=840\) current-edge histories in exact
+standard-library Fraction arithmetic, with 840 distinct final cycles. The
+recursive search-tree split counts by depth are \((0,8,72,600)\); 120 fourth
+splits have two previously inserted endpoints. The four local floors sum to \(9239/72\),
+and every history satisfies the literal partition (CR28dg) and bound
+(CR28dh). This bounded computation is independent corroboration, not the
+all-history proof.
+
 ### Normalized \(k\)-prefix simplex lemma
 
 The compact polynomial behind the one-, two-, and three-prefix optimizations
@@ -4248,12 +4496,14 @@ The other root \((13+2\sqrt2)/23\) is a local minimum of the full cubic.
 In particular, (CR28dd) is a middle-branch normalized candidate, whereas
 (CR28dc) is the global maximum of the displayed formal compact envelope.
 
-No charging theorem with \(k\ge4\) selected prefixes is proved here. The
-recurrence, the limit \(M_k\to1/3\), and both envelope optimizations are
-statements about the normalized compact polynomial only. They do not permit
-an interchange of \(k\) with \(n\), do not promote either value in
-(CR28dc) or (CR28dd) to a lower bound for \(\Lambda_n\), and do not change
-any established statement about \(R_2^*(n)\).
+The normalized-simplex argument itself proves no charging theorem. The
+separate direct argument (CR28de)--(CR28dk) now handles exactly four selected
+prefixes, but nothing here extends it to \(k\ge5\). The recurrence, the limit
+\(M_k\to1/3\), and both envelope optimizations remain statements about the
+normalized compact polynomial only. They do not permit an interchange of
+\(k\) with \(n\), do not promote either value in (CR28dc) or (CR28dd) to a
+lower bound for \(\Lambda_n\), and do not change any established statement
+about \(R_2^*(n)\).
 
 ## 5. Exact Scorer Without Cycle Enumeration
 
@@ -5821,12 +6071,20 @@ Further non-consequences are important.
   remainder, and proves
   \(\Lambda_n>C_{3,*}n^3\) throughout that domain. It makes no exact
   residual, convergence, production, or geometric-leading-constant claim.
+- The four-prefix extension (CR28de)--(CR28dk) combines the four heights
+  before any slack assignment. The five convex coefficients telescope to
+  four disjoint weighted segments, the literal history canonically partitions
+  every original edge into one charged or one unused edge, and the recursive
+  invariant survives all three boundaries at arbitrary depth. This proves the
+  exact finite bound (CR28dh) and the unoptimized fixed-parameter consequence
+  (CR28dj)--(CR28dk). No parameter optimization, finite threshold theorem, or
+  comparison with \(C_{3,*}\) is made.
 - The normalized simplex theorem (CR28cr)--(CR28dd) solves the compact
   polynomial for every fixed \(k\), proves its unique interior maximizer and
   the exact recurrence \(M_k\nearrow1/3\), and explains the three previously
-  observed rational simplex points. It does not extend the combined-height
-  or one-use charging proof beyond three prefixes. In particular, neither the
-  formal endpoint value \(1/3\) nor the all-middle value
+  observed rational simplex points. It does not imply the separate direct
+  four-prefix theorem and does not extend one-use charging to \(k\ge5\). In
+  particular, neither the formal endpoint value \(1/3\) nor the all-middle value
   \((434+4\sqrt2)/1587\) is a new coefficient bound for \(\Lambda_n\) or
   \(R_2^*(n)\).
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality

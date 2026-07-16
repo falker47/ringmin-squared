@@ -504,6 +504,51 @@ This is a finite three-prefix template theorem, not an exact residual, limit,
 or geometric leading coefficient, and it does not extend charging to four
 prefixes.
 
+The separate direct charging argument does extend exactly to four selected
+prefixes. For
+\[
+0<\beta_4<\beta_3<\beta_2<\beta_1<\alpha<1,
+\qquad
+0\le\lambda_4\le\lambda_3\le\lambda_2\le\lambda_1\le1,
+\]
+the five coefficients
+\[
+1-\lambda_1,\quad
+\lambda_1-\lambda_2,\quad
+\lambda_2-\lambda_3,\quad
+\lambda_3-\lambda_4,\quad
+\lambda_4
+\]
+combine \(0,H_1,H_2,H_3,H_4\) before any slack assignment and telescope to
+four disjoint weighted segments. One canonical edge-indexed partition then
+uses every original base slack exactly once or leaves it unused. The
+boundary-independent recursive invariant covers every nested child edge,
+including edges whose two endpoints were inserted earlier. With
+\(r=\lfloor\alpha n\rfloor\), \(s_i=\lceil\beta_i n\rceil\), and
+\(F_{i,n}=G_{n,\lambda_i}(s_i)\), every finite admissible cutoff tuple obeys
+\[
+\begin{aligned}
+\gamma^{(r)}_{1,n}\ge{}& P_{r,n}
++(r-s_1)F_{1,n}
++(s_1-s_2)F_{2,n}\\
+&+(s_2-s_3)F_{3,n}
++(s_3-s_4)F_{4,n}.
+\end{aligned}
+\]
+The corresponding fixed-parameter coefficient is
+\[
+\begin{aligned}
+C_4={}&p(\alpha)
++(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_1)\\
+&+(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_2)
++(\beta_2-\beta_3)g(\alpha,\beta_3,\lambda_3)\\
+&+(\beta_3-\beta_4)g(\alpha,\beta_4,\lambda_4).
+\end{aligned}
+\]
+No optimization, finite rounding, comparison with \(C_{3,*}\), or extension
+to five prefixes is asserted. A standalone exact oracle checks all 840
+literal four-split histories of one bounded base.
+
 Independently of that charging theorem, the normalized prefix simplex is
 solved exactly in every fixed dimension. For \(k\ge1\), let
 
@@ -579,10 +624,12 @@ the limiting all-middle closure \([1/3,1/2]\), the unique maximum is
 E_\infty(\alpha)={434+4\sqrt2\over1587}.
 \]
 
-These are exact normalized-polynomial statements for each fixed \(k\). No
-combined-height or one-use charging theorem is proved beyond three selected
-prefixes, no uniform interchange of \(k\) and \(n\) is justified, and no new
-bound for \(\Lambda_n\) or \(R_2^*(n)\) follows.
+These are exact normalized-polynomial statements for each fixed \(k\). The
+normalized-simplex proof itself supplies no charging theorem. The separate
+direct argument proves four-prefix one-use charging, but nothing here proves
+it for \(k\ge5\); no uniform interchange of \(k\) and \(n\) is justified,
+and the normalized limit yields no new bound for \(\Lambda_n\) or
+\(R_2^*(n)\).
 
 There is also an exact eventual radius-one insertion theorem. Let
 \(R^*_{2:n}\) be the infimum feasible central radius for only the core radii
@@ -910,9 +957,10 @@ Out of scope:
 
 - treating finite computation as a proof for all `n`;
 - treating checked brackets as exact optimum values;
-- treating the fixed-\(k\) normalized simplex lemma as charging beyond three
-  selected prefixes, interchanging \(k\) uniformly with \(n\), or improving
-  any bound for \(\Lambda_n\) or \(R_2^*(n)\);
+- treating the fixed-\(k\) normalized simplex lemma as a charging proof
+  beyond the separately established four-prefix case, interchanging \(k\)
+  uniformly with \(n\), or improving any bound for \(\Lambda_n\) or
+  \(R_2^*(n)\);
 - silently generalizing Ringmin results to quadratic radii;
 - modifying the original Ringmin repository.
 
@@ -1076,7 +1124,8 @@ minimizer classifications, independent bounded oracles, comparison with
 every sublinear block length, the positive cubic residual for the first
 explicit linear block, its global lower-bound corollary, the exact two- and
 three-prefix optimizations, the minimal-threshold finite theorem at the
-irrational three-prefix optimizer, the exact normalized prefix-simplex lemma
+irrational three-prefix optimizer, the exact unoptimized four-prefix one-use
+theorem and bounded literal oracle, the exact normalized prefix-simplex lemma
 for every fixed \(k\), its envelope classification, and asymptotic
 limitations. One-wrap saturation
 and insertion independence concern the product ratio; they do not reduce
@@ -1376,6 +1425,28 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \(\kappa_*>1/3\). This is a finite template theorem, not an exact residual
   or geometric leading coefficient, and no charging beyond three prefixes is
   asserted.
+- EXACT METHOD-SPECIFIC THEOREM (FOUR SELECTED PREFIXES): for
+  \(0<\beta_4<\beta_3<\beta_2<\beta_1<\alpha<1\) and
+  \(0\le\lambda_4\le\lambda_3\le\lambda_2\le\lambda_1\le1\), the five
+  convex coefficients combine all four selected heights before any original
+  edge slack is assigned. They telescope to weights
+  \(\lambda_1,\lambda_2,\lambda_3,\lambda_4\) on four disjoint segments.
+  The literal history induces one canonical partition of original edges into
+  injectively charged and unused edges, and the recursive invariant covers
+  every nested child split through all three boundaries. Thus
+  \[
+  \begin{aligned}
+  \gamma^{(r)}_{1,n}\ge{}& P_{r,n}
+  +(r-s_1)F_{1,n}
+  +(s_1-s_2)F_{2,n}\\
+  &+(s_2-s_3)F_{3,n}
+  +(s_3-s_4)F_{4,n}.
+  \end{aligned}
+  \]
+  For fixed admissible parameters, the resulting unoptimized \(C_4\) gives
+  \(\liminf\Lambda_n/n^3\ge C_4\) and
+  \(\liminf R_2^*(n)/n^3\ge C_4/\pi\). No optimization, finite rounding,
+  comparison with \(C_{3,*}\), or theorem for \(k\ge5\) is claimed.
 - EXACT THEOREM (NORMALIZED PREFIX SIMPLEX): for every fixed \(k\ge1\),
   \[
   M_k=\max_{1\ge x_1\ge\cdots\ge x_k\ge0}
@@ -1429,9 +1500,18 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   separate discrete Bellman calculation agree on all 203,489 grid tuples.
   This bounded check corroborates the proof but is not the all-real theorem.
 - LIMITATION: the normalized simplex theorem is independent of the charging
-  argument. No charging beyond three selected prefixes, no uniform
-  interchange between \(k\) and \(n\), and no new bound for \(\Lambda_n\) or
-  \(R_2^*(n)\) is established by it.
+  argument. The separate direct proof establishes four-prefix one-use
+  charging, but the simplex does not imply that theorem, any charging result
+  for \(k\ge5\), a uniform interchange between \(k\) and \(n\), or a new
+  bound from its limiting envelope.
+- VERIFIED FACT (FINITE EXACT DOSSIER ORACLE): the standalone
+  ops/TASK-20260716__four_prefix_charging/literal_oracle.py imports no
+  project or test helper and checks all 840 literal four-split histories from
+  \(C_0=(11,14,12,13)\). It verifies the convex telescoping identity, the
+  canonical original-edge slack partition, all recursive floors, 840
+  distinct final cycles, and 120 fourth splits with two previously inserted
+  endpoints. This bounded check corroborates but does not prove the
+  all-history theorem.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): a test-local Fraction
   oracle checks all 46,620 depth-three histories from one bounded base,
   including 70 distinct recursive second-step prefixes (2,590 full-history
@@ -1846,9 +1926,11 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   templates. The older rational witness remains the finite two-prefix theorem
   from \(n=59\); the irrational three-prefix optimizer now has the stronger
   finite theorem \(\Lambda_n>C_{3,*}n^3\) from the minimal uniform threshold
-  \(159\). Neither coefficient is an exact residual or leading coefficient;
-  convergence, finite rounding at the irrational two-prefix optimizer, and
-  exact block coefficients remain unresolved.
+  \(159\). The separate four-prefix charging theorem is exact but remains
+  unoptimized, so it does not change the displayed best numerical lower
+  coefficient. Neither coefficient is an exact residual or leading
+  coefficient; convergence, finite rounding at the irrational two-prefix
+  optimizer, and exact block coefficients remain unresolved.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit
   and unresolved for public production claims. The bounded test-only Arb
   cross-check covers checked `n=3` only and is not a full backend audit.

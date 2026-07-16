@@ -2,171 +2,144 @@
 
 Last update: 2026-07-16
 
-- **Current phase:** exact finite three-prefix theorem completed.
-- **Current task:** round the exact irrational \(C_{3,*}\) optimizer and prove
-  one reproducible finite lower theorem.
-- **Task dossier:** `ops/TASK-20260716__three_prefix_finite_theorem/`.
+- **Current phase:** exact four-prefix one-use charging established.
+- **Current task:** determine whether CR28ce--CR28cg extends exactly to four
+  selected prefixes.
+- **Task dossier:** ops/TASK-20260716__four_prefix_charging/.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
-## Exact Finite Three-Prefix Theorem
+## Exact Four-Prefix Theorem
 
-Put
+Fix
 \[
-d=377823,
+0<\beta_4<\beta_3<\beta_2<\beta_1<\alpha<1,
 \qquad
-a=\alpha_*={685623-421\sqrt d\over993423},
-\qquad
-A=3a-1,
+0\le\lambda_4\le\lambda_3\le\lambda_2\le\lambda_1\le1.
 \]
+Put \(r=\lfloor\alpha n\rfloor\),
+\(s_i=\lceil\beta_i n\rceil\), \(s_0=r\), and
+\(F_{i,n}=G_{n,\lambda_i}(s_i)\). Whenever
 \[
-(x_1,x_2,x_3)
-=\left({1058\over1263},{276\over421},{184\over421}\right),
+2\le r\le n-2,
 \qquad
-b_i={1+a+x_iA\over4}.
+1\le s_4<s_3<s_2<s_1\le r-1,
 \]
-For integer \(n\), define
+the five coefficients
 \[
-r_n=\lfloor an\rfloor,
-\qquad
-s_{i,n}=\lceil b_i n\rceil,
-\qquad
-S_n=n+r_n.
+1-\lambda_1,\quad
+\lambda_1-\lambda_2,\quad
+\lambda_2-\lambda_3,\quad
+\lambda_3-\lambda_4,\quad
+\lambda_4
 \]
-From the minimal uniform threshold \(n=159\), all block, order,
-non-vacuity, and finite middle-clipped conditions hold. The finite weights
+give the exact all-height convex region and telescope to four disjoint
+weighted split segments. One canonical edge-indexed partition assigns each
+original base edge to its unique selected intact split or to the unused set.
+The recursive invariant survives all three boundaries and every nesting
+depth. Therefore
 \[
-\widehat\lambda_{i,n}=4-{S_n\over s_{i,n}}
+\boxed{
+\begin{aligned}
+\gamma^{(r)}_{1,n}\ge{}&P_{r,n}
++(r-s_1)F_{1,n}
++(s_1-s_2)F_{2,n}\\
+&+(s_2-s_3)F_{3,n}
++(s_3-s_4)F_{4,n}.
+\end{aligned}
+}
 \]
-are strictly ordered and give
-\[
-\widehat F_{i,n}={(4s_{i,n}-S_n)^2\over2}.
-\]
-The literal lower expression is
+
+For fixed admissible parameters, this yields the unoptimized coefficient
 \[
 \begin{aligned}
-\mathcal B_{3,n}={}&P_{r_n,n}
- +(r_n-s_{1,n})\widehat F_{1,n}\\
-&+(s_{1,n}-s_{2,n})\widehat F_{2,n}
- +(s_{2,n}-s_{3,n})\widehat F_{3,n}.
+C_4={}&p(\alpha)
++(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_1)\\
+&+(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_2)\\
+&+(\beta_2-\beta_3)g(\alpha,\beta_3,\lambda_3)\\
+&+(\beta_3-\beta_4)g(\alpha,\beta_4,\lambda_4),
 \end{aligned}
 \]
-Define the integer closure
+with
 \[
-\mathcal I_{3,n}=\lceil\mathcal B_{3,n}\rceil.
-\]
-The established one-use charging theorem gives
-\[
-\boxed{
-\Lambda_n\ge\mathcal I_{3,n}\ge\mathcal B_{3,n}
-\qquad(n\ge159).
-}
-\]
-
-## Threshold And Boundary Region
-
-- At \(n=158\),
-  \((r_n,s_{1,n},s_{2,n},s_{3,n})=(67,67,64,62)\), so the first segment is
-  empty.
-- Exact floor/ceil arithmetic checks every case \(159\le n\le170\).
-- The symbolic non-vacuity tail starts at \(n=171\).
-- Therefore \(159\) is the minimal uniform threshold for three nonempty
-  selected segments.
-- The symbolic middle-clipping estimate is uniform by \(n=23\); it is not the active
-  threshold.
-
-## Controlled Polynomial Remainder
-
-The literal bound satisfies
-\[
-\mathcal B_{3,n}
->C_{3,*}n^3+\kappa_*n^2-\ell_*n-{1\over15},
-\]
-where
-\[
-C_{3,*}
-={753972193324+106042322\sqrt{377823}\over2960667770787},
-\]
-\[
-\kappa_*
-={-535396585939+1466777893\sqrt{377823}\over986889256929}
->{1\over3},
+\liminf{\Lambda_n\over n^3}\ge C_4,
 \qquad
-\ell_*={a+5\over3}<{11\over6}.
+\liminf{R_2^*(n)\over n^3}\ge{C_4\over\pi}.
 \]
-Hence the remainder is larger than
-\((10n^2-55n-2)/30>0\) for every \(n\ge6\). In particular, the finite
-theorem does imply the bare optimized cubic bound on its entire domain:
+
+## Independent Bounded Oracle
+
+The standalone standard-library Fraction oracle uses
 \[
-\boxed{
-\Lambda_n\ge\mathcal I_{3,n}\ge\mathcal B_{3,n}>C_{3,*}n^3,
-\qquad
-R_2^*(n)>{\mathcal I_{3,n}\over\pi}-n^2
-\ge{\mathcal B_{3,n}\over\pi}-n^2
->{C_{3,*}\over\pi}n^3-n^2
-\quad(n\ge159).
-}
+(n,r,C_0)=(14,11,(11,14,12,13)),
+\quad
+(s_1,s_2,s_3,s_4)=(10,9,8,7),
 \]
-The integer \(\mathcal I_{3,n}\) inequality is the strongest explicit
-cutoff-only consequence of this rounded bound; \(\mathcal B_{3,n}\) is the
-literal charging expression.
+\[
+(\lambda_1,\lambda_2,\lambda_3,\lambda_4)
+=(4/5,3/5,2/5,1/5).
+\]
+It passes all \(4\cdot5\cdot6\cdot7=840\) literal current-edge histories and
+finds 840 distinct final cycles. Recursive search-tree split counts are
+\((0,8,72,600)\), with 120 fourth splits between two previously inserted
+endpoints. The exact local floors sum to \(9239/72\), giving the checked
+four-segment lower bound \(53879/72\) on this base.
 
 ## Evidence Classification
 
-- EXACT FINITE METHOD-SPECIFIC THEOREM: cutoff admissibility, minimal uniform
-  threshold, finite clipped weights, literal charging expression, integer
-  closure, controlled polynomial remainder, and strict \(C_{3,*}n^3\)
-  consequence.
-- VERIFIED BOUNDED EXACT COMPUTATION: the standalone dossier diagnostic
-  implements \(\mathbb Q(\sqrt{377823})\) independently, scans through the
-  finite bridge, and checks all finite formulas through \(n=1000\).
-- LIMITATION: the theorem does not give an exact value of \(\Lambda_n\) or
-  \(R_2^*(n)\), an exact residual, convergence, a matching upper bound, or an
-  exact geometric leading coefficient.
-- SCOPE: no four-prefix charging, production code, test, artifact, schema,
-  backend, certificate, enumerator, or enumeration-limit change.
+- EXACT METHOD-SPECIFIC THEOREM: convex height combination, canonical
+  original-edge slack partition, all-recursive invariant, finite
+  four-segment bound, and unoptimized fixed-parameter consequence.
+- VERIFIED BOUNDED EXACT COMPUTATION: independent 840-history literal oracle.
+- LIMITATION: bounded computation corroborates but does not prove the
+  all-history theorem.
+- LIMITATION: the best optimized numerical lower coefficient remains
+  \(C_{3,*}\); \(C_4\) was not optimized or compared numerically.
 
 ## Verification
 
-- Independent exact diagnostic: passed through \(n=1000\).
-- Focused three-/two-/one-prefix selection: 12 passed.
+- Clean startup baseline: six focused historical three-prefix tests passed.
+- Standalone oracle: passed all 840 histories.
+- Oracle Ruff check and format check: passed after one mechanical format
+  correction.
 - Complete fixed-order-cycle-ratio module: 101 passed.
 - Complete local suite: 277 passed.
 - Checked-artifact semantic verification: 4 certificates and 76 local
   brackets passed.
-- Schema selection: 4 passed.
-- Ruff check and format check on the standalone diagnostic: passed.
-- Equation-tag audit: 289 tags, all unique.
-- Changed-source delimiter deltas and LaTeX environments: balanced.
-- Three independent read-only audits found no remaining mathematical,
-  diagnostic, synchronization, Markdown, or scope defect after the
-  integer-closure and wording corrections were applied.
-- Protected-path inspection, final changed-path inspection,
-  `git diff --check`, and final diff review passed.
+- Checked-artifact schema selection: 4 passed.
+- Equation-tag audit: 296 tags, all unique.
+- Display-math and aligned/array environments are balanced in every changed
+  Markdown file.
+- Three independent read-only audits checked the mathematics, oracle,
+  authoritative synchronization, Markdown, and protected scope. Their one
+  finite-domain omission and two documentary ambiguities were corrected; the
+  stable reaudit found no remaining defect.
+- Final changed-path inspection, protected-scope inspection,
+  git diff --check, and final diff review passed.
 
 ## Files Changed
 
-- `research/FIXED_ORDER_CYCLE_RATIO.md`: primary exact proof and finite
-  theorem; also corrects CR42 from the obsolete \(C_{2,*}\) lower endpoint to
-  the already-proved \(C_{3,*}\) endpoint.
-- `research/ALL_N_LOWER_BOUND.md` and `research/NEXT_RESEARCH_STEPS.md`:
-  synchronized all-\(n\) note and roadmap.
-- `start.md`, `PROJECT_KNOWLEDGE.md`, and this file: synchronized authoritative
+- research/FIXED_ORDER_CYCLE_RATIO.md: primary exact theorem and oracle
+  evidence.
+- research/ALL_N_LOWER_BOUND.md and
+  research/NEXT_RESEARCH_STEPS.md: synchronized consequences and roadmap.
+- start.md, PROJECT_KNOWLEDGE.md, and this file: synchronized authoritative
   project memory.
-- `ops/TASK-20260716__three_prefix_finite_theorem/`: STRICT task status, log,
-  evidence, and independent exact diagnostic.
+- ops/TASK-20260716__four_prefix_charging/: STRICT dossier and independent
+  literal oracle.
 
 ## Protected Limitations
 
-- No charging theorem beyond three selected prefixes is inferred from the
-  normalized simplex.
-- Finite rounding of the irrational two-prefix optimizer remains unresolved.
-- Neither normalized sequence is proved to converge.
-- No upper bound matching \(C_{3,*}/\pi\) is known.
-- Production, artifacts, schemas, interval backends, certificates, tests,
-  enumerators, and enumeration limits remain unchanged.
+- No optimization of \(\alpha,\beta_i,\lambda_i\).
+- No finite rounding theorem and no \(k\to\infty\) passage.
+- No charging claim for \(k\ge5\).
+- No production, test, artifact, schema, backend, certificate, enumerator, or
+  enumeration-limit change.
+- No exact residual, convergence theorem, matching upper bound, exact
+  geometric leading coefficient, or exact value of \(\Lambda_n\) or
+  \(R_2^*(n)\).
 
 ## Proposed Next Task
 

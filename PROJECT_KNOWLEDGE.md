@@ -757,6 +757,72 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   literal charging expression. This theorem proves no exact residual,
   convergence, exact leading coefficient, production computation, or charging
   beyond three prefixes.
+- EXACT METHOD-SPECIFIC THEOREM (FOUR SELECTED PREFIXES): let
+  \[
+  0<\beta_4<\beta_3<\beta_2<\beta_1<\alpha<1,
+  \qquad
+  0\le\lambda_4\le\lambda_3\le\lambda_2\le\lambda_1\le1.
+  \]
+  With \(r=\lfloor\alpha n\rfloor\), \(s_i=\lceil\beta_i n\rceil\), and
+  \(s_0=r\), the five numbers
+  \[
+  1-\lambda_1,\quad\lambda_1-\lambda_2,\quad
+  \lambda_2-\lambda_3,\quad\lambda_3-\lambda_4,\quad\lambda_4
+  \]
+  form the exact convex weight region for the four selected heights. Their
+  linear form telescopes to weight \(\lambda_i\) on the disjoint segment
+  \(\{s_i,\ldots,s_{i-1}-1\}\). Each literal history canonically partitions
+  the original edges into injectively charged and unused edges. Immediately
+  before inserting \(t\), every recursive edge contains an endpoint in
+  \(\{t+1,\ldots,r-1\}\); splitting preserves this invariant through all
+  three boundaries and at arbitrary nesting depth. Therefore, whenever the
+  full finite admissibility conditions
+  \[
+  2\le r\le n-2,
+  \qquad
+  1\le s_4<s_3<s_2<s_1\le r-1
+  \]
+  hold,
+  \[
+  \begin{aligned}
+  \gamma^{(r)}_{1,n}\ge{}& P_{r,n}
+  +(r-s_1)F_{1,n}
+  +(s_1-s_2)F_{2,n}\\
+  &+(s_2-s_3)F_{3,n}
+  +(s_3-s_4)F_{4,n},
+  \qquad
+  F_{i,n}=G_{n,\lambda_i}(s_i).
+  \end{aligned}
+  \]
+  For fixed admissible real parameters,
+  \[
+  \begin{aligned}
+  C_4={}&p(\alpha)
+  +(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_1)\\
+  &+(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_2)\\
+  &+(\beta_2-\beta_3)g(\alpha,\beta_3,\lambda_3)\\
+  &+(\beta_3-\beta_4)g(\alpha,\beta_4,\lambda_4),
+  \end{aligned}
+  \]
+  and
+  \[
+  \liminf{\Lambda_n\over n^3}\ge C_4,
+  \qquad
+  \liminf{R_2^*(n)\over n^3}\ge{C_4\over\pi}.
+  \]
+  This result is unoptimized. It proves no finite rounding theorem, numerical
+  improvement over \(C_{3,*}\), \(k\to\infty\) passage, or charging statement
+  for \(k\ge5\).
+- VERIFIED FACT (FINITE EXACT FOUR-PREFIX DOSSIER ORACLE): the standalone
+  ops/TASK-20260716__four_prefix_charging/literal_oracle.py imports no
+  production or test helper and exhausts all 840 current-edge histories from
+  \(C_0=(11,14,12,13)\) for insertions \(10,9,8,7\). All 840 final cycles
+  are distinct. Recursive search-tree splits by depth are
+  \((0,8,72,600)\), including 120 fourth splits with two previously inserted
+  endpoints. Every history
+  satisfies the convex telescoping identity, exact canonical slack partition,
+  recursive floor, and four-segment bound. This bounded result corroborates
+  but does not replace the proof.
 - EXACT THEOREM (NORMALIZED PREFIX SIMPLEX): for every fixed \(k\ge1\), put
   \[
   F_k(x_1,\ldots,x_k)
@@ -824,9 +890,10 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   E_\infty(\alpha_{\rm mid})={434+4\sqrt2\over1587}.
   \]
 - LIMITATION: this is an exact normalized-polynomial theorem for every fixed
-  \(k\), independent of the charging argument. It proves no charging beyond
-  three selected prefixes, no uniform interchange between \(k\) and \(n\),
-  and no new bound for \(\Lambda_n\) or \(R_2^*(n)\).
+  \(k\), independent of the charging argument. The separate direct proof
+  establishes four-prefix charging, but the simplex proves neither that
+  theorem nor charging for \(k\ge5\), a uniform interchange between \(k\)
+  and \(n\), or a new bound from its limiting envelope.
 - EXACT GLOBAL LOWER COROLLARY (TWO-PREFIX RATIONAL WITNESS): at
   \[
   (\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})
@@ -1213,8 +1280,10 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   older rational witness remains the finite two-prefix theorem from \(n=59\),
   while the irrational three-prefix optimizer has the stronger finite theorem
   \(\Lambda_n>C_{3,*}n^3\) from the minimal uniform threshold \(159\). The
-  exact block residual, finite rounding at the irrational two-prefix optimizer,
-  convergence, and the exact global leading coefficient remain unresolved.
+  direct four-prefix theorem is exact but unoptimized and therefore does not
+  change this best numerical lower coefficient. The exact block residual,
+  finite rounding at the irrational two-prefix optimizer, convergence, and
+  the exact global leading coefficient remain unresolved.
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 
@@ -1848,7 +1917,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \(\mathbb Q(\sqrt{377823})\) coefficient, its minimal-threshold finite
   floor/ceil theorem, literal \(\mathcal B_{3,n}\) expression, integer closure
   \(\mathcal I_{3,n}\), controlled positive remainder, and independent exact
-  boundary diagnostic, plus the exact
+  boundary diagnostic, plus the exact four-prefix convex combination,
+  canonical one-use original-edge partition, recursive invariant through all
+  three boundaries, unoptimized four-segment lower bound, and standalone
+  840-history literal oracle, plus the exact
   normalized prefix-simplex lemma for every fixed \(k\), its unique
   strict-interior maximizer, value and ratio recurrences, monotone limit
   \(M_k\to1/3\),
@@ -1904,14 +1976,23 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \(\Lambda_n>C_{3,*}n^3\) throughout the domain. An independent dossier
   diagnostic covers the boundary region and exact arithmetic without changing
   production, artifacts, or enumeration limits.
+- COMPLETED PRIORITY: the direct four-prefix one-use theorem combines all
+  four selected heights before charging. Its five convex coefficients
+  telescope to four disjoint segments; every original edge is canonically
+  charged once or left unused, and every recursive child edge remains covered
+  through all three boundaries. The exact finite bound and fixed-parameter
+  coefficient \(C_4\) are unoptimized. An independent standalone oracle
+  checks all 840 bounded literal histories, including 120 fourth splits with
+  two previously inserted endpoints, without production or limit changes.
 - COMPLETED PRIORITY: the normalized prefix simplex is solved exactly for
   every fixed \(k\ge1\). A Bellman recurrence and telescoping nonnegative
   certificate prove the unique strict-interior maximizer, the value and ratio
   recurrences, and \(M_k\nearrow1/3\); the first three rows recover the
   established one-, two-, and three-prefix simplex values. The formal compact
-  and limiting all-middle envelopes are classified exactly. This result adds
-  no charging beyond three prefixes, no uniform \(k\)-to-\(n\) interchange,
-  and no new bound for \(\Lambda_n\) or \(R_2^*(n)\).
+  and limiting all-middle envelopes are classified exactly. This result is
+  independent of the direct four-prefix proof and adds no charging for
+  \(k\ge5\), no uniform \(k\)-to-\(n\) interchange, and no new bound from its
+  limiting envelope.
 - RECOMMENDED NEXT TASK: in a fresh STRICT task, analyze one explicit
   parametric perturbation of the current \(8/25\) product-distance upper
   construction and prove either a strict symbolic improvement or a precise
@@ -1957,10 +2038,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   methods outside these templates remain unclassified. The irrational
   three-prefix optimizer has the exact finite theorem recorded above.
 - LIMITATION: the normalized simplex theorem is proved for every fixed
-  \(k\), but combined-height one-use charging is proved only through three
-  selected prefixes. No uniform interchange between \(k\) and \(n\) and no
-  new bound for \(\Lambda_n\) or \(R_2^*(n)\) follows from the simplex limit
-  or either normalized envelope.
+  \(k\), while combined-height one-use charging is proved directly through
+  four selected prefixes. No charging theorem for \(k\ge5\), uniform
+  interchange between \(k\) and \(n\), or new bound from the simplex limit or
+  either normalized envelope is established.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.
 - LIMITATION: the sufficient radius-one threshold `12` is not known to be
   minimal, and the exact equality question remains open for `n<=11`.

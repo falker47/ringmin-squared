@@ -59,6 +59,27 @@ where \(159\) is the minimal uniform three-nonempty-prefix threshold. The
 older rational witness remains the earlier finite two-prefix theorem from
 \(n=59\).
 
+The direct one-use theorem now also closes exactly for four selected
+prefixes. The five ordered convex coefficients combine
+\(0,H_1,H_2,H_3,H_4\) before slack assignment and telescope to four disjoint
+weighted segments. Each literal history canonically partitions every
+original edge into one charged or one unused edge, while the recursive
+invariant covers every nested child split through all three boundaries. This
+gives the exact four-segment finite bound and the unoptimized fixed-parameter
+coefficient
+\[
+\begin{aligned}
+C_4={}&p(\alpha)
++(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_1)
++(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_2)\\
+&+(\beta_2-\beta_3)g(\alpha,\beta_3,\lambda_3)
++(\beta_3-\beta_4)g(\alpha,\beta_4,\lambda_4).
+\end{aligned}
+\]
+No parameter optimization, finite rounding, comparison with \(C_{3,*}\), or
+extension to five prefixes is part of this result. A standalone exact oracle
+checks all 840 literal histories of one bounded four-split base.
+
 The normalized compact simplex common to the one-, two-, and three-prefix
 proofs is now solved for every fixed dimension \(k\). Its unique maximizer is
 strictly interior, its backward ratios satisfy
@@ -71,8 +92,9 @@ and
 M_0=0,
 \qquad M_k={4\over27(1-M_{k-1})^2}\nearrow{1\over3}.
 \]
-This is an exact polynomial optimization lemma, not an extension of the
-charging theorem. In particular, it changes none of the displayed bounds for
+This is an exact polynomial optimization lemma, not the source of the
+separate direct four-prefix charging theorem. It supplies no charging result
+for \(k\ge5\) and changes none of the displayed optimized bounds for
 \(\Lambda_n\) or \(R_2^*(n)\).
 
 The one-wrap saturation question is also closed exactly. If
@@ -422,6 +444,22 @@ the minimal threshold \(159\). A controlled remainder with
 proves \(\mathcal B_{3,n}>C_{3,*}n^3\). Exact finite arithmetic covers
 \(159\le n\le170\), and the symbolic tail starts at \(171\).
 
+Four-prefix charging is now exact as a separate unoptimized theorem. The
+five coefficients
+\[
+1-\lambda_1,\quad\lambda_1-\lambda_2,\quad
+\lambda_2-\lambda_3,\quad\lambda_3-\lambda_4,\quad\lambda_4
+\]
+form the exact convex region, and their height combination telescopes to four
+disjoint segments. The single edge-indexed slack partition is canonical
+relative to the literal history: an original edge is charged at its unique
+intact split or remains unused. The recursive invariant is independent of all
+three boundaries and covers edges with two previously inserted endpoints.
+The resulting finite four-segment bound and fixed-parameter coefficient
+\(C_4\) are exact, but no optimization or finite rounding is performed. A
+standalone Fraction oracle checks 840 bounded histories and all local
+identities without project helpers.
+
 The normalized simplex behind these three cases now has an exact
 all-\(k\) solution. A Bellman reduction and a telescoping nonnegative
 certificate prove existence, strict interiority, and uniqueness, not merely
@@ -441,8 +479,8 @@ at \(\alpha=1\); on the limiting all-middle closure \([1/3,1/2]\), its
 unique maximum is
 \((434+4\sqrt2)/1587\) at
 \((13-2\sqrt2)/23\). Neither number is promoted to a prefix certificate or
-an asymptotic bound, because charging has not been extended beyond three
-selected prefixes.
+an asymptotic bound. The separate direct argument handles four prefixes, but
+the normalized simplex does not extend charging to \(k\ge5\).
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -1120,6 +1158,33 @@ saturation for every \(n\ge3\).
   and therefore \(\Lambda_n>C_{3,*}n^3\) for every \(n\ge159\). The
   finite check covers \(159\le n\le170\), while the symbolic tail begins at
   \(171\); \(n=158\) has an empty first segment.
+- EXACT METHOD-SPECIFIC THEOREM (four selected prefixes): with
+  \(s_0=r\), \(H_i=\sum_{t=s_i}^{r-1}A_t\), and
+  \(0\le\lambda_4\le\lambda_3\le\lambda_2\le\lambda_1\le1\), the exact
+  convex combination of \(0,H_1,H_2,H_3,H_4\) telescopes to four disjoint
+  weighted segments. On the full finite domain
+  \(2\le r\le n-2\) and \(1\le s_4<s_3<s_2<s_1\le r-1\), one canonical
+  partition of the original-edge slack and the boundary-independent recursive
+  invariant give
+  \[
+  \begin{aligned}
+  \gamma^{(r)}_{1,n}\ge{}& P_{r,n}
+  +(r-s_1)F_{1,n}
+  +(s_1-s_2)F_{2,n}\\
+  &+(s_2-s_3)F_{3,n}
+  +(s_3-s_4)F_{4,n}.
+  \end{aligned}
+  \]
+  The corresponding fixed-parameter \(C_4\) gives the usual liminf lower
+  bounds. It is not optimized and supplies no finite rounding or \(k\ge5\)
+  result.
+- VERIFIED BOUNDED EXACT COMPUTATION: the standalone dossier oracle imports
+  no project or test helper and checks all 840 literal histories from
+  \(C_0=(11,14,12,13)\). It obtains 840 distinct final cycles, recursive
+  search-tree split counts \((0,8,72,600)\), and 120 fourth splits with two
+  previously inserted endpoints. Every convex, partition, invariant,
+  local-floor, and four-segment assertion passes. This does not replace the
+  all-history proof.
 - EXACT THEOREM: for \(S=\{s_1<\cdots<s_q\}\), the duplicated-multiset pairing
   bound is
   \[
@@ -1507,16 +1572,24 @@ saturation for every \(n\ge3\).
     \(n=158\), the finite bridge through \(170\), and the symbolic tail from
     \(171\) are all explicit.
 
-16. The compact normalized simplex itself is no longer an open optimization
+16. Four selected prefixes also share one slack pool when all heights are
+    combined first. The exact five-term convex combination telescopes to four
+    disjoint segments, every original edge is canonically charged once or
+    left unused, and every recursive child remains covered through all three
+    boundaries. This closes the direct four-prefix charging question and gives
+    a parametric \(C_4\), but no optimized coefficient, finite rounding, or
+    conclusion for \(k\ge5\).
+
+17. The compact normalized simplex itself is no longer an open optimization
     problem. For every fixed \(k\), its unique maximizer is generated by the
     exact backward ratio recurrence, and
     \(M_k\nearrow1/3\). This explains the rational points previously found
     separately at one, two, and three prefixes. The formal limit envelope has
     compact maximum \(1/3\) only at the degenerate endpoint \(\alpha=1\),
     while its all-middle restriction has the interior maximum
-    \((434+4\sqrt2)/1587\). Neither statement supplies a fourth-prefix
-    charging theorem, a uniform-in-\(k\) certificate, or a new bound for
-    \(\Lambda_n\) or \(R_2^*(n)\).
+    \((434+4\sqrt2)/1587\). Neither statement supplies the separate direct
+    four-prefix theorem, a charging result for \(k\ge5\), a uniform-in-\(k\)
+    certificate, or a new bound from the limiting envelope.
 
 ## Updated Research Questions
 
@@ -1552,10 +1625,15 @@ saturation for every \(n\ge3\).
 - CLOSED QUESTION: the normalized compact simplex for arbitrary fixed \(k\)
   has the unique interior maximizer, exact ratio/value recurrences, monotone
   limit \(M_k\to1/3\), and envelope classification recorded above.
+- CLOSED QUESTION: the combined-height, one-use charging theorem extends
+  exactly from three to four selected prefixes. The exact convex
+  decomposition, canonical original-edge partition, recursive invariant, and
+  four-segment bound are recorded above.
 - OPEN QUESTION: can the combined-height, one-use charging theorem be extended
-  from three to arbitrary fixed \(k\) selected prefixes so that the normalized
-  simplex is actually realized? Any such task must remain finite-\(k\) until
-  a separate uniform argument justifies an interchange with \(n\).
+  beyond four to arbitrary fixed \(k\ge5\) selected prefixes so that the
+  normalized simplex is actually realized? Any such task must remain
+  finite-\(k\) until a separate uniform argument justifies an interchange
+  with \(n\).
 - CLOSED QUESTION: finite rounding at the three-prefix irrational optimizer is
   explicit with minimal uniform threshold \(159\), literal expression
   \(\mathcal B_{3,n}\), integer closure \(\mathcal I_{3,n}\), and a positive
@@ -1744,13 +1822,24 @@ Completed:
   A standalone surd diagnostic checks the boundary region and the first 1,000
   indices. No production, artifact, schema, backend, or enumeration-limit
   change was made.
+- Extended the direct one-use charging proof exactly to four selected
+  prefixes. The exact convex combination telescopes to four disjoint
+  segments, the original-edge slack has one canonical charged/unused
+  partition, and the recursive invariant covers every child edge through all
+  three boundaries. The resulting finite lower bound and fixed-parameter
+  \(C_4\) are unoptimized. A standalone exact oracle checks all 840 bounded
+  literal histories, including 120 fourth splits between previously inserted
+  endpoints. No production, test, artifact, schema, backend, certificate, or
+  enumeration-limit change was made.
 - Solved the normalized compact simplex for every fixed \(k\). An exact
   Bellman recurrence and telescoping nonnegative certificate prove existence,
   strict interiority, uniqueness, the proposed backward ratio recurrence,
   \(M_k\nearrow1/3\), and exact agreement with the one-, two-, and
   three-prefix values. A dossier-local `Fraction` diagnostic checks the first
-  eight dimensions and an independent rational grid. No charging theorem,
-  asymptotic bound, production path, or test module was changed.
+  eight dimensions and an independent rational grid. This normalized result
+  is independent of the direct four-prefix proof and gives no charging for
+  \(k\ge5\), asymptotic bound from the limiting envelope, production path, or
+  test-module change.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -1810,6 +1899,7 @@ Acceptance criteria:
   long-distance constraints for the family;
 - prove either a strict upper-coefficient improvement or an exact obstruction
   within that family;
-- keep the finite three-prefix lower theorem logically separate;
+- keep the optimized finite three-prefix theorem and the unoptimized direct
+  four-prefix theorem logically separate from the upper-bound construction;
 - do not alter production enumeration limits, checked artifacts, schemas,
   interval backends, or certificates.

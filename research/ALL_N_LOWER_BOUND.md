@@ -168,6 +168,36 @@ Last updated: 2026-07-16
   R_2^*(n)>{\mathcal I_{3,n}\over\pi}-n^2
   \quad(n\ge159).
   \]
+- EXACT THEOREM (unoptimized four-prefix linear-block refinement): for
+  \[
+  0<\beta_4<\beta_3<\beta_2<\beta_1<\alpha<1,
+  \qquad
+  0\le\lambda_4\le\lambda_3\le\lambda_2\le\lambda_1\le1,
+  \]
+  combine all four selected heights before assigning slack. The five convex
+  coefficients telescope to four disjoint split segments; one canonical
+  original-edge partition uses each base slack once or leaves it unused, and
+  the recursive invariant covers every nested child edge through all three
+  boundaries. For every finite \(n\) satisfying the full admissibility
+  conditions
+  \[
+  2\le r\le n-2,
+  \qquad
+  1\le s_4<s_3<s_2<s_1\le r-1,
+  \]
+  the exact bound is
+  \[
+  \begin{aligned}
+  \gamma^{(r)}_{1,n}\ge{}& P_{r,n}
+  +(r-s_1)F_{1,n}
+  +(s_1-s_2)F_{2,n}\\
+  &+(s_2-s_3)F_{3,n}
+  +(s_3-s_4)F_{4,n}.
+  \end{aligned}
+  \]
+  Its fixed-parameter coefficient \(C_4\) is recorded below. No parameter
+  optimization, finite rounding theorem, comparison with \(C_{3,*}\), or
+  extension to five prefixes is asserted.
 - EXACT FINITE THEOREM (two-prefix rational specialization): with
   \[
   r_n=\left\lfloor{3n\over7}\right\rfloor,
@@ -1261,6 +1291,79 @@ coefficient is below both \(C_{2,*}\) and \(C_{3,*}\); the finite
 three-prefix theorem above is stronger from \(n=159\). No exact residual,
 convergence, exact leading coefficient, or matching upper bound follows.
 
+### Unoptimized consequence of four selected prefixes
+
+The direct theorem (CR28de)--(CR28dk) of
+research/FIXED_ORDER_CYCLE_RATIO.md closes the next charging case without
+using the normalized-simplex recurrence. Put
+
+\[
+r=\lfloor\alpha n\rfloor,\qquad
+s_i=\lceil\beta_i n\rceil,\qquad
+s_0=r,
+\]
+
+under
+
+\[
+0<\beta_4<\beta_3<\beta_2<\beta_1<\alpha<1,
+\qquad
+0\le\lambda_4\le\lambda_3\le\lambda_2\le\lambda_1\le1.
+\]
+
+Whenever
+
+\[
+2\le r\le n-2,\qquad
+1\le s_4<s_3<s_2<s_1\le r-1,
+\]
+
+define \(F_{i,n}=G_{n,\lambda_i}(s_i)\). Combining the four heights first,
+partitioning the original-edge slack once, and retaining every recursive
+child edge gives
+
+\[
+\boxed{
+\begin{aligned}
+\Lambda_n\ge\Gamma_n^{(r)}
+\ge\gamma^{(r)}_{1,n}\ge{}& P_{r,n}
++(r-s_1)F_{1,n}
++(s_1-s_2)F_{2,n}\\
+&+(s_2-s_3)F_{3,n}
++(s_3-s_4)F_{4,n}.
+\end{aligned}
+}
+\]
+
+For fixed admissible real parameters the integer conditions hold eventually,
+and division by \(n^3\) yields
+
+\[
+\begin{aligned}
+C_4={}&p(\alpha)
++(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_1)\\
+&+(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_2)\\
+&+(\beta_2-\beta_3)g(\alpha,\beta_3,\lambda_3)\\
+&+(\beta_3-\beta_4)g(\alpha,\beta_4,\lambda_4),
+\end{aligned}
+\]
+
+\[
+\boxed{
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_4,
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_4\over\pi}.
+}
+\]
+
+This is a parametric theorem, not an optimized new numerical coefficient. No
+finite rounding, \(k\to\infty\) passage, or claim for five selected prefixes
+is used. The standalone exact oracle at
+ops/TASK-20260716__four_prefix_charging/literal_oracle.py checks all 840
+literal four-split histories of one bounded base, including 120 fourth splits
+with two previously inserted endpoints. That computation corroborates the
+bookkeeping but is not the all-history proof.
+
 ## Exact Radius-One Insertion
 
 The following result turns the finite reduced-core observation into an exact
@@ -1952,8 +2055,15 @@ Neither the improved upper bound nor the lower bound proves that
   \(\mathcal B_{3,n}\), integer closure \(\mathcal I_{3,n}\), and a
   controlled cubic--quadratic--linear remainder. It proves
   \(\Lambda_n>C_{3,*}n^3\) on that domain. It is not an exact
-  residual, limit, or geometric leading coefficient, and it does not extend
-  charging to four prefixes.
+  residual, limit, or geometric leading coefficient. That rounded
+  three-prefix derivation itself supplies no four-prefix theorem.
+- The separate direct four-prefix theorem combines all four heights before
+  assigning slack, gives the canonical one-use original-edge partition, and
+  retains every recursive split through all three boundaries. Its
+  four-segment lower bound and fixed-parameter coefficient \(C_4\) are exact,
+  but unoptimized. No new numerical improvement over \(C_{3,*}\), finite
+  rounding theorem, \(k\to\infty\) passage, or result for \(k\ge5\) is
+  claimed.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower
   bound only from the scalar full-problem lower bound would reverse the useful
