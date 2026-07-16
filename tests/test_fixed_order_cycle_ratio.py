@@ -887,6 +887,148 @@ def _linear_density_prefix_diagnostic_oracle(
     )
 
 
+def _two_prefix_linear_density_diagnostic_oracle(
+    n: int,
+    *,
+    force_recursive: bool,
+) -> None:
+    """Audit the rational two-prefix charging on one literal history."""
+    r = 3 * n // 7
+    cutoff_high = (2 * n + 4) // 5
+    cutoff_low = (3 * n + 7) // 8
+    assert 1 <= cutoff_low < cutoff_high < r <= n - 2
+
+    weight_high = Fraction(1, 2)
+    weight_low = Fraction(1, 4)
+    center = n + r
+    base = _alternating_tail_cycle_oracle(r - 1, n)
+    base_edges = set(_undirected_cycle_edge_signature(base))
+    base_score = _cyclic_product_sum(base)
+    pairing_floor = sum(
+        label * (center - label) for label in range(r, n + 1)
+    )
+    base_slack = sum(
+        (left + right - center) ** 2 for left, right in base_edges
+    )
+    assert 2 * (base_score - pairing_floor) == base_slack
+
+    def base_floor(weight: Fraction, label: int) -> Fraction:
+        return weight * (
+            4 * center * label
+            - center * center
+            - 2 * weight * label * label
+        ) / (2 * (2 - weight))
+
+    def recursive_floor(weight: Fraction, label: int) -> Fraction:
+        return weight * ((center - 1) * label - n * (r - 1))
+
+    floor_high = base_floor(weight_high, cutoff_high)
+    floor_low = base_floor(weight_low, cutoff_low)
+    assert floor_high == Fraction(
+        4 * center * cutoff_high
+        - center * center
+        - cutoff_high * cutoff_high,
+        6,
+    )
+    assert floor_low == Fraction(
+        8 * center * cutoff_low
+        - 2 * center * center
+        - cutoff_low * cutoff_low,
+        28,
+    )
+
+    current = base
+    prefixes = [0]
+    used_base_edges: set[tuple[int, int]] = set()
+    local_contributions = Fraction(0)
+    weighted_corrections = Fraction(0)
+    selected_high: int | None = None
+
+    for label in range(r - 1, cutoff_low - 1, -1):
+        is_high_segment = label >= cutoff_high
+        weight = weight_high if is_high_segment else weight_low
+        segment_floor = floor_high if is_high_segment else floor_low
+        candidates = []
+        for position, left in enumerate(current):
+            right = current[(position + 1) % len(current)]
+            edge = (min(left, right), max(left, right))
+            is_base_edge = edge in base_edges
+            if (
+                (force_recursive and label < r - 1 and not is_base_edge)
+                or (not force_recursive and is_base_edge)
+                or (force_recursive and label == r - 1 and is_base_edge)
+            ):
+                candidates.append((position, left, right, edge))
+
+        assert candidates
+        position, left, right, edge = candidates[0]
+        correction = label * (left + right) - left * right
+        local_base_floor = base_floor(weight, label)
+        local_recursive_floor = recursive_floor(weight, label)
+        assert local_recursive_floor >= local_base_floor >= segment_floor
+
+        if edge in base_edges:
+            assert edge not in used_base_edges
+            used_base_edges.add(edge)
+            contribution = Fraction((left + right - center) ** 2, 2) + (
+                weight * correction
+            )
+            assert contribution >= local_base_floor
+        else:
+            assert min(left, right) < r
+            recursive_lower = (center - 1) * label - n * (r - 1)
+            assert correction >= recursive_lower
+            contribution = weight * correction
+            assert contribution >= local_recursive_floor
+
+        local_contributions += contribution
+        weighted_corrections += weight * correction
+        prefixes.append(prefixes[-1] + correction)
+        current = _split_cycle_edge_oracle(current, position, label)
+        assert _is_loopless_spanning_cycle_signature(
+            _undirected_cycle_edge_signature(current),
+            tuple(range(label, n + 1)),
+        )
+        if label == cutoff_high:
+            selected_high = prefixes[-1]
+
+    assert selected_high is not None
+    selected_low = prefixes[-1]
+    prescribed_linear_form = (
+        (weight_high - weight_low) * selected_high
+        + weight_low * selected_low
+    )
+    assert prescribed_linear_form == weighted_corrections
+
+    unused_base_slack = Fraction(
+        sum(
+            (left + right - center) ** 2
+            for left, right in base_edges - used_base_edges
+        ),
+        2,
+    )
+    weighted_excess = (
+        base_score - pairing_floor + prescribed_linear_form
+    )
+    selected_excess = (
+        base_score
+        - pairing_floor
+        + max(0, selected_high, selected_low)
+    )
+    objective_excess = base_score - pairing_floor + max(prefixes)
+    floor_sum = (
+        (r - cutoff_high) * floor_high
+        + (cutoff_high - cutoff_low) * floor_low
+    )
+
+    assert weighted_excess == local_contributions + unused_base_slack
+    assert local_contributions >= floor_sum
+    assert weighted_excess >= floor_sum
+    assert selected_excess >= weighted_excess
+    assert objective_excess >= selected_excess
+    assert objective_excess >= floor_sum
+
+
 def _alternating_tail_cycle_oracle(m: int, n: int) -> tuple[int, ...]:
     """Construct the exact near-pairing cycle used in the asymptotic squeeze."""
     labels = tuple(range(m + 1, n + 1))
@@ -1566,6 +1708,419 @@ def test_first_linear_density_all_depth_two_literal_histories_are_exact() -> Non
     assert history_count == len(base) * (len(base) + 1) == 6_972
     assert len(final_signatures) == history_count
     assert recursive_second_count == 2 * len(base) == 166
+
+
+@pytest.mark.parametrize("n", (59, 100, 200, 1_000))
+@pytest.mark.parametrize("force_recursive", (False, True))
+def test_two_prefix_linear_density_charging_is_exact(
+    n: int,
+    force_recursive: bool,
+) -> None:
+    _two_prefix_linear_density_diagnostic_oracle(
+        n,
+        force_recursive=force_recursive,
+    )
+
+
+def test_two_prefix_all_depth_two_literal_histories_are_exact() -> None:
+    """Exhaust the smallest uniform witness's base and child second splits."""
+    n = 59
+    r = 3 * n // 7
+    cutoff_high = (2 * n + 4) // 5
+    cutoff_low = (3 * n + 7) // 8
+    assert (r, cutoff_high, cutoff_low) == (25, 24, 23)
+
+    weight_high = Fraction(1, 2)
+    weight_low = Fraction(1, 4)
+    center = n + r
+    base = _alternating_tail_cycle_oracle(r - 1, n)
+    base_edges = set(_undirected_cycle_edge_signature(base))
+    base_score = _cyclic_product_sum(base)
+    pairing_floor = sum(
+        label * (center - label) for label in range(r, n + 1)
+    )
+    floor_high = Fraction(
+        4 * center * cutoff_high
+        - center * center
+        - cutoff_high * cutoff_high,
+        6,
+    )
+    floor_low = Fraction(
+        8 * center * cutoff_low
+        - 2 * center * center
+        - cutoff_low * cutoff_low,
+        28,
+    )
+    assert (floor_high, floor_low) == (Fraction(72), Fraction(815, 28))
+
+    final_signatures: set[tuple[tuple[int, int], ...]] = set()
+    history_count = 0
+    recursive_second_count = 0
+
+    for first_position, first_left in enumerate(base):
+        first_right = base[(first_position + 1) % len(base)]
+        first_edge = tuple(sorted((first_left, first_right)))
+        first_correction = cutoff_high * (first_left + first_right) - (
+            first_left * first_right
+        )
+        first_contribution = Fraction(
+            (first_left + first_right - center) ** 2,
+            2,
+        ) + weight_high * first_correction
+        assert first_contribution >= floor_high
+        first_cycle = _split_cycle_edge_oracle(
+            base,
+            first_position,
+            cutoff_high,
+        )
+
+        for second_position, second_left in enumerate(first_cycle):
+            second_right = first_cycle[(second_position + 1) % len(first_cycle)]
+            second_edge = tuple(sorted((second_left, second_right)))
+            second_correction = cutoff_low * (second_left + second_right) - (
+                second_left * second_right
+            )
+            used_base_edges = {first_edge}
+
+            if second_edge in base_edges:
+                assert second_edge != first_edge
+                used_base_edges.add(second_edge)
+                second_contribution = Fraction(
+                    (second_left + second_right - center) ** 2,
+                    2,
+                ) + weight_low * second_correction
+            else:
+                recursive_second_count += 1
+                assert min(second_left, second_right) == cutoff_high
+                recursive_lower = (
+                    (center - 1) * cutoff_low - n * (r - 1)
+                )
+                assert second_correction >= recursive_lower
+                second_contribution = weight_low * second_correction
+            assert second_contribution >= floor_low
+
+            final_cycle = _split_cycle_edge_oracle(
+                first_cycle,
+                second_position,
+                cutoff_low,
+            )
+            final_signature = _undirected_cycle_edge_signature(final_cycle)
+            assert final_signature not in final_signatures
+            final_signatures.add(final_signature)
+            assert _is_loopless_spanning_cycle_signature(
+                final_signature,
+                tuple(range(cutoff_low, n + 1)),
+            )
+
+            selected_high = first_correction
+            selected_low = first_correction + second_correction
+            prescribed_linear_form = (
+                (weight_high - weight_low) * selected_high
+                + weight_low * selected_low
+            )
+            assert prescribed_linear_form == (
+                weight_high * first_correction
+                + weight_low * second_correction
+            )
+            unused_slack = Fraction(
+                sum(
+                    (left + right - center) ** 2
+                    for left, right in base_edges - used_base_edges
+                ),
+                2,
+            )
+            local_sum = first_contribution + second_contribution
+            weighted_excess = (
+                base_score - pairing_floor + prescribed_linear_form
+            )
+            selected_excess = (
+                base_score
+                - pairing_floor
+                + max(0, selected_high, selected_low)
+            )
+
+            assert weighted_excess == local_sum + unused_slack
+            assert local_sum >= floor_high + floor_low
+            assert selected_excess >= weighted_excess
+            history_count += 1
+
+    assert history_count == len(base) * (len(base) + 1) == 1_260
+    assert len(final_signatures) == history_count
+    assert recursive_second_count == 2 * len(base) == 70
+
+
+def test_two_separately_charged_prefixes_would_duplicate_base_slack() -> None:
+    """Record the invalid route excluded by the combined charging proof."""
+    n, r = 59, 25
+    center = n + r
+    left, right = 25, 42
+    label = 24
+    weight_high = Fraction(1, 2)
+    weight_low = Fraction(1, 4)
+    correction = label * (left + right) - left * right
+    edge_slack = Fraction((left + right - center) ** 2, 2)
+    separately_charged = (
+        edge_slack + (weight_high - weight_low) * correction
+        + edge_slack + weight_low * correction
+    )
+    combined_once = edge_slack + weight_high * correction
+
+    assert edge_slack == Fraction(289, 2)
+    assert separately_charged - combined_once == edge_slack
+
+
+def test_two_prefix_fully_nested_child_edges_cross_the_segment_boundary() -> None:
+    """Keep literal recursive dominoes from the high into the low segment."""
+    n = 100
+    r = 3 * n // 7
+    cutoff_high = (2 * n + 4) // 5
+    cutoff_low = (3 * n + 7) // 8
+    center = n + r
+    assert (r, cutoff_high, cutoff_low, center) == (42, 40, 38, 142)
+
+    weight_high = Fraction(1, 2)
+    weight_low = Fraction(1, 4)
+    floor_high = Fraction(478, 3)
+    floor_low = Fraction(349, 7)
+    current = tuple(range(r, n + 1))
+    base_edges = set(_undirected_cycle_edge_signature(current))
+    base_score = _cyclic_product_sum(current)
+    pairing_floor = sum(
+        label * (center - label) for label in range(r, n + 1)
+    )
+    prefixes = [0]
+    local_contributions = Fraction(0)
+    used_base_edges: set[tuple[int, int]] = set()
+
+    for label in range(r - 1, cutoff_low - 1, -1):
+        target_edge = {label + 1, label + 2}
+        position = next(
+            position
+            for position, left in enumerate(current)
+            if {left, current[(position + 1) % len(current)]} == target_edge
+        )
+        left = current[position]
+        right = current[(position + 1) % len(current)]
+        edge = tuple(sorted((left, right)))
+        correction = label * (left + right) - left * right
+        weight = weight_high if label >= cutoff_high else weight_low
+        segment_floor = floor_high if label >= cutoff_high else floor_low
+
+        assert correction == label * label - 2
+        if edge in base_edges:
+            assert label == r - 1
+            used_base_edges.add(edge)
+            contribution = Fraction((left + right - center) ** 2, 2) + (
+                weight * correction
+            )
+        else:
+            if label <= cutoff_high - 1:
+                assert left < r and right < r
+            recursive_lower = (center - 1) * label - n * (r - 1)
+            assert correction >= recursive_lower
+            contribution = weight * correction
+        assert contribution >= segment_floor
+
+        local_contributions += contribution
+        prefixes.append(prefixes[-1] + correction)
+        current = _split_cycle_edge_oracle(current, position, label)
+        assert _is_loopless_spanning_cycle_signature(
+            _undirected_cycle_edge_signature(current),
+            tuple(range(label, n + 1)),
+        )
+
+    assert len(used_base_edges) == 1
+    selected_high = prefixes[r - cutoff_high]
+    selected_low = prefixes[-1]
+    prescribed_linear_form = (
+        (weight_high - weight_low) * selected_high
+        + weight_low * selected_low
+    )
+    unused_slack = Fraction(
+        sum(
+            (left + right - center) ** 2
+            for left, right in base_edges - used_base_edges
+        ),
+        2,
+    )
+    weighted_excess = (
+        base_score - pairing_floor + prescribed_linear_form
+    )
+    floor_sum = (
+        (r - cutoff_high) * floor_high
+        + (cutoff_high - cutoff_low) * floor_low
+    )
+
+    assert weighted_excess == local_contributions + unused_slack
+    assert local_contributions >= floor_sum
+    assert base_score - pairing_floor + max(0, selected_high, selected_low) >= (
+        weighted_excess
+    )
+
+
+@pytest.mark.parametrize(
+    ("weight_low", "weight_high", "expected_admissible"),
+    (
+        (Fraction(0), Fraction(0), True),
+        (Fraction(0), Fraction(1), True),
+        (Fraction(1, 4), Fraction(1, 2), True),
+        (Fraction(1), Fraction(1), True),
+        (Fraction(-1, 4), Fraction(1, 2), False),
+        (Fraction(3, 4), Fraction(1, 2), False),
+        (Fraction(1, 4), Fraction(5, 4), False),
+    ),
+)
+def test_two_prefix_weight_region_is_exact(
+    weight_low: Fraction,
+    weight_high: Fraction,
+    expected_admissible: bool,
+) -> None:
+    heights = tuple(Fraction(value) for value in range(-2, 3))
+    holds = all(
+        max(0, high, low)
+        >= (weight_high - weight_low) * high + weight_low * low
+        for high in heights
+        for low in heights
+    )
+    assert holds is expected_admissible
+
+
+def test_two_prefix_rational_witness_coefficient_is_exact() -> None:
+    alpha = Fraction(3, 7)
+    beta_high = Fraction(2, 5)
+    beta_low = Fraction(3, 8)
+    weight_high = Fraction(1, 2)
+    weight_low = Fraction(1, 4)
+
+    def local_floor(
+        beta: Fraction,
+        weight: Fraction,
+    ) -> Fraction:
+        return weight * (
+            4 * (1 + alpha) * beta
+            - (1 + alpha) ** 2
+            - 2 * weight * beta**2
+        ) / (2 * (2 - weight))
+
+    pairing = (1 - alpha) * (alpha**2 + 4 * alpha + 1) / 6
+    floor_high = local_floor(beta_high, weight_high)
+    floor_low = local_floor(beta_low, weight_low)
+    recursive_high = weight_high * ((1 + alpha) * beta_high - alpha)
+    recursive_low = weight_low * ((1 + alpha) * beta_low - alpha)
+    contribution_high = (alpha - beta_high) * floor_high
+    contribution_low = (beta_high - beta_low) * floor_low
+    coefficient = pairing + contribution_high + contribution_low
+
+    assert pairing == Fraction(284, 1029)
+    assert floor_high == Fraction(52, 3675)
+    assert floor_low == Fraction(199, 87808)
+    assert recursive_high == Fraction(1, 14)
+    assert recursive_low == Fraction(3, 112)
+    assert recursive_high - floor_high == Fraction(421, 7350)
+    assert recursive_low - floor_low == Fraction(2153, 87808)
+    assert contribution_high == Fraction(52, 128625)
+    assert contribution_low == Fraction(199, 3512320)
+    assert coefficient == Fraction(72825421, 263424000)
+
+    radical_comparator = (27 * coefficient - 4) / 2
+    assert radical_comparator == Fraction(304196789, 175616000)
+    assert radical_comparator > 0
+    assert radical_comparator**2 - 3 == Fraction(
+        12748069910521,
+        30840979456000000,
+    )
+
+
+def test_two_prefix_rational_witness_finite_bounds_are_exact() -> None:
+    floor_high_limit = Fraction(52, 3675)
+    floor_low_limit = Fraction(199, 87808)
+    residual_coefficient = Fraction(121421, 263424000)
+    residual_loss = Fraction(6699143, 263424000)
+    total_coefficient = Fraction(72825421, 263424000)
+    positive_quadratic = Fraction(106196857, 263424000)
+    residual_signs: dict[int, int] = {}
+
+    for n in range(58, 1_001):
+        r = 3 * n // 7
+        cutoff_high = (2 * n + 4) // 5
+        cutoff_low = (3 * n + 7) // 8
+        center = n + r
+        length_high = r - cutoff_high
+        length_low = cutoff_high - cutoff_low
+
+        if n == 58:
+            assert (r, cutoff_high, cutoff_low) == (24, 24, 22)
+            assert length_high == 0
+            continue
+
+        assert 2 <= r <= n - 2
+        assert 1 <= cutoff_low < cutoff_high <= r - 1
+        assert length_high >= Fraction(n - 58, 35)
+        assert length_low >= Fraction(n - 35, 40)
+
+        floor_high = Fraction(
+            4 * center * cutoff_high
+            - center * center
+            - cutoff_high * cutoff_high,
+            6,
+        )
+        floor_low = Fraction(
+            8 * center * cutoff_low
+            - 2 * center * center
+            - cutoff_low * cutoff_low,
+            28,
+        )
+        assert floor_high >= floor_high_limit * n * n
+        assert floor_low >= floor_low_limit * n * n
+
+        recursive_high = Fraction(1, 2) * (
+            (center - 1) * cutoff_high - n * (r - 1)
+        )
+        recursive_low = Fraction(1, 4) * (
+            (center - 1) * cutoff_low - n * (r - 1)
+        )
+        assert recursive_high >= floor_high
+        assert recursive_low >= floor_low
+
+        residual_floor = length_high * floor_high + length_low * floor_low
+        coarse_residual = (
+            residual_coefficient * n**3 - residual_loss * n * n
+        )
+        assert residual_floor >= coarse_residual
+
+        pairing_floor = sum(
+            label * (center - label) for label in range(r, n + 1)
+        )
+        eta = Fraction(3 * n, 7) - r
+        pairing_expansion = (
+            Fraction(284, 1029) * n**3
+            + (Fraction(3, 7) + eta / 49) * n * n
+            - (Fraction(5, 7) * eta**2 + eta + Fraction(2, 21)) * n
+            + (eta**3 - eta) / 6
+        )
+        assert pairing_floor == pairing_expansion
+        polynomial_floor = (
+            total_coefficient * n**3
+            + positive_quadratic * n * n
+            - Fraction(1520, 1029) * n
+            - Fraction(22, 343)
+        )
+        exact_global_floor = pairing_floor + residual_floor
+        assert exact_global_floor >= polynomial_floor
+        assert polynomial_floor >= total_coefficient * n**3
+
+        coarse_inner_residual = Fraction(
+            n * n * (121421 * n - 39627143),
+            263424000,
+        )
+        if n in (326, 327):
+            residual_signs[n] = (
+                (coarse_inner_residual > 0) - (coarse_inner_residual < 0)
+            )
+        if n >= 327:
+            assert coarse_inner_residual > 0
+
+    assert residual_signs == {326: -1, 327: 1}
 
 
 @pytest.mark.parametrize(

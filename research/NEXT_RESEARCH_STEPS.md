@@ -30,17 +30,18 @@ makes \(\Lambda_n/\pi\), for \(n\ge3\), an additive-\(n^2\) combinatorial approx
 the geometric infimum, while proving neither a new exact constant nor
 convergence. Exact canonical enumeration is deliberately bounded to
 `n=3..8` and gives \((12,26,47,77,118,172)\).
-The jointly optimized first linear tail block now also gives the rigorous lower
-coefficients
+The jointly optimized one-prefix linear tail block first gave the coefficient
+\((4+2\sqrt3)/27\). The exact two-prefix rational witness now gives the
+strictly stronger rigorous lower coefficients
 \[
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
-\ge {4+2\sqrt3\over27},
+\ge {72825421\over263424000},
 \qquad
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-\ge {4+2\sqrt3\over27\pi}.
+\ge {72825421\over263424000\pi}.
 \]
 These are one-sided bounds and do not prove convergence or identify an exact
-leading coefficient.
+leading coefficient. The five two-prefix parameters have not been optimized.
 
 The one-wrap saturation question is also closed exactly. If
 \[
@@ -231,8 +232,8 @@ matches all 60 triple-split histories at \((m,n,r)=(2,7,4)\) with all 60
 outer cycles and obtains \((106,107,118)\) for the pairing floor, exact inner
 minimum, and four-tail obstruction. Production boundaries remain unchanged.
 
-The CR28ax--CR28bg linear-block template is now jointly optimized over the
-density, cutoff, and prefix weight. For \(m=1\),
+The one-prefix CR28ax--CR28bg linear-block specialization is jointly optimized
+over the density, cutoff, and prefix weight. For \(m=1\),
 \(r_n=\lfloor\alpha n\rfloor\), and
 \(s_n=\lceil\beta n\rceil\), the unique template-optimal parameters are
 \[
@@ -269,7 +270,8 @@ has a separate local floor which exact finite algebra proves is strictly above
 the base floor. The maximum over all prefixes retains
 both zero and the selected prefix. Thus no compatible history has
 \(o(n^3)\) excess for this selected block. The total coefficient is optimal
-within CR28ax--CR28bg; its residual contribution at that optimizer is neither
+within the one-prefix specialization of CR28ax--CR28bg; its residual
+contribution at that optimizer is neither
 separately maximized nor the exact block residual. In addition,
 CR28bg uses the nonstarred pairing floor and gives, without exchanging a
 maximum and a minimum,
@@ -288,9 +290,50 @@ the resulting scalar lower bounds. Exact rounding proves, for \(n\ge90\),
 \qquad
 R_2^*(n)>{4+2\sqrt3\over27\pi}n^3-n^2.
 \]
-The total coefficient \((4+2\sqrt3)/27\) is uniquely optimal within the
-template. It is not an exact residual coefficient, exact geometric constant,
-convergence theorem, or production-computation result.
+The total coefficient \((4+2\sqrt3)/27\) is uniquely optimal within that
+one-prefix template. It is not an exact residual coefficient, exact geometric
+constant, convergence theorem, or production-computation result.
+
+The two-selected-prefix extension is now proved separately. For
+\[
+H_1=\sum_{t=s_1}^{r-1}A_t,
+\qquad
+H_2=\sum_{t=s_2}^{r-1}A_t,
+\]
+the proof uses exactly
+\[
+\max(0,H_1,H_2)
+\ge(\lambda_{\rm hi}-\lambda_{\rm lo})H_1
++\lambda_{\rm lo}H_2.
+\]
+Only after this combination is the base-slack identity partitioned. Every
+original base edge then receives its slack at most once across both segments,
+while every recursive current edge contains a previously inserted endpoint
+and keeps its local floor. The resulting coefficient is
+\[
+C_2=p(\alpha)
++(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_{\rm hi})
++(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_{\rm lo}).
+\]
+At the exact rational witness
+\[
+(\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})
+=\left({3\over7},{2\over5},{3\over8},{1\over2},{1\over4}\right),
+\]
+\[
+C_2={72825421\over263424000}>{4+2\sqrt3\over27}.
+\]
+The minimal uniform threshold is \(n=59\), and exact rounding proves
+\[
+\Lambda_n\ge C_2n^3,
+\qquad
+R_2^*(n)>{C_2\over\pi}n^3-n^2
+\quad(n\ge59).
+\]
+Bounded rational diagnostics exhaust all 1,260 depth-two histories at
+\(n=59\), including 70 recursive second splits, and retain a fully nested
+child-edge history across the prefix boundary. No five-parameter optimization
+or production change was made.
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -310,16 +353,18 @@ The best leading coefficient obtainable from the single-subset relaxation
 \]
 The separate relational extension to two consecutive tails has the same best
 leading coefficient after its cycle-signature constraints are enforced.
-These are method-specific optimality statements. The jointly optimized linear
-block strictly improves the global lower coefficient to
-\((4+2\sqrt3)/(27\pi)\), but that value is still only a proved lower
-coefficient, not an exact asymptotic constant for Power-Ringmin.
+These are method-specific optimality statements. The jointly optimized
+one-prefix block first improves the global lower coefficient to
+\((4+2\sqrt3)/(27\pi)\); the two-prefix witness improves it again to
+\(72825421/(263424000\pi)\). The latter is still only a proved lower
+coefficient, not a five-parameter optimum or an exact asymptotic constant for
+Power-Ringmin.
 
 The zigzag regular-direction construction historically improved the proved
 upper coefficient from \(1/\pi\) to \(1/(2\pi)\). It is now superseded by the
 product-distance construction below, which gives \(8/(25\pi)\). Neither upper
 bound matches the current linear-block geometric lower coefficient
-\((4+2\sqrt3)/(27\pi)\). The zigzag
+\(72825421/(263424000\pi)\). The zigzag
 theorem itself generated no leading-order LP, new finite certificate, `n=7`
 certificate, preflight artifact, permutation optimization, or exhaustive
 enumeration.
@@ -618,7 +663,7 @@ saturation for every \(n\ge3\).
   \]
   for every \(r(n)=o(n)\), and the normalized error is \(o(1)\). Linear
   \(r=\Theta(n)\) is the first scale this comparison does not settle.
-- EXACT TEMPLATE OPTIMIZATION (JOINT LINEAR BLOCK): the proof-valid region is
+- EXACT TEMPLATE OPTIMIZATION (JOINT ONE-PREFIX LINEAR BLOCK): the proof-valid region is
   \[
   0<\alpha<1,
   \qquad 0<\beta<\alpha,
@@ -627,8 +672,8 @@ saturation for every \(n\ge3\).
   and complete exact boundary analysis gives the unique optimizer below. Its
   total pairing-plus-residual coefficient is \((4+2\sqrt3)/27\), and the
   associated residual contribution there is \((26-15\sqrt3)/54\). Only the
-  total is optimized, inside CR28ax--CR28bg.
-- EXACT THEOREM (JOINT LINEAR BLOCK, GLOBAL CONSEQUENCE): for
+  total is optimized, inside the one-prefix specialization of CR28ax--CR28bg.
+- EXACT THEOREM (JOINT ONE-PREFIX LINEAR BLOCK, GLOBAL CONSEQUENCE): for
   \[
   \alpha_*=1-{\sqrt3\over3},
   \qquad
@@ -661,6 +706,30 @@ saturation for every \(n\ge3\).
   \]
   The resulting liminf coefficients are rigorous lower bounds, not exact
   leading coefficients or a convergence statement.
+- EXACT THEOREM (TWO SELECTED PREFIXES): combining the selected heights before
+  charging proves one-use base slack and recursive coverage, with coefficient
+  \[
+  C_2=p(\alpha)
+  +(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_{\rm hi})
+  +(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_{\rm lo}).
+  \]
+  At \((3/7,2/5,3/8,1/2,1/4)\),
+  \[
+  C_2={72825421\over263424000}>{4+2\sqrt3\over27}.
+  \]
+  The exact floor/ceiling domain starts at the minimal threshold \(n=59\),
+  and
+  \[
+  \Lambda_n\ge C_2n^3,
+  \qquad
+  R_2^*(n)>{C_2\over\pi}n^3-n^2.
+  \]
+  This is one witness, not a global optimization over five parameters.
+- VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): rational two-prefix
+  diagnostics exhaust all 1,260 depth-two histories at \(n=59\), including
+  70 recursive second splits; test a nested child-edge chain across the
+  high/low boundary; reject the duplicated-slack route explicitly; and scan
+  exact finite rounding through \(n=1000\), without production code.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): the recursive block oracle
   agrees signature by signature with direct outer-cycle generation for
   bounded \(r=2,3,4\). At \((2,7,4)\), 60 histories give all 60 outer
@@ -792,15 +861,15 @@ saturation for every \(n\ge3\).
   \ge
   4(\sqrt2-1)>1.
   \]
-- EXACT THEOREM (sharpened global lower bound): the jointly optimized
-  linear-block chain
+- EXACT THEOREM (sharpened global lower bound): the two-prefix rational
+  witness
   gives
   \[
   \liminf_{n\to\infty}{\Lambda_n\over n^3}
-  \ge {4+2\sqrt3\over27},
+  \ge {72825421\over263424000},
   \qquad
   \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-  \ge {4+2\sqrt3\over27\pi}.
+  \ge {72825421\over263424000\pi}.
   \]
   This strictly improves the single-subset lower coefficient, while proving
   neither convergence nor an exact leading coefficient.
@@ -1003,7 +1072,7 @@ saturation for every \(n\ge3\).
 
 ## Consequences
 
-1. The jointly optimized linear-block lower bound supersedes both the
+1. The two-prefix linear-block lower bound supersedes both the
    induced-subset bound
    and the older full-cycle bound
    \(\liminf 6\pi R_2^*(n)/n^3\ge 1\). Both older statements remain true but
@@ -1012,7 +1081,7 @@ saturation for every \(n\ge3\).
 2. Any future asymptotic upper-bound target must be compatible with
    \[
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-   \ge {4+2\sqrt3\over27\pi}.
+   \ge {72825421\over263424000\pi}.
    \]
    This roadmap records a lower coefficient, not a proposed exact constant.
 
@@ -1038,7 +1107,7 @@ saturation for every \(n\ge3\).
 6. The symbolic product-distance construction supersedes zigzag and gives the
    rigorous liminf/limsup bracket
    \[
-   {4+2\sqrt3\over27\pi}
+   {72825421\over263424000\pi}
    \le
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
    \le
@@ -1118,7 +1187,7 @@ saturation for every \(n\ge3\).
     this method. Linear \(r=\Theta(n)\) is the first scale not controlled by
     this uniform estimate, where the error can be cubic.
 
-13. For the joint family
+13. For the joint one-prefix family
     \(m=1\), \(r_n=\lfloor\alpha n\rfloor\),
     \(s_n=\lceil\beta n\rceil\), a separate exact slack/prefix argument
     gives the method coefficient
@@ -1144,30 +1213,42 @@ saturation for every \(n\ge3\).
     and \(C_*=(4+2\sqrt3)/27\). The residual lower coefficient at that
     point is \((26-15\sqrt3)/54\), and the explicit rounded theorem is
     uniform from \(n=86\) (with its simpler polynomial form from \(n=90\)).
-    This closes the optimization only for the named certificate template. It
+    This closes the optimization only for the named one-prefix template. It
     does not give the exact residual coefficient, convergence, or an exact
     leading coefficient for \(\Lambda_n\) or \(R_2^*(n)\).
+
+14. Two selected prefixes can share the same slack pool when their heights
+    are combined first. This proves the coefficient
+    \[
+    C_2=p(\alpha)
+    +(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_{\rm hi})
+    +(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_{\rm lo}).
+    \]
+    The exact witness \((3/7,2/5,3/8,1/2,1/4)\) gives
+    \(72825421/263424000\), strictly above the one-prefix optimum, with
+    uniform finite threshold 59. All recursive splits remain literal. No
+    global five-parameter optimization has yet been performed.
 
 ## Updated Research Questions
 
 - OPEN QUESTION: what geometric upper-bound construction, if any, narrows or
-  matches the current first-linear-block lower coefficient
-  \((4+2\sqrt3)/(27\pi)\) up to lower-order terms?
+  matches the current two-prefix lower coefficient
+  \(72825421/(263424000\pi)\) up to lower-order terms?
 - OPEN QUESTION: can the previous reduced-core observations at checked
   `n=5,6` be related to the exact feasible-radius-set equality for
   \(n\ge12\), or are their lower-cycle proxies a separate finite phenomenon?
 - OPEN QUESTION: is \(12\) the least threshold for
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
-- OPEN QUESTION: can the gap between the first-linear-block geometric lower
-  coefficient \((4+2\sqrt3)/(27\pi)\) and the product-distance upper
+- OPEN QUESTION: can the gap between the two-prefix geometric lower
+  coefficient \(72825421/(263424000\pi)\) and the product-distance upper
   coefficient \(8/(25\pi)\) be narrowed by a sharper angular construction or
   a stronger lower bound?
-- OPEN QUESTION: can a certificate outside the jointly optimized
-  \((\alpha,\beta,\lambda)\) cutoff/weight template improve the new lower
-  coefficient, and can the exact residual of the selected block be bounded
-  from above? The present theorem supplies only a method-specific lower
-  coefficient, not a matching residual or global asymptotic evaluation.
+- OPEN QUESTION: what is the global optimum of the five-parameter two-prefix
+  certificate, including every boundary face, and can the exact residual of
+  the selected block be bounded from above? The present theorem supplies one
+  strict rational improvement, not a matching residual or global asymptotic
+  evaluation.
 - OPEN QUESTION: for which \(n\ge94\) do positional distances at least three
   strictly restrict the minimizer set? The sufficient equality criterion
   \(n(n-1)/3\le B_n\) holds again at \(n=94\), so no persistence from the
@@ -1313,6 +1394,15 @@ Completed:
   all 166 recursive second splits, and every rounded finite bound through
   \(n=1000\), without production, artifact, schema, or enumeration-limit
   changes.
+- Generalized the charging proof to two selected prefixes. Combining the two
+  prefix heights before charging preserves a single base-slack pool and all
+  recursive child-edge floors. The rational witness
+  \((3/7,2/5,3/8,1/2,1/4)\) gives the strict improved coefficient
+  \(72825421/263424000\), the minimal uniform threshold \(n=59\), and an
+  exact global/geometric lower corollary. Independent tests exhaust 1,260
+  depth-two histories at \(n=59\), retain a nested cross-boundary domino,
+  reject the duplicated-slack route, and scan exact rounding through
+  \(n=1000\). No five-parameter optimization or production change was made.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -1321,9 +1411,9 @@ Completed:
 
 Immediate:
 
-- Extend the independent test-only Arb endpoint-sign cross-check from the
-  checked `n=3` artifact to the existing checked `n=4` artifact, without
-  changing production verification or certification claims.
+- In a fresh STRICT task, optimize the five two-prefix parameters globally,
+  including every boundary face, while preserving combined one-use charging
+  and keeping production, artifacts, schemas, and limits unchanged.
 
 Next:
 

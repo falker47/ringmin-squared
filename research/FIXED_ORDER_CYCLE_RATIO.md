@@ -114,7 +114,8 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \(2(\sqrt2-1)/3\) for this separately optimized one-block obstruction.
   Linear \(r=\Theta(n)\) is the first scale this error bound does not
   exclude from changing the coefficient; that is not evidence that it does.
-- **EXACT METHOD-SPECIFIC THEOREM (JOINTLY OPTIMIZED LINEAR BLOCK):** for
+- **EXACT METHOD-SPECIFIC THEOREM (JOINTLY OPTIMIZED ONE-PREFIX LINEAR
+  BLOCK):** for
   \(m=1\), \(r_n=\lfloor\alpha n\rfloor\),
   \(s_n=\lceil\beta n\rceil\), and prefix weight \(\lambda\), the exact
   proof-valid region is
@@ -160,6 +161,36 @@ in `research/ALL_N_LOWER_BOUND.md`.
   or leading coefficients; neither convergence nor production computation
   follows. The one-tail and sublinear-block coefficient
   \(2(\sqrt2-1)/3\) remains unchanged and logically separate.
+- **EXACT METHOD-SPECIFIC THEOREM (TWO SELECTED PREFIXES):** for
+  \(0<\beta_2<\beta_1<\alpha<1\) and
+  \(0\le\lambda_{\rm lo}\le\lambda_{\rm hi}\le1\), combining the two
+  prefix heights before charging proves
+  \[
+  C_2=p(\alpha)
+  +(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_{\rm hi})
+  +(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_{\rm lo}).
+  \]
+  Every original base edge is charged at most once across both segments, and
+  every recursively nested child edge retains the local recursive floor. The
+  exact rational witness
+  \[
+  (\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})
+  =(3/7,2/5,3/8,1/2,1/4)
+  \]
+  gives
+  \[
+  C_2={72825421\over263424000}>{4+2\sqrt3\over27}.
+  \]
+  Its floor/ceiling theorem is uniformly admissible from the minimal threshold
+  \(n=59\), and
+  \[
+  \Lambda_n\ge {72825421\over263424000}n^3,
+  \qquad
+  R_2^*(n)>{72825421\over263424000\pi}n^3-n^2
+  \quad(n\ge59).
+  \]
+  This is a strict certificate improvement, not a five-parameter optimum,
+  exact leading coefficient, convergence theorem, or production result.
 - **VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK):** a recursive oracle at
   \((m,n,r)=(2,7,4)\) identifies all 60 compatible triple-split histories
   with all 60 outer dihedral cycles and obtains
@@ -2259,6 +2290,326 @@ all decisive signs without floating point. In particular, it finds the exact
 floor/ceil residual expression negative at \(n=175\) and positive throughout
 \(176\le n\le440\); (CR28bl) then proves positivity for every \(n\ge441\).
 
+### Two selected prefixes in one linear block
+
+The same base-slack pool can support two selected prefixes, but it must be
+charged only after the two prefix heights have been combined. Fix
+\[
+0<\beta_2<\beta_1<\alpha<1,
+\qquad
+0\le\lambda_{\rm lo}\le\lambda_{\rm hi}\le1,
+\]
+and put
+\[
+r=\lfloor\alpha n\rfloor,
+\qquad
+s_1=\lceil\beta_1n\rceil,
+\qquad
+s_2=\lceil\beta_2n\rceil.
+\tag{CR28br}
+\]
+At fixed \(n\), require
+\[
+2\le r\le n-2,
+\qquad
+1\le s_2<s_1\le r-1.
+\]
+For one arbitrary compatible history in (CR28au), denote the two selected
+prefix heights by
+\[
+H_1=\sum_{t=s_1}^{r-1}A_t,
+\qquad
+H_2=\sum_{t=s_2}^{r-1}A_t.
+\]
+The exact objective retains \(0,H_1,H_2\). Since
+\(1-\lambda_{\rm hi}\),
+\(\lambda_{\rm hi}-\lambda_{\rm lo}\), and
+\(\lambda_{\rm lo}\) are nonnegative and sum to one, use exactly
+\[
+\boxed{
+\max(0,H_1,H_2)\ge
+(\lambda_{\rm hi}-\lambda_{\rm lo})H_1
++\lambda_{\rm lo}H_2.
+}
+\tag{CR28bs}
+\]
+Expanding the right-hand side *before charging any edge* gives
+\[
+(\lambda_{\rm hi}-\lambda_{\rm lo})H_1
++\lambda_{\rm lo}H_2
+=
+\lambda_{\rm hi}\sum_{t=s_1}^{r-1}A_t
++\lambda_{\rm lo}\sum_{t=s_2}^{s_1-1}A_t.
+\]
+Thus the first segment uses weight \(\lambda_{\rm hi}\), and the second
+uses weight \(\lambda_{\rm lo}\).
+
+For \(i=1,2\), set
+\[
+(\lambda_1,b_1)=(\lambda_{\rm hi},s_1),
+\qquad
+(\lambda_2,b_2)=(\lambda_{\rm lo},s_2),
+\qquad
+F_{i,n}=G_{n,\lambda_i}(b_i),
+\]
+where \(G\) is (CR28az). On either segment, (CR28ay)--(CR28bc)
+apply with that segment's weight. Hence an intact original-base split at
+label \(t\) contributes at least
+\(G_{n,\lambda_i}(t)\ge F_{i,n}\) after receiving its edge slack, while a
+recursive split contributes at least
+\(J_{n,\lambda_i}(t)\ge G_{n,\lambda_i}(t)\ge F_{i,n}\).
+
+Here is the charging audit across the segment boundary. Let
+\(\Delta_e=(u+v-n-r)^2/2\) for an original base edge
+\(e=\{u,v\}\). Every selected split is either the first split of an intact
+original edge or a recursive current-edge split. The map from base splits to
+original edges is injective across *both* segments: after splitting \(e\),
+its two children contain the inserted label and no later operation recreates
+an edge with the same two original endpoints. Conversely, every recursive
+edge contains a previously inserted endpoint in
+\(\{t+1,\ldots,r-1\}\), even when a low-segment split recursively follows a
+high-segment split. Therefore the endpoint argument in (CR28ba) covers every
+recursive child edge. With \(\lambda_t\) denoting the weight of the segment
+containing \(t\), the exact partition is
+\[
+\begin{aligned}
+P(C_0)-P_{r,n}+\sum_{t=s_2}^{r-1}\lambda_tA_t
+={}&
+\sum_{\substack{t:\ \text{base}\\\text{split}}}
+  (\Delta_{e_t}+\lambda_tA_t)
++\sum_{\substack{t:\ \text{recursive}\\\text{split}}}
+  \lambda_tA_t
++\sum_{e\text{ unused by the selected prefixes}}\Delta_e.
+\end{aligned}
+\tag{CR28bt}
+\]
+Every original base slack occurs exactly once on the right: either beside
+its unique split or in the unused sum. This is the promised one-use result.
+Applying two separately slack-charged copies of (CR28be) would instead reuse
+the same base-slack pool and is invalid.
+
+Discarding only the nonnegative unused sum in (CR28bt), then using (CR28bs),
+proves for every compatible history
+\[
+\boxed{
+\gamma^{(r)}_{1,n}
+\ge
+P_{r,n}+(r-s_1)F_{1,n}+(s_1-s_2)F_{2,n}.
+}
+\tag{CR28bu}
+\]
+The exact inner-cycle comparison remains separate:
+\[
+\boxed{
+\gamma^{(r)}_{1,n}-P^*_{r,n}
+\ge
+(r-s_1)F_{1,n}+(s_1-s_2)F_{2,n}-e(n-r+1).
+}
+\tag{CR28bv}
+\]
+No recursive split has been replaced by a base-edge choice in either formula.
+
+Let
+\[
+g(\alpha,\beta,\lambda)
+=
+{\lambda\left(4(1+\alpha)\beta-(1+\alpha)^2
+-2\lambda\beta^2\right)\over2(2-\lambda)}
+\]
+as above. Dividing (CR28bu) by \(n^3\) and taking the fixed-parameter
+limit gives the certified total coefficient
+\[
+\boxed{
+C_2
+=p(\alpha)
++(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_{\rm hi})
++(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_{\rm lo}).
+}
+\tag{CR28bw}
+\]
+This derivation does not optimize the five parameters.
+
+#### Exact rational witness and finite threshold
+
+Take the proposed witness
+\[
+(\alpha,\beta_1,\beta_2,
+  \lambda_{\rm hi},\lambda_{\rm lo})
+=\left({3\over7},{2\over5},{3\over8},{1\over2},{1\over4}\right).
+\]
+It lies strictly in the required density region and satisfies the weight
+ordering. Exact substitution gives
+\[
+p(3/7)={284\over1029},
+\qquad
+g(3/7,2/5,1/2)={52\over3675},
+\qquad
+g(3/7,3/8,1/4)={199\over87808}.
+\]
+The corresponding recursive limits are \(1/14\) and \(3/112\), exceeding
+the two base floors by \(421/7350\) and \(2153/87808\), respectively.
+Therefore
+\[
+\boxed{
+C_2={72825421\over263424000}.
+}
+\tag{CR28bx}
+\]
+The comparison with the previous one-prefix optimum is exact. Put
+\[
+x={27C_2-4\over2}={304196789\over175616000}>0.
+\]
+Then
+\[
+x^2-3
+={12748069910521\over30840979456000000}>0,
+\]
+so \(x>\sqrt3\) and hence
+\[
+C_2>{4+2\sqrt3\over27}.
+\]
+
+For the finite theorem, define
+\[
+r_n=\left\lfloor{3n\over7}\right\rfloor,
+\qquad
+s_{1,n}=\left\lceil{2n\over5}\right\rceil,
+\qquad
+s_{2,n}=\left\lceil{3n\over8}\right\rceil,
+\qquad
+S_n=n+r_n,
+\]
+and
+\[
+F_{1,n}={4S_ns_{1,n}-S_n^2-s_{1,n}^2\over6},
+\qquad
+F_{2,n}={8S_ns_{2,n}-2S_n^2-s_{2,n}^2\over28}.
+\tag{CR28by}
+\]
+The uniform admissibility threshold is exactly \(n\ge59\). Indeed, the
+rational denominators give
+\[
+r_n-s_{1,n}\ge{n-58\over35},
+\qquad
+s_{1,n}-s_{2,n}\ge{n-35\over40}.
+\]
+Both left sides are integers and are therefore at least one for \(n\ge59\);
+the other block conditions are immediate. At \(n=58\), however,
+\((r_n,s_{1,n},s_{2,n})=(24,24,22)\), so the first selected segment is
+empty. Thus 59 is minimal for a uniform two-nonempty-prefix statement.
+
+For every \(n\ge59\), (CR28bu) and the pointwise global comparison give
+\[
+\boxed{
+\Lambda_n
+\ge\Gamma_n^{(r_n)}
+\ge\gamma^{(r_n)}_{1,n}
+\ge P_{r_n,n}
+ +(r_n-s_{1,n})F_{1,n}
+ +(s_{1,n}-s_{2,n})F_{2,n}.
+}
+\tag{CR28bz}
+\]
+This is the requested literal floor/ceiling theorem.
+
+For completeness, the rounding can be retained in a simple polynomial. On
+this domain \(2s_{i,n}<S_n\). Since \(G_{n,\lambda}(t)\) increases in
+\(t\), decreases in \(S\) there, \(S_n\le10n/7\), and
+\(s_{i,n}\ge\beta_i n\),
+\[
+F_{1,n}\ge{52\over3675}n^2,
+\qquad
+F_{2,n}\ge{199\over87808}n^2.
+\]
+Together with the two exact length estimates this yields
+\[
+(r_n-s_{1,n})F_{1,n}
++(s_{1,n}-s_{2,n})F_{2,n}
+\ge
+{121421\over263424000}n^3
+-{6699143\over263424000}n^2.
+\]
+If \(\eta_n=3n/7-r_n\), then
+\(\eta_n\in\{0,1/7,\ldots,6/7\}\), and exact expansion gives
+\[
+\begin{aligned}
+P_{r_n,n}
+={}&{284\over1029}n^3
++\left({3\over7}+{\eta_n\over49}\right)n^2\\
+&-\left({5\eta_n^2\over7}+\eta_n+{2\over21}\right)n
++{\eta_n^3-\eta_n\over6}.
+\end{aligned}
+\]
+The linear bracket is at most \(1520/1029\), and the seven exact constant
+values are at least \(-22/343\). Consequently
+\[
+\boxed{
+\Lambda_n
+\ge
+{72825421\over263424000}n^3
++{106196857\over263424000}n^2
+-{1520\over1029}n-{22\over343}
+\ge
+{72825421\over263424000}n^3
+\quad(n\ge59).
+}
+\tag{CR28ca}
+\]
+For the last inequality, the quadratic coefficient exceeds \(2/5\), while
+\(1520/1029<3/2\) and \(22/343<1\); the remaining correction is already
+positive for every integer \(n\ge5\).
+
+The residual comparison (CR28bv) and \(e(q)\le n^2/8\) also give
+\[
+\gamma^{(r_n)}_{1,n}-P^*_{r_n,n}
+\ge
+{121421\over263424000}n^3
+-{39627143\over263424000}n^2,
+\]
+whose right-hand side is positive for \(n\ge327\). This is a certified
+residual lower bound, not the exact residual or its exact coefficient.
+
+Finally, the strict cyclic-ratio sandwich turns (CR28ca) into
+\[
+\boxed{
+R_2^*(n)
+>{72825421\over263424000\pi}n^3-n^2
+\qquad(n\ge59),
+}
+\tag{CR28cb}
+\]
+and therefore
+\[
+\boxed{
+\liminf_{n\to\infty}{\Lambda_n\over n^3}
+\ge{72825421\over263424000},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\ge{72825421\over263424000\pi}.
+}
+\tag{CR28cc}
+\]
+These improve the previous one-prefix lower coefficients. They neither
+optimize the five two-prefix parameters nor assert convergence, an exact
+leading coefficient, or a matching upper bound.
+
+Independent test-local `Fraction` diagnostics exercise both the valid and
+invalid charging routes. At \(n=59\), all
+\(35\cdot36=1{,}260\) literal depth-two histories from one base cycle are
+checked; exactly 70 have a recursive second split. Every history passes the
+literal edge update, one-use base-edge map, two local floors, combined
+weighted identity, and selected-prefix maximum. A separate \(n=100\) domino
+splits \(\{t+1,t+2\}\) through the high/low boundary, including low-segment
+edges whose two endpoints were both inserted earlier. Deterministic all-base
+and recursive policies are also checked at \(n=59,100,200,1000\). An
+explicit negative regression shows that two separately charged prefix
+inequalities overdraw one base edge by exactly its slack. Finally, exact
+rational scans through \(n=1000\) check the floor/ceiling threshold,
+coefficient, finite polynomial, and the coarse residual sign change between
+326 and 327. These bounded computations corroborate the bookkeeping and
+arithmetic; the all-\(n\) statements rest on the written proof and use no
+production scorer, canonicalizer, or enumerator.
+
 ## 5. Exact Scorer Without Cycle Enumeration
 
 The proof that simple cycles suffice does not make their enumeration the
@@ -3754,7 +4105,7 @@ geometric bounds gives
 \]
 and
 \[
-{4+2\sqrt3\over27}
+{72825421\over263424000}
 \le
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
 \le
@@ -3789,16 +4140,24 @@ Further non-consequences are important.
   separately optimized obstruction. The first scale not excluded is linear
   \(r=\Theta(n)\); neither the error estimate nor the admissible-domino audit
   alone proves improvement there.
-- For the jointly optimized linear block
+- For the jointly optimized one-prefix linear block
   \(m=1\), \(r_n=\lfloor(1-\sqrt3/3)n\rfloor\), the independent
   slack/prefix argument (CR28ax)--(CR28bl) proves a positive cubic certified
   residual over \(P^*_{r_n,n}\). The complete three-parameter optimization
   proves that \((4+2\sqrt3)/27\) is the largest *total* pairing-plus-residual
-  coefficient certified by this template. Combined directly with (CR28ap)
+  coefficient certified by the one-prefix specialization. Combined directly
+  with (CR28ap)
   and (CR28bg), without a max--min exchange, it yields the global lower
   bounds (CR28bo)--(CR28bq). It gives neither the exact residual coefficient
   nor the exact asymptotic leading coefficient, and it does not prove
   convergence.
+- The two-prefix extension (CR28br)--(CR28cc) combines the selected heights
+  before drawing from the unique base-slack pool. It therefore charges each
+  original edge at most once and covers every recursive child edge. The
+  rational witness gives the strictly larger certified coefficient
+  \(72825421/263424000\), but no global optimization over the five
+  two-prefix parameters has been attempted. The new number is still only a
+  lower coefficient, not an exact residual, limit, or leading constant.
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality
   of minimizing order sets, or \(\Lambda_n=(n-1)W_n\). The exact global
   relation proved here is the one-sided inequality (CR38b).

@@ -475,7 +475,7 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   in \(t\), no base edge can be recreated, and
   \(\max\{0,H_{k_n}\}\ge\lambda H_{k_n}\). Thus the proof retains literal
   recursive compatibility and the maximum over all prefixes.
-- EXACT TEMPLATE OPTIMIZATION (JOINT LINEAR BLOCK): the limiting base and
+- EXACT TEMPLATE OPTIMIZATION (JOINT ONE-PREFIX LINEAR BLOCK): the limiting base and
   recursive floors are
   \[
   g(\alpha,\beta,\lambda)
@@ -519,7 +519,8 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \qquad
   \mathcal C_*={4+2\sqrt3\over27}.
   \]
-  The total coefficient is optimal only within CR28ax--CR28bg. The displayed
+  The total coefficient is optimal only within the one-prefix specialization
+  of CR28ax--CR28bg. The displayed
   residual coefficient is its contribution at that total-coefficient
   optimizer, not the separate maximum of \(c_{\rm res}\). Neither quantity
   is an exact residual or geometric leading coefficient.
@@ -542,7 +543,7 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   The displayed lower polynomial is positive for \(n\ge441\). Hence no
   compatible history for this selected block has \(o(n^3)\) excess. This
   proves no exact residual coefficient.
-- EXACT GLOBAL LOWER COROLLARY (JOINTLY OPTIMIZED LINEAR BLOCK): for each
+- EXACT GLOBAL LOWER COROLLARY (JOINTLY OPTIMIZED ONE-PREFIX LINEAR BLOCK): for each
   admissible
   \(m\), the pointwise inequality between the full subset maximum and the
   block maximum may first be minimized over \(\sigma\). Taking the maximum
@@ -572,6 +573,58 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \((4+2\sqrt3)/27\) and that value divided by \(\pi\). These are
   certified lower coefficients, not exact leading coefficients; no limit,
   convergence, production, artifact, or certificate claim follows.
+- EXACT METHOD-SPECIFIC THEOREM (TWO SELECTED PREFIXES): let
+  \(0<\beta_2<\beta_1<\alpha<1\) and
+  \(0\le\lambda_{\rm lo}\le\lambda_{\rm hi}\le1\). With the two selected
+  prefix heights \(H_1,H_2\), the exact step
+  \[
+  \max(0,H_1,H_2)
+  \ge(\lambda_{\rm hi}-\lambda_{\rm lo})H_1
+    +\lambda_{\rm lo}H_2
+  \]
+  assigns weight \(\lambda_{\rm hi}\) to the first split segment and
+  \(\lambda_{\rm lo}\) to the second. Combining the heights before charging
+  gives one partition of the quadratic base-slack pool: every original edge
+  is charged at most once, and every recursive current edge contains a
+  previously inserted endpoint and retains the CR28ba floor. Therefore
+  \[
+  C_2=p(\alpha)
+  +(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_{\rm hi})
+  +(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_{\rm lo}).
+  \]
+- EXACT GLOBAL LOWER COROLLARY (TWO-PREFIX RATIONAL WITNESS): at
+  \[
+  (\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})
+  =(3/7,2/5,3/8,1/2,1/4),
+  \]
+  \[
+  p={284\over1029},\qquad
+  g_{\rm hi}={52\over3675},\qquad
+  g_{\rm lo}={199\over87808},
+  \]
+  and
+  \[
+  C_2={72825421\over263424000}>{4+2\sqrt3\over27}.
+  \]
+  With \(r_n=\lfloor3n/7\rfloor\),
+  \(s_{1,n}=\lceil2n/5\rceil\), and
+  \(s_{2,n}=\lceil3n/8\rceil\), the minimal uniform two-nonempty-prefix
+  threshold is \(n=59\); \(n=58\) has \(r_n=s_{1,n}=24\). Exact rounding
+  proves
+  \[
+  \Lambda_n
+  \ge C_2n^3+{106196857\over263424000}n^2
+       -{1520\over1029}n-{22\over343}
+  \ge C_2n^3
+  \quad(n\ge59),
+  \]
+  \[
+  R_2^*(n)>{C_2\over\pi}n^3-n^2
+  \quad(n\ge59).
+  \]
+  The separate residual lower polynomial is positive for \(n\ge327\).
+  No five-parameter optimization, exact residual, convergence, exact leading
+  coefficient, production, artifact, or certificate claim follows.
 - EXACT GEOMETRIC COROLLARY: the strict global cyclic-ratio sandwich gives
   \[
   R_2^*(n)>{\beta_n^{(2)}\over\pi}-n^2
@@ -626,11 +679,20 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   branch identities, candidate equations, a bounded rational grid, finite
   constants, and decisive signs without floating point. They corroborate the
   algebra but are not the all-\(n\) proof.
+- VERIFIED FACT (BOUNDED EXACT TEST-LOCAL DIAGNOSTIC): rational two-prefix
+  checks exhaust all 1,260 literal depth-two histories from one \(n=59\)
+  base, including all 70 recursive second splits. A separate \(n=100\)
+  domino crosses the high/low boundary and splits edges whose two endpoints
+  were inserted earlier. Deterministic base/recursive policies at four sizes,
+  an explicit invalid double-charge regression, exact coefficient and surd
+  arithmetic, and a \(59\le n\le1000\) rounding scan all pass without using
+  production scorers, canonicalizers, or enumerators. These computations
+  corroborate the proof but do not replace it.
 - EXACT THEOREM: the additive relation transfers normalized asymptotics:
   \(\Lambda_n=\pi R_2^*(n)+O(n^2)=\Theta(n^3)\),
   \(\Lambda_n/(\pi R_2^*(n))\to1\), and
   \[
-  {4+2\sqrt3\over27}
+  {72825421\over263424000}
   \le\liminf{\Lambda_n\over n^3}
   \le\limsup{\Lambda_n\over n^3}
   \le{8\over25}.
@@ -850,14 +912,17 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   within the single-subset relaxation named above. The exact consecutive-tail
   block extension has the same leading coefficient for every fixed \(r\)
   and every \(r=o(n)\). None of these statements is an exact asymptotic
-  result for Power-Ringmin. Joint optimization of the linear block has a
+  result for Power-Ringmin. Joint optimization of the one-prefix linear block has a
   positive method-specific certified cubic residual over its inner-cycle
-  reference and yields the stronger global lower coefficient
+  reference and yields the one-prefix global lower coefficient
   \((4+2\sqrt3)/(27\pi)\). Its total coefficient
-  \((4+2\sqrt3)/27\) is optimal only within CR28ax--CR28bg; the associated
+  \((4+2\sqrt3)/27\) is optimal only within the one-prefix specialization of
+  CR28ax--CR28bg; the associated
   residual contribution at that optimizer is \((26-15\sqrt3)/54\), not a
-  separately maximized residual. Its exact residual coefficient, convergence,
-  and the exact global leading coefficient remain unresolved.
+  separately maximized residual. The two-prefix rational witness raises the
+  global coefficient to \(72825421/(263424000\pi)\) without a five-parameter
+  optimization. Its exact residual coefficient, convergence, and the exact
+  global leading coefficient remain unresolved.
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 
@@ -1478,7 +1543,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \(r_n=\lfloor\alpha n\rfloor\), its base-slack identity, exact proof-valid
   and positive parameter regions, intact/recursive local split bounds, unique
   maximin triple, template-optimal cubic coefficient, explicit finite/global
-  lower bounds, and bounded exact diagnostics.
+  lower bounds, and bounded exact diagnostics, plus the two-selected-prefix
+  extension, combined one-use charging identity, recursive coverage, exact
+  rational witness, minimal threshold 59, improved global coefficient, and
+  independent depth-two and nested-child diagnostics.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -1497,16 +1565,22 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \((4+2\sqrt3)/27\), whose associated residual contribution is
   \((26-15\sqrt3)/54\), with explicit finite bounds and no production or
   enumeration-limit change.
-- RECOMMENDED NEXT TASK: extend the independent test-only Arb endpoint-sign
-  path from checked `n=3` to the existing checked `n=4` artifact, covering
-  every embedded local record without changing production verification,
-  artifacts, schemas, or certification claims.
+- COMPLETED PRIORITY: the two-prefix CR28ax--CR28bg extension now proves
+  single-use charging across both selected segments, recursive child-edge
+  coverage, the exact coefficient formula, and the rational witness
+  \(72825421/263424000\), with minimal uniform threshold 59, a strict global
+  lower improvement, and independent bounded diagnostics. No five-parameter
+  optimization or production change was made.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, optimize the five
+  two-prefix parameters globally, including all boundary faces, while
+  preserving the combined one-use charging proof and keeping production and
+  artifact scope unchanged.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
   active-subsystem description or settle `n<=11`.
 - OPEN QUESTION: can the upper coefficient \(8/(25\pi)\) be lowered toward
-  the current lower coefficient \((4+2\sqrt3)/(27\pi)\), while retaining
+  the current lower coefficient \(72825421/(263424000\pi)\), while retaining
   a symbolic all-pairs proof?
 - RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
 
@@ -1522,15 +1596,16 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: no exact geometric optimum value \(R_2^*(n)\) has been proved
   in this repository; the exact all-\(n\) classification of the combinatorial
   surrogate \(W_n\) is a different statement.
-- LIMITATION: no upper bound matching the current first-linear-block lower
+- LIMITATION: no upper bound matching the current two-prefix linear-block lower
   coefficient has been proved in this repository.
 - LIMITATION: the later indices \(n\ge94\) with strict distance-two/full
   minimizer inclusion have not been classified.
 - LIMITATION: neither existence of \(\lim R_2^*(n)/n^3\) nor a leading-term
   asymptotic formula has been proved in this repository.
 - LIMITATION: the uniform consecutive-tail comparison classifies every
-  sublinear block length. The CR28ax--CR28bg template is now jointly optimized
-  over all constant linear densities, but the exact residual and exact leading
+  sublinear block length. The one-prefix CR28ax--CR28bg specialization is
+  jointly optimized over all constant densities, while the new two-prefix
+  five-parameter coefficient is not. The exact residual and exact leading
   coefficient of the selected block, and linear-density methods outside this
   template, remain unclassified.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.

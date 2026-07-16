@@ -54,7 +54,7 @@ Last updated: 2026-07-16
   \]
   The refinement can improve finite lower terms but provably leaves this
   schema's leading lower coefficient unchanged.
-- EXACT THEOREM (jointly optimized linear-block global refinement): put
+- EXACT THEOREM (jointly optimized one-prefix linear-block refinement): put
   \[
   r_n^*=\left\lfloor\left(1-{\sqrt3\over3}\right)n\right\rfloor,
   \qquad
@@ -92,6 +92,29 @@ Last updated: 2026-07-16
   \]
   These are lower coefficients, not exact asymptotic coefficients or a
   convergence theorem.
+- EXACT THEOREM (two-prefix linear-block refinement): with
+  \[
+  r_n=\left\lfloor{3n\over7}\right\rfloor,
+  \qquad
+  s_{1,n}=\left\lceil{2n\over5}\right\rceil,
+  \qquad
+  s_{2,n}=\left\lceil{3n\over8}\right\rceil,
+  \]
+  and weights
+  \((\lambda_{\rm hi},\lambda_{\rm lo})=(1/2,1/4)\), the exact two-prefix
+  theorem in `research/FIXED_ORDER_CYCLE_RATIO.md` charges every original
+  base-edge slack at most once and covers all recursive child-edge splits.
+  Its uniform floor/ceiling domain starts at the minimal threshold \(n=59\),
+  and
+  \[
+  \Lambda_n\ge {72825421\over263424000}n^3,
+  \qquad
+  R_2^*(n)>{72825421\over263424000\pi}n^3-n^2
+  \quad(n\ge59).
+  \]
+  The rational coefficient is strictly larger than
+  \((4+2\sqrt3)/27\). It is a verified witness, not the result of optimizing
+  the five two-prefix parameters and not an exact asymptotic coefficient.
 - EXACT THEOREM: if a configuration of the core radii
   \(2^2,\dots,n^2\) is feasible at central radius \(R>0\), then a circle of
   radius \(1\) can be inserted at the same central radius whenever
@@ -170,8 +193,10 @@ The coefficient \(2(\sqrt2-1)/(3\pi)\) remains optimal for the
 single-subset pairing relaxation analyzed directly here. The relational
 extension using two consecutive tails is a distinct, stronger finite schema;
 its separate exact analysis proves the same leading coefficient. The jointly
-optimized linear block improves the global lower coefficient to
-\((4+2\sqrt3)/(27\pi)\). None of these lower-bound results is an upper
+optimized one-prefix linear block first improves the global lower coefficient
+to \((4+2\sqrt3)/(27\pi)\), and the two-prefix rational witness improves it
+again to \(72825421/(263424000\pi)\). None of these lower-bound results is
+an upper
 bound on the true problem. The order-independent regular-core baseline has
 upper coefficient \(1/\pi\), the zigzag refinement gives \(1/(2\pi)\), and
 the later product-distance construction sharpens the current upper
@@ -717,7 +742,7 @@ conclusion is specific to a single optimized pair of consecutive tails; it
 does not cover simultaneous coupling of a number of tails growing with
 \(n\), nonconsecutive subsets, or other information about \(\Lambda_n\).
 
-## Global Consequence Of The Jointly Optimized Linear Block
+## Global Consequence Of The Jointly Optimized One-Prefix Linear Block
 
 The generalized linear block in `research/FIXED_ORDER_CYCLE_RATIO.md` yields
 a stronger global lower bound. Its exact proof-valid region is
@@ -878,11 +903,92 @@ In particular,
 These are exact lower bounds with a rigorously certified lower coefficient.
 They do not prove that either normalized sequence converges or that the
 displayed coefficient is its exact leading coefficient. The total coefficient
-\((4+2\sqrt3)/27\) is optimal only inside the parameterized CR28ax--CR28bg
-certificate. Its associated residual contribution is
+\((4+2\sqrt3)/27\) is optimal only inside the parameterized one-prefix
+specialization of CR28ax--CR28bg. Its associated residual contribution is
 \((26-15\sqrt3)/54\), which is neither separately maximized nor the exact
 residual coefficient of the selected block; the total is not an exact
 geometric constant.
+
+## Global Consequence Of Two Selected Prefixes
+
+The two-prefix extension in `research/FIXED_ORDER_CYCLE_RATIO.md` uses
+\[
+\max(0,H_1,H_2)
+\ge(\lambda_{\rm hi}-\lambda_{\rm lo})H_1
++\lambda_{\rm lo}H_2
+\]
+before drawing from the base-slack identity. This order matters: the expanded
+linear form assigns weight \(\lambda_{\rm hi}\) to splits in the first
+segment and \(\lambda_{\rm lo}\) to splits in the second, while each original
+base edge receives its quadratic slack only at its unique split. Every
+non-base current edge contains a previously inserted endpoint, so recursive
+and fully nested child-edge splits remain covered by the same local recursive
+floor.
+
+For
+\[
+r_n=\left\lfloor{3n\over7}\right\rfloor,
+\qquad
+s_{1,n}=\left\lceil{2n\over5}\right\rceil,
+\qquad
+s_{2,n}=\left\lceil{3n\over8}\right\rceil,
+\]
+define \(S_n=n+r_n\) and
+\[
+F_{1,n}={4S_ns_{1,n}-S_n^2-s_{1,n}^2\over6},
+\qquad
+F_{2,n}={8S_ns_{2,n}-2S_n^2-s_{2,n}^2\over28}.
+\]
+The two segment lengths satisfy
+\[
+r_n-s_{1,n}\ge{n-58\over35},
+\qquad
+s_{1,n}-s_{2,n}\ge{n-35\over40}.
+\]
+Thus both are positive integers for every \(n\ge59\), while \(n=58\)
+has \((r_n,s_{1,n},s_{2,n})=(24,24,22)\). Hence 59 is the minimal uniform
+two-nonempty-prefix threshold. The pointwise block comparison gives
+\[
+\Lambda_n
+\ge\Gamma_n^{(r_n)}
+\ge\gamma^{(r_n)}_{1,n}
+\ge P_{r_n,n}
++(r_n-s_{1,n})F_{1,n}
++(s_{1,n}-s_{2,n})F_{2,n}.
+\]
+
+The exact limiting ingredients are
+\[
+p(3/7)={284\over1029},
+\qquad
+g(3/7,2/5,1/2)={52\over3675},
+\qquad
+g(3/7,3/8,1/4)={199\over87808},
+\]
+so the total coefficient is
+\[
+C_2={72825421\over263424000}>{4+2\sqrt3\over27}.
+\]
+Exact rounding strengthens the literal floor theorem to
+\[
+\Lambda_n
+\ge C_2n^3
++{106196857\over263424000}n^2
+-{1520\over1029}n-{22\over343}
+\ge C_2n^3
+\qquad(n\ge59).
+\]
+The strict cyclic-ratio sandwich therefore gives
+\[
+\boxed{
+R_2^*(n)>{72825421\over263424000\pi}n^3-n^2
+\qquad(n\ge59).
+}
+\]
+This is the current strongest proved global lower coefficient in the
+repository. No optimization over the five two-prefix parameters was
+performed, and no exact residual, convergence, exact leading coefficient, or
+matching upper bound follows.
 
 ## Exact Radius-One Insertion
 
@@ -1468,10 +1574,10 @@ Therefore
 \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over2\pi}.
 \tag{21}
 \]
-Combining (21) with the sharpened jointly optimized linear-block lower bound
+Combining (21) with the sharpened two-prefix linear-block lower bound
 proved in this note yields
 \[
-{4+2\sqrt3\over27\pi}
+{72825421\over263424000\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -1486,7 +1592,7 @@ In particular,
 The later exact product-distance construction sharpens the right endpoint to
 
 \[
-{4+2\sqrt3\over27\pi}
+{72825421\over263424000\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -1539,17 +1645,21 @@ Neither the improved upper bound nor the lower bound proves that
   baseline. The zigzag radius \(V_n\) improves its asymptotic upper coefficient
   from \(1/\pi\) to \(1/(2\pi)\); the later product-distance construction
   improves it again to \(8/(25\pi)\), which still does not match the
-  current jointly optimized linear-block lower coefficient
-  \((4+2\sqrt3)/(27\pi)\). None may be described as the exact asymptotic
+  current two-prefix linear-block lower coefficient
+  \(72825421/(263424000\pi)\). None may be described as the exact asymptotic
   leading constant for Power-Ringmin. The smaller coefficient
   \(2(\sqrt2-1)/(3\pi)\) remains optimal only inside the single-subset
   lower-bound relaxation explicitly analyzed above.
-- The jointly optimized linear-block total coefficient
-  \((4+2\sqrt3)/27\) is maximal only in the parameterized CR28ax--CR28bg
-  certificate. The value \((26-15\sqrt3)/54\) is its residual contribution
+- The jointly optimized one-prefix total coefficient
+  \((4+2\sqrt3)/27\) is maximal only in the one-prefix specialization of
+  CR28ax--CR28bg. The value \((26-15\sqrt3)/54\) is its residual contribution
   at that optimizer, not the separate maximum of the residual coefficient.
   This does not make it the exact residual of the block or the total an exact
   geometric leading coefficient, and it proves no convergence theorem.
+- The two-prefix coefficient \(72825421/263424000\) comes from one exact
+  rational witness. It is strictly larger than the one-prefix optimum, but no
+  five-parameter optimization has been performed; it is not an exact block
+  residual, leading coefficient, limit, or geometric constant.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower
   bound only from the scalar full-problem lower bound would reverse the useful

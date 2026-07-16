@@ -350,8 +350,49 @@ R_2^*(n)
 \qquad(n\ge90).
 \]
 Thus \((4+2\sqrt3)/27\), and that value divided by \(\pi\), are the unique
-template-optimal total lower coefficients. Neither is asserted to be an exact
-leading coefficient, and no limit or production-computation result follows.
+one-prefix-template-optimal total lower coefficients. Neither is asserted to
+be an exact leading coefficient, and no limit or production-computation
+result follows.
+
+Selecting two prefixes gives a strict further improvement without duplicating
+the base slack. For
+\[
+H_1=\sum_{t=s_1}^{r-1}A_t,
+\qquad
+H_2=\sum_{t=s_2}^{r-1}A_t,
+\]
+use exactly
+\[
+\max(0,H_1,H_2)\ge
+(\lambda_{\rm hi}-\lambda_{\rm lo})H_1+\lambda_{\rm lo}H_2.
+\]
+After this combination, every original base edge is charged only at its
+unique split, and every recursive child edge remains covered by its local
+floor. The resulting coefficient is
+\[
+C_2=p(\alpha)
++(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_{\rm hi})
++(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_{\rm lo}).
+\]
+The exact rational witness
+\[
+(\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})
+=\left({3\over7},{2\over5},{3\over8},{1\over2},{1\over4}\right)
+\]
+gives
+\[
+C_2={72825421\over263424000}>{4+2\sqrt3\over27}.
+\]
+Its minimal uniform two-prefix threshold is \(n=59\), and exact rounding
+proves
+\[
+\Lambda_n\ge {72825421\over263424000}n^3,
+\qquad
+R_2^*(n)>{72825421\over263424000\pi}n^3-n^2
+\quad(n\ge59).
+\]
+The five two-prefix parameters have not been optimized, and the new number is
+not an exact residual, limit, or leading coefficient.
 
 There is also an exact eventual radius-one insertion theorem. Let
 \(R^*_{2:n}\) be the infimum feasible central radius for only the core radii
@@ -655,7 +696,7 @@ The cubic order is exact, but existence of a limiting coefficient, a
 leading-term asymptotic formula, and an upper bound matching the current
 linear-block lower coefficient remain unresolved. Current exact bounds give
 \[
-\frac{4+2\sqrt3}{27\pi}
+\frac{72825421}{263424000\pi}
 \le
 \liminf_{n\to\infty}\frac{R_2^*(n)}{n^3}
 \le
@@ -989,7 +1030,7 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \(O_r(n^2)\) error, every \(r=o(n)\) gives the same coefficient with
   \(o(n^3)\) error, and linear \(r=\Theta(n)\) is only the first scale not
   excluded from changing it by this uniform estimate.
-- EXACT METHOD-SPECIFIC THEOREM (JOINTLY OPTIMIZED LINEAR BLOCK): for
+- EXACT METHOD-SPECIFIC THEOREM (JOINTLY OPTIMIZED ONE-PREFIX LINEAR BLOCK): for
   \(m=1\), \(r_n=\lfloor\alpha n\rfloor\),
   \(s_n=\lceil\beta n\rceil\), the proof-valid region is exactly
   \[
@@ -1033,15 +1074,49 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \qquad
   R_2^*(n)>{4+2\sqrt3\over27\pi}n^3-n^2.
   \]
-  The total coefficient is uniquely optimal only within CR28ax--CR28bg; it
-  is not an exact leading coefficient, and convergence and production claims
-  do not follow.
+  The total coefficient is uniquely optimal only within the one-prefix
+  specialization of CR28ax--CR28bg; it is not an exact leading coefficient,
+  and convergence and production claims do not follow.
+- EXACT METHOD-SPECIFIC THEOREM (TWO SELECTED PREFIXES): for
+  \(0<\beta_2<\beta_1<\alpha<1\) and
+  \(0\le\lambda_{\rm lo}\le\lambda_{\rm hi}\le1\), combining the two
+  selected prefix heights before charging gives
+  \[
+  C_2=p(\alpha)
+  +(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_{\rm hi})
+  +(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_{\rm lo}).
+  \]
+  The base-slack partition uses every original edge at most once across both
+  segments, and the recursive floor covers every child-edge split. At the
+  rational witness \((3/7,2/5,3/8,1/2,1/4)\),
+  \[
+  C_2={72825421\over263424000}>{4+2\sqrt3\over27}.
+  \]
+  With \(r_n=\lfloor3n/7\rfloor\),
+  \(s_{1,n}=\lceil2n/5\rceil\), and
+  \(s_{2,n}=\lceil3n/8\rceil\), the exact uniform threshold is \(n=59\),
+  and
+  \[
+  \Lambda_n\ge C_2n^3,
+  \qquad
+  R_2^*(n)>{C_2\over\pi}n^3-n^2
+  \quad(n\ge59).
+  \]
+  This is a verified witness, not a five-parameter optimum or an exact
+  leading coefficient.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): test-local
   \(\mathbb Q(\sqrt3)\) arithmetic checks the optimizer, boundary identities,
   every rounded finite bound for \(86\le n\le1000\), and deterministic
   intact/recursive histories at six sizes. A separate \(n=141\) oracle covers
   all 6,972 literal depth-two histories, including all 166 recursive second
   splits, without production code or an enumeration-limit change.
+- VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): rational test-local
+  diagnostics verify all 1,260 literal depth-two histories at \(n=59\),
+  including all 70 recursive second splits, plus a fully nested history across
+  the high/low boundary and deterministic base/recursive policies at four
+  sizes. They check one-use charging, the deliberately invalid double-charge
+  route, local floors, linkage, exact coefficient arithmetic, the threshold
+  at 58/59, and finite rounding through \(n=1000\), without production code.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): at
   \((m,n,r)=(2,7,4)\), all 60 compatible triple-split histories agree
   signature by signature with all 60 directly generated outer cycles, and
@@ -1395,14 +1470,17 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   documented single-subset relaxation. The exact consecutive-tail block
   extension has the same leading coefficient for every fixed length and for
   every \(r=o(n)\). This method-specific result is not a proved exact
-  asymptotic coefficient for Power-Ringmin. Joint optimization of the linear
-  block \(m=1\), \(r_n=\lfloor\alpha n\rfloor\), yields
+  asymptotic coefficient for Power-Ringmin. Joint optimization of the
+  one-prefix linear block \(m=1\), \(r_n=\lfloor\alpha n\rfloor\), yields
   \(\alpha_*=1-\sqrt3/3\), a positive certified cubic residual, and the
-  stronger global lower coefficient \((4+2\sqrt3)/(27\pi)\). Its total
-  coefficient \((4+2\sqrt3)/27\) is optimal only inside CR28ax--CR28bg; the
+  global lower coefficient \((4+2\sqrt3)/(27\pi)\). Its total
+  coefficient \((4+2\sqrt3)/27\) is optimal only inside the one-prefix
+  specialization of CR28ax--CR28bg; the
   associated residual contribution is \((26-15\sqrt3)/54\), not a separately
-  optimized residual. These are not exact residual or leading coefficients;
-  convergence and exact block coefficients remain unresolved.
+  optimized residual. The two-prefix rational witness further raises the
+  global lower coefficient to \(72825421/(263424000\pi)\), without a
+  five-parameter optimization. These are not exact residual or leading
+  coefficients; convergence and exact block coefficients remain unresolved.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit
   and unresolved for public production claims. The bounded test-only Arb
   cross-check covers checked `n=3` only and is not a full backend audit.
