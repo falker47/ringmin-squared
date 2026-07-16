@@ -3533,6 +3533,266 @@ Equations (MS5) and (MS7) prove that \(93\) is the first restriction index.
 No persistence for every later \(n\) is asserted: the sufficient criterion
 (MS2), for example, holds again at \(n=94\).
 
+## One-Triple Reversal Obstruction
+
+We now analyze one explicit parametric perturbation of the symbolic
+eight-twenty-fifths construction. Restrict to the infinite subsequence
+
+\[
+n=10m+3,
+\qquad
+m\ge3,
+\qquad
+d=8m+4,
+\qquad
+T={d(d-1)\over2}.
+\tag{PT1}
+\]
+
+This is the residue-three branch of (UC3)--(UC11), with
+\(v=2m\), \(e=4\), \(t=m+1\), \(\varepsilon=0\), and
+\(r=m-1\). Its triple middle paths are
+
+\[
+P_s=(A_s,c_s,B_s)
+=
+(d-1-2s,\ 4m+2+s,\ d-2-2s),
+\qquad 0\le s\le m.
+\tag{PT2}
+\]
+
+For one selected parameter \(s\in\{0,\ldots,m\}\), define
+\(\tau_{m,s}\) by the single local replacement
+
+\[
+P_s=(A_s,c_s,B_s)
+\longmapsto
+P_s^{\rm rev}=(B_s,c_s,A_s),
+\tag{PT3}
+\]
+
+leaving every other entry of \(\sigma_n\) fixed. This is a search-free
+permutation of \(\{2,\ldots,n\}\). We determine its full-distance score
+exactly.
+
+### Adjacencies
+
+In the local word
+
+\[
+E_s,\lambda_s,A_s,c_s,B_s,\rho_{s+1},E_{s+1},
+\]
+
+the two internal products are merely exchanged. The boundary product
+\(\lambda_sA_s\) decreases to \(\lambda_sB_s\), while
+
+\[
+A_s\rho_{s+1}
+\le(d-1)(4m-1)
+<T.
+\]
+
+All other adjacencies retain the bounds in (UC12)--(UC15). Moreover,
+\(c_0=4m+2\) remains adjacent to \(A_0=d-1\), even when \(s=0\), and
+
+\[
+c_0A_0=(4m+2)(8m+3)=T.
+\]
+
+Thus the adjacent score is exactly
+
+\[
+M_1(\tau_{m,s})=T
+\qquad(0\le s\le m).
+\tag{PT4}
+\]
+
+This persistent pair is already an exact obstruction to a strict improvement
+below \(T\) anywhere in the selected family.
+
+### Positional distance two
+
+Only two terminal--middle distance-two pairs can change. The pair
+\(E_sA_s\) is replaced by the smaller \(E_sB_s\), while
+\(B_sE_{s+1}\) is replaced by \(A_sE_{s+1}\). The latter is the sole
+potential increase. Exact subtraction gives
+
+\[
+\begin{aligned}
+d(d-1)-A_sE_{s+1}
+&=d(d-1)-(d-1-2s)(d+s+1)\\
+&=(s-1)d+(s+1)(2s+1).
+\end{aligned}
+\tag{PT5}
+\]
+
+At \(s=0\), the right side is \(-(d-1)\), and the new pair is
+\((A_0,E_1)=(d-1,d+1)\). For every \(s\ge1\), the right side is
+positive. When \(s\ge1\), the unchanged pair \((d,d-1)\) in \(P_0\)
+still has positional distance two and score \(T\). Therefore
+
+\[
+M_2(\tau_{m,s})
+=
+\begin{cases}
+(d^2-1)/2=T+(d-1)/2,&s=0,\\
+T,&1\le s\le m.
+\end{cases}
+\tag{PT6}
+\]
+
+### Distances three and at least four
+
+The reversal changes no terminal position and no terminal-gap length.
+In a triple block, a distance-three pair with no low endpoint is
+\(c_jE_j\) or \(c_jE_{j+1}\). The latter products increase with \(j\) and
+are largest at \(j=m\). Every other distance-three pair, including every
+one in or across a singleton block, has one endpoint at most
+\(\rho_0=4m+1\). The candidate
+\((c_m,E_{m+1})=(5m+2,9m+5)\) dominates that whole class because
+
+\[
+(5m+2)(9m+5)-n(4m+1)=5m^2+21m+7>0.
+\]
+
+The connector positions do not change under any reversal, so the maximum is
+exactly
+
+\[
+M_3(\tau_{m,s})={(5m+2)(9m+5)\over3}<T,
+\tag{PT7}
+\]
+
+because
+\(3T-(5m+2)(9m+5)=51m^2+41m+8>0\). For every positional distance
+\(q\ge4\),
+
+\[
+{ij\over q}\le {n(n-1)\over4}<T,
+\tag{PT8}
+\]
+
+where
+
+\[
+4T-n(n-1)=28m^2+62m+18>0.
+\]
+
+The first inequality in (PT8) is attained. Since \(m\ge3\), the untouched
+singleton gap between \(E_{2m-2}=n-1\) and \(E_{2m-1}=n\) is
+
+\[
+n-1,\ 4,\ 6m,\ 3,\ n.
+\]
+
+Thus
+
+\[
+M_{\ge4}(\tau_{m,s})={n(n-1)\over4}<T.
+\tag{PT9}
+\]
+
+### Cyclic closure
+
+For the cut immediately before \(E_0=d\), none of the reversed triples
+meets the final singleton block. The local closing word is
+
+\[
+\ldots,n,2,6m+1,4m+1
+\mathbin{|}
+d,4m,x_s,\ldots,
+\qquad
+x_s=d-1-\mathbf1_{\{s=0\}}.
+\tag{PT10}
+\]
+
+Directly checking the one, two, and three pairs crossing this cut gives the
+exact closing maxima
+
+\[
+\begin{aligned}
+C_1&=(4m+1)d,\\
+C_2&={(6m+1)d\over2},\\
+C_3&={(4m+1)(d-1-\mathbf1_{\{s=0\}})\over3}.
+\end{aligned}
+\tag{PT11}
+\]
+
+For distance three the three raw candidates are
+\(2d\), \(4m(6m+1)\), and
+\((4m+1)(d-1-\mathbf1_{\{s=0\}})\). The last is largest; even in the
+smaller \(s=0\) case its excess over the second is
+\(8m^2+12m+2>0\).
+
+They are all strictly below \(T\). For example,
+
+\[
+T-C_1=4m+2,
+\qquad
+T-C_2=(4m+2)(2m+2),
+\]
+
+and replacing the indicator in \(C_3\) by zero still gives
+
+\[
+3T-(4m+1)(d-1)=64m^2+64m+15>0.
+\tag{PT12}
+\]
+
+All longer closing arcs are already covered by (PT8)--(PT9). Hence the
+linear presentation loses no cyclic pair.
+
+### Exact score and obstruction
+
+Combining (PT4), (PT6), (PT7), (PT9), and (PT11) proves the full-distance
+formula
+
+\[
+\boxed{
+W(\tau_{m,s})
+=
+\begin{cases}
+(d^2-1)/2=T+(d-1)/2,&s=0,\\
+T,&1\le s\le m.
+\end{cases}}
+\tag{PT13}
+\]
+
+The case \(s=0\) is a reproducible counterexample to the tempting stronger
+claim that every triple reversal preserves \(T\). At the first admitted row
+\((m,n,d)=(3,33,28)\), the pair \((27,29)\) has distance two and gives
+
+\[
+W(\tau_{3,0})={783\over2}>378=T.
+\tag{PT14}
+\]
+
+For every choice of parameters \(s=s(m)\), including choices that vary with
+\(m\), (PT13) gives uniformly
+
+\[
+{W(\tau_{m,s(m)})\over(10m+3)^2}
+\longrightarrow {8\over25}.
+\tag{PT15}
+\]
+
+This is an **EXACT FAMILY-SPECIFIC OBSTRUCTION**: a one-triple reversal never
+lowers the finite threshold \(T\), and it cannot lower the asymptotic
+product-distance coefficient below \(8/25\). The conclusion is about the
+surrogate \(W\). Applying the established regular-direction construction and
+radius-one insertion theorem gives only the subsequent geometric upper bound
+
+\[
+R_2^*(10m+3)
+\le{(10m+2)W(\tau_{m,s})\over\pi}.
+\tag{PT16}
+\]
+
+For \(s\ge1\), (PT16) merely reproduces the existing upper bound on this
+subsequence; for \(s=0\), it is weaker. It neither identifies a fixed-order
+geometric threshold nor obstructs improvement by non-regular geometric
+configurations.
+
 ## Verification Boundary And Open Questions
 
 `tests/test_product_distance.py` checks exact rational comparisons, canonical
@@ -3562,6 +3822,10 @@ residue formula against \(3B_n\ge n(n-1)\) through \(n=92\), its first
 failure at \(n=93\), the requested label relocation, every one of the
 \(\binom{92}{2}\) pair scores through two independent exact traversals, the
 unique score above \(2850\), and the production scorers as a cross-check. A
+six-row exact regression now also reverses one triple at selected endpoint
+and interior parameters, checks the exact distance-one, distance-two,
+distance-three, long-distance, and closing formulas, and compares two
+independent all-pairs traversals with the production scorer. A
 separate verifier builds the tails and incidence endpoints without production
 support for all 872
 orders on `n=3..7` over 34,160 half-integer states, and directly checks the
@@ -3571,7 +3835,10 @@ enumeration is performed beyond `n=11`. Independent construction diagnostics
 checked the residue-one formula through `k=5000`; the repository regression
 checks every `2<=k<=1000` in both residue-two parity branches and selected
 full all-pairs scores. These finite diagnostics support but do not replace
-the symbolic proofs above.
+the symbolic proofs above. The task-local standard-library diagnostic in
+`ops/TASK-20260716__one_triple_reversal_obstruction/` independently
+reconstructs the specialized block family and checks the same six rows
+without importing project or test helpers.
 
 The following remain unresolved.
 

@@ -1748,6 +1748,42 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   and \(93\) is the first index where distances at least three restrict the
   minimizer set. This uses no canonical enumeration beyond \(n=11\) and has
   no geometric implication.
+- EXACT THEOREM (ONE-TRIPLE REVERSAL OBSTRUCTION): restrict the symbolic
+  eight-twenty-fifths order to
+  \[
+  n=10m+3,
+  \qquad m\ge3,
+  \qquad d=8m+4,
+  \qquad T={d(d-1)\over2}.
+  \]
+  Its triple paths are
+  \(P_s=(d-1-2s,4m+2+s,d-2-2s)\), \(0\le s\le m\). If
+  \(\tau_{m,s}\) reverses only the two outer entries of \(P_s\), then
+  \[
+  W(\tau_{m,s})=
+  \begin{cases}
+  (d^2-1)/2=T+(d-1)/2,&s=0,\\
+  T,&1\le s\le m.
+  \end{cases}
+  \]
+  The exact distance classes are
+  \(M_1=T\), the displayed piecewise \(M_2\),
+  \(M_3=(5m+2)(9m+5)/3<T\), and
+  \(M_{\ge4}=n(n-1)/4<T\). With the canonical cut,
+  \[
+  C_1=(4m+1)d,
+  \quad C_2={(6m+1)d\over2},
+  \quad C_3={(4m+1)(d-1-\mathbf1_{\{s=0\}})\over3},
+  \]
+  all strictly below \(T\). Hence every parameter choice has coefficient
+  \(8/25\); the persistent adjacent saturation is an exact family-specific
+  obstruction. The smallest admitted non-neutral row is
+  \((m,s)=(3,0)\), where \(T=378\) and \(W=783/2\).
+- INTERPRETATION: this obstruction concerns the surrogate on one explicit
+  subsequence and one local perturbation. Its regular-direction transfer is
+  only an upper bound; it neither lower-bounds \(R_2^*(n)\) nor excludes a
+  different order family, unequal directions, or a non-regular geometric
+  construction.
 - OPEN QUESTION: for which \(n\ge94\) is the minimizer inclusion strict? No
   persistence from \(n=93\) onward is claimed; the sufficient equality
   criterion already holds again at \(n=94\).
@@ -1993,10 +2029,17 @@ Candidate-set extraction uses the following finite-certificate semantics.
   independent of the direct four-prefix proof and adds no charging for
   \(k\ge5\), no uniform \(k\)-to-\(n\) interchange, and no new bound from its
   limiting envelope.
+- COMPLETED PRIORITY: one explicit local perturbation of the \(8/25\)
+  construction is now classified. Reversing one triple on
+  \(n=10m+3\) is score-neutral for \(s\ge1\), worsens the finite score by
+  \((d-1)/2\) for \(s=0\), and has coefficient \(8/25\) for every
+  parameter sequence. The proof separates all distance classes and the
+  cyclic closure; a small independent exact diagnostic performs no search or
+  cyclic-order enumeration.
 - RECOMMENDED NEXT TASK: in a fresh STRICT task, analyze one explicit
-  parametric perturbation of the current \(8/25\) product-distance upper
-  construction and prove either a strict symbolic improvement or a precise
-  obstruction, without extending cyclic-order enumeration.
+  nonlocal reassignment of the symbolic middle paths among terminal gaps and
+  prove its exact full-distance score or a counterexample, still without
+  extending cyclic-order enumeration.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order

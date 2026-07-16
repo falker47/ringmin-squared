@@ -898,6 +898,23 @@ because \((92,93)\) is then at distance three. Hence
 first minimizer-restriction index. This is an exact combinatorial result,
 uses no canonical enumeration beyond \(n=11\), and makes no geometric claim.
 
+One explicit perturbation of the matching upper construction is now
+classified symbolically. For \(n=10m+3\), \(m\ge3\), write
+\(d=8m+4\), \(T=d(d-1)/2\), and reverse only the two outer entries of one
+triple path \(P_s\), \(0\le s\le m\). The full-distance score is exactly
+\[
+W(\tau_{m,s})=
+\begin{cases}
+(d^2-1)/2=T+(d-1)/2,&s=0,\\
+T,&1\le s\le m.
+\end{cases}
+\]
+Adjacency, distance two, distance three, distances at least four, and all
+pairs crossing the displayed cut are proved separately. Thus every parameter
+choice has coefficient \(8/25\): the family gives an exact obstruction, not
+an improved upper coefficient. The subsequent regular-direction geometric
+inequality is only an upper bound and does not obstruct non-regular geometry.
+
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also a disproved claim.
@@ -1868,6 +1885,24 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \]
   and \(93\) is the first restriction index. No assertion is made that strict
   inclusion persists at every later index.
+- EXACT THEOREM (ONE-TRIPLE REVERSAL OBSTRUCTION): for
+  \(n=10m+3\), \(m\ge3\), put \(d=8m+4\),
+  \(T=d(d-1)/2\), and reverse the outer entries of exactly one symbolic
+  triple \(P_s\), \(0\le s\le m\). The resulting full-distance score is
+  \[
+  W(\tau_{m,s})=
+  \begin{cases}
+  (d^2-1)/2,&s=0,\\
+  T,&1\le s\le m.
+  \end{cases}
+  \]
+  Its adjacent maximum is always \(T\); its distance-two maximum is the
+  displayed full score; its distance-three maximum is exactly
+  \((5m+2)(9m+5)/3<T\);
+  its distance-at-least-four maximum is \(n(n-1)/4<T\); and its three
+  closing maxima are explicit and strict. Hence every choice \(s=s(m)\) has
+  \(W/n^2\to8/25\). This is a family-specific surrogate obstruction, not a
+  geometric lower bound or an exact geometric asymptotic statement.
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
   \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved

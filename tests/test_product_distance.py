@@ -1307,6 +1307,59 @@ def test_eight_twenty_fifths_construction_validation_is_strict() -> None:
             eight_twenty_fifths_threshold(invalid)  # type: ignore[arg-type]
 
 
+@pytest.mark.parametrize(
+    ("m", "triple_index"),
+    ((3, 0), (3, 1), (3, 3), (4, 2), (9, 0), (9, 9)),
+)
+def test_one_triple_reversal_has_exact_full_distance_obstruction(
+    m: int,
+    triple_index: int,
+) -> None:
+    n = 10 * m + 3
+    d = 8 * m + 4
+    threshold = Fraction(d * (d - 1), 2)
+    left = d - 1 - 2 * triple_index
+    connector = 4 * m + 2 + triple_index
+    right = left - 1
+
+    order_list = list(eight_twenty_fifths_order(n))
+    start = order_list.index(left)
+    assert tuple(order_list[start : start + 3]) == (left, connector, right)
+    order_list[start : start + 3] = (right, connector, left)
+    order = tuple(order_list)
+
+    assert len(order) == n - 1
+    assert set(order) == set(range(2, n + 1))
+
+    expected_score = Fraction(d * d - 1, 2) if triple_index == 0 else threshold
+    distance_scores = _independent_exact_distance_scores(order, 3)
+    assert distance_scores[0] == threshold
+    assert distance_scores[1] == expected_score
+    assert distance_scores[2] == Fraction((5 * m + 2) * (9 * m + 5), 3)
+    assert distance_scores[2] < threshold
+
+    positions = {label: position for position, label in enumerate(order)}
+    vertex_count = len(order)
+    long_score = max(
+        Fraction(left_label * right_label, distance)
+        for left_label, right_label in itertools.combinations(range(2, n + 1), 2)
+        for separation in (abs(positions[left_label] - positions[right_label]),)
+        for distance in (min(separation, vertex_count - separation),)
+        if distance >= 4
+    )
+    assert long_score == Fraction(n * (n - 1), 4) < threshold
+
+    closing_third = d - 2 if triple_index == 0 else d - 1
+    assert _independent_closing_distance_scores(order, 3) == (
+        Fraction((4 * m + 1) * d),
+        Fraction((6 * m + 1) * d, 2),
+        Fraction((4 * m + 1) * closing_third, 3),
+    )
+    assert _independent_score(order) == expected_score
+    assert _independent_label_first_score(order) == expected_score
+    assert product_distance_score(order) == expected_score
+
+
 def test_residue_one_construction_has_exact_local_scores_and_closing_arcs() -> None:
     expected_diagnostics = {
         2: (

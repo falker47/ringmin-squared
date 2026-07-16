@@ -11,6 +11,12 @@ constructions, and the global classification
 It also records the exact first minimizer-set restriction:
 \(\mathcal M_n=\mathcal M_n^{(\le2)}\) for \(3\le n\le92\), while
 \(\mathcal M_{93}\subsetneq\mathcal M_{93}^{(\le2)}\).
+One explicit parametric perturbation of the matching \(8/25\) construction
+is now closed as well. On \(n=10m+3\), reversing the outer entries of one
+triple has score \(T\) for every nonzero triple index and
+\((d^2-1)/2=T+(d-1)/2\) at index zero. Every parameter sequence therefore
+retains coefficient \(8/25\). This is an exact obstruction for that local
+family, not a geometric lower bound or an obstruction to other constructions.
 The fixed-order certification debt is now closed mathematically by
 `research/FIXED_ORDER_ANGULAR_STN.md`, which proves exact angular/STN
 equivalence, the negative-cycle criterion, potential recovery, radius
@@ -1848,10 +1854,14 @@ Completed:
 
 Immediate:
 
-- In a fresh STRICT task, analyze one explicit parametric perturbation of the
-  current \(8/25\) product-distance upper construction and prove either a
-  strict symbolic improvement or a precise obstruction, without extending
-  cyclic-order enumeration.
+- The first explicit parametric perturbation task is complete. For
+  \(n=10m+3\), reversing one triple path gives exact score \(T\) for
+  \(s\ge1\) and \((d^2-1)/2\) for \(s=0\); all distance classes and the
+  closing cut are classified symbolically, and the family cannot improve the
+  \(8/25\) coefficient.
+- In a fresh STRICT task, audit one explicit nonlocal reassignment of the
+  symbolic middle paths among the terminal gaps, with the same no-enumeration
+  boundary and a full cyclic-distance proof.
 
 Next:
 
@@ -1888,13 +1898,13 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: audit one explicit parametric perturbation family of the current
+Task: audit one explicit nonlocal middle-path reassignment of the current
 \(8/25\) product-distance upper construction.
 
 Acceptance criteria:
 
-- define one finite-parameter symbolic family without search or expanded
-  enumeration;
+- define one finite-parameter path-reassignment family without search or
+  expanded enumeration;
 - prove all distance-one, distance-two, distance-three, closing, and automatic
   long-distance constraints for the family;
 - prove either a strict upper-coefficient improvement or an exact obstruction
