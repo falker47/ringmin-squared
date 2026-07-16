@@ -698,6 +698,76 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   No finite floor/ceiling rounding theorem for this irrational optimizer is
   derived, and the coefficient is not an exact residual, limit, or geometric
   leading coefficient.
+- EXACT THEOREM (NORMALIZED PREFIX SIMPLEX): for every fixed \(k\ge1\), put
+  \[
+  F_k(x_1,\ldots,x_k)
+  =\sum_{i=1}^k(x_{i-1}-x_i)x_i^2,
+  \qquad x_0=1,
+  \]
+  and
+  \[
+  M_k=\max_{1\ge x_1\ge\cdots\ge x_k\ge0}F_k(x_1,\ldots,x_k),
+  \qquad M_0=0.
+  \]
+  The maximum exists and its unique maximizer satisfies
+  \(1>x_1>\cdots>x_k>0\). Defining
+  \[
+  q_k={2\over3(1-M_{k-1})},
+  \]
+  gives the exact value and forward-ratio recurrences
+  \[
+  M_k={q_k^2\over3}
+  ={4\over27(1-M_{k-1})^2},
+  \qquad
+  q_1={2\over3},
+  \qquad
+  q_{m+1}={2\over3-q_m^2}.
+  \]
+  At the maximizer,
+  \[
+  r_i={x_i\over x_{i-1}}=q_{k-i+1},
+  \qquad
+  r_k={2\over3},
+  \qquad
+  r_i={2\over3-r_{i+1}^2}.
+  \]
+  The sequence \(M_k\) is strictly increasing and
+  \(M_k\nearrow1/3\).
+- VERIFIED FACT (EXACT SOURCE AGREEMENT): the normalized theorem recovers
+  \[
+  \begin{array}{c|c|c|c}
+  k&(x_1,\ldots,x_k)&M_k&M_k/8\\ \hline
+  1&(2/3)&4/27&1/54\\
+  2&(18/23,12/23)&108/529&27/1058\\
+  3&(1058/1263,276/421,184/421)&1119364/4785507&279841/9571014
+  \end{array}
+  \]
+  exactly. These are the previously proved one-, two-, and three-prefix
+  simplex points and residual scale factors.
+- EXACT NORMALIZED-ENVELOPE CLASSIFICATION: with
+  \[
+  p(\alpha)={(1-\alpha)(\alpha^2+4\alpha+1)\over6},
+  \qquad
+  E_k(\alpha)=p(\alpha)+{M_k\over8}(3\alpha-1)^3,
+  \]
+  one has uniform monotone convergence on \([1/3,1]\) to
+  \[
+  E_\infty(\alpha)
+  =p(\alpha)+{(3\alpha-1)^3\over24}.
+  \]
+  The full compact envelope has the unique maximum
+  \(E_\infty(1)=1/3\); on \([1/3,1)\) that value is only a nonattained
+  supremum. The limiting all-middle closure is \([1/3,1/2]\), where the
+  unique maximum is
+  \[
+  \alpha_{\rm mid}={13-2\sqrt2\over23},
+  \qquad
+  E_\infty(\alpha_{\rm mid})={434+4\sqrt2\over1587}.
+  \]
+- LIMITATION: this is an exact normalized-polynomial theorem for every fixed
+  \(k\), independent of the charging argument. It proves no charging beyond
+  three selected prefixes, no uniform interchange between \(k\) and \(n\),
+  and no new bound for \(\Lambda_n\) or \(R_2^*(n)\).
 - EXACT GLOBAL LOWER COROLLARY (TWO-PREFIX RATIONAL WITNESS): at
   \[
   (\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})
@@ -818,6 +888,15 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   verifies the optimizer, strict domain, coefficient polynomial, rational
   isolation, and \(C_{3,*}>C_{2,*}\). These paths use no production scorer,
   canonicalizer, enumerator, floating-point premise, or limit change.
+- VERIFIED FACT (FINITE EXACT DOSSIER DIAGNOSTIC): the standalone
+  `ops/TASK-20260716__normalized_prefix_simplex/fraction_diagnostic.py` uses
+  only integer and `Fraction` arithmetic. For \(k=1,\ldots,8\), it checks the
+  scalar and ratio recurrences, direct objective values, all stationarity
+  equations, strict feasibility, monotonicity, and the exact \(k=1,2,3\)
+  rows. Literal denominator-12 enumeration and an independent discrete
+  Bellman calculation agree over 203,489 grid tuples, and no grid value
+  exceeds its exact \(M_k\). This bounded computation corroborates but does
+  not replace the all-real proof.
 - EXACT THEOREM: the additive relation transfers normalized asymptotics:
   \(\Lambda_n=\pi R_2^*(n)+O(n^2)=\Theta(n^3)\),
   \(\Lambda_n/(\pi R_2^*(n))\to1\), and
@@ -1693,7 +1772,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   one-use charging through both boundaries and every recursive split,
   automatic reduction of all three ordered weights, the exact compact-simplex
   factorization, the unique global optimizer, and its
-  \(\mathbb Q(\sqrt{377823})\) coefficient.
+  \(\mathbb Q(\sqrt{377823})\) coefficient, plus the exact normalized
+  prefix-simplex lemma for every fixed \(k\), its unique strict-interior
+  maximizer, value and ratio recurrences, monotone limit \(M_k\to1/3\),
+  exact \(k=1,2,3\) agreement, formal and all-middle envelope
+  classifications, and independent bounded `Fraction` diagnostic.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -1735,6 +1818,14 @@ Candidate-set extraction uses the following finite-certificate semantics.
   Independent rational and quadratic-surd diagnostics cover all 46,620
   depth-three histories from the bounded base and the exact global algebra
   without production or limit changes.
+- COMPLETED PRIORITY: the normalized prefix simplex is solved exactly for
+  every fixed \(k\ge1\). A Bellman recurrence and telescoping nonnegative
+  certificate prove the unique strict-interior maximizer, the value and ratio
+  recurrences, and \(M_k\nearrow1/3\); the first three rows recover the
+  established one-, two-, and three-prefix simplex values. The formal compact
+  and limiting all-middle envelopes are classified exactly. This result adds
+  no charging beyond three prefixes, no uniform \(k\)-to-\(n\) interchange,
+  and no new bound for \(\Lambda_n\) or \(R_2^*(n)\).
 - RECOMMENDED NEXT TASK: in a fresh STRICT task, derive an explicit finite
   floor/ceiling theorem for the irrational three-prefix optimizer, including a
   minimal or rigorously sufficient uniform threshold, without changing
@@ -1778,6 +1869,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   Finite rounding at either irrational optimizer, the exact residual and exact
   leading coefficient of the selected block, and linear-density methods
   outside these templates remain unclassified.
+- LIMITATION: the normalized simplex theorem is proved for every fixed
+  \(k\), but combined-height one-use charging is proved only through three
+  selected prefixes. No uniform interchange between \(k\) and \(n\) and no
+  new bound for \(\Lambda_n\) or \(R_2^*(n)\) follows from the simplex limit
+  or either normalized envelope.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.
 - LIMITATION: the sufficient radius-one threshold `12` is not known to be
   minimal, and the exact equality question remains open for `n<=11`.

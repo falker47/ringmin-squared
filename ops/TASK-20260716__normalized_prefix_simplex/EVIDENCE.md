@@ -100,10 +100,12 @@
 ## EV-07 - Scope
 
 - Classification: verified source inspection.
-- Intended changed scope: the cyclic-ratio proof note, research roadmap,
-  and this new task dossier including its standalone diagnostic.
-- `start.md`, `PROJECT_KNOWLEDGE.md`, `CURRENT_STATUS.md`, and the all-\(n\)
-  proof note are intentionally unchanged under the task-specific file scope.
+- Changed scope: the cyclic-ratio proof note, research roadmap, authoritative
+  project-memory files `start.md`, `PROJECT_KNOWLEDGE.md`, and
+  `CURRENT_STATUS.md`, and this task dossier including its standalone
+  diagnostic.
+- The all-\(n\) lower-bound proof note remains unchanged because the
+  normalized lemma establishes no new original-problem bound.
 - Protected scope: no charging extension, new asymptotic/geometric bound,
   production source, test module, API, artifact, schema, example, verifier,
   backend, certificate, enumerator, or enumeration-limit change.
@@ -122,11 +124,45 @@
   - Ruff and `py_compile` on the diagnostic: passed;
   - 273 equation tags with no duplicate, 429/429 proof displays, 59/59
     roadmap displays, no trailing whitespace, and clean `git diff --check`.
-- Three independent read-only audits found no residual defect after two
-  mathematical wording clarifications and two evidence-scope clarifications
-  were applied.
-- Interpretation: the normalized lemma and reproducible bounded diagnostics
-  are ready for manual review.
+- Three independent read-only audits found no residual mathematical or
+  diagnostic defect after two wording clarifications and two evidence
+  clarifications were applied. A later documentation review found that the
+  authoritative global project-memory files had not been synchronized; EV-09
+  records the correction.
+- Interpretation: the exact theorem and bounded diagnostic remained valid;
+  the original documentation handoff was incomplete.
 - Limitation: hosted GitHub Actions have not run these worktree changes; no
   local Python 3.11 runtime was available, so the diagnostic's executed
   environment was Python 3.14.3.
+
+## EV-09 - Corrective Authoritative Synchronization
+
+- Classification: verified source inspection and bounded exact computation.
+- Source result: `start.md`, `PROJECT_KNOWLEDGE.md`, and `CURRENT_STATUS.md`
+  now agree with CR28cr--CR28dd on the definition of \(M_k\), existence and
+  uniqueness of the strict-interior maximizer, the \(M_k\), \(q_k\), and
+  backward-ratio recurrences, \(M_k\nearrow1/3\), the exact \(k=1,2,3\)
+  rows and scale factors, and both limiting-envelope classifications.
+- Scope result: each authoritative source states that the fixed-\(k\)
+  polynomial theorem proves no charging beyond three selected prefixes, no
+  uniform interchange between \(k\) and \(n\), and no new bound for
+  \(\Lambda_n\) or \(R_2^*(n)\).
+- Command:
+  `python -B ops\TASK-20260716__normalized_prefix_simplex\fraction_diagnostic.py`.
+  Result: all exact checks passed for \(k=1,\ldots,8\), including 203,489
+  literal denominator-12 grid tuples.
+- Command:
+  `python -m pytest tests\test_fixed_order_cycle_ratio.py -q -k "two_prefix_global or three_prefix_global_simplex or three_prefix_global_compact or first_linear_density_parameter_optimization"`.
+  Result: all 8 selected tests passed.
+- Ruff passed on the unchanged diagnostic. Anchored display and inline
+  delimiters, LaTeX environments, code fences, trailing whitespace, and 273
+  unique proof-note equation tags passed their focused checks.
+- `git diff --check`, cross-source inspection, and the changed-path audit
+  passed. The corrective diff is limited to `start.md`,
+  `PROJECT_KNOWLEDGE.md`, `CURRENT_STATUS.md`, and the three dossier Markdown
+  files; the proof, diagnostic, tests, production code, and protected paths
+  have no diff.
+- Interpretation: the documentation omission is corrected and the task is
+  READY_FOR_REVIEW.
+- Limitation: the finite diagnostic corroborates but does not replace the
+  all-real proof. Hosted GitHub Actions have not run this corrective diff.

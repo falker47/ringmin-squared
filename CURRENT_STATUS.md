@@ -2,200 +2,175 @@
 
 Last update: 2026-07-16
 
-- **Current phase:** exact global optimization of the three-prefix
-  linear-block coefficient.
-- **Current task:** extend CR28br--CR28bw to three selected prefixes, prove
-  one-use charging through every recursive split, and determine \(C_{3,*}\)
-  on the compact closure.
-- **Task dossier:** ops/TASK-20260716__three_prefix_linear_block/.
+- **Current phase:** corrective synchronization of the exact normalized
+  prefix-simplex theorem.
+- **Current task:** synchronize the normalized-prefix result across
+  authoritative project memory and correct the task dossier's obsolete
+  file-scope claims.
+- **Task dossier:** `ops/TASK-20260716__normalized_prefix_simplex/`.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
-## Implemented Scope
+## Corrective Scope
 
-- Combined three selected heights before assigning any edge slack.
-- Proved one global base-slack partition across all three split segments.
-- Retained every recursive child edge, including fully nested histories
-  crossing both segment boundaries and edges with two inserted endpoints.
-- Reduced the three ordered weights exactly through their clipped individual
-  optima.
-- Proved the unique global maximum on the full compact closure without
-  assuming the supplied normalized point.
-- Added independent exact rational and quadratic-surd diagnostics.
-- Kept finite optimizer rounding, production code, artifacts, schemas,
-  backends, certificates, enumerators, and enumeration limits outside scope.
+- Synchronized `start.md`, `PROJECT_KNOWLEDGE.md`, and this status with the
+  exact fixed-\(k\) normalized simplex lemma already proved in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`.
+- Corrected the normalized-prefix dossier so it no longer claims that the
+  authoritative project-memory files were intentionally excluded.
+- Preserved the later exact three-prefix charging theorem and its coefficient
+  \(C_{3,*}\); this correction does not supersede or weaken those results.
+- Inspected the mathematical proof and dossier-local `Fraction` diagnostic;
+  no real defect was found, so neither is modified.
+- Kept production code, tests, artifacts, schemas, backends, certificates,
+  enumerators, and enumeration limits unchanged.
 
-## Three-Prefix Charging Theorem
+## Exact Normalized Prefix-Simplex Theorem
+
+For every fixed \(k\ge1\), define
+
+\[
+F_k(x_1,\ldots,x_k)
+=\sum_{i=1}^k(x_{i-1}-x_i)x_i^2,
+\qquad x_0=1,
+\]
+
+and
+
+\[
+M_k=\max_{1\ge x_1\ge\cdots\ge x_k\ge0}F_k(x_1,\ldots,x_k),
+\qquad M_0=0.
+\]
+
+The compact maximum exists and has a unique strictly interior maximizer:
+
+\[
+1>x_1>x_2>\cdots>x_k>0.
+\]
+
+Writing
+
+\[
+q_k={2\over3(1-M_{k-1})},
+\]
+
+the value and forward-ratio recurrences are
+
+\[
+M_k={q_k^2\over3}
+={4\over27(1-M_{k-1})^2},
+\qquad
+q_1={2\over3},
+\qquad
+q_{m+1}={2\over3-q_m^2}.
+\]
+
+At the maximizer, the consecutive ratios \(r_i=x_i/x_{i-1}\) satisfy
+
+\[
+r_i=q_{k-i+1},
+\qquad
+r_k={2\over3},
+\qquad
+r_i={2\over3-r_{i+1}^2}
+\quad(1\le i<k).
+\]
+
+Moreover, \(M_k\) is strictly increasing and
+
+\[
+M_k\nearrow{1\over3}.
+\]
+
+## Exact Agreement With \(k=1,2,3\)
+
+The all-\(k\) theorem recovers exactly:
+
+| \(k\) | unique maximizer \((x_1,\ldots,x_k)\) | \(M_k\) | \(M_k/8\) |
+|---:|---|---:|---:|
+| 1 | \((2/3)\) | \(4/27\) | \(1/54\) |
+| 2 | \((18/23,12/23)\) | \(108/529\) | \(27/1058\) |
+| 3 | \((1058/1263,276/421,184/421)\) | \(1119364/4785507\) | \(279841/9571014\) |
+
+These are the previously documented one-, two-, and three-prefix simplex
+points and residual scale factors.
+
+## Exact Normalized-Envelope Classification
 
 For
+
 \[
-0<\beta_3<\beta_2<\beta_1<\alpha<1,
+p(\alpha)={(1-\alpha)(\alpha^2+4\alpha+1)\over6},
 \qquad
-0\le\lambda_3\le\lambda_2\le\lambda_1\le1,
-\]
-the exact weighted-height step is
-\[
-\max(0,H_1,H_2,H_3)
-\ge
-(\lambda_1-\lambda_2)H_1
-+(\lambda_2-\lambda_3)H_2+\lambda_3H_3.
-\]
-Expanding before charging assigns weights \(\lambda_1,\lambda_2,\lambda_3\)
-to the three disjoint split segments. Every original base slack is then used
-once, while every recursive current edge retains the established local floor.
-The limiting coefficient is
-\[
-C_3=p(\alpha)
-+(\alpha-\beta_1)g(\alpha,\beta_1,\lambda_1)
-+(\beta_1-\beta_2)g(\alpha,\beta_2,\lambda_2)
-+(\beta_2-\beta_3)g(\alpha,\beta_3,\lambda_3).
+E_k(\alpha)=p(\alpha)+{M_k\over8}(3\alpha-1)^3,
 \]
 
-## Exact Weight Reduction
+one has uniform monotone convergence on \([1/3,1]\):
 
-For \(s=1+\alpha\), each individual optimum is the clipped function
 \[
-\psi_s(\beta)=
-\begin{cases}
-0,&\beta\le s/4,\\
-4-s/\beta,&s/4<\beta<s/3,\\
-1,&\beta\ge s/3.
-\end{cases}
+E_k(\alpha)\nearrow
+E_\infty(\alpha)
+=p(\alpha)+{(3\alpha-1)^3\over24}.
 \]
-It is nondecreasing, so
-\(\psi_s(\beta_3)\le\psi_s(\beta_2)\le\psi_s(\beta_1)\); the separate
-maxima already satisfy the ordered-weight constraint. The compact reduction
-is therefore
-\[
-\overline C_3
-=p(\alpha)+(\alpha-\beta_1)\Phi_s(\beta_1)
-+(\beta_1-\beta_2)\Phi_s(\beta_2)
-+(\beta_2-\beta_3)\Phi_s(\beta_3).
-\]
-The ten clipped regimes and every weight/density collision face are covered.
-Unused weights on zero-length segments can be nonunique but do not create
-another global maximizer.
 
-## Unique Compact-Closure Maximum
+On the full compact interval, the unique maximum is the degenerate endpoint
 
-For \(A=3\alpha-1\) and active
-\(X_i=4\beta_i-(1+\alpha)\), the normalized residual is bounded by
 \[
-{A^3\over8}
-\left((1-x)x^2+(x-y)y^2+(y-z)z^2\right),
+\alpha=1,
 \qquad
-(x,y,z)=\left({X_1\over A},{X_2\over A},{X_3\over A}\right).
+E_\infty(1)={1\over3}.
 \]
-An exact three-term nonnegative factorization gives the unique simplex point
-\[
-\boxed{
-(x,y,z)
-=\left({1058\over1263},{276\over421},{184\over421}\right).
-}
-\]
-The one-variable envelope is
-\[
-E_3(\alpha)
-=p(\alpha)+{279841\over9571014}(3\alpha-1)^3,
-\]
-with unique global maximizing density
-\[
-\boxed{
-\alpha_*={685623-421\sqrt{377823}\over993423}.
-}
-\]
-The second critical point in \([1/3,1]\) is a local minimum and the endpoint
-\(\alpha=1\) is strictly lower. At \(\alpha_*\), all densities and weights
-are strictly ordered in the middle clipped branch, so every relaxation is
-attained.
 
-## Exact Coefficient And Consequence
+On the strict domain \([1/3,1)\), this value is only a nonattained supremum.
+On the limiting all-middle closure \([1/3,1/2]\), the unique maximum is
 
-The exact three-prefix template optimum is
 \[
-\boxed{
-C_{3,*}
-={753972193324+106042322\sqrt{377823}\over2960667770787}
-}
-=0.2766786474619455709\ldots .
-\]
-It satisfies
-\[
-79938029811249C_{3,*}^2
--40714498439496C_{3,*}+5145490327924=0
-\]
-and
-\[
-{276678647461\over10^{12}}
-<C_{3,*}
-<{276678647462\over10^{12}}.
-\]
-Exact extension of the strict two-prefix optimizer proves
-\[
-C_{3,*}>C_{2,*}.
-\]
-Consequently
-\[
-\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{3,*},
+\alpha_{\rm mid}={13-2\sqrt2\over23},
 \qquad
-\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{3,*}\over\pi}.
+E_\infty(\alpha_{\rm mid})={434+4\sqrt2\over1587}.
 \]
 
-## Independent Diagnostics
+## Protected Limitations
 
-- A rational oracle exhausts all 46,620 depth-three histories from one
-  \(n=59\) base cycle.
-- The histories include 70 distinct recursive second-step prefixes (2,590
-  full-history occurrences), 4,970 recursive third splits, and 70 fully
-  nested third splits on the edge formed by the two earlier labels.
-- Exact grids verify the ordered-weight tetrahedron, all ten clipped regimes,
-  the compact density closure, and the nonnegative simplex factorization.
-- Test-local \(\mathbb Q(\sqrt{377823})\) arithmetic verifies the strict
-  optimizer domain, coefficient reconstruction, coefficient polynomial,
-  rational isolation, and strict comparison with \(C_{2,*}\).
-- An explicit negative regression shows that three separately slack-charged
-  prefix copies overdraw one base edge by twice its slack.
+- The theorem concerns the normalized compact polynomial for each fixed
+  \(k\).
+- No combined-height or one-use charging theorem has been proved beyond three
+  selected prefixes.
+- No uniform interchange between \(k\) and \(n\) has been justified.
+- Neither \(M_k\to1/3\) nor either envelope value gives a new bound for
+  \(\Lambda_n\) or \(R_2^*(n)\).
+- No production path or established three-prefix bound is changed.
 
 ## Verification
 
-- Focused three-prefix selection: 7 passed.
-- Complete fixed-order-cycle-ratio module: 101 passed.
-- Complete local suite: 277 passed.
-- Checked-artifact verifier: all 4 certificates, 76 local brackets, and the
-  \(n=3,4,5,6\) summary verified.
-- Checked-artifact schema selection: 4 passed.
-- Ruff on the changed test module: passed.
-- Repository-wide Ruff retains exactly four known findings in untouched
-  files; none belongs to this task.
-- git diff --check, equation-tag uniqueness, delimiter-delta checks,
-  changed-path inspection, and the protected-scope audit pass.
-- Three independent read-only audits passed for final algebra,
-  charging/test coverage, synchronization, and scope; their two wording
-  clarifications were applied.
-- CURRENT HOSTED STATUS: GitHub Actions has not run these worktree changes.
+- `python -B ops\TASK-20260716__normalized_prefix_simplex\fraction_diagnostic.py`:
+  all exact checks passed for \(k=1,\ldots,8\), including 203,489 literal
+  denominator-12 grid tuples.
+- Focused historical/simplex pytest selection: 8 passed.
+- Ruff on the unchanged standalone diagnostic: passed.
+- Anchored display delimiters, inline delimiters, LaTeX environments, code
+  fences, and trailing whitespace are balanced or clean in all synchronized
+  sources and the canonical proof/roadmap.
+- The cyclic-ratio proof note retains 273 unique equation tags with no
+  duplicate.
+- Cross-source theorem values, domains, evidence classifications, and
+  protected limitations agree.
+- The corrective diff contains only the six documentation files listed below;
+  the proof, diagnostic, tests, production, and protected paths have no diff.
+- `git diff --check` and final changed-path inspection pass.
+- Independent read-only audits found no residual mathematical,
+  diagnostic, synchronization, Markdown, equation, or scope defect after the
+  corrective findings were applied.
 
-## Files Changed
+## Files In Corrective Diff
 
-- research/FIXED_ORDER_CYCLE_RATIO.md: exact three-prefix charging, ordered
-  weight reduction, compact proof, optimizer, and coefficient.
-- tests/test_fixed_order_cycle_ratio.py: independent exact diagnostics only.
-- research/ALL_N_LOWER_BOUND.md, start.md, PROJECT_KNOWLEDGE.md, and
-  research/NEXT_RESEARCH_STEPS.md: synchronized authoritative consequences.
-- CURRENT_STATUS.md and the new STRICT task dossier: durable handoff.
-
-## Residual Limitations
-
-- No finite floor/ceiling rounding theorem or threshold for the irrational
-  three-prefix optimizer was derived.
-- The rational two-prefix witness \(72825421/263424000\) remains the current
-  explicit finite-\(n\) theorem from \(n=59\).
-- No production, API, artifact, schema, example, verifier, backend,
-  certificate, enumerator, or enumeration-limit path changed.
-- No exact block residual, convergence theorem, matching upper bound, or
-  exact geometric leading coefficient follows.
-- Hosted GitHub Actions remain unverified.
+- `start.md`, `PROJECT_KNOWLEDGE.md`, and `CURRENT_STATUS.md`: synchronized
+  authoritative project memory.
+- `ops/TASK-20260716__normalized_prefix_simplex/TASK_STATUS.md`,
+  `TASK_LOG.md`, and `EVIDENCE.md`: corrected durable task handoff.
+- The proof and `fraction_diagnostic.py` remain unmodified after inspection.
 
 ## Proposed Next Task
 

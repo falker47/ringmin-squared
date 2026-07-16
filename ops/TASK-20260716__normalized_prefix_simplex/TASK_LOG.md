@@ -68,11 +68,42 @@
   balanced proof-note displays, 59/59 balanced roadmap displays, and no
   trailing whitespace; `git diff --check` passed.
 - Three independent read-only audits checked the all-real proof, envelope
-  domains, Fraction code, exact grid, documentation synchronization, and
-  file scope. Their minor wording and evidence findings were applied; final
-  reruns reported no defect.
-- Confirmed that only the proof note, roadmap, and new task dossier changed.
-  No charging extension, new original-problem bound, protected path, or
-  broader project-memory file entered the diff.
+  domains, Fraction code, exact grid, and the then-selected documentation
+  scope. Their mathematical and diagnostic reruns reported no defect, but the
+  handoff failed to synchronize `start.md`, `PROJECT_KNOWLEDGE.md`, and
+  `CURRENT_STATUS.md`.
+- The initial handoff therefore had an incomplete documentation diff even
+  though it correctly made no charging extension, new original-problem bound,
+  or protected-path change.
 - Set the task to READY_FOR_REVIEW for user inspection and a manual commit
   decision.
+
+## 2026-07-16 - Corrective Authoritative Synchronization
+
+- Reopened the same bounded STRICT task after review identified the missing
+  authoritative project-memory synchronization.
+- Rechecked CR28cr--CR28dd and the standalone `Fraction` diagnostic; no
+  mathematical or computational defect was found, so neither was modified.
+- Added the exact fixed-\(k\) lemma, value and ratio recurrences, monotone
+  limit, \(k=1,2,3\) agreement, and both envelope classifications to
+  `start.md`, `PROJECT_KNOWLEDGE.md`, and `CURRENT_STATUS.md`.
+- Preserved explicitly that no charging beyond three selected prefixes, no
+  uniform interchange between \(k\) and \(n\), and no new bound for
+  \(\Lambda_n\) or \(R_2^*(n)\) follows.
+- Corrected the dossier's obsolete assertions that authoritative project
+  memory was intentionally outside the synchronization scope.
+- `python -B ops\TASK-20260716__normalized_prefix_simplex\fraction_diagnostic.py`
+  passed every exact check for \(k=1,\ldots,8\) and all 203,489 literal
+  denominator-12 grid tuples.
+- The focused command
+  `python -m pytest tests\test_fixed_order_cycle_ratio.py -q -k "two_prefix_global or three_prefix_global_simplex or three_prefix_global_compact or first_linear_density_parameter_optimization"`
+  passed all 8 selected tests. Ruff also passed on the unchanged diagnostic.
+- Anchored Markdown display delimiters, inline delimiters, LaTeX environments,
+  code fences, and trailing whitespace passed across the synchronized sources,
+  canonical proof/roadmap, and dossier. The proof note retains 273 unique
+  equation tags.
+- Cross-source value/domain/limitation checks, the six-file changed-path audit,
+  protected-scope inspection, final diff inspection, and
+  `git diff --check` passed.
+- Set the corrected task to READY_FOR_REVIEW for user inspection and a manual
+  commit decision.

@@ -464,6 +464,86 @@ No finite floor/ceiling rounding of this irrational optimizer is performed,
 and the result is a three-prefix template optimum rather than an exact
 residual, limit, or geometric leading coefficient.
 
+Independently of that charging theorem, the normalized prefix simplex is
+solved exactly in every fixed dimension. For \(k\ge1\), let
+
+\[
+F_k(x_1,\ldots,x_k)
+=\sum_{i=1}^k(x_{i-1}-x_i)x_i^2,
+\qquad x_0=1,
+\]
+
+and
+
+\[
+M_k=\max_{1\ge x_1\ge\cdots\ge x_k\ge0}F_k(x_1,\ldots,x_k),
+\qquad M_0=0.
+\]
+
+The maximum exists and has a unique strictly interior maximizer
+\(1>x_1>\cdots>x_k>0\). If \(q_1=2/3\) and
+
+\[
+q_{m+1}={2\over3-q_m^2},
+\]
+
+then its ratios satisfy
+
+\[
+r_i={x_i\over x_{i-1}}=q_{k-i+1},
+\qquad
+r_k={2\over3},
+\qquad
+r_i={2\over3-r_{i+1}^2}.
+\]
+
+The exact value recurrence is
+
+\[
+M_k={q_k^2\over3}
+={4\over27(1-M_{k-1})^2},
+\qquad
+M_k\nearrow{1\over3}.
+\]
+
+The first three rows agree exactly with the separately proved prefix cases:
+
+| \(k\) | unique maximizer | \(M_k\) | \(M_k/8\) |
+|---:|---|---:|---:|
+| 1 | \((2/3)\) | \(4/27\) | \(1/54\) |
+| 2 | \((18/23,12/23)\) | \(108/529\) | \(27/1058\) |
+| 3 | \((1058/1263,276/421,184/421)\) | \(1119364/4785507\) | \(279841/9571014\) |
+
+Writing
+
+\[
+p(\alpha)={(1-\alpha)(\alpha^2+4\alpha+1)\over6},
+\qquad
+E_k(\alpha)=p(\alpha)+{M_k\over8}(3\alpha-1)^3,
+\]
+
+the envelopes converge uniformly and monotonically on \([1/3,1]\) to
+
+\[
+E_\infty(\alpha)
+=p(\alpha)+{(3\alpha-1)^3\over24}.
+\]
+
+Its unique maximum on the full compact interval is the degenerate endpoint
+\(E_\infty(1)=1/3\); on \([1/3,1)\) this is only a nonattained supremum. On
+the limiting all-middle closure \([1/3,1/2]\), the unique maximum is
+
+\[
+\alpha={13-2\sqrt2\over23},
+\qquad
+E_\infty(\alpha)={434+4\sqrt2\over1587}.
+\]
+
+These are exact normalized-polynomial statements for each fixed \(k\). No
+combined-height or one-use charging theorem is proved beyond three selected
+prefixes, no uniform interchange of \(k\) and \(n\) is justified, and no new
+bound for \(\Lambda_n\) or \(R_2^*(n)\) follows.
+
 There is also an exact eventual radius-one insertion theorem. Let
 \(R^*_{2:n}\) be the infimum feasible central radius for only the core radii
 \(2^2,\dots,n^2\). A core configuration at radius \(R\) admits insertion of
@@ -790,6 +870,9 @@ Out of scope:
 
 - treating finite computation as a proof for all `n`;
 - treating checked brackets as exact optimum values;
+- treating the fixed-\(k\) normalized simplex lemma as charging beyond three
+  selected prefixes, interchanging \(k\) uniformly with \(n\), or improving
+  any bound for \(\Lambda_n\) or \(R_2^*(n)\);
 - silently generalizing Ringmin results to quadratic radii;
 - modifying the original Ringmin repository.
 
@@ -951,8 +1034,9 @@ and elimination proofs, scorer algorithm, the exact reduced values
 minimizer classifications, independent bounded oracles, comparison with
 \(W\), the exact arbitrary consecutive-tail split-history theorem through
 every sublinear block length, the positive cubic residual for the first
-explicit linear block, its global lower-bound corollary, and asymptotic
-limitations. One-wrap saturation
+explicit linear block, its global lower-bound corollary, the exact normalized
+prefix-simplex lemma for every fixed \(k\), its envelope classification, and
+asymptotic limitations. One-wrap saturation
 and insertion independence concern the product ratio; they do not reduce
 exact angular-STN feasibility to one-wrap cycle checks or make \(\rho_\sigma\)
 insertion-independent. The `n=10` proof classifies equality in the
@@ -1238,6 +1322,62 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \]
   and \(C_{3,*}>C_{2,*}\). No finite rounding theorem is asserted; this is a
   template optimum, not an exact residual or geometric leading coefficient.
+- EXACT THEOREM (NORMALIZED PREFIX SIMPLEX): for every fixed \(k\ge1\),
+  \[
+  M_k=\max_{1\ge x_1\ge\cdots\ge x_k\ge0}
+  \sum_{i=1}^k(x_{i-1}-x_i)x_i^2,
+  \qquad x_0=1,
+  \]
+  has a unique maximizer with \(1>x_1>\cdots>x_k>0\). With \(M_0=0\),
+  \[
+  q_k={2\over3(1-M_{k-1})},
+  \qquad
+  M_k={q_k^2\over3}
+  ={4\over27(1-M_{k-1})^2}
+  \nearrow{1\over3}.
+  \]
+  Its ratios obey
+  \[
+  r_i=q_{k-i+1},
+  \qquad
+  q_1=r_k={2\over3},
+  \qquad
+  q_{m+1}={2\over3-q_m^2},
+  \qquad
+  r_i={2\over3-r_{i+1}^2}.
+  \]
+  The rows \(k=1,2,3\) are respectively
+  \[
+  \begin{array}{c|c|c|c}
+  k&(x_1,\ldots,x_k)&M_k&M_k/8\\ \hline
+  1&(2/3)&4/27&1/54\\
+  2&(18/23,12/23)&108/529&27/1058\\
+  3&(1058/1263,276/421,184/421)&1119364/4785507&279841/9571014
+  \end{array}
+  \]
+  and agree exactly with the one-, two-, and three-prefix simplex cases.
+- EXACT NORMALIZED-ENVELOPE CLASSIFICATION: on \([1/3,1]\),
+  \[
+  E_k(\alpha)
+  =p(\alpha)+{M_k\over8}(3\alpha-1)^3
+  \nearrow
+  E_\infty(\alpha)
+  =p(\alpha)+{(3\alpha-1)^3\over24}
+  \]
+  uniformly. The full compact envelope has the unique maximum \(1/3\) at
+  \(\alpha=1\); on \([1/3,1)\) it is only a supremum. The limiting all-middle
+  closure \([1/3,1/2]\) has the unique maximum
+  \((434+4\sqrt2)/1587\) at \((13-2\sqrt2)/23\).
+- VERIFIED FACT (FINITE EXACT DOSSIER DIAGNOSTIC): a standalone `Fraction`
+  diagnostic independently checks the value and ratio recurrences, direct
+  objectives, stationarity, strict feasibility, and the first three exact
+  rows for \(k=1,\ldots,8\). Literal denominator-12 enumeration and a
+  separate discrete Bellman calculation agree on all 203,489 grid tuples.
+  This bounded check corroborates the proof but is not the all-real theorem.
+- LIMITATION: the normalized simplex theorem is independent of the charging
+  argument. No charging beyond three selected prefixes, no uniform
+  interchange between \(k\) and \(n\), and no new bound for \(\Lambda_n\) or
+  \(R_2^*(n)\) is established by it.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): a test-local Fraction
   oracle checks all 46,620 depth-three histories from one bounded base,
   including 70 distinct recursive second-step prefixes (2,590 full-history
