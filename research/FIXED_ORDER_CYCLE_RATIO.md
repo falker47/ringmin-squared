@@ -303,11 +303,28 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \([1/3,1/2]\), its unique maximum is
   \((434+4\sqrt2)/1587\) at
   \((13-2\sqrt2)/23\).
+- **EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (EXPLICIT FIVE-PREFIX
+  WITNESS):** specialize the exact \(k=5\) simplex at
+  \(\alpha=13/30\), then use the separate arbitrary finite-prefix charging
+  theorem. The resulting five cutoffs and weights are rational, strictly
+  ordered, and all middle-clipped. Their complete coefficient is
+  \[
+  C_{5,\mathrm{rat}}
+  ={2263404122555368590593580404287
+   \over8177706222298165502582585481000}
+  >C_{4,*}.
+  \]
+  Hence
+  \(\liminf\Lambda_n/n^3\ge C_{5,\mathrm{rat}}\) and
+  \(\liminf R_2^*(n)/n^3\ge C_{5,\mathrm{rat}}/\pi\). This is one explicit
+  fixed-parameter witness, not the global \(k=5\) optimum or a finite
+  rounding theorem.
 - **LIMITATION:** the normalized theorem by itself proves no charging
   statement. A separate direct argument proves one-use charging for every
   finite admissible \(k\), but supplies no threshold or error estimate uniform
   in a growing \(k=k(n)\), no interchange of \(k\) and \(n\), and no finite
-  rounding at the optimized four-prefix point.
+  rounding at the optimized four-prefix point or the explicit rational
+  five-prefix witness.
 - **VERIFIED FACT (BOUNDED EXACT FOUR-PREFIX ORACLE):** a standalone
   Fraction oracle literally checks all 840 four-split histories from the
   bounded base \(C_0=(11,14,12,13)\). It imports no project or test helper and
@@ -343,6 +360,13 @@ in `research/ALL_N_LOWER_BOUND.md`.
   polynomial, isolating interval, and strict separator from \(C_{3,*}\). It
   imports no project, production, or test helper and does not replace the
   all-real compact proof.
+- **VERIFIED FACT (INDEPENDENT EXACT FIVE-PREFIX RATIONAL DIAGNOSTIC):** the
+  sole new standalone script uses only fractions.Fraction. It checks the
+  \(q_5,M_5\) recurrences, direct simplex objective and stationarity, every
+  reduced \(\beta_i,\lambda_i\), strict all-middle admissibility, equality of
+  the direct and normalized coefficient formulas, and the two positive exact
+  margins proving \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). It corroborates but
+  does not replace the written algebra.
 - **VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK):** a recursive oracle at
   \((m,n,r)=(2,7,4)\) identifies all 60 compatible triple-split histories
   with all 60 outer dihedral cycles and obtains
@@ -5364,6 +5388,234 @@ convex telescope, canonical partition, recursive invariant, local floors, and
 the \(k=6\) instance of (CR28dw). This bounded oracle is not production
 enumeration and does not replace the indexed proof.
 
+### Explicit five-prefix rational asymptotic witness
+
+The two preceding theorems can now be combined at one fixed finite value
+\(k=5\). This is not a use of the limit \(M_k\to1/3\), and no global
+optimization of the five-prefix parameters is needed. From (CR28ct)--(CR28cw),
+
+\[
+q_5={26881208992898\over30143556935103},
+\qquad
+M_5={722599396919860307414438404
+ \over2725902074099388500860861827}.
+\]
+
+Put
+
+\[
+D=30143556935103,
+\]
+
+and
+
+\[
+\begin{aligned}
+(N_1,N_2,N_3,N_4,N_5)=({}&26881208992898,23392470652668,
+19595592993288,\\
+&15335681473008,10223787648672).
+\end{aligned}
+\]
+
+The consecutive simplex ratios are
+
+\[
+\left(q_5,{3190338\over3666143},{1058\over1263},{18\over23},{2\over3}\right),
+\]
+
+so the unique \(k=5\) point and its exact value are
+
+\[
+\boxed{
+(x_1,x_2,x_3,x_4,x_5)={1\over D}(N_1,N_2,N_3,N_4,N_5),
+\qquad F_5(x)=M_5.
+}
+\tag{CR28dx}
+\]
+
+Choose, as a fixed rational density,
+
+\[
+\alpha={13\over30},
+\qquad
+s=1+\alpha={43\over30},
+\qquad
+A=3\alpha-1={3\over10}.
+\]
+
+For \(X_i=Ax_i\), take the middle-clipped parameters
+
+\[
+\boxed{
+\beta_i={s+X_i\over4}={43D+9N_i\over120D},
+\qquad
+\lambda_i=4-{s\over\beta_i}
+={X_i\over\beta_i}={36N_i\over43D+9N_i}.
+}
+\tag{CR28dy}
+\]
+
+In reduced form they are
+
+\[
+\begin{array}{c|c|c}
+i&\beta_i&\lambda_i\\ \hline
+1&512701276381837/1205742277404120
+ &322574507914776/512701276381837\\
+2&502235061361147/1205742277404120
+ &280709647832016/502235061361147\\
+3&21341062103609/52423577278440
+ &10223787648672/21341062103609\\
+4&20785421470529/52423577278440
+ &8001225116352/20785421470529\\
+5&20118652710833/52423577278440
+ &5334150077568/20118652710833.
+\end{array}
+\]
+
+The ordering and branch claims are exact. The displayed integers satisfy
+
+\[
+D>N_1>N_2>N_3>N_4>N_5>0,
+\]
+
+hence \(1>x_1>\cdots>x_5>0\) and
+\(A>X_1>\cdots>X_5>0\). With
+\(L=s/4=43/120\) and \(U=s/3=43/90\), one has
+
+\[
+\beta_i-L={X_i\over4}>0,
+\qquad
+\alpha-\beta_i={A-X_i\over4}>0,
+\]
+
+and
+
+\[
+U-\beta_i={s-3X_i\over12}
+>{s-3A\over12}={2\over45}>0.
+\]
+
+Thus all five cutoffs are strictly middle and
+
+\[
+0<\beta_5<\beta_4<\beta_3<\beta_2<\beta_1<\alpha<1.
+\]
+
+Moreover \(h(X)=4X/(s+X)\) is strictly increasing for \(X>0\), while
+\(3X_i<s\). Consequently
+
+\[
+\boxed{
+0<\lambda_5<\lambda_4<\lambda_3<\lambda_2<\lambda_1<1.
+}
+\tag{CR28dz}
+\]
+
+This proves the complete continuous parameter admissibility. Since every
+inequality is strict, the integer conditions in (CR28dr) hold for all
+sufficiently large \(n\), with a threshold depending on this fixed tuple. No
+threshold, finite rounding estimate, or rounded finite theorem is derived
+here.
+
+On the middle branch, (CR28bw3) gives
+
+\[
+g(\alpha,\beta_i,\lambda_i)={X_i^2\over2},
+\qquad
+\beta_{i-1}-\beta_i={X_{i-1}-X_i\over4},
+\]
+
+where \(X_0=A\) and \(\beta_0=\alpha\). Therefore the fixed-parameter
+coefficient obtained from (CR28dw) is
+
+\[
+\begin{aligned}
+C_{5,\mathrm{rat}}
+&=p(\alpha)+\sum_{i=1}^5
+  (\beta_{i-1}-\beta_i)g(\alpha,\beta_i,\lambda_i)\\
+&=p\!\left({13\over30}\right)+{A^3\over8}F_5(x)
+ ={44693\over162000}+{27M_5\over8000}\\
+&=\boxed{
+{2263404122555368590593580404287
+ \over8177706222298165502582585481000}}.
+\end{aligned}
+\tag{CR28dz1}
+\]
+
+The subscript “rat” is deliberate: no claim is made that this point is the
+global five-prefix optimizer. To compare it exactly with (CR28dq11), write
+
+\[
+C_{4,*}={a+b\sqrt d\over c}
+\]
+
+with
+
+\[
+\begin{aligned}
+a&=597580022071777213687318156,
+&b&=21288970076515705538,\\
+d&=2903456040383,
+&c&=2290468477489828247376833403.
+\end{aligned}
+\]
+
+If \(C_{5,\mathrm{rat}}=N/Q\), then
+
+\[
+271N-75Q=54550540142475357166378486777>0,
+\]
+
+so \(C_{5,\mathrm{rat}}>75/271\). In the other direction, put
+
+\[
+G=75c-271a=9840949830285493643999284949>0.
+\]
+
+Exact integer arithmetic gives
+
+\[
+G^2-d(271b)^2
+=202909790739538065073835756341295480167322654096276669>0.
+\]
+
+All quantities being positive, \(G>271b\sqrt d\), and hence
+
+\[
+\boxed{
+C_{5,\mathrm{rat}}>{75\over271}>C_{4,*}.
+}
+\tag{CR28dz2}
+\]
+
+Finally apply the exact \(k=5\) instance of (CR28dw), use the pointwise global
+comparison (CR28ap), divide by \(n^3\), and take the usual fixed-parameter
+limit. The exact additive relation (CR28) transfers the same coefficient
+with its \(O(n^2)\) additive error removed after normalization. Thus
+
+\[
+\boxed{
+\liminf_{n\to\infty}{\Lambda_n\over n^3}
+\ge C_{5,\mathrm{rat}}>C_{4,*},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\ge{C_{5,\mathrm{rat}}\over\pi}>{C_{4,*}\over\pi}.
+}
+\tag{CR28dz3}
+\]
+
+This is an exact method-specific asymptotic corollary at one fixed rational
+five-prefix point. It supplies no finite rounding, global \(k=5\)
+optimization, growing-\(k\) uniformity, exact residual, convergence theorem,
+exact leading constant, production computation, serialized certificate, or
+new geometric input. The standalone script in
+ops/TASK-20260717__five_prefix_explicit_asymptotic_witness/fraction_diagnostic.py
+uses only fractions.Fraction and checks the recurrence, simplex identities,
+stationarity, reduced parameters, strict branch conditions, both coefficient
+evaluations, and the two exact comparison margins. It corroborates but does
+not replace this derivation.
+
 ## 5. Exact Scorer Without Cycle Enumeration
 
 The proof that simple cycles suffice does not make their enumeration the
@@ -6859,7 +7111,7 @@ geometric bounds gives
 \]
 and
 \[
-C_{4,*}
+C_{5,\mathrm{rat}}
 \le
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
 \le
@@ -6954,17 +7206,29 @@ Further non-consequences are important.
   original-edge partition uses each slack once or leaves it unused. The
   descending recursive invariant contains no frontier count and therefore
   survives every finite number of boundaries and every nested history. This
-  proves the exact finite indexed inequality only. It gives no uniform
+  proves the exact finite indexed inequality by itself. It gives no uniform
   growing-\(k\) control, coefficient optimization, rounding, limiting-prefix
   passage, asymptotic coefficient, or geometric claim.
 - The normalized simplex theorem (CR28cr)--(CR28dd) solves the compact
   polynomial for every fixed \(k\), proves its unique interior maximizer and
-  the exact recurrence \(M_k\nearrow1/3\), and explains the four optimized
-  rational simplex points. It does not imply the separate direct finite-\(k\)
+  the exact recurrence \(M_k\nearrow1/3\), and generates the first five
+  rational simplex points used here. It does not imply the separate direct finite-\(k\)
   charging theorem or make that theorem uniform in growing \(k\). In
   particular, neither the formal endpoint value \(1/3\) nor the all-middle
   value \((434+4\sqrt2)/1587\) is a new coefficient bound for \(\Lambda_n\)
   or \(R_2^*(n)\).
+- Combining those two separate theorems only at fixed \(k=5\), with
+  \(\alpha=13/30\), gives the explicit rational all-middle point
+  (CR28dx)--(CR28dz), the exact coefficient
+  \[
+  C_{5,\mathrm{rat}}
+  ={2263404122555368590593580404287
+   \over8177706222298165502582585481000},
+  \]
+  and the exact comparison and liminf bounds (CR28dz2)--(CR28dz3). This
+  fixed-parameter consequence is not a global five-prefix optimization,
+  finite rounding theorem, growing-\(k\) passage, exact residual, convergence
+  theorem, or geometric leading constant.
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality
   of minimizing order sets, or \(\Lambda_n=(n-1)W_n\). The exact global
   relation proved here is the one-sided inequality (CR38b).

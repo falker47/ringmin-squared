@@ -884,6 +884,56 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   required. The pointwise theorem gives no uniform threshold, rounding, or
   parameter control for \(k=k(n)\), no coefficient optimization, no
   \(k\to\infty\) passage, and no geometric consequence.
+- EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (EXPLICIT FIVE-PREFIX WITNESS):
+  let
+  \[
+  D=30143556935103,
+  \]
+  \[
+  (N_1,\ldots,N_5)
+  =(26881208992898,23392470652668,19595592993288,
+  15335681473008,10223787648672).
+  \]
+  The exact fifth simplex point is \(x_i=N_i/D\), with
+  \[
+  M_5={722599396919860307414438404
+   \over2725902074099388500860861827}.
+  \]
+  At \(\alpha=13/30\), put \(s=43/30\), \(A=3/10\), and
+  \[
+  \beta_i={s+Ax_i\over4},
+  \qquad
+  \lambda_i={Ax_i\over\beta_i}.
+  \]
+  Exact order and branch algebra gives
+  \[
+  0<\beta_5<\cdots<\beta_1<\alpha<1,
+  \quad
+  {s\over4}<\beta_i<{s\over3},
+  \quad
+  0<\lambda_5<\cdots<\lambda_1<1.
+  \]
+  Hence the fixed rational tuple is strictly all-middle and eventually
+  integer-admissible. Its complete coefficient is
+  \[
+  C_{5,\mathrm{rat}}
+  ={2263404122555368590593580404287
+   \over8177706222298165502582585481000}.
+  \]
+  Exact positive integer margins prove
+  \[
+  C_{5,\mathrm{rat}}>{75\over271}>C_{4,*}.
+  \]
+  The fixed-parameter limit of the separate charging theorem and the existing
+  additive cyclic-ratio relation give
+  \[
+  \liminf{\Lambda_n\over n^3}\ge C_{5,\mathrm{rat}},
+  \qquad
+  \liminf{R_2^*(n)\over n^3}\ge{C_{5,\mathrm{rat}}\over\pi}.
+  \]
+  This is not a global \(k=5\) optimum, finite rounding theorem, growing-\(k\)
+  result, exact residual, convergence theorem, production computation,
+  serialized certificate, or new geometric input.
 - VERIFIED FACT (FINITE EXACT FOUR-PREFIX DOSSIER ORACLE): the standalone
   ops/TASK-20260716__four_prefix_charging/literal_oracle.py imports no
   production or test helper and exhausts all 840 current-edge histories from
@@ -928,6 +978,15 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   irreducible polynomial and isolating interval, and the exact separator
   \(C_{3,*}<2767/10000<C_{4,*}\). It imports no project, production, or test
   helper and corroborates rather than replaces the all-real proof.
+- VERIFIED FACT (INDEPENDENT EXACT FIVE-PREFIX RATIONAL DIAGNOSTIC): the
+  standalone script at
+  ops/TASK-20260717__five_prefix_explicit_asymptotic_witness/fraction_diagnostic.py
+  imports only fractions.Fraction. It checks the fifth scalar and ratio
+  recurrences, direct simplex objective, all stationarity equations, every
+  reduced \(\beta_i,\lambda_i\), strict all-middle admissibility, equality of
+  the direct and normalized coefficient evaluations, and both positive exact
+  comparison margins. It corroborates rather than replaces the written
+  derivation.
 - EXACT THEOREM (NORMALIZED PREFIX SIMPLEX): for every fixed \(k\ge1\), put
   \[
   F_k(x_1,\ldots,x_k)
@@ -971,11 +1030,16 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   2&(18/23,12/23)&108/529&27/1058\\
   3&(1058/1263,276/421,184/421)&1119364/4785507&279841/9571014\\
   4&(3190338,2672508,2091528,1394352)/3666143
-    &3392752184748/13440604496449&848188046187/26881208992898
+    &3392752184748/13440604496449&848188046187/26881208992898\\
+  5&(26881208992898,23392470652668,19595592993288,
+     15335681473008,10223787648672)/30143556935103
+    &722599396919860307414438404/2725902074099388500860861827
+    &180649849229965076853609601/5451804148198777001721723654
   \end{array}
   \]
-  exactly. These are the optimized one- through four-prefix simplex points
-  and residual scale factors.
+  exactly. The first four are the optimized one- through four-prefix simplex
+  points; the fifth is the rational simplex point used in the explicit
+  witness above.
 - EXACT NORMALIZED-ENVELOPE CLASSIFICATION: with
   \[
   p(\alpha)={(1-\alpha)(\alpha^2+4\alpha+1)\over6},
@@ -1146,9 +1210,8 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \(\Lambda_n=\pi R_2^*(n)+O(n^2)=\Theta(n^3)\),
   \(\Lambda_n/(\pi R_2^*(n))\to1\), and
   \[
-  {597580022071777213687318156
-   +21288970076515705538\sqrt{2903456040383}
-   \over2290468477489828247376833403}
+  {2263404122555368590593580404287
+   \over8177706222298165502582585481000}
   \le\liminf{\Lambda_n\over n^3}
   \le\limsup{\Lambda_n\over n^3}
   \le{8\over25}.
@@ -1391,15 +1454,23 @@ This file is stable durable project memory. Chronology, command transcripts, fai
    +21288970076515705538\sqrt{2903456040383}
    \over2290468477489828247376833403\pi}.
   \]
+  The explicit rational five-prefix witness at \(\alpha=13/30\), without a
+  global five-prefix optimization, raises the established lower coefficient
+  further to
+  \[
+  {2263404122555368590593580404287
+   \over8177706222298165502582585481000\pi}.
+  \]
   All three multi-prefix optimizers are exact and unique inside their
   respective templates. The
   older rational witness remains the finite two-prefix theorem from \(n=59\),
   while the irrational three-prefix optimizer has the stronger finite theorem
   \(\Lambda_n>C_{3,*}n^3\) from the minimal uniform threshold \(159\). The
-  optimized four-prefix theorem has no finite rounding specialization in this
-  task. The exact block residual, finite rounding at the irrational two- and
-  four-prefix optimizers, convergence, and the exact global leading
-  coefficient remain unresolved.
+  optimized four-prefix theorem has no finite rounding specialization. The
+  five-prefix rational point is an asymptotic witness only, with neither
+  global optimization nor finite rounding. The exact block residual, finite
+  rounding at the irrational two- and four-prefix optimizers, convergence,
+  and the exact global leading coefficient remain unresolved.
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 
@@ -2299,7 +2370,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \(M_k\to1/3\),
   exact \(k=1,2,3,4\) agreement, formal and all-middle envelope
   classifications, and independent bounded `Fraction` diagnostic, plus the
-  exact generic local path/gap relation, its Ferrers row and column cutoffs,
+  fixed \(k=5\), \(\alpha=13/30\) rational all-middle specialization, its
+  coefficient \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\), the two new liminf
+  consequences, and an independent exact Fraction diagnostic, plus the exact
+  generic local path/gap relation, its Ferrers row and column cutoffs,
   and the exact support of relation-compatible bijections: only \((0,0)\) in
   column zero and every local edge in a positive column, with residual Hall,
   explicit interval shifts, and one bounded direct construction diagnostic.
@@ -2381,7 +2455,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
   every fixed \(k\ge1\). A Bellman recurrence and telescoping nonnegative
   certificate prove the unique strict-interior maximizer, the value and ratio
   recurrences, and \(M_k\nearrow1/3\); the first four rows recover the
-  optimized one- through four-prefix simplex values. The formal compact
+  optimized one- through four-prefix simplex values, while the fifth supplies
+  the rational point used in the new witness. The formal compact
   and limiting all-middle envelopes are classified exactly. This result is
   independent of the direct charging proof and gives no uniform
   \(k\)-to-\(n\) interchange or new bound from its limiting envelope.
@@ -2395,6 +2470,21 @@ Candidate-set extraction uses the following finite-certificate semantics.
   production, test, artifact, schema, backend, certificate, or enumeration
   changes. No growing-\(k\) uniformity, coefficient optimization, limiting
   passage, or geometric consequence is inferred.
+- COMPLETED PRIORITY: the fixed \(k=5\) simplex has now been specialized at
+  \(\alpha=13/30\) and combined with the separate finite-prefix charging
+  theorem. All five rational cutoffs and weights are strictly ordered and
+  all-middle. The exact witness coefficient is
+  \[
+  C_{5,\mathrm{rat}}
+  ={2263404122555368590593580404287
+   \over8177706222298165502582585481000}
+  >{75\over271}>C_{4,*}.
+  \]
+  This gives the corresponding new liminf bounds for \(\Lambda_n\) and
+  \(R_2^*(n)\). One standalone Fraction diagnostic checks every identity and
+  comparison margin. No finite rounding, global \(k=5\) optimization,
+  growing-\(k\) uniformity, production, certificate, or new geometric input
+  is included.
 - COMPLETED PRIORITY: one explicit local perturbation of the \(8/25\)
   construction is now classified. Reversing one triple on
   \(n=10m+3\) is score-neutral for \(s\ge1\), worsens the finite score by
@@ -2455,9 +2545,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - OPEN QUESTION: can the upper coefficient \(8/(25\pi)\) be lowered toward
   the current lower coefficient
   \[
-  {597580022071777213687318156
-   +21288970076515705538\sqrt{2903456040383}
-   \over2290468477489828247376833403\pi},
+  {2263404122555368590593580404287
+   \over8177706222298165502582585481000\pi},
   \]
   while retaining a symbolic all-pairs proof?
 - RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
@@ -2474,7 +2563,7 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: no exact geometric optimum value \(R_2^*(n)\) has been proved
   in this repository; the exact all-\(n\) classification of the combinatorial
   surrogate \(W_n\) is a different statement.
-- LIMITATION: no upper bound matching the current four-prefix linear-block lower
+- LIMITATION: no upper bound matching the current explicit five-prefix linear-block lower
   coefficient has been proved in this repository.
 - LIMITATION: the later indices \(n\ge94\) with strict distance-two/full
   minimizer inclusion have not been classified.
@@ -2484,7 +2573,9 @@ Candidate-set extraction uses the following finite-certificate semantics.
   sublinear block length. The one-prefix CR28ax--CR28bg specialization is
   jointly optimized over all constant densities, and CR28bw is now globally
   optimized over all five two-prefix parameters. The three- and four-prefix
-  extensions are globally optimized over their compact closures. Finite
+  extensions are globally optimized over their compact closures. The
+  five-prefix result is one rational all-middle witness and is not globally
+  optimized. Finite
   rounding at the irrational two- and four-prefix optimizers, the exact
   residual and exact leading coefficient of the selected block, and
   linear-density methods outside these templates remain unclassified. The

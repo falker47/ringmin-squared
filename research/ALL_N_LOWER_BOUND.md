@@ -254,9 +254,27 @@ Last updated: 2026-07-17
   \]
   The convex telescope, canonical original-edge slack partition, and
   descending recursive induction are independent of the finite frontier
-  count. This pointwise theorem supplies no uniform asymptotic control for
+  count. By itself this pointwise theorem supplies no uniform asymptotic control for
   \(k=k(n)\), coefficient optimization, \(k\to\infty\) passage, or geometric
   consequence.
+- EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (EXPLICIT FIVE-PREFIX WITNESS):
+  combine the preceding theorem at fixed \(k=5\) with the exact fifth
+  normalized-simplex row and choose \(\alpha=13/30\). The resulting rational
+  parameters are strictly ordered and all middle-clipped. Their coefficient is
+  \[
+  C_{5,\mathrm{rat}}
+  ={2263404122555368590593580404287
+   \over8177706222298165502582585481000}
+  >{75\over271}>C_{4,*}.
+  \]
+  Therefore
+  \[
+  \liminf{\Lambda_n\over n^3}\ge C_{5,\mathrm{rat}},
+  \qquad
+  \liminf{R_2^*(n)\over n^3}\ge{C_{5,\mathrm{rat}}\over\pi}.
+  \]
+  This is one fixed rational witness, not a global five-prefix optimization
+  or finite rounding theorem.
 - EXACT FINITE THEOREM (two-prefix rational specialization): with
   \[
   r_n=\left\lfloor{3n\over7}\right\rfloor,
@@ -370,6 +388,12 @@ The globally optimized four-prefix template raises it again to
 {597580022071777213687318156
  +21288970076515705538\sqrt{2903456040383}
  \over2290468477489828247376833403\pi}.
+\]
+The explicit rational five-prefix witness at \(\alpha=13/30\), without a
+global five-prefix optimization, improves the current lower coefficient to
+\[
+{2263404122555368590593580404287
+ \over8177706222298165502582585481000\pi}.
 \]
 None of these lower-bound results is an upper
 bound on the true problem. The order-independent regular-core baseline has
@@ -1569,6 +1593,98 @@ Consequently it yields no interchange of \(n\to\infty\) with
 \(k\to\infty\), no optimization of a new coefficient, and no new geometric
 lower bound.
 
+### Explicit fixed five-prefix asymptotic witness
+
+For one fixed specialization, the finite theorem may be combined with the
+exact normalized simplex without any growing-\(k\) passage. The fifth row is
+
+\[
+M_5={722599396919860307414438404
+ \over2725902074099388500860861827},
+\]
+
+and, with \(D=30143556935103\),
+
+\[
+(x_1,\ldots,x_5)
+={1\over D}(26881208992898,23392470652668,19595592993288,
+15335681473008,10223787648672).
+\]
+
+Choose
+
+\[
+\alpha={13\over30},
+\qquad
+s={43\over30},
+\qquad
+A={3\over10}.
+\]
+
+The exact all-middle parameters are
+
+\[
+\beta_i={s+Ax_i\over4},
+\qquad
+\lambda_i={Ax_i\over\beta_i}=4-{s\over\beta_i}.
+\]
+
+Because \(1>x_1>\cdots>x_5>0\), these satisfy
+
+\[
+0<\beta_5<\cdots<\beta_1<\alpha<1,
+\qquad
+{s\over4}<\beta_i<{s\over3},
+\qquad
+0<\lambda_5<\cdots<\lambda_1<1.
+\]
+
+All inequalities are strict, so the integer cutoffs are admissible for every
+sufficiently large \(n\). This assertion is eventual only; no threshold or
+finite rounding statement is included. In the middle regime,
+
+\[
+g(\alpha,\beta_i,\lambda_i)={(Ax_i)^2\over2}.
+\]
+
+Consequently the five-segment coefficient is exactly
+
+\[
+\boxed{
+C_{5,\mathrm{rat}}
+=p\!\left({13\over30}\right)+{(3/10)^3M_5\over8}
+={2263404122555368590593580404287
+ \over8177706222298165502582585481000}.
+}
+\]
+
+The exact separator calculation in
+research/FIXED_ORDER_CYCLE_RATIO.md proves
+
+\[
+C_{5,\mathrm{rat}}>{75\over271}>C_{4,*}.
+\]
+
+The fixed-parameter limit of the five-prefix inequality and the established
+additive cyclic-ratio relation therefore give
+
+\[
+\boxed{
+\liminf_{n\to\infty}{\Lambda_n\over n^3}
+\ge C_{5,\mathrm{rat}},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\ge{C_{5,\mathrm{rat}}\over\pi}.
+}
+\]
+
+The second inequality uses no new geometric lemma: it is only the normalized
+consequence of the existing \(O(n^2)\) additive sandwich. The standalone
+Fraction diagnostic in the task dossier checks every rational identity and
+both comparison margins. This specialization is not a global \(k=5\)
+optimization, finite rounding theorem, uniform result in \(k\), exact
+residual, convergence theorem, or exact leading coefficient.
+
 ## Exact Radius-One Insertion
 
 The following result turns the finite reduced-core observation into an exact
@@ -2153,10 +2269,10 @@ Therefore
 \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over2\pi}.
 \tag{21}
 \]
-Combining (21) with the optimized four-prefix linear-block lower bound
+Combining (21) with the explicit five-prefix rational linear-block lower bound
 proved in this note yields
 \[
-{C_{4,*}\over\pi}
+{C_{5,\mathrm{rat}}\over\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -2171,7 +2287,7 @@ In particular,
 The later exact product-distance construction sharpens the right endpoint to
 
 \[
-{C_{4,*}\over\pi}
+{C_{5,\mathrm{rat}}\over\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -2224,9 +2340,9 @@ Neither the improved upper bound nor the lower bound proves that
   baseline. The zigzag radius \(V_n\) improves its asymptotic upper coefficient
   from \(1/\pi\) to \(1/(2\pi)\); the later product-distance construction
   improves it again to \(8/(25\pi)\), which still does not match the
-  current four-prefix linear-block lower coefficient
+  current explicit five-prefix linear-block lower coefficient
   \[
-  {C_{4,*}\over\pi}.
+  {C_{5,\mathrm{rat}}\over\pi}.
   \]
   None may be described as the exact asymptotic leading constant for
   Power-Ringmin. The smaller coefficient
@@ -2277,9 +2393,21 @@ Neither the improved upper bound nor the lower bound proves that
 - The separate direct combined-height theorem does establish the exact
   indexed finite bound for every finite admissible \(k\). Its proof is
   independent of the normalized simplex and its insertion induction contains
-  no frontier count. This pointwise statement gives no control uniform in
-  \(k=k(n)\), no limiting-prefix interchange, no optimized coefficient, and
-  no new geometric consequence.
+  no frontier count. This pointwise statement by itself gives no control
+  uniform in \(k=k(n)\), no limiting-prefix interchange, no optimized
+  coefficient, and no new geometric consequence.
+- At fixed \(k=5\), combining that theorem with the exact fifth simplex row
+  and \(\alpha=13/30\) gives
+  \[
+  C_{5,\mathrm{rat}}
+  ={2263404122555368590593580404287
+   \over8177706222298165502582585481000}
+  >{75\over271}>C_{4,*}.
+  \]
+  This is one explicit rational all-middle witness and the new lower endpoint
+  in (22)--(23). It is not a global \(k=5\) optimization, finite rounding
+  theorem, growing-\(k\) argument, exact residual, convergence theorem, new
+  geometric lemma, or exact leading constant.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower
   bound only from the scalar full-problem lower bound would reverse the useful

@@ -114,22 +114,24 @@ convergence. Exact canonical enumeration is deliberately bounded to
 `n=3..8` and gives \((12,26,47,77,118,172)\).
 The jointly optimized one-prefix linear tail block first gave the coefficient
 \((4+2\sqrt3)/27\). The exact global optimization of the two-prefix CR28bw
-template then gave \(C_{2,*}\), and the three-prefix extension gave
-\(C_{3,*}\). The globally optimized four-prefix extension now gives the
-strictly stronger rigorous lower coefficients
+template then gave \(C_{2,*}\), the three-prefix extension gave
+\(C_{3,*}\), and the globally optimized four-prefix extension gave
+\(C_{4,*}\). The fixed \(k=5\), \(\alpha=13/30\) rational all-middle witness
+now gives the strictly stronger rigorous lower coefficients
 \[
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
 \ge
-{597580022071777213687318156
- +21288970076515705538\sqrt{2903456040383}
- \over2290468477489828247376833403},
+{2263404122555368590593580404287
+ \over8177706222298165502582585481000},
 \qquad
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \ge
-{597580022071777213687318156
- +21288970076515705538\sqrt{2903456040383}
- \over2290468477489828247376833403\pi}.
+{2263404122555368590593580404287
+ \over8177706222298165502582585481000\pi}.
 \]
+Exact algebra gives \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). This is one
+explicit fixed-parameter witness, not a global \(k=5\) optimum or finite
+rounding theorem.
 These are one-sided bounds and do not prove convergence or identify an exact
 leading coefficient. The irrational three-prefix optimizer now also has the
 exact finite theorem
@@ -217,6 +219,21 @@ four-prefix charging has been supplied; the general finite-\(k\) theorem is
 proved from literal histories, not from the recurrence. Neither result
 supplies uniform control for \(k=k(n)\), and the limiting envelope gives no
 further bound for \(\Lambda_n\) or \(R_2^*(n)\).
+
+At fixed \(k=5\), those two separate theorems can nevertheless be combined
+without a limiting interchange. The fifth simplex row, specialized at
+\(\alpha=13/30\), produces rational, strictly ordered, all-middle
+\(\beta_i,\lambda_i\) and
+\[
+C_{5,\mathrm{rat}}
+={2263404122555368590593580404287
+ \over8177706222298165502582585481000}
+>{75\over271}>C_{4,*}.
+\]
+The standalone Fraction diagnostic checks the recurrence, exact parameters,
+coefficient identity, and both strict comparison margins. No global
+five-prefix optimization, finite rounding, growing-\(k\) claim, production
+path, certificate, or new geometric input is included.
 
 The one-wrap saturation question is also closed exactly. If
 \[
@@ -671,6 +688,12 @@ The globally optimized four-prefix template improves it again to
  +21288970076515705538\sqrt{2903456040383}
  \over2290468477489828247376833403\pi}.
 \]
+The explicit rational five-prefix witness at \(\alpha=13/30\), without a
+global five-prefix optimization, improves it further to
+\[
+{2263404122555368590593580404287
+ \over8177706222298165502582585481000\pi}.
+\]
 This is still only a proved lower coefficient, not an exact asymptotic
 constant for Power-Ringmin.
 
@@ -679,9 +702,8 @@ upper coefficient from \(1/\pi\) to \(1/(2\pi)\). It is now superseded by the
 product-distance construction below, which gives \(8/(25\pi)\). Neither upper
 bound matches the current linear-block geometric lower coefficient
 \[
-{597580022071777213687318156
- +21288970076515705538\sqrt{2903456040383}
- \over2290468477489828247376833403\pi}.
+{2263404122555368590593580404287
+ \over8177706222298165502582585481000\pi}.
 \]
 The zigzag
 theorem itself generated no leading-order LP, new finite certificate, `n=7`
@@ -1290,23 +1312,23 @@ saturation for every \(n\ge3\).
   \ge
   4(\sqrt2-1)>1.
   \]
-- EXACT THEOREM (sharpened global lower bound): the globally optimized
-  four-prefix template gives
+- EXACT THEOREM (sharpened global lower bound): the explicit rational
+  five-prefix witness gives
   \[
   \liminf_{n\to\infty}{\Lambda_n\over n^3}
   \ge
-  {597580022071777213687318156
-   +21288970076515705538\sqrt{2903456040383}
-   \over2290468477489828247376833403},
+  {2263404122555368590593580404287
+   \over8177706222298165502582585481000},
   \qquad
   \liminf_{n\to\infty}{R_2^*(n)\over n^3}
   \ge
-  {597580022071777213687318156
-   +21288970076515705538\sqrt{2903456040383}
-   \over2290468477489828247376833403\pi}.
+  {2263404122555368590593580404287
+   \over8177706222298165502582585481000\pi}.
   \]
-  This strictly improves the single-subset lower coefficient, while proving
-  neither convergence nor an exact leading coefficient.
+  Its exact comparison is
+  \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). This strictly improves the
+  four-prefix and single-subset lower coefficients, while proving neither
+  convergence nor an exact leading coefficient.
 - EXACT FINITE THEOREM (rounded three-prefix optimizer): the integer cutoffs
   \(r_n=\lfloor\alpha_*n\rfloor\) and
   \(s_{i,n}=\lceil\beta_{i,*}n\rceil\) satisfy every block, ordering,
@@ -1352,7 +1374,7 @@ saturation for every \(n\ge3\).
   \]
   It supplies the sharpened liminf bounds above, but no finite rounding. The
   separate arbitrary finite-prefix theorem below adds no coefficient
-  conclusion.
+  conclusion by itself.
 - VERIFIED EXACT DOSSIER DIAGNOSTIC: the standalone standard-library script
   in `ops/TASK-20260717__global_four_prefix_optimization/` checks the clipping
   reduction, all fifteen branch witnesses, exact transition data, the
@@ -1386,6 +1408,22 @@ saturation for every \(n\ge3\).
   This pointwise finite theorem has no uniform growing-\(k\) control,
   coefficient optimization, rounding, limiting-prefix, or geometric
   consequence.
+- EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY: specialize the fifth exact
+  simplex row at \(\alpha=13/30\). The resulting rational \(\beta_i\) and
+  \(\lambda_i\) are strictly ordered and all-middle, and the fixed-parameter
+  limit is
+  \[
+  C_{5,\mathrm{rat}}
+  ={2263404122555368590593580404287
+   \over8177706222298165502582585481000}
+  >{75\over271}>C_{4,*}.
+  \]
+  This uses no global \(k=5\) optimization or finite rounding.
+- VERIFIED EXACT DOSSIER DIAGNOSTIC: the sole new standalone Fraction script
+  checks \(q_5,M_5\), the simplex objective and stationarity, all reduced
+  parameters, strict all-middle admissibility, both coefficient evaluations,
+  and the two positive exact comparison margins. It imports no project,
+  production, or test helper.
 - VERIFIED BOUNDED EXACT COMPUTATION: one standalone `Fraction` oracle
   checks all 15,120 five-split histories of a five-edge base. It includes 120
   histories charging all five original edges and 2,520 fifth splits between
@@ -1597,7 +1635,7 @@ saturation for every \(n\ge3\).
 
 ## Consequences
 
-1. The four-prefix linear-block lower bound supersedes both the
+1. The explicit five-prefix rational linear-block lower bound supersedes both the
    induced-subset bound
    and the older full-cycle bound
    \(\liminf 6\pi R_2^*(n)/n^3\ge 1\). Both older statements remain true but
@@ -1607,9 +1645,8 @@ saturation for every \(n\ge3\).
    \[
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
    \ge
-   {597580022071777213687318156
-    +21288970076515705538\sqrt{2903456040383}
-    \over2290468477489828247376833403\pi}.
+   {2263404122555368590593580404287
+    \over8177706222298165502582585481000\pi}.
    \]
    This roadmap records a lower coefficient, not a proposed exact constant.
 
@@ -1635,9 +1672,8 @@ saturation for every \(n\ge3\).
 6. The symbolic product-distance construction supersedes zigzag and gives the
    rigorous liminf/limsup bracket
    \[
-   {597580022071777213687318156
-    +21288970076515705538\sqrt{2903456040383}
-    \over2290468477489828247376833403\pi}
+   {2263404122555368590593580404287
+    \over8177706222298165502582585481000\pi}
    \le
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
    \le
@@ -1804,13 +1840,13 @@ saturation for every \(n\ge3\).
     \]
     This closes the four-prefix asymptotic coefficient problem, but gives no
     finite rounding; the separate arbitrary finite-prefix result below makes
-    no coefficient claim.
+    no coefficient claim by itself.
 
 17. The compact normalized simplex itself is no longer an open optimization
     problem. For every fixed \(k\), its unique maximizer is generated by the
     exact backward ratio recurrence, and
-    \(M_k\nearrow1/3\). This explains the rational points previously found
-    separately at one, two, three, and four prefixes. The formal limit
+    \(M_k\nearrow1/3\). This explains the rational points at one through five
+    prefixes, including the fifth point used in the explicit witness. The formal limit
     envelope has compact maximum \(1/3\) only at the degenerate endpoint
     \(\alpha=1\), while its all-middle restriction has the interior maximum
     \((434+4\sqrt2)/1587\). Neither statement supplies the separate direct
@@ -1832,14 +1868,27 @@ saturation for every \(n\ge3\).
     coefficient optimization, rounding, \(k\to\infty\) passage, or geometric
     conclusion is included.
 
+19. At fixed \(k=5\), the exact simplex row and direct charging theorem give
+    a concrete rational asymptotic certificate without optimizing all eleven
+    continuous parameters. At \(\alpha=13/30\), all five cutoffs and weights
+    are strictly ordered and middle-clipped, and
+    \[
+    C_{5,\mathrm{rat}}
+    ={2263404122555368590593580404287
+     \over8177706222298165502582585481000}
+    >{75\over271}>C_{4,*}.
+    \]
+    This raises both established liminf lower coefficients. It gives no finite
+    threshold, rounded inequality, global \(k=5\) optimum, growing-\(k\)
+    uniformity, exact residual, convergence result, or new geometric lemma.
+
 ## Updated Research Questions
 
 - OPEN QUESTION: what geometric upper-bound construction, if any, narrows or
-  matches the current four-prefix lower coefficient
+  matches the current explicit five-prefix lower coefficient
   \[
-  {597580022071777213687318156
-   +21288970076515705538\sqrt{2903456040383}
-   \over2290468477489828247376833403\pi}
+  {2263404122555368590593580404287
+   \over8177706222298165502582585481000\pi}
   \]
   up to lower-order terms?
 - OPEN QUESTION: can the previous reduced-core observations at checked
@@ -1848,12 +1897,11 @@ saturation for every \(n\ge3\).
 - OPEN QUESTION: is \(12\) the least threshold for
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
-- OPEN QUESTION: can the gap between the four-prefix geometric lower
+- OPEN QUESTION: can the gap between the explicit five-prefix geometric lower
   coefficient
   \[
-  {597580022071777213687318156
-   +21288970076515705538\sqrt{2903456040383}
-   \over2290468477489828247376833403\pi}
+  {2263404122555368590593580404287
+   \over8177706222298165502582585481000\pi}
   \]
   and the
   product-distance upper
@@ -1882,6 +1930,11 @@ saturation for every \(n\ge3\).
   boundary-count-independent recursive induction, and exact finite
   \(k\)-segment bound are recorded above. This closure does not provide
   uniformity for \(k=k(n)\) or realize the \(k\to\infty\) simplex limit.
+- CLOSED QUESTION: the exact \(k=5\) simplex at \(\alpha=13/30\) gives one
+  strictly admissible rational all-middle witness with coefficient
+  \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). This closes only the requested
+  explicit asymptotic specialization; global \(k=5\) optimization and finite
+  rounding remain open and were not attempted.
 - CLOSED QUESTION: finite rounding at the three-prefix irrational optimizer is
   explicit with minimal uniform threshold \(159\), literal expression
   \(\mathcal B_{3,n}\), integer closure \(\mathcal I_{3,n}\), and a positive
@@ -2115,8 +2168,9 @@ Completed:
 - Solved the normalized compact simplex for every fixed \(k\). An exact
   Bellman recurrence and telescoping nonnegative certificate prove existence,
   strict interiority, uniqueness, the proposed backward ratio recurrence,
-  \(M_k\nearrow1/3\), and exact agreement with the one-, two-, three-, and
-  four-prefix values. A dossier-local `Fraction` diagnostic checks the first
+  \(M_k\nearrow1/3\), exact agreement with the one-, two-, three-, and
+  four-prefix values, and the exact fifth row used in the rational witness. A
+  dossier-local `Fraction` diagnostic checks the first
   eight dimensions and an independent rational grid. This normalized result
   is independent of the direct charging proof and gives no uniform
   growing-\(k\) control, asymptotic bound from the limiting envelope,
@@ -2140,6 +2194,20 @@ Completed:
   enumeration. No uniform growing-\(k\) control, coefficient optimization,
   finite rounding, limiting-prefix passage, geometric claim, production path,
   test module, artifact, schema, backend, or certificate change was added.
+- Specialized the exact fifth simplex row at \(\alpha=13/30\) and combined it
+  with the separate arbitrary finite-prefix charging theorem. All five
+  rational cutoffs and weights are strictly ordered and all-middle. Exact
+  algebra gives
+  \[
+  C_{5,\mathrm{rat}}
+  ={2263404122555368590593580404287
+   \over8177706222298165502582585481000}
+  >{75\over271}>C_{4,*},
+  \]
+  and hence the two improved liminf bounds. One standalone Fraction diagnostic
+  checks every identity and comparison margin. No finite rounding, global
+  \(k=5\) optimization, growing-\(k\) uniformity, production, artifact,
+  schema, backend, certificate, or new geometric input was added.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -2222,18 +2290,20 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: count the relation-compatible, equivalently full-optimal, path-to-gap
-bijections on the symbolic \(n=10m+3\) branch.
+Task: derive the exact finite floor/ceiling theorem for the fixed rational
+five-prefix witness at \(\alpha=13/30\), without changing its parameters or
+performing a global \(k=5\) optimization.
 
 Acceptance criteria:
 
-- derive the count directly from the nested Ferrers neighborhoods or an
-  equivalent symbolic recurrence;
-- prove the formula for every \(m\ge3\), including the forced \((0,0)\) edge,
-  closing column, and \(m=3\);
-- use only a polynomial formula diagnostic on fixed rows, with no path-
-  permutation or matching enumeration;
-- interpret the count through the already proved equivalence with
-  full-optimal scaffold bijections, without claiming a geometric count;
-- do not alter production enumeration limits, checked artifacts, schemas,
-  interval backends, or certificates.
+- determine the minimal uniform \(n\) for strict cutoff ordering, nonempty
+  segments, block admissibility, and all five finite middle-clipped weights;
+- derive the literal five-prefix expression and its integer closure from the
+  existing one-use charging theorem;
+- prove, or explicitly delimit the failure of, a uniform comparison with
+  \(C_{5,\mathrm{rat}}n^3\) using exact floor/ceiling algebra;
+- use at most one standalone exact diagnostic for boundary rows and residue
+  arithmetic;
+- do not optimize the \(k=5\) parameters or alter production code, tests,
+  artifacts, schemas, interval backends, serialized certificates, or
+  enumeration limits.

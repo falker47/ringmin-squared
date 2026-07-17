@@ -659,7 +659,8 @@ M_k={q_k^2\over3}
 M_k\nearrow{1\over3}.
 \]
 
-The first four rows agree exactly with the optimized prefix cases:
+The first four rows agree exactly with the optimized prefix cases, while the
+fifth supplies the rational witness used below:
 
 | \(k\) | unique maximizer | \(M_k\) | \(M_k/8\) |
 |---:|---|---:|---:|
@@ -667,6 +668,7 @@ The first four rows agree exactly with the optimized prefix cases:
 | 2 | \((18/23,12/23)\) | \(108/529\) | \(27/1058\) |
 | 3 | \((1058/1263,276/421,184/421)\) | \(1119364/4785507\) | \(279841/9571014\) |
 | 4 | \((3190338,2672508,2091528,1394352)/3666143\) | \(3392752184748/13440604496449\) | \(848188046187/26881208992898\) |
+| 5 | \((26881208992898,23392470652668,19595592993288,15335681473008,10223787648672)/30143556935103\) | \(722599396919860307414438404/2725902074099388500860861827\) | \(180649849229965076853609601/5451804148198777001721723654\) |
 
 Writing
 
@@ -699,6 +701,64 @@ finite-\(k\) theorem above is separate. Its pointwise validity supplies no
 cutoff threshold, rounding estimate, or parameter control uniform in
 \(k=k(n)\). Thus no interchange of \(k\) and \(n\) is justified, and the
 normalized limit yields no new bound for \(\Lambda_n\) or \(R_2^*(n)\).
+
+At the single fixed value \(k=5\), however, the two separate exact theorems
+may be combined without any limiting interchange. Put
+
+\[
+D=30143556935103,
+\]
+
+\[
+(N_1,\ldots,N_5)
+=(26881208992898,23392470652668,19595592993288,
+15335681473008,10223787648672).
+\]
+
+For \(\alpha=13/30\), \(s=43/30\), \(A=3/10\), and \(x_i=N_i/D\), choose
+
+\[
+\beta_i={s+Ax_i\over4},
+\qquad
+\lambda_i={Ax_i\over\beta_i}.
+\]
+
+The fifth simplex row proves that these rational parameters satisfy
+
+\[
+0<\beta_5<\cdots<\beta_1<\alpha<1,
+\qquad
+{s\over4}<\beta_i<{s\over3},
+\qquad
+0<\lambda_5<\cdots<\lambda_1<1.
+\]
+
+Thus the point is strictly all-middle and eventually satisfies every integer
+cutoff condition. Its exact coefficient is
+
+\[
+\boxed{
+C_{5,\mathrm{rat}}
+={2263404122555368590593580404287
+ \over8177706222298165502582585481000}
+>{75\over271}>C_{4,*}.
+}
+\]
+
+The fixed-parameter charging limit and the existing additive cyclic-ratio relation
+therefore give
+
+\[
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{5,\mathrm{rat}},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\ge{C_{5,\mathrm{rat}}\over\pi}.
+\]
+
+This is one explicit rational five-prefix witness. It is not a global
+\(k=5\) optimization, finite rounding theorem, growing-\(k\) result, exact
+residual, convergence theorem, exact leading constant, production result,
+serialized certificate, or new geometric input.
 
 There is also an exact eventual radius-one insertion theorem. Let
 \(R^*_{2:n}\) be the infimum feasible central radius for only the core radii
@@ -1116,9 +1176,8 @@ The cubic order is exact, but existence of a limiting coefficient, a
 leading-term asymptotic formula, and an upper bound matching the current
 linear-block lower coefficient remain unresolved. Current exact bounds give
 \[
-\frac{597580022071777213687318156
-      +21288970076515705538\sqrt{2903456040383}}
-     {2290468477489828247376833403\pi}
+\frac{2263404122555368590593580404287}
+     {8177706222298165502582585481000\pi}
 \le
 \liminf_{n\to\infty}\frac{R_2^*(n)}{n^3}
 \le
@@ -1645,7 +1704,7 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \(\liminf\Lambda_n/n^3\ge C_{4,*}\) and
   \(\liminf R_2^*(n)/n^3\ge C_{4,*}/\pi\). No finite rounding is claimed;
   the separate arbitrary finite-prefix theorem below makes no coefficient
-  claim.
+  claim by itself.
 - EXACT FINITE METHOD-SPECIFIC THEOREM (ARBITRARILY MANY FINITE SELECTED
   PREFIXES): fix any integer \(k\ge1\) and
   \[
@@ -1678,6 +1737,45 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   uniform cutoff, rounding, or parameter control for \(k=k(n)\), no
   coefficient optimization, no \(k\to\infty\) passage, and no geometric
   consequence.
+- EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (EXPLICIT FIVE-PREFIX WITNESS):
+  with \(D=30143556935103\) and
+  \[
+  (N_1,\ldots,N_5)
+  =(26881208992898,23392470652668,19595592993288,
+  15335681473008,10223787648672),
+  \]
+  the fifth simplex point is \(x_i=N_i/D\). At
+  \(\alpha=13/30\), \(s=43/30\), and \(A=3/10\), define
+  \[
+  \beta_i={s+Ax_i\over4},
+  \qquad
+  \lambda_i={Ax_i\over\beta_i}.
+  \]
+  Exact ordering gives
+  \[
+  0<\beta_5<\cdots<\beta_1<\alpha<1,
+  \quad
+  {s\over4}<\beta_i<{s\over3},
+  \quad
+  0<\lambda_5<\cdots<\lambda_1<1.
+  \]
+  Thus this fixed rational tuple is strictly all-middle and eventually
+  integer-admissible. Its coefficient and exact comparison are
+  \[
+  C_{5,\mathrm{rat}}
+  ={2263404122555368590593580404287
+   \over8177706222298165502582585481000}
+  >{75\over271}>C_{4,*}.
+  \]
+  Consequently
+  \[
+  \liminf{\Lambda_n\over n^3}\ge C_{5,\mathrm{rat}},
+  \qquad
+  \liminf{R_2^*(n)\over n^3}\ge{C_{5,\mathrm{rat}}\over\pi}.
+  \]
+  This is not a global \(k=5\) optimum, finite rounding theorem, uniform
+  growing-\(k\) result, exact residual, convergence theorem, or new geometric
+  input.
 - EXACT THEOREM (NORMALIZED PREFIX SIMPLEX): for every fixed \(k\ge1\),
   \[
   M_k=\max_{1\ge x_1\ge\cdots\ge x_k\ge0}
@@ -1702,7 +1800,7 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \qquad
   r_i={2\over3-r_{i+1}^2}.
   \]
-  The rows \(k=1,2,3,4\) are respectively
+  The first five rows are
   \[
   \begin{array}{c|c|c|c}
   k&(x_1,\ldots,x_k)&M_k&M_k/8\\ \hline
@@ -1710,10 +1808,15 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   2&(18/23,12/23)&108/529&27/1058\\
   3&(1058/1263,276/421,184/421)&1119364/4785507&279841/9571014\\
   4&(3190338,2672508,2091528,1394352)/3666143
-    &3392752184748/13440604496449&848188046187/26881208992898
+    &3392752184748/13440604496449&848188046187/26881208992898\\
+  5&(26881208992898,23392470652668,19595592993288,
+     15335681473008,10223787648672)/30143556935103
+    &722599396919860307414438404/2725902074099388500860861827
+    &180649849229965076853609601/5451804148198777001721723654
   \end{array}
   \]
-  and agree exactly with the one- through four-prefix simplex cases.
+  The first four agree exactly with the optimized one- through four-prefix
+  simplex cases; the fifth supplies the explicit rational witness above.
 - EXACT NORMALIZED-ENVELOPE CLASSIFICATION: on \([1/3,1]\),
   \[
   E_k(\alpha)
@@ -1771,6 +1874,15 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   primitive irreducible polynomial and isolating interval, and the separator from
   \(C_{3,*}\). It imports no project, production, or test helper and
   corroborates rather than replaces the compact proof.
+- VERIFIED FACT (INDEPENDENT EXACT FIVE-PREFIX RATIONAL DIAGNOSTIC): the
+  standalone standard-library script at
+  ops/TASK-20260717__five_prefix_explicit_asymptotic_witness/fraction_diagnostic.py
+  uses only fractions.Fraction. It checks \(q_5,M_5\), the direct simplex
+  objective and stationarity, every reduced cutoff and weight, strict
+  all-middle admissibility, equality of the direct and normalized coefficient
+  evaluations, and the two positive integer margins proving
+  \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). It corroborates but does not replace
+  the written proof.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): a test-local Fraction
   oracle checks all 46,620 depth-three histories from one bounded base,
   including 70 distinct recursive second-step prefixes (2,590 full-history
@@ -2363,14 +2475,22 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
    +21288970076515705538\sqrt{2903456040383}
    \over2290468477489828247376833403\pi}.
   \]
+  The fixed rational five-prefix witness at \(\alpha=13/30\), without a
+  global five-prefix optimization, improves the established lower coefficient
+  further to
+  \[
+  {2263404122555368590593580404287
+   \over8177706222298165502582585481000\pi}.
+  \]
   All three irrational multi-prefix optimizers are exact and unique in their
   respective templates. The older rational witness remains the finite two-prefix theorem
   from \(n=59\); the irrational three-prefix optimizer now has the stronger
   finite theorem \(\Lambda_n>C_{3,*}n^3\) from the minimal uniform threshold
-  \(159\). No finite four-prefix rounding theorem is included. None of these
-  coefficients is an exact residual or leading coefficient; convergence,
-  finite rounding at the irrational two- and four-prefix optimizers, and
-  exact block residuals remain unresolved.
+  \(159\). No finite four-prefix or five-prefix rounding theorem is included.
+  The five-prefix rational point is only an explicit asymptotic witness, not
+  a global optimizer. None of these coefficients is an exact residual or
+  leading coefficient; convergence, finite rounding at the irrational two-
+  and four-prefix optimizers, and exact block residuals remain unresolved.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit
   and unresolved for public production claims. The bounded test-only Arb
   cross-check covers checked `n=3` only and is not a full backend audit.
