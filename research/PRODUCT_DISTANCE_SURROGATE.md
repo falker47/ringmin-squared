@@ -4446,6 +4446,299 @@ the present theorem neither constructs nor establishes any nonidentity
 reassignment. If a full reassignment with \(W\le T\) does exist, (PG5) also
 forces its score to equal \(T\).
 
+### Generic-path local relation
+
+We now extend only the local calculation behind (PG15), without selecting or
+scoring a complete reassignment. For every path index \(0\le k<2m\) and gap
+index \(0\le j<2m\), let
+
+\[
+Q_{k,j}=(E_j,\lambda_j,P_k,\rho_{j^+},E_{j^+})
+\tag{PG16}
+\]
+
+be the constant-size word obtained by inserting the retained oriented path
+\(P_k\) in \(G_j\). Call \((k,j)\) **locally non-excluded** when every pair at
+positional distance one or two determined by this single word has score at
+most \(T\); otherwise call it **locally excluded**. The unchanged pairs across
+a terminal are safe independently of \(k,j\), since
+
+\[
+E_i\rho_i\le d(4m+1)=T-{d\over2}<T,
+\qquad
+{\rho_i\lambda_i\over2}<T.
+\tag{PG17}
+\]
+
+Thus (PG16), together with (PG17), accounts for every local pair at the two
+requested distances.
+
+#### Triple paths
+
+Fix \(0\le k\le m\) and retain
+
+\[
+A_k=d-1-2k,
+\qquad
+c_k={d\over2}+k,
+\qquad
+B_k=A_k-1.
+\tag{PG18}
+\]
+
+Because \(c_k>\lambda_j,\rho_{j^+}\) and
+\(A_k>B_k>c_k\) throughout the stated domain, the path-bearing adjacent
+maximum is \(A_kc_k\). More precisely, the complete adjacent maximum in
+\(Q_{k,j}\) is
+
+\[
+M^{\rm tr}_1(k,j)
+=\max\{E_j\lambda_j,E_{j^+}\rho_{j^+},A_kc_k\},
+\qquad
+A_kc_k=T-k(2k+1),
+\tag{PG19}
+\]
+
+and each entry in the maximum is at most \(T\). The other path-bearing
+adjacencies are strictly dominated by \(A_kc_k\). Hence distance one excludes
+no triple/gap pair; equality in (PG19) occurs for \(k=0\), while every
+\(k>0\) is strict.
+
+The five distance-two pairs in (PG16) are
+
+\[
+{E_jA_k\over2},\quad
+{\lambda_jc_k\over2},\quad
+{A_kB_k\over2},\quad
+{c_k\rho_{j^+}\over2},\quad
+{B_kE_{j^+}\over2}.
+\tag{PG20}
+\]
+
+The left terminal score strictly dominates the three nonterminal scores. It
+also dominates the right terminal score. For a nonclosing gap,
+
+\[
+E_jA_k-B_kE_{j+1}=j+2k+2>0
+\qquad(0\le j\le2m-2),
+\tag{PG21}
+\]
+
+whereas the literal closing word and difference are
+
+\[
+Q_{k,2m-1}=(n,2,A_k,c_k,B_k,4m+1,d),
+\qquad
+nA_k-dB_k=(2m-1)A_k+d>0.
+\tag{PG22}
+\]
+
+Consequently the exact distance-two maximum is unique and equals
+
+\[
+\boxed{
+M^{\rm tr}_2(k,j)={E_jA_k\over2}
+=T+{jA_k-2kd\over2}
+}.
+\tag{PG23}
+\]
+
+For completeness, the right terminal inequality itself is
+
+\[
+{B_kE_{j^+}\over2}\le T
+\quad\Longleftrightarrow\quad
+\begin{cases}
+(j+1)B_k\le d(2k+1),&0\le j\le2m-2,\\
+\text{always},&j=2m-1.
+\end{cases}
+\tag{PG24}
+\]
+
+It is never more restrictive than (PG23); in particular, cyclic closure
+repairs the right side but need not repair the left side. The exact triple
+condition is therefore
+
+\[
+\boxed{
+(k,j)\text{ locally non-excluded}
+\quad\Longleftrightarrow\quad
+j(d-1-2k)\le2kd.
+}
+\tag{PG25}
+\]
+
+Equivalently, define the row and column cutoffs
+
+\[
+\ell_k=
+\min\!\left\{2m-1,
+\left\lfloor{2kd\over d-1-2k}\right\rfloor\right\},
+\qquad
+\kappa_j=
+\left\lceil{j(d-1)\over2(d+j)}\right\rceil.
+\tag{PG26}
+\]
+
+Then \(P_k\) is locally non-excluded exactly in
+\(G_0,\ldots,G_{\ell_k}\), or, equivalently, \(G_j\) locally permits exactly
+the triple indices \(\kappa_j,\ldots,m\). Both descriptions include equality
+at the cutoff; that equality is not confined to \((k,j)=(0,0)\). For
+example, \((m,k,j)=(34,11,24)\) has
+\(jA_k=24\cdot253=6072=2kd\). If \(j>\ell_k\), the explicit excluding witness is
+\(\{E_j,A_k\}\) at distance two.
+
+#### Singleton paths
+
+Now fix \(m+1\le k\le2m-1\), so that
+
+\[
+P_k=(x_k),
+\qquad
+x_k={d\over2}+k=4m+2+k.
+\tag{PG27}
+\]
+
+The exact adjacent maximum and a uniform strict bound are
+
+\[
+M^{\rm sing}_1(k,j)
+=\max\{E_j\lambda_j,E_{j^+}\rho_{j^+},
+x_k\lambda_j,x_k\rho_{j^+}\}<T,
+\qquad
+(4m+1)x_k\le(4m+1)(6m+1)
+=T-(8m^2+18m+5)<T.
+\tag{PG28}
+\]
+
+The two terminal pairs dominate the intervening low--low pair. Their exact
+maximum changes side at the cyclic cut:
+
+\[
+\boxed{
+M^{\rm sing}_2(k,j)=
+\begin{cases}
+\dfrac{x_k(d+j+1)}2,&0\le j\le2m-2,\\[5pt]
+\dfrac{x_kn}2,&j=2m-1.
+\end{cases}}
+\tag{PG29}
+\]
+
+The right terminal is the unique maximizer in a nonclosing gap, while the
+left terminal is the unique maximizer in the closing word
+\((n,2,x_k,4m+1,d)\). Uniformly,
+
+\[
+d(d-1)-nx_k
+\ge d(d-1)-n(6m+1)
+=4m^2+28m+9>0.
+\tag{PG30}
+\]
+
+Thus every singleton is strictly locally non-excluded in every gap.
+
+#### Complete relation, boundaries, and quantifiers
+
+Combining (PG25) and (PG30), the exact local relation is
+
+\[
+\boxed{
+\mathcal R_{\rm loc}
+=\{(k,j):0\le k\le m,\ 0\le j\le\ell_k\}
+\mathbin\cup
+\{(k,j):m+1\le k\le2m-1,\ 0\le j\le2m-1\}.
+}
+\tag{PG31}
+\]
+
+It has the following explicit extremes and transition indices.
+
+- At \(j=0\), every path is locally non-excluded. For a triple,
+  \(M^{\rm tr}_2(k,0)=T-kd\), so (PG15) is recovered by
+  \(\ell_0=0\).
+- At the last nonclosing gap,
+
+  \[
+  Q_{k,2m-2}=(n-1,4,A_k,c_k,B_k,3,n),
+  \qquad
+  \kappa_{2m-2}
+  =\left\lceil{(m-1)(8m+3)\over10m+2}\right\rceil
+  =\left\lfloor{4m+1\over5}\right\rfloor.
+  \tag{PG32}
+  \]
+
+  At the closing gap, (PG22) holds and
+
+  \[
+  \kappa_{2m-1}
+  =\left\lceil{(2m-1)(8m+3)\over2(10m+3)}\right\rceil
+  =\left\lfloor{4m+3\over5}\right\rfloor
+  =\left\lceil{4m-1\over5}\right\rceil.
+  \tag{PG33}
+  \]
+
+  These floor forms follow by the five residue classes of \(m\). Since
+  \(\kappa_j\) is nondecreasing, (PG33) is the first triple index locally
+  permitted in every gap.
+- Around the canonical triple/singleton gap transition, the same column rule
+  remains valid without an exceptional branch:
+
+  \[
+  \begin{aligned}
+  \kappa_{m-1}&=\left\lceil{(m-1)(8m+3)\over2(9m+3)}\right\rceil,\\
+  \kappa_m&=\left\lceil{m(8m+3)\over2(9m+4)}\right\rceil,\\
+  \kappa_{m+1}&=\left\lceil{(m+1)(8m+3)\over2(9m+5)}\right\rceil.
+  \end{aligned}
+  \tag{PG34}
+  \]
+
+  The path-type transition itself is between
+  \(P_m=(6m+3,5m+2,6m+2)\) and \(P_{m+1}=(5m+3)\); both are locally
+  non-excluded in every gap. The terminal path
+  \(P_{2m-1}=(6m+1)\) is also universal.
+
+At the minimum parameter \(m=3\), one has \(d=28\), \(T=378\), and the
+complete relation is
+
+\[
+\begin{array}{c|c|c}
+k&\text{type}&\text{locally non-excluded gap indices}\\ \hline
+0&\text{triple}&\{0\}\\
+1&\text{triple}&\{0,1,2\}\\
+2&\text{triple}&\{0,1,2,3,4\}\\
+3&\text{triple}&\{0,1,2,3,4,5\}\\
+4,5&\text{singleton}&\{0,1,2,3,4,5\}.
+\end{array}
+\tag{PG35}
+\]
+
+In particular, \(P_2\) passes the last nonclosing gap with score
+\(32\cdot23/2=368<T\), but the cyclic left pair in \(G_5\) has score
+\(33\cdot23/2=759/2=T+3/2\). Thus neither the minimum row nor the cyclic
+endpoint is hidden by the general cutoff notation.
+
+Finally, the logical levels are separate. For a bijection \(\alpha\) already
+given as in (PG1), the local decomposition proves the exact equivalence
+
+\[
+W^{(\le2)}(\sigma_\alpha)\le T
+\quad\Longleftrightarrow\quad
+(\alpha(j),j)\in\mathcal R_{\rm loc}
+\quad\text{for every }j.
+\tag{PG36}
+\]
+
+This does not make a single locally non-excluded pair extendible. Indeed,
+\((k,0)\in\mathcal R_{\rm loc}\) for every \(k\), but \(P_0\) has only the
+edge \((0,0)\); hence every relation-compatible bijection must use
+\((0,0)\), and no \((k,0)\) with \(k>0\) can belong to one. Existence of at
+least one relation-compatible bijection is a separate fact supplied by the
+already proved canonical identity construction (UC11), not by an arbitrary
+edge of (PG31). We neither select nor classify a new bijection here. Even a
+relation-compatible bijection still requires all distances at least three to
+establish \(W(\sigma_\alpha)\le T\); no such reassignment is chosen or
+evaluated in this section.
+
 ## Verification Boundary And Open Questions
 
 `tests/test_product_distance.py` checks exact rational comparisons, canonical
@@ -4507,6 +4800,15 @@ the seven-label word (PG4), and checks the exact distance-one and distance-two
 inequalities, both unique local maximizers, the one-sided placement sets, and
 the literal closing word. It constructs no complete order, assigns no other
 path, and enumerates no path permutation.
+The sole diagnostic for (PG16)--(PG36) is the standalone standard-library
+script in
+ops/TASK-20260717__generic_path_terminal_gap_classification/. It scans only
+the triples \((m,k,j)\) for \(m\in\{3,4,9,34\}\), constructs only the
+constant-size local word, and compares every distance-one and distance-two
+pair directly with both cutoff forms. It includes the minimum row, both
+cyclic endpoint columns, the path-type transition, and the nontrivial equality
+\((m,k,j)=(34,11,24)\). It constructs no complete order or bijection,
+enumerates no path permutation, and imports no project or test helper.
 
 The following remain unresolved.
 
@@ -4516,9 +4818,13 @@ The following remain unresolved.
   present scaffold and orientations, (PG15) proves that \(P_0\) must remain
   in \(G_0\) whenever \(W^{(\le2)}\le T\). Every other gap is locally
   excluded, while \(G_0\) is only locally non-excluded.
-- **OPEN QUESTION:** after imposing \(P_0\subset G_0\), which assignments of
-  the remaining whole paths satisfy all local and nonlocal constraints? No
-  nonidentity completion or classification follows from (PG15).
+- **CLOSED LOCAL QUESTION:** the complete generic path/gap relation at
+  distances one and two is (PG31). Triple rows are the exact initial segments
+  \(0\le j\le\ell_k\), and singleton rows contain every gap. Local
+  non-exclusion is not edge extendibility or a matching theorem.
+- **OPEN QUESTION:** which relation-compatible bijections, if any beyond the
+  canonical identity, also satisfy every distance-at-least-three constraint?
+  No nonidentity completion or classification follows from (PG31).
 - **OPEN QUESTION:** for which \(n\ge94\) is
   \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\)? Criterion (MS2)
   certifies equality whenever it holds, including \(n=94\), but no complete

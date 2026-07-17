@@ -45,6 +45,24 @@ only locally non-excluded. The closing gap has a safe right terminal pair but
 retains the left word \(n,2,d-1\). This necessary theorem does not assign the
 remaining paths or prove any nonidentity completion. A separate exact
 diagnostic scans only gap indices at four fixed values of \(m\).
+The generic local question is now closed as well. For a triple \(P_k\), the
+unique distance-two maximum in \(G_j\) is
+\[
+{(d+j)(d-1-2k)\over2},
+\]
+so its exact locally non-excluded row is
+\[
+0\le j\le
+\min\!\left\{2m-1,
+\left\lfloor{2kd\over d-1-2k}\right\rfloor\right\}.
+\]
+Equivalently, \(G_j\) permits triple indices
+\(k\ge\lceil j(d-1)/(2(d+j))\rceil\). Every singleton is strictly
+locally non-excluded in every gap. The cyclic endpoints, transition indices,
+and \(m=3\) are explicit. A local edge is not automatically extendible to a
+compatible bijection, and a compatible bijection does not automatically pass
+the distances at least three. No nonidentity reassignment is selected or
+evaluated. One exact diagnostic scans only \((m,k,j)\) on four fixed rows.
 The fixed-order certification debt is now closed mathematically by
 `research/FIXED_ORDER_ANGULAR_STN.md`, which proves exact angular/STN
 equivalence, the negative-cycle criterion, potential recovery, radius
@@ -1761,10 +1779,15 @@ saturation for every \(n\ge3\).
   path \(P_0\) in \(G_0\). Every other gap has an explicit distance-two
   violation; the cyclic closing gap is included. This is a necessary
   placement theorem, not a completion theorem.
-- OPEN QUESTION: after imposing \(P_0\subset G_0\), which locations are
-  locally admissible for the remaining triple and singleton paths, and can
-  any nonidentity assignment satisfy every constraint? No such existence is
-  inferred from the distinguished-path lemma.
+- CLOSED LOCAL QUESTION: the exact generic relation is
+  \(0\le j\le\ell_k\) for triples and all gaps for singletons, with the
+  equivalent column threshold
+  \(k\ge\lceil j(d-1)/(2(d+j))\rceil\). This classifies local
+  non-exclusion only, not edge extendibility or a complete reassignment.
+- OPEN QUESTION: which locally non-excluded edges extend to a
+  relation-compatible bijection, and which such bijections, if any beyond
+  the identity, also pass all distances at least three? No nonidentity
+  existence or classification is currently established.
 - CLOSED QUESTION: the fixed-order STN/geometric equivalence, endpoint
   semantics, and negative-cycle proof obligations are now recorded
   independently of every asymptotic claim in
@@ -1999,13 +2022,20 @@ Immediate:
   including the cyclic closing gap. \(G_0\) is only locally non-excluded, so
   no nonidentity completion is claimed. One standalone standard-library
   diagnostic scans only gap indices for four fixed values of \(m\).
+- The generic-path placement task is complete without choosing a
+  reassignment. Triple rows are exact monotone initial segments, singleton
+  rows contain all gaps, and the cyclic endpoints, transition indices, and
+  \(m=3\) relation are explicit. Local non-exclusion, extendibility to a
+  relation-compatible bijection, and full-score feasibility are separated.
+  One standalone standard-library diagnostic scans only \((m,k,j)\) for
+  four fixed values of \(m\).
 
 Next:
 
-- In a separate STRICT task, classify the local distance-one and
-  distance-two admissible-gap sets for a generic remaining path \(P_k\), with
-  triple and singleton cases kept separate and without choosing a full
-  reassignment.
+- In a separate STRICT task, use the monotone local relation to classify
+  symbolically which locally non-excluded edges extend to a
+  relation-compatible bijection, without enumerating path permutations or
+  scoring distance-at-least-three pairs.
 - In a separate STRICT task, determine whether the combined-height and
   one-use base-slack argument extends to arbitrary fixed \(k\), without
   passing to \(k\to\infty\) or declaring a coefficient before uniformity is
@@ -2039,18 +2069,18 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: characterize the local terminal-gap sets of a generic remaining path
-\(P_k\) under whole-path reassignments that could retain \(W\le T\) in the
+Task: classify edge extendibility in the exact local path/gap relation for the
 symbolic \(n=10m+3\) branch.
 
 Acceptance criteria:
 
-- keep the current terminal/low scaffold and oriented path definitions fixed;
-- derive exact distance-one and distance-two gap conditions for generic
-  triple and singleton paths, with all index and cyclic boundaries explicit;
-- distinguish locally excluded and locally non-excluded gap/path pairs from
-  existence of a compatible bijection or a full valid reassignment;
-- do not select, score, or experimentally probe a complete reassignment
-  family and do not enumerate path permutations;
+- treat the proved local relation as fixed input and use symbolic
+  matching/Hall arguments;
+- decide which locally non-excluded edges occur in at least one
+  relation-compatible bijection, with all boundary cases explicit;
+- distinguish edge extendibility from existence of a full reassignment with
+  \(W\le T\);
+- do not enumerate path permutations and do not score pairs at distances
+  three or more;
 - do not alter production enumeration limits, checked artifacts, schemas,
   interval backends, or certificates.

@@ -1004,6 +1004,30 @@ locally non-excluded. This necessary lemma does not classify the remaining
 path assignment or establish a nonidentity completion. The canonical identity
 assignment is a separate previously proved witness.
 
+The same calculation is now complete for every remaining path. For a triple
+\(P_k=(d-1-2k,4m+2+k,d-2-2k)\), \(0\le k\le m\), the exact
+distance-two maximum in \(G_j\) is
+\[
+{(d+j)(d-1-2k)\over2},
+\]
+and distance one is always safe. Hence the locally non-excluded gaps are
+exactly \(G_0,\ldots,G_{\ell_k}\), where
+\[
+\ell_k=
+\min\!\left\{2m-1,
+\left\lfloor{2kd\over d-1-2k}\right\rfloor\right\}.
+\]
+Equivalently, \(G_j\) permits the triple indices
+\[
+k\ge
+\left\lceil{j(d-1)\over2(d+j)}\right\rceil.
+\]
+Every singleton \(P_k=(4m+2+k)\), \(m+1\le k\le2m-1\), is strictly
+locally non-excluded in every gap. The cyclic closing word, both terminal
+columns, the triple/singleton transition, and \(m=3\) are explicit in the
+proof. This edge relation is not an edge-extendibility or full-reassignment
+classification; no nonidentity bijection is selected or evaluated.
+
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also a disproved claim.
@@ -2077,6 +2101,46 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   locally non-excluded index \(j=0\) without constructing a complete order,
   assigning another path, or enumerating a path permutation. This bounded
   check corroborates but does not prove the all-\(m\) theorem.
+- EXACT LOCAL RELATION THEOREM (GENERIC PATHS): retain the same arbitrary
+  whole-path bijection, scaffold, and orientations. For a triple
+  \(0\le k\le m\), the exact distance-two maximum caused by
+  \(P_k\subset G_j\) is
+  \[
+  M^{\rm tr}_2(k,j)={(d+j)(d-1-2k)\over2}.
+  \]
+  Distance one is always safe, so the pair is locally non-excluded exactly
+  when
+  \[
+  j(d-1-2k)\le2kd.
+  \]
+  Equivalently, its row consists of \(0\le j\le\ell_k\), with
+  \[
+  \ell_k=\min\!\left\{2m-1,
+  \left\lfloor{2kd\over d-1-2k}\right\rfloor\right\},
+  \]
+  and its column form is
+  \(k\ge\lceil j(d-1)/(2(d+j))\rceil\). Every singleton
+  \(m+1\le k\le2m-1\) is strictly locally non-excluded in every gap; its
+  exact distance-two maximum is \(x_k(d+j+1)/2\) off the cut and \(x_kn/2\)
+  at closure. The last nonclosing and closing triple thresholds are
+  \(\lfloor(4m+1)/5\rfloor\) and
+  \(\lfloor(4m+3)/5\rfloor\), respectively.
+- INTERPRETATION: a locally non-excluded pair need not extend to a
+  relation-compatible bijection. In particular, every \((k,0)\) is locally
+  non-excluded, but the unique edge of \(P_0\) is \((0,0)\), so no
+  \((k,0)\) with \(k>0\) can occur in such a bijection. The already proved
+  identity construction separately supplies existence of one compatible
+  bijection. No new bijection is selected, no nonidentity completion is
+  established, and distances at least three remain a separate condition.
+- VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the sole standalone
+  standard-library script in
+  ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
+  the triples \((m,k,j)\) for \(m=3,4,9,34\). It compares every local
+  distance-one and distance-two pair with both exact cutoff forms, including
+  cyclic closure, the path-type transition, the complete \(m=3\) relation,
+  and the nontrivial equality \((34,11,24)\). It constructs no complete
+  order or bijection, imports no project/test helper, and enumerates no path
+  permutation.
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
   \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved

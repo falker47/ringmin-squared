@@ -1930,9 +1930,55 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   row. It builds no complete order, assigns no other path, imports no project
   or test helper, and enumerates no path permutation. The finite check
   corroborates rather than proves the all-\(m\) theorem.
-- OPEN QUESTION: after fixing \(P_0\) in \(G_0\), which assignments of the
-  remaining paths satisfy all local and nonlocal constraints? No nonidentity
-  existence or classification has been established.
+- EXACT LOCAL RELATION THEOREM (GENERIC PATHS): in the same
+  \(n=10m+3\), \(m\ge3\), scaffold, a triple
+  \(P_k=(d-1-2k,4m+2+k,d-2-2k)\), \(0\le k\le m\), placed in
+  \(G_j\) has all adjacent pairs at most \(T\) and unique local
+  distance-two maximum
+  \[
+  M^{\rm tr}_2(k,j)={(d+j)(d-1-2k)\over2}.
+  \]
+  Therefore its exact locally non-excluded row is
+  \[
+  0\le j\le
+  \ell_k:=
+  \min\!\left\{2m-1,
+  \left\lfloor{2kd\over d-1-2k}\right\rfloor\right\}.
+  \]
+  Equivalently, the triple indices locally permitted by \(G_j\) are
+  \[
+  k\ge\kappa_j:=
+  \left\lceil{j(d-1)\over2(d+j)}\right\rceil.
+  \]
+  Every singleton \(P_k=(4m+2+k)\), \(m+1\le k\le2m-1\), is strictly
+  locally non-excluded in every gap. Its exact distance-two maximum is
+  \(x_k(d+j+1)/2\) for \(j\le2m-2\) and \(x_kn/2\) at cyclic closure.
+  The last nonclosing and closing triple thresholds are
+  \(\lfloor(4m+1)/5\rfloor\) and
+  \(\lfloor(4m+3)/5\rfloor\).
+- EXACT LOGICAL DISTINCTION: for a given path-to-gap bijection \(\alpha\),
+  the distance-at-most-two condition is equivalent to
+  \((\alpha(j),j)\) belonging to the displayed local relation for every
+  \(j\). A single locally non-excluded edge need not extend to such a
+  bijection: all \((k,0)\) are local edges, but \(P_0\) has only
+  \((0,0)\), so no \(k>0\) can occupy \(G_0\) in a relation-compatible
+  bijection. The prior identity construction separately proves existence of
+  at least one compatible bijection. No nonidentity completion is selected
+  or classified, and the full \(W\le T\) condition still requires distances
+  at least three.
+- VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the standalone
+  standard-library script in
+  ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
+  \((m,k,j)\) at \(m=3,4,9,34\). It directly checks every local one- and
+  two-step pair against both exact cutoff formulas, including cyclic
+  endpoints, the path-type transition, the complete \(m=3\) relation, and
+  the nontrivial equality \((34,11,24)\). It constructs no complete order
+  or bijection, imports no project/test helper, and enumerates no path
+  permutation. The finite check corroborates rather than proves the all-\(m\)
+  theorem.
+- OPEN QUESTION: which relation-compatible bijections, if any beyond the
+  canonical identity, also satisfy every constraint at distances at least
+  three? No nonidentity existence or classification has been established.
 - OPEN QUESTION: for which \(n\ge94\) is the minimizer inclusion strict? No
   persistence from \(n=93\) onward is claimed; the sufficient equality
   criterion already holds again at \(n=94\).
@@ -2220,10 +2266,19 @@ Candidate-set extraction uses the following finite-certificate semantics.
   locally non-excluded, and no nonidentity completion is inferred. A
   standalone standard-library diagnostic scans only gap indices on four
   fixed rows and performs no path-permutation enumeration.
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, derive the exact local
-  distance-one and distance-two admissible-gap sets for a generic remaining
-  path \(P_k\), separating triple and singleton cases, without selecting a
-  full reassignment or inferring a completion.
+- COMPLETED PRIORITY: the generic local path/gap relation is now exact.
+  Triple \(P_k\) is locally non-excluded precisely for
+  \(0\le j\le\ell_k\), equivalently
+  \(k\ge\lceil j(d-1)/(2(d+j))\rceil\), while every singleton is locally
+  non-excluded in every gap. Cyclic closure, endpoint thresholds,
+  triple/singleton transitions, and \(m=3\) are explicit. Local edges,
+  edge extendibility, relation-compatible bijections, and full-score
+  feasibility remain logically separate. One standalone exact diagnostic
+  scans only \((m,k,j)\) on four fixed rows.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, use the monotone local
+  relation to classify symbolically which locally non-excluded edges extend
+  to a relation-compatible bijection, without enumerating path permutations
+  or scoring any distance-at-least-three pair.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
