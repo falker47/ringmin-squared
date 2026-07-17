@@ -6,133 +6,158 @@ Last update: 2026-07-17
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Active task:** exact five-prefix one-use charging on the normalized linear
-  block.
+- **Active task:** arbitrary finite-\(k\) one-use combined-height charging on
+  the normalized linear block.
 - **Repository state at startup:** clean `main` worktree at commit
-  `1116b1274949475da8462994f296ebd22d0a7bf3`, tracking `origin/main`.
-- **Implementation state:** the exact theorem, sole standalone oracle, proof
-  note, stable knowledge, project brief, roadmap, and dossier are synchronized;
-  all regressions, three independent audits, and final diff checks pass.
+  `2897fa52af8e40808f3483647183b25e76eb04f9`, tracking `origin/main`.
+- **Implementation state:** the indexed theorem, sole new \(k=6\)
+  dossier-local oracle, requested synchronization, proportional regressions,
+  three independent audits, and final diff inspection are complete.
 - **Current blocker:** none.
-- **Current next atomic action:** user review and manual commit decision.
+- **Current next atomic action:** user review and, if accepted, manual commit.
 - **Awaiting user review:** yes.
 
 ## Objective And Scope
 
-Determine whether direct combined-height charging extends from four to exactly
-five selected prefixes under
+Generalize the five-prefix theorem in
+`research/FIXED_ORDER_CYCLE_RATIO.md` to every fixed finite
+\(k\ge1\), under
 \[
-0<\beta_5<\beta_4<\cdots<\beta_1<\alpha<1,
+0<\beta_k<\cdots<\beta_1<\alpha<1,
 \qquad
-0\le\lambda_5\le\cdots\le\lambda_1\le1.
+0\le\lambda_k\le\cdots\le\lambda_1\le1,
 \]
-The task permits one standalone exact local-history oracle. Coefficient
-optimization, finite rounding, \(k\to\infty\), a theorem for six or more
-prefixes, new geometric claims, production code, tests, artifacts, schemas,
-backends, certificates, and enumeration limits are out of scope.
+and the finite cutoff conditions
+\[
+2\le r\le n-2,
+\qquad
+1\le s_k<\cdots<s_1\le r-1.
+\]
+The task permits at most one dossier-local oracle limited to \(k=6\).
+Coefficient optimization, finite rounding, growing-\(k\) uniformity,
+\(k\to\infty\), new geometric claims, production code, tests, artifacts,
+schemas, backends, certificates, and production enumeration are out of scope.
 
-## Exact Five-Prefix Result
+## Exact Arbitrary Finite-Prefix Result
 
-Put \(r=\lfloor\alpha n\rfloor\),
-\(s_i=\lceil\beta_i n\rceil\), \(s_0=r\),
-\(I_i=\{s_i,\ldots,s_{i-1}-1\}\), and
+Put
 \[
-H_i=\sum_{t=s_i}^{r-1}A_t.
+r=\lfloor\alpha n\rfloor,
+\qquad
+s_i=\lceil\beta_i n\rceil,
+\qquad
+s_0=r,
+\qquad
+\lambda_{k+1}=0.
 \]
-The six nonnegative coefficients
+For selected heights
 \[
-1-\lambda_1,\quad\lambda_1-\lambda_2,\quad
-\lambda_2-\lambda_3,\quad\lambda_3-\lambda_4,\quad
-\lambda_4-\lambda_5,\quad\lambda_5
+H_i=\sum_{t=s_i}^{r-1}A_t,
 \]
-sum to one and give
+the \(k+1\) coefficients
 \[
-\max(0,H_1,\ldots,H_5)
-\ge
-\sum_{i=1}^4(\lambda_i-\lambda_{i+1})H_i+\lambda_5H_5
-=
-\sum_{i=1}^5\lambda_i\sum_{t\in I_i}A_t.
+1-\lambda_1,\quad
+\lambda_1-\lambda_2,\quad\ldots,\quad
+\lambda_{k-1}-\lambda_k,\quad\lambda_k
+\]
+are nonnegative and sum to one. Their convex combination of
+\((0,H_1,\ldots,H_k)\) telescopes to
+\[
+\sum_{i=1}^k\lambda_i
+\sum_{t=s_i}^{s_{i-1}-1}A_t.
 \]
 
 Every literal history induces an injective map from selected base splits to
 original edges. Hence each original slack is canonically charged once or left
-unused. Immediately before inserting \(t\), every current edge is either an
-untouched original edge or contains an endpoint in
-\(\{t+1,\ldots,r-1\}\). Splitting preserves this invariant through all four
-boundaries and arbitrary nesting, including edges with two earlier inserted
-endpoints.
+unused over the selected range. Immediately before inserting \(t\), every
+current edge is either an untouched original edge or contains an endpoint in
+\(\{t+1,\ldots,r-1\}\). Descending induction on \(t\), rather than on segment
+boundaries, preserves this invariant through every finite number of frontiers
+and arbitrary nesting.
 
-With \(F_{i,n}=G_{n,\lambda_i}(s_i)\), the complete finite conditions
+With
 \[
-2\le r\le n-2,
-\qquad
-1\le s_5<s_4<s_3<s_2<s_1\le r-1
+F_{i,n}=G_{n,\lambda_i}(s_i),
 \]
-give the exact theorem
+the exact finite theorem is
 \[
 \boxed{
-\begin{aligned}
-\gamma^{(r)}_{1,n}\ge{}&P_{r,n}
-+(r-s_1)F_{1,n}+(s_1-s_2)F_{2,n}+(s_2-s_3)F_{3,n}\\
-&+(s_3-s_4)F_{4,n}+(s_4-s_5)F_{5,n}.
-\end{aligned}
+\gamma^{(r)}_{1,n}\ge
+P_{r,n}+\sum_{i=1}^k(s_{i-1}-s_i)F_{i,n}
+=
+P_{r,n}+\sum_{i=1}^k(s_{i-1}-s_i)G_{n,\lambda_i}(s_i).
 }
 \]
-No sign assumption on the individual floors is needed. There is no literal
-five-split counterexample.
+No sign assumption on the individual floors is needed. The case \(k=1\)
+recovers the one-prefix theorem; \(k=5\) recovers the former five-prefix
+bound. Since the proof fixes an arbitrary \(k\) and the induction contains no
+frontier count, it covers every finite admissible \(k\).
 
-## Standalone Exact Oracle
+## Pointwise Versus Uniform Meaning
 
-- The only new standalone oracle is
-  `ops/TASK-20260717__five_prefix_charging/literal_oracle.py`.
+The finite inequality may be instantiated on any individual admissible row,
+including one whose finite \(k\) was selected as a function of that row. It
+does not supply cutoff thresholds, rounding estimates, error bounds, or
+parameter control uniform in a growing family \(k=k(n)\). Thus it implies no
+interchange of \(n\to\infty\) with \(k\to\infty\), no infinite-prefix
+passage, no coefficient optimization, no asymptotic coefficient, and no
+geometric consequence.
+
+## Standalone Exact \(k=6\) Oracle
+
+- The sole new oracle is
+  `ops/TASK-20260717__arbitrary_finite_prefix_charging/literal_oracle.py`.
 - It uses only `collections.Counter` and `fractions.Fraction`.
-- The five-edge base \((n,r,C_0)=(17,13,(13,17,14,16,15))\) is the minimum
-  edge cardinality permitting five simultaneous original-edge charges.
-- All 15,120 five-split histories pass and have distinct final cycles.
-- Split counts are base \((5,20,100,600,4200)\), recursive
-  \((0,10,110,1080,10920)\), and inserted-pair
-  \((0,0,10,180,2520)\).
-- Exactly 120 histories charge all five original edges. The five local floors
-  sum to \(253523/1155\), and the checked finite bound is \(1541348/1155\).
+- Its fixture is
+  \((n,r,C_0)=(20,15,(15,20,16,19,17,18))\), with cutoffs
+  \((14,13,12,11,10,9)\) and weights
+  \((6/7,5/7,4/7,3/7,2/7,1/7)\).
+- All 332,640 six-split histories pass.
+- Base splits are
+  \((6,30,180,1260,10080,90720)\), recursive splits are
+  \((0,12,156,1764,20160,241920)\), and inserted-pair splits are
+  \((0,0,12,252,4032,60480)\).
+- Exactly 720 histories charge all six original edges. The six local floors
+  sum to \(1973481/5720\), and the checked finite bound is
+  \(12383881/5720\).
 
 ## Verification
 
-- Oracle execution: 15,120 histories pass.
-- Ruff lint and format check: pass.
-- Focused `tests/test_fixed_order_cycle_ratio.py`: pass.
-- Complete local suite: 283 tests pass. An initial five-second command timeout
-  was non-diagnostic; the immediate rerun completed successfully.
-- Checked-artifact semantic verifier: 4 certificates and 76 local brackets
-  pass.
-- Checked-artifact schema regression: 4 tests pass.
-- Proof-note structural check: 321 equation tags are unique; standalone
-  display delimiters, `aligned`, and `array` environments balance. An initial
-  substring-based display count was invalid because it counted bracket escapes
-  inside formulas; the corrected line-delimiter check passes.
+- The exact \(k=6\) oracle passes all 332,640 histories.
+- Ruff lint and format checks pass after one recorded mechanical format fix.
+- The focused fixed-order module and all 283 local tests pass; the independent
+  artifact verifier passes 4 certificates with 76 local brackets, and all 4
+  schema-validation tests pass.
+- All 321 equation tags are unique; all display, `aligned`, `array`, and
+  Markdown fence counts balance. All ten changed/new files are UTF-8 without
+  BOM, LF-only, and LF-terminated.
+- Three independent read-only audits pass. Complete tracked and untracked diff
+  inspection and `git diff --check` pass.
 
 ## Evidence Classification And Limitations
 
 - The convex identity, canonical one-use partition, recursive invariant, and
-  finite five-segment inequality are **exact method-specific theorems**.
-- The 15,120-history oracle is a **verified bounded exact computation**; it
-  corroborates but does not prove the theorem.
-- The normalized simplex remains logically independent and supplies no
-  charging theorem by itself.
-- No coefficient optimization, finite rounding, result for six or more
-  prefixes, uniform \(k\)-to-\(n\) interchange, asymptotic coefficient,
-  convergence, exact residual, or geometric consequence is added.
+  indexed finite inequality are **exact finite method-specific theorems**.
+- The 332,640-history oracle is a **verified bounded exact computation**; it
+  corroborates but does not prove arbitrary finite \(k\).
+- The normalized simplex remains an independent exact theorem and is not the
+  source of charging.
+- No growing-\(k\) uniformity, coefficient optimization, finite rounding,
+  limiting-prefix result, exact residual, asymptotic coefficient, or
+  geometric consequence is added.
 
 ## Files In Scope
 
 - research/FIXED_ORDER_CYCLE_RATIO.md
 - research/NEXT_RESEARCH_STEPS.md
+- research/ALL_N_LOWER_BOUND.md
 - start.md
 - PROJECT_KNOWLEDGE.md
 - CURRENT_STATUS.md
-- ops/TASK-20260717__five_prefix_charging/
+- ops/TASK-20260717__arbitrary_finite_prefix_charging/
 
 ## Proposed Next Task
 
-In a fresh STRICT task, prove or refute the exact six-prefix one-use theorem,
-still without coefficient optimization, finite rounding, a limiting-prefix
-passage, or geometric claims.
+In a fresh STRICT task, derive an exact symbolic count of
+relation-compatible, equivalently full-optimal, scaffold bijections from the
+nested Ferrers thresholds, without enumerating path permutations.

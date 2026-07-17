@@ -845,50 +845,45 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \]
   No finite rounding theorem or \(k\to\infty\) passage follows. This
   optimized four-prefix result does not itself supply the separate direct
-  five-prefix theorem below.
-- EXACT FINITE METHOD-SPECIFIC THEOREM (FIVE SELECTED PREFIXES): let
+  arbitrary finite-prefix theorem below.
+- EXACT FINITE METHOD-SPECIFIC THEOREM (ARBITRARILY MANY FINITE SELECTED
+  PREFIXES): fix any integer \(k\ge1\) and
   \[
-  0<\beta_5<\beta_4<\beta_3<\beta_2<\beta_1<\alpha<1,
+  0<\beta_k<\cdots<\beta_1<\alpha<1,
   \qquad
-  0\le\lambda_5\le\lambda_4\le\lambda_3
-  \le\lambda_2\le\lambda_1\le1.
+  0\le\lambda_k\le\cdots\le\lambda_1\le1.
   \]
   With \(r=\lfloor\alpha n\rfloor\),
-  \(s_i=\lceil\beta_i n\rceil\), and \(s_0=r\), the six nonnegative
-  coefficients
+  \(s_i=\lceil\beta_i n\rceil\), \(s_0=r\), and
+  \(\lambda_{k+1}=0\), the nonnegative convex coefficients
   \[
-  1-\lambda_1,\quad\lambda_1-\lambda_2,\quad
-  \lambda_2-\lambda_3,\quad\lambda_3-\lambda_4,\quad
-  \lambda_4-\lambda_5,\quad\lambda_5
+  1-\lambda_1,\quad
+  \lambda_1-\lambda_2,\quad\ldots,\quad
+  \lambda_{k-1}-\lambda_k,\quad\lambda_k
   \]
-  combine \(0,H_1,\ldots,H_5\) before any edge slack is assigned and
+  combine \(0,H_1,\ldots,H_k\) before any edge slack is assigned and
   telescope to weight \(\lambda_i\) on the disjoint segment
   \(\{s_i,\ldots,s_{i-1}-1\}\). For every literal history, selected base
   splits inject into the original edge set, giving one canonical
-  charged/unused slack partition. Immediately before inserting \(t\), every
-  recursive edge contains an endpoint in \(\{t+1,\ldots,r-1\}\); splitting
-  preserves this invariant through all four boundaries and every nesting,
-  including edges with two earlier inserted endpoints. Whenever
+  charged/unused slack partition. Descending induction on the inserted label
+  shows that every recursive edge contains an endpoint in
+  \(\{t+1,\ldots,r-1\}\). The induction contains no segment count and hence
+  covers arbitrary nesting through any finite number of boundaries. Whenever
   \[
   2\le r\le n-2,
   \qquad
-  1\le s_5<s_4<s_3<s_2<s_1\le r-1,
+  1\le s_k<\cdots<s_1\le r-1,
   \]
   one has the exact finite inequality
   \[
-  \begin{aligned}
-  \gamma^{(r)}_{1,n}\ge{}&P_{r,n}
-  +(r-s_1)F_{1,n}
-  +(s_1-s_2)F_{2,n}
-  +(s_2-s_3)F_{3,n}\\
-  &+(s_3-s_4)F_{4,n}
-  +(s_4-s_5)F_{5,n},
-  \qquad F_{i,n}=G_{n,\lambda_i}(s_i).
-  \end{aligned}
+  \gamma^{(r)}_{1,n}\ge
+  P_{r,n}+\sum_{i=1}^k(s_{i-1}-s_i)G_{n,\lambda_i}(s_i).
   \]
-  No positivity of the individual floors is required. This theorem adds no
-  coefficient optimization, finite rounding, \(k\to\infty\) passage,
-  statement for six or more prefixes, or geometric consequence.
+  The cases \(k=1\) and \(k=5\) recover the one-prefix and former
+  five-prefix statements. No positivity of the individual floors is
+  required. The pointwise theorem gives no uniform threshold, rounding, or
+  parameter control for \(k=k(n)\), no coefficient optimization, no
+  \(k\to\infty\) passage, and no geometric consequence.
 - VERIFIED FACT (FINITE EXACT FOUR-PREFIX DOSSIER ORACLE): the standalone
   ops/TASK-20260716__four_prefix_charging/literal_oracle.py imports no
   production or test helper and exhausts all 840 current-edge histories from
@@ -911,6 +906,18 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   linkage, convex-height identity, canonical one-use partition, recursive
   invariant, exact local floor, and five-segment inequality passes. This
   bounded computation corroborates but does not prove the all-history theorem.
+- VERIFIED FACT (FINITE EXACT SIX-PREFIX DOSSIER ORACLE): the sole new
+  dossier-local script uses standard-library exact arithmetic and exhausts
+  all 332,640 six-split histories from
+  \(C_0=(15,20,16,19,17,18)\), with cutoffs
+  \((14,13,12,11,10,9)\) and weights
+  \((6/7,5/7,4/7,3/7,2/7,1/7)\). The base/recursive split counts are
+  \((6,30,180,1260,10080,90720)\) and
+  \((0,12,156,1764,20160,241920)\); 720 histories charge all six original
+  edges and 60,480 sixth splits join two inserted labels. Every indexed
+  convex, partition, invariant, local-floor, and finite-bound assertion
+  passes. This bounded corroboration changes no production enumeration and
+  does not prove arbitrary finite \(k\).
 - VERIFIED FACT (INDEPENDENT EXACT FOUR-PREFIX OPTIMIZATION DIAGNOSTIC): the
   standalone standard-library script at
   ops/TASK-20260717__global_four_prefix_optimization/exact_diagnostic.py
@@ -990,10 +997,10 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   E_\infty(\alpha_{\rm mid})={434+4\sqrt2\over1587}.
   \]
 - LIMITATION: this is an exact normalized-polynomial theorem for every fixed
-  \(k\), independent of the charging argument. Separate direct proofs
-  establish charging through five prefixes, but the simplex proves neither
-  those theorems nor charging for \(k\ge6\), a uniform interchange between
-  \(k\) and \(n\), or a new bound from its limiting envelope.
+  \(k\), independent of the charging argument. A separate direct proof
+  establishes charging for every finite admissible \(k\), but neither result
+  supplies a uniform interchange between growing \(k\) and \(n\), or a new
+  bound from the limiting envelope.
 - EXACT GLOBAL LOWER COROLLARY (TWO-PREFIX RATIONAL WITNESS): at
   \[
   (\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})
@@ -2283,10 +2290,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   complete collision/facet audit, unique
   \(\mathbb Q(\sqrt{2903456040383})\) optimizer, standalone 840-history
   literal oracle, and independent exact algebraic diagnostic, plus the exact
-  five-prefix convex combination, canonical one-use partition, recursive
-  invariant through all four boundaries, exact finite five-segment bound, and
-  standalone bounded literal oracle, plus the exact normalized prefix-simplex
-  lemma for every fixed \(k\), its unique
+  convex combination and canonical one-use theorem for every finite
+  \(k\ge1\), its boundary-count-independent recursive invariant, indexed
+  finite bound, bounded six-prefix dossier oracle, and historical
+  five-prefix oracle, plus the exact normalized prefix-simplex lemma for every
+  fixed \(k\), its unique
   strict-interior maximizer, value and ratio recurrences, monotone limit
   \(M_k\to1/3\),
   exact \(k=1,2,3,4\) agreement, formal and all-middle envelope
@@ -2367,25 +2375,26 @@ Candidate-set extraction uses the following finite-certificate semantics.
   A separate standard-library exact diagnostic verifies the reduction,
   transition data, specialized simplex certificate, surd algebra, and strict
   comparison without changing production, artifacts, or limits. That
-  optimization includes no finite rounding or five-prefix theorem; the latter
-  is supplied separately below.
+  optimization includes no finite rounding or general charging theorem; the
+  latter is supplied separately below.
 - COMPLETED PRIORITY: the normalized prefix simplex is solved exactly for
   every fixed \(k\ge1\). A Bellman recurrence and telescoping nonnegative
   certificate prove the unique strict-interior maximizer, the value and ratio
   recurrences, and \(M_k\nearrow1/3\); the first four rows recover the
   optimized one- through four-prefix simplex values. The formal compact
   and limiting all-middle envelopes are classified exactly. This result is
-  independent of the direct four- and five-prefix proofs and adds no charging
-  for \(k\ge6\), no uniform \(k\)-to-\(n\) interchange, and no new bound from
-  its limiting envelope.
-- COMPLETED PRIORITY: the direct five-prefix one-use theorem combines all five
-  selected heights before charging. Six convex coefficients telescope to five
-  disjoint segments; each original edge is canonically charged once or left
-  unused, and the recursive endpoint invariant covers every nested edge
-  through all four boundaries, including fifth splits with two earlier
-  inserted endpoints. The result is the exact finite five-segment inequality
-  only. One standalone exact local-history oracle corroborates it without
-  production, test, artifact, schema, backend, certificate, or limit changes.
+  independent of the direct charging proof and gives no uniform
+  \(k\)-to-\(n\) interchange or new bound from its limiting envelope.
+- COMPLETED PRIORITY: the direct one-use theorem now fixes an arbitrary finite
+  \(k\ge1\), combines \(0,H_1,\ldots,H_k\) before charging, and telescopes
+  the \(k+1\) convex coefficients to \(k\) disjoint segments. Each original
+  edge is canonically charged once or left unused. A descending insertion
+  induction contains no frontier count and covers every nested edge through
+  any finite number of boundaries. The indexed finite inequality is exact.
+  One new dossier-local exact oracle corroborates only \(k=6\), without
+  production, test, artifact, schema, backend, certificate, or enumeration
+  changes. No growing-\(k\) uniformity, coefficient optimization, limiting
+  passage, or geometric consequence is inferred.
 - COMPLETED PRIORITY: one explicit local perturbation of the \(8/25\)
   construction is now classified. Reversing one triple on
   \(n=10m+3\) is score-neutral for \(s\ge1\), worsens the finite score by
@@ -2481,11 +2490,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   linear-density methods outside these templates remain unclassified. The
   irrational three-prefix optimizer has the exact finite theorem recorded
   above.
-- LIMITATION: the normalized simplex theorem is proved for every fixed
-  \(k\), while combined-height one-use charging is proved directly through
-  five selected prefixes. No charging theorem for \(k\ge6\), uniform
-  interchange between \(k\) and \(n\), or new bound from the simplex limit or
-  either normalized envelope is established.
+- LIMITATION: both the normalized simplex and the separate combined-height
+  one-use theorem are proved for every fixed finite \(k\). Their pointwise
+  validity gives no threshold, rounding, error, or parameter control uniform
+  in a growing \(k=k(n)\), no interchange between \(k\) and \(n\), and no new
+  bound from the simplex limit or either normalized envelope.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.
 - LIMITATION: the sufficient radius-one threshold `12` is not known to be
   minimal, and the exact equality question remains open for `n<=11`.

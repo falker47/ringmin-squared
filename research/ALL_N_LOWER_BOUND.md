@@ -230,7 +230,33 @@ Last updated: 2026-07-17
   \qquad
   \liminf{R_2^*(n)\over n^3}\ge{C_{4,*}\over\pi}.
   \]
-  No finite rounding theorem or extension to five prefixes is asserted.
+  No finite rounding theorem is asserted. This four-prefix optimization does
+  not itself supply the separate arbitrary finite-prefix charging theorem
+  below.
+- EXACT FINITE METHOD-SPECIFIC THEOREM (ARBITRARILY MANY FINITE PREFIXES):
+  for every fixed integer \(k\ge1\), let
+  \[
+  0<\beta_k<\cdots<\beta_1<\alpha<1,
+  \qquad
+  0\le\lambda_k\le\cdots\le\lambda_1\le1,
+  \]
+  put \(r=\lfloor\alpha n\rfloor\),
+  \(s_i=\lceil\beta_i n\rceil\), and \(s_0=r\). Whenever
+  \[
+  2\le r\le n-2,
+  \qquad
+  1\le s_k<\cdots<s_1\le r-1,
+  \]
+  the exact combined-height one-use theorem gives
+  \[
+  \gamma^{(r)}_{1,n}\ge
+  P_{r,n}+\sum_{i=1}^k(s_{i-1}-s_i)G_{n,\lambda_i}(s_i).
+  \]
+  The convex telescope, canonical original-edge slack partition, and
+  descending recursive induction are independent of the finite frontier
+  count. This pointwise theorem supplies no uniform asymptotic control for
+  \(k=k(n)\), coefficient optimization, \(k\to\infty\) passage, or geometric
+  consequence.
 - EXACT FINITE THEOREM (two-prefix rational specialization): with
   \[
   r_n=\left\lfloor{3n\over7}\right\rfloor,
@@ -1476,6 +1502,73 @@ joins, branches, transition weights, collision reductions, the simplex
 identity, end-to-end surd objective, irreducible polynomial, and comparison;
 it corroborates but does not replace the all-real optimization proof.
 
+### Arbitrarily many finite selected prefixes
+
+The direct charging theorem in
+research/FIXED_ORDER_CYCLE_RATIO.md is not limited to the optimized
+four-prefix case. Fix any finite \(k\ge1\), set
+\[
+s_0=r,
+\qquad
+\lambda_{k+1}=0,
+\qquad
+I_i=\{s_i,\ldots,s_{i-1}-1\}.
+\]
+The coefficients
+\[
+1-\lambda_1,\quad
+\lambda_1-\lambda_2,\quad\ldots,\quad
+\lambda_{k-1}-\lambda_k,\quad\lambda_k
+\]
+form a convex combination of \(0,H_1,\ldots,H_k\). Before any original-edge
+slack is assigned, they telescope exactly to
+\[
+\sum_{i=1}^k\lambda_i\sum_{t\in I_i}A_t.
+\]
+Each selected split of an untouched original edge is injectively paired with
+that edge's quadratic slack; every other original slack appears once in the
+unused sum. Immediately before inserting \(t\), every recursive edge has an
+endpoint in \(\{t+1,\ldots,r-1\}\). Descending induction on \(t\) preserves
+this property, and the induction does not mention \(k\) or a segment
+boundary. Thus it covers arbitrary nesting through every finite number of
+frontiers.
+
+For
+\[
+2\le r\le n-2,
+\qquad
+1\le s_k<\cdots<s_1\le r-1,
+\]
+the local base and recursive floors therefore give
+\[
+\boxed{
+\Lambda_n\ge\Gamma_n^{(r)}
+\ge\gamma^{(r)}_{1,n}
+\ge
+P_{r,n}+\sum_{i=1}^k(s_{i-1}-s_i)G_{n,\lambda_i}(s_i).
+}
+\]
+This includes \(k=1\), with no frontier, and the earlier \(k=5\) theorem. No
+sign assumption on an individual \(G_{n,\lambda_i}(s_i)\) is needed.
+
+The sole new bounded corroboration is dossier-local and limited to \(k=6\).
+At
+\[
+(n,r,C_0)=(20,15,(15,20,16,19,17,18)),
+\]
+with consecutive cutoffs \(14,\ldots,9\) and weights
+\((6/7,\ldots,1/7)\), exact standard-library arithmetic checks all
+332,640 literal histories, including 720 histories charging all six original
+edges and 60,480 sixth splits between inserted endpoints. This is not
+production enumeration and does not replace the arbitrary-\(k\) proof.
+
+The displayed finite inequality may be instantiated on each individual
+admissible row. It provides no cutoff threshold, rounding estimate, error
+bound, or parameter control uniform in a growing family \(k=k(n)\).
+Consequently it yields no interchange of \(n\to\infty\) with
+\(k\to\infty\), no optimization of a new coefficient, and no new geometric
+lower bound.
+
 ## Exact Radius-One Insertion
 
 The following result turns the finite reduced-core observation into an exact
@@ -2179,8 +2272,14 @@ Neither the improved upper bound nor the lower bound proves that
    \over2290468477489828247376833403}
   >C_{3,*}.
   \]
-  No finite rounding theorem, \(k\to\infty\) passage, or result for
-  \(k\ge5\) is claimed.
+  That four-prefix optimization itself claims no finite rounding theorem,
+  \(k\to\infty\) passage, or general charging result.
+- The separate direct combined-height theorem does establish the exact
+  indexed finite bound for every finite admissible \(k\). Its proof is
+  independent of the normalized simplex and its insertion induction contains
+  no frontier count. This pointwise statement gives no control uniform in
+  \(k=k(n)\), no limiting-prefix interchange, no optimized coefficient, and
+  no new geometric consequence.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower
   bound only from the scalar full-problem lower bound would reverse the useful
