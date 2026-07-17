@@ -317,14 +317,30 @@ in `research/ALL_N_LOWER_BOUND.md`.
   Hence
   \(\liminf\Lambda_n/n^3\ge C_{5,\mathrm{rat}}\) and
   \(\liminf R_2^*(n)/n^3\ge C_{5,\mathrm{rat}}/\pi\). This is one explicit
-  fixed-parameter witness, not the global \(k=5\) optimum or a finite
-  rounding theorem.
+  fixed-parameter witness, not the global \(k=5\) optimum.
+- **EXACT FINITE METHOD-SPECIFIC THEOREM (FIXED RATIONAL FIVE-PREFIX
+  WITNESS):** retain the same \(\alpha,x_i,\beta_i,\lambda_i\), put
+  \(r_n=\lfloor13n/30\rfloor\) and
+  \(s_{i,n}=\lceil\beta_i n\rceil\), and use the fixed-weight floors
+  \(G_{n,\lambda_i}(s_{i,n})\). The minimal uniform threshold for complete
+  block admissibility, five nonempty segments, strict cutoff order, and all
+  five finite middle branches is \(n=234\); the first segment is empty at
+  \(n=233\). Equations (CR28dz4)--(CR28dz19) define the literal
+  \(\mathcal B_{5,n}\), its integer closure
+  \(\mathcal I_{5,n}=\lceil\mathcal B_{5,n}\rceil\), and the exact rounded
+  remainder. They prove
+  \[
+  \Lambda_n\ge\mathcal I_{5,n}\ge\mathcal B_{5,n}
+  >C_{5,\mathrm{rat}}n^3
+  \qquad(n\ge234).
+  \]
+  This keeps the fixed rational weights; it does not substitute the finite
+  reoptimized clipped weights.
 - **LIMITATION:** the normalized theorem by itself proves no charging
   statement. A separate direct argument proves one-use charging for every
   finite admissible \(k\), but supplies no threshold or error estimate uniform
   in a growing \(k=k(n)\), no interchange of \(k\) and \(n\), and no finite
-  rounding at the optimized four-prefix point or the explicit rational
-  five-prefix witness.
+  rounding at the optimized four-prefix point.
 - **VERIFIED FACT (BOUNDED EXACT FOUR-PREFIX ORACLE):** a standalone
   Fraction oracle literally checks all 840 four-split histories from the
   bounded base \(C_0=(11,14,12,13)\). It imports no project or test helper and
@@ -367,6 +383,13 @@ in `research/ALL_N_LOWER_BOUND.md`.
   the direct and normalized coefficient formulas, and the two positive exact
   margins proving \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). It corroborates but
   does not replace the written algebra.
+- **VERIFIED FACT (FINITE EXACT FIVE-PREFIX FLOOR/CEILING DIAGNOSTIC):** the
+  sole new dossier script for the finite specialization uses only
+  standard-library `Fraction` arithmetic. It checks the exact rows
+  \(233\) through \(246\), every predicate's last boundary failure, the
+  symbolic-tail margins, fixed-weight literal floors, integer closure,
+  stationarity cancellations, exact remainder, and strict comparison. It
+  imports no project or test helper and does not replace the written proof.
 - **VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK):** a recursive oracle at
   \((m,n,r)=(2,7,4)\) identifies all 60 compatible triple-split histories
   with all 60 outer dihedral cycles and obtains
@@ -5606,15 +5629,382 @@ with its \(O(n^2)\) additive error removed after normalization. Thus
 \]
 
 This is an exact method-specific asymptotic corollary at one fixed rational
-five-prefix point. It supplies no finite rounding, global \(k=5\)
-optimization, growing-\(k\) uniformity, exact residual, convergence theorem,
-exact leading constant, production computation, serialized certificate, or
-new geometric input. The standalone script in
+five-prefix point. The finite theorem below retains exactly the same tuple; it
+does not change the fact that the point is a witness rather than a global
+\(k=5\) optimizer. The standalone script in
 ops/TASK-20260717__five_prefix_explicit_asymptotic_witness/fraction_diagnostic.py
 uses only fractions.Fraction and checks the recurrence, simplex identities,
 stationarity, reduced parameters, strict branch conditions, both coefficient
 evaluations, and the two exact comparison margins. It corroborates but does
 not replace this derivation.
+
+#### Finite floor/ceiling theorem for the same rational witness
+
+Retain without change \(\alpha\), every \(x_i\), every \(\beta_i\), and
+every \(\lambda_i\) from (CR28dx)--(CR28dz). For an integer \(n\ge1\), put
+
+\[
+r_n=\left\lfloor{13n\over30}\right\rfloor,
+\qquad
+s_{i,n}=\lceil\beta_i n\rceil\quad(1\le i\le5),
+\qquad
+s_{0,n}=r_n,
+\qquad
+S_n=n+r_n.
+\tag{CR28dz4}
+\]
+
+We first determine the complete uniform domain. The smallest top density gap
+is
+
+\[
+\alpha-\beta_1
+={652469588441\over80382818493608}.
+\]
+
+Since
+
+\[
+r_n-s_{1,n}>(\alpha-\beta_1)n-2,
+\qquad
+247(\alpha-\beta_1)-2
+={394351357711\over80382818493608}>0,
+\tag{CR28dz5}
+\]
+
+the first segment is nonempty for every \(n\ge247\). The four internal
+density gaps are increasing; the smallest is
+
+\[
+\beta_1-\beta_2={348873834023\over40191409246804},
+\qquad
+234(\beta_1-\beta_2)-1
+={20722533957289\over20095704623402}>0.
+\]
+
+Thus
+\(s_{1,n}>s_{2,n}>s_{3,n}>s_{4,n}>s_{5,n}\) for every
+\(n\ge234\), because each ceiling-error difference is greater than \(-1\).
+
+The finite middle branches require
+
+\[
+{S_n\over4}<s_{i,n}<{S_n\over3}\quad(1\le i\le5).
+\]
+
+Write
+
+\[
+\eta_n=\alpha n-r_n\in[0,1),
+\qquad
+\varepsilon_{i,n}=s_{i,n}-\beta_i n\in[0,1).
+\]
+
+With \(X_i=Ax_i\), the lower inequalities are automatic:
+
+\[
+4s_{i,n}-S_n
+=X_i n+4\varepsilon_{i,n}+\eta_n>0.
+\]
+
+For the upper inequalities the smallest density gap occurs at \(i=1\):
+
+\[
+u_1=(1+\alpha)-3\beta_1
+={190126768467061\over1205742277404120},
+\qquad
+26u_1-4
+={60163435263553\over602871138702060}>0.
+\]
+
+Hence
+
+\[
+S_n-3s_{i,n}
+>\bigl((1+\alpha)-3\beta_i\bigr)n-4
+\ge u_1n-4>0
+\qquad(n\ge26).
+\tag{CR28dz6}
+\]
+
+The remaining block conditions \(2\le r_n\le n-2\) and
+\(s_{5,n}\ge1\) are immediate on the range below. Exact rational
+floor/ceiling evaluation closes the only gap between (CR28dz5) and the
+candidate threshold:
+
+| \(n\) | \(r_n\) | \(s_{1,n}\) | \(s_{2,n}\) | \(s_{3,n}\) | \(s_{4,n}\) | \(s_{5,n}\) |
+|---:|---:|---:|---:|---:|---:|---:|
+| 233 | 100 | 100 | 98 | 95 | 93 | 90 |
+| 234 | 101 | 100 | 98 | 96 | 93 | 90 |
+| 235 | 101 | 100 | 98 | 96 | 94 | 91 |
+| 236 | 102 | 101 | 99 | 97 | 94 | 91 |
+| 237 | 102 | 101 | 99 | 97 | 94 | 91 |
+| 238 | 103 | 102 | 100 | 97 | 95 | 92 |
+| 239 | 103 | 102 | 100 | 98 | 95 | 92 |
+| 240 | 104 | 103 | 100 | 98 | 96 | 93 |
+| 241 | 104 | 103 | 101 | 99 | 96 | 93 |
+| 242 | 104 | 103 | 101 | 99 | 96 | 93 |
+| 243 | 105 | 104 | 102 | 99 | 97 | 94 |
+| 244 | 105 | 104 | 102 | 100 | 97 | 94 |
+| 245 | 106 | 105 | 103 | 100 | 98 | 95 |
+| 246 | 106 | 105 | 103 | 101 | 98 | 95 |
+
+Every row from \(234\) through \(246\) is admissible, has five nonempty
+segments, and lies in all five finite middle branches. At \(n=233\), however,
+\(r_n=s_{1,n}=100\), so the first segment is empty. Therefore
+
+\[
+\boxed{n=234}
+\tag{CR28dz7}
+\]
+
+is the minimal uniform threshold for all requested conditions. For reference,
+at the first valid row the segment lengths are \((1,2,2,3,3)\), the five
+lower-middle gaps \(4s_{i,n}-S_n\) are \((65,57,49,37,25)\), and the five
+upper-middle gaps \(S_n-3s_{i,n}\) are \((35,41,47,56,65)\).
+
+The fixed weights are important. Define
+
+\[
+F_{i,n}:=G_{n,\lambda_i}(s_{i,n})
+={\lambda_i\left(4S_ns_{i,n}-S_n^2
+ -2\lambda_i s_{i,n}^2\right)\over2(2-\lambda_i)}.
+\tag{CR28dz8}
+\]
+
+Although the rounded cutoffs remain in the middle density branches, the
+fixed \(\lambda_i\) generally do not equal the finite clipped optima
+\(4-S_n/s_{i,n}\). Thus (CR28dz8), rather than
+\((4s_{i,n}-S_n)^2/2\), is the required literal floor. Put
+
+\[
+\boxed{
+\mathcal B_{5,n}:=P_{r_n,n}
++\sum_{i=1}^5(s_{i-1,n}-s_{i,n})F_{i,n},
+}
+\tag{CR28dz9}
+\]
+
+where
+
+\[
+P_{r_n,n}
+={(n-r_n+1)(r_n^2+4r_n n+r_n+n^2-n)\over6}\in\mathbb Z.
+\]
+
+Since the fixed-weight terms in (CR28dz8) need not be half-integers, the
+exact integer closure is
+
+\[
+\boxed{
+\begin{aligned}
+\mathcal I_{5,n}
+&:=\left\lceil\mathcal B_{5,n}\right\rceil\\
+&=P_{r_n,n}
++\left\lceil\sum_{i=1}^5
+(s_{i-1,n}-s_{i,n})F_{i,n}\right\rceil.
+\end{aligned}
+}
+\tag{CR28dz10}
+\]
+
+The exact \(k=5\) instance of (CR28dw), followed by (CR28ap), gives the
+literal chain. Integrality from (CR12h) gives its stronger closure:
+
+\[
+\boxed{
+\Lambda_n
+\ge\Gamma_n^{(r_n)}
+\ge\gamma^{(r_n)}_{1,n}
+\ge\mathcal B_{5,n},
+\qquad
+\Lambda_n\ge\mathcal I_{5,n}\ge\mathcal B_{5,n}
+}
+\qquad(n\ge234).
+\tag{CR28dz11}
+\]
+
+It remains to compare the literal rounded expression, not the unknown true
+block residual, with its cubic coefficient. Set
+
+\[
+x_0=1,
+\quad x_6=0,
+\quad X_i=Ax_i,
+\quad X_0=A,
+\quad X_6=0,
+\quad \beta_0=\alpha,
+\quad g_i={X_i^2\over2},
+\quad g_6=0,
+\]
+
+and, for \(1\le i\le5\), define
+
+\[
+d_i=\beta_{i-1}-\beta_i={X_{i-1}-X_i\over4},
+\qquad
+e_{0,n}=-\eta_n,
+\qquad
+e_{i,n}=\varepsilon_{i,n},
+\qquad
+\delta_{i,n}=e_{i-1,n}-e_{i,n}.
+\]
+
+Then
+
+\[
+s_{i-1,n}-s_{i,n}=d_i n+\delta_{i,n}.
+\]
+
+Define the exact lower-order terms
+
+\[
+h_{i,n}=X_i(4\varepsilon_{i,n}+\eta_n),
+\qquad
+k_{i,n}=-{X_i\over(1+\alpha)-X_i}
+\left(\eta_n^2+4\eta_n\varepsilon_{i,n}
+ +2\lambda_i\varepsilon_{i,n}^2\right).
+\]
+
+Direct substitution in (CR28az), using the fixed relation (CR28dy), gives
+
+\[
+\boxed{
+F_{i,n}=g_i n^2+h_{i,n}n+k_{i,n}.
+}
+\tag{CR28dz12}
+\]
+
+The pairing floor has the exact expansion
+
+\[
+\begin{aligned}
+P_{r_n,n}={}&p(\alpha)n^3
++\left({13\over30}+{49\over1800}\eta_n\right)n^2\\
+&-\left({43\over60}\eta_n^2+\eta_n+{17\over180}\right)n
++{\eta_n^3-\eta_n\over6}.
+\end{aligned}
+\tag{CR28dz13}
+\]
+
+Now use
+\(C_{5,\mathrm{rat}}=p(\alpha)+\sum_i d_i g_i\). The coefficient of
+\(\varepsilon_{j,n}n^2\) in the exact subtraction is
+
+\[
+4d_jX_j-g_j+g_{j+1}
+={A^2\over2}
+\left(2x_{j-1}x_j-3x_j^2+x_{j+1}^2\right)=0
+\]
+
+by the five stationarity equations obtained by differentiating (CR28cr) at
+the strict point (CR28dx). Also
+\(\sum_i d_iX_i=g_1/4\). Consequently the complete exact remainder is
+
+\[
+\boxed{
+\mathcal B_{5,n}-C_{5,\mathrm{rat}}n^3
+=\left({13\over30}+K\eta_n\right)n^2+Q_n n+T_n,
+}
+\tag{CR28dz14}
+\]
+
+where
+
+\[
+\begin{aligned}
+Q_n={}&-\left({43\over60}\eta_n^2+\eta_n+{17\over180}\right)
++\sum_{i=1}^5\left(d_i k_{i,n}+\delta_{i,n}h_{i,n}\right),\\
+T_n={}&{\eta_n^3-\eta_n\over6}
++\sum_{i=1}^5\delta_{i,n}k_{i,n},
+\end{aligned}
+\tag{CR28dz15}
+\]
+
+and
+
+\[
+\begin{aligned}
+K
+&={49\over1800}+\sum_{i=1}^5d_iX_i-g_1
+={49\over1800}-{3g_1\over4}\\
+&={34730769300472139183348711
+ \over90863402469979616695362060900}>0.
+\end{aligned}
+\tag{CR28dz16}
+\]
+
+The sign can be controlled uniformly without inspecting residue classes.
+Indeed \((1+\alpha)-X_i>17/15>1\),
+\(0<X_i<3/10\), and \(0<\lambda_i<1\), so
+
+\[
+0\le h_{i,n}<{3\over2},
+\qquad
+-3<k_{i,n}\le0,
+\qquad
+\sum_{i=1}^5d_i=\alpha-\beta_5<{1\over2}.
+\]
+
+For the middle estimate,
+\(lvert k_{i,n}\rvert<(3/10)\,7/(17/15)=63/34<3\).
+
+Moreover
+\(\delta_{1,n}\in(-2,0]\) and
+\(\delta_{i,n}\in(-1,1)\) for \(i\ge2\). The first bracket in \(Q_n\)
+is less than \(2\). Termwise use of these rational bounds in (CR28dz15)
+gives
+
+\[
+Q_n>-{25\over2},
+\qquad
+T_n>-{109\over6}.
+\]
+
+Since \(K\eta_n\ge0\), the exact remainder therefore satisfies
+
+\[
+\boxed{
+\mathcal B_{5,n}-C_{5,\mathrm{rat}}n^3
+>{13\over30}n^2-{25\over2}n-{109\over6}.
+}
+\tag{CR28dz17}
+\]
+
+The right side equals \(623533/30>0\) at \(n=234\). Its forward
+difference there is \(2861/15>0\) and increases with \(n\). Hence there are
+no failures on the minimal uniform domain:
+
+\[
+\boxed{
+\Lambda_n\ge\mathcal I_{5,n}\ge\mathcal B_{5,n}
+>C_{5,\mathrm{rat}}n^3
+\qquad(n\ge234).
+}
+\tag{CR28dz18}
+\]
+
+Finally, the existing strict additive cyclic-ratio relation gives the finite
+geometric consequence
+
+\[
+\boxed{
+R_2^*(n)
+>{\mathcal I_{5,n}\over\pi}-n^2
+\ge{\mathcal B_{5,n}\over\pi}-n^2
+>{C_{5,\mathrm{rat}}\over\pi}n^3-n^2
+\qquad(n\ge234).
+}
+\tag{CR28dz19}
+\]
+
+This is an exact finite method-specific theorem for the already fixed
+rational witness. It neither optimizes \(k=5\) nor identifies the true block
+residual, an exact value of \(\Lambda_n\) or \(R_2^*(n)\), a limiting
+coefficient, or a new geometric lemma. The sole new dossier diagnostic uses
+only standard-library `Fraction` arithmetic, checks the exact boundary rows,
+minimality, symbolic-tail margins, literal expression, integer closure, and
+remainder identities, and changes no production path or enumeration limit.
 
 ## 5. Exact Scorer Without Cycle Enumeration
 
@@ -7226,9 +7616,14 @@ Further non-consequences are important.
    \over8177706222298165502582585481000},
   \]
   and the exact comparison and liminf bounds (CR28dz2)--(CR28dz3). This
-  fixed-parameter consequence is not a global five-prefix optimization,
-  finite rounding theorem, growing-\(k\) passage, exact residual, convergence
-  theorem, or geometric leading constant.
+  fixed-parameter consequence is not a global five-prefix optimization.
+  The exact finite specialization (CR28dz4)--(CR28dz19) retains all four
+  parameter families unchanged. Its minimal uniform threshold is \(234\),
+  its literal and integer-closed bounds are \(\mathcal B_{5,n}\) and
+  \(\mathcal I_{5,n}\), and its exact rounded remainder proves
+  \(\Lambda_n>C_{5,\mathrm{rat}}n^3\) throughout the domain. This supplies
+  no growing-\(k\) passage, true residual, convergence theorem, or geometric
+  leading constant.
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality
   of minimizing order sets, or \(\Lambda_n=(n-1)W_n\). The exact global
   relation proved here is the one-sided inequality (CR38b).

@@ -756,9 +756,64 @@ therefore give
 \]
 
 This is one explicit rational five-prefix witness. It is not a global
-\(k=5\) optimization, finite rounding theorem, growing-\(k\) result, exact
-residual, convergence theorem, exact leading constant, production result,
-serialized certificate, or new geometric input.
+\(k=5\) optimization, growing-\(k\) result, exact residual, convergence
+theorem, exact leading constant, production result, serialized certificate,
+or new geometric input.
+
+The same fixed tuple also has an exact finite floor/ceiling theorem. Put
+
+\[
+r_n=\left\lfloor{13n\over30}\right\rfloor,
+\qquad
+s_{i,n}=\lceil\beta_i n\rceil,
+\qquad
+s_{0,n}=r_n,
+\qquad
+S_n=n+r_n,
+\]
+
+and retain the original rational weights in
+
+\[
+F_{i,n}
+=G_{n,\lambda_i}(s_{i,n})
+={\lambda_i(4S_ns_{i,n}-S_n^2-2\lambda_i s_{i,n}^2)
+ \over2(2-\lambda_i)}.
+\]
+
+The minimal uniform threshold for complete admissibility, strict cutoff
+order, five nonempty segments, and all five finite middle branches is
+\(n=234\); at \(n=233\), \(r_n=s_{1,n}=100\). With
+
+\[
+\mathcal B_{5,n}
+=P_{r_n,n}+\sum_{i=1}^5(s_{i-1,n}-s_{i,n})F_{i,n},
+\qquad
+\mathcal I_{5,n}=\left\lceil\mathcal B_{5,n}\right\rceil,
+\]
+
+exact floor/ceiling algebra proves
+
+\[
+\boxed{
+\Lambda_n\ge\mathcal I_{5,n}\ge\mathcal B_{5,n}
+>C_{5,\mathrm{rat}}n^3
+\qquad(n\ge234),
+}
+\]
+
+\[
+\boxed{
+R_2^*(n)>{\mathcal I_{5,n}\over\pi}-n^2
+>{C_{5,\mathrm{rat}}\over\pi}n^3-n^2
+\qquad(n\ge234).
+}
+\]
+
+The five middle inequalities classify the rounded cutoffs; the fixed
+\(\lambda_i\) are not replaced by finite reoptimized clipped weights. The
+exact remainder is a statement about \(\mathcal B_{5,n}\), not the unknown
+true residual of the block or of \(\Lambda_n\).
 
 There is also an exact eventual radius-one insertion theorem. Let
 \(R^*_{2:n}\) be the infimum feasible central radius for only the core radii
@@ -1773,9 +1828,28 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \qquad
   \liminf{R_2^*(n)\over n^3}\ge{C_{5,\mathrm{rat}}\over\pi}.
   \]
-  This is not a global \(k=5\) optimum, finite rounding theorem, uniform
-  growing-\(k\) result, exact residual, convergence theorem, or new geometric
-  input.
+  This is not a global \(k=5\) optimum, uniform growing-\(k\) result, exact
+  residual, convergence theorem, or new geometric input.
+- EXACT FINITE METHOD-SPECIFIC THEOREM (FIXED RATIONAL FIVE-PREFIX WITNESS):
+  retain the preceding rational parameters, define
+  \(r_n=\lfloor13n/30\rfloor\) and
+  \(s_{i,n}=\lceil\beta_i n\rceil\), and keep the original fixed weights in
+  \(F_{i,n}=G_{n,\lambda_i}(s_{i,n})\). The minimal uniform threshold for
+  the block conditions, strict order, five nonempty segments, and all five
+  finite middle branches is \(234\); at \(233\), the first segment is
+  empty. The literal expression
+  \[
+  \mathcal B_{5,n}
+  =P_{r_n,n}+\sum_{i=1}^5(s_{i-1,n}-s_{i,n})F_{i,n}
+  \]
+  and \(\mathcal I_{5,n}=\lceil\mathcal B_{5,n}\rceil\) satisfy
+  \[
+  \Lambda_n\ge\mathcal I_{5,n}\ge\mathcal B_{5,n}
+  >C_{5,\mathrm{rat}}n^3
+  \qquad(n\ge234).
+  \]
+  The fixed weights generally differ from the finite clipped optima; the
+  exact rounded-bound remainder is not the true block residual.
 - EXACT THEOREM (NORMALIZED PREFIX SIMPLEX): for every fixed \(k\ge1\),
   \[
   M_k=\max_{1\ge x_1\ge\cdots\ge x_k\ge0}
@@ -1883,6 +1957,14 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   evaluations, and the two positive integer margins proving
   \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). It corroborates but does not replace
   the written proof.
+- VERIFIED FACT (FINITE EXACT FIVE-PREFIX FLOOR/CEILING DIAGNOSTIC): the
+  standalone standard-library script at
+  `ops/TASK-20260717__five_prefix_finite_theorem/exact_diagnostic.py` checks
+  the exact boundary rows \(233\) through \(246\), predicate-by-predicate
+  last failures, symbolic-tail margins, fixed-weight local floors, integer
+  closure, stationarity cancellation, exact remainder, and uniform sign. It
+  imports no project or test helper and corroborates rather than proves the
+  symbolic tail.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): a test-local Fraction
   oracle checks all 46,620 depth-three histories from one bounded base,
   including 70 distinct recursive second-step prefixes (2,590 full-history
@@ -2486,11 +2568,13 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   respective templates. The older rational witness remains the finite two-prefix theorem
   from \(n=59\); the irrational three-prefix optimizer now has the stronger
   finite theorem \(\Lambda_n>C_{3,*}n^3\) from the minimal uniform threshold
-  \(159\). No finite four-prefix or five-prefix rounding theorem is included.
-  The five-prefix rational point is only an explicit asymptotic witness, not
-  a global optimizer. None of these coefficients is an exact residual or
-  leading coefficient; convergence, finite rounding at the irrational two-
-  and four-prefix optimizers, and exact block residuals remain unresolved.
+  \(159\). The fixed rational five-prefix witness has its own exact finite
+  theorem from the minimal uniform threshold \(234\), while remaining only a
+  witness and not a global optimizer. No finite rounding at the optimized
+  four-prefix point is included. None of these coefficients is an exact
+  residual or leading coefficient; convergence, finite rounding at the
+  irrational two- and four-prefix optimizers, and exact block residuals remain
+  unresolved.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit
   and unresolved for public production claims. The bounded test-only Arb
   cross-check covers checked `n=3` only and is not a full backend audit.

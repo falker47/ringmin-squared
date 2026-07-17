@@ -130,8 +130,18 @@ now gives the strictly stronger rigorous lower coefficients
  \over8177706222298165502582585481000\pi}.
 \]
 Exact algebra gives \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). This is one
-explicit fixed-parameter witness, not a global \(k=5\) optimum or finite
-rounding theorem.
+explicit fixed-parameter witness, not a global \(k=5\) optimum. Keeping its
+parameters fixed, the exact floor/ceiling theorem has minimal uniform
+threshold \(234\) and proves
+\[
+\Lambda_n\ge\mathcal I_{5,n}\ge\mathcal B_{5,n}
+>C_{5,\mathrm{rat}}n^3,
+\qquad
+R_2^*(n)>{\mathcal I_{5,n}\over\pi}-n^2
+\quad(n\ge234).
+\]
+Here \(\mathcal B_{5,n}\) uses the original rational \(\lambda_i\), not
+finite reoptimized clipped weights.
 These are one-sided bounds and do not prove convergence or identify an exact
 leading coefficient. The irrational three-prefix optimizer now also has the
 exact finite theorem
@@ -232,8 +242,19 @@ C_{5,\mathrm{rat}}
 \]
 The standalone Fraction diagnostic checks the recurrence, exact parameters,
 coefficient identity, and both strict comparison margins. No global
-five-prefix optimization, finite rounding, growing-\(k\) claim, production
-path, certificate, or new geometric input is included.
+five-prefix optimization, growing-\(k\) claim, production path, certificate,
+or new geometric input is included. A separate exact finite specialization
+keeps the same \(\lambda_i\). Its minimal uniform admissibility and
+five-middle-branch threshold is \(234\); its literal expression and integer
+closure satisfy
+\[
+\Lambda_n\ge\mathcal I_{5,n}\ge\mathcal B_{5,n}
+>C_{5,\mathrm{rat}}n^3
+\qquad(n\ge234).
+\]
+The first segment is empty at \(n=233\), and one standalone exact diagnostic
+checks only the boundary bridge, symbolic-tail margins, and remainder
+identities.
 
 The one-wrap saturation question is also closed exactly. If
 \[
@@ -1418,12 +1439,42 @@ saturation for every \(n\ge3\).
    \over8177706222298165502582585481000}
   >{75\over271}>C_{4,*}.
   \]
-  This uses no global \(k=5\) optimization or finite rounding.
+  This uses no global \(k=5\) optimization.
+- EXACT FINITE METHOD-SPECIFIC THEOREM (FIXED FIVE-PREFIX WITNESS): with the
+  same \(\alpha,x_i,\beta_i,\lambda_i\), define
+  \(r_n=\lfloor13n/30\rfloor\),
+  \(s_{i,n}=\lceil\beta_i n\rceil\), and
+  \[
+  F_{i,n}=G_{n,\lambda_i}(s_{i,n}).
+  \]
+  The minimal uniform threshold for complete block admissibility, strict
+  cutoff order, five nonempty segments, and
+  \((n+r_n)/4<s_{i,n}<(n+r_n)/3\) is \(234\); at \(233\),
+  \(r_n=s_{1,n}=100\). The literal expression
+  \[
+  \mathcal B_{5,n}
+  =P_{r_n,n}+\sum_{i=1}^5(s_{i-1,n}-s_{i,n})F_{i,n}
+  \]
+  and \(\mathcal I_{5,n}=\lceil\mathcal B_{5,n}\rceil\) obey
+  \[
+  \Lambda_n\ge\mathcal I_{5,n}\ge\mathcal B_{5,n}
+  >C_{5,\mathrm{rat}}n^3
+  \qquad(n\ge234).
+  \]
+  The exact remainder expansion cancels all ceiling errors from its quadratic
+  coefficient by simplex stationarity. This is a rounded bound for the fixed
+  witness, not the true block residual or a global five-prefix optimum.
 - VERIFIED EXACT DOSSIER DIAGNOSTIC: the sole new standalone Fraction script
   checks \(q_5,M_5\), the simplex objective and stationarity, all reduced
   parameters, strict all-middle admissibility, both coefficient evaluations,
   and the two positive exact comparison margins. It imports no project,
   production, or test helper.
+- VERIFIED EXACT DOSSIER DIAGNOSTIC: the sole new script for the finite
+  five-prefix specialization uses only standard-library `Fraction`
+  arithmetic. It checks the exact rows \(233\) through \(246\), the last
+  boundary failures, symbolic-tail margins, fixed-weight local floors,
+  integer closure, exact remainder, and uniform sign. It imports no project,
+  production, or test helper and is not the symbolic proof.
 - VERIFIED BOUNDED EXACT COMPUTATION: one standalone `Fraction` oracle
   checks all 15,120 five-split histories of a five-edge base. It includes 120
   histories charging all five original edges and 2,520 fifth splits between
@@ -1878,9 +1929,17 @@ saturation for every \(n\ge3\).
      \over8177706222298165502582585481000}
     >{75\over271}>C_{4,*}.
     \]
-    This raises both established liminf lower coefficients. It gives no finite
-    threshold, rounded inequality, global \(k=5\) optimum, growing-\(k\)
-    uniformity, exact residual, convergence result, or new geometric lemma.
+    This raises both established liminf lower coefficients. Keeping the same
+    fixed parameters, the exact finite theorem has minimal uniform threshold
+    \(234\), literal bound \(\mathcal B_{5,n}\), integer closure
+    \(\mathcal I_{5,n}\), and
+    \[
+    \Lambda_n\ge\mathcal I_{5,n}\ge\mathcal B_{5,n}
+    >C_{5,\mathrm{rat}}n^3
+    \qquad(n\ge234).
+    \]
+    It gives no global \(k=5\) optimum, growing-\(k\) uniformity, true block
+    residual, convergence result, or new geometric lemma.
 
 ## Updated Research Questions
 
@@ -1933,8 +1992,12 @@ saturation for every \(n\ge3\).
 - CLOSED QUESTION: the exact \(k=5\) simplex at \(\alpha=13/30\) gives one
   strictly admissible rational all-middle witness with coefficient
   \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). This closes only the requested
-  explicit asymptotic specialization; global \(k=5\) optimization and finite
-  rounding remain open and were not attempted.
+  explicit specialization; global \(k=5\) optimization remains open and was
+  not attempted.
+- CLOSED QUESTION: finite floor/ceiling rounding of that fixed rational
+  witness is explicit with minimal uniform threshold \(234\), literal
+  \(\mathcal B_{5,n}\), integer closure \(\mathcal I_{5,n}\), and an exact
+  positive remainder relative to \(C_{5,\mathrm{rat}}n^3\).
 - CLOSED QUESTION: finite rounding at the three-prefix irrational optimizer is
   explicit with minimal uniform threshold \(159\), literal expression
   \(\mathcal B_{3,n}\), integer closure \(\mathcal I_{3,n}\), and a positive
@@ -2205,9 +2268,18 @@ Completed:
   >{75\over271}>C_{4,*},
   \]
   and hence the two improved liminf bounds. One standalone Fraction diagnostic
-  checks every identity and comparison margin. No finite rounding, global
-  \(k=5\) optimization, growing-\(k\) uniformity, production, artifact,
-  schema, backend, certificate, or new geometric input was added.
+  checks every identity and comparison margin. No global \(k=5\)
+  optimization, growing-\(k\) uniformity, production, artifact, schema,
+  backend, certificate, or new geometric input was added.
+- Derived the exact finite floor/ceiling theorem for the same rational
+  five-prefix tuple without changing any parameter. The minimal uniform
+  threshold is \(234\); the first segment is empty at \(233\). The fixed
+  weights give the literal \(\mathcal B_{5,n}\), its integer closure
+  \(\mathcal I_{5,n}\), and an exact floor/ceiling-error remainder proving
+  \(\Lambda_n>C_{5,\mathrm{rat}}n^3\) throughout the domain. One standalone
+  `Fraction` diagnostic covers only boundary and exact-arithmetic checks; no
+  protected production, test, artifact, schema, backend, certificate, or
+  enumeration-limit path changed.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -2290,20 +2362,17 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: derive the exact finite floor/ceiling theorem for the fixed rational
-five-prefix witness at \(\alpha=13/30\), without changing its parameters or
-performing a global \(k=5\) optimization.
+Task: derive an exact symbolic count of relation-compatible, equivalently
+full-optimal, scaffold bijections from the nested Ferrers thresholds, without
+enumerating path permutations.
 
 Acceptance criteria:
 
-- determine the minimal uniform \(n\) for strict cutoff ordering, nonempty
-  segments, block admissibility, and all five finite middle-clipped weights;
-- derive the literal five-prefix expression and its integer closure from the
-  existing one-use charging theorem;
-- prove, or explicitly delimit the failure of, a uniform comparison with
-  \(C_{5,\mathrm{rat}}n^3\) using exact floor/ceiling algebra;
-- use at most one standalone exact diagnostic for boundary rows and residue
-  arithmetic;
-- do not optimize the \(k=5\) parameters or alter production code, tests,
-  artifacts, schemas, interval backends, serialized certificates, or
-  enumeration limits.
+- derive the count directly from the monotone column thresholds
+  \(\kappa_j\) and Hall/Ferrers structure;
+- prove the formula symbolically for every \(m\ge3\), including the
+  triple/singleton transition and cyclic closing column;
+- use bounded exact arithmetic only as corroboration, without enumerating
+  path permutations or matchings;
+- keep the result at the product-distance scaffold level and make no new
+  geometric claim.

@@ -273,8 +273,16 @@ Last updated: 2026-07-17
   \qquad
   \liminf{R_2^*(n)\over n^3}\ge{C_{5,\mathrm{rat}}\over\pi}.
   \]
-  This is one fixed rational witness, not a global five-prefix optimization
-  or finite rounding theorem.
+  This is one fixed rational witness, not a global five-prefix optimization.
+  Keeping exactly those rational weights, the finite floor/ceiling theorem has
+  minimal uniform threshold \(234\). Its literal expression
+  \(\mathcal B_{5,n}\) and integer closure
+  \(\mathcal I_{5,n}=\lceil\mathcal B_{5,n}\rceil\) satisfy
+  \[
+  \Lambda_n\ge\mathcal I_{5,n}\ge\mathcal B_{5,n}
+  >C_{5,\mathrm{rat}}n^3
+  \qquad(n\ge234).
+  \]
 - EXACT FINITE THEOREM (two-prefix rational specialization): with
   \[
   r_n=\left\lfloor{3n\over7}\right\rfloor,
@@ -1593,7 +1601,7 @@ Consequently it yields no interchange of \(n\to\infty\) with
 \(k\to\infty\), no optimization of a new coefficient, and no new geometric
 lower bound.
 
-### Explicit fixed five-prefix asymptotic witness
+### Explicit fixed five-prefix witness: asymptotic and finite forms
 
 For one fixed specialization, the finite theorem may be combined with the
 exact normalized simplex without any growing-\(k\) passage. The fifth row is
@@ -1640,8 +1648,8 @@ Because \(1>x_1>\cdots>x_5>0\), these satisfy
 \]
 
 All inequalities are strict, so the integer cutoffs are admissible for every
-sufficiently large \(n\). This assertion is eventual only; no threshold or
-finite rounding statement is included. In the middle regime,
+sufficiently large \(n\). The exact threshold and rounded bound are given
+below. In the limiting middle regime,
 
 \[
 g(\alpha,\beta_i,\lambda_i)={(Ax_i)^2\over2}.
@@ -1682,8 +1690,87 @@ The second inequality uses no new geometric lemma: it is only the normalized
 consequence of the existing \(O(n^2)\) additive sandwich. The standalone
 Fraction diagnostic in the task dossier checks every rational identity and
 both comparison margins. This specialization is not a global \(k=5\)
-optimization, finite rounding theorem, uniform result in \(k\), exact
-residual, convergence theorem, or exact leading coefficient.
+optimization, uniform result in \(k\), exact residual, convergence theorem,
+or exact leading coefficient.
+
+For the finite form, retain the same fixed rational weights and define
+
+\[
+r_n=\left\lfloor{13n\over30}\right\rfloor,
+\qquad
+s_{i,n}=\lceil\beta_i n\rceil,
+\qquad
+s_{0,n}=r_n,
+\qquad
+S_n=n+r_n,
+\]
+
+\[
+F_{i,n}
+=G_{n,\lambda_i}(s_{i,n})
+={\lambda_i(4S_ns_{i,n}-S_n^2-2\lambda_i s_{i,n}^2)
+ \over2(2-\lambda_i)}.
+\]
+
+The exact boundary and symbolic-tail audit in
+research/FIXED_ORDER_CYCLE_RATIO.md proves that \(n=234\) is the minimal
+uniform threshold for
+
+\[
+2\le r_n\le n-2,
+\qquad
+1\le s_{5,n}<\cdots<s_{1,n}\le r_n-1,
+\qquad
+{S_n\over4}<s_{i,n}<{S_n\over3}.
+\]
+
+Indeed \(r_{233}=s_{1,233}=100\), while the rows \(234\) through \(246\)
+close the finite bridge and a direct rounding inequality covers every
+\(n\ge247\). The middle inequalities classify the rounded cutoffs; they do
+not replace the fixed \(\lambda_i\) by the finite clipped optima
+\(4-S_n/s_{i,n}\).
+
+Define
+
+\[
+\mathcal B_{5,n}
+=P_{r_n,n}+\sum_{i=1}^5(s_{i-1,n}-s_{i,n})F_{i,n},
+\qquad
+\mathcal I_{5,n}=\left\lceil\mathcal B_{5,n}\right\rceil.
+\]
+
+The exact floor/ceiling-error expansion cancels every ceiling error from the
+quadratic coefficient by the five simplex stationarity equations. In
+particular,
+
+\[
+\mathcal B_{5,n}-C_{5,\mathrm{rat}}n^3
+>{13\over30}n^2-{25\over2}n-{109\over6}>0
+\qquad(n\ge234).
+\]
+
+Therefore the finite theorem and its existing geometric transfer are
+
+\[
+\boxed{
+\Lambda_n\ge\mathcal I_{5,n}\ge\mathcal B_{5,n}
+>C_{5,\mathrm{rat}}n^3
+\qquad(n\ge234),
+}
+\]
+
+\[
+\boxed{
+R_2^*(n)>{\mathcal I_{5,n}\over\pi}-n^2
+>{C_{5,\mathrm{rat}}\over\pi}n^3-n^2
+\qquad(n\ge234).
+}
+\]
+
+The sole finite diagnostic uses standard-library exact arithmetic for the
+boundary rows, minimality, literal expression, integer closure, and exact
+remainder identities. The written symbolic tail, not the bounded diagnostic,
+proves the uniform theorem.
 
 ## Exact Radius-One Insertion
 
@@ -2405,9 +2492,13 @@ Neither the improved upper bound nor the lower bound proves that
   >{75\over271}>C_{4,*}.
   \]
   This is one explicit rational all-middle witness and the new lower endpoint
-  in (22)--(23). It is not a global \(k=5\) optimization, finite rounding
-  theorem, growing-\(k\) argument, exact residual, convergence theorem, new
-  geometric lemma, or exact leading constant.
+  in (22)--(23). Its exact finite specialization keeps the same weights, has
+  minimal uniform threshold \(234\), and proves
+  \(\Lambda_n>C_{5,\mathrm{rat}}n^3\) throughout that domain via the literal
+  bound \(\mathcal B_{5,n}\) and integer closure \(\mathcal I_{5,n}\).
+  Neither statement is a global \(k=5\) optimization, growing-\(k\)
+  argument, true residual, convergence theorem, new geometric lemma, or exact
+  leading constant.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower
   bound only from the scalar full-problem lower bound would reverse the useful

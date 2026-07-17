@@ -931,9 +931,54 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \qquad
   \liminf{R_2^*(n)\over n^3}\ge{C_{5,\mathrm{rat}}\over\pi}.
   \]
-  This is not a global \(k=5\) optimum, finite rounding theorem, growing-\(k\)
-  result, exact residual, convergence theorem, production computation,
-  serialized certificate, or new geometric input.
+  This is not a global \(k=5\) optimum, growing-\(k\) result, exact residual,
+  convergence theorem, production computation, serialized certificate, or
+  new geometric input.
+- EXACT FINITE METHOD-SPECIFIC THEOREM (FIXED RATIONAL FIVE-PREFIX WITNESS):
+  retain the preceding \(\alpha,x_i,\beta_i,\lambda_i\) and put
+  \[
+  r_n=\left\lfloor{13n\over30}\right\rfloor,
+  \qquad
+  s_{i,n}=\lceil\beta_i n\rceil,
+  \qquad
+  s_{0,n}=r_n,
+  \qquad
+  S_n=n+r_n.
+  \]
+  The minimal uniform threshold for complete block admissibility, strict
+  cutoff order, five nonempty segments, and
+  \(S_n/4<s_{i,n}<S_n/3\) is \(234\). At \(n=233\),
+  \((r_n,s_{1,n})=(100,100)\), so the first segment is empty. Keep the
+  fixed-weight floors
+  \[
+  F_{i,n}=G_{n,\lambda_i}(s_{i,n})
+  ={\lambda_i(4S_ns_{i,n}-S_n^2-2\lambda_i s_{i,n}^2)
+   \over2(2-\lambda_i)}
+  \]
+  and define
+  \[
+  \mathcal B_{5,n}
+  =P_{r_n,n}+\sum_{i=1}^5(s_{i-1,n}-s_{i,n})F_{i,n},
+  \qquad
+  \mathcal I_{5,n}=\lceil\mathcal B_{5,n}\rceil.
+  \]
+  Exact floor/ceiling-error algebra gives
+  \[
+  \mathcal B_{5,n}-C_{5,\mathrm{rat}}n^3
+  >{13\over30}n^2-{25\over2}n-{109\over6}>0
+  \qquad(n\ge234),
+  \]
+  and therefore
+  \[
+  \Lambda_n\ge\mathcal I_{5,n}\ge\mathcal B_{5,n}
+  >C_{5,\mathrm{rat}}n^3,
+  \qquad
+  R_2^*(n)>{\mathcal I_{5,n}\over\pi}-n^2
+  \quad(n\ge234).
+  \]
+  The middle inequalities classify the rounded cutoffs; the fixed weights are
+  not finite reoptimized clipped weights. The exact remainder concerns the
+  literal lower bound, not the unknown true block residual.
 - VERIFIED FACT (FINITE EXACT FOUR-PREFIX DOSSIER ORACLE): the standalone
   ops/TASK-20260716__four_prefix_charging/literal_oracle.py imports no
   production or test helper and exhausts all 840 current-edge histories from
@@ -987,6 +1032,14 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   the direct and normalized coefficient evaluations, and both positive exact
   comparison margins. It corroborates rather than replaces the written
   derivation.
+- VERIFIED FACT (FINITE EXACT FIVE-PREFIX FLOOR/CEILING DIAGNOSTIC): the
+  standalone script at
+  `ops/TASK-20260717__five_prefix_finite_theorem/exact_diagnostic.py` imports
+  only `fractions.Fraction`. It checks exact rows \(233\) through \(246\),
+  every predicate's last boundary failure, the symbolic-tail margins,
+  fixed-weight local-floor expansion, integer closure, simplex-stationarity
+  cancellation, exact remainder, and uniform sign. It corroborates but does
+  not replace the written finite bridge and symbolic tail.
 - EXACT THEOREM (NORMALIZED PREFIX SIMPLEX): for every fixed \(k\ge1\), put
   \[
   F_k(x_1,\ldots,x_k)
@@ -1467,10 +1520,11 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   while the irrational three-prefix optimizer has the stronger finite theorem
   \(\Lambda_n>C_{3,*}n^3\) from the minimal uniform threshold \(159\). The
   optimized four-prefix theorem has no finite rounding specialization. The
-  five-prefix rational point is an asymptotic witness only, with neither
-  global optimization nor finite rounding. The exact block residual, finite
-  rounding at the irrational two- and four-prefix optimizers, convergence,
-  and the exact global leading coefficient remain unresolved.
+  five-prefix rational point is still only a witness and is not globally
+  optimized, but its fixed tuple has an exact finite theorem from the minimal
+  uniform threshold \(234\). The exact block residual, finite rounding at the
+  irrational two- and four-prefix optimizers, convergence, and the exact
+  global leading coefficient remain unresolved.
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 
@@ -2372,7 +2426,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   classifications, and independent bounded `Fraction` diagnostic, plus the
   fixed \(k=5\), \(\alpha=13/30\) rational all-middle specialization, its
   coefficient \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\), the two new liminf
-  consequences, and an independent exact Fraction diagnostic, plus the exact
+  consequences, its minimal-threshold finite theorem at \(n=234\), literal
+  \(\mathcal B_{5,n}\), integer closure \(\mathcal I_{5,n}\), exact
+  positive rounded remainder, and an independent exact boundary diagnostic,
+  plus the exact
   generic local path/gap relation, its Ferrers row and column cutoffs,
   and the exact support of relation-compatible bijections: only \((0,0)\) in
   column zero and every local edge in a positive column, with residual Hall,
@@ -2482,9 +2539,18 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \]
   This gives the corresponding new liminf bounds for \(\Lambda_n\) and
   \(R_2^*(n)\). One standalone Fraction diagnostic checks every identity and
-  comparison margin. No finite rounding, global \(k=5\) optimization,
-  growing-\(k\) uniformity, production, certificate, or new geometric input
-  is included.
+  comparison margin. No global \(k=5\) optimization, growing-\(k\)
+  uniformity, production, certificate, or new geometric input is included.
+- COMPLETED PRIORITY: the same fixed rational five-prefix tuple now has an
+  exact finite floor/ceiling theorem. The minimal uniform threshold for all
+  admissibility, strict-order, nonempty-segment, and finite-middle conditions
+  is \(234\), with an empty first segment at \(233\). The fixed weights give
+  the literal \(\mathcal B_{5,n}\), its integer closure
+  \(\mathcal I_{5,n}\), and an exact floor/ceiling-error expansion whose
+  positive remainder proves \(\Lambda_n>C_{5,\mathrm{rat}}n^3\) throughout
+  the domain. One standalone exact boundary diagnostic corroborates the
+  arithmetic without production, test, artifact, schema, backend,
+  certificate, or enumeration-limit changes.
 - COMPLETED PRIORITY: one explicit local perturbation of the \(8/25\)
   construction is now classified. Reversing one triple on
   \(n=10m+3\) is score-neutral for \(s\ge1\), worsens the finite score by
