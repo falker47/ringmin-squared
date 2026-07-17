@@ -262,6 +262,17 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \(\liminf\Lambda_n/n^3\ge C_{4,*}\) and
   \(\liminf R_2^*(n)/n^3\ge C_{4,*}/\pi\). No finite rounding theorem is
   asserted.
+- **EXACT FINITE METHOD-SPECIFIC THEOREM (FIVE SELECTED PREFIXES):** for
+  strictly ordered cutoffs and
+  \(0\le\lambda_5\le\cdots\le\lambda_1\le1\), the six convex
+  coefficients combine \(0,H_1,\ldots,H_5\) before any slack is assigned
+  and telescope to five disjoint weighted segments. Every literal history
+  canonically partitions the original edges into injectively charged and
+  unused edges. The recursive endpoint invariant crosses all four boundaries
+  and covers arbitrary nesting, including a fifth split whose two endpoints
+  were inserted earlier. Equations (CR28dr)--(CR28dw) prove the exact finite
+  five-segment inequality. No coefficient optimization, finite rounding,
+  limiting-prefix passage, or geometric consequence is asserted.
 - **EXACT THEOREM (NORMALIZED \(k\)-PREFIX SIMPLEX):** for every \(k\ge1\),
   the compact normalized polynomial (CR28cr) has one strictly interior
   maximizer. Its ratios satisfy
@@ -286,8 +297,8 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \((434+4\sqrt2)/1587\) at
   \((13-2\sqrt2)/23\).
 - **LIMITATION:** the normalized theorem by itself proves no charging
-  statement. The separate direct argument now proves one-use charging for
-  four selected prefixes, but no charging statement for \(k\ge5\), no
+  statement. Separate direct arguments now prove one-use charging through
+  five selected prefixes, but no charging statement for \(k\ge6\), no
   uniform interchange of \(k\) and \(n\), and no finite rounding at the
   optimized four-prefix point.
 - **VERIFIED FACT (BOUNDED EXACT FOUR-PREFIX ORACLE):** a standalone
@@ -298,6 +309,15 @@ in `research/ALL_N_LOWER_BOUND.md`.
   including 120 fourth splits whose two endpoints were inserted earlier.
   This bounded computation corroborates but does not replace the all-history
   proof.
+- **VERIFIED FACT (BOUNDED EXACT FIVE-PREFIX ORACLE):** the standalone
+  dossier oracle uses only standard-library `Fraction` arithmetic and
+  exhausts all 15,120 literal five-split histories of the five-edge base
+  \(C_0=(13,17,14,16,15)\), the minimum edge cardinality permitting five
+  simultaneous original-edge charges. It includes 120 such all-five-base
+  histories and 2,520 fifth splits between two earlier inserted labels, and
+  checks exact linkage, the convex identity, canonical one-use slack, the
+  recursive invariant, every local floor, and (CR28dw). This finite
+  computation corroborates but does not replace the all-history proof.
 - **VERIFIED FACT (INDEPENDENT EXACT FOUR-PREFIX OPTIMIZATION DIAGNOSTIC):**
   a separate standard-library script checks the three exact clipping-gap
   factorizations on rational grids, both \(C^1\) joins, all fifteen regimes,
@@ -5063,14 +5083,214 @@ The other root \((13+2\sqrt2)/23\) is a local minimum of the full cubic.
 In particular, (CR28dd) is a middle-branch normalized candidate, whereas
 (CR28dc) is the global maximum of the displayed formal compact envelope.
 
-The normalized-simplex argument itself proves no charging theorem. The
-separate direct argument (CR28de)--(CR28dk) now handles exactly four selected
-prefixes, but nothing here extends it to \(k\ge5\). The recurrence, the limit
-\(M_k\to1/3\), and both envelope optimizations remain statements about the
-normalized compact polynomial only. They do not permit an interchange of
-\(k\) with \(n\), do not promote either value in (CR28dc) or (CR28dd) to a
-lower bound for \(\Lambda_n\), and do not change any established statement
-about \(R_2^*(n)\).
+The normalized-simplex argument itself proves no charging theorem. The earlier
+separate direct argument (CR28de)--(CR28dk) handles exactly four selected
+prefixes. Neither argument supplies the independent five-prefix theorem proved
+below, any charging result for \(k\ge6\), or an interchange of \(k\) with
+\(n\). The recurrence, the limit \(M_k\to1/3\), and both envelope
+optimizations remain statements about the normalized compact polynomial only;
+they do not promote either value in (CR28dc) or (CR28dd) to a lower bound for
+\(\Lambda_n\) or change any established statement about \(R_2^*(n)\).
+
+### Five selected prefixes with one slack partition
+
+The first case beyond the separate four-prefix theorem can also be settled
+directly. The normalized simplex (CR28cr)--(CR28dd) shows that the associated
+five-coordinate polynomial problem is well-defined, but it does not supply
+the charging statement below. We therefore return to literal split histories
+and make no coefficient optimization, finite-rounding specialization,
+\(k\to\infty\) passage, or geometric deduction.
+
+Fix
+
+\[
+0<\beta_5<\beta_4<\beta_3<\beta_2<\beta_1<\alpha<1,
+\qquad
+0\le\lambda_5\le\lambda_4\le\lambda_3
+\le\lambda_2\le\lambda_1\le1,
+\]
+
+and put
+
+\[
+r=\lfloor\alpha n\rfloor,
+\qquad
+s_i=\lceil\beta_i n\rceil\quad(i=1,2,3,4,5),
+\qquad
+s_0=r.
+\tag{CR28dr}
+\]
+
+At fixed \(n\), the complete finite admissibility conditions are
+
+\[
+2\le r\le n-2,
+\qquad
+1\le s_5<s_4<s_3<s_2<s_1\le r-1.
+\]
+
+For an arbitrary compatible literal history, retain the five selected
+heights
+
+\[
+H_i=\sum_{t=s_i}^{r-1}A_t\quad(i=1,2,3,4,5).
+\]
+
+The six coefficients
+
+\[
+1-\lambda_1,\quad
+\lambda_1-\lambda_2,\quad
+\lambda_2-\lambda_3,\quad
+\lambda_3-\lambda_4,\quad
+\lambda_4-\lambda_5,\quad
+\lambda_5
+\]
+
+are nonnegative and sum to one. Consequently
+
+\[
+\boxed{
+\begin{aligned}
+\max(0,H_1,H_2,H_3,H_4,H_5)\ge{}&
+(\lambda_1-\lambda_2)H_1
++(\lambda_2-\lambda_3)H_2\\
+&+(\lambda_3-\lambda_4)H_3
++(\lambda_4-\lambda_5)H_4+\lambda_5H_5.
+\end{aligned}
+}
+\tag{CR28ds}
+\]
+
+As in the four-prefix case, this is the exact region for an inequality of
+this form that must hold for every real height quintuple: a negative height
+coefficient fails when that coordinate tends to \(-\infty\), and a total
+height coefficient greater than one fails when all five heights are equal
+and positive.
+
+Expanding (CR28ds) before assigning any edge slack telescopes to
+
+\[
+\sum_{i=1}^5\lambda_i\sum_{t=s_i}^{s_{i-1}-1}A_t.
+\tag{CR28dt}
+\]
+
+Thus the five disjoint segments
+\(I_i=\{s_i,\ldots,s_{i-1}-1\}\) carry respectively the five ordered
+weights. Write \(\lambda_t=\lambda_i\) on \(I_i\), retain
+
+\[
+\Delta_e={(u+v-n-r)^2\over2}
+\qquad(e=\{u,v\}\in E(C_0)),
+\]
+
+and define
+
+\[
+F_{i,n}=G_{n,\lambda_i}(s_i)\quad(i=1,2,3,4,5),
+\tag{CR28du}
+\]
+
+with \(G\) as in (CR28az).
+
+There is one canonical one-use partition of the original-edge slack for each
+literal history. Let \(B\) be the set of selected labels whose split uses an
+untouched original edge \(e_t\in E(C_0)\). The map \(t\mapsto e_t\) is
+injective: splitting an original edge removes it, and every child contains
+the newly inserted label below \(r\), so no later split can recreate an edge
+with the same two original endpoints. Therefore
+
+\[
+\begin{aligned}
+P(C_0)-P_{r,n}+\sum_{i=1}^5\lambda_i
+ \sum_{t\in I_i}A_t
+={}&
+\sum_{\substack{t:\ \mathrm{base}\\\mathrm{split}}}
+ (\Delta_{e_t}+\lambda_tA_t)
++\sum_{\substack{t:\ \mathrm{recursive}\\\mathrm{split}}}
+ \lambda_tA_t\\
+&+\sum_{e\in E(C_0)\setminus\{e_t:t\in B\}}\Delta_e.
+\end{aligned}
+\tag{CR28dv}
+\]
+
+This partition is canonical relative to the literal history: every original
+edge is either charged beside its unique selected split or is in the unused
+sum. As before, it is not a uniqueness claim about arbitrary numerical
+decompositions when some \(\Delta_e\) vanishes.
+
+The recursive invariant survives the fourth boundary without modification.
+Immediately before inserting label \(t\), every current edge is either an
+untouched original edge or has an endpoint in
+\(\{t+1,\ldots,r-1\}\). It holds before the first selected split. Splitting
+either kind of edge creates two children incident to \(t\); before any later
+insertion \(t'<t\), this endpoint lies in
+\(\{t'+1,\ldots,r-1\}\), while every unsplit edge retains its previous
+classification. Induction covers every nested history, including a fifth
+split on an edge whose two endpoints were inserted at earlier selected
+levels. The proof does not depend on which of the four segment boundaries
+have already been crossed.
+
+For \(t\in I_i\), equations (CR28ay) and (CR28bc) give, on a base split,
+
+\[
+\Delta_{e_t}+\lambda_iA_t
+\ge G_{n,\lambda_i}(t)\ge F_{i,n}.
+\]
+
+On a recursive split, the invariant permits (CR28ba)--(CR28bd), and hence
+
+\[
+\lambda_iA_t
+\ge J_{n,\lambda_i}(t)
+\ge G_{n,\lambda_i}(t)
+\ge F_{i,n}.
+\]
+
+These inequalities remain valid when \(\lambda_i=0\). Discarding only the
+nonnegative unused sum in (CR28dv), using (CR28ds), and finally minimizing
+over compatible histories proves the exact five-segment inequality below.
+No sign assumption on any \(F_{i,n}\) is used.
+
+\[
+\boxed{
+\begin{aligned}
+\gamma^{(r)}_{1,n}\ge{}&P_{r,n}
++(r-s_1)F_{1,n}
++(s_1-s_2)F_{2,n}\\
+&+(s_2-s_3)F_{3,n}
++(s_3-s_4)F_{4,n}
++(s_4-s_5)F_{5,n}.
+\end{aligned}
+}
+\tag{CR28dw}
+\]
+
+Thus there is no five-split counterexample: the precise combinatorial point
+that had to be checked beyond the four-prefix theorem is the preservation of
+the endpoint invariant across the fourth boundary, and the induction above
+preserves it literally. This is a theorem for exactly five selected prefixes;
+no statement for six or more prefixes is inferred here.
+
+The standalone dossier oracle uses
+\[
+(n,r,C_0)=(17,13,(13,17,14,16,15)),
+\quad
+(s_1,s_2,s_3,s_4,s_5)=(12,11,10,9,8),
+\]
+\[
+(\lambda_1,\lambda_2,\lambda_3,\lambda_4,\lambda_5)
+=(5/6,2/3,1/2,1/3,1/6).
+\]
+The five-edge base is the smallest edge cardinality that permits a history
+with five distinct original-edge charges. Exact standard-library `Fraction`
+arithmetic checks all
+\(5\cdot6\cdot7\cdot8\cdot9=15{,}120\) local histories, all with distinct
+final cycles. Among them, 120 charge all five original edges and 2,520 use an
+edge with two previously inserted endpoints at the fifth split. Every history
+satisfies the convex identity, canonical partition (CR28dv), recursive
+invariant, local floors, and bound (CR28dw). This bounded computation is
+independent corroboration, not the all-history proof.
 
 ## 5. Exact Scorer Without Cycle Enumeration
 
@@ -6656,12 +6876,20 @@ Further non-consequences are important.
   \]
   It yields the asymptotic lower bounds (CR28dq13), but no finite rounding,
   exact residual, convergence theorem, or geometric leading constant.
+- The direct five-prefix extension (CR28dr)--(CR28dw) combines all five
+  heights before charging. Its six convex coefficients telescope to five
+  disjoint segments, its canonical original-edge partition uses each slack
+  once or leaves it unused, and the recursive endpoint invariant survives all
+  four boundaries and every nested history. This proves only the exact finite
+  five-segment inequality. No coefficient optimization, rounding,
+  limiting-prefix passage, asymptotic coefficient, or geometric claim is
+  added.
 - The normalized simplex theorem (CR28cr)--(CR28dd) solves the compact
   polynomial for every fixed \(k\), proves its unique interior maximizer and
   the exact recurrence \(M_k\nearrow1/3\), and explains the four optimized
-  rational simplex points. It does not imply the separate direct
-  four-prefix theorem and does not extend one-use charging to \(k\ge5\). In
-  particular, neither the formal endpoint value \(1/3\) nor the all-middle value
+  rational simplex points. It implies neither the separate direct four- and
+  five-prefix theorems nor one-use charging for \(k\ge6\). In particular,
+  neither the formal endpoint value \(1/3\) nor the all-middle value
   \((434+4\sqrt2)/1587\) is a new coefficient bound for \(\Lambda_n\) or
   \(R_2^*(n)\).
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality

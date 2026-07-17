@@ -178,10 +178,20 @@ C_{4,*}
  \over2290468477489828247376833403}
 =0.276736149860989\ldots>C_{3,*}.
 \]
-No finite rounding or extension to five prefixes is part of this result. A
+No finite rounding or five-prefix conclusion is part of that optimization. A
 standalone exact oracle checks all 840 literal histories of one bounded
 four-split base, and a separate standard-library exact diagnostic checks the
 compact optimization algebra.
+
+The separate direct one-use theorem now also closes for exactly five selected
+prefixes. Six convex coefficients combine \(0,H_1,\ldots,H_5\) before slack
+assignment and telescope to five disjoint weighted segments. The same
+canonical original-edge partition uses every slack once or leaves it unused,
+while the recursive endpoint invariant crosses all four boundaries and every
+nested history. This gives the exact finite five-segment inequality only. No
+coefficient optimization, rounding, limiting-prefix passage, or geometric
+claim is made. One standalone exact oracle checks every five-split local
+history of a small five-edge base.
 
 The normalized compact simplex common to the one- through four-prefix
 proofs is now solved for every fixed dimension \(k\). Its unique maximizer is
@@ -195,11 +205,12 @@ and
 M_0=0,
 \qquad M_k={4\over27(1-M_{k-1})^2}\nearrow{1\over3}.
 \]
-This is an exact polynomial optimization lemma, not the source of the
-separate direct four-prefix charging theorem. Its \(k=4\) row is used only
-after that direct theorem has supplied charging. It gives no charging result
-for \(k\ge5\), and its limiting envelope supplies no further bound for
-\(\Lambda_n\) or \(R_2^*(n)\).
+This is an exact polynomial optimization lemma, not the source of either
+separate direct charging theorem. Its \(k=4\) row is used only after direct
+four-prefix charging has been supplied; the later five-prefix theorem is also
+proved from literal histories, not from the recurrence. Charging beyond five
+prefixes remains open, and the limiting envelope supplies no further bound
+for \(\Lambda_n\) or \(R_2^*(n)\).
 
 The one-wrap saturation question is also closed exactly. If
 \[
@@ -575,7 +586,23 @@ charging identities. An independent standard-library exact diagnostic checks
 the compact reduction, transition data, specialized simplex certificate,
 surd optimizer, and strict comparison. No finite rounding is performed.
 
-The normalized simplex behind these four cases now has an exact
+Five-prefix charging is now exact at the finite combinatorial level. The six
+coefficients
+\[
+1-\lambda_1,\quad\lambda_1-\lambda_2,\quad
+\lambda_2-\lambda_3,\quad\lambda_3-\lambda_4,\quad
+\lambda_4-\lambda_5,\quad\lambda_5
+\]
+form the exact convex region and telescope to five disjoint segments. The
+single edge-indexed slack partition is canonical relative to the literal
+history, and the recursive endpoint invariant covers all four boundaries,
+arbitrary nesting, and fifth splits between two previously inserted labels.
+The resulting finite five-segment inequality is exact. A standalone
+`Fraction` oracle exhausts one small five-edge base, including histories that
+charge five distinct original edges. No coefficient is optimized and no
+rounding, limiting-prefix, or geometric conclusion is added.
+
+The normalized simplex behind these fixed-prefix cases now has an exact
 all-\(k\) solution. A Bellman reduction and a telescoping nonnegative
 certificate prove existence, strict interiority, and uniqueness, not merely
 the stationary equations. The values for \(k=1,2,3,4\) are exactly
@@ -595,8 +622,9 @@ at \(\alpha=1\); on the limiting all-middle closure \([1/3,1/2]\), its
 unique maximum is
 \((434+4\sqrt2)/1587\) at
 \((13-2\sqrt2)/23\). Neither number is promoted to a prefix certificate or
-an asymptotic bound. The separate direct argument handles four prefixes, but
-the normalized simplex does not extend charging to \(k\ge5\).
+an asymptotic bound. Separate direct arguments handle four and five prefixes,
+but the normalized simplex itself supplies neither theorem and does not extend
+charging to \(k\ge6\).
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -1311,8 +1339,8 @@ saturation for every \(n\ge3\).
    \over2290468477489828247376833403}
   >C_{3,*}.
   \]
-  It supplies the sharpened liminf bounds above, but no finite rounding or
-  \(k\ge5\) result.
+  It supplies the sharpened liminf bounds above, but no finite rounding. The
+  separate finite five-prefix theorem below adds no coefficient conclusion.
 - VERIFIED EXACT DOSSIER DIAGNOSTIC: the standalone standard-library script
   in `ops/TASK-20260717__global_four_prefix_optimization/` checks the clipping
   reduction, all fifteen branch witnesses, exact transition data, the
@@ -1326,6 +1354,32 @@ saturation for every \(n\ge3\).
   previously inserted endpoints. Every convex, partition, invariant,
   local-floor, and four-segment assertion passes. This does not replace the
   all-history proof.
+- EXACT FINITE METHOD-SPECIFIC THEOREM (FIVE PREFIXES): with
+  \(s_0=r\), \(H_i=\sum_{t=s_i}^{r-1}A_t\), and
+  \(0\le\lambda_5\le\cdots\le\lambda_1\le1\), the exact convex
+  combination of \(0,H_1,\ldots,H_5\) telescopes to five disjoint segments.
+  On
+  \[
+  2\le r\le n-2,
+  \qquad
+  1\le s_5<s_4<s_3<s_2<s_1\le r-1,
+  \]
+  the canonical original-edge partition and recursive endpoint invariant give
+  \[
+  \begin{aligned}
+  \gamma^{(r)}_{1,n}\ge{}&P_{r,n}
+  +(r-s_1)F_{1,n}+(s_1-s_2)F_{2,n}+(s_2-s_3)F_{3,n}\\
+  &+(s_3-s_4)F_{4,n}+(s_4-s_5)F_{5,n}.
+  \end{aligned}
+  \]
+  This theorem has no coefficient optimization, rounding, limiting-prefix,
+  or geometric consequence and makes no claim for six or more prefixes.
+- VERIFIED BOUNDED EXACT COMPUTATION: one standalone `Fraction` oracle
+  checks all 15,120 five-split histories of a five-edge base. It includes 120
+  histories charging all five original edges and 2,520 fifth splits between
+  two previously inserted labels; every linkage, convex, partition,
+  invariant, local-floor, and five-segment assertion passes. This does not
+  replace the all-history proof.
 - EXACT THEOREM: for \(S=\{s_1<\cdots<s_q\}\), the duplicated-multiset pairing
   bound is
   \[
@@ -1731,7 +1785,8 @@ saturation for every \(n\ge3\).
     >C_{3,*}.
     \]
     This closes the four-prefix asymptotic coefficient problem, but gives no
-    finite rounding or conclusion for \(k\ge5\).
+    finite rounding; the separate five-prefix result below makes no
+    coefficient claim.
 
 17. The compact normalized simplex itself is no longer an open optimization
     problem. For every fixed \(k\), its unique maximizer is generated by the
@@ -1741,8 +1796,18 @@ saturation for every \(n\ge3\).
     compact maximum \(1/3\) only at the degenerate endpoint \(\alpha=1\),
     while its all-middle restriction has the interior maximum
     \((434+4\sqrt2)/1587\). Neither statement supplies the separate direct
-    four-prefix theorem, a charging result for \(k\ge5\), a uniform-in-\(k\)
-    certificate, or a new bound from the limiting envelope.
+    four- or five-prefix theorem, a charging result for \(k\ge6\), a
+    uniform-in-\(k\) certificate, or a new bound from the limiting envelope.
+
+18. Five selected prefixes also admit one direct one-use slack partition.
+    The exact six-term convex combination telescopes to five disjoint
+    segments, every original edge is charged once or left unused, and the
+    recursive endpoint invariant survives all four boundaries and arbitrary
+    nesting. This proves the finite five-segment inequality. One standalone
+    exact oracle covers every local five-split history of a five-edge base,
+    including all-five-base histories and fifth splits between two earlier
+    inserted labels. No coefficient optimization, rounding, \(k\to\infty\)
+    passage, or geometric conclusion is included.
 
 ## Updated Research Questions
 
@@ -1788,11 +1853,14 @@ saturation for every \(n\ge3\).
   exactly from three to four selected prefixes. The exact convex
   decomposition, canonical original-edge partition, recursive invariant, and
   four-segment bound are recorded above.
-- OPEN QUESTION: can the combined-height, one-use charging theorem be extended
-  beyond four to arbitrary fixed \(k\ge5\) selected prefixes so that the
-  normalized simplex is actually realized? Any such task must remain
-  finite-\(k\) until a separate uniform argument justifies an interchange
-  with \(n\).
+- CLOSED QUESTION: the same combined-height theorem extends exactly from four
+  to five selected prefixes. The six-term convex decomposition, canonical
+  one-use original-edge partition, boundary-independent recursive invariant,
+  and exact finite five-segment bound are recorded above.
+- OPEN QUESTION: can the theorem be extended beyond five to arbitrary fixed
+  \(k\ge6\) selected prefixes so that the normalized simplex is actually
+  realized? Any such task must remain finite-\(k\) until a separate uniform
+  argument justifies an interchange with \(n\).
 - CLOSED QUESTION: finite rounding at the three-prefix irrational optimizer is
   explicit with minimal uniform threshold \(159\), literal expression
   \(\mathcal B_{3,n}\), integer closure \(\mathcal I_{3,n}\), and a positive
@@ -2029,9 +2097,19 @@ Completed:
   \(M_k\nearrow1/3\), and exact agreement with the one-, two-, three-, and
   four-prefix values. A dossier-local `Fraction` diagnostic checks the first
   eight dimensions and an independent rational grid. This normalized result
-  is independent of the direct four-prefix proof and gives no charging for
-  \(k\ge5\), asymptotic bound from the limiting envelope, production path, or
-  test-module change.
+  is independent of the direct four- and five-prefix proofs and gives no
+  charging for \(k\ge6\), asymptotic bound from the limiting envelope,
+  production path, or test-module change.
+- Extended the direct one-use charging proof exactly to five selected
+  prefixes. The six-term convex combination telescopes to five disjoint
+  segments, the original-edge slack has one canonical charged/unused
+  partition, and the recursive endpoint invariant covers every child through
+  all four boundaries. One standalone exact oracle checks every local
+  five-split history of a five-edge base, including 120 all-five-base histories
+  and 2,520 fifth splits between two previously inserted labels. No
+  coefficient optimization, finite rounding, limiting-prefix passage,
+  geometric claim, production path, test module, artifact, schema, backend,
+  certificate, or enumeration limit was added.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness
@@ -2086,9 +2164,9 @@ Next:
   relation-compatible, equivalently full-optimal, scaffold bijections from
   the nested Ferrers thresholds, without enumerating path permutations.
 - In a separate STRICT task, determine whether the combined-height and
-  one-use base-slack argument extends to arbitrary fixed \(k\), without
-  passing to \(k\to\infty\) or declaring a coefficient before uniformity is
-  proved.
+  one-use base-slack argument extends beyond five to arbitrary fixed
+  \(k\ge6\), without passing to \(k\to\infty\) or declaring a coefficient
+  before uniformity is proved.
 - Seek a geometric all-pairs construction or lower obstruction that narrows
   the remaining coefficient gap without relying on larger exhaustive finite
   certificates.

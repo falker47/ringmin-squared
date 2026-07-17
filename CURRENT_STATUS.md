@@ -6,183 +6,133 @@ Last update: 2026-07-17
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Active task:** arbitrary relation-compatible full-score classification on
-  the symbolic \(n=10m+3\), \(m\ge3\), scaffold.
+- **Active task:** exact five-prefix one-use charging on the normalized linear
+  block.
 - **Repository state at startup:** clean `main` worktree at commit
-  \(9664e342964e27c36b8e203f0dc646c811c66409\), aligned with `origin/main`.
-- **Implementation state:** the symbolic theorem, sole polynomial diagnostic,
-  proof note, stable memory, roadmap, dossier, independent audits, and final
-  diff inspection are complete and synchronized.
+  `1116b1274949475da8462994f296ebd22d0a7bf3`, tracking `origin/main`.
+- **Implementation state:** the exact theorem, sole standalone oracle, proof
+  note, stable knowledge, project brief, roadmap, and dossier are synchronized;
+  all regressions, three independent audits, and final diff checks pass.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
 ## Objective And Scope
 
-For
+Determine whether direct combined-height charging extends from four to exactly
+five selected prefixes under
 \[
-n=10m+3,
-\qquad m\ge3,
-\qquad d=8m+4,
-\qquad v=2m,
-\qquad T={d(d-1)\over2},
-\]
-treat the path-to-gap bijection \(\alpha\) as arbitrary and determine whether
-every relation-compatible bijection for the Ferrers relation (PG31)/(PG36)
-satisfies \(W(\sigma_\alpha)=T\).
-
-The task classifies every positional-distance-three pair, all four ordered
-triple/singleton transitions, and cyclic closure. Production code, tests,
-APIs, enumeration limits, artifacts, schemas, interval backends,
-certificates, CLIs, and configuration remain unchanged.
-
-## Complete Distance-Three Classification
-
-Put \(k_j=\alpha(j)\), \(j^+=j+1\pmod v\), and let \(F_k\) be the first
-label of \(P_k\). If \(P_{k_j}=(A_{k_j},c_{k_j},B_{k_j})\) is a triple, the
-six forward pairs are
-\[
-\begin{gathered}
-\{E_j,c_{k_j}\},\quad
-\{\lambda_j,B_{k_j}\},\quad
-\{A_{k_j},\rho_{j^+}\},\quad
-\{c_{k_j},E_{j^+}\},\\
-\{B_{k_j},\lambda_{j^+}\},\quad
-\{\rho_{j^+},F_{k_{j^+}}\}.
-\end{gathered}
-\]
-If \(P_{k_j}=(x_{k_j})\) is a singleton, the four are
-\[
-\{E_j,\rho_{j^+}\},\quad
-\{\lambda_j,E_{j^+}\},\quad
-\{x_{k_j},\lambda_{j^+}\},\quad
-\{\rho_{j^+},F_{k_{j^+}}\}.
-\]
-
-The two transition pairs are respectively last\((P_{k_j})\)--\(\lambda_{j^+}\)
-and \(\rho_{j^+}\)--first\((P_{k_{j^+}})\), giving all four ordered type
-combinations. The lists have
-\[
-6(m+1)+4(m-1)=10m+2=|\sigma_\alpha|
-\]
-starts. Since the core length is greater than six, they contain every
-unordered distance-three pair exactly once.
-
-For a compatible bijection, \(\alpha(0)=0\). Thus the closing list is
-\[
-\{n,c_k\},\{2,B_k\},\{A_k,4m+1\},\{c_k,d\},
-\{B_k,4m\},\{4m+1,A_0\}
-\]
-when \(k=\alpha(v-1)\) is triple, and
-\[
-\{n,4m+1\},\{2,d\},\{x_k,4m\},\{4m+1,A_0\}
-\]
-when it is singleton.
-
-## Sharp Bound And Arbitrary-Bijection Collapse
-
-Every terminal--connector product is at most \(n(5m+2)\). Every
-terminal--low product is strictly smaller, and every low--middle product is at
-most \((4m+1)(d-1)\), with
-\[
-n(5m+2)-(4m+1)(d-1)=18m^2+15m+3>0.
-\]
-Therefore, for every bijection, even without relation-compatibility,
-\[
-\boxed{
-W^{(=3)}(\sigma_\alpha)
-\le {n(5m+2)\over3}<T,
+0<\beta_5<\beta_4<\cdots<\beta_1<\alpha<1,
 \qquad
-3T-n(5m+2)=46m^2+49m+12>0.
-}
+0\le\lambda_5\le\cdots\le\lambda_1\le1.
 \]
-The bound is sharp exactly when
-\(\alpha(v-2)=m\) or \(\alpha(v-1)=m\). Both alternatives occur in
-relation-compatible PG46 witnesses.
+The task permits one standalone exact local-history oracle. Coefficient
+optimization, finite rounding, \(k\to\infty\), a theorem for six or more
+prefixes, new geometric claims, production code, tests, artifacts, schemas,
+backends, certificates, and enumeration limits are out of scope.
 
-Universally for positional distance \(q\ge4\),
+## Exact Five-Prefix Result
+
+Put \(r=\lfloor\alpha n\rfloor\),
+\(s_i=\lceil\beta_i n\rceil\), \(s_0=r\),
+\(I_i=\{s_i,\ldots,s_{i-1}-1\}\), and
 \[
-{ij\over q}\le {n(n-1)\over4}<T,
+H_i=\sum_{t=s_i}^{r-1}A_t.
+\]
+The six nonnegative coefficients
+\[
+1-\lambda_1,\quad\lambda_1-\lambda_2,\quad
+\lambda_2-\lambda_3,\quad\lambda_3-\lambda_4,\quad
+\lambda_4-\lambda_5,\quad\lambda_5
+\]
+sum to one and give
+\[
+\max(0,H_1,\ldots,H_5)
+\ge
+\sum_{i=1}^4(\lambda_i-\lambda_{i+1})H_i+\lambda_5H_5
+=
+\sum_{i=1}^5\lambda_i\sum_{t\in I_i}A_t.
+\]
+
+Every literal history induces an injective map from selected base splits to
+original edges. Hence each original slack is canonically charged once or left
+unused. Immediately before inserting \(t\), every current edge is either an
+untouched original edge or contains an endpoint in
+\(\{t+1,\ldots,r-1\}\). Splitting preserves this invariant through all four
+boundaries and arbitrary nesting, including edges with two earlier inserted
+endpoints.
+
+With \(F_{i,n}=G_{n,\lambda_i}(s_i)\), the complete finite conditions
+\[
+2\le r\le n-2,
 \qquad
-4T-n(n-1)=28m^2+62m+18>0.
+1\le s_5<s_4<s_3<s_2<s_1\le r-1
 \]
-Every reassignment retains the adjacent internal pair
-\(A_0c_0=(d-1)(4m+2)=T\). Hence the stronger exact theorem is
+give the exact theorem
 \[
 \boxed{
-W(\sigma_\alpha)=W^{(\le2)}(\sigma_\alpha)
-\quad\text{for every bijection }\alpha.
+\begin{aligned}
+\gamma^{(r)}_{1,n}\ge{}&P_{r,n}
++(r-s_1)F_{1,n}+(s_1-s_2)F_{2,n}+(s_2-s_3)F_{3,n}\\
+&+(s_3-s_4)F_{4,n}+(s_4-s_5)F_{5,n}.
+\end{aligned}
 }
 \]
+No sign assumption on the individual floors is needed. There is no literal
+five-split counterexample.
 
-## Full-Optimal Equivalence And PG49
+## Standalone Exact Oracle
 
-Combining the collapse theorem with PG36 gives
-\[
-\boxed{
-\alpha\text{ relation-compatible}
-\quad\Longleftrightarrow\quad
-W^{(\le2)}(\sigma_\alpha)\le T
-\quad\Longleftrightarrow\quad
-W(\sigma_\alpha)=T.
-}
-\]
-The residue-three formula and global saturation theorem give \(W_n=T\), so
-these are global full-distance minimizers of the product-distance surrogate.
-Every incompatible scaffold bijection has score strictly above \(T\).
+- The only new standalone oracle is
+  `ops/TASK-20260717__five_prefix_charging/literal_oracle.py`.
+- It uses only `collections.Counter` and `fractions.Fraction`.
+- The five-edge base \((n,r,C_0)=(17,13,(13,17,14,16,15))\) is the minimum
+  edge cardinality permitting five simultaneous original-edge charges.
+- All 15,120 five-split histories pass and have distinct final cycles.
+- Split counts are base \((5,20,100,600,4200)\), recursive
+  \((0,10,110,1080,10920)\), and inserted-pair
+  \((0,0,10,180,2520)\).
+- Exactly 120 histories charge all five original edges. The five local floors
+  sum to \(253523/1155\), and the checked finite bound is \(1541348/1155\).
 
-If \(\mathcal R_{\rm full}\) is the edge support of scaffold bijections with
-full score \(T\), then
-\[
-\boxed{
-\mathcal R_{\rm full}=\mathcal R_{\rm ext}
-=\{(0,0)\}\cup
-\{(k,j)\in\mathcal R_{\rm loc}:j\ge1\}.
-}
-\]
-Thus PG49 is exactly the support of full-optimal scaffold bijections. It does
-not enumerate those bijections, and this surrogate theorem gives no new
-geometric optimum or bound.
+## Verification
 
-## Diagnostic And Verification
-
-- The sole new diagnostic is standalone, standard-library-only, and
-  polynomial. It scans local states \((j,k,h)\), not bijections or matchings.
-- At \(m=3,4,9,34\), it checks respectively 180, 448, 5,508, and 309,808
-  local words, all four transition types, 3, 5, 11, and 41 compatible closing
-  cases, and exactly two sharp PG46 full-order witnesses per row.
-- The diagnostic, in-memory compilation, and Ruff lint/format checks pass
-  after one retained initial format-check failure and mechanical reformat.
-- The focused product-distance regression passes 49 tests; the serial complete
-  suite passes all 283 tests; the schema regression passes 4 tests.
-- The checked-artifact semantic verifier confirms 4 certificates and 76 local
-  brackets.
-- Three independent proof/code/scope audits pass. Exact nine-file scope,
-  PG50--PG63 uniqueness, UTF-8/no-BOM, final newlines, no trailing whitespace,
-  no generated cache, complete diff inspection, and `git diff --check` pass.
+- Oracle execution: 15,120 histories pass.
+- Ruff lint and format check: pass.
+- Focused `tests/test_fixed_order_cycle_ratio.py`: pass.
+- Complete local suite: 283 tests pass. An initial five-second command timeout
+  was non-diagnostic; the immediate rerun completed successfully.
+- Checked-artifact semantic verifier: 4 certificates and 76 local brackets
+  pass.
+- Checked-artifact schema regression: 4 tests pass.
+- Proof-note structural check: 321 equation tags are unique; standalone
+  display delimiters, `aligned`, and `array` environments balance. An initial
+  substring-based display count was invalid because it counted bracket escapes
+  inside formulas; the corrected line-delimiter check passes.
 
 ## Evidence Classification And Limitations
 
-- The all-\(m\) distance-three classification, arbitrary-bijection collapse,
-  full-optimal equivalence, and support identity are **exact theorems** proved
-  symbolically.
-- Sharpness uses two exact constructive PG46 witnesses.
-- The four-row script is a **finite exact diagnostic** that corroborates but
-  does not prove the theorem.
-- No path permutation, matching, production result, artifact, certificate,
-  schema, backend, limit, or geometric statement is added.
+- The convex identity, canonical one-use partition, recursive invariant, and
+  finite five-segment inequality are **exact method-specific theorems**.
+- The 15,120-history oracle is a **verified bounded exact computation**; it
+  corroborates but does not prove the theorem.
+- The normalized simplex remains logically independent and supplies no
+  charging theorem by itself.
+- No coefficient optimization, finite rounding, result for six or more
+  prefixes, uniform \(k\)-to-\(n\) interchange, asymptotic coefficient,
+  convergence, exact residual, or geometric consequence is added.
 
 ## Files In Scope
 
-- research/PRODUCT_DISTANCE_SURROGATE.md
+- research/FIXED_ORDER_CYCLE_RATIO.md
 - research/NEXT_RESEARCH_STEPS.md
 - start.md
 - PROJECT_KNOWLEDGE.md
 - CURRENT_STATUS.md
-- ops/TASK-20260717__relation_compatible_full_score_classification/
+- ops/TASK-20260717__five_prefix_charging/
 
 ## Proposed Next Task
 
-In a fresh STRICT task, derive an exact symbolic count of
-relation-compatible, equivalently full-optimal, scaffold bijections from the
-nested Ferrers thresholds, without enumerating path permutations.
+In a fresh STRICT task, prove or refute the exact six-prefix one-use theorem,
+still without coefficient optimization, finite rounding, a limiting-prefix
+passage, or geometric claims.
