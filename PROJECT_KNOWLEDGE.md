@@ -884,6 +884,32 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   required. The pointwise theorem gives no uniform threshold, rounding, or
   parameter control for \(k=k(n)\), no coefficient optimization, no
   \(k\to\infty\) passage, and no geometric consequence.
+- EXACT METHOD-SPECIFIC THEOREM (GLOBALLY OPTIMIZED FIVE PREFIXES): the
+  \(k=5\) coefficient on its full eleven-parameter compact closure clips
+  coordinatewise to 21 ordered regimes \(H^hM^m0^z\). Every transition,
+  density and weight collision, unused face, and compact boundary is
+  classified. The unique point is strictly all-middle, with
+  \[
+  \alpha_{5,*}
+  ={422413777961580309772684503
+   -10047852311701\sqrt{183342238504950468196395903}
+   \over661485317418210151348973103},
+  \]
+  the five exact pairs (CR28dz37)--(CR28dz38), and
+  \[
+  C_{5,*}
+  ={346693217780244687187063490332457027500975566238012204
+   +1228130489996268437333105902690103574002
+    \sqrt{183342238504950468196395903}
+   \over1312688475479610714750859896048564873968757997852345827}.
+  \]
+  Exact polynomial isolation and integer/squared-radical margins prove
+  \[
+  C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}.
+  \]
+  Therefore the liminf bounds hold with \(C_{5,*}\) and
+  \(C_{5,*}/\pi\). There is no finite rounding theorem at the irrational
+  optimizer and no growing-\(k\) passage.
 - EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (EXPLICIT FIVE-PREFIX WITNESS):
   let
   \[
@@ -931,9 +957,8 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \qquad
   \liminf{R_2^*(n)\over n^3}\ge{C_{5,\mathrm{rat}}\over\pi}.
   \]
-  This is not a global \(k=5\) optimum, growing-\(k\) result, exact residual,
-  convergence theorem, production computation, serialized certificate, or
-  new geometric input.
+  The preceding theorem proves this rational specialization is strictly
+  suboptimal. It remains the tuple with the exact finite theorem below.
 - EXACT FINITE METHOD-SPECIFIC THEOREM (FIXED RATIONAL FIVE-PREFIX WITNESS):
   retain the preceding \(\alpha,x_i,\beta_i,\lambda_i\) and put
   \[
@@ -1032,6 +1057,14 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   the direct and normalized coefficient evaluations, and both positive exact
   comparison margins. It corroborates rather than replaces the written
   derivation.
+- VERIFIED FACT (INDEPENDENT GLOBAL FIVE-PREFIX OPTIMIZATION DIAGNOSTIC):
+  the standalone standard-library script at
+  ops/TASK-20260717__global_five_prefix_optimization/exact_diagnostic.py
+  checks all 21 clipped words, five transition rows, collision identities,
+  primitive optimizer and coefficient polynomials, rational isolating
+  intervals, strict all-middle inequalities, end-to-end coefficient
+  identities, and every exact comparison margin. It imports no project,
+  production, test, artifact, backend, certificate, or enumeration helper.
 - VERIFIED FACT (FINITE EXACT FIVE-PREFIX FLOOR/CEILING DIAGNOSTIC): the
   standalone script at
   `ops/TASK-20260717__five_prefix_finite_theorem/exact_diagnostic.py` imports
@@ -1090,8 +1123,8 @@ This file is stable durable project memory. Chronology, command transcripts, fai
     &180649849229965076853609601/5451804148198777001721723654
   \end{array}
   \]
-  exactly. The first four are the optimized one- through four-prefix simplex
-  points; the fifth is the rational simplex point used in the explicit
+  exactly. The first five are the optimized one- through five-prefix simplex
+  points; the fifth is also the rational simplex point used in the explicit
   witness above.
 - EXACT NORMALIZED-ENVELOPE CLASSIFICATION: with
   \[
@@ -1507,24 +1540,31 @@ This file is stable durable project memory. Chronology, command transcripts, fai
    +21288970076515705538\sqrt{2903456040383}
    \over2290468477489828247376833403\pi}.
   \]
-  The explicit rational five-prefix witness at \(\alpha=13/30\), without a
-  global five-prefix optimization, raises the established lower coefficient
-  further to
+  The explicit rational five-prefix witness at \(\alpha=13/30\) first raises
+  the established lower coefficient to
   \[
   {2263404122555368590593580404287
    \over8177706222298165502582585481000\pi}.
   \]
-  All three multi-prefix optimizers are exact and unique inside their
+  The globally optimized five-prefix template raises it further to
+  \[
+  {346693217780244687187063490332457027500975566238012204
+   +1228130489996268437333105902690103574002
+    \sqrt{183342238504950468196395903}
+   \over1312688475479610714750859896048564873968757997852345827\pi}.
+  \]
+  All four multi-prefix optimizers are exact and unique inside their
   respective templates. The
   older rational witness remains the finite two-prefix theorem from \(n=59\),
   while the irrational three-prefix optimizer has the stronger finite theorem
   \(\Lambda_n>C_{3,*}n^3\) from the minimal uniform threshold \(159\). The
   optimized four-prefix theorem has no finite rounding specialization. The
-  five-prefix rational point is still only a witness and is not globally
-  optimized, but its fixed tuple has an exact finite theorem from the minimal
-  uniform threshold \(234\). The exact block residual, finite rounding at the
-  irrational two- and four-prefix optimizers, convergence, and the exact
-  global leading coefficient remain unresolved.
+  five-prefix rational point remains the strict suboptimal witness with an
+  exact finite theorem from the minimal uniform threshold \(234\); the
+  irrational global five-prefix optimizer has no finite rounding theorem.
+  The exact block residual, finite rounding at the irrational two-, four-,
+  and five-prefix optimizers, convergence, and the exact global leading
+  coefficient remain unresolved.
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)(1+o(1))\).
 - DISPROVED CLAIM: \(R_2^*(n)=n^3/(6\pi)+O(n^2)\).
 
@@ -2429,6 +2469,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   consequences, its minimal-threshold finite theorem at \(n=234\), literal
   \(\mathcal B_{5,n}\), integer closure \(\mathcal I_{5,n}\), exact
   positive rounded remainder, and an independent exact boundary diagnostic,
+  plus the global eleven-parameter five-prefix compact optimization, all 21
+  clipping regimes, every transition/collision/face, its unique strict
+  quadratic-surd optimizer, exact
+  \(C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}\), and one standalone exact
+  polynomial/branch/comparison diagnostic,
   plus the exact
   generic local path/gap relation, its Ferrers row and column cutoffs,
   and the exact support of relation-compatible bijections: only \((0,0)\) in
@@ -2511,9 +2556,9 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - COMPLETED PRIORITY: the normalized prefix simplex is solved exactly for
   every fixed \(k\ge1\). A Bellman recurrence and telescoping nonnegative
   certificate prove the unique strict-interior maximizer, the value and ratio
-  recurrences, and \(M_k\nearrow1/3\); the first four rows recover the
-  optimized one- through four-prefix simplex values, while the fifth supplies
-  the rational point used in the new witness. The formal compact
+  recurrences, and \(M_k\nearrow1/3\); the first five rows recover the
+  optimized one- through five-prefix simplex values, while the fifth also
+  supplies the rational point used in the witness. The formal compact
   and limiting all-middle envelopes are classified exactly. This result is
   independent of the direct charging proof and gives no uniform
   \(k\)-to-\(n\) interchange or new bound from its limiting envelope.
@@ -2551,6 +2596,26 @@ Candidate-set extraction uses the following finite-certificate semantics.
   the domain. One standalone exact boundary diagnostic corroborates the
   arithmetic without production, test, artifact, schema, backend,
   certificate, or enumeration-limit changes.
+- COMPLETED PRIORITY: the continuous five-prefix coefficient is now globally
+  optimized on its full eleven-parameter compact closure. Coordinatewise
+  clipping leaves exactly 21 ordered regimes; Bellman predecessor maps
+  classify every winning transition, while collision and facet reductions
+  exhaust both compact simplices. The unique point is strict all-middle and
+  has the quadratic-surd density \(\alpha_{5,*}\), five exact
+  \((\beta_i,\lambda_i)\) pairs, and coefficient
+  \[
+  C_{5,*}
+  ={346693217780244687187063490332457027500975566238012204
+   +1228130489996268437333105902690103574002
+    \sqrt{183342238504950468196395903}
+   \over1312688475479610714750859896048564873968757997852345827}
+  >C_{5,\mathrm{rat}}>C_{4,*}.
+  \]
+  One standalone standard-library diagnostic checks the optimizer polynomial,
+  isolating interval, branch inequalities, coefficient identity, transitions,
+  and exact comparison margins. No finite rounding, growing-\(k\), production,
+  artifact, schema, backend, test-module, certificate, or enumeration change
+  is included.
 - COMPLETED PRIORITY: one explicit local perturbation of the \(8/25\)
   construction is now classified. Reversing one triple on
   \(n=10m+3\) is score-neutral for \(s\ge1\), worsens the finite score by
@@ -2611,8 +2676,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - OPEN QUESTION: can the upper coefficient \(8/(25\pi)\) be lowered toward
   the current lower coefficient
   \[
-  {2263404122555368590593580404287
-   \over8177706222298165502582585481000\pi},
+  {346693217780244687187063490332457027500975566238012204
+   +1228130489996268437333105902690103574002
+    \sqrt{183342238504950468196395903}
+   \over1312688475479610714750859896048564873968757997852345827\pi},
   \]
   while retaining a symbolic all-pairs proof?
 - RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
@@ -2629,7 +2696,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: no exact geometric optimum value \(R_2^*(n)\) has been proved
   in this repository; the exact all-\(n\) classification of the combinatorial
   surrogate \(W_n\) is a different statement.
-- LIMITATION: no upper bound matching the current explicit five-prefix linear-block lower
+- LIMITATION: no upper bound matching the current globally optimized
+  five-prefix linear-block lower
   coefficient has been proved in this repository.
 - LIMITATION: the later indices \(n\ge94\) with strict distance-two/full
   minimizer inclusion have not been classified.
@@ -2638,11 +2706,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: the uniform consecutive-tail comparison classifies every
   sublinear block length. The one-prefix CR28ax--CR28bg specialization is
   jointly optimized over all constant densities, and CR28bw is now globally
-  optimized over all five two-prefix parameters. The three- and four-prefix
-  extensions are globally optimized over their compact closures. The
-  five-prefix result is one rational all-middle witness and is not globally
-  optimized. Finite
-  rounding at the irrational two- and four-prefix optimizers, the exact
+  optimized over all five two-prefix parameters. The three-, four-, and
+  five-prefix extensions are globally optimized over their compact closures.
+  The rational five-prefix point remains the separate finite witness. Finite
+  rounding at the irrational two-, four-, and five-prefix optimizers, the exact
   residual and exact leading coefficient of the selected block, and
   linear-density methods outside these templates remain unclassified. The
   irrational three-prefix optimizer has the exact finite theorem recorded

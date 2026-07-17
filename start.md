@@ -659,8 +659,8 @@ M_k={q_k^2\over3}
 M_k\nearrow{1\over3}.
 \]
 
-The first four rows agree exactly with the optimized prefix cases, while the
-fifth supplies the rational witness used below:
+The first five rows agree exactly with the optimized prefix-simplex cases;
+the fifth also supplies the rational witness used below:
 
 | \(k\) | unique maximizer | \(M_k\) | \(M_k/8\) |
 |---:|---|---:|---:|
@@ -701,6 +701,55 @@ finite-\(k\) theorem above is separate. Its pointwise validity supplies no
 cutoff threshold, rounding estimate, or parameter control uniform in
 \(k=k(n)\). Thus no interchange of \(k\) and \(n\) is justified, and the
 normalized limit yields no new bound for \(\Lambda_n\) or \(R_2^*(n)\).
+
+At fixed \(k=5\), the full continuous coefficient can nevertheless be
+optimized without a growing-\(k\) interchange. Coordinatewise weight clipping
+reduces the complete eleven-parameter compact closure to 21 ordered regimes.
+Every clipping transition, density/weight collision, and compact face is
+audited. The unique global point is strictly all-middle, with
+
+\[
+\alpha_{5,*}
+={422413777961580309772684503
+ -10047852311701\sqrt{183342238504950468196395903}
+ \over661485317418210151348973103}.
+\]
+
+For the fifth simplex coordinates \(x_i=N_i/D\) displayed below and
+\(A_*=3\alpha_{5,*}-1\), its five exact pairs are
+
+\[
+\beta_{i,*}={1+\alpha_{5,*}+x_iA_*\over4},
+\qquad
+\lambda_{i,*}={x_iA_*\over\beta_{i,*}}
+\quad(1\le i\le5).
+\]
+
+The exact optimum is
+
+\[
+\boxed{
+C_{5,*}
+={346693217780244687187063490332457027500975566238012204
+ +1228130489996268437333105902690103574002
+  \sqrt{183342238504950468196395903}
+ \over1312688475479610714750859896048564873968757997852345827}
+>C_{5,\mathrm{rat}}>C_{4,*}.
+}
+\]
+
+Thus
+
+\[
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{5,*},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{5,*}\over\pi}.
+\]
+
+One standalone exact diagnostic checks the 21 regimes, five transition rows,
+optimizer and coefficient polynomials and isolating intervals, strict branch
+inequalities, coefficient identity, and comparison margins. No finite
+rounding at this irrational optimizer is asserted.
 
 At the single fixed value \(k=5\), however, the two separate exact theorems
 may be combined without any limiting interchange. Put
@@ -755,10 +804,9 @@ therefore give
 \ge{C_{5,\mathrm{rat}}\over\pi}.
 \]
 
-This is one explicit rational five-prefix witness. It is not a global
-\(k=5\) optimization, growing-\(k\) result, exact residual, convergence
-theorem, exact leading constant, production result, serialized certificate,
-or new geometric input.
+This is one explicit rational five-prefix witness, now proved strictly below
+the global value. Its derivation itself is not a global optimization, and it
+remains the tuple with the finite theorem below.
 
 The same fixed tuple also has an exact finite floor/ceiling theorem. Put
 
@@ -1428,7 +1476,10 @@ exact one-use theorem for every finite number of selected prefixes, its
 bounded six-prefix dossier oracle, the historical five-prefix oracle, the
 exact normalized prefix-simplex lemma
 for every fixed \(k\), its envelope classification, and asymptotic
-limitations. One-wrap saturation
+limitations, plus the exact global \(k=5\) compact optimization, all 21
+clipping regimes and compact faces, its unique eleven-parameter quadratic-surd
+optimizer, strict comparison \(C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}\), and
+standalone exact diagnostic. One-wrap saturation
 and insertion independence concern the product ratio; they do not reduce
 exact angular-STN feasibility to one-wrap cycle checks or make \(\rho_\sigma\)
 insertion-independent. The `n=10` proof classifies equality in the
@@ -1828,8 +1879,30 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \qquad
   \liminf{R_2^*(n)\over n^3}\ge{C_{5,\mathrm{rat}}\over\pi}.
   \]
-  This is not a global \(k=5\) optimum, uniform growing-\(k\) result, exact
-  residual, convergence theorem, or new geometric input.
+  The global theorem below proves this rational specialization is strict
+  suboptimal; it remains the tuple with the finite theorem.
+- EXACT METHOD-SPECIFIC THEOREM (GLOBALLY OPTIMIZED FIVE PREFIXES): the full
+  eleven-parameter compact closure clips coordinatewise to 21 ordered regimes.
+  Every transition, density and weight collision, and compact face is audited.
+  The unique point is strictly all-middle, with
+  \[
+  \alpha_{5,*}
+  ={422413777961580309772684503
+   -10047852311701\sqrt{183342238504950468196395903}
+   \over661485317418210151348973103},
+  \]
+  the five exact pairs (CR28dz37)--(CR28dz38), and
+  \[
+  C_{5,*}
+  ={346693217780244687187063490332457027500975566238012204
+   +1228130489996268437333105902690103574002
+    \sqrt{183342238504950468196395903}
+   \over1312688475479610714750859896048564873968757997852345827}
+  >C_{5,\mathrm{rat}}>C_{4,*}.
+  \]
+  Hence the two liminf bounds hold with \(C_{5,*}\). This is fixed \(k=5\);
+  it supplies no finite rounding at the irrational point or growing-\(k\)
+  passage.
 - EXACT FINITE METHOD-SPECIFIC THEOREM (FIXED RATIONAL FIVE-PREFIX WITNESS):
   retain the preceding rational parameters, define
   \(r_n=\lfloor13n/30\rfloor\) and
@@ -1889,8 +1962,8 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
     &180649849229965076853609601/5451804148198777001721723654
   \end{array}
   \]
-  The first four agree exactly with the optimized one- through four-prefix
-  simplex cases; the fifth supplies the explicit rational witness above.
+  The first five agree exactly with the optimized one- through five-prefix
+  simplex cases; the fifth also supplies the explicit rational witness above.
 - EXACT NORMALIZED-ENVELOPE CLASSIFICATION: on \([1/3,1]\),
   \[
   E_k(\alpha)
@@ -1957,6 +2030,14 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   evaluations, and the two positive integer margins proving
   \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). It corroborates but does not replace
   the written proof.
+- VERIFIED FACT (INDEPENDENT GLOBAL FIVE-PREFIX OPTIMIZATION DIAGNOSTIC):
+  the standalone standard-library script at
+  ops/TASK-20260717__global_five_prefix_optimization/exact_diagnostic.py
+  checks all 21 clipped words, five transition rows, collision identities,
+  primitive optimizer and coefficient polynomials, rational isolating
+  intervals, strict all-middle inequalities, coefficient identity, and exact
+  comparison margins. It imports no project, test, production, artifact,
+  backend, certificate, or enumeration helper.
 - VERIFIED FACT (FINITE EXACT FIVE-PREFIX FLOOR/CEILING DIAGNOSTIC): the
   standalone standard-library script at
   `ops/TASK-20260717__five_prefix_finite_theorem/exact_diagnostic.py` checks
@@ -2557,24 +2638,30 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
    +21288970076515705538\sqrt{2903456040383}
    \over2290468477489828247376833403\pi}.
   \]
-  The fixed rational five-prefix witness at \(\alpha=13/30\), without a
-  global five-prefix optimization, improves the established lower coefficient
-  further to
+  The fixed rational five-prefix witness at \(\alpha=13/30\) first improves
+  the established lower coefficient to
   \[
   {2263404122555368590593580404287
    \over8177706222298165502582585481000\pi}.
   \]
-  All three irrational multi-prefix optimizers are exact and unique in their
+  The globally optimized five-prefix template raises it further to
+  \[
+  {346693217780244687187063490332457027500975566238012204
+   +1228130489996268437333105902690103574002
+    \sqrt{183342238504950468196395903}
+   \over1312688475479610714750859896048564873968757997852345827\pi}.
+  \]
+  All four irrational multi-prefix optimizers are exact and unique in their
   respective templates. The older rational witness remains the finite two-prefix theorem
   from \(n=59\); the irrational three-prefix optimizer now has the stronger
   finite theorem \(\Lambda_n>C_{3,*}n^3\) from the minimal uniform threshold
   \(159\). The fixed rational five-prefix witness has its own exact finite
-  theorem from the minimal uniform threshold \(234\), while remaining only a
-  witness and not a global optimizer. No finite rounding at the optimized
-  four-prefix point is included. None of these coefficients is an exact
+  theorem from the minimal uniform threshold \(234\), while the irrational
+  global five-prefix point has no finite rounding theorem. None of these
+  coefficients is an exact
   residual or leading coefficient; convergence, finite rounding at the
-  irrational two- and four-prefix optimizers, and exact block residuals remain
-  unresolved.
+  irrational two-, four-, and five-prefix optimizers, and exact block
+  residuals remain unresolved.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit
   and unresolved for public production claims. The bounded test-only Arb
   cross-check covers checked `n=3` only and is not a full backend audit.

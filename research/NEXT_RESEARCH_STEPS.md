@@ -115,24 +115,23 @@ convergence. Exact canonical enumeration is deliberately bounded to
 The jointly optimized one-prefix linear tail block first gave the coefficient
 \((4+2\sqrt3)/27\). The exact global optimization of the two-prefix CR28bw
 template then gave \(C_{2,*}\), the three-prefix extension gave
-\(C_{3,*}\), and the globally optimized four-prefix extension gave
-\(C_{4,*}\). The fixed \(k=5\), \(\alpha=13/30\) rational all-middle witness
-now gives the strictly stronger rigorous lower coefficients
+\(C_{3,*}\), the globally optimized four-prefix extension gave
+\(C_{4,*}\), and the full eleven-parameter five-prefix optimization now gives
+\(C_{5,*}\). All 21 clipping regimes, transitions, collisions, and compact
+faces are classified. The rigorous lower coefficients are
 \[
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
 \ge
-{2263404122555368590593580404287
- \over8177706222298165502582585481000},
+C_{5,*},
 \qquad
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \ge
-{2263404122555368590593580404287
- \over8177706222298165502582585481000\pi}.
+{C_{5,*}\over\pi}.
 \]
-Exact algebra gives \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). This is one
-explicit fixed-parameter witness, not a global \(k=5\) optimum. Keeping its
-parameters fixed, the exact floor/ceiling theorem has minimal uniform
-threshold \(234\) and proves
+Exact algebra gives
+\(C_{5,*}>C_{5,\mathrm{rat}}>75/271>C_{4,*}\). The rational point remains
+the fixed tuple whose exact floor/ceiling theorem has minimal uniform threshold
+\(234\) and proves
 \[
 \Lambda_n\ge\mathcal I_{5,n}\ge\mathcal B_{5,n}
 >C_{5,\mathrm{rat}}n^3,
@@ -142,6 +141,7 @@ R_2^*(n)>{\mathcal I_{5,n}\over\pi}-n^2
 \]
 Here \(\mathcal B_{5,n}\) uses the original rational \(\lambda_i\), not
 finite reoptimized clipped weights.
+No finite rounding theorem is asserted at the irrational global optimizer.
 These are one-sided bounds and do not prove convergence or identify an exact
 leading coefficient. The irrational three-prefix optimizer now also has the
 exact finite theorem
@@ -241,9 +241,9 @@ C_{5,\mathrm{rat}}
 >{75\over271}>C_{4,*}.
 \]
 The standalone Fraction diagnostic checks the recurrence, exact parameters,
-coefficient identity, and both strict comparison margins. No global
-five-prefix optimization, growing-\(k\) claim, production path, certificate,
-or new geometric input is included. A separate exact finite specialization
+coefficient identity, and both strict comparison margins. The later global
+five-prefix theorem proves this point strictly suboptimal, while preserving
+it for the finite specialization. A separate exact finite specialization
 keeps the same \(\lambda_i\). Its minimal uniform admissibility and
 five-middle-branch threshold is \(234\); its literal expression and integer
 closure satisfy
@@ -255,6 +255,18 @@ closure satisfy
 The first segment is empty at \(n=233\), and one standalone exact diagnostic
 checks only the boundary bridge, symbolic-tail margins, and remainder
 identities.
+
+The global eleven-parameter optimization clips coordinatewise to 21 regimes,
+classifies every transition/collision/compact face, and has one unique strict
+all-middle point. Its density, five cutoff/weight pairs, and coefficient are
+exact quadratic surds, with
+\[
+C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}.
+\]
+One standalone standard-library diagnostic checks the optimizer polynomial,
+isolating interval, branch inequalities, coefficient identity, and comparison
+margins. It adds no finite rounding, growing-\(k\), production, artifact,
+schema, backend, test-module, certificate, or enumeration change.
 
 The one-wrap saturation question is also closed exactly. If
 \[
@@ -709,11 +721,18 @@ The globally optimized four-prefix template improves it again to
  +21288970076515705538\sqrt{2903456040383}
  \over2290468477489828247376833403\pi}.
 \]
-The explicit rational five-prefix witness at \(\alpha=13/30\), without a
-global five-prefix optimization, improves it further to
+The explicit rational five-prefix witness at \(\alpha=13/30\) first improves
+it to
 \[
 {2263404122555368590593580404287
  \over8177706222298165502582585481000\pi}.
+\]
+The global five-prefix optimization improves it further to
+\[
+{346693217780244687187063490332457027500975566238012204
+ +1228130489996268437333105902690103574002
+  \sqrt{183342238504950468196395903}
+ \over1312688475479610714750859896048564873968757997852345827\pi}.
 \]
 This is still only a proved lower coefficient, not an exact asymptotic
 constant for Power-Ringmin.
@@ -1333,21 +1352,17 @@ saturation for every \(n\ge3\).
   \ge
   4(\sqrt2-1)>1.
   \]
-- EXACT THEOREM (sharpened global lower bound): the explicit rational
-  five-prefix witness gives
+- EXACT THEOREM (sharpened global lower bound): the globally optimized
+  five-prefix coefficient gives
   \[
   \liminf_{n\to\infty}{\Lambda_n\over n^3}
-  \ge
-  {2263404122555368590593580404287
-   \over8177706222298165502582585481000},
+  \ge C_{5,*},
   \qquad
   \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-  \ge
-  {2263404122555368590593580404287
-   \over8177706222298165502582585481000\pi}.
+  \ge {C_{5,*}\over\pi}.
   \]
   Its exact comparison is
-  \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). This strictly improves the
+  \(C_{5,*}>C_{5,\mathrm{rat}}>75/271>C_{4,*}\). This strictly improves the
   four-prefix and single-subset lower coefficients, while proving neither
   convergence nor an exact leading coefficient.
 - EXACT FINITE THEOREM (rounded three-prefix optimizer): the integer cutoffs
@@ -1439,7 +1454,8 @@ saturation for every \(n\ge3\).
    \over8177706222298165502582585481000}
   >{75\over271}>C_{4,*}.
   \]
-  This uses no global \(k=5\) optimization.
+  Its derivation uses no global optimization; the global theorem proves it
+  strictly suboptimal.
 - EXACT FINITE METHOD-SPECIFIC THEOREM (FIXED FIVE-PREFIX WITNESS): with the
   same \(\alpha,x_i,\beta_i,\lambda_i\), define
   \(r_n=\lfloor13n/30\rfloor\),
@@ -1463,7 +1479,14 @@ saturation for every \(n\ge3\).
   \]
   The exact remainder expansion cancels all ceiling errors from its quadratic
   coefficient by simplex stationarity. This is a rounded bound for the fixed
-  witness, not the true block residual or a global five-prefix optimum.
+  witness, not the true block residual or the irrational global optimizer.
+- EXACT METHOD-SPECIFIC THEOREM (GLOBAL FIVE-PREFIX OPTIMIZATION): the full
+  eleven-parameter compact closure has exactly 21 clipped regimes. Every
+  transition, density/weight collision, and compact face is classified. The
+  unique strict all-middle point has the exact \(\alpha_{5,*}\), five pairs,
+  and coefficient in (CR28dz36)--(CR28dz40), with
+  \(C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}\). No finite rounding at that point or
+  growing-\(k\) claim follows.
 - VERIFIED EXACT DOSSIER DIAGNOSTIC: the sole new standalone Fraction script
   checks \(q_5,M_5\), the simplex objective and stationarity, all reduced
   parameters, strict all-middle admissibility, both coefficient evaluations,
@@ -1475,6 +1498,11 @@ saturation for every \(n\ge3\).
   boundary failures, symbolic-tail margins, fixed-weight local floors,
   integer closure, exact remainder, and uniform sign. It imports no project,
   production, or test helper and is not the symbolic proof.
+- VERIFIED EXACT DOSSIER DIAGNOSTIC: the standalone global five-prefix script
+  checks 21 clipping words, five transition rows, collision identities,
+  optimizer and coefficient polynomials, isolating intervals, strict branch
+  inequalities, coefficient identity, and exact comparison margins using only
+  the standard library.
 - VERIFIED BOUNDED EXACT COMPUTATION: one standalone `Fraction` oracle
   checks all 15,120 five-split histories of a five-edge base. It includes 120
   histories charging all five original edges and 2,520 fifth splits between
@@ -1686,7 +1714,7 @@ saturation for every \(n\ge3\).
 
 ## Consequences
 
-1. The explicit five-prefix rational linear-block lower bound supersedes both the
+1. The globally optimized five-prefix linear-block lower bound supersedes both the
    induced-subset bound
    and the older full-cycle bound
    \(\liminf 6\pi R_2^*(n)/n^3\ge 1\). Both older statements remain true but
@@ -1938,16 +1966,29 @@ saturation for every \(n\ge3\).
     >C_{5,\mathrm{rat}}n^3
     \qquad(n\ge234).
     \]
-    It gives no global \(k=5\) optimum, growing-\(k\) uniformity, true block
-    residual, convergence result, or new geometric lemma.
+    The later global theorem proves this rational point strictly suboptimal;
+    it remains the exact finite witness.
+
+20. The full continuous five-prefix coefficient is globally optimized on its
+    eleven-parameter compact closure. Exact clipping gives 21 regimes;
+    Bellman predecessor maps classify all winning transitions, and the
+    collision/facet audit exhausts both ordered simplices. The unique strict
+    all-middle point has exact density \(\alpha_{5,*}\), five
+    \((\beta_i,\lambda_i)\) pairs, and
+    \[
+    C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}.
+    \]
+    One standalone exact diagnostic checks its primitive polynomial,
+    isolating interval, branch inequalities, coefficient identity, and
+    comparison margins. No finite rounding, growing-\(k\), or production
+    change is included.
 
 ## Updated Research Questions
 
 - OPEN QUESTION: what geometric upper-bound construction, if any, narrows or
-  matches the current explicit five-prefix lower coefficient
+  matches the current globally optimized five-prefix lower coefficient
   \[
-  {2263404122555368590593580404287
-   \over8177706222298165502582585481000\pi}
+  {C_{5,*}\over\pi}
   \]
   up to lower-order terms?
 - OPEN QUESTION: can the previous reduced-core observations at checked
@@ -1956,11 +1997,10 @@ saturation for every \(n\ge3\).
 - OPEN QUESTION: is \(12\) the least threshold for
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
-- OPEN QUESTION: can the gap between the explicit five-prefix geometric lower
+- OPEN QUESTION: can the gap between the globally optimized five-prefix geometric lower
   coefficient
   \[
-  {2263404122555368590593580404287
-   \over8177706222298165502582585481000\pi}
+  {C_{5,*}\over\pi}
   \]
   and the
   product-distance upper
@@ -1991,9 +2031,12 @@ saturation for every \(n\ge3\).
   uniformity for \(k=k(n)\) or realize the \(k\to\infty\) simplex limit.
 - CLOSED QUESTION: the exact \(k=5\) simplex at \(\alpha=13/30\) gives one
   strictly admissible rational all-middle witness with coefficient
-  \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). This closes only the requested
-  explicit specialization; global \(k=5\) optimization remains open and was
-  not attempted.
+  \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). This closes the explicit
+  specialization; the separate full compact problem is also now closed.
+- CLOSED QUESTION: global optimization of all eleven continuous five-prefix
+  parameters gives the unique strict all-middle point and exact coefficient
+  \(C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}\), after all 21 regimes,
+  transitions, collisions, and compact faces are audited.
 - CLOSED QUESTION: finite floor/ceiling rounding of that fixed rational
   witness is explicit with minimal uniform threshold \(234\), literal
   \(\mathcal B_{5,n}\), integer closure \(\mathcal I_{5,n}\), and an exact
@@ -2268,9 +2311,8 @@ Completed:
   >{75\over271}>C_{4,*},
   \]
   and hence the two improved liminf bounds. One standalone Fraction diagnostic
-  checks every identity and comparison margin. No global \(k=5\)
-  optimization, growing-\(k\) uniformity, production, artifact, schema,
-  backend, certificate, or new geometric input was added.
+  checks every identity and comparison margin. That bounded task did not
+  optimize globally; the later task below does.
 - Derived the exact finite floor/ceiling theorem for the same rational
   five-prefix tuple without changing any parameter. The minimal uniform
   threshold is \(234\); the first segment is empty at \(233\). The fixed
@@ -2280,6 +2322,15 @@ Completed:
   `Fraction` diagnostic covers only boundary and exact-arithmetic checks; no
   protected production, test, artifact, schema, backend, certificate, or
   enumeration-limit path changed.
+- Globally optimized the continuous five-prefix coefficient over all eleven
+  compact parameters. The exact proof reduces the ordered weights, classifies
+  21 clipping regimes, all transitions, collisions, and facets, and proves a
+  unique strict all-middle quadratic-surd optimizer with
+  \(C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}\). One standalone exact diagnostic
+  checks the optimizer polynomial, isolating interval, branch inequalities,
+  coefficient identity, and comparison margins. No finite rounding,
+  growing-\(k\), production, artifact, schema, backend, test-module,
+  certificate, or enumeration change was made.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness

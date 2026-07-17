@@ -257,6 +257,34 @@ Last updated: 2026-07-17
   count. By itself this pointwise theorem supplies no uniform asymptotic control for
   \(k=k(n)\), coefficient optimization, \(k\to\infty\) passage, or geometric
   consequence.
+- EXACT THEOREM (globally optimized five-prefix linear-block refinement):
+  optimizing the \(k=5\) specialization on the complete eleven-parameter
+  compact closure reduces the ordered weights coordinatewise. All 21 clipping
+  regimes, every transition, density and weight collision, and every compact
+  face are classified in research/FIXED_ORDER_CYCLE_RATIO.md. The unique
+  point is strictly all-middle, with
+  \[
+  \alpha_{5,*}
+  ={422413777961580309772684503
+   -10047852311701\sqrt{183342238504950468196395903}
+   \over661485317418210151348973103}.
+  \]
+  Its five exact cutoff/weight pairs are (CR28dz37)--(CR28dz38), and
+  \[
+  C_{5,*}
+  ={346693217780244687187063490332457027500975566238012204
+   +1228130489996268437333105902690103574002
+    \sqrt{183342238504950468196395903}
+   \over1312688475479610714750859896048564873968757997852345827}
+  >C_{5,\mathrm{rat}}>C_{4,*}.
+  \]
+  Hence
+  \[
+  \liminf{\Lambda_n\over n^3}\ge C_{5,*},
+  \qquad
+  \liminf{R_2^*(n)\over n^3}\ge{C_{5,*}\over\pi}.
+  \]
+  No finite rounding theorem at this irrational optimizer is asserted.
 - EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (EXPLICIT FIVE-PREFIX WITNESS):
   combine the preceding theorem at fixed \(k=5\) with the exact fifth
   normalized-simplex row and choose \(\alpha=13/30\). The resulting rational
@@ -273,7 +301,8 @@ Last updated: 2026-07-17
   \qquad
   \liminf{R_2^*(n)\over n^3}\ge{C_{5,\mathrm{rat}}\over\pi}.
   \]
-  This is one fixed rational witness, not a global five-prefix optimization.
+  This fixed rational specialization is strictly suboptimal by the preceding
+  global theorem.
   Keeping exactly those rational weights, the finite floor/ceiling theorem has
   minimal uniform threshold \(234\). Its literal expression
   \(\mathcal B_{5,n}\) and integer closure
@@ -397,11 +426,19 @@ The globally optimized four-prefix template raises it again to
  +21288970076515705538\sqrt{2903456040383}
  \over2290468477489828247376833403\pi}.
 \]
-The explicit rational five-prefix witness at \(\alpha=13/30\), without a
-global five-prefix optimization, improves the current lower coefficient to
+The explicit rational five-prefix witness at \(\alpha=13/30\) first raises
+the coefficient to
 \[
 {2263404122555368590593580404287
  \over8177706222298165502582585481000\pi}.
+\]
+The full global five-prefix optimization raises the current lower coefficient
+further to
+\[
+{346693217780244687187063490332457027500975566238012204
+ +1228130489996268437333105902690103574002
+  \sqrt{183342238504950468196395903}
+ \over1312688475479610714750859896048564873968757997852345827\pi}.
 \]
 None of these lower-bound results is an upper
 bound on the true problem. The order-independent regular-core baseline has
@@ -1601,6 +1638,104 @@ Consequently it yields no interchange of \(n\to\infty\) with
 \(k\to\infty\), no optimization of a new coefficient, and no new geometric
 lower bound.
 
+### Globally optimized five-prefix coefficient
+
+At fixed \(k=5\), the preceding one-use theorem gives the continuous
+coefficient
+
+\[
+C_5=p(\alpha)+\sum_{i=1}^5
+(\beta_{i-1}-\beta_i)g(\alpha,\beta_i,\lambda_i),
+\qquad \beta_0=\alpha.
+\]
+
+On the full ordered compact closure, the weights clip independently to
+\(0\), \(4-(1+\alpha)/\beta_i\), or \(1\). Their optima are already ordered,
+so the exact density reduction has 21 regimes \(H^hM^m0^z\),
+\(h+m+z=5\). The Bellman audit in
+research/FIXED_ORDER_CYCLE_RATIO.md classifies all 15 trailing-zero
+nonwinners, the active sequence
+
+\[
+MMMMM,\quad HMMMM,\quad HHMMM,\quad HHHMM,\quad HHHHM,
+\]
+
+and the formal HHHHH transition beyond \(\alpha=1\). The same proof audits
+all clipping joins, density collisions, ordered-weight diagonals, unused
+segments, and compact faces.
+
+For \(A=3\alpha-1\), the normalized-simplex certificate gives the sharp
+envelope
+
+\[
+E_5(\alpha)
+=p(\alpha)+{M_5\over8}(3\alpha-1)^3.
+\]
+
+Its unique global maximizer is
+
+\[
+\boxed{
+\alpha_{5,*}
+={422413777961580309772684503
+ -10047852311701\sqrt{183342238504950468196395903}
+ \over661485317418210151348973103}.
+}
+\]
+
+It lies strictly between \(1/3\) and \(1/2\), before the first high-clipping
+transition. With the \(D,N_i\) above and \(A_*=3\alpha_{5,*}-1\), the five
+unique exact pairs are
+
+\[
+\boxed{
+\beta_{i,*}
+={(D-N_i)+(D+3N_i)\alpha_{5,*}\over4D},
+\qquad
+\lambda_{i,*}
+={4N_iA_*\over(D-N_i)+(D+3N_i)\alpha_{5,*}}
+\quad(1\le i\le5).
+}
+\]
+
+All five cutoffs and weights are strictly ordered and middle-clipped. The
+exact optimum is
+
+\[
+\boxed{
+C_{5,*}
+={346693217780244687187063490332457027500975566238012204
+ +1228130489996268437333105902690103574002
+  \sqrt{183342238504950468196395903}
+ \over1312688475479610714750859896048564873968757997852345827}.
+}
+\]
+
+The optimizer and coefficient have the primitive quadratic polynomials and
+rational isolating intervals recorded in (CR28dz35)--(CR28dz40). Exact
+integer and squared-radical margins give
+
+\[
+\boxed{C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}.}
+\]
+
+Consequently
+
+\[
+\boxed{
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{5,*},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{5,*}\over\pi}.
+}
+\]
+
+The standalone standard-library diagnostic checks all 21 clipped words, the
+five transition rows, collision identities, optimizer and coefficient
+polynomials, isolating intervals, strict branch inequalities, coefficient
+identity, and comparison margins. This is a fixed-\(k=5\) asymptotic
+optimization, not finite rounding at the irrational point, a growing-\(k\)
+passage, an exact residual, convergence, or a geometric leading constant.
+
 ### Explicit fixed five-prefix witness: asymptotic and finite forms
 
 For one fixed specialization, the finite theorem may be combined with the
@@ -1689,9 +1824,9 @@ additive cyclic-ratio relation therefore give
 The second inequality uses no new geometric lemma: it is only the normalized
 consequence of the existing \(O(n^2)\) additive sandwich. The standalone
 Fraction diagnostic in the task dossier checks every rational identity and
-both comparison margins. This specialization is not a global \(k=5\)
-optimization, uniform result in \(k\), exact residual, convergence theorem,
-or exact leading coefficient.
+both comparison margins. This rational specialization is strictly below the
+global coefficient above. Its derivation itself uses no global optimization,
+and it remains the point with the exact finite theorem below.
 
 For the finite form, retain the same fixed rational weights and define
 
@@ -2356,10 +2491,10 @@ Therefore
 \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over2\pi}.
 \tag{21}
 \]
-Combining (21) with the explicit five-prefix rational linear-block lower bound
+Combining (21) with the globally optimized five-prefix linear-block lower bound
 proved in this note yields
 \[
-{C_{5,\mathrm{rat}}\over\pi}
+{C_{5,*}\over\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -2374,7 +2509,7 @@ In particular,
 The later exact product-distance construction sharpens the right endpoint to
 
 \[
-{C_{5,\mathrm{rat}}\over\pi}
+{C_{5,*}\over\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -2427,9 +2562,9 @@ Neither the improved upper bound nor the lower bound proves that
   baseline. The zigzag radius \(V_n\) improves its asymptotic upper coefficient
   from \(1/\pi\) to \(1/(2\pi)\); the later product-distance construction
   improves it again to \(8/(25\pi)\), which still does not match the
-  current explicit five-prefix linear-block lower coefficient
+  current globally optimized five-prefix linear-block lower coefficient
   \[
-  {C_{5,\mathrm{rat}}\over\pi}.
+  {C_{5,*}\over\pi}.
   \]
   None may be described as the exact asymptotic leading constant for
   Power-Ringmin. The smaller coefficient
@@ -2491,14 +2626,17 @@ Neither the improved upper bound nor the lower bound proves that
    \over8177706222298165502582585481000}
   >{75\over271}>C_{4,*}.
   \]
-  This is one explicit rational all-middle witness and the new lower endpoint
-  in (22)--(23). Its exact finite specialization keeps the same weights, has
+  This is one explicit rational all-middle witness. Its exact finite
+  specialization keeps the same weights, has
   minimal uniform threshold \(234\), and proves
   \(\Lambda_n>C_{5,\mathrm{rat}}n^3\) throughout that domain via the literal
   bound \(\mathcal B_{5,n}\) and integer closure \(\mathcal I_{5,n}\).
-  Neither statement is a global \(k=5\) optimization, growing-\(k\)
-  argument, true residual, convergence theorem, new geometric lemma, or exact
-  leading constant.
+  The full compact optimization instead proves the unique strict all-middle
+  coefficient \(C_{5,*}>C_{5,\mathrm{rat}}\), now the lower endpoint in
+  (22)--(23), after auditing all 21 branches, transitions, collisions, and
+  compact faces. No finite rounding theorem is attached to that irrational
+  point. Neither result is a growing-\(k\) argument, true residual,
+  convergence theorem, new geometric lemma, or exact leading constant.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower
   bound only from the scalar full-problem lower bound would reverse the useful

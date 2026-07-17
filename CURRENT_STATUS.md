@@ -6,203 +6,189 @@ Last update: 2026-07-17
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Active task:** exact finite floor/ceiling theorem for the fixed rational
-  five-prefix witness of CR28dx--CR28dz3.
-- **Repository state at startup:** clean `main` worktree at commit
-  `941d0b6f5a7be00f71552bfd3771a841a7c05782`, tracking `origin/main`.
-- **Implementation state:** exact threshold, literal and integer-closed
-  bounds, exact rounded remainder, uniform comparison, sole standalone
-  diagnostic, authoritative research/project synchronization, focused/full
-  regressions, three independent audits, and final diff inspection are
-  complete.
+- **Active task:** global continuous five-prefix coefficient optimization.
+- **Repository state at startup:** clean main worktree at commit
+  9fc4b2caeb385a7cd34c62fc494fd91182935f06, tracking origin/main.
+- **Implementation state:** the full compact proof, exact optimizer,
+  coefficient comparison, sole standalone diagnostic, authoritative research
+  synchronization, regression checks, independent audits, and final diff
+  inspection are complete.
 - **Current blocker:** none.
-- **Current next atomic action:** user review and, if accepted, manual commit.
+- **Current next atomic action:** user manual review and commit decision.
 - **Awaiting user review:** yes.
 
 ## Objective And Scope
 
-Keep exactly
+Starting from CR28cr--CR28dd and CR28dr--CR28dw, optimize globally the fixed
+\(k=5\) continuous coefficient over its complete ordered compact closure.
+Classify every clipping regime and transition, audit density/weight
+collisions and every compact face, determine the exact optimizer and
+coefficient, prove
 
 \[
-\alpha={13\over30},
-\qquad
-x_i={N_i\over30143556935103},
-\qquad
-\beta_i={43/30+(3/10)x_i\over4},
-\qquad
-\lambda_i={(3/10)x_i\over\beta_i},
+C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*},
 \]
 
-and derive the exact finite specialization of CR28dw: minimal uniform
-admissibility/middle-branch threshold, literal
-\(\mathcal B_{5,n}\), integer closure \(\mathcal I_{5,n}\), exact
-floor/ceiling-error remainder, and a uniform comparison with
-\(C_{5,\mathrm{rat}}n^3\).
+and add one standalone exact diagnostic.
 
-Global \(k=5\) optimization, growing-\(k\) limits, and changes to production
-code, tests, artifacts, schemas, interval backends, serialized certificates,
-enumerators, or enumeration limits are excluded.
+Finite rounding at the irrational optimizer, growing-\(k\) claims, and
+production, artifact, schema, backend, test-module, certificate, or
+enumeration changes are excluded. The existing rational \(n\ge234\) theorem
+is retained without alteration.
 
-## Exact Uniform Domain
+## Exact Compact Classification
 
-Define
+Coordinatewise clipping reduces the full eleven-parameter problem to
 
 \[
-r_n=\left\lfloor{13n\over30}\right\rfloor,
-\qquad
-s_{i,n}=\lceil\beta_i n\rceil,
-\qquad
-s_{0,n}=r_n,
-\qquad
-S_n=n+r_n.
+\overline C_5
+=p(\alpha)+\sum_{i=1}^5
+(\beta_{i-1}-\beta_i)\Phi_{1+\alpha}(\beta_i).
 \]
 
-The minimal uniform threshold for
+There are exactly 21 ordered regimes \(H^hM^m0^z\),
+\(h+m+z=5\). The 15 words with a trailing zero are nonwinning for
+\(\alpha>1/3\). The exact active winner sequence is
 
 \[
-2\le r_n\le n-2,
-\qquad
-1\le s_{5,n}<\cdots<s_{1,n}\le r_n-1,
-\qquad
-{S_n\over4}<s_{i,n}<{S_n\over3}
+MMMMM,\ HMMMM,\ HHMMM,\ HHHMM,\ HHHHM,
 \]
 
-is
+with the formal HHHHH transition beyond \(\alpha=1\). The new \(m=4\)
+mixed predecessor margin is positive. Every clipping join, density
+collision, internal and outer weight face, unused segment, and compact
+density face is classified.
+
+## Exact Optimizer
+
+Let
 
 \[
-\boxed{n=234}.
+d_5=183342238504950468196395903.
 \]
 
-At \(n=233\),
-
-\[
-(r_n;s_{1,n},\ldots,s_{5,n})=(100;100,98,95,93,90),
-\]
-
-so the first segment is empty. Exact rows \(234\) through \(246\) close the
-finite bridge; the symbolic tail starts at \(247\). At \(n=234\), the
-segment lengths are \((1,2,2,3,3)\), and all five lower/upper middle gaps
-are strictly positive.
-
-## Literal Bound And Integer Closure
-
-The user-fixed weights are retained in
-
-\[
-F_{i,n}
-=G_{n,\lambda_i}(s_{i,n})
-={\lambda_i(4S_ns_{i,n}-S_n^2-2\lambda_i s_{i,n}^2)
- \over2(2-\lambda_i)}.
-\]
-
-They are not replaced by the finite clipped optima
-\(4-S_n/s_{i,n}\). Define
+The unique global density is
 
 \[
 \boxed{
-\mathcal B_{5,n}
-=P_{r_n,n}+\sum_{i=1}^5(s_{i-1,n}-s_{i,n})F_{i,n},
+\alpha_{5,*}
+={422413777961580309772684503
+ -10047852311701\sqrt{d_5}
+ \over661485317418210151348973103}.
 }
 \]
+
+It is the smaller root of
+
+\[
+661485317418210151348973103a^2
+-844827555923160619545369006a
++241763928731615232919074902=0
+\]
+
+and lies in
+
+\[
+{432907432458521\over10^{15}}
+<\alpha_{5,*}<
+{432907432458522\over10^{15}}.
+\]
+
+With
+
+\[
+D=30143556935103,
+\quad
+(N_1,\ldots,N_5)
+=(26881208992898,23392470652668,19595592993288,
+15335681473008,10223787648672),
+\]
+
+and \(A_*=3\alpha_{5,*}-1\), the five exact pairs are
 
 \[
 \boxed{
-\mathcal I_{5,n}
-=\left\lceil\mathcal B_{5,n}\right\rceil
-=P_{r_n,n}
-+\left\lceil\sum_{i=1}^5(s_{i-1,n}-s_{i,n})F_{i,n}\right\rceil.
-}
-\]
-
-CR28dw, CR28ap, and integrality of \(\Lambda_n\) give
-
-\[
-\Lambda_n\ge\mathcal I_{5,n}\ge\mathcal B_{5,n}
-\qquad(n\ge234).
-\]
-
-## Exact Remainder And Uniform Sign
-
-With the exact floor/ceiling errors \(\eta_n,\varepsilon_{i,n}\), the
-literal rounded-bound remainder has the form
-
-\[
-\mathcal B_{5,n}-C_{5,\mathrm{rat}}n^3
-=\left({13\over30}+K\eta_n\right)n^2+Q_n n+T_n,
-\]
-
-where
-
-\[
-K={34730769300472139183348711
- \over90863402469979616695362060900}>0.
-\]
-
-The simplex stationarity equations cancel every ceiling error from the
-quadratic coefficient. Exact rational estimates give
-
-\[
-Q_n>-{25\over2},
+\beta_{i,*}
+={(D-N_i)+(D+3N_i)\alpha_{5,*}\over4D},
 \qquad
-T_n>-{109\over6},
-\]
-
-and therefore
-
-\[
-\mathcal B_{5,n}-C_{5,\mathrm{rat}}n^3
->{13\over30}n^2-{25\over2}n-{109\over6}>0
-\qquad(n\ge234).
-\]
-
-There are no failure rows on the minimal uniform domain. Consequently
-
-\[
-\boxed{
-\Lambda_n\ge\mathcal I_{5,n}\ge\mathcal B_{5,n}
->C_{5,\mathrm{rat}}n^3
-\qquad(n\ge234),
+\lambda_{i,*}
+={4N_iA_*\over(D-N_i)+(D+3N_i)\alpha_{5,*}}.
 }
 \]
 
+All cutoff, weight, and middle-branch inequalities are strict. Equality in
+the clipping loss, normalized-simplex certificate, and scalar envelope forces
+this unique eleven-tuple.
+
+## Exact Coefficient And Comparisons
+
 \[
 \boxed{
-R_2^*(n)>{\mathcal I_{5,n}\over\pi}-n^2
->{C_{5,\mathrm{rat}}\over\pi}n^3-n^2
-\qquad(n\ge234).
+C_{5,*}
+={346693217780244687187063490332457027500975566238012204
+ +1228130489996268437333105902690103574002\sqrt{d_5}
+ \over1312688475479610714750859896048564873968757997852345827}.
 }
+\]
+
+It lies in
+
+\[
+{276777463862376\over10^{15}}
+<C_{5,*}<
+{276777463862377\over10^{15}}
+\]
+
+and satisfies its recorded primitive quadratic. Rational separators and
+positive squared-radical margins prove
+
+\[
+\boxed{
+C_{5,*}>C_{5,\mathrm{rat}}>{75\over271}>C_{4,*}.
+}
+\]
+
+The fixed-parameter charging theorem and additive cyclic-ratio relation give
+
+\[
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{5,*},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{5,*}\over\pi}.
 \]
 
 ## Verification
 
-- The sole new standalone `Fraction` diagnostic passes every parameter,
-  boundary-row, predicate-failure, symbolic-margin, literal-floor, integer
-  closure, stationarity, exact-remainder, and uniform-sign assertion.
-- Ruff lint and format checks pass after the recorded mechanical formatting
-  corrections.
-- All 101 fixed-order cycle-ratio tests and all 283 local tests pass.
-- The independent artifact verifier accepts 4 certificates and 76 local
-  brackets; all 4 schema-validation tests pass.
-- The primary proof has 343 unique equation tags. Display math and aligned
-  environments balance across every changed Markdown source.
-- Three independent read-only audits pass. Exactly the ten intended files are
-  present; encodings, whitespace, protected-path scope, complete diff, and
-  `git diff --check` pass.
+- The sole new standalone standard-library diagnostic passes its clipping,
+  transition, collision, polynomial, isolation, branch, coefficient, and
+  comparison assertions.
+- Independent mathematical audits agree on all exact transition, optimizer,
+  pair, coefficient, and comparison data; their wording corrections have
+  been applied to the compact-face proof.
+- Ruff check and format check pass for the sole new diagnostic.
+- The focused fixed-order suite passes 101 tests; the full suite passes 283
+  tests.
+- Schema checks, four artifact certificates with 76 local brackets, and the
+  four historical exact diagnostics all pass.
+- The source audit finds 366 unique equation tags, balanced delimiters and
+  LaTeX environments, valid UTF-8, synchronized theorem statements, no
+  prohibited scope changes, and a clean `git diff --check`.
+- Three independent audits agree on the optimizer algebra, branch/face audit,
+  coefficient comparisons, and final source synchronization; all concrete
+  wording corrections found during review are applied.
 
 ## Evidence Classification And Limitations
 
-- The threshold \(234\), literal and integer-closed bounds, exact rounded
-  remainder, uniform strict comparison, and finite geometric consequence are
-  **exact finite method-specific theorems**.
+- The compact reduction, branch and face classification, optimizer,
+  coefficient, strict comparisons, and liminf consequences are **exact
+  method-specific theorems**.
 - The standalone script is a **verified bounded exact computation** that
-  corroborates but does not replace the finite bridge and symbolic tail.
-- \(C_{5,\mathrm{rat}}\) remains one fixed rational witness, not the global
-  \(k=5\) optimum.
-- The exact remainder belongs to \(\mathcal B_{5,n}\); it is not the true
-  residual of the block, \(\Lambda_n\), or the geometric problem.
-- No growing-\(k\) result, convergence theorem, exact leading coefficient,
-  production computation, serialized certificate, or new geometric lemma is
-  added.
+  corroborates but does not replace the all-real proof.
+- \(C_{5,*}\) is the global optimum of this fixed five-prefix template, not
+  an exact residual, limit, or geometric leading constant.
+- The finite \(n\ge234\) theorem remains specific to
+  \(C_{5,\mathrm{rat}}\); no finite rounding is claimed at \(C_{5,*}\).
+- No growing-\(k\), convergence, production, artifact, schema, backend,
+  test-module, certificate, or enumeration conclusion is added.
 
 ## Files In Scope
 
@@ -212,7 +198,7 @@ R_2^*(n)>{\mathcal I_{5,n}\over\pi}-n^2
 - start.md
 - PROJECT_KNOWLEDGE.md
 - CURRENT_STATUS.md
-- ops/TASK-20260717__five_prefix_finite_theorem/
+- ops/TASK-20260717__global_five_prefix_optimization/
 
 ## Proposed Next Task
 

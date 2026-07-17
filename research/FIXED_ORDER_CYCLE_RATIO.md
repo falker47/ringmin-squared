@@ -294,8 +294,8 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \]
   The sequence is strictly increasing and converges to \(1/3\). A global
   nonnegative telescoping certificate proves uniqueness, rather than only
-  stationarity. The cases \(k=1,2,3,4\) recover exactly the optimized
-  one- through four-prefix simplex data.
+  stationarity. The cases \(k=1,2,3,4,5\) recover exactly the optimized
+  one- through five-prefix simplex data.
 - **EXACT NORMALIZED-ENVELOPE CLASSIFICATION:** the formal limiting envelope
   \(p(\alpha)+(3\alpha-1)^3/24\) has unique compact-closure maximum
   \(1/3\) at the degenerate endpoint \(\alpha=1\); on \(\alpha<1\) this is
@@ -303,6 +303,36 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \([1/3,1/2]\), its unique maximum is
   \((434+4\sqrt2)/1587\) at
   \((13-2\sqrt2)/23\).
+- **EXACT METHOD-SPECIFIC THEOREM (GLOBALLY OPTIMIZED FIVE PREFIXES):**
+  the full eleven-parameter compact closure reduces coordinatewise to the
+  clipped density objective (CR28dz22). All 21 regimes \(H^hM^m0^z\), the
+  four in-domain transitions, the formal transition beyond \(\alpha=1\),
+  every density collision, every ordered-weight face, and both outer density
+  faces are classified in (CR28dz23)--(CR28dz31). The unique global point is
+  strictly all-middle, with
+  \[
+  \alpha_{5,*}
+  ={422413777961580309772684503
+   -10047852311701\sqrt{183342238504950468196395903}
+   \over661485317418210151348973103},
+  \]
+  and the five exact cutoff/weight pairs are (CR28dz37)--(CR28dz38). Its
+  coefficient is
+  \[
+  C_{5,*}
+  ={346693217780244687187063490332457027500975566238012204
+   +1228130489996268437333105902690103574002
+    \sqrt{183342238504950468196395903}
+   \over1312688475479610714750859896048564873968757997852345827},
+  \]
+  with
+  \[
+  C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}.
+  \]
+  Consequently
+  \(\liminf\Lambda_n/n^3\ge C_{5,*}\) and
+  \(\liminf R_2^*(n)/n^3\ge C_{5,*}/\pi\). No finite rounding at this
+  irrational optimizer is asserted.
 - **EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (EXPLICIT FIVE-PREFIX
   WITNESS):** specialize the exact \(k=5\) simplex at
   \(\alpha=13/30\), then use the separate arbitrary finite-prefix charging
@@ -316,8 +346,10 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \]
   Hence
   \(\liminf\Lambda_n/n^3\ge C_{5,\mathrm{rat}}\) and
-  \(\liminf R_2^*(n)/n^3\ge C_{5,\mathrm{rat}}/\pi\). This is one explicit
-  fixed-parameter witness, not the global \(k=5\) optimum.
+  \(\liminf R_2^*(n)/n^3\ge C_{5,\mathrm{rat}}/\pi\). Its original
+  derivation is one explicit fixed-parameter specialization without a global
+  optimization; the exact theorem above now proves it is strictly
+  suboptimal.
 - **EXACT FINITE METHOD-SPECIFIC THEOREM (FIXED RATIONAL FIVE-PREFIX
   WITNESS):** retain the same \(\alpha,x_i,\beta_i,\lambda_i\), put
   \(r_n=\lfloor13n/30\rfloor\) and
@@ -340,7 +372,7 @@ in `research/ALL_N_LOWER_BOUND.md`.
   statement. A separate direct argument proves one-use charging for every
   finite admissible \(k\), but supplies no threshold or error estimate uniform
   in a growing \(k=k(n)\), no interchange of \(k\) and \(n\), and no finite
-  rounding at the optimized four-prefix point.
+  rounding at the optimized four- or five-prefix points.
 - **VERIFIED FACT (BOUNDED EXACT FOUR-PREFIX ORACLE):** a standalone
   Fraction oracle literally checks all 840 four-split histories from the
   bounded base \(C_0=(11,14,12,13)\). It imports no project or test helper and
@@ -383,6 +415,15 @@ in `research/ALL_N_LOWER_BOUND.md`.
   the direct and normalized coefficient formulas, and the two positive exact
   margins proving \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). It corroborates but
   does not replace the written algebra.
+- **VERIFIED FACT (INDEPENDENT GLOBAL FIVE-PREFIX OPTIMIZATION
+  DIAGNOSTIC):** one standalone standard-library script checks the 21 clipped
+  words, all five transition rows, collision identities, the primitive
+  optimizer and coefficient polynomials, rational isolating intervals,
+  strict all-middle density/weight inequalities, end-to-end coefficient
+  identities, and the exact margins proving
+  \(C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}\). It imports no project,
+  production, test, artifact, backend, certificate, or enumeration helper and
+  corroborates rather than replaces the compact proof.
 - **VERIFIED FACT (FINITE EXACT FIVE-PREFIX FLOOR/CEILING DIAGNOSTIC):** the
   sole new dossier script for the finite specialization uses only
   standard-library `Fraction` arithmetic. It checks the exact rows
@@ -5066,7 +5107,7 @@ Therefore \(M_k=T(M_{k-1})\) is strictly increasing and bounded above by
 \tag{CR28cy}
 \]
 
-The first four rows recover, exactly and in the same normalization, all
+The first five rows recover, exactly and in the same normalization, all
 documented optimized prefix-simplex values:
 
 | \(k\) | unique maximizer \((x_1,\ldots,x_k)\) | ratios \((r_1,\ldots,r_k)\) | \(M_k\) | \(M_k/8\) |
@@ -5075,10 +5116,12 @@ documented optimized prefix-simplex values:
 | 2 | \((18/23,12/23)\) | \((18/23,2/3)\) | \(108/529\) | \(27/1058\) |
 | 3 | \((1058/1263,276/421,184/421)\) | \((1058/1263,18/23,2/3)\) | \(1119364/4785507\) | \(279841/9571014\) |
 | 4 | \((3190338,2672508,2091528,1394352)/3666143\) | \((3190338/3666143,1058/1263,18/23,2/3)\) | \(3392752184748/13440604496449\) | \(848188046187/26881208992898\) |
+| 5 | \((26881208992898,23392470652668,19595592993288,15335681473008,10223787648672)/30143556935103\) | \((26881208992898/30143556935103,3190338/3666143,1058/1263,18/23,2/3)\) | \(722599396919860307414438404/2725902074099388500860861827\) | \(180649849229965076853609601/5451804148198777001721723654\) |
 
 The last column is the scale appearing after
 \(X_i=(3\alpha-1)x_i\): it reproduces respectively the one-prefix residual
-coefficient, (CR28bw12), (CR28cn), and the four-prefix envelope (CR28dq8).
+coefficient, (CR28bw12), (CR28cn), the four-prefix envelope (CR28dq8), and
+the five-prefix envelope (CR28dz34).
 
 Purely at the normalized-polynomial level, define on
 \(1/3\le\alpha\le1\)
@@ -5566,8 +5609,9 @@ C_{5,\mathrm{rat}}
 \tag{CR28dz1}
 \]
 
-The subscript “rat” is deliberate: no claim is made that this point is the
-global five-prefix optimizer. To compare it exactly with (CR28dq11), write
+The subscript “rat” is deliberate: this fixed point is not the global
+five-prefix optimizer, as the optimization below proves. To compare it
+exactly with (CR28dq11), write
 
 \[
 C_{4,*}={a+b\sqrt d\over c}
@@ -5629,9 +5673,9 @@ with its \(O(n^2)\) additive error removed after normalization. Thus
 \]
 
 This is an exact method-specific asymptotic corollary at one fixed rational
-five-prefix point. The finite theorem below retains exactly the same tuple; it
-does not change the fact that the point is a witness rather than a global
-\(k=5\) optimizer. The standalone script in
+five-prefix point. The finite theorem below retains exactly the same tuple;
+the subsequent compact optimization proves that this point is a strict
+suboptimal witness. The standalone script in
 ops/TASK-20260717__five_prefix_explicit_asymptotic_witness/fraction_diagnostic.py
 uses only fractions.Fraction and checks the recurrence, simplex identities,
 stationarity, reduced parameters, strict branch conditions, both coefficient
@@ -6005,6 +6049,599 @@ coefficient, or a new geometric lemma. The sole new dossier diagnostic uses
 only standard-library `Fraction` arithmetic, checks the exact boundary rows,
 minimality, symbolic-tail margins, literal expression, integer closure, and
 remainder identities, and changes no production path or enumeration limit.
+
+#### Global optimization of the continuous five-prefix coefficient
+
+The finite theorem above remains attached to its fixed rational tuple. We now
+return to the unrounded continuous problem and optimize all eleven parameters
+at fixed \(k=5\). This uses only the already proved charging theorem
+(CR28dr)--(CR28dw) and the normalized simplex (CR28cr)--(CR28cw); it adds no
+finite rounding or growing-\(k\) passage.
+
+For fixed strictly admissible real parameters, the coefficient obtained by
+taking the usual fixed-parameter limit in (CR28dw) is
+
+\[
+\boxed{
+C_5=p(\alpha)+\sum_{i=1}^5
+ (\beta_{i-1}-\beta_i)g(\alpha,\beta_i,\lambda_i),
+\qquad \beta_0=\alpha.
+}
+\tag{CR28dz20}
+\]
+
+The strict proof-valid domain is dense in the compact ordered closure
+
+\[
+\boxed{
+0\le\beta_5\le\beta_4\le\beta_3\le\beta_2\le\beta_1\le\alpha\le1,
+\qquad
+0\le\lambda_5\le\lambda_4\le\lambda_3\le\lambda_2\le\lambda_1\le1.
+}
+\tag{CR28dz21}
+\]
+
+Put \(s=1+\alpha\), \(L=s/4\), \(U=s/3\), and
+\(d_i=\beta_{i-1}-\beta_i\). Every positive-length summand is strictly
+concave in its weight. The only compact point where the second derivative
+vanishes is \((\alpha,\beta)=(1,1)\), whose segment necessarily has zero
+length. The unique clipped optimum is the nondecreasing map
+
+\[
+\psi_s(\beta)=
+\begin{cases}
+0,&\beta\le L,\\
+4-s/\beta,&L<\beta<U,\\
+1,&U\le\beta.
+\end{cases}
+\]
+
+Thus the five coordinatewise optima already obey the weight order. If a
+segment has zero length, its unused weight can be filled between its ordered
+neighbors without changing the value. There is no pooled KKT branch, and the
+exact compact reduction is
+
+\[
+\boxed{
+\overline C_5(\alpha,\boldsymbol\beta)
+=p(\alpha)+\sum_{i=1}^5d_i\Phi_s(\beta_i).
+}
+\tag{CR28dz22}
+\]
+
+Strict concavity and the clipped reduction (CR28bw1)--(CR28bw4) show term by
+term that no other ordered weight tuple can tie unless its positive-length
+coordinates equal their clipped optima.
+
+The density order leaves exactly the 21 clipping regimes
+\(H^hM^m0^z\), \(h+m+z=5\):
+
+\[
+\begin{gathered}
+00000;\\
+M0000,\ H0000;\\
+MM000,\ HM000,\ HH000;\\
+MMM00,\ HMM00,\ HHM00,\ HHH00;\\
+MMMM0,\ HMMM0,\ HHMM0,\ HHHM0,\ HHHH0;\\
+MMMMM,\ HMMMM,\ HHMMM,\ HHHMM,\ HHHHM,\ HHHHH.
+\end{gathered}
+\tag{CR28dz23}
+\]
+
+The clipping surfaces are precisely \(\beta_i=L\), where
+\(\lambda_i=0\), and \(\beta_i=U\), where \(\lambda_i=1\). Both
+\(\Phi_s\) and \(\Phi_s'\) agree across each join. On an internal face
+\(0<\lambda_{i+1}=\lambda_i<1\) with two positive segment lengths, distinct
+clipped optima admit a feasible separating improvement. If both optima are
+the same endpoint, moving both common weights toward that endpoint improves
+instead. A common middle optimum forces a density collision. Zero-length
+segments are unused. Thus every internal weight collision is either excluded
+by one of these directions or belongs to a plateau, join, density-collision,
+or unused subface already represented in (CR28dz23). Consecutive unused
+blocks may be filled arbitrarily between their active neighbors.
+
+For the complete fixed-density classification, normalize
+
+\[
+\tau={\alpha\over1+\alpha},
+\qquad
+\rho_i={\beta_i\over1+\alpha},
+\]
+
+and retain the function \(\phi\) from (CR28do). The residual in (CR28dz22)
+is \((1+\alpha)^3\mathcal V^{(5)}_\tau\), where
+
+\[
+\mathcal V^{(5)}_\tau
+=(\tau-\rho_1)\phi(\rho_1)
++\sum_{i=2}^5(\rho_{i-1}-\rho_i)\phi(\rho_i).
+\tag{CR28dz24}
+\]
+
+For \(\tau\le1/4\) the residual vanishes. If \(\tau>1/4\), none of the 15
+words with a trailing zero can maximize. If all coordinates are inactive,
+choosing \(\rho_1\in(1/4,\tau)\) adds a positive term. Otherwise, appending a
+cutoff strictly between \(1/4\) and the last active cutoff does the same.
+
+The Bellman recursion and stationarity equations are (CR28dp) with five
+coordinates; the four predecessor maps (CR28dq) are unchanged. The only new
+mixed-base estimate beyond the four-prefix audit is a high coordinate
+followed by an optimized middle tail of length four. With
+
+\[
+q_4={3190338\over3666143},
+\]
+
+the relevant interval is
+\(1/3\le y\le1/(3q_4)=3666143/9571014\), and
+
+\[
+T_4'(y)-1
+={17-(1+8q_4^2)y(6-y)\over2(3-y)^2}.
+\]
+
+The numerator decreases on this interval and at the right endpoint equals
+
+\[
+{609160555391902550135\over335834496166911848028}>0.
+\tag{CR28dz25}
+\]
+
+The corresponding \(m=1,2,3\) margins are already recorded after (CR28dq),
+and the terminal H0 derivative is positive there as well. Outward
+propagation uses the HH identity only when both adjacent coordinates are
+high; it is not used across an HM interface. The same inverse-derivative
+induction then makes every active regional maximum unique. Direct exact
+substitution in the predecessor maps gives the complete winner sequence
+
+\[
+\begin{array}{c|c}
+\alpha\text{ interval}&\text{winning regime}\\ \hline
+0\le\alpha\le1/3&00000\\
+1/3<\alpha<\alpha_1&MMMMM\\
+\alpha_1<\alpha<\alpha_2&HMMMM\\
+\alpha_2<\alpha<\alpha_3&HHMMM\\
+\alpha_3<\alpha<\alpha_4&HHHMM\\
+\alpha_4<\alpha\le1&HHHHM,
+\end{array}
+\tag{CR28dz26}
+\]
+
+where
+
+\[
+\boxed{
+\begin{aligned}
+\alpha_1&={36929061304599\over70595774666993},&
+\alpha_2&={229053579602567\over410211009692329},\\
+\alpha_3&={309127972999621\over499292225089307},&
+\alpha_4&={3403232546992614203\over4537959314998507141}.
+\end{aligned}
+}
+\tag{CR28dz27}
+\]
+
+At each transition the point is unique and belongs to both adjacent branch
+closures. The exact normalized densities and weights are
+
+\[
+\begin{array}{c|c|c}
+\tau&(\rho_1,\rho_2,\rho_3,\rho_4,\rho_5)
+ &(\lambda_1,\lambda_2,\lambda_3,\lambda_4,\lambda_5)\\ \hline
+{36929061304599\over107524835971592}
+ &(1/3,4729589/14664572,4556979/14664572,
+   4363319/14664572,4130927/14664572)
+ &(1,4253784/4729589,3563344/4556979,
+   2788704/4363319,1859136/4130927)\\[1mm]
+{229053579602567\over639264589294896}
+ &(13237157/38284056,1/3,4847/15156,513/1684,1447/5052)
+ &(1,1,4232/4847,368/513,736/1447)\\[1mm]
+{309127972999621\over808420198088928}
+ &(76718581/209712528,1479/4232,1/3,29/92,27/92)
+ &(1,1,1,24/29,16/27)\\[1mm]
+{3403232546992614203\over7941191861991121344}
+ &(1806469369/4470813792,7607/20016,77/216,1/3,11/36)
+ &(1,1,1,1,8/11).
+\end{array}
+\tag{CR28dz28}
+\]
+
+The formal HHHHM--HHHHH transition is
+
+\[
+\tau_5={27936208629060590955659\over50072626139262934446720}>{1\over2},
+\qquad
+\alpha_5={27936208629060590955659\over22136417510202343491061}>1,
+\tag{CR28dz29}
+\]
+
+at
+
+\[
+\boldsymbol\rho
+=\left({199200916177\over391198109760},{93059\over201120},
+ {301\over720},{3\over8},{1\over3}\right),
+\qquad
+\boldsymbol\lambda=(1,1,1,1,1).
+\]
+
+Thus HHHHH never wins on the admissible compact domain. Equations
+(CR28dz23), (CR28dz26), and (CR28dz28)--(CR28dz29) audit every clipping
+regime and every transition, not only the branch containing the global point.
+
+The compact-face audit is also exact. Each density facet
+
+\[
+\beta_1=\alpha,\quad
+\beta_2=\beta_1,\quad
+\beta_3=\beta_2,\quad
+\beta_4=\beta_3,\quad
+\beta_5=\beta_4,\quad
+\beta_5=0
+\tag{CR28dz30}
+\]
+
+deletes one summand of the clipped objective (CR28dz22), so its exact maximum
+is \(C_{4,*}\). Further collisions leave at most three effective prefixes.
+On the outer weight facet \(\lambda_5=0\), the last term vanishes. On
+\(\lambda_1=1\), differentiation at fixed remaining parameters gives
+
+\[
+{\partial C_5\over\partial\alpha}
+=-(\alpha-\beta_1)(2\alpha-3\beta_1+3)
++\sum_{i=2}^5d_i
+ {\lambda_i(2\beta_i-1-\alpha)\over2-\lambda_i}
+\le0.
+\tag{CR28dz31}
+\]
+
+Moving to \(\alpha=\beta_1\) deletes the first term, so this facet also has
+exact maximum \(C_{4,*}\). The directional argument above excludes every
+remaining internal weight diagonal from the later strict all-middle equality
+case; collision and unused subfaces reduce, while plateau and join subfaces
+are covered by the branch audit. The six deletion facets in (CR28dz30)
+together with \(\alpha=1\) are all seven facets of the ordered density
+simplex. At its collapsed vertex \(\alpha=0\), all densities vanish and the
+value is \(p(0)=1/6\). At \(\alpha=1\), the envelope below gives
+\(C_5\le M_5<22/81<C_{5,\mathrm{rat}}\). Their intersections inherit the
+corresponding reductions or exclusions. This completes the density,
+weight-collision, and compact-face audit.
+
+It remains to locate the global value. For \(\alpha>1/3\), put
+\(A=3\alpha-1\). On active cutoffs set
+\(X_i=4\beta_i-(1+\alpha)\), and replace an inactive suffix by zeros. Then
+
+\[
+0\le X_5\le X_4\le X_3\le X_2\le X_1\le A.
+\]
+
+For every active coordinate,
+
+\[
+\Phi_{1+\alpha}(\beta_i)\le {X_i^2\over2},
+\]
+
+with equality on the middle branch and exact high-branch loss
+\((3\beta_i-1-\alpha)^2\). Hence, with \(X_0=A\),
+
+\[
+\overline C_5-p(\alpha)
+\le {1\over8}\sum_{i=1}^5(X_{i-1}-X_i)X_i^2.
+\tag{CR28dz32}
+\]
+
+Set \(x_i=X_i/A\). The nonnegative certificate (CR28cu) at \(k=5\) gives
+
+\[
+F_5(x_1,\ldots,x_5)\le M_5
+={722599396919860307414438404
+ \over2725902074099388500860861827},
+\]
+
+with equality uniquely at
+
+\[
+\boxed{
+(x_1,x_2,x_3,x_4,x_5)
+={1\over30143556935103}
+(26881208992898,23392470652668,19595592993288,
+ 15335681473008,10223787648672).
+}
+\tag{CR28dz33}
+\]
+
+Therefore the exact all-middle envelope is
+
+\[
+\begin{aligned}
+E_5(\alpha)
+&=p(\alpha)+{M_5\over8}(3\alpha-1)^3\\
+&={1984455952254630454046919309\alpha^3
+ -3801724001654222787954160527\alpha^2
+ +2175875358584537096271674118\alpha
+ +363992087734915545050005504
+ \over2725902074099388500860861827}.
+\end{aligned}
+\tag{CR28dz34}
+\]
+
+Its derivative is \(Q_5(\alpha)/302878008233265388984540203\), where
+
+\[
+Q_5(a)=661485317418210151348973103a^2
+-844827555923160619545369006a
++241763928731615232919074902.
+\tag{CR28dz35}
+\]
+
+This polynomial is primitive. Its discriminant is
+
+\[
+(20095704623402)^2\cdot183342238504950468196395903,
+\]
+
+and the last factor is \(3\bmod5\), hence is not a square.
+
+The exact signs
+
+\[
+Q_5(1/3)={100959336077755129661513401\over3}>0,
+\quad
+Q_5(1/2)=-{61114079501650156065465301\over4}<0,
+\quad
+Q_5(1)=58421690226664764722678999>0
+\]
+
+make the smaller root a local maximum and the larger root a later local
+minimum. Moreover
+
+\[
+E_5(1/3)-E_5(1)
+={22\over81}-M_5
+={53307202951031930309979610
+ \over8177706222298165502582585481}>0.
+\]
+
+On \(0\le\alpha\le1/3\), the residual vanishes and \(p(\alpha)\) is
+strictly increasing. It follows that the unique global envelope maximum is
+the smaller root
+
+\[
+\boxed{
+\alpha_{5,*}
+={422413777961580309772684503
+ -10047852311701\sqrt{183342238504950468196395903}
+ \over661485317418210151348973103}.
+}
+\tag{CR28dz36}
+\]
+
+It is the root in
+
+\[
+{432907432458521\over10^{15}}
+<\alpha_{5,*}<
+{432907432458522\over10^{15}}.
+\]
+
+In particular,
+\(1/3<\alpha_{5,*}<1/2<\alpha_1\); the last inequality has exact numerator
+\(2(36929061304599)-70595774666993=3262347942205>0\). Thus the envelope
+equality point lies strictly in MMMMM, so (CR28dz32) is an equality there.
+
+Let
+
+\[
+D=30143556935103,
+\qquad
+(N_1,\ldots,N_5)
+=(26881208992898,23392470652668,19595592993288,
+ 15335681473008,10223787648672),
+\]
+
+and put \(A_*=3\alpha_{5,*}-1\). The unique maximizing cutoffs and weights
+are the five exact pairs
+
+\[
+\boxed{
+\beta_{i,*}
+={(D-N_i)+(D+3N_i)\alpha_{5,*}\over4D},
+\qquad
+\lambda_{i,*}
+={4N_iA_*\over(D-N_i)+(D+3N_i)\alpha_{5,*}}
+\quad(1\le i\le5).
+}
+\tag{CR28dz37}
+\]
+
+In individually reduced form they are
+
+\[
+\begin{array}{c|c|c}
+i&\beta_{i,*}&\lambda_{i,*}\\ \hline
+1&{3262347942205+110787183913797\alpha_{5,*}\over120574227740412}
+ &{107524835971592A_*\over3262347942205+110787183913797\alpha_{5,*}}\\[1mm]
+2&{2250362094145+33440322964369\alpha_{5,*}\over40191409246804}
+ &{31189960870224A_*\over2250362094145+33440322964369\alpha_{5,*}}\\[1mm]
+3&{152869042635+1288845448043\alpha_{5,*}\over1747452575948}
+ &{1135976405408A_*\over152869042635+1288845448043\alpha_{5,*}}\\[1mm]
+4&{214606890755+1103631903683\alpha_{5,*}\over1747452575948}
+ &{889025012928A_*\over214606890755+1103631903683\alpha_{5,*}}\\[1mm]
+5&{288692308499+881375650451\alpha_{5,*}\over1747452575948}
+ &{592683341952A_*\over288692308499+881375650451\alpha_{5,*}}.
+\end{array}
+\tag{CR28dz38}
+\]
+
+Numerically,
+
+\[
+\boldsymbol\beta_*
+=(0.424824974952,0.416181635894,0.406774882573,
+  0.396220964212,0.383556262180)\ldots,
+\]
+
+\[
+\boldsymbol\lambda_*
+=(0.627064045325,0.557014272436,0.477394515131,
+  0.383564823970,0.264153205804)\ldots .
+\]
+
+Their strict branch inequalities are exact. Since
+\(D>N_1>\cdots>N_5>0\), the \(x_i=N_i/D\) are strictly ordered. With
+\(L=(1+\alpha_{5,*})/4\), \(U=(1+\alpha_{5,*})/3\),
+
+\[
+\beta_{i,*}-L={A_*x_i\over4}>0,
+\quad
+\alpha_{5,*}-\beta_{i,*}={A_*(1-x_i)\over4}>0,
+\]
+
+and
+
+\[
+U-\beta_{i,*}
+={1+\alpha_{5,*}-3A_*x_i\over12}
+>{1-2\alpha_{5,*}\over3}>0.
+\]
+
+The map \(x\mapsto4A_*x/(1+\alpha_{5,*}+A_*x)\) is strictly increasing,
+so
+
+\[
+0<\lambda_{5,*}<\cdots<\lambda_{1,*}<1.
+\]
+
+Conversely, equality in the high-branch loss, the simplex certificate, and
+the scalar envelope forces exactly these data. Hence this is the unique
+maximizing eleven-tuple on the whole compact closure.
+
+Substitution gives the exact optimum
+
+\[
+\boxed{
+C_{5,*}
+={346693217780244687187063490332457027500975566238012204
+ +1228130489996268437333105902690103574002
+  \sqrt{183342238504950468196395903}
+ \over1312688475479610714750859896048564873968757997852345827}.
+}
+\tag{CR28dz39}
+\]
+
+Equivalently,
+
+\[
+C_{5,*}
+={2(903249246149825384268048005
+ -183342238504950468196395903\alpha_{5,*})
+ \over5953367856763891362140757927}.
+\]
+
+It is the root in
+
+\[
+{276777463862376\over10^{15}}
+<C_{5,*}<
+{276777463862377\over10^{15}}
+\]
+
+of the primitive irreducible polynomial
+
+\[
+\begin{aligned}
+{}&35442588837949489298273217193311251597156465942013337329z^2\\
+&\quad-18721433760133213108101428477952679485052680576852659016z\\
+&\quad+2466564342132814822688647712444341404477077569119884404=0.
+\end{aligned}
+\tag{CR28dz40}
+\]
+
+Its discriminant is
+
+\[
+(66319046459798495615987718745265592996108)^2
+\cdot183342238504950468196395903,
+\]
+
+so the same nonsquare factor proves irreducibility.
+
+The improvement chain is exact. First,
+
+\[
+{276777463862376\over10^{15}}
+>{1383887\over5000000}>C_{5,\mathrm{rat}},
+\]
+
+because the first cleared numerator is \(319311880000000>0\), while the
+second is
+
+\[
+1383887Q-5000000N
+=718080698409904604452109647000>0
+\]
+
+for \(C_{5,\mathrm{rat}}=N/Q\). Independently, the rational witness equals
+\(E_5(13/30)\), and
+
+\[
+E_5'(13/30)
+=-{34730769300472139183348711
+ \over90863402469979616695362060900}<0,
+\]
+
+so uniqueness of the envelope maximum also gives the first strict
+comparison without decimal reasoning. The exact margins from (CR28dz2) give
+
+\[
+271N-75Q=54550540142475357166378486777>0
+\]
+
+and, for \(C_{4,*}=(a+b\sqrt d)/c\),
+
+\[
+G=75c-271a=9840949830285493643999284949>0,
+\]
+
+\[
+G^2-d(271b)^2
+=202909790739538065073835756341295480167322654096276669>0.
+\]
+
+Therefore
+
+\[
+\boxed{
+C_{5,*}>C_{5,\mathrm{rat}}>{75\over271}>C_{4,*}.
+}
+\tag{CR28dz41}
+\]
+
+Finally fix the strict tuple (CR28dz36)--(CR28dz38), apply the \(k=5\)
+instance of (CR28dw), use (CR28ap), and take only the usual
+fixed-parameter \(n\to\infty\) limit. The additive relation (CR28) gives
+
+\[
+\boxed{
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{5,*},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{5,*}\over\pi}.
+}
+\tag{CR28dz42}
+\]
+
+This is an exact globally optimized fixed-\(k=5\) template theorem. It does
+not round the irrational optimizer at finite \(n\), alter the rational
+\(n\ge234\) theorem, identify an exact residual or leading constant, prove
+convergence, justify \(k=k(n)\), or change any production, artifact, schema,
+backend, test-module, certificate, or enumeration path. The sole new
+standalone script in
+ops/TASK-20260717__global_five_prefix_optimization/exact_diagnostic.py
+uses only standard-library exact arithmetic and checks all 21 clipped words,
+the five transition rows, collision identities, the optimizer polynomial and
+isolating interval, strict branch inequalities, coefficient identity and
+polynomial, and every comparison margin. It corroborates but does not replace
+the compact all-real proof.
 
 ## 5. Exact Scorer Without Cycle Enumeration
 
@@ -7501,7 +8138,7 @@ geometric bounds gives
 \]
 and
 \[
-C_{5,\mathrm{rat}}
+C_{5,*}
 \le
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
 \le
@@ -7615,15 +8252,19 @@ Further non-consequences are important.
   ={2263404122555368590593580404287
    \over8177706222298165502582585481000},
   \]
-  and the exact comparison and liminf bounds (CR28dz2)--(CR28dz3). This
-  fixed-parameter consequence is not a global five-prefix optimization.
+  and the exact comparison and liminf bounds (CR28dz2)--(CR28dz3). Its
+  original derivation is a fixed-parameter consequence rather than a global
+  optimization. The later compact theorem (CR28dz20)--(CR28dz42) optimizes
+  all eleven continuous parameters, audits all 21 clipping regimes and every
+  compact face, and proves the unique strict all-middle coefficient
+  \(C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}\).
   The exact finite specialization (CR28dz4)--(CR28dz19) retains all four
   parameter families unchanged. Its minimal uniform threshold is \(234\),
   its literal and integer-closed bounds are \(\mathcal B_{5,n}\) and
   \(\mathcal I_{5,n}\), and its exact rounded remainder proves
   \(\Lambda_n>C_{5,\mathrm{rat}}n^3\) throughout the domain. This supplies
-  no growing-\(k\) passage, true residual, convergence theorem, or geometric
-  leading constant.
+  no finite rounding at the irrational optimizer, growing-\(k\) passage,
+  true residual, convergence theorem, or geometric leading constant.
 - The theorem does not assert \(\rho_\sigma=\Lambda(\sigma)/\pi\), equality
   of minimizing order sets, or \(\Lambda_n=(n-1)W_n\). The exact global
   relation proved here is the one-sided inequality (CR38b).
