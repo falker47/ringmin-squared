@@ -965,6 +965,30 @@ choice has coefficient \(8/25\): the family gives an exact obstruction, not
 an improved upper coefficient. The subsequent regular-direction geometric
 inequality is only an upper bound and does not obstruct non-regular geometry.
 
+A second perturbation is now closed, after fixing its transformation before
+direct scoring. On the same branch, leave the terminal/low scaffold and each
+oriented middle path unchanged, but let terminal gap \(G_j\) receive
+\(P_{j+1\bmod2m}\). This is a permutation of the core labels. Its exact
+distance-class maxima are
+\[
+T,\qquad
+{n(d-1)\over2},\qquad
+{(5m+2)(9m+4)\over3},\qquad
+{n(n-1)\over4}
+\]
+for distances \(1,2,3,\ge4\), respectively, with a unique maximizing pair
+in every class. The full score is
+\[
+W(\widehat\sigma_m)
+={n(d-1)\over2}
+={(10m+3)(8m+3)\over2},
+\]
+uniquely saturated by \(\{n,d-1\}\) at distance two. The exact obstruction is
+the closing-gap word \(n,2,d-1\), created when \(P_0\) wraps into
+\(G_{2m-1}\). Thus \(W/n^2\to2/5>8/25\). This is one
+family-specific surrogate obstruction; its regular-direction transfer is
+only a weaker upper bound and yields no new geometric consequence.
+
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also a disproved claim.
@@ -1978,6 +2002,41 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   closing maxima are explicit and strict. Hence every choice \(s=s(m)\) has
   \(W/n^2\to8/25\). This is a family-specific surrogate obstruction, not a
   geometric lower bound or an exact geometric asymptotic statement.
+- EXACT THEOREM (NONLOCAL ONE-GAP PATH-ROTATION OBSTRUCTION): on the same
+  branch, keep the terminal/low scaffold and all path orientations fixed and
+  assign \(P_{j+1\bmod2m}\) to terminal gap \(G_j\). The resulting
+  \(\widehat\sigma_m\) is a permutation. Its exact distance-class maxima,
+  each with one unordered maximizing pair, are
+  \[
+  M_1=T,\qquad
+  M_2={n(d-1)\over2},\qquad
+  M_3={(5m+2)(9m+4)\over3},\qquad
+  M_{\ge4}={n(n-1)\over4}.
+  \]
+  The unique class maximizers are respectively
+  \[
+  \{d-1,4m+2\},\quad
+  \{n,d-1\},\quad
+  \{5m+2,9m+4\},\quad
+  \{n-1,n\}.
+  \]
+  At the canonical cut,
+  \[
+  C_1=(4m+1)d,\quad
+  C_2={d(d-2)\over2},\quad
+  C_3={d^2\over6},\quad
+  C_{\ge4}={T\over2},
+  \]
+  again with unique class maximizers. Hence
+  \[
+  W(\widehat\sigma_m)={n(d-1)\over2},
+  \qquad
+  {W(\widehat\sigma_m)\over n^2}\longrightarrow{2\over5}>{8\over25},
+  \]
+  and \(\{n,d-1\}\) is the only full-score saturating pair. The precise
+  obstruction is the word \(n,2,d-1\) forced by moving \(P_0\) to the
+  closing gap. No other reassignment is classified by this theorem, and its
+  regular-direction implication is only a weaker existing upper bound.
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
   \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved

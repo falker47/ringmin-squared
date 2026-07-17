@@ -1837,6 +1837,55 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   only an upper bound; it neither lower-bounds \(R_2^*(n)\) nor excludes a
   different order family, unequal directions, or a non-regular geometric
   construction.
+- EXACT THEOREM (NONLOCAL ONE-GAP PATH-ROTATION OBSTRUCTION): for
+  \(n=10m+3\), \(m\ge3\), \(d=8m+4\), and
+  \(T=d(d-1)/2\), keep the terminal/low scaffold and every path orientation
+  fixed, but assign the whole path \(P_{j+1\bmod2m}\) to terminal gap
+  \(G_j\). The resulting \(\widehat\sigma_m\) is a permutation. Its exact
+  distance-class maxima and unique unordered class maximizers are
+  \[
+  \begin{array}{c|c|c}
+  1&T&\{d-1,4m+2\}\\
+  2&n(d-1)/2&\{n,d-1\}\\
+  3&(5m+2)(9m+4)/3&\{5m+2,9m+4\}\\
+  \ge4&n(n-1)/4&\{n-1,n\}.
+  \end{array}
+  \]
+  At the canonical cut, the exact class maxima are
+  \[
+  C_1=(4m+1)d,\qquad
+  C_2={d(d-2)\over2},\qquad
+  C_3={d^2\over6},\qquad
+  C_{\ge4}={T\over2},
+  \]
+  with unique maximizers
+  \(\{\rho_0,E_0\}\), \(\{B_0,E_0\}\),
+  \(\{c_0,E_0\}\), and \(\{A_0,E_0\}\), respectively. Therefore
+  \[
+  W(\widehat\sigma_m)
+  ={n(d-1)\over2}
+  ={(10m+3)(8m+3)\over2},
+  \]
+  uniquely saturated by \(\{n,d-1\}\) at distance two, and
+  \[
+  {W(\widehat\sigma_m)\over n^2}\longrightarrow{2\over5}>{8\over25}.
+  \]
+  The exact obstacle is the word \(n,2,d-1\) produced when \(P_0\) moves to
+  the closing gap. This single reassignment worsens the coefficient by
+  \(2/25\).
+- VERIFIED FACT (FINITE EXACT DOSSIER DIAGNOSTIC): the standalone
+  standard-library script in
+  ops/TASK-20260717__nonlocal_middle_path_rotation/ reconstructs only the
+  a-priori fixed family and independently scores every unordered pair at
+  \(m=3,4,9,25\). It confirms the four distance classes, four canonical-cut
+  classes, all unique class maximizers, and the unique full-score saturator.
+  It imports no project or test helper and performs no cyclic-order search or
+  enumeration.
+- INTERPRETATION: this theorem concerns one deterministic whole-path
+  reassignment only. Its already proved regular-direction transfer is a
+  weaker upper bound with coefficient \(2/(5\pi)\); it gives no geometric
+  lower bound, no obstruction to another order or direction assignment, and
+  no consequence beyond the existing regular-direction upper-bound method.
 - OPEN QUESTION: for which \(n\ge94\) is the minimizer inclusion strict? No
   persistence from \(n=93\) onward is claimed; the sufficient equality
   criterion already holds again at \(n=94\).
@@ -2107,10 +2156,20 @@ Candidate-set extraction uses the following finite-certificate semantics.
   parameter sequence. The proof separates all distance classes and the
   cyclic closure; a small independent exact diagnostic performs no search or
   cyclic-order enumeration.
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, analyze one explicit
-  nonlocal reassignment of the symbolic middle paths among terminal gaps and
-  prove its exact full-distance score or a counterexample, still without
-  extending cyclic-order enumeration.
+- COMPLETED PRIORITY: one deterministic nonlocal whole-path reassignment is
+  now classified after being fixed before direct scoring. The one-gap rotation
+  \(G_j\leftarrow P_{j+1\bmod2m}\) is a permutation, has exact score
+  \(n(d-1)/2\), and is uniquely saturated by \(\{n,d-1\}\) at distance two.
+  Its forced word \(n,2,d-1\) raises the coefficient to \(2/5\), so this
+  family is strictly worse than \(8/25\). All distance and canonical-cut
+  classes have exact unique maximizers; one standalone standard-library
+  all-pairs diagnostic checks four fixed rows without search, production
+  imports, or limit changes.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, prove the exact allowed
+  terminal-gap locations of the distinguished path \(P_0\) under arbitrary
+  whole-path reassignments that retain the same scaffold, orientations, and
+  target \(W\le T\), without selecting or testing a second reassignment
+  family.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order

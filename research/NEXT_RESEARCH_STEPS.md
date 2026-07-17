@@ -17,6 +17,19 @@ triple has score \(T\) for every nonzero triple index and
 \((d^2-1)/2=T+(d-1)/2\) at index zero. Every parameter sequence therefore
 retains coefficient \(8/25\). This is an exact obstruction for that local
 family, not a geometric lower bound or an obstruction to other constructions.
+A second transformation was fixed before direct scoring and is now closed.
+Keeping the scaffold and every oriented path fixed while assigning
+\(P_{j+1\bmod2m}\) to \(G_j\) gives a permutation with exact score
+\[
+W(\widehat\sigma_m)
+={n(d-1)\over2}
+={(10m+3)(8m+3)\over2}.
+\]
+The unique full-score saturator is \(\{n,d-1\}\) at distance two, forced by
+the closing-gap word \(n,2,d-1\). Hence this nonlocal family has coefficient
+\(2/5>8/25\). All four distance classes and all canonical-cut classes are
+proved exactly; this remains a family-specific surrogate obstruction with no
+new geometric consequence.
 The fixed-order certification debt is now closed mathematically by
 `research/FIXED_ORDER_ANGULAR_STN.md`, which proves exact angular/STN
 equivalence, the negative-cycle criterion, potential recovery, radius
@@ -1949,9 +1962,13 @@ Immediate:
   \(s\ge1\) and \((d^2-1)/2\) for \(s=0\); all distance classes and the
   closing cut are classified symbolically, and the family cannot improve the
   \(8/25\) coefficient.
-- In a fresh STRICT task, audit one explicit nonlocal reassignment of the
-  symbolic middle paths among the terminal gaps, with the same no-enumeration
-  boundary and a full cyclic-distance proof.
+- The first deterministic nonlocal whole-path reassignment task is complete.
+  The a-priori one-gap rotation \(G_j\leftarrow P_{j+1\bmod2m}\) is a
+  permutation and has exact full score \(n(d-1)/2\), uniquely saturated by
+  \(\{n,d-1\}\). Its coefficient is \(2/5\), so the forced wrap of \(P_0\)
+  is a precise symbolic obstruction rather than an improvement. One
+  standalone standard-library all-pairs diagnostic checks only four fixed
+  rows and changes no production path or limit.
 
 Next:
 
@@ -1988,18 +2005,17 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: audit one explicit nonlocal middle-path reassignment of the current
-\(8/25\) product-distance upper construction.
+Task: characterize the allowed terminal-gap locations of \(P_0\) under
+whole-path reassignments that could retain \(W\le T\) in the symbolic
+\(n=10m+3\) branch.
 
 Acceptance criteria:
 
-- define one finite-parameter path-reassignment family without search or
-  expanded enumeration;
-- prove all distance-one, distance-two, distance-three, closing, and automatic
-  long-distance constraints for the family;
-- prove either a strict upper-coefficient improvement or an exact obstruction
-  within that family;
-- keep the optimized finite three-prefix theorem and optimized asymptotic
-  four-prefix theorem logically separate from the upper-bound construction;
+- keep the current terminal/low scaffold and oriented path definitions fixed;
+- derive exact necessary gap-location conditions for \(P_0\) from symbolic
+  distance-one and distance-two inequalities at threshold \(T\);
+- distinguish a necessary placement lemma from existence of a full
+  reassignment satisfying every other constraint;
+- do not select, score, or experimentally probe a second reassignment family;
 - do not alter production enumeration limits, checked artifacts, schemas,
   interval backends, or certificates.

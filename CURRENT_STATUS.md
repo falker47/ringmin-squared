@@ -2,135 +2,129 @@
 
 Last update: 2026-07-17
 
-- **Current phase:** exact global optimization of the direct four-prefix
-  asymptotic coefficient.
-- **Current task:** classify the full compact four-prefix parameter problem
-  and prove its global maximum.
+- **Current phase:** exact symbolic audit of deterministic nonlocal
+  middle-path reassignments in the product-distance upper construction.
+- **Current task:** classify the fixed one-gap rotation in the symbolic
+  \(n=10m+3\), \(m\ge3\), branch.
 - **Task dossier:**
-  ops/TASK-20260717__global_four_prefix_optimization/.
+  ops/TASK-20260717__nonlocal_middle_path_rotation/.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
-## Exact Global Four-Prefix Result
+## Exact Nonlocal-Rotation Result
 
-The four ordered weights reduce independently to their clipped optima on
-
-\[
-0\le\beta_4\le\beta_3\le\beta_2\le\beta_1\le\alpha\le1,
-\qquad
-0\le\lambda_4\le\lambda_3\le\lambda_2\le\lambda_1\le1.
-\]
-
-There are exactly fifteen clipping regimes
-\(H^hM^m0^{4-h-m}\). At fixed \(\alpha\), the winner moves through
+Write
 
 \[
-0000\longrightarrow MMMM\longrightarrow HMMM
-\longrightarrow HHMM\longrightarrow HHHM;
+n=10m+3,\qquad d=8m+4,\qquad T={d(d-1)\over2},\qquad m\ge3.
 \]
 
-the formal transition to `HHHH` lies beyond \(\alpha=1\). Every clipping
-transition, density collision, zero-length degeneracy, and compact facet is
-audited.
+Before direct scoring, the sole family was fixed by assigning the complete
+oriented middle path \(P_{j+1\bmod 2m}\) to the terminal gap \(G_j\), while
+leaving the terminal/low scaffold and every internal path orientation
+unchanged. Equivalently, \(P_k\) moves to \(G_{k-1\bmod 2m}\), and \(P_0\)
+moves to the canonical closing gap \(G_{2m-1}\).
 
-The unique global point lies strictly in `MMMM`. With
+For every \(m\ge3\), the resulting cyclic order is a permutation. Its exact
+distance-class maxima, with unique unordered class maximizers, are
 
 \[
-\alpha_*={18170840871749-3666143\sqrt{2903456040383}
- \over27631313622349},
-\qquad A_*=3\alpha_*-1,
+\begin{array}{c|c|c}
+q& M_q&\text{unique maximizer}\\ \hline
+1&T&\{d-1,4m+2\}\\
+2&n(d-1)/2&\{n,d-1\}\\
+3&(5m+2)(9m+4)/3&\{5m+2,9m+4\}\\
+\ge4&n(n-1)/4&\{n-1,n\}.
+\end{array}
 \]
+
+Across the canonical cut, the exact maxima are
 
 \[
-(x_1,x_2,x_3,x_4)
-={1\over3666143}(3190338,2672508,2091528,1394352),
+\begin{aligned}
+C_1&=(4m+1)d,&
+C_2&={d(d-2)\over2},&
+C_3&={d^2\over6},\\
+C_4&={d(d-1)\over4},&
+C_5&={d^2-4\over10},&
+C_6&={dn\over6},
+\end{aligned}
 \]
 
-the unique remaining parameters are
+and \(C_{\ge4}=T/2\). Every cut-class maximizer is identified in the proof
+note.
 
-\[
-\beta_{i,*}={1+\alpha_*+x_iA_*\over4},
-\qquad
-\lambda_{i,*}={x_iA_*\over\beta_{i,*}}.
-\]
-
-The exact coefficient is
+Consequently,
 
 \[
 \boxed{
-C_{4,*}
-={597580022071777213687318156
- +21288970076515705538\sqrt{2903456040383}
- \over2290468477489828247376833403}
-=0.2767361498609895101\ldots .
+W(\widehat\sigma_m)
+={n(d-1)\over2}
+={(10m+3)(8m+3)\over2}
 }
 \]
 
-It satisfies the strict comparison
+is uniquely saturated by \(\{n,d-1\}\) at cyclic distance two. The fixed
+rotation forces the local word \(n,2,d-1\) when \(P_0\) wraps into the closing
+gap. This is the precise symbolic obstruction: the normalized coefficient is
 
 \[
-C_{3,*}<{2767\over10000}<C_{4,*},
+\lim_{m\to\infty}{W(\widehat\sigma_m)\over n^2}={2\over5}>{8\over25}.
 \]
 
-and therefore
-
-\[
-\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{4,*},
-\qquad
-\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{4,*}\over\pi}.
-\]
+Thus this reassignment does not improve the eight-twenty-fifths construction.
 
 ## Independent Diagnostic
 
-The standalone standard-library diagnostic checks exact clipping-gap
-factorizations on rational grids, both \(C^1\) joins, all fifteen branch
-witnesses, exact transition weights and collision reductions, the specialized
-nonnegative \(k=4\) simplex identity, end-to-end original-objective evaluation
-at the surd optimizer, its primitive irreducible polynomial and isolating
-interval, and both exact squared comparisons with the rational separator. The
-strengthened run passes.
+Exactly one new task-local diagnostic uses only the Python standard library
+and an independent label-position all-pairs scorer. It checks the permutation,
+all four distance classes, the canonical-cut classes, every asserted unique
+maximizer, the full score, and the sole full saturator on the fixed exact rows
+\(m=3,4,9,25\). All rows pass.
 
 ## Protected Scope
 
-- No finite rounding in \(n\).
-- No five-prefix charging or optimization.
-- No production source, public API, artifact, schema, verifier, backend,
-  certificate, enumerator, or enumeration-limit change.
-- No exact residual, convergence theorem, or geometric leading constant.
+- No alternative middle-path reassignment was tested or analyzed.
+- No cyclic-order enumeration was added or enlarged.
+- No production source, public API, artifact, schema, verifier backend,
+  certificate, or limit changed.
+- No geometric consequence was claimed beyond restating the already proved
+  regular-direction upper bound.
+- The finite diagnostic is corroboration, not the proof for all \(m\).
 
 ## Verification
 
-- Strengthened standalone exact diagnostic: PASS.
-- Focused fixed-order proof-note regression: 101 tests passed.
-- Complete local suite: 283 tests passed.
+- Standalone exact all-pairs diagnostic: PASS on \(m=3,4,9,25\).
+- Python compilation and Ruff lint/format: PASS.
+- Focused product-distance regression: 49 tests passed.
+- Complete local suite outside the restricted sandbox: 283 tests passed.
+- The retained sandbox attempt had 31 setup errors caused solely by denied
+  pytest temporary-directory access; no test body failed in that attempt.
 - Checked-artifact semantic verifier: 4 certificates and 76 local brackets.
-- Schema-selection regression: 4 tests passed, with one non-failing cache
-  warning.
-- Historical four-prefix literal oracle: PASS over 840 histories.
-- Historical normalized-simplex diagnostic: PASS through \(k=8\) and 203,489
-  grid states.
-- Ruff lint/format, Markdown structure, exact-value consistency, protected
-  scope, full diff inspection, and `git diff --check`: PASS.
-- Three independent read-only audits covered proof completeness, diagnostic
-  algebra, and cross-source consistency; all actionable findings were
+- Schema-selection regression: 4 tests passed.
+- UTF-8, trailing-whitespace, display-math, proof-tag, cross-source
+  consistency, protected-scope, sole-diagnostic, complete-diff, and
+  git-diff checks: PASS.
+- Three independent read-only audits covered the symbolic proof, diagnostic,
+  and cross-source consistency. Their actionable range/format findings were
   corrected and rechecked.
 
 ## Files Changed
 
-- `research/FIXED_ORDER_CYCLE_RATIO.md`: full exact theorem, compact reduction,
-  branch/transition/facet classification, optimizer, uniqueness, and strict
-  comparison.
-- `research/ALL_N_LOWER_BOUND.md`, `start.md`, `PROJECT_KNOWLEDGE.md`, and
-  `research/NEXT_RESEARCH_STEPS.md`: synchronized authoritative result and
-  roadmap.
-- `CURRENT_STATUS.md`: final task state.
-- `ops/TASK-20260717__global_four_prefix_optimization/`: STRICT dossier and
-  independent exact diagnostic.
+- research/PRODUCT_DISTANCE_SURROGATE.md: complete exact theorem and
+  obstruction proof.
+- start.md and PROJECT_KNOWLEDGE.md: synchronized stable result and
+  limitations.
+- research/NEXT_RESEARCH_STEPS.md: completed priority and next atomic task.
+- CURRENT_STATUS.md: final repository state.
+- ops/TASK-20260717__nonlocal_middle_path_rotation/: STRICT dossier and the
+  sole standalone diagnostic.
 
 ## Proposed Next Task
 
-In a fresh STRICT task, audit one explicit nonlocal middle-path reassignment
-of the current \(8/25\) product-distance upper construction, with no expanded
-enumeration and a full cyclic-distance proof.
+In a fresh STRICT task, characterize the admissible terminal-gap positions of
+\(P_0\) under arbitrary whole-path reassignments that preserve the scaffold,
+internal orientations, and target \(W\le T\), without selecting or testing a
+second family.

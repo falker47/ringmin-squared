@@ -3793,6 +3793,461 @@ subsequence; for \(s=0\), it is weaker. It neither identifies a fixed-order
 geometric threshold nor obstructs improvement by non-regular geometric
 configurations.
 
+## One-Gap Nonlocal Middle-Path Rotation Obstruction
+
+We now fix one nonlocal reassignment of whole middle paths. The
+transformation is chosen before direct scoring and has no search parameter.
+Retain the residue-three parameters
+
+\[
+n=10m+3,
+\qquad
+m\ge3,
+\qquad
+d=8m+4,
+\qquad
+T={d(d-1)\over2},
+\qquad
+v=2m.
+\tag{NR1}
+\]
+
+For \(0\le k\le m\), write
+
+\[
+P_k=(A_k,c_k,B_k)
+=(d-1-2k,\ 4m+2+k,\ d-2-2k),
+\tag{NR2}
+\]
+
+and, for \(m+1\le k\le2m-1\), write
+
+\[
+P_k=(x_k),
+\qquad
+x_k=4m+2+k.
+\tag{NR3}
+\]
+
+The terminal and low labels remain
+
+\[
+E_j=d+j,
+\qquad
+\lambda_j=4m-2j,
+\qquad
+\rho_j=4m+1-2j
+\qquad(0\le j<2m).
+\tag{NR4}
+\]
+
+In the original order, the oriented terminal gap \(G_j\) contains \(P_j\).
+Define \(\widehat\sigma_m\) by the single deterministic rule
+
+\[
+\boxed{
+G_j^{\rm rot}
+=
+(E_j,\lambda_j,P_{j+1\bmod2m},\rho_{j+1},E_{j+1})
+}
+\qquad(0\le j<2m),
+\tag{NR5}
+\]
+
+with all subscripts cyclic. Thus every oriented path moves to the preceding
+terminal gap, while \(P_0\) moves to the canonical closing gap
+\(G_{2m-1}\). No other reassignment is considered here.
+
+### Permutation property
+
+The low labels in (NR4) are exactly \([2,4m+1]\). The remaining displayed
+families give the disjoint consecutive intervals
+
+\[
+\begin{array}{c|c}
+\text{labels}&\text{source}\\ \hline
+[4m+2,5m+2]&c_0,\ldots,c_m\\
+[5m+3,6m+1]&x_{m+1},\ldots,x_{2m-1}\\
+[6m+2,d-1]&A_0,B_0,\ldots,A_m,B_m\\
+[d,n]&E_0,\ldots,E_{2m-1}.
+\end{array}
+\tag{NR6}
+\]
+
+They partition \(\{2,\ldots,n\}\). Since
+\(j\mapsto j+1\pmod{2m}\) is a bijection, (NR5) uses every whole middle
+path exactly once and changes no other label. Hence
+\(\widehat\sigma_m\) is a permutation of \(\{2,\ldots,n\}\) for every
+\(m\ge3\).
+
+### Pairs at positional distance one
+
+The terminal--low edges are unchanged. The larger product incident to
+\(E_j\) is
+
+\[
+f_j=(d+j)(4m+1-2j),
+\qquad
+f_{j+1}-f_j=-12m-9-4j<0
+\qquad(0\le j\le2m-2).
+\tag{NR7}
+\]
+
+Consequently their maximum is
+
+\[
+f_0=d(4m+1)=T-(4m+2)<T.
+\tag{NR8}
+\]
+
+Every low--middle edge is at most
+\((4m+1)(d-1)<T\). Within a triple,
+
+\[
+A_kc_k=T-k(2k+1),
+\qquad
+B_kc_k<A_kc_k.
+\tag{NR9}
+\]
+
+Therefore the exact adjacent maximum is
+
+\[
+\boxed{M_1(\widehat\sigma_m)=T},
+\tag{NR10}
+\]
+
+and its unique unordered maximizing pair is
+
+\[
+\boxed{\{A_0,c_0\}=\{d-1,4m+2\}}.
+\tag{NR11}
+\]
+
+### Pairs at positional distance two
+
+Every terminal gap contains a low, a nonempty middle path, and another low,
+so no two terminals are at distance two. A distance-two pair with no terminal
+has product at most \((d-1)(d-2)\). A pair with a terminal has product at
+most \(n(d-1)\), and equality can occur only for the unique two largest
+eligible labels \(n\) and \(d-1\). The closing gap in (NR5) begins
+
+\[
+E_{2m-1},\lambda_{2m-1},P_0
+=(n,2,A_0,c_0,B_0),
+\tag{NR12}
+\]
+
+so that equality really occurs at distance two. Hence
+
+\[
+\boxed{
+M_2(\widehat\sigma_m)
+={n(d-1)\over2}
+={(10m+3)(8m+3)\over2}
+},
+\tag{NR13}
+\]
+
+with the unique maximizing pair
+
+\[
+\boxed{\{n,A_0\}=\{10m+3,8m+3\}}.
+\tag{NR14}
+\]
+
+In particular,
+
+\[
+M_2(\widehat\sigma_m)-T
+={(2m-1)(8m+3)\over2}>0.
+\tag{NR15}
+\]
+
+### Pairs at positional distance three
+
+Indexing a gap by the path it contains, a triple gap is
+
+\[
+E_{k-1},\lambda_{k-1},A_k,c_k,B_k,\rho_k,E_k,
+\tag{NR16}
+\]
+
+and a singleton gap is
+
+\[
+E_{k-1},\lambda_{k-1},x_k,\rho_k,E_k.
+\tag{NR17}
+\]
+
+Here \(k=0\) is interpreted cyclically. In (NR16), the only
+distance-three pair forms, including those entering the next gap, are
+
+\[
+\begin{gathered}
+E_{k-1}c_k,\quad \lambda_{k-1}B_k,\quad A_k\rho_k,\quad
+c_kE_k,\quad B_k\lambda_k,\quad
+\rho_k\operatorname{first}(P_{k+1})
+\end{gathered}
+\tag{NR18}
+\]
+
+for a triple, and
+
+\[
+E_{k-1}\rho_k,\quad \lambda_{k-1}E_k,\quad
+x_k\lambda_k,\quad \rho_k\operatorname{first}(P_{k+1})
+\tag{NR19}
+\]
+
+for a singleton. Thus the only distance-three pairs with no low endpoint are
+\(E_{k-1}c_k\) and \(c_kE_k\). The two lists contain
+\[
+6(m+1)+4(m-1)=10m+2
+\]
+starts, exactly the core length. Since \(10m+2>6\), each unordered
+distance-three pair has one forward orientation in the lists; none is
+omitted or duplicated.
+
+For \(1\le k\le m\), the products
+
+\[
+c_kE_k=(4m+2+k)(d+k)
+\tag{NR20}
+\]
+
+increase strictly with \(k\), and \(E_{k-1}c_k<c_kE_k\). Put
+
+\[
+R=(5m+2)(9m+4)=c_mE_m.
+\tag{NR21}
+\]
+
+The cyclic \(k=0\) candidate and the two remaining classes are all strictly
+smaller, because
+
+\[
+\begin{aligned}
+R-nc_0&=5m^2+6m+2,\\
+R-2mn&=25m^2+32m+8,\\
+R-(4m+1)(d-1)&=13m^2+18m+5.
+\end{aligned}
+\tag{NR22}
+\]
+
+The second line covers the terminal--low pairs in singleton gaps; the third
+covers every remaining low--nonterminal pair. Thus
+
+\[
+\boxed{
+M_3(\widehat\sigma_m)
+={(5m+2)(9m+4)\over3}
+},
+\tag{NR23}
+\]
+
+with the unique maximizing pair
+
+\[
+\boxed{\{c_m,E_m\}=\{5m+2,9m+4\}}.
+\tag{NR24}
+\]
+
+It lies strictly below the old threshold, since
+
+\[
+3T-(5m+2)(9m+4)=51m^2+46m+10>0.
+\tag{NR25}
+\]
+
+### Distances at least four
+
+For every pair at positional distance \(q\ge4\),
+
+\[
+{ij\over q}\le{n(n-1)\over4}.
+\tag{NR26}
+\]
+
+The gap preceding \(n\) is now the singleton gap
+
+\[
+G_{2m-2}^{\rm rot}=(n-1,4,6m+1,3,n),
+\tag{NR27}
+\]
+
+so the pair \(\{n-1,n\}\) has distance exactly four. Its complementary
+arc has length \(10m-2>4\). Equality in (NR26) requires both this label pair
+and \(q=4\), proving
+
+\[
+\boxed{
+M_{\ge4}(\widehat\sigma_m)
+={n(n-1)\over4}
+},
+\tag{NR28}
+\]
+
+with unique maximizing pair \(\{n-1,n\}\). Moreover,
+
+\[
+4T-n(n-1)=28m^2+62m+18>0.
+\tag{NR29}
+\]
+
+### Canonical cut
+
+Cut immediately before \(E_0=d\). The closing and opening words are
+
+\[
+\ldots,n,2,A_0,c_0,B_0,\rho_0
+\mathbin{|}
+E_0,\lambda_0,A_1,c_1,B_1,\rho_1,\ldots .
+\tag{NR30}
+\]
+
+Listing the one-, two-, and three-step pairs crossing this cut gives the
+exact maxima
+
+\[
+\boxed{
+\begin{aligned}
+C_1&=(4m+1)d
+&&\text{on }\{\rho_0,E_0\},\\
+C_2&={d(d-2)\over2}
+&&\text{on }\{B_0,E_0\},\\
+C_3&={d(4m+2)\over3}={d^2\over6}
+&&\text{on }\{c_0,E_0\}.
+\end{aligned}}
+\tag{NR31}
+\]
+
+Each maximizing pair is unique within its closing distance class. In
+particular,
+
+\[
+C_1=C_2=T-(4m+2)<T,
+\qquad
+C_3<T.
+\tag{NR32}
+\]
+
+For the next three closing distances, direct listing gives
+
+\[
+\begin{aligned}
+C_4&={d(d-1)\over4}
+&&\text{on }\{A_0,E_0\},\\
+C_5&={(d-2)(4m+3)\over5}={d^2-4\over10}
+&&\text{on }\{B_0,c_1\},\\
+C_6&={dn\over6}
+&&\text{on }\{n,E_0\}.
+\end{aligned}
+\tag{NR33}
+\]
+
+These maxima are unique. Furthermore,
+
+\[
+C_4-C_5={3d^2-5d+8\over20}>0,
+\qquad
+C_4-C_6={d(4m+3)\over12}>0.
+\tag{NR34}
+\]
+
+For every longer closing arc,
+
+\[
+{ij\over q}\le{n(n-1)\over7}
+<{d(d-1)\over4},
+\qquad q\ge7,
+\tag{NR35}
+\]
+
+because
+
+\[
+7d(d-1)-4n(n-1)=48m^2+192m+60>0.
+\tag{NR36}
+\]
+
+Hence the exact long-closing maximum is
+
+\[
+\boxed{
+C_{\ge4}={d(d-1)\over4}={T\over2}
+},
+\tag{NR37}
+\]
+
+uniquely on \(\{d-1,d\}\) at distance four. Thus the linear presentation
+has lost no cyclic pair in any distance class.
+
+### Exact score and obstruction
+
+The complete class table is
+
+\[
+\begin{array}{c|c|c}
+\text{distance}&\text{exact maximum}&\text{unique maximizing pair}\\ \hline
+1&T&\{d-1,4m+2\}\\
+2&n(d-1)/2&\{n,d-1\}\\
+3&(5m+2)(9m+4)/3&\{5m+2,9m+4\}\\
+\ge4&n(n-1)/4&\{n-1,n\}.
+\end{array}
+\tag{NR38}
+\]
+
+Equations (NR15), (NR25), and (NR29) therefore prove
+
+\[
+\boxed{
+W(\widehat\sigma_m)
+={n(d-1)\over2}
+={(10m+3)(8m+3)\over2}
+}
+\qquad(m\ge3),
+\tag{NR39}
+\]
+
+and the only full-score saturating pair is
+
+\[
+\boxed{\{n,d-1\}}
+\tag{NR40}
+\]
+
+at positional distance two. The exact symbolic obstruction is the forced
+word \(n,2,d-1\) in (NR12): moving \(P_0\) across the canonical cut places
+the largest terminal two steps from the largest middle label. Consequently,
+
+\[
+{W(\widehat\sigma_m)\over(10m+3)^2}
+={8m+3\over2(10m+3)}
+\longrightarrow {2\over5}
+>{8\over25}.
+\tag{NR41}
+\]
+
+Thus this one nonlocal reassignment is not merely non-improving: its
+product-distance coefficient is worse by \(2/25\). The persistent adjacent
+pair in (NR11) still attains \(T\), but it is no longer a full-score
+saturator.
+
+The already proved regular-direction implication supplies only the redundant
+upper bound
+
+\[
+R_2^*(10m+3)
+\le{(10m+2)W(\widehat\sigma_m)\over\pi}.
+\tag{NR42}
+\]
+
+Because (NR41) is weaker than the existing \(8/(25\pi)\) construction, no
+new geometric consequence follows. In particular, this family-specific
+surrogate obstruction is not a geometric lower bound and says nothing about
+other orders, unequal directions, or non-regular configurations.
+
 ## Verification Boundary And Open Questions
 
 `tests/test_product_distance.py` checks exact rational comparisons, canonical
@@ -3839,11 +4294,23 @@ the symbolic proofs above. The task-local standard-library diagnostic in
 `ops/TASK-20260716__one_triple_reversal_obstruction/` independently
 reconstructs the specialized block family and checks the same six rows
 without importing project or test helpers.
+The sole diagnostic added for the present nonlocal task is the standalone
+standard-library script in
+ops/TASK-20260717__nonlocal_middle_path_rotation/. It reconstructs only
+the transformation fixed in (NR5), independently scores every unordered pair
+at \(m=3,4,9,25\), and checks the exact permutation, distance-class maxima,
+unique class maximizers, closing distances one through six, aggregate
+long-closing maximum, full score, and sole full-score saturator. It imports no
+project or test helper, performs no search, and does not extend enumeration.
 
 The following remain unresolved.
 
 - **OPEN QUESTION:** can minimizing cyclic orders be characterized
   structurally in any residue class, beyond the displayed witnesses?
+- **OPEN QUESTION:** which terminal gaps can contain \(P_0\) in an arbitrary
+  whole-path reassignment that retains the present scaffold, path
+  orientations, and target \(W\le T\)? The current theorem analyzes only
+  (NR5).
 - **OPEN QUESTION:** for which \(n\ge94\) is
   \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\)? Criterion (MS2)
   certifies equality whenever it holds, including \(n=94\), but no complete
