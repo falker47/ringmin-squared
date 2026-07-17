@@ -545,9 +545,58 @@ C_4={}&p(\alpha)
 &+(\beta_3-\beta_4)g(\alpha,\beta_4,\lambda_4).
 \end{aligned}
 \]
-No optimization, finite rounding, comparison with \(C_{3,*}\), or extension
-to five prefixes is asserted. A standalone exact oracle checks all 840
-literal four-split histories of one bounded base.
+The resulting continuous parameter problem has now been optimized globally.
+On the compact ordered density/weight closure, the four weights reduce to
+their individual clipped optima. There are exactly fifteen regimes
+\(H^hM^m0^{4-h-m}\); the fixed-\(\alpha\) winner moves through
+\(0000,MMMM,HMMM,HHMM,HHHM\), while `HHHH` would begin only beyond
+\(\alpha=1\). Every transition, density collision, and compact facet is
+classified. The unique global point lies strictly in `MMMM`. With
+
+\[
+\alpha_*={18170840871749-3666143\sqrt{2903456040383}
+ \over27631313622349},
+\qquad A_*=3\alpha_*-1,
+\]
+
+\[
+(x_1,x_2,x_3,x_4)
+={1\over3666143}(3190338,2672508,2091528,1394352),
+\]
+
+its remaining coordinates are
+
+\[
+\beta_{i,*}={1+\alpha_*+x_iA_*\over4},
+\qquad
+\lambda_{i,*}={x_iA_*\over\beta_{i,*}},
+\]
+
+and the exact optimum is
+
+\[
+\boxed{
+C_{4,*}
+={597580022071777213687318156
+ +21288970076515705538\sqrt{2903456040383}
+ \over2290468477489828247376833403}
+=0.276736149860989\ldots>C_{3,*}.
+}
+\]
+
+Therefore
+
+\[
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{4,*},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{4,*}\over\pi}.
+\]
+
+No finite rounding or five-prefix extension is asserted. The historical
+standalone oracle checks all 840 literal four-split histories of one bounded
+base. A separate standard-library exact diagnostic checks clipping-gap
+factorizations, joins, branch transitions, collision reductions, the simplex
+certificate, end-to-end surd maximum, and strict comparison with \(C_{3,*}\).
 
 Independently of that charging theorem, the normalized prefix simplex is
 solved exactly in every fixed dimension. For \(k\ge1\), let
@@ -591,13 +640,14 @@ M_k={q_k^2\over3}
 M_k\nearrow{1\over3}.
 \]
 
-The first three rows agree exactly with the separately proved prefix cases:
+The first four rows agree exactly with the optimized prefix cases:
 
 | \(k\) | unique maximizer | \(M_k\) | \(M_k/8\) |
 |---:|---|---:|---:|
 | 1 | \((2/3)\) | \(4/27\) | \(1/54\) |
 | 2 | \((18/23,12/23)\) | \(108/529\) | \(27/1058\) |
 | 3 | \((1058/1263,276/421,184/421)\) | \(1119364/4785507\) | \(279841/9571014\) |
+| 4 | \((3190338,2672508,2091528,1394352)/3666143\) | \(3392752184748/13440604496449\) | \(848188046187/26881208992898\) |
 
 Writing
 
@@ -950,8 +1000,9 @@ The cubic order is exact, but existence of a limiting coefficient, a
 leading-term asymptotic formula, and an upper bound matching the current
 linear-block lower coefficient remain unresolved. Current exact bounds give
 \[
-\frac{753972193324+106042322\sqrt{377823}}
-     {2960667770787\pi}
+\frac{597580022071777213687318156
+      +21288970076515705538\sqrt{2903456040383}}
+     {2290468477489828247376833403\pi}
 \le
 \liminf_{n\to\infty}\frac{R_2^*(n)}{n^3}
 \le
@@ -1141,8 +1192,9 @@ minimizer classifications, independent bounded oracles, comparison with
 every sublinear block length, the positive cubic residual for the first
 explicit linear block, its global lower-bound corollary, the exact two- and
 three-prefix optimizations, the minimal-threshold finite theorem at the
-irrational three-prefix optimizer, the exact unoptimized four-prefix one-use
-theorem and bounded literal oracle, the exact normalized prefix-simplex lemma
+irrational three-prefix optimizer, the exact four-prefix one-use theorem and
+its global compact optimization, two independent four-prefix diagnostics, the
+exact normalized prefix-simplex lemma
 for every fixed \(k\), its envelope classification, and asymptotic
 limitations. One-wrap saturation
 and insertion independence concern the product ratio; they do not reduce
@@ -1460,10 +1512,21 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   +(s_3-s_4)F_{4,n}.
   \end{aligned}
   \]
-  For fixed admissible parameters, the resulting unoptimized \(C_4\) gives
-  \(\liminf\Lambda_n/n^3\ge C_4\) and
-  \(\liminf R_2^*(n)/n^3\ge C_4/\pi\). No optimization, finite rounding,
-  comparison with \(C_{3,*}\), or theorem for \(k\ge5\) is claimed.
+  The compact coefficient problem reduces all four ordered weights exactly.
+  Its fifteen clipping regimes, winning transitions, density collisions, and
+  compact facets are completely audited. The unique strict `MMMM` optimizer
+  gives
+  \[
+  C_{4,*}
+  ={597580022071777213687318156
+   +21288970076515705538\sqrt{2903456040383}
+   \over2290468477489828247376833403}
+  >C_{3,*},
+  \]
+  and hence
+  \(\liminf\Lambda_n/n^3\ge C_{4,*}\) and
+  \(\liminf R_2^*(n)/n^3\ge C_{4,*}/\pi\). No finite rounding or theorem
+  for \(k\ge5\) is claimed.
 - EXACT THEOREM (NORMALIZED PREFIX SIMPLEX): for every fixed \(k\ge1\),
   \[
   M_k=\max_{1\ge x_1\ge\cdots\ge x_k\ge0}
@@ -1488,16 +1551,18 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \qquad
   r_i={2\over3-r_{i+1}^2}.
   \]
-  The rows \(k=1,2,3\) are respectively
+  The rows \(k=1,2,3,4\) are respectively
   \[
   \begin{array}{c|c|c|c}
   k&(x_1,\ldots,x_k)&M_k&M_k/8\\ \hline
   1&(2/3)&4/27&1/54\\
   2&(18/23,12/23)&108/529&27/1058\\
-  3&(1058/1263,276/421,184/421)&1119364/4785507&279841/9571014
+  3&(1058/1263,276/421,184/421)&1119364/4785507&279841/9571014\\
+  4&(3190338,2672508,2091528,1394352)/3666143
+    &3392752184748/13440604496449&848188046187/26881208992898
   \end{array}
   \]
-  and agree exactly with the one-, two-, and three-prefix simplex cases.
+  and agree exactly with the one- through four-prefix simplex cases.
 - EXACT NORMALIZED-ENVELOPE CLASSIFICATION: on \([1/3,1]\),
   \[
   E_k(\alpha)
@@ -1512,7 +1577,7 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \((434+4\sqrt2)/1587\) at \((13-2\sqrt2)/23\).
 - VERIFIED FACT (FINITE EXACT DOSSIER DIAGNOSTIC): a standalone `Fraction`
   diagnostic independently checks the value and ratio recurrences, direct
-  objectives, stationarity, strict feasibility, and the first three exact
+  objectives, stationarity, strict feasibility, and the first four exact
   rows for \(k=1,\ldots,8\). Literal denominator-12 enumeration and a
   separate discrete Bellman calculation agree on all 203,489 grid tuples.
   This bounded check corroborates the proof but is not the all-real theorem.
@@ -1529,6 +1594,16 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   distinct final cycles, and 120 fourth splits with two previously inserted
   endpoints. This bounded check corroborates but does not prove the
   all-history theorem.
+- VERIFIED FACT (INDEPENDENT EXACT FOUR-PREFIX OPTIMIZATION DIAGNOSTIC): the
+  standalone standard-library script at
+  ops/TASK-20260717__global_four_prefix_optimization/exact_diagnostic.py
+  checks exact clipping-gap factorizations on rational grids, both \(C^1\)
+  joins, all fifteen branch witnesses, exact transition weights and collision
+  reductions, the specialized \(k=4\) simplex certificate, end-to-end
+  original-objective evaluation at the quadratic-surd optimizer, its
+  primitive irreducible polynomial and isolating interval, and the separator from
+  \(C_{3,*}\). It imports no project, production, or test helper and
+  corroborates rather than replaces the compact proof.
 - VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK): a test-local Fraction
   oracle checks all 46,620 depth-three histories from one bounded base,
   including 70 distinct recursive second-step prefixes (2,590 full-history
@@ -1957,15 +2032,20 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   {753972193324+106042322\sqrt{377823}
    \over2960667770787\pi}.
   \]
-  Both irrational optimizers are exact and unique in their respective
-  templates. The older rational witness remains the finite two-prefix theorem
+  The globally optimized four-prefix template raises it again to
+  \[
+  {597580022071777213687318156
+   +21288970076515705538\sqrt{2903456040383}
+   \over2290468477489828247376833403\pi}.
+  \]
+  All three irrational multi-prefix optimizers are exact and unique in their
+  respective templates. The older rational witness remains the finite two-prefix theorem
   from \(n=59\); the irrational three-prefix optimizer now has the stronger
   finite theorem \(\Lambda_n>C_{3,*}n^3\) from the minimal uniform threshold
-  \(159\). The separate four-prefix charging theorem is exact but remains
-  unoptimized, so it does not change the displayed best numerical lower
-  coefficient. Neither coefficient is an exact residual or leading
-  coefficient; convergence, finite rounding at the irrational two-prefix
-  optimizer, and exact block coefficients remain unresolved.
+  \(159\). No finite four-prefix rounding theorem is included. None of these
+  coefficients is an exact residual or leading coefficient; convergence,
+  finite rounding at the irrational two- and four-prefix optimizers, and
+  exact block residuals remain unresolved.
 - LIMITATION: the interval-backend trust/provenance limitation remains explicit
   and unresolved for public production claims. The bounded test-only Arb
   cross-check covers checked `n=3` only and is not a full backend audit.

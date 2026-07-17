@@ -1,158 +1,136 @@
 # CURRENT_STATUS - power-ringmin
 
-Last update: 2026-07-16
+Last update: 2026-07-17
 
-- **Current phase:** exact obstruction for one parametric perturbation of the
-  \(8/25\) upper construction.
-- **Current task:** reverse one triple path in the symbolic residue-three
-  branch and determine the full-distance score.
+- **Current phase:** exact global optimization of the direct four-prefix
+  asymptotic coefficient.
+- **Current task:** classify the full compact four-prefix parameter problem
+  and prove its global maximum.
 - **Task dossier:**
-  ops/TASK-20260716__one_triple_reversal_obstruction/.
+  ops/TASK-20260717__global_four_prefix_optimization/.
 - **Task status:** READY_FOR_REVIEW.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
-## Exact One-Triple Reversal Obstruction
+## Exact Global Four-Prefix Result
 
-For
-
-\[
-n=10m+3,
-\qquad m\ge3,
-\qquad d=8m+4,
-\qquad T={d(d-1)\over2},
-\]
-
-the symbolic eight-twenty-fifths order has triple paths
+The four ordered weights reduce independently to their clipped optima on
 
 \[
-P_s=(d-1-2s,\ 4m+2+s,\ d-2-2s),
-\qquad 0\le s\le m.
+0\le\beta_4\le\beta_3\le\beta_2\le\beta_1\le\alpha\le1,
+\qquad
+0\le\lambda_4\le\lambda_3\le\lambda_2\le\lambda_1\le1.
 \]
 
-Let \(\tau_{m,s}\) reverse only the two outer entries of \(P_s\). Then
+There are exactly fifteen clipping regimes
+\(H^hM^m0^{4-h-m}\). At fixed \(\alpha\), the winner moves through
+
+\[
+0000\longrightarrow MMMM\longrightarrow HMMM
+\longrightarrow HHMM\longrightarrow HHHM;
+\]
+
+the formal transition to `HHHH` lies beyond \(\alpha=1\). Every clipping
+transition, density collision, zero-length degeneracy, and compact facet is
+audited.
+
+The unique global point lies strictly in `MMMM`. With
+
+\[
+\alpha_*={18170840871749-3666143\sqrt{2903456040383}
+ \over27631313622349},
+\qquad A_*=3\alpha_*-1,
+\]
+
+\[
+(x_1,x_2,x_3,x_4)
+={1\over3666143}(3190338,2672508,2091528,1394352),
+\]
+
+the unique remaining parameters are
+
+\[
+\beta_{i,*}={1+\alpha_*+x_iA_*\over4},
+\qquad
+\lambda_{i,*}={x_iA_*\over\beta_{i,*}}.
+\]
+
+The exact coefficient is
 
 \[
 \boxed{
-W(\tau_{m,s})=
-\begin{cases}
-(d^2-1)/2=T+(d-1)/2,&s=0,\\
-T,&1\le s\le m.
-\end{cases}}
+C_{4,*}
+={597580022071777213687318156
+ +21288970076515705538\sqrt{2903456040383}
+ \over2290468477489828247376833403}
+=0.2767361498609895101\ldots .
+}
 \]
 
-The distance-class maxima are
+It satisfies the strict comparison
 
 \[
-M_1=T,
-\qquad
-M_2=W(\tau_{m,s}),
-\qquad
-M_3={(5m+2)(9m+5)\over3}<T,
+C_{3,*}<{2767\over10000}<C_{4,*},
 \]
+
+and therefore
 
 \[
-M_{\ge4}={n(n-1)\over4}<T.
-\]
-
-For the canonical cut, the exact closing maxima are
-
-\[
-C_1=(4m+1)d,
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{4,*},
 \qquad
-C_2={(6m+1)d\over2},
-\qquad
-C_3={(4m+1)(d-1-\mathbf1_{\{s=0\}})\over3},
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{4,*}\over\pi}.
 \]
 
-all strictly below \(T\).
+## Independent Diagnostic
 
-## Exact Obstruction And Counterexample
+The standalone standard-library diagnostic checks exact clipping-gap
+factorizations on rational grids, both \(C^1\) joins, all fifteen branch
+witnesses, exact transition weights and collision reductions, the specialized
+nonnegative \(k=4\) simplex identity, end-to-end original-objective evaluation
+at the surd optimizer, its primitive irreducible polynomial and isolating
+interval, and both exact squared comparisons with the rational separator. The
+strengthened run passes.
 
-The edge \(\{4m+2,d-1\}\) remains adjacent after every allowed reversal
-and always has product \(T\). Thus no member improves even the finite
-threshold. For \(s\ge1\), the distance-two pair \((d,d-1)\) also remains
-saturated. For \(s=0\), the new distance-two pair
-\((d-1,d+1)\) raises the score by \((d-1)/2\).
+## Protected Scope
 
-Consequently, for every parameter choice \(s=s(m)\),
-
-\[
-{W(\tau_{m,s(m)})\over(10m+3)^2}\longrightarrow{8\over25}.
-\]
-
-The smallest admitted non-neutral row is the reproducible exact
-counterexample
-
-\[
-(m,s,n,d)=(3,0,33,28),
-\qquad
-T=378,
-\qquad
-W={783\over2},
-\]
-
-attained at distance two by \((27,29)\).
-
-## Surrogate / Geometry Separation
-
-The theorem is exact for the product-distance surrogate. Applying the
-established regular-direction construction and radius-one insertion gives
-only
-
-\[
-R_2^*(10m+3)
-\le{(10m+2)W(\tau_{m,s})\over\pi}.
-\]
-
-For \(s\ge1\), this reproduces the existing upper bound on the subsequence;
-for \(s=0\), it is weaker. It is not a geometric lower bound, an exact
-fixed-order geometric threshold, a convergence theorem, or an obstruction to
-other directions or order families.
+- No finite rounding in \(n\).
+- No five-prefix charging or optimization.
+- No production source, public API, artifact, schema, verifier, backend,
+  certificate, enumerator, or enumeration-limit change.
+- No exact residual, convergence theorem, or geometric leading constant.
 
 ## Verification
 
-- The standalone standard-library diagnostic reconstructs the block family
-  without project/test imports and passes six selected exact rows.
-- The six new parametrized tests pass through two independent all-pairs
-  traversals and the production scorer.
-- The complete product-distance module passes 49 tests.
-- The complete 283-test local suite passes outside the filesystem sandbox;
-  the first sandboxed run retained 31 temporary-directory setup errors and no
-  failed test body.
-- Checked-artifact semantic verification accepts 4 certificates and 76 local
-  brackets; the schema-selection suite passes 4 tests.
-- Ruff passes on the changed Python paths.
-- Three independent read-only mathematical audits found no counterexample or
-  scope defect.
-- The primary proof has 179 unique equation tags, 309 balanced display-math
-  pairs, and balanced aligned environments.
-- Strict UTF-8, changed-path scope, protected-source scope, complete diff
-  review, `git diff --check`, and final worktree inspection pass.
+- Strengthened standalone exact diagnostic: PASS.
+- Focused fixed-order proof-note regression: 101 tests passed.
+- Complete local suite: 283 tests passed.
+- Checked-artifact semantic verifier: 4 certificates and 76 local brackets.
+- Schema-selection regression: 4 tests passed, with one non-failing cache
+  warning.
+- Historical four-prefix literal oracle: PASS over 840 histories.
+- Historical normalized-simplex diagnostic: PASS through \(k=8\) and 203,489
+  grid states.
+- Ruff lint/format, Markdown structure, exact-value consistency, protected
+  scope, full diff inspection, and `git diff --check`: PASS.
+- Three independent read-only audits covered proof completeness, diagnostic
+  algebra, and cross-source consistency; all actionable findings were
+  corrected and rechecked.
 
 ## Files Changed
 
-- `research/PRODUCT_DISTANCE_SURROGATE.md`: exact family definition, all
-  distance classes, closure, obstruction, and geometry separation.
-- `tests/test_product_distance.py`: six small exact generated-order controls.
-- `start.md`, `PROJECT_KNOWLEDGE.md`, `CURRENT_STATUS.md`, and
-  `research/NEXT_RESEARCH_STEPS.md`: synchronized authoritative memory and
+- `research/FIXED_ORDER_CYCLE_RATIO.md`: full exact theorem, compact reduction,
+  branch/transition/facet classification, optimizer, uniqueness, and strict
+  comparison.
+- `research/ALL_N_LOWER_BOUND.md`, `start.md`, `PROJECT_KNOWLEDGE.md`, and
+  `research/NEXT_RESEARCH_STEPS.md`: synchronized authoritative result and
   roadmap.
-- `ops/TASK-20260716__one_triple_reversal_obstruction/`: STRICT dossier and
-  independent standard-library diagnostic.
-
-## Protected Limitations
-
-- Only the one-triple reversal family on \(n\equiv3\pmod{10}\),
-  \(n\ge33\), is classified.
-- No production generator, public API, enumerator, enumeration limit,
-  artifact, schema, interval backend, or certificate changed.
-- No new best surrogate value, global upper coefficient, geometric lower
-  bound, exact geometric leading coefficient, or convergence result follows.
+- `CURRENT_STATUS.md`: final task state.
+- `ops/TASK-20260717__global_four_prefix_optimization/`: STRICT dossier and
+  independent exact diagnostic.
 
 ## Proposed Next Task
 
-In a fresh STRICT task, audit one explicit nonlocal reassignment of the
-symbolic middle paths among terminal gaps, again with a full cyclic-distance
-proof and no expanded enumeration.
+In a fresh STRICT task, audit one explicit nonlocal middle-path reassignment
+of the current \(8/25\) product-distance upper construction, with no expanded
+enumeration and a full cyclic-distance proof.

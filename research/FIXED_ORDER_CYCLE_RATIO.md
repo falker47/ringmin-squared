@@ -2,7 +2,7 @@
 
 Date: 2026-07-14
 
-Last updated: 2026-07-16
+Last updated: 2026-07-17
 
 ## Scope And Classification
 
@@ -246,8 +246,22 @@ in `research/ALL_N_LOWER_BOUND.md`.
   any slack is assigned. The resulting four split segments use one canonical
   partition of the original-edge slack, while the recursive invariant covers
   every child edge through all three boundaries. Equations
-  (CR28de)--(CR28dk) give the exact finite lower bound and its unoptimized
-  fixed-parameter consequence.
+  (CR28de)--(CR28dk) give the exact finite lower bound. The continuous
+  coefficient is now optimized on the full compact closure in
+  (CR28dl)--(CR28dq13). The ordered weights reduce independently, all fifteen
+  clipping regimes and every transition/collision/facet are classified, and
+  the unique strict `MMMM` maximizer gives
+  \[
+  C_{4,*}
+  ={597580022071777213687318156
+   +21288970076515705538\sqrt{2903456040383}
+   \over2290468477489828247376833403}
+  >C_{3,*}.
+  \]
+  Consequently
+  \(\liminf\Lambda_n/n^3\ge C_{4,*}\) and
+  \(\liminf R_2^*(n)/n^3\ge C_{4,*}/\pi\). No finite rounding theorem is
+  asserted.
 - **EXACT THEOREM (NORMALIZED \(k\)-PREFIX SIMPLEX):** for every \(k\ge1\),
   the compact normalized polynomial (CR28cr) has one strictly interior
   maximizer. Its ratios satisfy
@@ -262,8 +276,8 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \]
   The sequence is strictly increasing and converges to \(1/3\). A global
   nonnegative telescoping certificate proves uniqueness, rather than only
-  stationarity. The cases \(k=1,2,3\) recover exactly the previously proved
-  one-, two-, and three-prefix simplex data.
+  stationarity. The cases \(k=1,2,3,4\) recover exactly the optimized
+  one- through four-prefix simplex data.
 - **EXACT NORMALIZED-ENVELOPE CLASSIFICATION:** the formal limiting envelope
   \(p(\alpha)+(3\alpha-1)^3/24\) has unique compact-closure maximum
   \(1/3\) at the degenerate endpoint \(\alpha=1\); on \(\alpha<1\) this is
@@ -274,8 +288,8 @@ in `research/ALL_N_LOWER_BOUND.md`.
 - **LIMITATION:** the normalized theorem by itself proves no charging
   statement. The separate direct argument now proves one-use charging for
   four selected prefixes, but no charging statement for \(k\ge5\), no
-  uniform interchange of \(k\) and \(n\), and no optimized four-prefix
-  coefficient.
+  uniform interchange of \(k\) and \(n\), and no finite rounding at the
+  optimized four-prefix point.
 - **VERIFIED FACT (BOUNDED EXACT FOUR-PREFIX ORACLE):** a standalone
   Fraction oracle literally checks all 840 four-split histories from the
   bounded base \(C_0=(11,14,12,13)\). It imports no project or test helper and
@@ -284,6 +298,15 @@ in `research/ALL_N_LOWER_BOUND.md`.
   including 120 fourth splits whose two endpoints were inserted earlier.
   This bounded computation corroborates but does not replace the all-history
   proof.
+- **VERIFIED FACT (INDEPENDENT EXACT FOUR-PREFIX OPTIMIZATION DIAGNOSTIC):**
+  a separate standard-library script checks the three exact clipping-gap
+  factorizations on rational grids, both \(C^1\) joins, all fifteen regimes,
+  exact transition weights and collision reductions, the specialized
+  \(k=4\) simplex certificate, end-to-end evaluation of the original
+  objective at the quadratic-surd optimizer, its primitive irreducible
+  polynomial, isolating interval, and strict separator from \(C_{3,*}\). It
+  imports no project, production, or test helper and does not replace the
+  all-real compact proof.
 - **VERIFIED FACT (FINITE EXACT TEST-ONLY CHECK):** a recursive oracle at
   \((m,n,r)=(2,7,4)\) identifies all 60 compatible triple-split histories
   with all 60 outer dihedral cycles and obtains
@@ -4266,9 +4289,10 @@ optimization or finite rounding theorem,
 \tag{CR28dk}
 \]
 
-No comparison with \(C_{3,*}\) is claimed. No \(k\ge5\) charging statement,
-uniform \(k\)-to-\(n\) interchange, exact residual, convergence result, or
-geometric leading coefficient follows.
+Equation (CR28dk) is still the fixed-parameter consequence; the global
+comparison with \(C_{3,*}\) is proved in the optimization below. No
+\(k\ge5\) charging statement, uniform \(k\)-to-\(n\) interchange, exact
+residual, convergence result, or geometric leading coefficient follows.
 
 The standalone dossier oracle uses
 \[
@@ -4286,9 +4310,551 @@ and every history satisfies the literal partition (CR28dg) and bound
 (CR28dh). This bounded computation is independent corroboration, not the
 all-history proof.
 
+#### Global optimization of the four-prefix coefficient
+
+The charging proof is complete before this optimization begins. Put
+
+\[
+s=1+\alpha,
+\quad L={s\over4},
+\quad U={s\over3},
+\quad \beta_0=\alpha,
+\quad d_i=\beta_{i-1}-\beta_i.
+\]
+
+The strict proof-valid domain is dense in the compact closure
+
+\[
+\boxed{
+0\le\beta_4\le\beta_3\le\beta_2\le\beta_1\le\alpha\le1,
+\qquad
+0\le\lambda_4\le\lambda_3\le\lambda_2\le\lambda_1\le1.
+}
+\tag{CR28dl}
+\]
+
+For fixed densities, every positive-length summand has the strictly concave
+weight factor (CR28bw1). Its unique clipped optimum is
+\(\psi_s(\beta_i)\) from (CR28bw2). Since \(\psi_s\) is nondecreasing, the
+four individual optima already obey the weight order. If \(d_i=0\), that
+weight is unused, while the clipped choice still attains the termwise upper
+bound. Hence there is no pooled KKT branch and the exact compact reduction is
+
+\[
+\boxed{
+\overline C_4(\alpha,\boldsymbol\beta)
+=p(\alpha)+\sum_{i=1}^4d_i\Phi_s(\beta_i),
+}
+\tag{CR28dm}
+\]
+
+where \(\Phi_s\) is (CR28bw3). On a positive segment,
+
+\[
+\lambda_i=
+\begin{cases}
+0,&\beta_i\le L,\\
+4-s/\beta_i,&L<\beta_i<U,\\
+1,&U\le\beta_i.
+\end{cases}
+\]
+
+There are exactly fifteen ordered clipping regimes, namely all words
+\(H^hM^m0^z\) with \(h+m+z=4\):
+
+\[
+\begin{gathered}
+0000;\qquad M000,\ H000;\qquad
+MM00,\ HM00,\ HH00;\\
+MMM0,\ HMM0,\ HHM0,\ HHH0;\qquad
+MMMM,\ HMMM,\ HHMM,\ HHHM,\ HHHH.
+\end{gathered}
+\tag{CR28dn}
+\]
+
+The clipping surfaces are exactly
+\(\beta_i=L\), where \(\lambda_i=0\), and \(\beta_i=U\), where
+\(\lambda_i=1\). Both \(\Phi_s\) and \(\Phi_s'\) join there, and each surface
+belongs to both adjacent branch closures. The five words without an \(M\)
+are the vertices of the ordered-weight 4-simplex; with distinct densities, a
+word with \(m\) middle entries is in the relative interior of the
+corresponding \(m\)-face. With strict densities, \(\psi_s\) is strictly
+increasing on the middle piece. Thus no face
+\(0<\lambda_{i+1}=\lambda_i<1\) is KKT: a feasible separating direction
+moves at least one weight toward its distinct individual optimum. Equal
+optimal weights arise only from a clipped 0- or 1-plateau, a density
+collision, or an unused segment.
+
+The winning branch at every fixed \(\alpha\) can also be classified exactly.
+Normalize
+
+\[
+\tau={\alpha\over1+\alpha},
+\qquad \rho_i={\beta_i\over1+\alpha},
+\]
+
+and put
+
+\[
+\phi(x)=
+\begin{cases}
+0,&x\le1/4,\\
+(4x-1)^2/2,&1/4\le x\le1/3,\\
+-x^2+2x-1/2,&x\ge1/3.
+\end{cases}
+\]
+
+The residual in (CR28dm) is
+\((1+\alpha)^3\mathcal V_\tau(\rho_1,\ldots,\rho_4)\), where
+
+\[
+\mathcal V_\tau(\rho_1,\ldots,\rho_4)
+=(\tau-\rho_1)\phi(\rho_1)+(\rho_1-\rho_2)\phi(\rho_2)
++(\rho_2-\rho_3)\phi(\rho_3)+(\rho_3-\rho_4)\phi(\rho_4).
+\tag{CR28do}
+\]
+
+For \(\tau\le1/4\), it vanishes. For \(\tau>1/4\), an inactive suffix
+cannot maximize: appending a cutoff strictly between \(1/4\) and the last
+active cutoff adds a positive term. Hence the ten words with a trailing zero
+are nonwinning.
+
+The Bellman recursion
+
+\[
+V_0(t)=0,
+\qquad
+V_m(t)=\max_{1/4\le x\le t}\bigl((t-x)\phi(x)+V_{m-1}(x)\bigr),
+\qquad
+V_4(\tau)=
+\max_{\tau\ge\rho_1\ge\cdots\ge\rho_4\ge1/4}
+\mathcal V_\tau(\rho_1,\ldots,\rho_4),
+\]
+
+has the interior equations
+
+\[
+0=-\phi(\rho_i)+(\rho_{i-1}-\rho_i)\phi'(\rho_i)+\phi(\rho_{i+1}),
+\quad \rho_0=\tau,
+\quad\phi(\rho_5)=0.
+\tag{CR28dp}
+\]
+
+Writing \(y_i=4\rho_i-1\), the four required predecessor maps are
+
+\[
+\begin{aligned}
+P_{MM}(y,z)&={3y^2-z^2\over2y},&
+P_{HM}(y,z)&={-3y^2+12y-8z^2-1\over2(3-y)},\\
+P_{HH}(y,z)&={-3y^2+12y+z^2-6z\over2(3-y)},&
+P_{H0}(y)&={-3y^2+12y-1\over2(3-y)}.
+\end{aligned}
+\tag{CR28dq}
+\]
+
+Strict monotonicity must treat the mixed base before the high--high
+induction. Put
+
+\[
+(q_1,q_2,q_3,q_4)=\left({2\over3},{18\over23},{1058\over1263},
+ {3190338\over3666143}\right).
+\]
+
+On an all-middle suffix, homogeneity gives the child relation \(z=q_my\),
+and
+
+\[
+P_{MM}(y,q_my)={3-q_m^2\over2}y={y\over q_{m+1}},
+\qquad P_{MM}(y,0)={3y\over2}={y\over q_1}.
+\]
+
+Thus every all-middle predecessor has derivative greater than one. Now let
+one high coordinate be followed by an optimized middle tail of length
+\(m\in\{1,2,3\}\). Its first child has \(z=q_my\), so
+
+\[
+T_m(y):=P_{HM}(y,q_my)
+={-(3+8q_m^2)y^2+12y-1\over2(3-y)}.
+\]
+
+The tail remains middle exactly on
+
+\[
+{1\over3}\le y\le{1\over3q_m},
+\]
+
+whose right endpoints for \(m=1,2,3\) are respectively
+\(1/2,23/54,421/1058\). Direct differentiation gives
+
+\[
+T_m'(y)-1
+={17-(1+8q_m^2)y(6-y)\over2(3-y)^2}.
+\]
+
+Since \(y(6-y)\) is increasing on these intervals, the numerator is bounded
+below by its right-endpoint value. For \(m=1,2,3\) those exact values are
+
+\[
+{161\over36},\qquad {200735\over67068},\qquad
+{9571263245\over4241270196},
+\]
+
+so \(T_m'(y)>1\) throughout every relevant `HM` base. For a terminal high
+coordinate,
+
+\[
+T_0(y):=P_{H0}(y),
+\qquad
+T_0'(y)-1={y^2-6y+17\over2(3-y)^2}
+={(y-3)^2+8\over2(3-y)^2}>0.
+\]
+
+It remains only to propagate outward through high--high links. When both
+\(\rho_i\) and \(\rho_{i+1}\) are high, put \(u_j=1-\rho_j\). Then, and only then,
+(CR28dp) gives
+
+\[
+u_{i-1}={3u_i^2-u_{i+1}^2\over2u_i}.
+\]
+
+If the already constructed suffix has
+\(0<du_{i+1}/du_i<1\), and \(z=u_{i+1}/u_i\ge1\), then
+
+\[
+{du_{i-1}\over du_i}
+={3\over2}+{z^2\over2}-z{du_{i+1}\over du_i}
+>1+{(z-1)^2\over2}\ge1.
+\]
+
+Hence its inverse again has derivative in \((0,1)\), closing the `HH`
+induction. In each Bellman region the derivative has the sign of
+\(\phi'(x)(t-T(x))\). Every active regional maximum for \(\tau>1/4\) is
+therefore unique; starting at \(\tau=1/4\), the \(C^1\) joins give the
+complete sequence
+
+\[
+\begin{array}{c|c}
+\alpha\text{ interval}&\text{winning regime}\\ \hline
+0\le\alpha\le1/3&0000\\
+1/3<\alpha<\alpha_1&MMMM\\
+\alpha_1<\alpha<\alpha_2&HMMM\\
+\alpha_2<\alpha<\alpha_3&HHMM\\
+\alpha_3<\alpha\le1&HHHM,
+\end{array}
+\tag{CR28dq1}
+\]
+
+where
+
+\[
+\alpha_1={13237157\over25046899},
+\qquad
+\alpha_2={76718581\over132993947},
+\qquad
+\alpha_3={1806469369\over2664344423}.
+\tag{CR28dq2}
+\]
+
+The three transition points are
+
+\[
+\begin{array}{c|c|c}
+\tau&(\rho_1,\rho_2,\rho_3,\rho_4)&(\lambda_1,\lambda_2,\lambda_3,\lambda_4)\\ \hline
+{13237157\over38284056}
+ &(1/3,4847/15156,513/1684,1447/5052)
+ &(1,4232/4847,368/513,736/1447)\\[1mm]
+{76718581\over209712528}
+ &(1479/4232,1/3,29/92,27/92)
+ &(1,1,24/29,16/27)\\[1mm]
+{1806469369\over4470813792}
+ &(7607/20016,77/216,1/3,11/36)
+ &(1,1,1,8/11).
+\end{array}
+\tag{CR28dq3}
+\]
+
+On the first row of (CR28dq1) the residual is identically zero, so `0000`
+records the winning clipped regime but the maximizing parametrization need
+not be unique. At each transition in (CR28dq3), the point is the unique
+maximum and belongs to both adjacent branch closures.
+
+The formal `HHHM`--`HHHH` transition would be
+
+\[
+\tau_4={199200916177\over391198109760}>{1\over2},
+\qquad
+\alpha_4={199200916177\over191997193583}>1,
+\]
+
+at normalized densities
+\((93059/201120,301/720,3/8,1/3)\). Thus `HHHH` never wins on the
+admissible compact domain.
+
+The collision and face audit is as follows. Each density facet
+
+\[
+\beta_1=\alpha,\quad \beta_2=\beta_1,\quad
+\beta_3=\beta_2,\quad \beta_4=\beta_3,\quad \beta_4=0
+\tag{CR28dq4}
+\]
+
+deletes one summand of (CR28dm), so its exact maximum is \(C_{3,*}\).
+Multiple collisions reduce to at most two effective prefixes. An unused
+weight on a zero-length segment may be filled arbitrarily between its ordered
+neighbors; a consecutive unused block permits any ordered filling between
+the active neighboring weights. This is boundary nonuniqueness below the
+global value.
+
+The outer weight facets also have exact maximum \(C_{3,*}\). On
+\(\lambda_4=0\), the last term vanishes. On \(\lambda_1=1\), differentiation
+at fixed remaining parameters gives
+
+\[
+{\partial C_4\over\partial\alpha}
+=-(\alpha-\beta_1)(2\alpha-3\beta_1+3)
++\sum_{i=2}^4d_i{\lambda_i(2\beta_i-1-\alpha)\over2-\lambda_i}
+\le0.
+\]
+
+Moving to \(\alpha=\beta_1\) deletes the first term. On an internal diagonal
+\(\lambda_i=\lambda_{i+1}\), strict densities and positive segments admit
+the separating improvement already described; plateau, collision, and unused
+cases are covered above. Thus no internal weight face contains a global
+maximizer. The face \(\alpha=0\) collapses to \(\beta_i=0\), has value
+\(p(0)=1/6\), and leaves every ordered weight unused. The face \(\alpha=1\)
+has the unique `HHHM` point determined by (CR28dp)--(CR28dq) and satisfies
+\(C_4\le M_4<22/81\). This exhausts the facets of both compact simplices.
+
+It remains to determine the global value. For \(\alpha>1/3\), put
+\(A=3\alpha-1\). On active cutoffs set \(X_i=4\beta_i-s\); replace an
+inactive suffix by \(X_i=0\). Then
+\(0\le X_4\le\cdots\le X_1\le A\). Since
+
+\[
+\Phi_s(\beta)\le{(4\beta-s)^2\over2},
+\]
+
+with equality on the middle branch and exact high-branch loss
+\((3\beta-s)^2\),
+
+\[
+\overline C_4-p(\alpha)
+\le{(A-X_1)X_1^2+(X_1-X_2)X_2^2
+ +(X_2-X_3)X_3^2+(X_3-X_4)X_4^2\over8}.
+\tag{CR28dq5}
+\]
+
+Set \(x_i=X_i/A\). The specialized nonnegative certificate (CR28cu) is
+
+\[
+\begin{aligned}
+M_4-F_4(x)={}&(1-M_3)(x_1-q_4)^2(x_1+q_4/2)\\
+&+(1-M_2)(x_2-q_3x_1)^2(x_2+q_3x_1/2)\\
+&+(1-M_1)(x_3-q_2x_2)^2(x_3+q_2x_2/2)\\
+&+(x_4-q_1x_3)^2(x_4+q_1x_3/2),
+\end{aligned}
+\tag{CR28dq6}
+\]
+
+where
+
+\[
+(q_4,q_3,q_2,q_1)
+=\left({3190338\over3666143},{1058\over1263},{18\over23},{2\over3}\right),
+\qquad
+M_4={3392752184748\over13440604496449}.
+\]
+
+Every summand is nonnegative. Equality uniquely forces
+
+\[
+\boxed{
+(x_1,x_2,x_3,x_4)
+={1\over3666143}(3190338,2672508,2091528,1394352).
+}
+\tag{CR28dq7}
+\]
+
+Thus the compact objective is bounded by
+
+\[
+\begin{aligned}
+E_4(\alpha)
+&=p(\alpha)+{M_4\over8}(3\alpha-1)^3\\
+&={27631313622349\alpha^3-54512522615247\alpha^2
+ +31611445368198\alpha+5448020178944
+ \over40321813489347}.
+\end{aligned}
+\tag{CR28dq8}
+\]
+
+Its derivative is \(Q(\alpha)/13440604496449\), where
+
+\[
+Q(\alpha)=27631313622349\alpha^2
+-36341681743498\alpha+10537148456066.
+\]
+
+The signs
+
+\[
+Q(1/3)={13440604496449\over9}>0,
+\quad Q(1/2)=-{2903456040383\over4}<0,
+\quad Q(1)=1826780334917>0
+\]
+
+make the smaller root a local maximum and the larger root a later local
+minimum. Also
+
+\[
+E_4(1/3)-E_4(1)
+={22\over81}-M_4
+={20880371957290\over1088688964212369}>0.
+\]
+
+Hence the unique global envelope maximum is at
+
+\[
+\boxed{
+\alpha_*={18170840871749-3666143\sqrt{2903456040383}
+ \over27631313622349}
+=0.4315359537746474955\ldots .
+}
+\tag{CR28dq9}
+\]
+
+Since \(1/3<\alpha_*<1/2<\alpha_1\), it is strictly in `MMMM`. Put
+\(A_*=3\alpha_*-1\) and use the four coordinates in (CR28dq7). Equality is
+attained at
+
+\[
+\boxed{
+\beta_{i,*}={1+\alpha_*+x_iA_*\over4},
+\qquad
+\lambda_{i,*}={x_iA_*\over\beta_{i,*}}
+\quad(1\le i\le4).
+}
+\tag{CR28dq10}
+\]
+
+Equivalently,
+
+\[
+\begin{aligned}
+\beta_{1,*}&={475805+13237157\alpha_*\over14664572},&
+\lambda_{1,*}&={12761352A_*\over475805+13237157\alpha_*},\\
+\beta_{2,*}&={993635+11683667\alpha_*\over14664572},&
+\lambda_{2,*}&={10690032A_*\over993635+11683667\alpha_*},\\
+\beta_{3,*}&={1574615+9940727\alpha_*\over14664572},&
+\lambda_{3,*}&={8366112A_*\over1574615+9940727\alpha_*},\\
+\beta_{4,*}&={2271791+7849199\alpha_*\over14664572},&
+\lambda_{4,*}&={5577408A_*\over2271791+7849199\alpha_*}.
+\end{aligned}
+\]
+
+Numerically,
+
+\[
+\boldsymbol\beta_*
+=(0.421977141321,0.411574056333,0.399902302444,0.385896197777)\ldots,
+\]
+
+\[
+\boldsymbol\lambda_*
+=(0.607550946261,0.521802257099,0.420285792242,0.290360044955)\ldots .
+\]
+
+All density and weight inequalities are strict, and every cutoff is strictly
+middle-clipped. Conversely, equality in (CR28dq5), (CR28dq6), and (CR28dq8)
+forces exactly these data. Therefore the maximizing nine-tuple is unique on
+the whole compact closure; the lower-value boundary weight freedom does not
+produce another maximum.
+
+The exact optimum is
+
+\[
+\boxed{
+C_{4,*}
+={597580022071777213687318156
+ +21288970076515705538\sqrt{2903456040383}
+ \over2290468477489828247376833403}
+=0.2767361498609895101\ldots .
+}
+\tag{CR28dq11}
+\]
+
+It is the root in
+
+\[
+{276736149860\over10^{12}}<C_{4,*}
+<{276736149861\over10^{12}}
+\]
+
+of
+
+\[
+6871405432469484742130500209z^2
+-3585480132430663282123908936z
++465999835246384276537748084=0.
+\]
+
+The improvement over three prefixes is strict in two independent exact
+ways. Let \(\alpha_*^{(3)}\) and \(\beta_{3,*}^{(3)}\) denote respectively
+the density (CR28co) and the last cutoff of the strict three-prefix
+optimizer. Retain that point and choose
+\((1+\alpha_*^{(3)})/4<\beta_4<\beta_{3,*}^{(3)}\), with its middle clipped weight.
+The added term
+\((\beta_{3,*}^{(3)}-\beta_4)
+\Phi_{1+\alpha_*^{(3)}}(\beta_4)\) is positive. Also,
+
+\[
+\boxed{C_{3,*}<{2767\over10000}<C_{4,*}.}
+\tag{CR28dq12}
+\]
+
+After clearing positive denominators and squaring positive quantities, the
+two differences are respectively
+
+\[
+824523723482111238496361641
+\]
+
+and
+
+\[
+600035982853463093354803882519517840276863691635717857799,
+\]
+
+both positive. The point (CR28dq10) is strict, so the direct four-prefix
+theorem gives
+
+\[
+\boxed{
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{4,*},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{4,*}\over\pi}.
+}
+\tag{CR28dq13}
+\]
+
+This is an optimized asymptotic template theorem, not finite rounding in
+\(n\), an exact residual, a convergence result, a geometric leading
+constant, or a five-prefix charging statement.
+
+The standalone standard-library diagnostic at
+`ops/TASK-20260717__global_four_prefix_optimization/exact_diagnostic.py`
+checks the exact clipping-gap factorizations on rational grids, both \(C^1\)
+joins, all fifteen regimes, exact transition weights and collision reductions,
+the specialized simplex identity, end-to-end original-objective evaluation at
+the quadratic-surd optimizer, its primitive irreducible polynomial, isolating
+interval, and both squared comparisons in (CR28dq12). Its denominator-12,
+-24, and -48 simplex grids have maxima \(1/4\), \(871/3456\), and
+\(27907/110592\), all below \(M_4\). This exact computation corroborates but
+does not replace the all-real proof.
+
 ### Normalized \(k\)-prefix simplex lemma
 
-The compact polynomial behind the one-, two-, and three-prefix optimizations
+The compact polynomial behind the one- through four-prefix optimizations
 has an exact all-\(k\) solution which is independent of the charging
 argument. For \(k\ge1\), put
 
@@ -4417,18 +4983,19 @@ Therefore \(M_k=T(M_{k-1})\) is strictly increasing and bounded above by
 \tag{CR28cy}
 \]
 
-The first three rows recover, exactly and in the same normalization, all
-previously documented simplex values:
+The first four rows recover, exactly and in the same normalization, all
+documented optimized prefix-simplex values:
 
 | \(k\) | unique maximizer \((x_1,\ldots,x_k)\) | ratios \((r_1,\ldots,r_k)\) | \(M_k\) | \(M_k/8\) |
 |---:|---|---|---:|---:|
 | 1 | \((2/3)\) | \((2/3)\) | \(4/27\) | \(1/54\) |
 | 2 | \((18/23,12/23)\) | \((18/23,2/3)\) | \(108/529\) | \(27/1058\) |
 | 3 | \((1058/1263,276/421,184/421)\) | \((1058/1263,18/23,2/3)\) | \(1119364/4785507\) | \(279841/9571014\) |
+| 4 | \((3190338,2672508,2091528,1394352)/3666143\) | \((3190338/3666143,1058/1263,18/23,2/3)\) | \(3392752184748/13440604496449\) | \(848188046187/26881208992898\) |
 
 The last column is the scale appearing after
 \(X_i=(3\alpha-1)x_i\): it reproduces respectively the one-prefix residual
-coefficient, (CR28bw12), and (CR28cn).
+coefficient, (CR28bw12), (CR28cn), and the four-prefix envelope (CR28dq8).
 
 Purely at the normalized-polynomial level, define on
 \(1/3\le\alpha\le1\)
@@ -6000,7 +6567,7 @@ geometric bounds gives
 \]
 and
 \[
-C_{3,*}
+C_{4,*}
 \le
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
 \le
@@ -6071,18 +6638,28 @@ Further non-consequences are important.
   remainder, and proves
   \(\Lambda_n>C_{3,*}n^3\) throughout that domain. It makes no exact
   residual, convergence, production, or geometric-leading-constant claim.
-- The four-prefix extension (CR28de)--(CR28dk) combines the four heights
+- The four-prefix extension (CR28de)--(CR28dq13) combines the four heights
   before any slack assignment. The five convex coefficients telescope to
   four disjoint weighted segments, the literal history canonically partitions
   every original edge into one charged or one unused edge, and the recursive
   invariant survives all three boundaries at arbitrary depth. This proves the
-  exact finite bound (CR28dh) and the unoptimized fixed-parameter consequence
-  (CR28dj)--(CR28dk). No parameter optimization, finite threshold theorem, or
-  comparison with \(C_{3,*}\) is made.
+  exact finite bound (CR28dh). The subsequent compact optimization reduces
+  the four ordered weights exactly, classifies all fifteen clipping regimes,
+  their three winning transitions, every density collision and every compact
+  facet, and proves the unique strict `MMMM` optimum
+  \[
+  C_{4,*}
+  ={597580022071777213687318156
+   +21288970076515705538\sqrt{2903456040383}
+   \over2290468477489828247376833403}
+  >C_{3,*}.
+  \]
+  It yields the asymptotic lower bounds (CR28dq13), but no finite rounding,
+  exact residual, convergence theorem, or geometric leading constant.
 - The normalized simplex theorem (CR28cr)--(CR28dd) solves the compact
   polynomial for every fixed \(k\), proves its unique interior maximizer and
-  the exact recurrence \(M_k\nearrow1/3\), and explains the three previously
-  observed rational simplex points. It does not imply the separate direct
+  the exact recurrence \(M_k\nearrow1/3\), and explains the four optimized
+  rational simplex points. It does not imply the separate direct
   four-prefix theorem and does not extend one-use charging to \(k\ge5\). In
   particular, neither the formal endpoint value \(1/3\) nor the all-middle value
   \((434+4\sqrt2)/1587\) is a new coefficient bound for \(\Lambda_n\) or

@@ -38,17 +38,21 @@ convergence. Exact canonical enumeration is deliberately bounded to
 `n=3..8` and gives \((12,26,47,77,118,172)\).
 The jointly optimized one-prefix linear tail block first gave the coefficient
 \((4+2\sqrt3)/27\). The exact global optimization of the two-prefix CR28bw
-template then gave \(C_{2,*}\). The three-prefix extension now gives the
+template then gave \(C_{2,*}\), and the three-prefix extension gave
+\(C_{3,*}\). The globally optimized four-prefix extension now gives the
 strictly stronger rigorous lower coefficients
 \[
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
 \ge
-{753972193324+106042322\sqrt{377823}\over2960667770787},
+{597580022071777213687318156
+ +21288970076515705538\sqrt{2903456040383}
+ \over2290468477489828247376833403},
 \qquad
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \ge
-{753972193324+106042322\sqrt{377823}
- \over2960667770787\pi}.
+{597580022071777213687318156
+ +21288970076515705538\sqrt{2903456040383}
+ \over2290468477489828247376833403\pi}.
 \]
 These are one-sided bounds and do not prove convergence or identify an exact
 leading coefficient. The irrational three-prefix optimizer now also has the
@@ -65,14 +69,13 @@ where \(159\) is the minimal uniform three-nonempty-prefix threshold. The
 older rational witness remains the earlier finite two-prefix theorem from
 \(n=59\).
 
-The direct one-use theorem now also closes exactly for four selected
+The direct one-use theorem closes exactly for four selected
 prefixes. The five ordered convex coefficients combine
 \(0,H_1,H_2,H_3,H_4\) before slack assignment and telescope to four disjoint
 weighted segments. Each literal history canonically partitions every
 original edge into one charged or one unused edge, while the recursive
 invariant covers every nested child split through all three boundaries. This
-gives the exact four-segment finite bound and the unoptimized fixed-parameter
-coefficient
+gives the exact four-segment finite bound and the fixed-parameter coefficient
 \[
 \begin{aligned}
 C_4={}&p(\alpha)
@@ -82,11 +85,29 @@ C_4={}&p(\alpha)
 +(\beta_3-\beta_4)g(\alpha,\beta_4,\lambda_4).
 \end{aligned}
 \]
-No parameter optimization, finite rounding, comparison with \(C_{3,*}\), or
-extension to five prefixes is part of this result. A standalone exact oracle
-checks all 840 literal histories of one bounded four-split base.
+The continuous coefficient is now globally optimized on the full compact
+ordered closure. Exact weight reduction gives all fifteen regimes
+\(H^hM^m0^{4-h-m}\); Bellman predecessor maps classify every winning
+transition, and the density collisions and compact facets are completely
+audited. The unique global point is strict and lies in `MMMM`, with
+\[
+\alpha_*={18170840871749-3666143\sqrt{2903456040383}
+ \over27631313622349}
+\]
+and
+\[
+C_{4,*}
+={597580022071777213687318156
+ +21288970076515705538\sqrt{2903456040383}
+ \over2290468477489828247376833403}
+=0.276736149860989\ldots>C_{3,*}.
+\]
+No finite rounding or extension to five prefixes is part of this result. A
+standalone exact oracle checks all 840 literal histories of one bounded
+four-split base, and a separate standard-library exact diagnostic checks the
+compact optimization algebra.
 
-The normalized compact simplex common to the one-, two-, and three-prefix
+The normalized compact simplex common to the one- through four-prefix
 proofs is now solved for every fixed dimension \(k\). Its unique maximizer is
 strictly interior, its backward ratios satisfy
 \[
@@ -99,8 +120,9 @@ M_0=0,
 \qquad M_k={4\over27(1-M_{k-1})^2}\nearrow{1\over3}.
 \]
 This is an exact polynomial optimization lemma, not the source of the
-separate direct four-prefix charging theorem. It supplies no charging result
-for \(k\ge5\) and changes none of the displayed optimized bounds for
+separate direct four-prefix charging theorem. Its \(k=4\) row is used only
+after that direct theorem has supplied charging. It gives no charging result
+for \(k\ge5\), and its limiting envelope supplies no further bound for
 \(\Lambda_n\) or \(R_2^*(n)\).
 
 The one-wrap saturation question is also closed exactly. If
@@ -450,7 +472,7 @@ the minimal threshold \(159\). A controlled remainder with
 proves \(\mathcal B_{3,n}>C_{3,*}n^3\). Exact finite arithmetic covers
 \(159\le n\le170\), and the symbolic tail starts at \(171\).
 
-Four-prefix charging is now exact as a separate unoptimized theorem. The
+Four-prefix charging and its continuous optimization are now exact. The
 five coefficients
 \[
 1-\lambda_1,\quad\lambda_1-\lambda_2,\quad
@@ -461,18 +483,30 @@ disjoint segments. The single edge-indexed slack partition is canonical
 relative to the literal history: an original edge is charged at its unique
 intact split or remains unused. The recursive invariant is independent of all
 three boundaries and covers edges with two previously inserted endpoints.
-The resulting finite four-segment bound and fixed-parameter coefficient
-\(C_4\) are exact, but no optimization or finite rounding is performed. A
-standalone Fraction oracle checks 840 bounded histories and all local
-identities without project helpers.
+The resulting finite four-segment bound is exact. On the compact coefficient
+domain, the ordered weights reduce independently; all fifteen clipping
+regimes, the three nontrivial winning transitions, every collision, and every
+facet are classified. The unique strict coefficient is
+\[
+C_{4,*}
+={597580022071777213687318156
+ +21288970076515705538\sqrt{2903456040383}
+ \over2290468477489828247376833403}
+>C_{3,*}.
+\]
+A standalone Fraction oracle checks 840 bounded histories and all local
+charging identities. An independent standard-library exact diagnostic checks
+the compact reduction, transition data, specialized simplex certificate,
+surd optimizer, and strict comparison. No finite rounding is performed.
 
-The normalized simplex behind these three cases now has an exact
+The normalized simplex behind these four cases now has an exact
 all-\(k\) solution. A Bellman reduction and a telescoping nonnegative
 certificate prove existence, strict interiority, and uniqueness, not merely
-the stationary equations. The values for \(k=1,2,3\) are exactly
+the stationary equations. The values for \(k=1,2,3,4\) are exactly
 \[
 {4\over27},\qquad {108\over529},\qquad
-{1119364\over4785507},
+{1119364\over4785507},\qquad
+{3392752184748\over13440604496449},
 \]
 with the already documented maximizers. The formal limiting polynomial
 envelope is
@@ -516,6 +550,12 @@ three-prefix template improves it further to
 {753972193324+106042322\sqrt{377823}
  \over2960667770787\pi}.
 \]
+The globally optimized four-prefix template improves it again to
+\[
+{597580022071777213687318156
+ +21288970076515705538\sqrt{2903456040383}
+ \over2290468477489828247376833403\pi}.
+\]
 This is still only a proved lower coefficient, not an exact asymptotic
 constant for Power-Ringmin.
 
@@ -524,8 +564,9 @@ upper coefficient from \(1/\pi\) to \(1/(2\pi)\). It is now superseded by the
 product-distance construction below, which gives \(8/(25\pi)\). Neither upper
 bound matches the current linear-block geometric lower coefficient
 \[
-{753972193324+106042322\sqrt{377823}
- \over2960667770787\pi}.
+{597580022071777213687318156
+ +21288970076515705538\sqrt{2903456040383}
+ \over2290468477489828247376833403\pi}.
 \]
 The zigzag
 theorem itself generated no leading-order LP, new finite certificate, `n=7`
@@ -962,7 +1003,7 @@ saturation for every \(n\ge3\).
   \]
   Moreover \(M_k\) is strictly increasing and converges to \(1/3\). The
   all-\(k\) telescoping certificate in the proof note forces the unique
-  equality point and recovers exactly the documented \(k=1,2,3\) rows.
+  equality point and recovers exactly the documented \(k=1,2,3,4\) rows.
 - EXACT NORMALIZED-ENVELOPE CLASSIFICATION: the formal limit
   \(p(\alpha)+(3\alpha-1)^3/24\) has unique global maximum \(1/3\) at
   \(\alpha=1\) on the full compact closure; the strict domain has only that
@@ -1135,16 +1176,19 @@ saturation for every \(n\ge3\).
   4(\sqrt2-1)>1.
   \]
 - EXACT THEOREM (sharpened global lower bound): the globally optimized
-  three-prefix template gives
+  four-prefix template gives
   \[
   \liminf_{n\to\infty}{\Lambda_n\over n^3}
   \ge
-  {753972193324+106042322\sqrt{377823}\over2960667770787},
+  {597580022071777213687318156
+   +21288970076515705538\sqrt{2903456040383}
+   \over2290468477489828247376833403},
   \qquad
   \liminf_{n\to\infty}{R_2^*(n)\over n^3}
   \ge
-  {753972193324+106042322\sqrt{377823}
-   \over2960667770787\pi}.
+  {597580022071777213687318156
+   +21288970076515705538\sqrt{2903456040383}
+   \over2290468477489828247376833403\pi}.
   \]
   This strictly improves the single-subset lower coefficient, while proving
   neither convergence nor an exact leading coefficient.
@@ -1181,9 +1225,24 @@ saturation for every \(n\ge3\).
   +(s_3-s_4)F_{4,n}.
   \end{aligned}
   \]
-  The corresponding fixed-parameter \(C_4\) gives the usual liminf lower
-  bounds. It is not optimized and supplies no finite rounding or \(k\ge5\)
-  result.
+  The corresponding compact coefficient problem reduces all four ordered
+  weights, has exactly fifteen clipping regimes, and admits one unique strict
+  `MMMM` maximizer. Its exact value is
+  \[
+  C_{4,*}
+  ={597580022071777213687318156
+   +21288970076515705538\sqrt{2903456040383}
+   \over2290468477489828247376833403}
+  >C_{3,*}.
+  \]
+  It supplies the sharpened liminf bounds above, but no finite rounding or
+  \(k\ge5\) result.
+- VERIFIED EXACT DOSSIER DIAGNOSTIC: the standalone standard-library script
+  in `ops/TASK-20260717__global_four_prefix_optimization/` checks the clipping
+  reduction, all fifteen branch witnesses, exact transition data, the
+  specialized \(k=4\) simplex certificate, the quadratic-surd optimizer,
+  minimal polynomial, isolating interval, and strict comparison with
+  \(C_{3,*}\), without production or enumeration changes.
 - VERIFIED BOUNDED EXACT COMPUTATION: the standalone dossier oracle imports
   no project or test helper and checks all 840 literal histories from
   \(C_0=(11,14,12,13)\). It obtains 840 distinct final cycles, recursive
@@ -1390,7 +1449,7 @@ saturation for every \(n\ge3\).
 
 ## Consequences
 
-1. The three-prefix linear-block lower bound supersedes both the
+1. The four-prefix linear-block lower bound supersedes both the
    induced-subset bound
    and the older full-cycle bound
    \(\liminf 6\pi R_2^*(n)/n^3\ge 1\). Both older statements remain true but
@@ -1400,8 +1459,9 @@ saturation for every \(n\ge3\).
    \[
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
    \ge
-   {753972193324+106042322\sqrt{377823}
-    \over2960667770787\pi}.
+   {597580022071777213687318156
+    +21288970076515705538\sqrt{2903456040383}
+    \over2290468477489828247376833403\pi}.
    \]
    This roadmap records a lower coefficient, not a proposed exact constant.
 
@@ -1427,8 +1487,9 @@ saturation for every \(n\ge3\).
 6. The symbolic product-distance construction supersedes zigzag and gives the
    rigorous liminf/limsup bracket
    \[
-   {753972193324+106042322\sqrt{377823}
-    \over2960667770787\pi}
+   {597580022071777213687318156
+    +21288970076515705538\sqrt{2903456040383}
+    \over2290468477489828247376833403\pi}
    \le
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
    \le
@@ -1582,15 +1643,25 @@ saturation for every \(n\ge3\).
     combined first. The exact five-term convex combination telescopes to four
     disjoint segments, every original edge is canonically charged once or
     left unused, and every recursive child remains covered through all three
-    boundaries. This closes the direct four-prefix charging question and gives
-    a parametric \(C_4\), but no optimized coefficient, finite rounding, or
-    conclusion for \(k\ge5\).
+    boundaries. The ordered weights reduce exactly on the compact closure.
+    All fifteen clipping regimes, the winning sequence
+    \(0000,MMMM,HMMM,HHMM,HHHM\), every transition, density collision, and
+    compact facet are classified. The unique strict optimum is
+    \[
+    C_{4,*}
+    ={597580022071777213687318156
+     +21288970076515705538\sqrt{2903456040383}
+     \over2290468477489828247376833403}
+    >C_{3,*}.
+    \]
+    This closes the four-prefix asymptotic coefficient problem, but gives no
+    finite rounding or conclusion for \(k\ge5\).
 
 17. The compact normalized simplex itself is no longer an open optimization
     problem. For every fixed \(k\), its unique maximizer is generated by the
     exact backward ratio recurrence, and
     \(M_k\nearrow1/3\). This explains the rational points previously found
-    separately at one, two, and three prefixes. The formal limit envelope has
+    separately at one, two, three, and four prefixes. The formal limit envelope has
     compact maximum \(1/3\) only at the degenerate endpoint \(\alpha=1\),
     while its all-middle restriction has the interior maximum
     \((434+4\sqrt2)/1587\). Neither statement supplies the separate direct
@@ -1600,10 +1671,11 @@ saturation for every \(n\ge3\).
 ## Updated Research Questions
 
 - OPEN QUESTION: what geometric upper-bound construction, if any, narrows or
-  matches the current three-prefix lower coefficient
+  matches the current four-prefix lower coefficient
   \[
-  {753972193324+106042322\sqrt{377823}
-   \over2960667770787\pi}
+  {597580022071777213687318156
+   +21288970076515705538\sqrt{2903456040383}
+   \over2290468477489828247376833403\pi}
   \]
   up to lower-order terms?
 - OPEN QUESTION: can the previous reduced-core observations at checked
@@ -1612,11 +1684,12 @@ saturation for every \(n\ge3\).
 - OPEN QUESTION: is \(12\) the least threshold for
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
-- OPEN QUESTION: can the gap between the three-prefix geometric lower
+- OPEN QUESTION: can the gap between the four-prefix geometric lower
   coefficient
   \[
-  {753972193324+106042322\sqrt{377823}
-   \over2960667770787\pi}
+  {597580022071777213687318156
+   +21288970076515705538\sqrt{2903456040383}
+   \over2290468477489828247376833403\pi}
   \]
   and the
   product-distance upper
@@ -1628,6 +1701,10 @@ saturation for every \(n\ge3\).
 - CLOSED QUESTION: the global optimum of the seven-parameter three-prefix
   certificate, including the complete compact closure, is \(C_{3,*}\) at the
   unique point displayed above.
+- CLOSED QUESTION: the global optimum of the nine-parameter four-prefix
+  certificate, including all fifteen clipping regimes, winning transitions,
+  collisions, and compact facets, is \(C_{4,*}\) at the unique strict point
+  displayed above.
 - CLOSED QUESTION: the normalized compact simplex for arbitrary fixed \(k\)
   has the unique interior maximizer, exact ratio/value recurrences, monotone
   limit \(M_k\to1/3\), and envelope classification recorded above.
@@ -1832,16 +1909,29 @@ Completed:
   prefixes. The exact convex combination telescopes to four disjoint
   segments, the original-edge slack has one canonical charged/unused
   partition, and the recursive invariant covers every child edge through all
-  three boundaries. The resulting finite lower bound and fixed-parameter
-  \(C_4\) are unoptimized. A standalone exact oracle checks all 840 bounded
-  literal histories, including 120 fourth splits between previously inserted
-  endpoints. No production, test, artifact, schema, backend, certificate, or
-  enumeration-limit change was made.
+  three boundaries. A standalone exact oracle checks all 840 bounded literal
+  histories, including 120 fourth splits between previously inserted
+  endpoints.
+- Globally optimized the four-prefix coefficient. Exact clipped-weight
+  reduction gives all fifteen regimes; Bellman predecessor maps classify the
+  winning transitions; every collision and compact facet is audited. The
+  unique strict `MMMM` coefficient is
+  \[
+  C_{4,*}
+  ={597580022071777213687318156
+   +21288970076515705538\sqrt{2903456040383}
+   \over2290468477489828247376833403}
+  >C_{3,*}.
+  \]
+  A separate standard-library exact diagnostic checks the reduction,
+  transitions, simplex identity, surd algebra, and comparison. No production,
+  test, artifact, schema, backend, certificate, or enumeration-limit change
+  was made, and no finite rounding or five-prefix theorem was added.
 - Solved the normalized compact simplex for every fixed \(k\). An exact
   Bellman recurrence and telescoping nonnegative certificate prove existence,
   strict interiority, uniqueness, the proposed backward ratio recurrence,
-  \(M_k\nearrow1/3\), and exact agreement with the one-, two-, and
-  three-prefix values. A dossier-local `Fraction` diagnostic checks the first
+  \(M_k\nearrow1/3\), and exact agreement with the one-, two-, three-, and
+  four-prefix values. A dossier-local `Fraction` diagnostic checks the first
   eight dimensions and an independent rational grid. This normalized result
   is independent of the direct four-prefix proof and gives no charging for
   \(k\ge5\), asymptotic bound from the limiting envelope, production path, or
@@ -1909,7 +1999,7 @@ Acceptance criteria:
   long-distance constraints for the family;
 - prove either a strict upper-coefficient improvement or an exact obstruction
   within that family;
-- keep the optimized finite three-prefix theorem and the unoptimized direct
+- keep the optimized finite three-prefix theorem and optimized asymptotic
   four-prefix theorem logically separate from the upper-bound construction;
 - do not alter production enumeration limits, checked artifacts, schemas,
   interval backends, or certificates.

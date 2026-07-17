@@ -2,7 +2,7 @@
 
 Date: 2026-07-13
 
-Last updated: 2026-07-16
+Last updated: 2026-07-17
 
 ## Classification
 
@@ -168,7 +168,7 @@ Last updated: 2026-07-16
   R_2^*(n)>{\mathcal I_{3,n}\over\pi}-n^2
   \quad(n\ge159).
   \]
-- EXACT THEOREM (unoptimized four-prefix linear-block refinement): for
+- EXACT THEOREM (globally optimized four-prefix linear-block refinement): for
   \[
   0<\beta_4<\beta_3<\beta_2<\beta_1<\alpha<1,
   \qquad
@@ -195,9 +195,42 @@ Last updated: 2026-07-16
   +(s_3-s_4)F_{4,n}.
   \end{aligned}
   \]
-  Its fixed-parameter coefficient \(C_4\) is recorded below. No parameter
-  optimization, finite rounding theorem, comparison with \(C_{3,*}\), or
-  extension to five prefixes is asserted.
+  Its fixed-parameter coefficient \(C_4\) is recorded below. On the compact
+  closure of the ordered densities and weights, the weight problem reduces
+  exactly to four clipped individual optima. All fifteen clipping regimes,
+  every transition, density collision, and compact facet are classified in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`. The unique global point is strict,
+  lies in `MMMM`, and has
+  \[
+  \alpha_*={18170840871749-3666143\sqrt{2903456040383}
+   \over27631313622349}.
+  \]
+  With \(A_*=3\alpha_*-1\) and
+  \[
+  (x_1,x_2,x_3,x_4)
+  ={(3190338,2672508,2091528,1394352)\over3666143},
+  \]
+  the remaining unique coordinates are
+  \[
+  \beta_{i,*}={1+\alpha_*+x_iA_*\over4},
+  \qquad
+  \lambda_{i,*}={x_iA_*\over\beta_{i,*}}.
+  \]
+  The exact optimum is
+  \[
+  C_{4,*}
+  ={597580022071777213687318156
+   +21288970076515705538\sqrt{2903456040383}
+   \over2290468477489828247376833403}
+  =0.276736149860989\ldots>C_{3,*}.
+  \]
+  Hence
+  \[
+  \liminf{\Lambda_n\over n^3}\ge C_{4,*},
+  \qquad
+  \liminf{R_2^*(n)\over n^3}\ge{C_{4,*}\over\pi}.
+  \]
+  No finite rounding theorem or extension to five prefixes is asserted.
 - EXACT FINITE THEOREM (two-prefix rational specialization): with
   \[
   r_n=\left\lfloor{3n\over7}\right\rfloor,
@@ -305,6 +338,12 @@ template improves it again to
 three-prefix template raises it further to
 \[
 {753972193324+106042322\sqrt{377823}\over2960667770787\pi}.
+\]
+The globally optimized four-prefix template raises it again to
+\[
+{597580022071777213687318156
+ +21288970076515705538\sqrt{2903456040383}
+ \over2290468477489828247376833403\pi}.
 \]
 None of these lower-bound results is an upper
 bound on the true problem. The order-independent regular-core baseline has
@@ -1291,7 +1330,7 @@ coefficient is below both \(C_{2,*}\) and \(C_{3,*}\); the finite
 three-prefix theorem above is stronger from \(n=159\). No exact residual,
 convergence, exact leading coefficient, or matching upper bound follows.
 
-### Unoptimized consequence of four selected prefixes
+### Four selected prefixes and global optimization
 
 The direct theorem (CR28de)--(CR28dk) of
 research/FIXED_ORDER_CYCLE_RATIO.md closes the next charging case without
@@ -1356,13 +1395,86 @@ C_4={}&p(\alpha)
 }
 \]
 
-This is a parametric theorem, not an optimized new numerical coefficient. No
-finite rounding, \(k\to\infty\) passage, or claim for five selected prefixes
-is used. The standalone exact oracle at
+The continuous parameter problem is optimized on
+
+\[
+0\le\beta_4\le\beta_3\le\beta_2\le\beta_1\le\alpha\le1,
+\qquad
+0\le\lambda_4\le\lambda_3\le\lambda_2\le\lambda_1\le1.
+\]
+
+For \(s=1+\alpha\), the four ordered weights reduce exactly to the clipped
+individual optima at the thresholds \(s/4,s/3\). The fifteen regimes are
+
+\[
+0000;\ M000,H000;\ MM00,HM00,HH00;\
+MMM0,HMM0,HHM0,HHH0;\ MMMM,HMMM,HHMM,HHHM,HHHH.
+\]
+
+The fixed-\(\alpha\) winner moves through
+\(0000,MMMM,HMMM,HHMM,HHHM\); the `HHHH` transition lies beyond
+\(\alpha=1\). Density collisions and the two outer weight facets reduce
+exactly to the three-prefix problem, while internal weight diagonals admit a
+strict separating improvement unless they are already clipped or unused.
+
+The normalized four-prefix simplex has unique point
+
+\[
+(x_1,x_2,x_3,x_4)
+={1\over3666143}(3190338,2672508,2091528,1394352)
+\]
+
+and value
+\(M_4=3392752184748/13440604496449\). Its one-variable envelope has the
+unique maximizing density
+
+\[
+\alpha_*={18170840871749-3666143\sqrt{2903456040383}
+ \over27631313622349}.
+\]
+
+Putting \(A_*=3\alpha_*-1\), the unique original parameters are
+
+\[
+\beta_{i,*}={1+\alpha_*+x_iA_*\over4},
+\qquad
+\lambda_{i,*}={x_iA_*\over\beta_{i,*}},
+\]
+
+and the exact global coefficient is
+
+\[
+\boxed{
+C_{4,*}
+={597580022071777213687318156
+ +21288970076515705538\sqrt{2903456040383}
+ \over2290468477489828247376833403}
+>C_{3,*}.
+}
+\]
+
+Thus
+
+\[
+\boxed{
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{4,*},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{4,*}\over\pi}.
+}
+\]
+
+The exact separator \(C_{3,*}<2767/10000<C_{4,*}\) corroborates the strict
+improvement. No finite rounding, \(k\to\infty\) passage, or claim for five
+selected prefixes is used. The standalone exact oracle at
 ops/TASK-20260716__four_prefix_charging/literal_oracle.py checks all 840
 literal four-split histories of one bounded base, including 120 fourth splits
 with two previously inserted endpoints. That computation corroborates the
-bookkeeping but is not the all-history proof.
+bookkeeping but is not the all-history proof. Separately,
+ops/TASK-20260717__global_four_prefix_optimization/exact_diagnostic.py uses
+only standard-library exact arithmetic to check clipping-gap factorizations,
+joins, branches, transition weights, collision reductions, the simplex
+identity, end-to-end surd objective, irreducible polynomial, and comparison;
+it corroborates but does not replace the all-real optimization proof.
 
 ## Exact Radius-One Insertion
 
@@ -1948,11 +2060,10 @@ Therefore
 \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over2\pi}.
 \tag{21}
 \]
-Combining (21) with the sharpened three-prefix linear-block lower bound
+Combining (21) with the optimized four-prefix linear-block lower bound
 proved in this note yields
 \[
-{753972193324+106042322\sqrt{377823}
- \over2960667770787\pi}
+{C_{4,*}\over\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -1967,8 +2078,7 @@ In particular,
 The later exact product-distance construction sharpens the right endpoint to
 
 \[
-{753972193324+106042322\sqrt{377823}
- \over2960667770787\pi}
+{C_{4,*}\over\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -2021,10 +2131,9 @@ Neither the improved upper bound nor the lower bound proves that
   baseline. The zigzag radius \(V_n\) improves its asymptotic upper coefficient
   from \(1/\pi\) to \(1/(2\pi)\); the later product-distance construction
   improves it again to \(8/(25\pi)\), which still does not match the
-  current three-prefix linear-block lower coefficient
+  current four-prefix linear-block lower coefficient
   \[
-  {753972193324+106042322\sqrt{377823}
-   \over2960667770787\pi}.
+  {C_{4,*}\over\pi}.
   \]
   None may be described as the exact asymptotic leading constant for
   Power-Ringmin. The smaller coefficient
@@ -2060,10 +2169,18 @@ Neither the improved upper bound nor the lower bound proves that
 - The separate direct four-prefix theorem combines all four heights before
   assigning slack, gives the canonical one-use original-edge partition, and
   retains every recursive split through all three boundaries. Its
-  four-segment lower bound and fixed-parameter coefficient \(C_4\) are exact,
-  but unoptimized. No new numerical improvement over \(C_{3,*}\), finite
-  rounding theorem, \(k\to\infty\) passage, or result for \(k\ge5\) is
-  claimed.
+  four-segment lower bound is exact. The full compact optimization then
+  reduces all four weights, classifies all fifteen regimes and every
+  transition/collision/facet, and proves the unique strict coefficient
+  \[
+  C_{4,*}
+  ={597580022071777213687318156
+   +21288970076515705538\sqrt{2903456040383}
+   \over2290468477489828247376833403}
+  >C_{3,*}.
+  \]
+  No finite rounding theorem, \(k\to\infty\) passage, or result for
+  \(k\ge5\) is claimed.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower
   bound only from the scalar full-problem lower bound would reverse the useful
