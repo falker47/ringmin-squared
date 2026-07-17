@@ -4248,6 +4248,204 @@ new geometric consequence follows. In particular, this family-specific
 surrogate obstruction is not a geometric lower bound and says nothing about
 other orders, unequal directions, or non-regular configurations.
 
+## Distinguished-Path Terminal-Gap Necessity
+
+We now allow an arbitrary reassignment of complete middle paths, but derive
+only a necessary local condition on the location of the distinguished path
+\(P_0\). No reassignment is selected or scored. Let
+
+\[
+\alpha:\{0,\ldots,2m-1\}\longrightarrow\{0,\ldots,2m-1\}
+\tag{PG1}
+\]
+
+be a bijection, where terminal gap \(G_j\) receives the unchanged oriented
+path \(P_{\alpha(j)}\). Put \(v=2m\) and
+\(j^+=j+1\pmod v\). The corresponding gap word is
+
+\[
+G_j^\alpha
+=
+(E_j,\lambda_j,P_{\alpha(j)},\rho_{j^+},E_{j^+}).
+\tag{PG2}
+\]
+
+Write \(\sigma_\alpha\) for the cyclic core order obtained by expanding all
+paths in (PG2) and identifying the shared terminal \(E_{j^+}\) with the
+initial terminal of the next gap. Thus every terminal, low label, and middle
+path occurs exactly as in the retained scaffold, with only the path-to-gap
+bijection changed.
+
+All terminal and low labels retain (NR4), and every path retains (NR2)--(NR3)
+with its displayed orientation. Since the core has
+\(n-1=10m+2\ge32\) positions, every one- or two-step arc used below is the
+smaller cyclic distance, including across the canonical cut.
+
+Suppose \(\alpha(j)=0\), and abbreviate
+
+\[
+A=A_0=d-1,
+\qquad
+c=c_0=4m+2={d\over2},
+\qquad
+B=B_0=d-2.
+\tag{PG3}
+\]
+
+The complete local word is then
+
+\[
+Q_j=(E_j,\lambda_j,A,c,B,\rho_{j^+},E_{j^+}).
+\tag{PG4}
+\]
+
+The placement-dependent adjacent pairs are
+\(\lambda_jA,Ac,cB,B\rho_{j^+}\). The unchanged terminal--low scaffold
+edges are already bounded by (NR7)--(NR8). Uniformly in \(j\),
+
+\[
+\begin{aligned}
+\lambda_jA&\le4mA=T-2A,\\
+Ac&=T,\\
+cB&=T-c,\\
+B\rho_{j^+}&\le B(4m+1)=T-(12m+4).
+\end{aligned}
+\tag{PG5}
+\]
+
+Thus insertion of \(P_0\) causes no adjacent violation in any gap. Its exact
+local adjacent maximum is \(T\), uniquely on \(\{A,c\}\). In particular,
+every whole-path reassignment preserving this path and its orientation has
+full score at least \(T\).
+
+At distance two, every pair without a terminal endpoint has product at most
+\((d-1)(d-2)<d(d-1)=2T\). This also covers the unchanged scaffold pair
+\(\rho_j\lambda_j\) across \(E_j\). Hence the only potentially restrictive
+distance-two pairs caused by placing \(P_0\) in \(G_j\) are its two terminal
+pairs. Their exact scores are
+
+\[
+L_j:={E_jA\over2}
+=T+{j(d-1)\over2},
+\tag{PG6}
+\]
+
+and
+
+\[
+R_j:={BE_{j^+}\over2}
+=
+\begin{cases}
+T+\dfrac{j(d-2)-2}{2}
+=T+j(4m+1)-1,
+&0\le j\le2m-2,\\[6pt]
+T-\dfrac d2,
+&j=2m-1.
+\end{cases}
+\tag{PG7}
+\]
+
+The second line is genuinely cyclic: when \(j=2m-1\), the right terminal is
+\(E_{j^+}=E_0=d\), not the nonexistent label \(E_{2m}\). Since
+\(d-2=8m+2\ge26\), (PG6)--(PG7) give the exact one-sided conditions
+
+\[
+L_j\le T\quad\Longleftrightarrow\quad j=0,
+\qquad
+R_j\le T\quad\Longleftrightarrow\quad
+j\in\{0,2m-1\}.
+\tag{PG8}
+\]
+
+Moreover, \(L_j\) is the unique local distance-two maximum. Indeed, for a
+nonclosing gap,
+
+\[
+E_jA-BE_{j+1}=j+2>0
+\qquad(0\le j\le2m-2),
+\tag{PG9}
+\]
+
+while at the closing gap
+
+\[
+nA-Bd=d+(2m-1)(d-1)>0.
+\tag{PG10}
+\]
+
+All remaining distance-two products are nonterminal and were bounded above.
+Consequently
+
+\[
+\boxed{
+M^{\rm loc}_1(j)=T,
+\qquad
+M^{\rm loc}_2(j)
+=T+{j(d-1)\over2}
+}
+\tag{PG11}
+\]
+
+with unique maximizers \(\{A,c\}\) and \(\{E_j,A\}\), respectively.
+
+The boundary cases are explicit. At \(j=0\),
+
+\[
+L_0=T,
+\qquad
+R_0=T-1.
+\tag{PG12}
+\]
+
+For every \(1\le j\le2m-2\), including the former triple/singleton
+transition indices \(j=m-1,m,m+1\) whenever displayed, both terminal scores
+are strictly above \(T\). At the closing index, the literal cyclic word is
+
+\[
+Q_{2m-1}
+=(n,2,d-1,4m+2,d-2,4m+1,d),
+\tag{PG13}
+\]
+
+and
+
+\[
+L_{2m-1}
+=T+{(2m-1)(d-1)\over2}>T,
+\qquad
+R_{2m-1}=T-{d\over2}<T.
+\tag{PG14}
+\]
+
+Thus the wrap repairs the right terminal inequality but retains the exact
+left-hand word \(n,2,d-1\) from (NR12). At the smallest admitted parameter
+\(m=3\), the indices are \(0,\ldots,5\): (PG12) covers \(G_0\), the
+nonclosing range \(G_1,\ldots,G_4\) has two strict violations per gap, and
+\(G_5\) is excluded by (PG14). Hence no endpoint or minimum-parameter case
+is omitted.
+
+We have proved the following **EXACT NECESSARY PLACEMENT THEOREM**:
+
+\[
+\boxed{
+W^{(\le2)}(\sigma_\alpha)\le T
+\quad\Longrightarrow\quad
+\alpha(0)=0.
+}
+\tag{PG15}
+\]
+
+Equivalently, \(G_1,\ldots,G_{2m-1}\) are locally excluded for \(P_0\),
+while \(G_0\) is the unique gap not excluded by the distance-one and
+distance-two inequalities involving \(P_0\). The converse is deliberately
+only local: placing \(P_0\) in \(G_0\) proves none of the constraints
+involving the remaining reassigned paths and does not prove that a prescribed
+partial reassignment extends to a full one. The canonical identity assignment
+from (UC11) is a separately proved complete witness with \(P_0\subset G_0\);
+the present theorem neither constructs nor establishes any nonidentity
+reassignment. If a full reassignment with \(W\le T\) does exist, (PG5) also
+forces its score to equal \(T\).
+
 ## Verification Boundary And Open Questions
 
 `tests/test_product_distance.py` checks exact rational comparisons, canonical
@@ -4294,7 +4492,7 @@ the symbolic proofs above. The task-local standard-library diagnostic in
 `ops/TASK-20260716__one_triple_reversal_obstruction/` independently
 reconstructs the specialized block family and checks the same six rows
 without importing project or test helpers.
-The sole diagnostic added for the present nonlocal task is the standalone
+The sole diagnostic added for the preceding fixed-rotation task is the standalone
 standard-library script in
 ops/TASK-20260717__nonlocal_middle_path_rotation/. It reconstructs only
 the transformation fixed in (NR5), independently scores every unordered pair
@@ -4302,15 +4500,25 @@ at \(m=3,4,9,25\), and checks the exact permutation, distance-class maxima,
 unique class maximizers, closing distances one through six, aggregate
 long-closing maximum, full score, and sole full-score saturator. It imports no
 project or test helper, performs no search, and does not extend enumeration.
+The separate diagnostic for (PG15) is the standalone standard-library script
+in ops/TASK-20260717__p0_terminal_gap_classification/. For each fixed
+\(m\in\{3,4,9,25\}\), it scans only the \(2m\) gap indices, constructs only
+the seven-label word (PG4), and checks the exact distance-one and distance-two
+inequalities, both unique local maximizers, the one-sided placement sets, and
+the literal closing word. It constructs no complete order, assigns no other
+path, and enumerates no path permutation.
 
 The following remain unresolved.
 
 - **OPEN QUESTION:** can minimizing cyclic orders be characterized
   structurally in any residue class, beyond the displayed witnesses?
-- **OPEN QUESTION:** which terminal gaps can contain \(P_0\) in an arbitrary
-  whole-path reassignment that retains the present scaffold, path
-  orientations, and target \(W\le T\)? The current theorem analyzes only
-  (NR5).
+- **CLOSED LOCAL QUESTION:** under arbitrary whole-path reassignment with the
+  present scaffold and orientations, (PG15) proves that \(P_0\) must remain
+  in \(G_0\) whenever \(W^{(\le2)}\le T\). Every other gap is locally
+  excluded, while \(G_0\) is only locally non-excluded.
+- **OPEN QUESTION:** after imposing \(P_0\subset G_0\), which assignments of
+  the remaining whole paths satisfy all local and nonlocal constraints? No
+  nonidentity completion or classification follows from (PG15).
 - **OPEN QUESTION:** for which \(n\ge94\) is
   \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\)? Criterion (MS2)
   certifies equality whenever it holds, including \(n=94\), but no complete

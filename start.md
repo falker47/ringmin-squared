@@ -989,6 +989,21 @@ the closing-gap word \(n,2,d-1\), created when \(P_0\) wraps into
 family-specific surrogate obstruction; its regular-direction transfer is
 only a weaker upper bound and yields no new geometric consequence.
 
+The distinguished path now has an exact local placement classification under
+arbitrary whole-path reassignments of the same scaffold. If gap \(G_j\)
+contains the unchanged oriented path
+\(P_0=(d-1,4m+2,d-2)\), its unique local maxima at distances one and two are
+\[
+M^{\rm loc}_1(j)=T,
+\qquad
+M^{\rm loc}_2(j)=T+{j(d-1)\over2}.
+\]
+Hence every reassignment with distance-two score at most \(T\) must fix
+\(P_0\) in \(G_0\). All other gaps are locally excluded; \(G_0\) is only
+locally non-excluded. This necessary lemma does not classify the remaining
+path assignment or establish a nonidentity completion. The canonical identity
+assignment is a separate previously proved witness.
+
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also a disproved claim.
@@ -2037,6 +2052,31 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   obstruction is the word \(n,2,d-1\) forced by moving \(P_0\) to the
   closing gap. No other reassignment is classified by this theorem, and its
   regular-direction implication is only a weaker existing upper bound.
+- EXACT NECESSARY PLACEMENT THEOREM (DISTINGUISHED PATH): allow an arbitrary
+  bijection assigning the unchanged oriented paths to the same terminal gaps.
+  If \(P_0=(d-1,4m+2,d-2)\) occupies \(G_j\), then its exact local
+  distance-class maxima are
+  \[
+  M^{\rm loc}_1(j)=T,
+  \qquad
+  M^{\rm loc}_2(j)=T+{j(d-1)\over2},
+  \]
+  uniquely on \(\{d-1,4m+2\}\) and \(\{E_j,d-1\}\). The right terminal
+  distance-two score is \(T+[j(d-2)-2]/2\) for
+  \(0\le j\le2m-2\), but becomes \(T-d/2\) at the cyclic closing gap.
+  Therefore every global reassignment with \(W^{(\le2)}\le T\), and hence
+  every one with \(W\le T\), must assign \(P_0\) to \(G_0\). Gaps
+  \(G_1,\ldots,G_{2m-1}\) are locally excluded, while \(G_0\) is locally
+  non-excluded but is not by itself a completion theorem. The known identity
+  assignment is a separate witness; no nonidentity reassignment is asserted.
+- VERIFIED FACT (FINITE EXACT LOCAL-GAP DIAGNOSTIC): the standalone
+  standard-library script in
+  `ops/TASK-20260717__p0_terminal_gap_classification/` scans only the gap
+  indices at \(m=3,4,9,25\). It reconstructs the seven-label local word,
+  verifies both exact maxima and the cyclic closure, and returns the sole
+  locally non-excluded index \(j=0\) without constructing a complete order,
+  assigning another path, or enumerating a path permutation. This bounded
+  check corroborates but does not prove the all-\(m\) theorem.
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
   \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved

@@ -30,6 +30,21 @@ the closing-gap word \(n,2,d-1\). Hence this nonlocal family has coefficient
 \(2/5>8/25\). All four distance classes and all canonical-cut classes are
 proved exactly; this remains a family-specific surrogate obstruction with no
 new geometric consequence.
+The next local question is now closed without choosing another reassignment.
+Under an arbitrary bijection of the unchanged oriented paths to the same
+terminal gaps, placing
+\(P_0=(d-1,4m+2,d-2)\) in \(G_j\) gives exact local maxima
+\[
+M^{\rm loc}_1(j)=T,
+\qquad
+M^{\rm loc}_2(j)=T+{j(d-1)\over2}.
+\]
+Therefore every reassignment with \(W^{(\le2)}\le T\) must keep \(P_0\) in
+\(G_0\). Gaps \(G_1,\ldots,G_{2m-1}\) are locally excluded; \(G_0\) is
+only locally non-excluded. The closing gap has a safe right terminal pair but
+retains the left word \(n,2,d-1\). This necessary theorem does not assign the
+remaining paths or prove any nonidentity completion. A separate exact
+diagnostic scans only gap indices at four fixed values of \(m\).
 The fixed-order certification debt is now closed mathematically by
 `research/FIXED_ORDER_ANGULAR_STN.md`, which proves exact angular/STN
 equivalence, the negative-cycle criterion, potential recovery, radius
@@ -1741,6 +1756,15 @@ saturation for every \(n\ge3\).
   strictly restrict the minimizer set? The sufficient equality criterion
   \(n(n-1)/3\le B_n\) holds again at \(n=94\), so no persistence from the
   first strict index onward is asserted.
+- CLOSED LOCAL QUESTION: in the symbolic \(n=10m+3\) scaffold, arbitrary
+  whole-path reassignments with \(W^{(\le2)}\le T\) must fix the distinguished
+  path \(P_0\) in \(G_0\). Every other gap has an explicit distance-two
+  violation; the cyclic closing gap is included. This is a necessary
+  placement theorem, not a completion theorem.
+- OPEN QUESTION: after imposing \(P_0\subset G_0\), which locations are
+  locally admissible for the remaining triple and singleton paths, and can
+  any nonidentity assignment satisfy every constraint? No such existence is
+  inferred from the distinguished-path lemma.
 - CLOSED QUESTION: the fixed-order STN/geometric equivalence, endpoint
   semantics, and negative-cycle proof obligations are now recorded
   independently of every asymptotic claim in
@@ -1969,9 +1993,19 @@ Immediate:
   is a precise symbolic obstruction rather than an improvement. One
   standalone standard-library all-pairs diagnostic checks only four fixed
   rows and changes no production path or limit.
+- The distinguished-path placement task is complete without selecting a
+  second reassignment. Exact local scoring proves that \(P_0\) can occur only
+  in \(G_0\) in any target reassignment; all other gaps are locally excluded,
+  including the cyclic closing gap. \(G_0\) is only locally non-excluded, so
+  no nonidentity completion is claimed. One standalone standard-library
+  diagnostic scans only gap indices for four fixed values of \(m\).
 
 Next:
 
+- In a separate STRICT task, classify the local distance-one and
+  distance-two admissible-gap sets for a generic remaining path \(P_k\), with
+  triple and singleton cases kept separate and without choosing a full
+  reassignment.
 - In a separate STRICT task, determine whether the combined-height and
   one-use base-slack argument extends to arbitrary fixed \(k\), without
   passing to \(k\to\infty\) or declaring a coefficient before uniformity is
@@ -2005,17 +2039,18 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: characterize the allowed terminal-gap locations of \(P_0\) under
-whole-path reassignments that could retain \(W\le T\) in the symbolic
-\(n=10m+3\) branch.
+Task: characterize the local terminal-gap sets of a generic remaining path
+\(P_k\) under whole-path reassignments that could retain \(W\le T\) in the
+symbolic \(n=10m+3\) branch.
 
 Acceptance criteria:
 
 - keep the current terminal/low scaffold and oriented path definitions fixed;
-- derive exact necessary gap-location conditions for \(P_0\) from symbolic
-  distance-one and distance-two inequalities at threshold \(T\);
-- distinguish a necessary placement lemma from existence of a full
-  reassignment satisfying every other constraint;
-- do not select, score, or experimentally probe a second reassignment family;
+- derive exact distance-one and distance-two gap conditions for generic
+  triple and singleton paths, with all index and cyclic boundaries explicit;
+- distinguish locally excluded and locally non-excluded gap/path pairs from
+  existence of a compatible bijection or a full valid reassignment;
+- do not select, score, or experimentally probe a complete reassignment
+  family and do not enumerate path permutations;
 - do not alter production enumeration limits, checked artifacts, schemas,
   interval backends, or certificates.

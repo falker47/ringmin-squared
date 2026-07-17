@@ -1886,6 +1886,53 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   weaker upper bound with coefficient \(2/(5\pi)\); it gives no geometric
   lower bound, no obstruction to another order or direction assignment, and
   no consequence beyond the existing regular-direction upper-bound method.
+- EXACT NECESSARY PLACEMENT THEOREM (DISTINGUISHED PATH): retain the
+  \(n=10m+3\), \(m\ge3\), scaffold, all path definitions and orientations,
+  and \(T=d(d-1)/2\), but allow an arbitrary bijection \(\alpha\) from
+  terminal gaps to whole paths. If \(P_0=(d-1,4m+2,d-2)\) occupies \(G_j\),
+  then the exact local maxima among its distance-one and distance-two pairs
+  are
+  \[
+  M^{\rm loc}_1(j)=T,
+  \qquad
+  M^{\rm loc}_2(j)=T+{j(d-1)\over2},
+  \]
+  uniquely on \(\{d-1,4m+2\}\) and \(\{E_j,d-1\}\), respectively. The
+  right terminal score is
+  \[
+  R_j=
+  \begin{cases}
+  T+[j(d-2)-2]/2,&0\le j\le2m-2,\\
+  T-d/2,&j=2m-1.
+  \end{cases}
+  \]
+  Thus its own right inequality allows \(j\in\{0,2m-1\}\), but the left
+  inequality allows only \(j=0\). Every full reassignment with
+  \(W^{(\le2)}\le T\), hence every one with \(W\le T\), must satisfy
+  \(\alpha(0)=0\). Consequently \(G_1,\ldots,G_{2m-1}\) are locally
+  excluded for \(P_0\), while \(G_0\) is uniquely locally non-excluded.
+  The closing word is exactly
+  \((n,2,d-1,4m+2,d-2,4m+1,d)\), so its safe right side does not remove
+  the left obstruction. Because \((d-1)(4m+2)=T\), every reassignment with
+  \(W^{(\le2)}\le T\) has truncated score exactly \(T\); if it also satisfies
+  \(W\le T\), then its full score is exactly \(T\).
+- INTERPRETATION: local non-exclusion of \(G_0\) is not a completion theorem.
+  The identity assignment from the established construction is a separate
+  known witness, but the placement lemma neither constructs nor proves the
+  existence of a nonidentity reassignment and does not analyze the remaining
+  path assignments.
+- VERIFIED FACT (FINITE EXACT LOCAL-GAP DIAGNOSTIC): the standalone
+  standard-library script in
+  ops/TASK-20260717__p0_terminal_gap_classification/ scans only the terminal
+  gap indices at \(m=3,4,9,25\). It checks the seven-label local word, exact
+  one- and two-step scores, unique maxima, one-sided allowed sets, and cyclic
+  closure, returning \(j=0\) as the sole locally non-excluded index in every
+  row. It builds no complete order, assigns no other path, imports no project
+  or test helper, and enumerates no path permutation. The finite check
+  corroborates rather than proves the all-\(m\) theorem.
+- OPEN QUESTION: after fixing \(P_0\) in \(G_0\), which assignments of the
+  remaining paths satisfy all local and nonlocal constraints? No nonidentity
+  existence or classification has been established.
 - OPEN QUESTION: for which \(n\ge94\) is the minimizer inclusion strict? No
   persistence from \(n=93\) onward is claimed; the sufficient equality
   criterion already holds again at \(n=94\).
@@ -2165,11 +2212,18 @@ Candidate-set extraction uses the following finite-certificate semantics.
   classes have exact unique maximizers; one standalone standard-library
   all-pairs diagnostic checks four fixed rows without search, production
   imports, or limit changes.
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, prove the exact allowed
-  terminal-gap locations of the distinguished path \(P_0\) under arbitrary
-  whole-path reassignments that retain the same scaffold, orientations, and
-  target \(W\le T\), without selecting or testing a second reassignment
-  family.
+- COMPLETED PRIORITY: the distinguished-path placement is now classified
+  without choosing a reassignment. Exact local scoring gives
+  \(M^{\rm loc}_1(j)=T\) and
+  \(M^{\rm loc}_2(j)=T+j(d-1)/2\), so every target reassignment must fix
+  \(P_0\) in \(G_0\). All other gaps are locally excluded; \(G_0\) is only
+  locally non-excluded, and no nonidentity completion is inferred. A
+  standalone standard-library diagnostic scans only gap indices on four
+  fixed rows and performs no path-permutation enumeration.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, derive the exact local
+  distance-one and distance-two admissible-gap sets for a generic remaining
+  path \(P_k\), separating triple and singleton cases, without selecting a
+  full reassignment or inferring a completion.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
