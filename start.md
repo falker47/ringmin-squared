@@ -1025,8 +1025,25 @@ k\ge
 Every singleton \(P_k=(4m+2+k)\), \(m+1\le k\le2m-1\), is strictly
 locally non-excluded in every gap. The cyclic closing word, both terminal
 columns, the triple/singleton transition, and \(m=3\) are explicit in the
-proof. This edge relation is not an edge-extendibility or full-reassignment
-classification; no nonidentity bijection is selected or evaluated.
+proof.
+
+The matching support of this Ferrers relation is now exact as well. A local
+edge belongs to at least one relation-compatible path-to-gap bijection exactly
+when it is \((0,0)\) or its gap index is positive:
+\[
+\mathcal R_{\rm ext}
+=\{(0,0)\}
+\cup\{(k,j)\in\mathcal R_{\rm loc}:j\ge1\}.
+\]
+The saturated suffix \(G_1,\ldots,G_{2m-1}\) gives the Hall obstruction for
+every \((k,0)\), \(k>0\). Conversely, rotating one integer interval gives an
+explicit compatible bijection through every positive-column local edge, with
+separate formulas for \(j<k\), \(j=k\), and \(j>k\). The proof treats the
+triple/singleton crossing, terminal singleton, closing column, and \(m=3\)
+without enumerating path permutations. These constructed bijections pass only
+the established distance-one and distance-two relation; no omitted distance
+is scored, no nonidentity witness is asserted to satisfy \(W\le T\), and no
+geometric consequence follows.
 
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
@@ -2125,13 +2142,31 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   at closure. The last nonclosing and closing triple thresholds are
   \(\lfloor(4m+1)/5\rfloor\) and
   \(\lfloor(4m+3)/5\rfloor\), respectively.
-- INTERPRETATION: a locally non-excluded pair need not extend to a
-  relation-compatible bijection. In particular, every \((k,0)\) is locally
-  non-excluded, but the unique edge of \(P_0\) is \((0,0)\), so no
-  \((k,0)\) with \(k>0\) can occur in such a bijection. The already proved
-  identity construction separately supplies existence of one compatible
-  bijection. No new bijection is selected, no nonidentity completion is
-  established, and distances at least three remain a separate condition.
+- EXACT EDGE-EXTENDIBILITY THEOREM: in the Ferrers relation above, a local
+  edge occurs in at least one relation-compatible bijection exactly when
+  \[
+  (k,j)=(0,0)
+  \quad\text{or}\quad
+  j\ge1.
+  \]
+  Equivalently,
+  \[
+  \mathcal R_{\rm ext}
+  =\{(0,0)\}\cup
+  \{(k,j)\in\mathcal R_{\rm loc}:j\ge1\}.
+  \]
+  Residual Hall fails for every \((k,0)\), \(k>0\), because the remaining
+  \(2m-1\) positive-index gaps have only \(2m-2\) available positive-index
+  paths. For every positive-column local edge, a deterministic rotation of
+  the interval between \(j\) and \(k\) supplies a compatible bijection. The
+  three formulas for \(j<k\), \(j=k\), and \(j>k\) preserve \((0,0)\) and
+  cover the triple/singleton crossing, terminal singleton, and cyclic closing
+  column without wrapping the matching shift.
+- INTERPRETATION: this theorem classifies the support of compatible
+  bijections, not all such bijections. By the local equivalence, every
+  constructed shift passes the distance-one and distance-two conditions.
+  No distance-at-least-three pair is scored, no nonidentity construction is
+  asserted to have \(W\le T\), and no geometric conclusion follows.
 - VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the sole standalone
   standard-library script in
   ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
@@ -2141,6 +2176,15 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   and the nontrivial equality \((34,11,24)\). It constructs no complete
   order or bijection, imports no project/test helper, and enumerates no path
   permutation.
+- VERIFIED FACT (FINITE EXACT EDGE-EXTENDIBILITY DIAGNOSTIC): the sole
+  standalone standard-library script in
+  ops/TASK-20260717__local_edge_extendibility_classification/ scans only the
+  established local edges at \(m=3,4,9,34\). For every candidate it evaluates
+  the residual Hall inequalities and directly constructs the prescribed
+  interval shift, checking the target and every resulting Ferrers edge. It
+  checks the deficient zero-column suffix and all stated boundaries without
+  searching over matchings, enumerating path permutations, constructing a
+  cyclic core order, or scoring a positional pair.
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
   \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved

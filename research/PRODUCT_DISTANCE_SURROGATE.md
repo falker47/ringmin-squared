@@ -4734,10 +4734,232 @@ edge \((0,0)\); hence every relation-compatible bijection must use
 \((0,0)\), and no \((k,0)\) with \(k>0\) can belong to one. Existence of at
 least one relation-compatible bijection is a separate fact supplied by the
 already proved canonical identity construction (UC11), not by an arbitrary
-edge of (PG31). We neither select nor classify a new bijection here. Even a
-relation-compatible bijection still requires all distances at least three to
-establish \(W(\sigma_\alpha)\le T\); no such reassignment is chosen or
-evaluated in this section.
+edge of (PG31). The local-relation calculation alone neither selects nor
+classifies a new bijection; the next subsection addresses that matching
+extendibility question separately. Even a relation-compatible bijection still
+requires all distances at least three to establish
+\(W(\sigma_\alpha)\le T\).
+
+### Edge extendibility in the Ferrers relation
+
+We now classify which individual edges of (PG31) occur in at least one
+relation-compatible bijection. This is a matching question inside
+\(\mathcal R_{\rm loc}\) only. In particular, the bijections constructed
+below are not scored at distances at least three.
+
+Put \(v=2m\), and extend the triple row cutoffs by
+
+\[
+L_k=
+\begin{cases}
+\ell_k,&0\le k\le m,\\
+v-1,&m+1\le k\le v-1.
+\end{cases}
+\tag{PG37}
+\]
+
+Then (PG26)--(PG31) give the two equivalent Ferrers descriptions
+
+\[
+(k,j)\in\mathcal R_{\rm loc}
+\quad\Longleftrightarrow\quad
+j\le L_k
+\quad\Longleftrightarrow\quad
+k\ge\kappa_j,
+\qquad
+N(G_j)=\{P_{\kappa_j},\ldots,P_{v-1}\}.
+\tag{PG38}
+\]
+
+The column thresholds have the precise elementary properties needed below.
+Writing
+
+\[
+h_j={j(d-1)\over2(d+j)},
+\qquad
+\kappa_j=\lceil h_j\rceil,
+\]
+
+one has
+
+\[
+h_{j+1}-h_j
+={d(d-1)\over2(d+j)(d+j+1)}>0,
+\qquad
+\kappa_0=0,
+\qquad
+\kappa_1=1.
+\tag{PG39}
+\]
+
+Moreover, for \(2\le r\le v-1\),
+
+\[
+2(d+r)(r-1)-r(d-1)
+=d(r-2)+2r^2-r>0,
+\]
+
+and hence
+
+\[
+1\le\kappa_r\le r-1
+\quad(2\le r\le v-1),
+\qquad
+\kappa_{v-1}=\left\lfloor{4m+3\over5}\right\rfloor\le m.
+\tag{PG40}
+\]
+
+Thus the identity is relation-compatible, every nonterminal positive-index
+row has one unit of rightward Ferrers slack, and \(P_0\) has the sole
+neighbor \(G_0\).
+
+Call a local edge \((k,j)\) **extendible** if there is a bijection
+\(\alpha:\{0,\ldots,v-1\}\to\{0,\ldots,v-1\}\) such that
+
+\[
+\alpha(j)=k,
+\qquad
+(\alpha(i),i)\in\mathcal R_{\rm loc}
+\quad(0\le i<v).
+\tag{PG41}
+\]
+
+Hall's condition can be evaluated exactly after fixing the edge. Delete
+\(G_j\) and \(P_k\), let \(S\) be a nonempty set of residual gaps, and put
+\(r=\min S\). The nested column neighborhoods in (PG38) give
+
+\[
+|N_{k,j}(S)|
+=v-\kappa_r-\mathbf1_{\{k\ge\kappa_r\}},
+\qquad
+|S|\le v-r-\mathbf1_{\{j>r\}}.
+\tag{PG42}
+\]
+
+For each fixed \(r\ne j\), the largest residual set with minimum \(r\) is
+the corresponding suffix with \(G_j\) removed. Therefore residual Hall is
+equivalent to
+
+\[
+\kappa_r+\mathbf1_{\{k\ge\kappa_r\}}
+\le r+\mathbf1_{\{j>r\}}
+\qquad(r\ne j).
+\tag{PG43}
+\]
+
+Suppose first that \(j\ge1\) and \((k,j)\) is local. If \(r<j\),
+monotonicity gives \(k\ge\kappa_j\ge\kappa_r\), and (PG43) reduces to
+\(\kappa_r+1\le r+1\). If \(r>j\), then \(r\ge2\), and (PG40) gives
+\(\kappa_r+\mathbf1_{\{k\ge\kappa_r\}}\le(r-1)+1=r\). Thus every local
+edge in a positive gap passes residual Hall. The edge \((0,0)\) also passes:
+for every residual \(r\ge1\), (PG39)--(PG40) give \(0<\kappa_r\), so the
+indicator in (PG43) vanishes. In contrast, if \(j=0\) and \(k>0\), then \(r=1\)
+gives \(\kappa_1+1=2>1\). Equivalently, after removing \(P_k\), the
+\(v-1\) gaps \(G_1,\ldots,G_{v-1}\) have only the \(v-2\) neighbors
+\(P_1,\ldots,P_{v-1}\) other than \(P_k\). This is the exact Hall
+obstruction forced by \(N(P_0)=\{G_0\}\).
+
+For existence we give explicit witnesses rather than invoke Hall
+nonconstructively. If \(1\le j<k\), rotate the index interval
+\([j,k]\) by setting
+
+\[
+\alpha_{k,j}(i)=
+\begin{cases}
+k,&i=j,\\
+i-1,&j<i\le k,\\
+i,&\text{otherwise}.
+\end{cases}
+\tag{PG44}
+\]
+
+This is a bijection and contains \((k,j)\). Its only nonidentity edges other
+than the prescribed one are \((p,p+1)\), \(j\le p<k\). Here \(p\ge1\),
+and (PG40) gives \(\kappa_{p+1}\le p\), so every such edge is local.
+
+If \(j=k\), use the identity
+
+\[
+\alpha_{k,k}(i)=i.
+\tag{PG45}
+\]
+
+Finally, if \(j>k\), locality implies
+\(k\ge\kappa_j\ge1\). Rotate \([k,j]\) in the opposite direction:
+
+\[
+\alpha_{k,j}(i)=
+\begin{cases}
+i+1,&k\le i<j,\\
+k,&i=j,\\
+i,&\text{otherwise}.
+\end{cases}
+\tag{PG46}
+\]
+
+The added edges are \((p,p-1)\), \(k+1\le p\le j\), and they are local
+because \(\kappa_{p-1}\le p-1<p\). Each construction fixes
+\(\alpha(0)=0\); no shift crosses the canonical cut.
+
+The constructions also expose every boundary explicitly. When (PG44)
+crosses the path-type boundary, its only new triple-to-singleton-boundary
+edge is \((m,m+1)\), valid because \(\kappa_{m+1}\le m\); all later rows
+are universal singletons. In the opposite direction, (PG46) uses the
+universal singleton edge \((m+1,m)\). For the terminal singleton
+\(P_{v-1}\), every \(1\le j<v-1\) uses (PG44), while \(j=v-1\) uses the
+identity. At the closing gap \(G_{v-1}\), a triple target is local exactly
+for
+
+\[
+k\ge\kappa_{v-1}=\left\lfloor{4m+3\over5}\right\rfloor;
+\tag{PG47}
+\]
+
+then (PG46) applies without wrapping. A singleton target is identical, except
+that \(k=v-1\) uses (PG45). For a prescribed target in the closing column,
+(PG46) or (PG45) therefore uses that column only at the target. There is one
+other way a construction touches it: when (PG44) extends
+\((v-1,j)\) with \(1\le j<v-1\), its final shifted edge is
+\((v-2,v-1)\), safe because \(P_{v-2}\) is a universal singleton for
+\(m\ge3\). No index interval wraps the canonical cut. The last nonclosing
+threshold \(\lfloor(4m+1)/5\rfloor\) is handled in the same way.
+
+At \(m=3\),
+
+\[
+(\kappa_0,\ldots,\kappa_5)=(0,1,1,2,2,3),
+\tag{PG48}
+\]
+
+so the minimum parameter has no exceptional edge or shift.
+
+Combining the Hall obstruction and the three constructions proves the
+following **EXACT EDGE-EXTENDIBILITY THEOREM**:
+
+\[
+\boxed{
+\begin{aligned}
+\mathcal R_{\rm ext}
+&=\{(0,0)\}
+\mathbin\cup
+\{(k,j)\in\mathcal R_{\rm loc}:j\ge1\}\\
+&=\{(0,0)\}
+\mathbin\cup
+\{(k,j):1\le k\le m,\ 1\le j\le\ell_k\}\\
+&\hspace{2.7em}\mathbin\cup
+\{(k,j):m+1\le k\le2m-1,\ 1\le j\le2m-1\}.
+\end{aligned}}
+\tag{PG49}
+\]
+
+Hence the candidate classification is true: \((0,0)\) and every local edge
+with positive gap index are extendible, while the \(2m-1\) local edges
+\((k,0)\), \(k>0\), are not. The off-diagonal constructions prove existence
+of nonidentity relation-compatible bijections, but they do not classify all
+such bijections. By (PG36), each constructed bijection passes exactly the
+distance-one and distance-two local test. No distance-at-least-three pair is
+scored here, no constructed nonidentity bijection is asserted to satisfy
+\(W\le T\), and no geometric consequence follows.
 
 ## Verification Boundary And Open Questions
 
@@ -4809,6 +5031,16 @@ pair directly with both cutoff forms. It includes the minimum row, both
 cyclic endpoint columns, the path-type transition, and the nontrivial equality
 \((m,k,j)=(34,11,24)\). It constructs no complete order or bijection,
 enumerates no path permutation, and imports no project or test helper.
+The sole diagnostic for (PG37)--(PG49) is the standalone standard-library
+script in
+ops/TASK-20260717__local_edge_extendibility_classification/. At the fixed
+rows \(m\in\{3,4,9,34\}\), it scans local edges only, constructs the one
+interval shift prescribed by (PG44)--(PG46), and checks bijectivity, the
+target edge, every resulting Ferrers edge, and the residual Hall formula. It
+also checks the exact deficient suffix for \((k,0)\), \(k>0\), the
+triple/singleton crossings, the terminal singleton, and the closing column.
+It never searches over matchings or path permutations, constructs no cyclic
+core order, scores no positional pair, and imports no project or test helper.
 
 The following remain unresolved.
 
@@ -4820,11 +5052,16 @@ The following remain unresolved.
   excluded, while \(G_0\) is only locally non-excluded.
 - **CLOSED LOCAL QUESTION:** the complete generic path/gap relation at
   distances one and two is (PG31). Triple rows are the exact initial segments
-  \(0\le j\le\ell_k\), and singleton rows contain every gap. Local
-  non-exclusion is not edge extendibility or a matching theorem.
+  \(0\le j\le\ell_k\), and singleton rows contain every gap.
+- **CLOSED LOCAL QUESTION:** the exact support of relation-compatible
+  bijections is (PG49). The sole extendible edge in column zero is \((0,0)\);
+  every local edge in a positive column is extendible by one of the explicit
+  interval shifts. This matching theorem does not classify every compatible
+  bijection and is not a full-score theorem.
 - **OPEN QUESTION:** which relation-compatible bijections, if any beyond the
   canonical identity, also satisfy every distance-at-least-three constraint?
-  No nonidentity completion or classification follows from (PG31).
+  The shifts above supply nonidentity completions only inside
+  \(\mathcal R_{\rm loc}\); none is scored at the omitted distances.
 - **OPEN QUESTION:** for which \(n\ge94\) is
   \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\)? Criterion (MS2)
   certifies equality whenever it holds, including \(n=94\), but no complete

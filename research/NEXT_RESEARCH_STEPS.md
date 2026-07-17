@@ -59,10 +59,25 @@ so its exact locally non-excluded row is
 Equivalently, \(G_j\) permits triple indices
 \(k\ge\lceil j(d-1)/(2(d+j))\rceil\). Every singleton is strictly
 locally non-excluded in every gap. The cyclic endpoints, transition indices,
-and \(m=3\) are explicit. A local edge is not automatically extendible to a
-compatible bijection, and a compatible bijection does not automatically pass
-the distances at least three. No nonidentity reassignment is selected or
-evaluated. One exact diagnostic scans only \((m,k,j)\) on four fixed rows.
+and \(m=3\) are explicit. One exact diagnostic scans only \((m,k,j)\) on
+four fixed rows.
+The associated matching question is now closed too. The relation is Ferrers,
+and residual Hall gives the exact support
+\[
+\mathcal R_{\rm ext}
+=\{(0,0)\}\cup
+\{(k,j)\in\mathcal R_{\rm loc}:j\ge1\}.
+\]
+Thus every positive-column local edge extends to a relation-compatible
+bijection, while every \((k,0)\), \(k>0\), fails on the saturated suffix of
+positive-index gaps. Explicit rotations of the interval between \(j\) and
+\(k\) construct the extensions separately for \(j<k\), \(j=k\), and
+\(j>k\), including the triple/singleton boundary, terminal singleton, cyclic
+closing column, and \(m=3\). One bounded diagnostic constructs exactly these
+witnesses without matching search or path-permutation enumeration. This
+classifies matching support only: no distance at least three is scored, no
+nonidentity shift is asserted to have \(W\le T\), and no geometric
+consequence follows.
 The fixed-order certification debt is now closed mathematically by
 `research/FIXED_ORDER_ANGULAR_STN.md`, which proves exact angular/STN
 equivalence, the negative-cycle criterion, potential recovery, radius
@@ -1782,12 +1797,15 @@ saturation for every \(n\ge3\).
 - CLOSED LOCAL QUESTION: the exact generic relation is
   \(0\le j\le\ell_k\) for triples and all gaps for singletons, with the
   equivalent column threshold
-  \(k\ge\lceil j(d-1)/(2(d+j))\rceil\). This classifies local
-  non-exclusion only, not edge extendibility or a complete reassignment.
-- OPEN QUESTION: which locally non-excluded edges extend to a
-  relation-compatible bijection, and which such bijections, if any beyond
-  the identity, also pass all distances at least three? No nonidentity
-  existence or classification is currently established.
+  \(k\ge\lceil j(d-1)/(2(d+j))\rceil\).
+- CLOSED LOCAL QUESTION: the extendible support is exactly \((0,0)\) together
+  with every positive-column local edge. Residual Hall excludes precisely
+  \((k,0)\), \(k>0\), and deterministic interval shifts construct a witness
+  in the three index-order cases. This proves nonidentity existence inside
+  \(\mathcal R_{\rm loc}\) but does not classify all compatible bijections.
+- OPEN QUESTION: which relation-compatible bijections beyond the identity
+  also pass every distance-at-least-three pair? None of the new interval
+  shifts has been scored at those distances.
 - CLOSED QUESTION: the fixed-order STN/geometric equivalence, endpoint
   semantics, and negative-cycle proof obligations are now recorded
   independently of every asymptotic claim in
@@ -2029,13 +2047,19 @@ Immediate:
   relation-compatible bijection, and full-score feasibility are separated.
   One standalone standard-library diagnostic scans only \((m,k,j)\) for
   four fixed values of \(m\).
+- The local-edge extendibility task is complete. Exact residual Hall excludes
+  only the positive-path edges in \(G_0\); every positive-column local edge
+  has a constructive one-interval-shift completion. The three shift
+  directions and every requested boundary are explicit, and one bounded
+  diagnostic checks only the prescribed constructions. Full-distance and
+  geometric questions remain separate.
 
 Next:
 
-- In a separate STRICT task, use the monotone local relation to classify
-  symbolically which locally non-excluded edges extend to a
-  relation-compatible bijection, without enumerating path permutations or
-  scoring distance-at-least-three pairs.
+- In a separate STRICT task, classify the full product-distance score of the
+  explicit one-interval-shift witness family, treating \(j<k\), \(j=k\),
+  \(j>k\), and cyclic closure symbolically rather than enumerating path
+  permutations. Keep any geometric consequence separate.
 - In a separate STRICT task, determine whether the combined-height and
   one-use base-slack argument extends to arbitrary fixed \(k\), without
   passing to \(k\to\infty\) or declaring a coefficient before uniformity is
@@ -2069,18 +2093,20 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: classify edge extendibility in the exact local path/gap relation for the
-symbolic \(n=10m+3\) branch.
+Task: classify the full product-distance score of the explicit
+one-interval-shift path-to-gap witnesses on the symbolic \(n=10m+3\) branch.
 
 Acceptance criteria:
 
-- treat the proved local relation as fixed input and use symbolic
-  matching/Hall arguments;
-- decide which locally non-excluded edges occur in at least one
-  relation-compatible bijection, with all boundary cases explicit;
-- distinguish edge extendibility from existence of a full reassignment with
-  \(W\le T\);
-- do not enumerate path permutations and do not score pairs at distances
-  three or more;
+- treat the three proved interval-shift formulas as a fixed family, without
+  searching over or enumerating other path permutations;
+- score all positional distance classes symbolically, with separate
+  \(j<k\), \(j=k\), \(j>k\), triple/singleton, and cyclic closing cases;
+- classify exactly which of these explicit witnesses, if any beyond the
+  identity, satisfy \(W\le T\);
+- keep the result family-specific and distinct from the classification of all
+  relation-compatible bijections;
+- keep any regular-direction or geometric consequence explicitly one-sided
+  and separate;
 - do not alter production enumeration limits, checked artifacts, schemas,
   interval backends, or certificates.

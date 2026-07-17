@@ -1956,16 +1956,44 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   The last nonclosing and closing triple thresholds are
   \(\lfloor(4m+1)/5\rfloor\) and
   \(\lfloor(4m+3)/5\rfloor\).
-- EXACT LOGICAL DISTINCTION: for a given path-to-gap bijection \(\alpha\),
-  the distance-at-most-two condition is equivalent to
-  \((\alpha(j),j)\) belonging to the displayed local relation for every
-  \(j\). A single locally non-excluded edge need not extend to such a
-  bijection: all \((k,0)\) are local edges, but \(P_0\) has only
-  \((0,0)\), so no \(k>0\) can occupy \(G_0\) in a relation-compatible
-  bijection. The prior identity construction separately proves existence of
-  at least one compatible bijection. No nonidentity completion is selected
-  or classified, and the full \(W\le T\) condition still requires distances
-  at least three.
+- EXACT FERRERS/HALL STRUCTURE: for a given path-to-gap bijection
+  \(\alpha\), the distance-at-most-two condition is equivalent to
+  \((\alpha(j),j)\in\mathcal R_{\rm loc}\) for every \(j\). With
+  \(v=2m\), the column neighborhoods are the nested suffixes
+  \[
+  N(G_j)=\{P_{\kappa_j},\ldots,P_{v-1}\},
+  \qquad
+  \kappa_j=\left\lceil{j(d-1)\over2(d+j)}\right\rceil.
+  \]
+  The thresholds are nondecreasing and satisfy
+  \(\kappa_0=0\), \(\kappa_1=1\), and
+  \(1\le\kappa_r\le r-1\) for \(2\le r\le v-1\). After fixing a local edge
+  \((k,j)\), residual Hall is equivalent to
+  \[
+  \kappa_r+\mathbf1_{\{k\ge\kappa_r\}}
+  \le r+\mathbf1_{\{j>r\}}
+  \qquad(r\ne j).
+  \]
+- EXACT EDGE-EXTENDIBILITY THEOREM: the support of relation-compatible
+  bijections is
+  \[
+  \mathcal R_{\rm ext}
+  =\{(0,0)\}\cup
+  \{(k,j)\in\mathcal R_{\rm loc}:j\ge1\}.
+  \]
+  Thus every positive-column local edge is extendible, while none of the
+  \((k,0)\), \(k>0\), is. The latter fail Hall because, after the prescribed
+  path is removed, the \(v-1\) gaps \(G_1,\ldots,G_{v-1}\) have only
+  \(v-2\) available neighbors. For existence, rotating the integer interval
+  between \(j\) and \(k\) gives explicit bijections in the three cases
+  \(j<k\), \(j=k\), and \(j>k\). The shifts preserve \((0,0)\) and cover
+  the triple/singleton boundary, terminal singleton, closing column, and
+  \(m=3\) without wrapping the canonical cut.
+- INTERPRETATION: the theorem classifies which edges occur in some compatible
+  bijection, not all compatible bijections. Every constructed shift passes
+  the local distance-one and distance-two relation, but no
+  distance-at-least-three pair has been scored. No nonidentity shift is
+  asserted to satisfy \(W\le T\), and no geometric consequence follows.
 - VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the standalone
   standard-library script in
   ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
@@ -1976,9 +2004,20 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   or bijection, imports no project/test helper, and enumerates no path
   permutation. The finite check corroborates rather than proves the all-\(m\)
   theorem.
+- VERIFIED FACT (FINITE EXACT EDGE-EXTENDIBILITY DIAGNOSTIC): the sole
+  standalone standard-library script in
+  ops/TASK-20260717__local_edge_extendibility_classification/ scans only the
+  established local edges for \(m=3,4,9,34\). It evaluates the residual Hall
+  inequalities, directly constructs exactly one prescribed interval shift
+  for each extendible edge, and checks permutation, target, forced zero edge,
+  and every resulting Ferrers edge. It also checks the deficient suffix and
+  all stated boundary cases. It searches no matching, enumerates no path
+  permutation, constructs no cyclic core order, and scores no positional
+  pair. The finite check corroborates rather than proves the theorem.
 - OPEN QUESTION: which relation-compatible bijections, if any beyond the
   canonical identity, also satisfy every constraint at distances at least
-  three? No nonidentity existence or classification has been established.
+  three? The interval shifts establish nonidentity existence only inside
+  \(\mathcal R_{\rm loc}\), not full-distance feasibility.
 - OPEN QUESTION: for which \(n\ge94\) is the minimizer inclusion strict? No
   persistence from \(n=93\) onward is claimed; the sufficient equality
   criterion already holds again at \(n=94\).
@@ -2159,7 +2198,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   strict-interior maximizer, value and ratio recurrences, monotone limit
   \(M_k\to1/3\),
   exact \(k=1,2,3,4\) agreement, formal and all-middle envelope
-  classifications, and independent bounded `Fraction` diagnostic.
+  classifications, and independent bounded `Fraction` diagnostic, plus the
+  exact generic local path/gap relation, its Ferrers row and column cutoffs,
+  and the exact support of relation-compatible bijections: only \((0,0)\) in
+  column zero and every local edge in a positive column, with residual Hall,
+  explicit interval shifts, and one bounded direct construction diagnostic.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
   improves the current regular-direction upper coefficient to
@@ -2275,10 +2318,18 @@ Candidate-set extraction uses the following finite-certificate semantics.
   edge extendibility, relation-compatible bijections, and full-score
   feasibility remain logically separate. One standalone exact diagnostic
   scans only \((m,k,j)\) on four fixed rows.
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, use the monotone local
-  relation to classify symbolically which locally non-excluded edges extend
-  to a relation-compatible bijection, without enumerating path permutations
-  or scoring any distance-at-least-three pair.
+- COMPLETED PRIORITY: edge extendibility in the local Ferrers relation is now
+  exact. Residual Hall proves that \((0,0)\) is the only extendible
+  zero-column edge, while every positive-column local edge extends through an
+  explicit one-interval shift. The three shift directions, saturated suffix,
+  triple/singleton crossing, terminal singleton, closure, and \(m=3\) are
+  explicit. One bounded exact diagnostic constructs the prescribed witnesses
+  without matching search or path-permutation enumeration. This theorem
+  scores no distance-at-least-three pair and has no geometric consequence.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, classify the full
+  product-distance score of the explicit one-interval-shift witness family,
+  treating the three shift directions and cyclic closure symbolically while
+  keeping any geometric interpretation separate.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
