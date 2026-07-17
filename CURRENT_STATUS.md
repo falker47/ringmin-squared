@@ -6,222 +6,171 @@ Last update: 2026-07-17
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Active task:** exact edge-extendibility classification in the local
-  path-to-gap relation for the symbolic \(n=10m+3\) construction.
-- **Repository state at startup:** clean main worktree at commit
-  \(d772b28\), aligned with origin/main.
-- **Implementation state:** the Hall/Ferrers proof, constructive interval
-  shifts, sole bounded diagnostic, proof note, stable memory, roadmap, and
-  dossier are synchronized; all requested verification has completed.
+- **Active task:** arbitrary relation-compatible full-score classification on
+  the symbolic \(n=10m+3\), \(m\ge3\), scaffold.
+- **Repository state at startup:** clean `main` worktree at commit
+  \(9664e342964e27c36b8e203f0dc646c811c66409\), aligned with `origin/main`.
+- **Implementation state:** the symbolic theorem, sole polynomial diagnostic,
+  proof note, stable memory, roadmap, dossier, independent audits, and final
+  diff inspection are complete and synchronized.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
 ## Objective And Scope
 
-Treat the already proved local relation \(\mathcal R_{\rm loc}\) as fixed
-input. For
+For
 \[
 n=10m+3,
 \qquad m\ge3,
 \qquad d=8m+4,
 \qquad v=2m,
+\qquad T={d(d-1)\over2},
 \]
-classify exactly which local edge \((k,j)\) belongs to at least one
-path-to-gap bijection \(\alpha\) satisfying
+treat the path-to-gap bijection \(\alpha\) as arbitrary and determine whether
+every relation-compatible bijection for the Ferrers relation (PG31)/(PG36)
+satisfies \(W(\sigma_\alpha)=T\).
+
+The task classifies every positional-distance-three pair, all four ordered
+triple/singleton transitions, and cyclic closure. Production code, tests,
+APIs, enumeration limits, artifacts, schemas, interval backends,
+certificates, CLIs, and configuration remain unchanged.
+
+## Complete Distance-Three Classification
+
+Put \(k_j=\alpha(j)\), \(j^+=j+1\pmod v\), and let \(F_k\) be the first
+label of \(P_k\). If \(P_{k_j}=(A_{k_j},c_{k_j},B_{k_j})\) is a triple, the
+six forward pairs are
 \[
-(\alpha(i),i)\in\mathcal R_{\rm loc}
-\quad(0\le i<v).
+\begin{gathered}
+\{E_j,c_{k_j}\},\quad
+\{\lambda_j,B_{k_j}\},\quad
+\{A_{k_j},\rho_{j^+}\},\quad
+\{c_{k_j},E_{j^+}\},\\
+\{B_{k_j},\lambda_{j^+}\},\quad
+\{\rho_{j^+},F_{k_{j^+}}\}.
+\end{gathered}
 \]
-
-No path permutation is enumerated. No distance-at-least-three pair is scored.
-No full-distance or geometric conclusion is inferred. Production code,
-tests, APIs, artifacts, schemas, interval backends, certificates, and
-enumeration limits remain unchanged.
-
-## Ferrers Structure
-
-For
+If \(P_{k_j}=(x_{k_j})\) is a singleton, the four are
 \[
-\kappa_j=
-\left\lceil{j(d-1)\over2(d+j)}\right\rceil,
+\{E_j,\rho_{j^+}\},\quad
+\{\lambda_j,E_{j^+}\},\quad
+\{x_{k_j},\lambda_{j^+}\},\quad
+\{\rho_{j^+},F_{k_{j^+}}\}.
 \]
-the established relation has nested column neighborhoods
+
+The two transition pairs are respectively last\((P_{k_j})\)--\(\lambda_{j^+}\)
+and \(\rho_{j^+}\)--first\((P_{k_{j^+}})\), giving all four ordered type
+combinations. The lists have
 \[
-(k,j)\in\mathcal R_{\rm loc}
-\quad\Longleftrightarrow\quad
-k\ge\kappa_j,
-\qquad
-N(G_j)=\{P_{\kappa_j},\ldots,P_{v-1}\}.
+6(m+1)+4(m-1)=10m+2=|\sigma_\alpha|
 \]
-The exact elementary bounds are
+starts. Since the core length is greater than six, they contain every
+unordered distance-three pair exactly once.
+
+For a compatible bijection, \(\alpha(0)=0\). Thus the closing list is
 \[
-\kappa_0=0,
-\qquad
-\kappa_1=1,
-\qquad
-1\le\kappa_r\le r-1
-\quad(2\le r\le v-1),
+\{n,c_k\},\{2,B_k\},\{A_k,4m+1\},\{c_k,d\},
+\{B_k,4m\},\{4m+1,A_0\}
 \]
-and \(\kappa_j\) is nondecreasing. In row form, triples have the initial
-segments \(0\le j\le\ell_k\), while every singleton row is complete.
-
-## Residual Hall Classification
-
-Fix a local edge \((k,j)\), remove \(P_k\) and \(G_j\), and let a nonempty
-residual gap set have minimum index \(r\). Its neighbor count and maximal
-cardinality are
+when \(k=\alpha(v-1)\) is triple, and
 \[
-|N_{k,j}(S)|
-=v-\kappa_r-\mathbf1_{\{k\ge\kappa_r\}},
-\qquad
-|S|\le v-r-\mathbf1_{\{j>r\}}.
+\{n,4m+1\},\{2,d\},\{x_k,4m\},\{4m+1,A_0\}
 \]
-Thus residual Hall is equivalent to
+when it is singleton.
+
+## Sharp Bound And Arbitrary-Bijection Collapse
+
+Every terminal--connector product is at most \(n(5m+2)\). Every
+terminal--low product is strictly smaller, and every low--middle product is at
+most \((4m+1)(d-1)\), with
 \[
-\kappa_r+\mathbf1_{\{k\ge\kappa_r\}}
-\le r+\mathbf1_{\{j>r\}}
-\qquad(r\ne j).
+n(5m+2)-(4m+1)(d-1)=18m^2+15m+3>0.
 \]
-
-- If \(j\ge1\), the inequality follows from monotonicity for \(r<j\) and
-  from \(\kappa_r\le r-1\) for \(r>j\).
-- For \((0,0)\), the removed path lies below every positive-column
-  threshold, so residual Hall holds.
-- For \((k,0)\), \(k>0\), the case \(r=1\) fails exactly. The residual
-  suffix \(G_1,\ldots,G_{v-1}\) has \(v-1\) gaps but only \(v-2\)
-  available neighbors.
-
-## Constructive Bijections
-
-Use the convention that \(G_i\) receives \(P_{\alpha(i)}\).
-
-### Case \(1\le j<k\)
-
-\[
-\alpha(i)=
-\begin{cases}
-k,&i=j,\\
-i-1,&j<i\le k,\\
-i,&\text{otherwise}.
-\end{cases}
-\]
-
-The added edges are \((p,p+1)\) with \(p\ge1\), valid because
-\(\kappa_{p+1}\le p\).
-
-### Case \(j=k\)
-
-Use the identity \(\alpha(i)=i\).
-
-### Case \(j>k\)
-
-Locality forces \(k\ge\kappa_j\ge1\), and
-\[
-\alpha(i)=
-\begin{cases}
-i+1,&k\le i<j,\\
-k,&i=j,\\
-i,&\text{otherwise}.
-\end{cases}
-\]
-
-The added edges are \((p,p-1)\), valid because
-\(\kappa_{p-1}\le p-1<p\). Every construction is one interval rotation,
-is a bijection, contains the prescribed edge, and fixes \((0,0)\).
-
-## Exact Result And Boundaries
-
-The candidate classification is true:
+Therefore, for every bijection, even without relation-compatibility,
 \[
 \boxed{
-\begin{aligned}
-\mathcal R_{\rm ext}
-&=\{(0,0)\}
-\cup\{(k,j)\in\mathcal R_{\rm loc}:j\ge1\}\\
-&=\{(0,0)\}
-\cup\{(k,j):1\le k\le m,\ 1\le j\le\ell_k\}\\
-&\hspace{2.7em}\cup
-\{(k,j):m+1\le k\le2m-1,\ 1\le j\le2m-1\}.
-\end{aligned}}
+W^{(=3)}(\sigma_\alpha)
+\le {n(5m+2)\over3}<T,
+\qquad
+3T-n(5m+2)=46m^2+49m+12>0.
+}
+\]
+The bound is sharp exactly when
+\(\alpha(v-2)=m\) or \(\alpha(v-1)=m\). Both alternatives occur in
+relation-compatible PG46 witnesses.
+
+Universally for positional distance \(q\ge4\),
+\[
+{ij\over q}\le {n(n-1)\over4}<T,
+\qquad
+4T-n(n-1)=28m^2+62m+18>0.
+\]
+Every reassignment retains the adjacent internal pair
+\(A_0c_0=(d-1)(4m+2)=T\). Hence the stronger exact theorem is
+\[
+\boxed{
+W(\sigma_\alpha)=W^{(\le2)}(\sigma_\alpha)
+\quad\text{for every bijection }\alpha.
+}
 \]
 
-- \(P_0\) has only \((0,0)\), which lies in the identity.
-- Crossing from triples to singletons uses the safe edge \((m,m+1)\) in one
-  direction and the universal singleton edge \((m+1,m)\) in the other.
-- Every positive-column edge of the terminal singleton \(P_{2m-1}\) extends;
-  its diagonal uses the identity.
-- At the closing gap \(G_{2m-1}\), a triple edge is local precisely for
-  \[
-  k\ge\kappa_{2m-1}
-  =\left\lfloor{4m+3\over5}\right\rfloor.
-  \]
-  Its construction uses the \(j>k\) shift without wrapping. Singleton edges
-  are analogous.
-- At \(m=3\), the thresholds are \((0,1,1,2,2,3)\), so no minimum-parameter
-  exception occurs.
+## Full-Optimal Equivalence And PG49
 
-## Logical Separation
+Combining the collapse theorem with PG36 gives
+\[
+\boxed{
+\alpha\text{ relation-compatible}
+\quad\Longleftrightarrow\quad
+W^{(\le2)}(\sigma_\alpha)\le T
+\quad\Longleftrightarrow\quad
+W(\sigma_\alpha)=T.
+}
+\]
+The residue-three formula and global saturation theorem give \(W_n=T\), so
+these are global full-distance minimizers of the product-distance surrogate.
+Every incompatible scaffold bijection has score strictly above \(T\).
 
-- **Local relation:** one placement passes every distance-one and
-  distance-two pair determined by that placement.
-- **Edge extendibility:** the edge belongs to at least one bijection whose
-  every edge is local; this is exactly the classification above.
-- **Relation-compatible bijection:** by the prior local decomposition, it has
-  \(W^{(\le2)}\le T\). The interval shifts construct such bijections but do
-  not classify all of them.
-- **Full threshold:** each nonidentity construction must separately pass every
-  distance-at-least-three pair before one may assert \(W\le T\).
-- **Geometry:** no geometric statement follows from this matching theorem.
+If \(\mathcal R_{\rm full}\) is the edge support of scaffold bijections with
+full score \(T\), then
+\[
+\boxed{
+\mathcal R_{\rm full}=\mathcal R_{\rm ext}
+=\{(0,0)\}\cup
+\{(k,j)\in\mathcal R_{\rm loc}:j\ge1\}.
+}
+\]
+Thus PG49 is exactly the support of full-optimal scaffold bijections. It does
+not enumerate those bijections, and this surrogate theorem gives no new
+geometric optimum or bound.
 
 ## Diagnostic And Verification
 
-- The sole new standalone diagnostic uses only Python integer arithmetic and
-  the standard library.
-- It scans only established local edges at \(m=3,4,9,34\), constructs exactly
-  one prescribed interval shift per extendible edge, and directly checks the
-  target, bijectivity, forced zero edge, every resulting Ferrers edge,
-  residual Hall, deficient suffixes, transitions, terminal singleton,
-  closing column, \(m=3\), and the retained equality \((34,11,24)\).
-- The exact rows are
-  \[
-  \begin{array}{c|r|r|r}
-  m&|\mathcal R_{\rm loc}|&|\mathcal R_{\rm ext}|&
-  \text{nonextendible}\\ \hline
-  3&27&22&5\\
-  4&49&42&7\\
-  9&251&234&17\\
-  34&3614&3547&67.
-  \end{array}
-  \]
-- The diagnostic, in-memory compilation, and Ruff lint/format pass.
-- The focused product-distance regression passes 49 tests, the isolated
-  provenance rerun passes 1 test, the schema regression passes 4 tests, and
-  the serial complete suite passes all 283 tests.
-- The checked-artifact semantic verifier confirms 4 certificates and 76
-  local brackets.
-- The first complete-suite run was concurrent with other provenance-aware
-  commands and returned 282 PASS / 1 FAIL because the regenerated summary
-  transiently observed `git_commit=null`. The exact test passed in isolation,
-  and the serial complete-suite rerun passed all 283 tests. The failed check
-  remains recorded in the dossier.
-- Three independent proof/code/scope audits pass after four precision edits:
-  terminal-row rightward slack wording, the \(r=1\) citation, the extra
-  universal singleton edge touching the closing column, and explicit
-  shift-case count assertions. No theorem formula or classification changed.
-- Expected nine-file scope, sole-diagnostic structure, no generated cache,
-  valid UTF-8/no BOM, PG37--PG49 uniqueness, complete diff inspection, and
-  final whitespace checks pass.
+- The sole new diagnostic is standalone, standard-library-only, and
+  polynomial. It scans local states \((j,k,h)\), not bijections or matchings.
+- At \(m=3,4,9,34\), it checks respectively 180, 448, 5,508, and 309,808
+  local words, all four transition types, 3, 5, 11, and 41 compatible closing
+  cases, and exactly two sharp PG46 full-order witnesses per row.
+- The diagnostic, in-memory compilation, and Ruff lint/format checks pass
+  after one retained initial format-check failure and mechanical reformat.
+- The focused product-distance regression passes 49 tests; the serial complete
+  suite passes all 283 tests; the schema regression passes 4 tests.
+- The checked-artifact semantic verifier confirms 4 certificates and 76 local
+  brackets.
+- Three independent proof/code/scope audits pass. Exact nine-file scope,
+  PG50--PG63 uniqueness, UTF-8/no-BOM, final newlines, no trailing whitespace,
+  no generated cache, complete diff inspection, and `git diff --check` pass.
 
 ## Evidence Classification And Limitations
 
-- The all-\(m\) edge classification is an **exact theorem** proved
-  symbolically by residual Hall and explicit constructions.
+- The all-\(m\) distance-three classification, arbitrary-bijection collapse,
+  full-optimal equivalence, and support identity are **exact theorems** proved
+  symbolically.
+- Sharpness uses two exact constructive PG46 witnesses.
 - The four-row script is a **finite exact diagnostic** that corroborates but
   does not prove the theorem.
-- No enumeration, production result, full-distance classification, upper
-  bound, geometric statement, artifact, certificate, or schema change
-  follows.
+- No path permutation, matching, production result, artifact, certificate,
+  schema, backend, limit, or geometric statement is added.
 
 ## Files In Scope
 
@@ -230,11 +179,10 @@ The candidate classification is true:
 - start.md
 - PROJECT_KNOWLEDGE.md
 - CURRENT_STATUS.md
-- ops/TASK-20260717__local_edge_extendibility_classification/
+- ops/TASK-20260717__relation_compatible_full_score_classification/
 
 ## Proposed Next Task
 
-In a fresh STRICT task, classify the full product-distance score of the
-explicit one-interval-shift witness family, treating the three shift directions
-and cyclic closure symbolically while keeping any geometric interpretation
-separate.
+In a fresh STRICT task, derive an exact symbolic count of
+relation-compatible, equivalently full-optimal, scaffold bijections from the
+nested Ferrers thresholds, without enumerating path permutations.

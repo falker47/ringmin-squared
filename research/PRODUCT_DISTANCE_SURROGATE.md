@@ -142,6 +142,21 @@
   \(93\) is the first index at which distances at least three restrict the
   minimizer set. This uses no canonical enumeration beyond \(n=11\) and has no
   geometric consequence.
+- **EXACT THEOREM (arbitrary compatible scaffold bijections):** on the
+  symbolic \(n=10m+3\), \(m\ge3\), branch, every whole-path bijection
+  satisfies
+  \[
+  W(\sigma_\alpha)=W^{(\le2)}(\sigma_\alpha).
+  \]
+  The complete distance-three classification gives the sharp class bound
+  \[
+  W^{(=3)}(\sigma_\alpha)\le{n(5m+2)\over3}<T,
+  \]
+  while every distance at least four is also strictly below \(T\), and the
+  internal edge of \(P_0\) equals \(T\). Consequently relation-compatibility
+  is equivalent to \(W(\sigma_\alpha)=T=W_n\). Thus (PG49) is exactly the
+  edge support of full-optimal scaffold bijections, not merely of locally
+  feasible matchings.
 - **CONJECTURE:** none is proposed from nine finite cases.
 
 Fractions are oriented exactly as displayed below. The accepted angular
@@ -4736,16 +4751,16 @@ least one relation-compatible bijection is a separate fact supplied by the
 already proved canonical identity construction (UC11), not by an arbitrary
 edge of (PG31). The local-relation calculation alone neither selects nor
 classifies a new bijection; the next subsection addresses that matching
-extendibility question separately. Even a relation-compatible bijection still
-requires all distances at least three to establish
-\(W(\sigma_\alpha)\le T\).
+extendibility question separately. At this stage, the local-relation
+calculation still leaves every distance-at-least-three pair to be controlled;
+the full-score subsection below supplies that control.
 
 ### Edge extendibility in the Ferrers relation
 
 We now classify which individual edges of (PG31) occur in at least one
 relation-compatible bijection. This is a matching question inside
 \(\mathcal R_{\rm loc}\) only. In particular, the bijections constructed
-below are not scored at distances at least three.
+below are not scored at distances at least three in this subsection.
 
 Put \(v=2m\), and extend the triple row cutoffs by
 
@@ -4957,9 +4972,232 @@ with positive gap index are extendible, while the \(2m-1\) local edges
 \((k,0)\), \(k>0\), are not. The off-diagonal constructions prove existence
 of nonidentity relation-compatible bijections, but they do not classify all
 such bijections. By (PG36), each constructed bijection passes exactly the
-distance-one and distance-two local test. No distance-at-least-three pair is
-scored here, no constructed nonidentity bijection is asserted to satisfy
-\(W\le T\), and no geometric consequence follows.
+distance-one and distance-two local test. The matching theorem itself scores
+no distance-at-least-three pair and has no geometric consequence. The next
+subsection proves the stronger full-score statement for arbitrary compatible
+bijections.
+
+### Full score of arbitrary relation-compatible bijections
+
+We now return to an arbitrary bijection \(\alpha\) in (PG1). In particular,
+none of the interval-shift formulas (PG44)--(PG46) is assumed. Write
+\(W^{(=3)}(\sigma)\) for the maximum defining \(W\) restricted to pairs of
+circular positional distance exactly three. Put
+
+\[
+k_j=\alpha(j),
+\qquad
+j^+=j+1\pmod v,
+\qquad
+F_k=\operatorname{first}(P_k)
+=
+\begin{cases}
+A_k,&0\le k\le m,\\
+x_k,&m+1\le k<v.
+\end{cases}
+\]
+
+To assign every forward start once, use the half-open gap block
+\[
+H_j=(E_j,\lambda_j,P_{k_j},\rho_{j^+});
+\]
+the shared terminal \(E_{j^+}\) is a start in \(H_{j^+}\), not in \(H_j\).
+If \(P_{k_j}\) is a triple, the six forward pairs at positional distance
+three whose first position belongs to \(H_j\) are exactly
+
+\[
+\begin{gathered}
+\{E_j,c_{k_j}\},\quad
+\{\lambda_j,B_{k_j}\},\quad
+\{A_{k_j},\rho_{j^+}\},\quad
+\{c_{k_j},E_{j^+}\},\\
+\{B_{k_j},\lambda_{j^+}\},\quad
+\{\rho_{j^+},F_{k_{j^+}}\}.
+\end{gathered}
+\tag{PG50}
+\]
+
+If \(P_{k_j}\) is a singleton, the corresponding four starts in \(H_j\)
+give
+
+\[
+\{E_j,\rho_{j^+}\},\quad
+\{\lambda_j,E_{j^+}\},\quad
+\{x_{k_j},\lambda_{j^+}\},\quad
+\{\rho_{j^+},F_{k_{j^+}}\}.
+\tag{PG51}
+\]
+
+The two transition pairs in (PG50)--(PG51) can be displayed separately. If
+the current and next path types are respectively triple/singleton, they are
+
+\[
+\begin{array}{c|c|c}
+P_{k_j}&P_{k_{j^+}}&
+\text{pairs crossing the gap transition}\\ \hline
+\text{triple}&\text{triple}&
+\{B_{k_j},\lambda_{j^+}\},\ \{\rho_{j^+},A_{k_{j^+}}\}\\
+\text{triple}&\text{singleton}&
+\{B_{k_j},\lambda_{j^+}\},\ \{\rho_{j^+},x_{k_{j^+}}\}\\
+\text{singleton}&\text{triple}&
+\{x_{k_j},\lambda_{j^+}\},\ \{\rho_{j^+},A_{k_{j^+}}\}\\
+\text{singleton}&\text{singleton}&
+\{x_{k_j},\lambda_{j^+}\},\ \{\rho_{j^+},x_{k_{j^+}}\}.
+\end{array}
+\tag{PG52}
+\]
+
+There are \(m+1\) triple paths and \(m-1\) singleton paths, independently
+of their assignment. Thus (PG50)--(PG51) contain
+
+\[
+6(m+1)+4(m-1)=10m+2=|\sigma_\alpha|
+\tag{PG53}
+\]
+
+forward starts. Since \(|\sigma_\alpha|>6\), every unordered pair at circular
+positional distance three has exactly one of these forward orientations.
+Hence the lists are exhaustive and contain no duplicate unordered pair.
+
+The cyclic closing transition is also literal. If \(\alpha\) is
+relation-compatible, then (PG38)--(PG40) force \(k_0=0\). For
+\(k=k_{v-1}\le m\), (PG50) at \(j=v-1\) reads
+
+\[
+\{n,c_k\},\ \{2,B_k\},\ \{A_k,4m+1\},\
+\{c_k,d\},\ \{B_k,4m\},\ \{4m+1,A_0\},
+\tag{PG54}
+\]
+
+whereas for \(k>m\), (PG51) reads
+
+\[
+\{n,4m+1\},\ \{2,d\},\ \{x_k,4m\},\ \{4m+1,A_0\}.
+\tag{PG55}
+\]
+
+No relation property is needed for the distance-three bound itself. The only
+pairs in (PG50)--(PG51) having neither endpoint low are the terminal--connector
+pairs \(\{E,c_k\}\). Every other pair is either terminal--low or
+low--middle. Therefore, for every bijection \(\alpha\),
+
+\[
+\begin{aligned}
+Ec_k&\le n c_m=n(5m+2),\\
+E\,\text{low}&\le n(4m+1)<n(5m+2),\\
+\text{low}\cdot\text{middle}
+&\le(4m+1)(d-1)<n(5m+2),
+\end{aligned}
+\tag{PG56}
+\]
+
+where the second strict comparison is quantified by
+
+\[
+n(5m+2)-(4m+1)(d-1)=18m^2+15m+3>0.
+\]
+
+Consequently the candidate bound is true, and in fact does not require
+relation-compatibility:
+
+\[
+\boxed{
+W^{(=3)}(\sigma_\alpha)
+\le {n(5m+2)\over3}<T,
+\qquad
+3T-n(5m+2)=46m^2+49m+12>0.
+}
+\tag{PG57}
+\]
+
+This bound is sharp even within the relation-compatible class. Equality in
+the product bound can occur only on \(\{n,c_m\}\), and (PG50) shows that
+
+\[
+W^{(=3)}(\sigma_\alpha)={n(5m+2)\over3}
+\quad\Longleftrightarrow\quad
+\alpha(v-2)=m\ \text{ or }\ \alpha(v-1)=m.
+\tag{PG58}
+\]
+
+Both alternatives occur in relation-compatible bijections: the edges
+\((m,v-2)\) and \((m,v-1)\) are local, and the two instances of (PG46)
+give explicit witnesses. Thus (PG57) is an exact maximum over that class,
+not merely a convenient uniform estimate.
+
+For every pair at positional distance \(q\ge4\), independently of \(\alpha\),
+
+\[
+{ij\over q}\le {n(n-1)\over4}<T,
+\qquad
+4T-n(n-1)=28m^2+62m+18>0.
+\tag{PG59}
+\]
+
+Finally, every reassignment retains the oriented path \(P_0\), whose internal
+adjacent pair satisfies
+
+\[
+A_0c_0=(d-1)(4m+2)=T.
+\tag{PG60}
+\]
+
+Equations (PG57), (PG59), and (PG60) prove the stronger
+**EXACT ARBITRARY-BIJECTION COLLAPSE THEOREM**
+
+\[
+\boxed{
+W(\sigma_\alpha)=W^{(\le2)}(\sigma_\alpha)
+\quad\text{for every bijection }\alpha.
+}
+\tag{PG61}
+\]
+
+Combining (PG61) with the exact local equivalence (PG36) gives
+
+\[
+\boxed{
+\begin{aligned}
+\alpha\text{ is relation-compatible}
+&\quad\Longleftrightarrow\quad
+W^{(\le2)}(\sigma_\alpha)\le T\\
+&\quad\Longleftrightarrow\quad
+W(\sigma_\alpha)\le T
+\quad\Longleftrightarrow\quad
+W(\sigma_\alpha)=T.
+\end{aligned}}
+\tag{PG62}
+\]
+
+On this residue-three branch, (RC5) and (GC1) give \(W_n=T\). Hence every
+relation-compatible bijection is a global full-distance minimizer of the
+product-distance surrogate, while every incompatible bijection in this
+scaffold has score strictly above \(T\). In particular, define the support of
+full-optimal scaffold bijections by
+
+\[
+\mathcal R_{\rm full}
+=\{(k,j):\text{some bijection }\alpha\text{ has }
+\alpha(j)=k\text{ and }W(\sigma_\alpha)=T\}.
+\]
+
+Then (PG49) and (PG62) give the exact identity
+
+\[
+\boxed{
+\mathcal R_{\rm full}=\mathcal R_{\rm ext}
+=\{(0,0)\}\mathbin\cup
+\{(k,j)\in\mathcal R_{\rm loc}:j\ge1\}.
+}
+\tag{PG63}
+\]
+
+Thus (PG49) is exactly the edge support of full-optimal bijections in this
+scaffold, although neither (PG49) nor (PG63) enumerates those bijections. The
+interval shifts are now certified full-optimal as special witnesses, but the
+proof applies to all relation-compatible bijections. This is a combinatorial
+surrogate theorem; it does not identify a geometric optimum or improve the
+already recorded regular-direction upper bound.
 
 ## Verification Boundary And Open Questions
 
@@ -5041,6 +5279,16 @@ also checks the exact deficient suffix for \((k,0)\), \(k>0\), the
 triple/singleton crossings, the terminal singleton, and the closing column.
 It never searches over matchings or path permutations, constructs no cyclic
 core order, scores no positional pair, and imports no project or test helper.
+The sole diagnostic for (PG50)--(PG63) is the standalone standard-library
+script in
+ops/TASK-20260717__relation_compatible_full_score_classification/. At
+\(m\in\{3,4,9,34\}\), it scans the polynomial local state space
+\((j,k,h)\), compares the six/four symbolic forms with pairs read directly
+from their local words, exercises all four ordered path-type transitions, and
+checks the literal compatible closure. It separately constructs only the two
+sharp PG46 witnesses with \(P_m\) in \(G_{2m-2}\) or \(G_{2m-1}\) and scores
+their complete orders. It enumerates no path permutation or matching and
+imports no project or test helper.
 
 The following remain unresolved.
 
@@ -5056,12 +5304,13 @@ The following remain unresolved.
 - **CLOSED LOCAL QUESTION:** the exact support of relation-compatible
   bijections is (PG49). The sole extendible edge in column zero is \((0,0)\);
   every local edge in a positive column is extendible by one of the explicit
-  interval shifts. This matching theorem does not classify every compatible
-  bijection and is not a full-score theorem.
-- **OPEN QUESTION:** which relation-compatible bijections, if any beyond the
-  canonical identity, also satisfy every distance-at-least-three constraint?
-  The shifts above supply nonidentity completions only inside
-  \(\mathcal R_{\rm loc}\); none is scored at the omitted distances.
+  interval shifts. It does not classify every compatible bijection.
+- **CLOSED FULL-SCORE QUESTION:** (PG50)--(PG63) treat \(\alpha\) as arbitrary,
+  classify every distance-three start and transition including cyclic closure,
+  and prove \(W(\sigma_\alpha)=W^{(\le2)}(\sigma_\alpha)\) for every
+  bijection. Hence every relation-compatible bijection, including every shift
+  above, has \(W=T=W_n\). Conversely, every full-optimal bijection in the
+  scaffold is relation-compatible, so (PG49) is its exact edge support.
 - **OPEN QUESTION:** for which \(n\ge94\) is
   \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\)? Criterion (MS2)
   certifies equality whenever it holds, including \(n=94\), but no complete

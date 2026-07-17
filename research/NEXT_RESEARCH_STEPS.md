@@ -75,9 +75,24 @@ positive-index gaps. Explicit rotations of the interval between \(j\) and
 \(j>k\), including the triple/singleton boundary, terminal singleton, cyclic
 closing column, and \(m=3\). One bounded diagnostic constructs exactly these
 witnesses without matching search or path-permutation enumeration. This
-classifies matching support only: no distance at least three is scored, no
-nonidentity shift is asserted to have \(W\le T\), and no geometric
-consequence follows.
+classifies matching support without enumerating the compatible bijections.
+The full-score question is now closed separately for an arbitrary bijection
+\(\alpha\), not merely for those shifts. The complete six triple and four
+singleton forms, all four path-type transitions, and cyclic closure prove the
+sharp uniform bound
+\[
+W^{(=3)}(\sigma_\alpha)\le {n(5m+2)\over3}<T.
+\]
+Every distance at least four is also strictly below \(T\), while the internal
+pair of \(P_0\) equals \(T\). Hence
+\[
+W(\sigma_\alpha)=W^{(\le2)}(\sigma_\alpha)
+\]
+for every bijection, and relation-compatibility is equivalent to
+\(W(\sigma_\alpha)=T=W_n\). Consequently PG49 is exactly the edge support of
+full-optimal scaffold bijections. A polynomial local diagnostic checks four
+fixed rows and two sharp PG46 witnesses without enumerating path
+permutations. No new geometric consequence follows.
 The fixed-order certification debt is now closed mathematically by
 `research/FIXED_ORDER_ANGULAR_STN.md`, which proves exact angular/STN
 equivalence, the negative-cycle criterion, potential recovery, radius
@@ -1803,9 +1818,12 @@ saturation for every \(n\ge3\).
   \((k,0)\), \(k>0\), and deterministic interval shifts construct a witness
   in the three index-order cases. This proves nonidentity existence inside
   \(\mathcal R_{\rm loc}\) but does not classify all compatible bijections.
-- OPEN QUESTION: which relation-compatible bijections beyond the identity
-  also pass every distance-at-least-three pair? None of the new interval
-  shifts has been scored at those distances.
+- CLOSED FULL-SCORE QUESTION: every path-to-gap bijection satisfies
+  \(W(\sigma_\alpha)=W^{(\le2)}(\sigma_\alpha)\). The distance-three bound
+  \(n(5m+2)/3<T\) is sharp on the compatible class, and every longer pair is
+  strictly below \(T\). Thus every relation-compatible bijection has full
+  score \(T=W_n\), every incompatible one has larger score, and PG49 is the
+  exact edge support of full-optimal scaffold bijections.
 - CLOSED QUESTION: the fixed-order STN/geometric equivalence, endpoint
   semantics, and negative-cycle proof obligations are now recorded
   independently of every asymptotic claim in
@@ -2044,7 +2062,7 @@ Immediate:
   reassignment. Triple rows are exact monotone initial segments, singleton
   rows contain all gaps, and the cyclic endpoints, transition indices, and
   \(m=3\) relation are explicit. Local non-exclusion, extendibility to a
-  relation-compatible bijection, and full-score feasibility are separated.
+  relation-compatible bijection, and full-score feasibility are distinct.
   One standalone standard-library diagnostic scans only \((m,k,j)\) for
   four fixed values of \(m\).
 - The local-edge extendibility task is complete. Exact residual Hall excludes
@@ -2052,14 +2070,21 @@ Immediate:
   has a constructive one-interval-shift completion. The three shift
   directions and every requested boundary are explicit, and one bounded
   diagnostic checks only the prescribed constructions. Full-distance and
-  geometric questions remain separate.
+  geometric questions were left separate in that matching task.
+- The arbitrary-compatible-bijection full-score task is complete. The
+  distance-three classification covers every triple, singleton, ordered
+  path-type transition, and closing pair, and gives the sharp bound
+  \(n(5m+2)/3<T\). Combined with the universal long-distance bound and the
+  internal equality in \(P_0\), it proves that relation-compatibility is
+  equivalent to \(W=T=W_n\). PG49 is therefore the exact support of
+  full-optimal scaffold bijections. One polynomial diagnostic scans local
+  states and two sharp shifts without enumerating path permutations.
 
 Next:
 
-- In a separate STRICT task, classify the full product-distance score of the
-  explicit one-interval-shift witness family, treating \(j<k\), \(j=k\),
-  \(j>k\), and cyclic closure symbolically rather than enumerating path
-  permutations. Keep any geometric consequence separate.
+- In a separate STRICT task, derive an exact symbolic count of
+  relation-compatible, equivalently full-optimal, scaffold bijections from
+  the nested Ferrers thresholds, without enumerating path permutations.
 - In a separate STRICT task, determine whether the combined-height and
   one-use base-slack argument extends to arbitrary fixed \(k\), without
   passing to \(k\to\infty\) or declaring a coefficient before uniformity is
@@ -2093,20 +2118,18 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: classify the full product-distance score of the explicit
-one-interval-shift path-to-gap witnesses on the symbolic \(n=10m+3\) branch.
+Task: count the relation-compatible, equivalently full-optimal, path-to-gap
+bijections on the symbolic \(n=10m+3\) branch.
 
 Acceptance criteria:
 
-- treat the three proved interval-shift formulas as a fixed family, without
-  searching over or enumerating other path permutations;
-- score all positional distance classes symbolically, with separate
-  \(j<k\), \(j=k\), \(j>k\), triple/singleton, and cyclic closing cases;
-- classify exactly which of these explicit witnesses, if any beyond the
-  identity, satisfy \(W\le T\);
-- keep the result family-specific and distinct from the classification of all
-  relation-compatible bijections;
-- keep any regular-direction or geometric consequence explicitly one-sided
-  and separate;
+- derive the count directly from the nested Ferrers neighborhoods or an
+  equivalent symbolic recurrence;
+- prove the formula for every \(m\ge3\), including the forced \((0,0)\) edge,
+  closing column, and \(m=3\);
+- use only a polynomial formula diagnostic on fixed rows, with no path-
+  permutation or matching enumeration;
+- interpret the count through the already proved equivalence with
+  full-optimal scaffold bijections, without claiming a geometric count;
 - do not alter production enumeration limits, checked artifacts, schemas,
   interval backends, or certificates.

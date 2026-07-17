@@ -1040,10 +1040,27 @@ every \((k,0)\), \(k>0\). Conversely, rotating one integer interval gives an
 explicit compatible bijection through every positive-column local edge, with
 separate formulas for \(j<k\), \(j=k\), and \(j>k\). The proof treats the
 triple/singleton crossing, terminal singleton, closing column, and \(m=3\)
-without enumerating path permutations. These constructed bijections pass only
-the established distance-one and distance-two relation; no omitted distance
-is scored, no nonidentity witness is asserted to satisfy \(W\le T\), and no
-geometric consequence follows.
+without enumerating path permutations.
+
+The full-score question is now closed for every such bijection, not only for
+the interval shifts. If \(\alpha\) is any path-to-gap bijection, the complete
+six-form triple and four-form singleton classification proves the sharp bound
+\[
+W^{(=3)}(\sigma_\alpha)\le {n(5m+2)\over3}<T.
+\]
+Equality in this distance-three bound occurs exactly when \(P_m\) lies in
+\(G_{2m-2}\) or \(G_{2m-1}\), and both placements have compatible PG46
+witnesses. Every distance at least four is universally below \(T\), while the
+internal adjacent pair of \(P_0\) equals \(T\). Therefore, for every
+bijection,
+\[
+W(\sigma_\alpha)=W^{(\le2)}(\sigma_\alpha),
+\]
+and relation-compatibility is equivalent to
+\(W(\sigma_\alpha)=T=W_n\). Thus the Ferrers support above is exactly the
+edge support of full-optimal scaffold bijections. This classifies all
+compatible bijections by score without enumerating them and has no new
+geometric consequence.
 
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
@@ -2162,11 +2179,34 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   three formulas for \(j<k\), \(j=k\), and \(j>k\) preserve \((0,0)\) and
   cover the triple/singleton crossing, terminal singleton, and cyclic closing
   column without wrapping the matching shift.
-- INTERPRETATION: this theorem classifies the support of compatible
-  bijections, not all such bijections. By the local equivalence, every
-  constructed shift passes the distance-one and distance-two conditions.
-  No distance-at-least-three pair is scored, no nonidentity construction is
-  asserted to have \(W\le T\), and no geometric conclusion follows.
+- EXACT ARBITRARY-BIJECTION FULL-SCORE THEOREM: for every path-to-gap
+  bijection \(\alpha\), the six triple and four singleton distance-three
+  forms, including all four path-type transitions and cyclic closure, give
+  \[
+  W^{(=3)}(\sigma_\alpha)
+  \le {n(5m+2)\over3}<T.
+  \]
+  The bound is sharp exactly when \(P_m\) lies in \(G_{2m-2}\) or
+  \(G_{2m-1}\); both placements occur in compatible PG46 shifts. Every pair
+  at distance at least four has score at most \(n(n-1)/4<T\), while
+  \(A_0c_0=T\). Hence
+  \[
+  W(\sigma_\alpha)=W^{(\le2)}(\sigma_\alpha)
+  \]
+  for every bijection, and relation-compatibility is equivalent to
+  \(W(\sigma_\alpha)=T=W_n\).
+- EXACT FULL-OPTIMAL SUPPORT THEOREM: define \(\mathcal R_{\rm full}\) as the
+  path/gap edges that occur in some scaffold bijection with full score \(T\).
+  Then
+  \[
+  \mathcal R_{\rm full}=\mathcal R_{\rm ext}
+  =\{(0,0)\}\cup
+  \{(k,j)\in\mathcal R_{\rm loc}:j\ge1\}.
+  \]
+  Thus the interval shifts are full-optimal witnesses, and every compatible
+  bijection is full-optimal, although the bijections themselves are not
+  enumerated. This is a surrogate theorem and gives no new geometric
+  conclusion.
 - VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the sole standalone
   standard-library script in
   ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
@@ -2185,6 +2225,14 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   checks the deficient zero-column suffix and all stated boundaries without
   searching over matchings, enumerating path permutations, constructing a
   cyclic core order, or scoring a positional pair.
+- VERIFIED FACT (FINITE EXACT FULL-SCORE DIAGNOSTIC): the sole standalone
+  standard-library script in
+  ops/TASK-20260717__relation_compatible_full_score_classification/ scans the
+  polynomial local state \((j,k,h)\) at \(m=3,4,9,34\), checks the complete
+  distance-three lists, all four transition types, the literal compatible
+  closure, the sharp equality placements, and exactly two PG46 full-order
+  witnesses per row. It enumerates no path permutation or matching and
+  imports no project or test helper.
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
   \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved

@@ -1989,11 +1989,39 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \(j<k\), \(j=k\), and \(j>k\). The shifts preserve \((0,0)\) and cover
   the triple/singleton boundary, terminal singleton, closing column, and
   \(m=3\) without wrapping the canonical cut.
-- INTERPRETATION: the theorem classifies which edges occur in some compatible
-  bijection, not all compatible bijections. Every constructed shift passes
-  the local distance-one and distance-two relation, but no
-  distance-at-least-three pair has been scored. No nonidentity shift is
-  asserted to satisfy \(W\le T\), and no geometric consequence follows.
+- EXACT ARBITRARY-BIJECTION COLLAPSE THEOREM: for every path-to-gap bijection
+  \(\alpha\) in the symbolic \(n=10m+3\), \(m\ge3\), scaffold, the complete
+  six-form triple and four-form singleton classification gives
+  \[
+  W^{(=3)}(\sigma_\alpha)
+  \le{n(5m+2)\over3}<T.
+  \]
+  This bound does not require relation-compatibility. It is sharp exactly
+  when \(\alpha(2m-2)=m\) or \(\alpha(2m-1)=m\), and both alternatives have
+  relation-compatible PG46 witnesses. Every distance at least four has score
+  at most \(n(n-1)/4<T\), while the internal pair \(A_0c_0=T\) persists.
+  Therefore
+  \[
+  W(\sigma_\alpha)=W^{(\le2)}(\sigma_\alpha)
+  \]
+  for every bijection.
+- EXACT FULL-OPTIMAL EQUIVALENCE AND SUPPORT THEOREM: on this branch,
+  \[
+  \alpha\text{ relation-compatible}
+  \quad\Longleftrightarrow\quad
+  W(\sigma_\alpha)=T=W_n.
+  \]
+  Hence every compatible bijection is a global full-distance minimizer of the
+  product-distance surrogate, and every incompatible scaffold bijection has
+  score strictly above \(T\). If \(\mathcal R_{\rm full}\) is the edge
+  support of full-optimal scaffold bijections, then
+  \[
+  \mathcal R_{\rm full}=\mathcal R_{\rm ext}
+  =\{(0,0)\}\cup
+  \{(k,j)\in\mathcal R_{\rm loc}:j\ge1\}.
+  \]
+  The theorem classifies their score and edge support, not the bijections
+  themselves, and has no new geometric consequence.
 - VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the standalone
   standard-library script in
   ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
@@ -2014,10 +2042,15 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   all stated boundary cases. It searches no matching, enumerates no path
   permutation, constructs no cyclic core order, and scores no positional
   pair. The finite check corroborates rather than proves the theorem.
-- OPEN QUESTION: which relation-compatible bijections, if any beyond the
-  canonical identity, also satisfy every constraint at distances at least
-  three? The interval shifts establish nonidentity existence only inside
-  \(\mathcal R_{\rm loc}\), not full-distance feasibility.
+- VERIFIED FACT (FINITE EXACT FULL-SCORE DIAGNOSTIC): the sole standalone
+  standard-library script in
+  ops/TASK-20260717__relation_compatible_full_score_classification/ scans the
+  polynomial local state \((j,k,h)\) for \(m=3,4,9,34\), directly compares
+  the symbolic distance-three lists with local words, covers all four path
+  transitions and the compatible cyclic closure, and constructs only the two
+  sharp PG46 witnesses per row. It enumerates no path permutation or matching
+  and imports no project or test helper. The finite check corroborates rather
+  than proves the theorem.
 - OPEN QUESTION: for which \(n\ge94\) is the minimizer inclusion strict? No
   persistence from \(n=93\) onward is claimed; the sufficient equality
   criterion already holds again at \(n=94\).
@@ -2316,7 +2349,7 @@ Candidate-set extraction uses the following finite-certificate semantics.
   non-excluded in every gap. Cyclic closure, endpoint thresholds,
   triple/singleton transitions, and \(m=3\) are explicit. Local edges,
   edge extendibility, relation-compatible bijections, and full-score
-  feasibility remain logically separate. One standalone exact diagnostic
+  feasibility are distinct logical notions. One standalone exact diagnostic
   scans only \((m,k,j)\) on four fixed rows.
 - COMPLETED PRIORITY: edge extendibility in the local Ferrers relation is now
   exact. Residual Hall proves that \((0,0)\) is the only extendible
@@ -2326,10 +2359,18 @@ Candidate-set extraction uses the following finite-certificate semantics.
   explicit. One bounded exact diagnostic constructs the prescribed witnesses
   without matching search or path-permutation enumeration. This theorem
   scores no distance-at-least-three pair and has no geometric consequence.
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, classify the full
-  product-distance score of the explicit one-interval-shift witness family,
-  treating the three shift directions and cyclic closure symbolically while
-  keeping any geometric interpretation separate.
+- COMPLETED PRIORITY: arbitrary relation-compatible bijections on the
+  symbolic scaffold are now classified at full distance. All six triple and
+  four singleton distance-three forms, the four transition types, and cyclic
+  closure give the sharp bound \(n(5m+2)/3<T\); every longer pair is also
+  below \(T\), while \(P_0\) supplies equality. Thus compatibility is
+  equivalent to full score \(T=W_n\), and PG49 is the exact support of
+  full-optimal scaffold bijections. One polynomial standalone diagnostic
+  scans local types and two sharp witnesses without enumerating bijections.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, derive an exact symbolic
+  count of relation-compatible, equivalently full-optimal, scaffold
+  bijections from the nested Ferrers thresholds, without enumerating path
+  permutations.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
