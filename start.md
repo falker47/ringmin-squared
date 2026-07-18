@@ -1154,8 +1154,30 @@ gives
 \[
 \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{8\over25\pi}.
 \]
-This is a geometric upper coefficient, not an exact geometric asymptotic
-constant.
+This remains the exact regular-direction product-distance coefficient. A
+later shortcut-budget theorem evaluates the induced-subset objective on the
+same canonical core order. On its symbolic domain the unique maximizer is
+\[
+U_n^*=
+\begin{cases}
+\{2v+1,\ldots,n\},&e=4,5,\\
+\{2v+1,\ldots,n\}\setminus\{2v+2\},&e=6,7,8,
+\end{cases}
+\]
+and each of the fourteen explicit initial orders has a unique maximizing
+tail. The exact quasipolynomial gives
+\[
+K(\tau_n)={143\over500}n^3+O(n^2).
+\]
+Exact label-one elimination and the fixed-order angular sandwich therefore
+sharpen the current global upper coefficients to
+\[
+\limsup_{n\to\infty}{\Lambda_n\over n^3}\le{143\over500},
+\qquad
+\limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{143\over500\pi}.
+\]
+These are upper coefficients, not exact asymptotic constants or convergence
+theorems.
 The same threshold now gives an exact residue-class classification of the
 lower obstruction. For every \(n\ge9\), with \(d=d_n\),
 \[
@@ -1398,7 +1420,7 @@ linear-block lower coefficient remain unresolved. Current exact bounds give
 \liminf_{n\to\infty}\frac{R_2^*(n)}{n^3}
 \le
 \limsup_{n\to\infty}\frac{R_2^*(n)}{n^3}
-\le\frac8{25\pi}.
+\le\frac{143}{500\pi}.
 \]
 
 ## Scope And Guardrails
@@ -2386,7 +2408,8 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   R_2^*(n)=\Theta(n^3).
   \]
   The zigzag coefficient remains a valid historical bound; the matching
-  product-distance construction below improves the current upper coefficient.
+  product-distance construction below improves it, and the still later
+  shortcut evaluation improves the variable-spacing upper coefficient again.
 - EXACT THEOREM: for every cyclic order \(\sigma\) of the core, the
   product-distance score
   \(W(\sigma)=\max_{i<j}ij/d_\sigma(i,j)\) gives strict all-pairs core
@@ -2473,7 +2496,32 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \qquad
   \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{8\over25\pi}.
   \]
-  The geometric statement is an upper bound only.
+  This is the exact regular-direction product-distance coefficient and is an
+  upper bound only.
+- EXACT THEOREM: for the same canonical core order \(\tau_n\), the induced
+  subset objective has a unique maximizer for every \(n\ge9\). On the
+  symbolic rows it is the tail from \(2v+1\), with connector \(2v+2\)
+  additionally deleted exactly for \(e=6,7,8\); the fourteen explicit rows
+  have unique maximizing tails. Its exact quasipolynomial satisfies
+  \[
+  K(\tau_n)={143\over500}n^3+O(n^2).
+  \]
+  Hence
+  \[
+  \limsup_{n\to\infty}{\Lambda_n\over n^3}\le{143\over500},
+  \qquad
+  \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{143\over500\pi}.
+  \]
+  The proof uses exact shortcut gains and block inequalities; bounded
+  max-plus and local-margin computation only corroborates it.
+- VERIFIED FACT (FINITE EXACT DOSSIER DIAGNOSTIC): the standalone
+  `ops/TASK-20260718__canonical_eight_twenty_fifths_k/exact_diagnostic.py`
+  imports no project helper, reconstructs the block order, and checks every
+  \(9\le n\le120\). Its increasing-path max-plus DP checks 8,495,284
+  transitions, while its shortcut audit checks 561,568 oriented arcs. All
+  112 rows have the unique predicted maximizer, and a formula-only tail check
+  continues through \(n=1000\). This bounded computation enumerates neither
+  subsets nor permutations and does not replace the symbolic proof.
 - EXACT THEOREM: for \(n\ge9\), the terminal-high obstruction has the exact
   residue-class form
   \[

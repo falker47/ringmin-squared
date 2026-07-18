@@ -29,6 +29,18 @@ in `research/ALL_N_LOWER_BOUND.md`.
   nonempty core subsets, then
   \(\Lambda(\sigma)=K(\tau)\), independently of the insertion gap of label
   \(1\). Consequently \(\Lambda_n=\min_\tau K(\tau)\).
+- **EXACT THEOREM (CANONICAL EIGHT-TWENTY-FIFTHS CORE):** for every public
+  construction row \(n\ge9\), Section 8 gives the unique maximizing subset
+  and exact value of \(K(\tau_n)\): (K825-2)--(K825-4) cover the symbolic
+  rows and the fourteen-row table covers the explicit initial orders. On
+  symbolic rows the maximizer is the tail from \(2v+1\), with \(2v+2\)
+  additionally deleted exactly for \(e=6,7,8\), and
+  \[
+  K(\tau_n)={143\over500}n^3+O(n^2).
+  \]
+  Hence the current upper coefficients are \(143/500\) for \(\Lambda_n\)
+  and \(143/(500\pi)\) geometrically. This is an upper construction, not a
+  global minimizing-order or convergence theorem.
 - **EXACT THEOREM:** the accepted same-order comparison gives
   \(\Lambda_n\le(n-1)W_n\). Combined with the strict cyclic-ratio sandwich,
   this yields
@@ -8707,7 +8719,406 @@ number \(W(\tau)\). Exact finite examples at \(n=6\) are:
 These examples disprove identification of \(K\) with \(W\); they are
 consistent with the global one-sided comparison (CR38b).
 
-## 8. Asymptotic Consequences And Non-Consequences
+## 8. Exact \(K\) For The Canonical Eight-Twenty-Fifths Core Order
+
+Let \(\tau_n\) denote the cyclic core order called \(\sigma_n\) in the
+matching construction (UC11) of research/PRODUCT_DISTANCE_SURROGATE.md, or
+equivalently the order returned by eight_twenty_fifths_order(n). This section
+determines \(K(\tau_n)\) on the whole public domain \(n\ge9\). The argument
+uses the shortcut identity (L9-8)/(L10-18) and the symbolic block structure;
+it does not enumerate subsets or cyclic orders.
+
+### Exact statement on the symbolic domain
+
+Retain the construction parameters
+\[
+d=4v+e,\qquad n=5v+e-1,\qquad 4\le e\le8,
+\]
+\[
+t=\left\lfloor{v+e-2\over2}\right\rfloor,\qquad
+\varepsilon=v+e-2-2t,\qquad r=v-t-\varepsilon.
+\tag{K825-1}
+\]
+The symbolic domain is \(v\ge e-2\). Put \(L=2v+1\). Then the unique
+maximizing subset is
+\[
+\boxed{
+U_n^*=
+\begin{cases}
+\{L,L+1,\ldots,n\},&e=4,5,\\
+\{L,L+1,\ldots,n\}\setminus\{L+1\},&e=6,7,8.
+\end{cases}}
+\tag{K825-2}
+\]
+Thus its cardinality is \(3v+e-1\) in the first two rows and
+\(3v+e-2\) in the last three. The residue parameter \(e\) is fixed by
+\(n\bmod5\) as in (UC3)--(UC4); no further residue split is needed.
+
+Define
+\[
+\begin{aligned}
+\mathcal Q(v,e,\varepsilon)={1\over8}\bigg[{}
+&286v^3+(180e-91+10\varepsilon)v^2\\
+&+(38e^2-34e-2-8(e+2)\varepsilon)v\\
+&+{e(8e^2-9e-2)\over3}
+ +(-2e^2-10e+21)\varepsilon\bigg],\\
+\Gamma(v,e)&=(4e-22)v+e^2-7e+8,
+\qquad
+\chi=\mathbf1_{\{v=e-2\}}.
+\end{aligned}
+\tag{K825-3}
+\]
+The expression inside the square brackets is an integer multiple of \(8\) on
+the admissible rows, and the exact value is
+\[
+\boxed{
+K(\tau_n)
+=\mathcal Q(v,e,\varepsilon)
+ -(4e-7)\chi+\max\{0,\Gamma(v,e)\}.
+}
+\tag{K825-4}
+\]
+This is a period-ten integer quasipolynomial in \(n\), apart from the five
+explicit boundary corrections \(v=e-2\). Those boundary values are
+\[
+\bigl(K(\tau_{13}),K(\tau_{19}),K(\tau_{25}),K(\tau_{31}),K(\tau_{37})\bigr)
+=(724,2186,4898,9248,15608).
+\tag{K825-5}
+\]
+
+### Shortcut-budget lemma
+
+The following general lemma isolates the reason that no subset search is
+needed. Let \(\tau\) be a cyclic order on \(V\), let \(S\subseteq V\) have
+at least two elements, and suppose every member \(x\) of \(H=V\setminus S\)
+is isolated in \(\tau\), between two members \(a_x,b_x\) of \(S\). Set
+\[
+h_x=a_xb_x-x(a_x+b_x).
+\tag{K825-6}
+\]
+For an oriented arc \(A:i\to j\), delete only its internal members of \(H\)
+and call the resulting path \(C(A)\). If
+\[
+h_x>0\quad(x\in H),\qquad
+\sum_{ab\in E(C(A))}ab>ij
+\tag{K825-7}
+\]
+whenever \(C(A)\) has at least two edges, then \(S\) is the unique subset
+attaining \(K(\tau)\).
+
+Indeed, if \(B=P_\tau(V)\), deletion of all isolated holes gives
+\(P_\tau(S)=B+\sum_{x\in H}h_x\). For every subset \(U\) with
+\(|U|\ge2\), its selected gaps partition the original cycle, and the exact
+arc identity is
+\[
+\begin{aligned}
+g(i,j)
+&=ij-\sum_{ab\in E(A)}ab\\
+&=ij-\sum_{ab\in E(C(A))}ab
+  +\sum_{x\in H\cap\operatorname{int}(A)}h_x.
+\end{aligned}
+\tag{K825-8}
+\]
+Summing (K825-8) over the selected gaps gives
+\[
+P_\tau(U)-B
+\le\sum_{x\in H\setminus U}h_x
+\le\sum_{x\in H}h_x
+=P_\tau(S)-B.
+\tag{K825-9}
+\]
+Equality in the second inequality omits every hole. Equality in the first
+then forces every selected gap to be one edge in the compressed backbone,
+which forces \(U=S\). Finally \(S\) contains \(n-1,n\), so applying the
+same inequality to that pair gives
+\(P_\tau(S)\ge2n(n-1)>n^2\); no singleton can tie it. This proves the
+lemma, including the adopted two-element convention.
+
+### Positive deletion gains
+
+For \(\tau_n\), first retain the tail
+\(S_0=\{L,L+1,\ldots,n\}\). Its omitted labels \(2,\ldots,2v\) are
+isolated by the block word (UC11). If \(e\ge6\), also omit the connector
+\(c_0=L+1\) inside \(P_0\); it too is isolated. This gives exactly
+\(S=U_n^*\).
+
+It remains to verify the two hypotheses of the lemma. The ten symbolic rows
+with \(r=0\) are recorded by finite exact shortcut certificates below. On
+the remaining infinite tail \(v\ge e\), put
+\[
+E_j=d+j,\quad A_j=d-1-2j,\quad c_j=2v+2+j,\quad B_j=d-2-2j.
+\]
+The low holes on the two sides of a triple have gains
+\[
+\begin{aligned}
+h_{\lambda,j}
+={}&e^2+3ej+4ev-e-4j^2+14jv-3j-2v,\\
+h_{\rho,j}
+={}&e^2+3ej+4ev+e-4j^2+14jv-7j+6v-3.
+\end{aligned}
+\tag{K825-10}
+\]
+Both are concave in \(j\), and
+\(h_{\rho,j}-h_{\lambda,j}=2e-4j+8v-3>0\). At the two endpoints,
+\[
+h_{\lambda,0}=(4e-2)v+e(e-1)>0,
+\]
+\[
+2h_{\lambda,t-1}
+=3e^2+e\varepsilon+21ev-e-2\varepsilon^2
+ -10\varepsilon v-13\varepsilon+12v^2-47v-20>0.
+\tag{K825-11}
+\]
+For the last inequality the right side increases for \(v\ge e\); at \(v=e\)
+it is \(36e^2-48e-20\) when \(\varepsilon=0\), and
+\(36e^2-57e-35\) when \(\varepsilon=1\), both positive for
+\(4\le e\le8\).
+
+For a singleton path \(x_j=2v+j+2+\varepsilon\), the left-hole gain
+increases with \(j\), the right-hole gain exceeds it by
+\(e+5j+2\varepsilon+6v+5\), and at the first singleton
+\(j=t+\varepsilon\) four times the left gain is
+\[
+17v^2+(44e+52\varepsilon-48)v+11e^2+26e\varepsilon
+ -12e-9\varepsilon-4>0.
+\tag{K825-12}
+\]
+When the doubleton exists, four times its left and right low-hole gains are
+\[
+\begin{aligned}
+&17v^2+(44e-86)v+11e^2-28e+9,\\
+&17v^2+(44e-38)v+11e^2-4e-11,
+\end{aligned}
+\tag{K825-13}
+\]
+again positive for \(v\ge e\). These formulas cover every low hole. The
+only additional candidate hole has exact gain
+\[
+(d-1)(d-2)-(2v+2)(2d-3)=\Gamma(v,e).
+\tag{K825-14}
+\]
+It equals \(-6v-4,-2v-2,2v+2,6v+8,10v+16\) for
+\(e=4,5,6,7,8\), respectively. This proves both why \(c_0\) is retained
+in the first two cases and why it is uniquely deleted in the last three.
+
+### Negative non-atomic shortcut gains
+
+Delete the holes from an arbitrary oriented arc and let \(q\) be the number
+of edges of its compressed path. All internal backbone labels are at least
+\(L=2v+1\). The terminal and outer-triple labels are at least
+\(H=3v+2+\varepsilon\).
+
+If an endpoint is a hole, it is at most \(L+1\), and the direct bounds for
+\(q=2,3\), starting with \(L(a+b)-ab\), are strictly positive. If both
+endpoints are in the backbone and the middle label of a two-edge path is
+greater than \(n/2\), positivity is automatic. The remaining two-edge
+roles are finite block types:
+
+- for a retained triple connector,
+  \[
+  M_j=c_j(A_j+B_j)-A_jB_j
+  =-e^2+6ej-4ev+7e-8j^2+16jv-17j+22v-8;
+  \tag{K825-15}
+  \]
+  this is concave. Its first retained values for \(e=4,\ldots,8\) are
+  \(6v+4,2v+2,14v+9,10v+9,6v+7\), and its other endpoint satisfies
+  \[
+  2M_{t-1}=2e\varepsilon+6ev+5e-4\varepsilon^2
+  -8\varepsilon v-15\varepsilon+12v^2-5v-12>0;
+  \]
+- singleton margins increase with \(j\), and four times the first one is
+  \[
+  -3e^2+14e\varepsilon-6ev+16e+5\varepsilon^2
+  +46\varepsilon v+9v^2+44v-4>0;
+  \]
+- the two doubleton margins, multiplied by four, are
+  \[
+  25v^2+(10e+2)v+e^2-2e+9,\qquad
+  25v^2+(10e+38)v+e^2+10e+1;
+  \]
+- the closing middle label \(L\) has margin
+  \[
+  2v^2+(5-e)v+1+\varepsilon(1-e-2v)>0.
+  \]
+
+For a three-edge path, the presence of an internal high label gives the
+lower bound
+\[
+HL+n(H+L-n)
+=6v^2+(27-5e+7\varepsilon)v-e^2+e\varepsilon+5e-2>0;
+\tag{K825-16}
+\]
+the expression increases for \(v\ge e\), and its value at \(v=e\) is
+\(2(4e\varepsilon+16e-1)\). Only the doubleton window and the closing
+window can have two internal non-high labels. Their exact margins are
+\[
+{17v^2+(2e+36)v-e^2+12e-3\over2}>0
+\]
+and
+\[
+9v^2+(15-4e+7\varepsilon)v-e^2+e\varepsilon+3e>0,
+\]
+respectively.
+
+For \(q=4\), distinct endpoints and the lower bound \(L\) on internal
+labels give the uniform margin
+\[
+3v^2+(27-6e)v-e^2+5e-3.
+\tag{K825-17}
+\]
+It is positive for \(v\ge e\), except at \((e,v)=(8,8)\), or \(n=47\).
+At that one row direct block substitution gives minimum four-edge margin
+\(1446\) over all endpoint types, minimum nontrivial compressed-path margin
+\(55\), and minimum hole gain \(96\). For every \(q\ge5\), it is enough to use
+\[
+2Ln+3L^2-n^2=(e+7v)(v+4-e)>0.
+\tag{K825-18}
+\]
+This completes the all-\(v\ge e\) shortcut hypothesis without enumerating a
+subset.
+
+The omitted \(r=0\) rows have the following exact finite certificates. The
+last two columns are the minimum nontrivial compressed-path margin and the
+minimum hole gain. They are obtained by direct integer substitution in the
+fixed block word, not by subset maximization.
+
+| \(n\) | \(K(\tau_n)\) | min path margin | min hole gain |
+|---:|---:|---:|---:|
+| 13 | 724 | 4 | 40 |
+| 18 | 1851 | 13 | 54 |
+| 19 | 2186 | 8 | 74 |
+| 24 | 4309 | 10 | 92 |
+| 25 | 4898 | 16 | 10 |
+| 30 | 8333 | 31 | 12 |
+| 31 | 9248 | 25 | 38 |
+| 36 | 14311 | 43 | 44 |
+| 37 | 15608 | 36 | 76 |
+| 42 | 22613 | 49 | 86 |
+
+Together with the \(n=47\) substitution, these positive margins complete the
+backbone proof on the symbolic domain.
+
+### Exact score evaluation
+
+For a nonempty path \(P=(p_1,\ldots,p_s)\), write
+\[
+\mathcal C(x,P,y)=xp_1+\sum_{i=1}^{s-1}p_ip_{i+1}+p_sy.
+\]
+Before the optional deletion of \(c_0\), the tail score is exactly
+\[
+Ld+\sum_{j=0}^{v-2}\mathcal C(E_j,P_j,E_{j+1})
+ +\mathcal C(E_{v-1},P_{v-1},L).
+\tag{K825-19}
+\]
+For example, a triple summand is
+\[
+2(e^2+10ev+e-4j^2-4jv-8j+24v^2+v-4).
+\]
+Splitting (K825-19) into triple, optional-doubleton, and singleton ranges and
+using the standard sums of \(j\) and \(j^2\) gives
+\(\mathcal Q(v,e,\varepsilon)-(4e-7)\chi\). Deleting \(c_0\) changes the
+score by (K825-14), so choosing the positive part of that change gives
+(K825-4). This derives the formula directly from the blocks and also proves
+its integrality.
+
+### The fourteen explicit orders
+
+The public construction uses the fourteen fixed rows in (UC21) where the
+symbolic inequality \(v\ge e-2\) fails. For each row, the unique maximizing
+subset is a tail \(\{m,\ldots,n\}\). The same shortcut-budget lemma is
+certified by the two positive local margins shown here.
+
+| \(n\) | \(m\) | \(K(\tau_n)\) | min path margin | min hole gain |
+|---:|---:|---:|---:|---:|
+| 9 | 4 | 256 | 8 | 15 |
+| 10 | 4 | 346 | 1 | 26 |
+| 11 | 5 | 459 | 17 | 8 |
+| 12 | 5 | 593 | 10 | 19 |
+| 14 | 6 | 917 | 18 | 20 |
+| 15 | 6 | 1125 | 8 | 35 |
+| 16 | 7 | 1346 | 28 | 9 |
+| 17 | 7 | 1609 | 9 | 18 |
+| 20 | 9 | 2554 | 57 | 13 |
+| 21 | 9 | 2976 | 45 | 14 |
+| 22 | 9 | 3431 | 21 | 20 |
+| 26 | 10 | 5516 | 1 | 95 |
+| 27 | 11 | 6204 | 37 | 30 |
+| 32 | 13 | 10299 | 13 | 18 |
+
+These are finite exact certificates for already displayed fixed orders, not
+an enumeration of their subsets or of alternative permutations. Thus
+(K825-2)--(K825-4), together with this table, determine \(K(\tau_n)\) for
+every \(n\ge9\).
+
+### Asymptotic and geometric consequences
+
+Since \(e\) is bounded and \(v=(n-e+1)/5\), (K825-4) gives the rigorous
+asymptotic theorem
+\[
+\boxed{
+K(\tau_n)={143\over4}v^3+O(v^2)
+          ={143\over500}n^3+O(n^2).
+}
+\tag{K825-20}
+\]
+In particular,
+\[
+{143\over500}<{8\over25},\qquad
+{8\over25}-{143\over500}={17\over500}.
+\tag{K825-21}
+\]
+The regular-direction pair score of this core still has coefficient \(8/25\);
+the improvement comes from optimizing the induced-subset shortcut objective
+\(K\), hence from the variable-spacing angular construction.
+
+Insert label \(1\) into any gap \(g\) of \(\tau_n\), and call the resulting
+complete order \(\sigma_{n,g}\). Exact label-one elimination and (CR22) give
+\[
+\Lambda(\sigma_{n,g})=K(\tau_n),\qquad
+{K(\tau_n)\over\pi}-n^2
+<\rho_{\sigma_{n,g}}<{K(\tau_n)\over\pi}.
+\tag{K825-22}
+\]
+Consequently every such insertion family satisfies
+\[
+{\rho_{\sigma_{n,g}}\over n^3}\longrightarrow{143\over500\pi}.
+\tag{K825-23}
+\]
+At the global level only the one-sided substitution is valid:
+\[
+\boxed{
+\Lambda_n\le K(\tau_n),\qquad
+R_2^*(n)<{\Lambda_n\over\pi}\le{K(\tau_n)\over\pi}.
+}
+\tag{K825-24}
+\]
+In particular, \(K(\tau_n)/\pi-n^2<R_2^*(n)\) is **not** inferred. Combining
+the new upper coefficient with the current all-fixed-prefix lower coefficient
+\(C_{\rm AF}=(434+4\sqrt2)/1587\) yields
+\[
+\boxed{
+C_{\rm AF}
+\le\liminf_{n\to\infty}{\Lambda_n\over n^3}
+\le\limsup_{n\to\infty}{\Lambda_n\over n^3}
+\le{143\over500}.
+}
+\tag{K825-25}
+\]
+\[
+\boxed{
+{C_{\rm AF}\over\pi}
+\le\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\le\limsup_{n\to\infty}{R_2^*(n)\over n^3}
+\le{143\over500\pi}.
+}
+\tag{K825-26}
+\]
+The remaining coefficient gap is
+\((9941-2000\sqrt2)/793500>0\). No convergence, exact global leading
+constant, equality \(\Lambda_n=K(\tau_n)\), or minimizing-order
+classification follows.
+
+## 9. Asymptotic Consequences And Non-Consequences
 
 Dividing (CR28) by \(\pi n^3\) gives the exact vanishing-error comparison
 \[
@@ -8740,14 +9151,16 @@ and
 \le
 \limsup_{n\to\infty}{\Lambda_n\over n^3}
 \le
-{8\over25}.
+{143\over500}.
 \tag{CR42}
 \]
 
 None of these statements proves that either normalized sequence converges, or
 identifies an exact leading constant. In particular, the bounded values in
-(CR34) do not give a closed-form evaluation of (CR28a); \(8/25\) remains an
-upper coefficient, not an exact constant.
+(CR34) do not give a closed-form evaluation of (CR28a); \(143/500\) is the
+current upper coefficient, not an exact constant. The older \(8/25\)
+coefficient remains the exact product-distance asymptotic but is superseded
+for \(\Lambda_n\) and the geometric sandwich by (K825-25)--(K825-26).
 
 Further non-consequences are important.
 

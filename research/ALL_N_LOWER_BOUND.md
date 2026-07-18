@@ -422,9 +422,19 @@ Last updated: 2026-07-18
   `research/PRODUCT_DISTANCE_SURROGATE.md` satisfy
   \(W(\sigma_n)\le d_n(d_n-1)/2\), where
   \(d_n=\lceil(4n+8)/5\rceil\). The core construction and insertion theorem
-  therefore sharpen the current geometric upper coefficient to
+  therefore give the regular-direction geometric upper coefficient
   \[
   \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {8\over25\pi}.
+  \]
+- EXACT THEOREM (later shortcut refinement): evaluating the induced-subset
+  objective \(K\) exactly on the same canonical core order gives
+  \[
+  K(\tau_n)={143\over500}n^3+O(n^2).
+  \]
+  Exact label-one elimination and the fixed-order angular sandwich therefore
+  sharpen the current geometric upper coefficient to
+  \[
+  \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {143\over500\pi}.
   \]
 - DISPROVED CLAIM:
   \[
@@ -480,10 +490,11 @@ certificate.
 None of these lower-bound results is an upper
 bound on the true problem. The order-independent regular-core baseline has
 upper coefficient \(1/\pi\), the zigzag refinement gives \(1/(2\pi)\), and
-the later product-distance construction sharpens the current upper
-coefficient to \(8/(25\pi)\). This still does not match the current lower
-coefficient. Thus no exact leading constant, limiting coefficient, or
-leading-term asymptotic formula is proved.
+the later product-distance construction gives \(8/(25\pi)\) on regular
+directions. Exact shortcut evaluation of the same core order sharpens the
+current variable-spacing upper coefficient to \(143/(500\pi)\). This still
+does not match the current lower coefficient. Thus no exact leading constant,
+limiting coefficient, or leading-term asymptotic formula is proved.
 
 ## Domain And Definitions
 
@@ -2705,7 +2716,8 @@ In particular,
 \[
 \boxed{R_2^*(n)=\Theta(n^3)}.
 \]
-The later exact product-distance construction sharpens the right endpoint to
+The later exact shortcut evaluation of the canonical eight-twenty-fifths
+core order sharpens the right endpoint to
 
 \[
 {434+4\sqrt2\over1587\pi}
@@ -2713,13 +2725,14 @@ The later exact product-distance construction sharpens the right endpoint to
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
 \limsup_{n\to\infty}{R_2^*(n)\over n^3}
-\le {8\over25\pi}.
+\le {143\over500\pi}.
 \tag{23}
 \]
 
 The coefficient gap in (23) remains open. The value \(1/(2\pi)\) is the
-limsup coefficient of the zigzag construction, not the current best bound.
-Neither the improved upper bound nor the lower bound proves that
+limsup coefficient of the zigzag construction, and \(8/(25\pi)\) is the
+older regular-direction product-distance coefficient; neither is the current
+best bound. Neither the improved upper bound nor the lower bound proves that
 \(R_2^*(n)/n^3\) has a limit, and no exact leading constant is claimed.
 
 ## Gap And Counterexample Audit
@@ -2760,8 +2773,10 @@ Neither the improved upper bound nor the lower bound proves that
 - The order-independent radius \(U_n\) remains a valid regular-direction
   baseline. The zigzag radius \(V_n\) improves its asymptotic upper coefficient
   from \(1/\pi\) to \(1/(2\pi)\); the later product-distance construction
-  improves it again to \(8/(25\pi)\), which still does not match the
-  current all-fixed-\(k\) lower coefficient
+  improves the regular-direction value again to \(8/(25\pi)\). The exact
+  shortcut theorem for the same core improves the variable-spacing upper
+  coefficient to \(143/(500\pi)\), which still does not match the current
+  all-fixed-\(k\) lower coefficient
   \[
   {434+4\sqrt2\over1587\pi}.
   \]

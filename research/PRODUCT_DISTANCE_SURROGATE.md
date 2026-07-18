@@ -86,8 +86,19 @@
   \[
   \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{8\over25\pi}.
   \]
-  This last statement is an upper coefficient, not an exact geometric
-  asymptotic constant.
+  This last statement is the regular-direction upper coefficient, not an
+  exact geometric asymptotic constant.
+- **EXACT THEOREM (later shortcut evaluation):** for the same canonical core
+  order \(\tau_n=\sigma_n\), the induced-subset objective \(K(\tau_n)\) has
+  the unique symbolic maximizing backbones stated in (UC24a), the exact
+  symbolic formula (K825-4), fourteen exact explicit initial values, and
+  \[
+  K(\tau_n)={143\over500}n^3+O(n^2).
+  \]
+  Exact label-one elimination and the fixed-order angular sandwich sharpen
+  the current upper coefficients to \(143/500\) for \(\Lambda_n\) and
+  \(143/(500\pi)\) geometrically. This does not change the exact \(8/25\)
+  product-distance asymptotic.
 - **EXACT THEOREM (residue-class matching):** for \(n\ge9\),
   \[
   H_n=
@@ -3008,6 +3019,51 @@ This is a geometric upper coefficient, not a proof that
 constant. The cases \(n=9,10,11\) establish the all-\(n\) combinatorial
 construction but are not used by the insertion theorem.
 
+### Later exact shortcut evaluation of the same core order
+
+The regular-direction conclusion (UC24) does not exhaust the geometric value
+of this construction. Let \(\tau_n=\sigma_n\) as a cyclic core order and use
+the induced-subset objective \(K\) from
+`research/FIXED_ORDER_CYCLE_RATIO.md`. The later shortcut-budget theorem
+in Section 8 determines \(K(\tau_n)\) exactly for every \(n\ge9\).
+Equations (K825-2)--(K825-4) cover the symbolic domain, where the unique
+maximizing subset is
+\[
+U_n^*=
+\begin{cases}
+\{2v+1,\ldots,n\},&e=4,5,\\
+\{2v+1,\ldots,n\}\setminus\{2v+2\},&e=6,7,8,
+\end{cases}
+\tag{UC24a}
+\]
+and the fourteen orders in (UC21) have the unique maximizing tails recorded
+in the fourteen-row table of the K825 theorem. In particular,
+\[
+K(\tau_n)={143\over500}n^3+O(n^2).
+\tag{UC24b}
+\]
+
+Inserting label \(1\) in any gap gives a complete order
+\(\widehat\sigma_{n,g}\) with
+\[
+\Lambda(\widehat\sigma_{n,g})=K(\tau_n).
+\tag{UC24c}
+\]
+The exact fixed-order angular sandwich therefore sharpens the current global
+upper consequence to
+\[
+\boxed{
+\limsup_{n\to\infty}{\Lambda_n\over n^3}\le{143\over500},
+\qquad
+\limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{143\over500\pi}.
+}
+\tag{UC24d}
+\]
+This does not change the exact product-distance theorem (UC23):
+\(W_n/n^2\to8/25\). The improvement is specific to shortcut optimization
+and variable angular spacings; it proves neither convergence nor equality of
+the displayed global upper bounds.
+
 ## Exact Core Feasibility
 
 For \(n\ge4\), assign the entry in position \(k\) of \(\sigma\) to polar
@@ -4258,8 +4314,9 @@ R_2^*(10m+3)
 \tag{NR42}
 \]
 
-Because (NR41) is weaker than the existing \(8/(25\pi)\) construction, no
-new geometric consequence follows. In particular, this family-specific
+Because (NR41) is weaker than both the regular-direction \(8/(25\pi)\)
+construction and its later \(143/(500\pi)\) shortcut refinement, no new
+geometric consequence follows. In particular, this family-specific
 surrogate obstruction is not a geometric lower bound and says nothing about
 other orders, unequal directions, or non-regular configurations.
 

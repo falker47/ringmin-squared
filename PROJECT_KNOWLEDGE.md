@@ -1363,7 +1363,7 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   {434+4\sqrt2\over1587}
   \le\liminf{\Lambda_n\over n^3}
   \le\limsup{\Lambda_n\over n^3}
-  \le{8\over25}.
+  \le{143\over500}.
   \]
   This proves neither convergence nor an exact leading constant.
 - EXACT THEOREM / DISTINCTION: \(\Lambda\) is natively a complete-order
@@ -1373,6 +1373,80 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   general. Only the one-sided comparison
   \(\Lambda_n\le(n-1)W_n\) is proved; equality and equality of minimizing
   order sets are not claimed.
+- EXACT THEOREM (CANONICAL EIGHT-TWENTY-FIFTHS \(K\)): let \(\tau_n\) be the
+  core order returned by `eight_twenty_fifths_order(n)`. On the symbolic
+  domain write
+  \[
+  d=4v+e,\qquad n=5v+e-1,\qquad 4\le e\le8,
+  \]
+  and put \(L=2v+1\). The unique maximizing subset is
+  \[
+  U_n^*=
+  \begin{cases}
+  \{L,\ldots,n\},&e=4,5,\\
+  \{L,\ldots,n\}\setminus\{L+1\},&e=6,7,8.
+  \end{cases}
+  \]
+  With
+  \(t=\lfloor(v+e-2)/2\rfloor\),
+  \(\varepsilon=v+e-2-2t\), and
+  \(\chi=\mathbf1_{\{v=e-2\}}\), define
+  \[
+  \begin{aligned}
+  \mathcal Q(v,e,\varepsilon)={1\over8}\bigg[{}
+  &286v^3+(180e-91+10\varepsilon)v^2\\
+  &+(38e^2-34e-2-8(e+2)\varepsilon)v\\
+  &+{e(8e^2-9e-2)\over3}
+   +(-2e^2-10e+21)\varepsilon\bigg],\\
+  \Gamma(v,e)&=(4e-22)v+e^2-7e+8.
+  \end{aligned}
+  \]
+  Then
+  \[
+  K(\tau_n)=\mathcal Q(v,e,\varepsilon)
+  -(4e-7)\chi+\max\{0,\Gamma(v,e)\}.
+  \]
+  The fourteen nonsymbolic public rows also have unique maximizing tails:
+  \[
+  \begin{array}{c|rrrrrrrrrrrrrr}
+  n&9&10&11&12&14&15&16&17&20&21&22&26&27&32\\
+  m&4&4&5&5&6&6&7&7&9&9&9&10&11&13\\
+  K&256&346&459&593&917&1125&1346&1609&2554&2976&3431&5516&6204&10299
+  \end{array}
+  \]
+  where the maximizer is \(\{m,\ldots,n\}\). The proof is an exact
+  shortcut-budget/backbone argument, not finite subset enumeration.
+- EXACT ASYMPTOTIC CONSEQUENCE:
+  \[
+  K(\tau_n)={143\over500}n^3+O(n^2),
+  \qquad {143\over500}={8\over25}-{17\over500}.
+  \]
+  Any insertion of label \(1\) has
+  \(\Lambda(\sigma_{n,g})=K(\tau_n)\) and fixed-order threshold
+  \[
+  {K(\tau_n)\over\pi}-n^2
+  <\rho_{\sigma_{n,g}}<{K(\tau_n)\over\pi}.
+  \]
+  Globally, only \(\Lambda_n\le K(\tau_n)\) and
+  \(R_2^*(n)<\Lambda_n/\pi\le K(\tau_n)/\pi\) follow. Therefore
+  \[
+  {434+4\sqrt2\over1587}
+  \le\liminf{\Lambda_n\over n^3}
+  \le\limsup{\Lambda_n\over n^3}
+  \le{143\over500},
+  \]
+  with the same bracket divided by \(\pi\) for \(R_2^*(n)/n^3\). No
+  convergence, exact leading constant, or global minimizing-order theorem is
+  proved.
+- VERIFIED FACT (BOUNDED EXACT DOSSIER DIAGNOSTIC): the standalone
+  `ops/TASK-20260718__canonical_eight_twenty_fifths_k/exact_diagnostic.py`
+  reconstructs the block order without production imports, checks
+  \(9\le n\le120\) by an increasing-path max-plus dynamic program, and
+  audits every oriented shortcut budget; it also compares the direct block
+  score with the formula through \(n=1000\). It checks 8,495,284 DP
+  transitions and 561,568 oriented arcs, obtains one optimizer on all 112
+  full-certificate rows, and uses neither subset nor permutation enumeration.
+  This corroborates but does not replace the symbolic proof.
 - VERIFIED FACT: `src/power_ringmin/fixed_order_cycle_ratio.py` implements the
   exact scorer by maximum descending-path closure, a one-wrap macro graph, and
   Karp maximum-cycle-mean dynamic programming in integer/`Fraction`
@@ -1730,8 +1804,10 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   asymptotic conclusion.
 - INTERPRETATION: the known lower and upper leading coefficients do not match.
   The value \(1/(2\pi)\) is the proved zigzag coefficient, while the later
-  matching product-distance construction improves the current limsup upper
-  coefficient to \(8/(25\pi)\). No geometric limit has been proved.
+  matching product-distance construction gives the regular-direction
+  coefficient \(8/(25\pi)\). The exact \(K\) theorem for the same core order
+  improves the current variable-spacing limsup upper coefficient to
+  \(143/(500\pi)\). No geometric limit has been proved.
 
 ## Product-Distance Surrogate
 
@@ -1975,8 +2051,10 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \qquad
   \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le{8\over25\pi}.
   \]
-  The geometric conclusion is an upper coefficient, not an exact leading
-  constant or a convergence theorem.
+  This remains the exact regular-direction product-distance coefficient; its
+  geometric conclusion is a valid historical upper bound, not an exact
+  leading constant or a convergence theorem. The later \(K\) theorem above
+  sharpens the variable-spacing upper coefficient to \(143/(500\pi)\).
 - EXACT THEOREM: assigning \(\sigma\) to equally spaced polar directions
   makes the core strictly all-pairs feasible at
   \[
@@ -2558,9 +2636,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   explicit interval shifts, and one bounded direct construction diagnostic.
 - INTERPRETATION: the cubic order is settled; after the zigzag improvement
   from \(1/\pi\) to \(1/(2\pi)\), the matching product-distance construction
-  improves the current regular-direction upper coefficient to
-  \(8/(25\pi)\). Further narrowing the geometric coefficient gap is more
-  valuable than automatic `n=7` enumeration.
+  improves the regular-direction upper coefficient to \(8/(25\pi)\). The
+  exact shortcut evaluation of the same core order further improves the
+  variable-spacing upper coefficient to \(143/(500\pi)\). Further narrowing
+  the geometric coefficient gap is more valuable than automatic `n=7`
+  enumeration.
 - COMPLETED PRIORITY: `research/FIXED_ORDER_ANGULAR_STN.md` now proves the
   fixed-order angular/STN equivalence, negative-cycle and potential theorems,
   radius dependence, half-open endpoint semantics, and explicit interval
@@ -2778,15 +2858,23 @@ Candidate-set extraction uses the following finite-certificate semantics.
   equivalent to full score \(T=W_n\), and PG49 is the exact support of
   full-optimal scaffold bijections. One polynomial standalone diagnostic
   scans local types and two sharp witnesses without enumerating bijections.
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, derive an exact symbolic
-  count of relation-compatible, equivalently full-optimal, scaffold
-  bijections from the nested Ferrers thresholds, without enumerating path
-  permutations.
+- COMPLETED PRIORITY: the canonical eight-twenty-fifths core order now has an
+  exact all-domain \(K\) theorem. The symbolic maximizer is the tail from
+  \(2v+1\), with connector \(2v+2\) additionally removed exactly for
+  \(e=6,7,8\); all fourteen explicit orders have unique maximizing tails.
+  Exact block summation gives the quasipolynomial (K825-4) and coefficient
+  \(143/500\). The proof uses the shortcut-budget backbone lemma and one
+  bounded local diagnostic, without subset or permutation enumeration.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, evaluate \(K\) exactly for
+  the sharper residue-one and residue-two product-distance orders, then
+  compare them pointwise and asymptotically with the canonical
+  eight-twenty-fifths family using shortcut budgets rather than subset
+  enumeration.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order
   active-subsystem description or settle `n<=11`.
-- OPEN QUESTION: can the upper coefficient \(8/(25\pi)\) be lowered toward
+- OPEN QUESTION: can the upper coefficient \(143/(500\pi)\) be lowered toward
   the current lower coefficient
   \[
   {434+4\sqrt2\over1587\pi},

@@ -11,6 +11,17 @@ constructions, and the global classification
 It also records the exact first minimizer-set restriction:
 \(\mathcal M_n=\mathcal M_n^{(\le2)}\) for \(3\le n\le92\), while
 \(\mathcal M_{93}\subsetneq\mathcal M_{93}^{(\le2)}\).
+The induced-subset objective is now evaluated exactly on the canonical
+eight-twenty-fifths core order as well. Its unique maximizing backbone is a
+tail, with one additional connector deletion in residue parameters
+\(e=6,7,8\), and
+\[
+K(\tau_n)={143\over500}n^3+O(n^2).
+\]
+This sharpens the current upper coefficients for \(\Lambda_n\) and the
+geometric problem to \(143/500\) and \(143/(500\pi)\), respectively. The
+proof uses symbolic shortcut budgets plus bounded local certificates, not
+subset or permutation enumeration.
 One explicit parametric perturbation of the matching \(8/25\) construction
 is now closed as well. On \(n=10m+3\), reversing the outer entries of one
 triple has score \(T\) for every nonzero triple index and
@@ -348,7 +359,9 @@ R_2^*(n)<{\Lambda_n\over\pi}
 \]
 This route recovers the upper coefficient \(8/(25\pi)\) without using the
 radius-one insertion theorem; it does not prove convergence, equality, or
-common minimizing orders. An exact test-only sweep covers all 437 canonical
+common minimizing orders. The later canonical-order shortcut theorem evaluates
+\(K(\tau_n)\) directly and sharpens this upper coefficient to
+\(143/(500\pi)\). An exact test-only sweep covers all 437 canonical
 core orders and 2,957 insertion gaps through `n=8`, representing the same
 2,956 complete classes. The duplicate is the explicit two-arc `n=3` case.
 
@@ -794,8 +807,10 @@ constant for Power-Ringmin.
 
 The zigzag regular-direction construction historically improved the proved
 upper coefficient from \(1/\pi\) to \(1/(2\pi)\). It is now superseded by the
-product-distance construction below, which gives \(8/(25\pi)\). Neither upper
-bound matches the current all-fixed-\(k\) geometric lower coefficient
+product-distance construction below, which gives \(8/(25\pi)\) on regular
+directions. Exact shortcut evaluation of the same core order supersedes both
+for the variable-spacing problem and gives \(143/(500\pi)\). This still does
+not match the current all-fixed-\(k\) geometric lower coefficient
 \[
 {434+4\sqrt2\over1587\pi}.
 \]
@@ -829,6 +844,16 @@ the constructed order \(\sigma_n\) satisfies
 \limsup_{n\to\infty}{R_2^*(n)\over n^3}
 \le {8\over25\pi}.
 \]
+The later exact induced-subset theorem evaluates this same canonical core
+order more sharply:
+\[
+K(\tau_n)={143\over500}n^3+O(n^2),
+\qquad
+\limsup_{n\to\infty}{R_2^*(n)\over n^3}
+\le {143\over500\pi}.
+\]
+The second conclusion uses variable angular spacings and does not alter the
+exact regular-direction limit \(W_n/n^2\to8/25\).
 
 The adjacent relaxation is now fully characterized. If
 \[
@@ -1839,18 +1864,19 @@ saturation for every \(n\ge3\).
    contact graph, does not settle \(n\le11\), and is not based on the checked
    cases \(n=5,6\).
 
-6. The symbolic product-distance construction supersedes zigzag and gives the
-   rigorous liminf/limsup bracket
+6. The exact shortcut evaluation of the symbolic product-distance core order
+   supersedes both the zigzag and regular-direction upper coefficients and
+   gives the rigorous liminf/limsup bracket
    \[
    {434+4\sqrt2\over1587\pi}
    \le
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
    \le
    \limsup_{n\to\infty}{R_2^*(n)\over n^3}
-   \le {8\over25\pi}.
+   \le {143\over500\pi}.
    \]
    The upper value is a limsup coefficient, not an exact leading constant; the
-   construction does not prove convergence.
+   construction does not prove convergence or global optimality of its order.
 
 7. The product-distance surrogate isolates exactly what the angular majorant
    needs from a regular-direction order. The explicit \(T_n\) family proves
@@ -1893,8 +1919,12 @@ saturation for every \(n\ge3\).
    dihedral core minimizers, and derive 783 complete minimizer classes only
    after that proof. Insertion independence for
    \(\Lambda\) does not transfer to the exact angular threshold. The resulting
-   geometric upper bound recovers the known coefficient \(8/(25\pi)\); it
-   proves no exact geometric optimum or new coefficient.
+   general comparison recovers the regular-direction coefficient
+   \(8/(25\pi)\). The later shortcut-budget theorem evaluates \(K\) on the
+   canonical core order itself, gives the unique maximizing backbones, and
+   sharpens the geometric upper coefficient to \(143/(500\pi)\). It still
+   proves no exact geometric optimum or global minimizing-order
+   classification.
 
 10. The exact two-nested-tail obstruction explains the finite mechanism used
     at \(n=9,10\) without promoting those cases to an asymptotic pattern.
@@ -2108,10 +2138,8 @@ saturation for every \(n\ge3\).
   \[
   {434+4\sqrt2\over1587\pi}
   \]
-  and the
-  product-distance upper
-  coefficient \(8/(25\pi)\) be narrowed by a sharper angular construction or
-  a stronger lower bound?
+  and the current shortcut upper coefficient \(143/(500\pi)\) be narrowed by
+  a sharper angular construction or a stronger lower bound?
 - CLOSED QUESTION: the global optimum of the five-parameter two-prefix
   certificate, including every boundary and collision face, is
   \(C_{2,*}\) at the unique point displayed above.
@@ -2475,6 +2503,14 @@ Completed:
 
 Immediate:
 
+- The canonical eight-twenty-fifths \(K\)-evaluation task is complete. The
+  symbolic block order has one unique maximizing backbone, with connector
+  \(2v+2\) deleted exactly for \(e=6,7,8\), and its exact quasipolynomial has
+  leading coefficient \(143/500\). The fourteen explicit rows also have
+  unique maximizing tails. A shortcut-budget proof supplies the all-parameter
+  result, while one bounded standard-library diagnostic uses max-plus dynamic
+  programming and local arc margins without enumerating subsets or
+  permutations. No production or test-module path changed.
 - The first explicit parametric perturbation task is complete. For
   \(n=10m+3\), reversing one triple path gives exact score \(T\) for
   \(s\ge1\) and \((d^2-1)/2\) for \(s=0\); all distance classes and the
@@ -2517,9 +2553,13 @@ Immediate:
 
 Next:
 
-- In a separate STRICT task, derive an exact symbolic count of
-  relation-compatible, equivalently full-optimal, scaffold bijections from
-  the nested Ferrers thresholds, without enumerating path permutations.
+- In a separate STRICT task, evaluate \(K\) exactly for the sharper
+  residue-one and residue-two product-distance orders, and compare them
+  pointwise and asymptotically with the canonical \(143/500\) family using
+  the same shortcut-budget method.
+- Derive an exact symbolic count of relation-compatible, equivalently
+  full-optimal, scaffold bijections from the nested Ferrers thresholds,
+  without enumerating path permutations.
 - Seek a geometric all-pairs construction or lower obstruction that narrows
   the remaining coefficient gap without relying on larger exhaustive finite
   certificates.
@@ -2545,21 +2585,21 @@ Deliberately deferred:
   `n=8` complete-order boundary.
 - Leading-order LP work in the induced-subset proof task.
 - Any claim that \(8/(25\pi)\) is the exact geometric asymptotic constant.
+- Any claim that \(143/(500\pi)\) is the exact geometric asymptotic constant.
 - Any claim that the radius-one threshold \(12\) is minimal.
 
 ## Recommended Next Atomic Task
 
-Task: derive an exact symbolic count of relation-compatible, equivalently
-full-optimal, scaffold bijections from the nested Ferrers thresholds, without
-enumerating path permutations.
+Task: evaluate \(K\) exactly for the sharper residue-one and residue-two
+product-distance core orders and compare them with the canonical
+eight-twenty-fifths family.
 
 Acceptance criteria:
 
-- derive the count directly from the monotone column thresholds
-  \(\kappa_j\) and Hall/Ferrers structure;
-- prove the formula symbolically for every \(m\ge3\), including the
-  triple/singleton transition and cyclic closing column;
-- use bounded exact arithmetic only as corroboration, without enumerating
-  path permutations or matchings;
-- keep the result at the product-distance scaffold level and make no new
-  geometric claim.
+- derive the two exact induced-subset maxima from their symbolic block words
+  and shortcut gains, without enumerating subsets or cyclic orders;
+- classify every maximizing subset and all residue/parity boundary rows;
+- compare the exact values with (K825-4), including the leading coefficient
+  and any finite crossover;
+- deduce only those \(\Lambda_n\) and geometric consequences justified by
+  exact label-one elimination and the fixed-order sandwich.
