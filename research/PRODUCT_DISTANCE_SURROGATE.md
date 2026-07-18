@@ -216,6 +216,16 @@
   Both families have cubic coefficient \(143/500\). This is a theorem about
   one explicit core-order family only; it has no geometric or global
   optimality consequence.
+- **EXACT THEOREM (later preclosing-PG46 shortcut evaluation):** for the
+  other sharp PG46 bijection, placing \(P_m\) in \(G_{2m-2}\), the same tail
+  is the sole induced-subset maximizer and
+  \[
+  K={572m^3+631m^2+235m+22\over2}.
+  \]
+  This value exceeds the closing PG46 value by \(6m\) and canonical K825 by
+  \(m^2-4\), so it is strictly larger than both for every \(m\ge3\). It
+  retains cubic coefficient \(143/500\). This is again a fixed-core-order
+  theorem with no geometric or global-optimality consequence.
 - **CONJECTURE:** none is proposed from nine finite cases.
 
 Fractions are oriented exactly as displayed below. The accepted angular
@@ -5636,6 +5646,13 @@ reconstructs only the prescribed order, runs a max-plus increasing-path DP,
 and checks every oriented shortcut arc; direct formula checks continue to
 \(m=1000\). It enumerates no subsets, permutations, or matchings and imports
 no project or test helper.
+The sole diagnostic for the later preclosing-PG46 \(K\) evaluation is the
+standalone standard-library script in
+ops/TASK-20260718__pg46_preclosing_exact_k/. For \(m=3,\ldots,30\), it
+reconstructs only the order placing \(P_m\) in \(G_{2m-2}\), runs a max-plus
+increasing-path DP, and checks every oriented shortcut arc; direct score and
+comparison checks continue through \(m=1000\). It enumerates no subsets,
+permutations, or matchings and imports no project or test helper.
 
 The following remain unresolved.
 
@@ -5673,6 +5690,14 @@ The following remain unresolved.
   exact block sum, every shortcut boundary, minimum row, K825 crossover, and
   unchanged coefficient \(143/500\) are proved without inferring geometric
   or global optimality.
+- **CLOSED CORE-ORDER QUESTION:** the later theorem
+  (KPG46P-1)--(KPG46P-20) in `research/FIXED_ORDER_CYCLE_RATIO.md` evaluates
+  \(K\) exactly for the other sharp PG46 shift, placing \(P_m\) in
+  \(G_{2m-2}\). Its unique tail, terminal hole ranges, altered cyclic
+  three-edge role, block sum, minimum row, and comparisons prove that it is
+  strictly worse than both closing PG46 and K825 on every admitted row, with
+  the same unchanged coefficient \(143/500\). No geometric or global
+  conclusion follows.
 - **OPEN QUESTION:** for which \(n\ge94\) is
   \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\)? Criterion (MS2)
   certifies equality whenever it holds, including \(n=94\), but no complete

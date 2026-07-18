@@ -1496,6 +1496,22 @@ coefficients are \(143/500\), while this PG46 value is eventually larger by
 \(n^2/100+O(n)\). This is a fixed-core-order theorem only; it proves no
 geometric or global optimality statement.
 
+The other sharp PG46 witness is now evaluated as well. Specializing PG46 so
+that \(P_m\) occupies \(G_{2m-2}\) leaves \(P_{2m-1}\) in the closing gap.
+The same tail \(S_m\) is the unique maximizing subset, but
+\[
+K={572m^3+631m^2+235m+22\over2}.
+\]
+The exact comparisons are
+\[
+K-K_{\rm closing}=6m,\qquad K-K_{825}=m^2-4,
+\]
+so this witness is strictly worse than both comparators for every \(m\ge3\).
+The proof treats seven hole ranges, every compressed-shortcut length, the
+altered cyclic three-edge path, and the minimum row. It retains cubic
+coefficient \(143/500\) and proves no geometric or global optimality
+statement.
+
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also a disproved claim.
@@ -2955,6 +2971,21 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   tied, and retains coefficient \(143/500\). The theorem covers every block,
   shortcut, closure, and minimum-row boundary; it is not a geometric or
   global optimality result.
+- EXACT PRECLOSING-PG46 CORE-ORDER THEOREM: for the other sharp PG46
+  bijection, placing \(P_m\) in \(G_{2m-2}\), the exact induced-subset argmax
+  is again the singleton family
+  \(\{\{4m+1,\ldots,10m+3\}\}\), and
+
+  \[
+  K={572m^3+631m^2+235m+22\over2}.
+  \]
+
+  It exceeds the closing value by \(6m\) and K825 by \(m^2-4\), so it is
+  strictly worse than both for every \(m\ge3\), with no parity, tie, or
+  minimum-row exception. Both PG46 witnesses share cubic and quadratic
+  coefficients; the preclosing one is worse by a linear term. The theorem
+  covers every hole, shortcut, closure, and boundary but has no geometric or
+  global-optimality consequence.
 - VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the sole standalone
   standard-library script in
   ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
@@ -2999,6 +3030,15 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   It enumerates no subsets, permutations, or matchings and imports no project
   or test helper. This bounded check corroborates rather than proves the
   all-\(m\) theorem.
+- VERIFIED FACT (FINITE EXACT PRECLOSING-PG46 K DIAGNOSTIC): the sole
+  standalone standard-library script in
+  ops/TASK-20260718__pg46_preclosing_exact_k/ reconstructs only the order
+  placing \(P_m\) in \(G_{2m-2}\). For \(m=3,\ldots,30\), it checks the exact
+  score, unique optimizer through an increasing-path max-plus DP, every
+  isolated-hole gain, and every oriented shortcut arc. Direct score and
+  comparison checks continue through \(m=1000\). It enumerates no subsets,
+  permutations, or matchings and imports no project or test helper. This
+  bounded check corroborates rather than proves the all-\(m\) theorem.
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
   \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved

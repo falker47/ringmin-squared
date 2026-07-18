@@ -162,6 +162,18 @@ so it supplies no coefficient improvement. One standard-library diagnostic
 uses a max-plus increasing-path DP and shortcut audit without enumerating
 subsets, permutations, or matchings. No geometric or global conclusion is
 drawn.
+The corresponding question is also closed for the other sharp PG46 witness,
+which places \(P_m\) in \(G_{2m-2}\). It has the same sole maximizing tail
+and
+\[
+K={572m^3+631m^2+235m+22\over2}.
+\]
+It exceeds the closing value by \(6m\) and canonical K825 by \(m^2-4\);
+hence it is strictly worse than both for every \(m\ge3\), with no parity,
+tie, or minimum-row exception. The altered cyclic three-edge role is checked
+symbolically, and the cubic coefficient remains \(143/500\). One bounded
+standard-library max-plus/shortcut diagnostic is corroborative only; no
+geometric or global conclusion is drawn.
 The fixed-order certification debt is now closed mathematically by
 `research/FIXED_ORDER_ANGULAR_STN.md`, which proves exact angular/STN
 equivalence, the negative-cycle criterion, potential recovery, radius
@@ -2652,6 +2664,13 @@ Immediate:
   \(m=3\) onward. A sole bounded DP/scorer diagnostic corroborates the
   theorem without permutation or matching enumeration. The result is
   construction-specific and leaves the coefficient \(143/500\) unchanged.
+- The preclosing-PG46 induced-\(K\) task is complete. For the witness placing
+  \(P_m\) in \(G_{2m-2}\), the same tail is the unique maximizer and the
+  exact score is \((572m^3+631m^2+235m+22)/2\). It is larger than closing
+  PG46 by \(6m\) and K825 by \(m^2-4\) on every admitted row. Seven hole
+  classes, every shortcut length, the changed cyclic closure, and \(m=3\)
+  are explicit; the result is construction-specific and keeps coefficient
+  \(143/500\).
 
 Next:
 
@@ -2688,16 +2707,14 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: evaluate \(K\) exactly for the other sharp PG46 witness, which places
-\(P_m\) in \(G_{2m-2}\), on the \(n=10m+3\) symbolic branch.
+Task: derive the leading asymptotics of
+\(\log\mathsf F_m^{\rm lab}\) from the exact PG49 Ferrers product.
 
 Acceptance criteria:
 
-- classify every maximizing subset and derive an exact formula or a precisely
-  delimited obstruction for every \(m\ge3\);
-- prove every block, shortcut, cyclic-closure, minimum-row, and boundary
-  range symbolically;
-- compare pointwise and asymptotically with both the closing PG46 value and
-  canonical K825;
-- use at most one standard-library DP/scorer diagnostic, with no permutation
-  or matching enumeration and no geometric or global inference.
+- obtain the leading term and a rigorous explicit error order directly from
+  \(\prod_{j=1}^{2m-1}(j+1-\kappa_j)\);
+- control the ceiling cutoffs and endpoint ranges without permutation or
+  matching enumeration;
+- distinguish labelled-count asymptotics from any dihedral injectivity
+  statement and draw no geometric conclusion.
