@@ -77,3 +77,17 @@ Append-only. Add a new entry to correct previous information.
   complete, and manual user review is the only remaining action.
 - **Evidence:** `EVIDENCE.md#ev-005---independent-audits-and-final-scope`.
 - **Next step:** user review and, if accepted, manual commit; stop this task.
+
+## 2026-07-18 - Subsequent All-Fixed-k Correction
+
+- **Action:** cross-reference the later combination with the independent
+  normalized-simplex theorem.
+- **Result:** the absence of growing-\(k\) uniformity remains true, while the
+  supremum of the fixed-\(k\) liminf inequalities gives
+  \((434+4\sqrt2)/1587\) and the corresponding geometric coefficient.
+- **Interpretation:** the historical “no consequence” scope was valid for this
+  charging theorem in isolation, not as an absolute statement after both
+  independent inputs existed.
+- **Evidence:**
+  `../TASK-20260718__all_fixed_k_corollary/EVIDENCE.md#ev-002---exact-all-fixed-k-theorem`.
+- **Next step:** use the newer dossier for current project-wide consequences.

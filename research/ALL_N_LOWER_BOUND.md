@@ -2,7 +2,7 @@
 
 Date: 2026-07-13
 
-Last updated: 2026-07-17
+Last updated: 2026-07-18
 
 ## Classification
 
@@ -254,9 +254,32 @@ Last updated: 2026-07-17
   \]
   The convex telescope, canonical original-edge slack partition, and
   descending recursive induction are independent of the finite frontier
-  count. By itself this pointwise theorem supplies no uniform asymptotic control for
-  \(k=k(n)\), coefficient optimization, \(k\to\infty\) passage, or geometric
-  consequence.
+  count. By itself this pointwise theorem supplies no uniform asymptotic
+  control for \(k=k(n)\), but its separate fixed-\(k\) instances can be
+  combined with the normalized simplex as follows.
+- EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (ALL FIXED \(k\)): fix
+  \[
+  \alpha_\infty={13-2\sqrt2\over23}.
+  \]
+  For each finite \(k\), let \(x^{(k)}\) be the unique normalized simplex
+  maximizer and set
+  \[
+  \beta_i={1+\alpha_\infty+(3\alpha_\infty-1)x_i^{(k)}\over4},
+  \qquad
+  \lambda_i={(3\alpha_\infty-1)x_i^{(k)}\over\beta_i}.
+  \]
+  The parameters are strictly ordered and all-middle. Applying the charging
+  theorem separately at each fixed \(k\), taking the fixed-parameter liminf,
+  and then taking the supremum of the resulting scalar inequalities gives
+  \[
+  \liminf_{n\to\infty}{\Lambda_n\over n^3}
+  \ge {434+4\sqrt2\over1587},
+  \qquad
+  \liminf_{n\to\infty}{R_2^*(n)\over n^3}
+  \ge {434+4\sqrt2\over1587\pi}.
+  \]
+  No \(k=k(n)\), threshold uniform in \(k\), or interchange of limits is
+  used. This coefficient is strictly larger than \(C_{5,*}\).
 - EXACT THEOREM (globally optimized five-prefix linear-block refinement):
   optimizing the \(k=5\) specialization on the complete eleven-parameter
   compact closure reduces the ordered weights coordinatewise. All 21 clipping
@@ -285,6 +308,8 @@ Last updated: 2026-07-17
   \liminf{R_2^*(n)\over n^3}\ge{C_{5,*}\over\pi}.
   \]
   No finite rounding theorem at this irrational optimizer is asserted.
+  This remains the exact global optimum of the fixed \(k=5\) template, not
+  the strongest coefficient obtained from all fixed finite \(k\).
 - EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (EXPLICIT FIVE-PREFIX WITNESS):
   combine the preceding theorem at fixed \(k=5\) with the exact fifth
   normalized-simplex row and choose \(\alpha=13/30\). The resulting rational
@@ -432,14 +457,23 @@ the coefficient to
 {2263404122555368590593580404287
  \over8177706222298165502582585481000\pi}.
 \]
-The full global five-prefix optimization raises the current lower coefficient
-further to
+The full global five-prefix optimization raises the fixed-\(k=5\) template
+coefficient further to
 \[
 {346693217780244687187063490332457027500975566238012204
  +1228130489996268437333105902690103574002
   \sqrt{183342238504950468196395903}
  \over1312688475479610714750859896048564873968757997852345827\pi}.
 \]
+It remains the exact optimum of that five-prefix template. Combining the
+arbitrary finite-prefix charging theorem with the normalized optimizer at
+every fixed finite \(k\), all at the single strict density
+\(\alpha_\infty=(13-2\sqrt2)/23\), raises the current lower coefficient to
+\[
+\boxed{{434+4\sqrt2\over1587\pi}}.
+\]
+This is a supremum of fixed-\(k\) scalar inequalities, not a growing-\(k\)
+certificate.
 None of these lower-bound results is an upper
 bound on the true problem. The order-independent regular-core baseline has
 upper coefficient \(1/\pi\), the zigzag refinement gives \(1/(2\pi)\), and
@@ -1635,8 +1669,101 @@ The displayed finite inequality may be instantiated on each individual
 admissible row. It provides no cutoff threshold, rounding estimate, error
 bound, or parameter control uniform in a growing family \(k=k(n)\).
 Consequently it yields no interchange of \(n\to\infty\) with
-\(k\to\infty\), no optimization of a new coefficient, and no new geometric
-lower bound.
+\(k\to\infty\) and no infinite-prefix theorem. This does not preclude taking
+the supremum of separate scalar consequences proved at every fixed \(k\).
+
+### All-fixed-\(k\) corollary
+
+Fix
+
+\[
+\alpha_\infty={13-2\sqrt2\over23},
+\qquad
+A_\infty=3\alpha_\infty-1,
+\qquad
+S_\infty=1+\alpha_\infty.
+\]
+
+For each finite \(k\), let
+\(1=x_0^{(k)}>x_1^{(k)}>\cdots>x_k^{(k)}>0\) be the unique normalized
+simplex optimizer and define
+
+\[
+\beta_i={S_\infty+A_\infty x_i^{(k)}\over4},
+\qquad
+\lambda_i={A_\infty x_i^{(k)}\over\beta_i}.
+\]
+
+Since \(1/3<\alpha_\infty<1/2\), one has
+
+\[
+\beta_i-{S_\infty\over4}={A_\infty x_i^{(k)}\over4}>0,
+\qquad
+\alpha_\infty-\beta_i
+={A_\infty(1-x_i^{(k)})\over4}>0,
+\]
+
+and
+
+\[
+{S_\infty\over3}-\beta_i
+={S_\infty-3A_\infty x_i^{(k)}\over12}
+>{1-2\alpha_\infty\over3}>0.
+\]
+
+Thus the cutoffs are strictly ordered and all-middle. The map
+\(x\mapsto4A_\infty x/(S_\infty+A_\infty x)\) is strictly increasing,
+and the last displayed margin also gives \(\lambda_i<1\). Hence
+
+\[
+0<\beta_k<\cdots<\beta_1<\alpha_\infty<1,
+\qquad
+0<\lambda_k<\cdots<\lambda_1<1.
+\]
+
+For each fixed \(k\), these strict margins give some tuple-dependent
+threshold \(N_k\). Applying the finite theorem for \(n\ge N_k\), dividing by
+\(n^3\), and taking the fixed-parameter liminf gives
+
+\[
+L_\Lambda:=\liminf_{n\to\infty}{\Lambda_n\over n^3}
+\ge p(\alpha_\infty)+{A_\infty^3M_k\over8}.
+\]
+
+Indeed, on the middle branch,
+\(g(\alpha_\infty,\beta_i,\lambda_i)
+=A_\infty^2(x_i^{(k)})^2/2\), while
+\(\beta_{i-1}-\beta_i
+=A_\infty(x_{i-1}^{(k)}-x_i^{(k)})/4\).
+The inequality holds for every fixed finite \(k\), so \(M_k\nearrow1/3\)
+implies
+
+\[
+\boxed{
+L_\Lambda
+\ge\sup_{k\ge1}
+\left[p(\alpha_\infty)+{A_\infty^3M_k\over8}\right]
+={434+4\sqrt2\over1587}.
+}
+\]
+
+Here
+\(p(\alpha_\infty)=(9038+722\sqrt2)/36501\) and
+\(A_\infty^3/24=(944-630\sqrt2)/36501\), which sum to the displayed
+coefficient. The normalized cyclic-ratio sandwich then gives
+
+\[
+\boxed{
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\ge{434+4\sqrt2\over1587\pi}.
+}
+\]
+
+The quantifiers are \(\forall k\,\exists N_k\). There is no choice
+\(k=k(n)\), no common threshold, and no interchange of limits: the
+\(k\)-supremum is taken only after every fixed-\(k\) liminf inequality has
+been established. Since no finite \(k\) attains \(M_k=1/3\), this is not a
+new uniformly rounded finite-\(n\) theorem.
 
 ### Globally optimized five-prefix coefficient
 
@@ -1735,6 +1862,11 @@ polynomials, isolating intervals, strict branch inequalities, coefficient
 identity, and comparison margins. This is a fixed-\(k=5\) asymptotic
 optimization, not finite rounding at the irrational point, a growing-\(k\)
 passage, an exact residual, convergence, or a geometric leading constant.
+It remains the exact optimum of the five-prefix template. The all-fixed-\(k\)
+corollary is strictly stronger, since
+\[
+C_{5,*}<{277\over1000}<{434+4\sqrt2\over1587}.
+\]
 
 ### Explicit fixed five-prefix witness: asymptotic and finite forms
 
@@ -2491,10 +2623,9 @@ Therefore
 \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {1\over2\pi}.
 \tag{21}
 \]
-Combining (21) with the globally optimized five-prefix linear-block lower bound
-proved in this note yields
+Combining (21) with the all-fixed-\(k\) lower bound proved in this note yields
 \[
-{C_{5,*}\over\pi}
+{434+4\sqrt2\over1587\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -2509,7 +2640,7 @@ In particular,
 The later exact product-distance construction sharpens the right endpoint to
 
 \[
-{C_{5,*}\over\pi}
+{434+4\sqrt2\over1587\pi}
 \le
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
@@ -2562,9 +2693,9 @@ Neither the improved upper bound nor the lower bound proves that
   baseline. The zigzag radius \(V_n\) improves its asymptotic upper coefficient
   from \(1/\pi\) to \(1/(2\pi)\); the later product-distance construction
   improves it again to \(8/(25\pi)\), which still does not match the
-  current globally optimized five-prefix linear-block lower coefficient
+  current all-fixed-\(k\) lower coefficient
   \[
-  {C_{5,*}\over\pi}.
+  {434+4\sqrt2\over1587\pi}.
   \]
   None may be described as the exact asymptotic leading constant for
   Power-Ringmin. The smaller coefficient
@@ -2616,8 +2747,20 @@ Neither the improved upper bound nor the lower bound proves that
   indexed finite bound for every finite admissible \(k\). Its proof is
   independent of the normalized simplex and its insertion induction contains
   no frontier count. This pointwise statement by itself gives no control
-  uniform in \(k=k(n)\), no limiting-prefix interchange, no optimized
-  coefficient, and no new geometric consequence.
+  uniform in \(k=k(n)\) and no limiting-prefix interchange.
+- Combining the two independent theorems at
+  \(\alpha_\infty=(13-2\sqrt2)/23\) gives strictly ordered, all-middle
+  parameters for every fixed finite \(k\). For each \(k\), a possibly
+  different threshold \(N_k\) gives
+  \(L_\Lambda\ge p(\alpha_\infty)+A_\infty^3M_k/8\). Taking the supremum of
+  these scalar inequalities gives the lower endpoints
+  \[
+  {434+4\sqrt2\over1587},
+  \qquad
+  {434+4\sqrt2\over1587\pi}
+  \]
+  for \(\Lambda_n\) and the geometry. This is not a use of \(k=k(n)\), a
+  uniform threshold, or an interchange of limits.
 - At fixed \(k=5\), combining that theorem with the exact fifth simplex row
   and \(\alpha=13/30\) gives
   \[
@@ -2632,10 +2775,11 @@ Neither the improved upper bound nor the lower bound proves that
   \(\Lambda_n>C_{5,\mathrm{rat}}n^3\) throughout that domain via the literal
   bound \(\mathcal B_{5,n}\) and integer closure \(\mathcal I_{5,n}\).
   The full compact optimization instead proves the unique strict all-middle
-  coefficient \(C_{5,*}>C_{5,\mathrm{rat}}\), now the lower endpoint in
-  (22)--(23), after auditing all 21 branches, transitions, collisions, and
-  compact faces. No finite rounding theorem is attached to that irrational
-  point. Neither result is a growing-\(k\) argument, true residual,
+  coefficient \(C_{5,*}>C_{5,\mathrm{rat}}\), the exact optimum of the fixed
+  \(k=5\) template, after auditing all 21 branches, transitions, collisions,
+  and compact faces. It is strictly below the all-fixed-\(k\) endpoint in
+  (22)--(23). No finite rounding theorem is attached to that irrational
+  point. Neither fixed-five result is a growing-\(k\) argument, true residual,
   convergence theorem, new geometric lemma, or exact leading constant.
 - The radius-one theorem reapplies the configuration-level induced-subset
   argument to a subset already present in the core. Inferring a core lower

@@ -102,3 +102,17 @@
   formatting, and final-diff audits pass.
 - **Limitations:** manual user review and commit decision remain.
 - **Linked log entry:** `TASK_LOG.md#2026-07-17---independent-audits-and-handoff`.
+
+## EV-006 - Subsequent All-Fixed-k Consequence
+
+- **Date:** 2026-07-18
+- **Classification:** exact cross-task theorem and source correction.
+- **Relevant output:** combining CR28dw separately at every fixed finite
+  \(k\) with the normalized optimizer gives scalar bounds whose supremum is
+  \((434+4\sqrt2)/1587\); the geometric coefficient is divided by \(\pi\).
+- **Interpretation:** EV-002 and EV-005 remain correct about the absence of
+  uniform control for \(k=k(n)\). That absence is irrelevant to the later
+  supremum of already-proved fixed-\(k\) inequalities.
+- **Limitations:** no \(k=k(n)\), common threshold, limit interchange, or
+  finite rounded theorem at the supremum is claimed.
+- **Linked dossier:** `ops/TASK-20260718__all_fixed_k_corollary/`.

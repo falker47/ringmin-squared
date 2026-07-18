@@ -1,6 +1,6 @@
 # PROJECT_KNOWLEDGE - power-ringmin
 
-Last reviewed: 2026-07-17
+Last reviewed: 2026-07-18
 
 This file is stable durable project memory. Chronology, command transcripts, failed attempts, and task-local evidence belong in `ops/`.
 
@@ -882,8 +882,39 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   The cases \(k=1\) and \(k=5\) recover the one-prefix and former
   five-prefix statements. No positivity of the individual floors is
   required. The pointwise theorem gives no uniform threshold, rounding, or
-  parameter control for \(k=k(n)\), no coefficient optimization, no
-  \(k\to\infty\) passage, and no geometric consequence.
+  parameter control for \(k=k(n)\) and no \(k\to\infty\) passage. Its
+  separate fixed-\(k\) instances combine with the normalized optimizer in the
+  exact corollary below.
+- EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (ALL FIXED \(k\)): set
+  \[
+  \alpha_\infty={13-2\sqrt2\over23}.
+  \]
+  For every fixed finite \(k\), let \(x^{(k)}\) be the unique normalized
+  maximizer and define
+  \[
+  \beta_i={1+\alpha_\infty+(3\alpha_\infty-1)x_i^{(k)}\over4},
+  \qquad
+  \lambda_i={(3\alpha_\infty-1)x_i^{(k)}\over\beta_i}.
+  \]
+  The cutoffs and weights are strictly ordered and strictly all-middle. For
+  each \(k\), a tuple-dependent threshold \(N_k\) permits the fixed-parameter
+  charging limit
+  \[
+  L_\Lambda:=\liminf_{n\to\infty}{\Lambda_n\over n^3}
+  \ge p(\alpha_\infty)
+  +{(3\alpha_\infty-1)^3M_k\over8}.
+  \]
+  Taking the supremum of these scalar inequalities, after they have all been
+  proved at fixed \(k\), gives
+  \[
+  \boxed{
+  L_\Lambda\ge{434+4\sqrt2\over1587},
+  \qquad
+  \liminf_{n\to\infty}{R_2^*(n)\over n^3}
+  \ge{434+4\sqrt2\over1587\pi}.
+  }
+  \]
+  No \(k=k(n)\), uniform threshold, or interchange of limits is used.
 - EXACT METHOD-SPECIFIC THEOREM (GLOBALLY OPTIMIZED FIVE PREFIXES): the
   \(k=5\) coefficient on its full eleven-parameter compact closure clips
   coordinatewise to 21 ordered regimes \(H^hM^m0^z\). Every transition,
@@ -909,7 +940,9 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \]
   Therefore the liminf bounds hold with \(C_{5,*}\) and
   \(C_{5,*}/\pi\). There is no finite rounding theorem at the irrational
-  optimizer and no growing-\(k\) passage.
+  optimizer and no growing-\(k\) passage. This is the exact optimum of the
+  fixed \(k=5\) template only; it is strictly below the all-fixed-\(k\)
+  coefficient above.
 - EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (EXPLICIT FIVE-PREFIX WITNESS):
   let
   \[
@@ -1146,11 +1179,15 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \qquad
   E_\infty(\alpha_{\rm mid})={434+4\sqrt2\over1587}.
   \]
-- LIMITATION: this is an exact normalized-polynomial theorem for every fixed
-  \(k\), independent of the charging argument. A separate direct proof
-  establishes charging for every finite admissible \(k\), but neither result
-  supplies a uniform interchange between growing \(k\) and \(n\), or a new
-  bound from the limiting envelope.
+- LIMITATION AND COROLLARY: this is an exact normalized-polynomial theorem for
+  every fixed \(k\), independent of the charging argument. A separate direct
+  proof establishes charging for every finite admissible \(k\). Neither
+  theorem supplies uniform control for growing \(k=k(n)\) or an interchange
+  of limits. Those are unnecessary for the all-fixed-\(k\) corollary: at the
+  strict all-middle density \(\alpha_\infty\), apply both theorems separately
+  at each fixed \(k\), then take the supremum of the resulting scalar liminf
+  inequalities to obtain \((434+4\sqrt2)/1587\) and its geometric value
+  divided by \(\pi\).
 - EXACT GLOBAL LOWER COROLLARY (TWO-PREFIX RATIONAL WITNESS): at
   \[
   (\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})
@@ -1296,8 +1333,7 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \(\Lambda_n=\pi R_2^*(n)+O(n^2)=\Theta(n^3)\),
   \(\Lambda_n/(\pi R_2^*(n))\to1\), and
   \[
-  {2263404122555368590593580404287
-   \over8177706222298165502582585481000}
+  {434+4\sqrt2\over1587}
   \le\liminf{\Lambda_n\over n^3}
   \le\limsup{\Lambda_n\over n^3}
   \le{8\over25}.
@@ -1546,13 +1582,22 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   {2263404122555368590593580404287
    \over8177706222298165502582585481000\pi}.
   \]
-  The globally optimized five-prefix template raises it further to
+  The globally optimized five-prefix template raises its fixed-\(k=5\)
+  optimum further to
   \[
   {346693217780244687187063490332457027500975566238012204
    +1228130489996268437333105902690103574002
     \sqrt{183342238504950468196395903}
    \over1312688475479610714750859896048564873968757997852345827\pi}.
   \]
+  The all-fixed-\(k\) supremum corollary then raises the current lower
+  coefficient to
+  \[
+  {434+4\sqrt2\over1587\pi}.
+  \]
+  It applies charging at every fixed finite \(k\), with a threshold that may
+  depend on \(k\), and only afterward takes the supremum of the resulting
+  scalar inequalities. It uses no \(k=k(n)\) and no interchange of limits.
   All four multi-prefix optimizers are exact and unique inside their
   respective templates. The
   older rational witness remains the finite two-prefix theorem from \(n=59\),
@@ -2464,6 +2509,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \(M_k\to1/3\),
   exact \(k=1,2,3,4\) agreement, formal and all-middle envelope
   classifications, and independent bounded `Fraction` diagnostic, plus the
+  all-fixed-\(k\) combination at
+  \(\alpha_\infty=(13-2\sqrt2)/23\), its strict ordering/all-middle proof,
+  quantifier audit, and current lower coefficient
+  \((434+4\sqrt2)/(1587\pi)\), plus the
   fixed \(k=5\), \(\alpha=13/30\) rational all-middle specialization, its
   coefficient \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\), the two new liminf
   consequences, its minimal-threshold finite theorem at \(n=234\), literal
@@ -2561,7 +2610,7 @@ Candidate-set extraction uses the following finite-certificate semantics.
   supplies the rational point used in the witness. The formal compact
   and limiting all-middle envelopes are classified exactly. This result is
   independent of the direct charging proof and gives no uniform
-  \(k\)-to-\(n\) interchange or new bound from its limiting envelope.
+  \(k\)-to-\(n\) interchange by itself.
 - COMPLETED PRIORITY: the direct one-use theorem now fixes an arbitrary finite
   \(k\ge1\), combines \(0,H_1,\ldots,H_k\) before charging, and telescopes
   the \(k+1\) convex coefficients to \(k\) disjoint segments. Each original
@@ -2570,8 +2619,26 @@ Candidate-set extraction uses the following finite-certificate semantics.
   any finite number of boundaries. The indexed finite inequality is exact.
   One new dossier-local exact oracle corroborates only \(k=6\), without
   production, test, artifact, schema, backend, certificate, or enumeration
-  changes. No growing-\(k\) uniformity, coefficient optimization, limiting
-  passage, or geometric consequence is inferred.
+  changes. No growing-\(k\) uniformity or limiting interchange is inferred
+  from this theorem by itself.
+- COMPLETED PRIORITY: combining those two independent theorems at every fixed
+  finite \(k\), with
+  \(\alpha_\infty=(13-2\sqrt2)/23\), gives strictly ordered all-middle
+  cutoffs and weights. For each fixed \(k\), a tuple-dependent threshold
+  proves
+  \[
+  L_\Lambda\ge p(\alpha_\infty)
+  +{(3\alpha_\infty-1)^3M_k\over8}.
+  \]
+  Taking the supremum of the already-established scalar inequalities gives
+  \[
+  L_\Lambda\ge{434+4\sqrt2\over1587},
+  \qquad
+  \liminf_{n\to\infty}{R_2^*(n)\over n^3}
+  \ge{434+4\sqrt2\over1587\pi}.
+  \]
+  This all-fixed-\(k\) corollary uses no \(k=k(n)\), uniform threshold, or
+  interchange of limits.
 - COMPLETED PRIORITY: the fixed \(k=5\) simplex has now been specialized at
   \(\alpha=13/30\) and combined with the separate finite-prefix charging
   theorem. All five rational cutoffs and weights are strictly ordered and
@@ -2615,7 +2682,8 @@ Candidate-set extraction uses the following finite-certificate semantics.
   isolating interval, branch inequalities, coefficient identity, transitions,
   and exact comparison margins. No finite rounding, growing-\(k\), production,
   artifact, schema, backend, test-module, certificate, or enumeration change
-  is included.
+  is included. The result remains the exact optimum of the fixed \(k=5\)
+  template; it is strictly below the all-fixed-\(k\) coefficient.
 - COMPLETED PRIORITY: one explicit local perturbation of the \(8/25\)
   construction is now classified. Reversing one triple on
   \(n=10m+3\) is score-neutral for \(s\ge1\), worsens the finite score by
@@ -2676,10 +2744,7 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - OPEN QUESTION: can the upper coefficient \(8/(25\pi)\) be lowered toward
   the current lower coefficient
   \[
-  {346693217780244687187063490332457027500975566238012204
-   +1228130489996268437333105902690103574002
-    \sqrt{183342238504950468196395903}
-   \over1312688475479610714750859896048564873968757997852345827\pi},
+  {434+4\sqrt2\over1587\pi},
   \]
   while retaining a symbolic all-pairs proof?
 - RULE: an `n=7` exhaustive certificate should be considered only after structural analysis produces a precise discriminator such as competing order-family predictions, a predicted candidate-set cardinality, a predicted critical-cycle transition, or a predicted first floating-index pattern.
@@ -2696,8 +2761,7 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: no exact geometric optimum value \(R_2^*(n)\) has been proved
   in this repository; the exact all-\(n\) classification of the combinatorial
   surrogate \(W_n\) is a different statement.
-- LIMITATION: no upper bound matching the current globally optimized
-  five-prefix linear-block lower
+- LIMITATION: no upper bound matching the current all-fixed-\(k\) lower
   coefficient has been proved in this repository.
 - LIMITATION: the later indices \(n\ge94\) with strict distance-two/full
   minimizer inclusion have not been classified.
@@ -2717,8 +2781,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: both the normalized simplex and the separate combined-height
   one-use theorem are proved for every fixed finite \(k\). Their pointwise
   validity gives no threshold, rounding, error, or parameter control uniform
-  in a growing \(k=k(n)\), no interchange between \(k\) and \(n\), and no new
-  bound from the simplex limit or either normalized envelope.
+  in a growing \(k=k(n)\) and no interchange between \(k\) and \(n\). The
+  all-fixed-\(k\) corollary needs neither: it takes the supremum only after
+  proving the liminf inequality separately at each fixed \(k\). It gives no
+  common finite rounding threshold at the unattained supremum coefficient.
 - LIMITATION: no Ringmin result should be silently generalized to quadratic radii.
 - LIMITATION: the sufficient radius-one threshold `12` is not known to be
   minimal, and the exact equality question remains open for `n<=11`.

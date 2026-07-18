@@ -116,20 +116,27 @@ The jointly optimized one-prefix linear tail block first gave the coefficient
 \((4+2\sqrt3)/27\). The exact global optimization of the two-prefix CR28bw
 template then gave \(C_{2,*}\), the three-prefix extension gave
 \(C_{3,*}\), the globally optimized four-prefix extension gave
-\(C_{4,*}\), and the full eleven-parameter five-prefix optimization now gives
-\(C_{5,*}\). All 21 clipping regimes, transitions, collisions, and compact
-faces are classified. The rigorous lower coefficients are
+\(C_{4,*}\), and the full eleven-parameter five-prefix optimization gives the
+exact fixed-template optimum \(C_{5,*}\). All 21 five-prefix clipping regimes,
+transitions, collisions, and compact faces are classified. The stronger
+all-fixed-\(k\) corollary gives the current rigorous lower coefficients
 \[
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
 \ge
-C_{5,*},
+{434+4\sqrt2\over1587},
 \qquad
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \ge
-{C_{5,*}\over\pi}.
+{434+4\sqrt2\over1587\pi}.
 \]
 Exact algebra gives
-\(C_{5,*}>C_{5,\mathrm{rat}}>75/271>C_{4,*}\). The rational point remains
+\[
+C_{5,*}>C_{5,\mathrm{rat}}>75/271>C_{4,*},
+\qquad
+C_{5,*}<{277\over1000}<{434+4\sqrt2\over1587}.
+\]
+Thus \(C_{5,*}\) remains the exact optimum of the fixed \(k=5\) template.
+The rational point remains
 the fixed tuple whose exact floor/ceiling theorem has minimal uniform threshold
 \(234\) and proves
 \[
@@ -142,6 +149,7 @@ R_2^*(n)>{\mathcal I_{5,n}\over\pi}-n^2
 Here \(\mathcal B_{5,n}\) uses the original rational \(\lambda_i\), not
 finite reoptimized clipped weights.
 No finite rounding theorem is asserted at the irrational global optimizer.
+Nor is there a finite rounded theorem at the all-fixed-\(k\) supremum.
 These are one-sided bounds and do not prove convergence or identify an exact
 leading coefficient. The irrational three-prefix optimizer now also has the
 exact finite theorem
@@ -206,8 +214,8 @@ finite number of boundaries and every nested history. This gives
 \gamma^{(r)}_{1,n}\ge
 P_{r,n}+\sum_{i=1}^k(s_{i-1}-s_i)G_{n,\lambda_i}(s_i).
 \]
-No coefficient optimization, rounding, uniform growing-\(k\) control,
-limiting-prefix passage, or geometric claim is made. The sole new
+By itself this theorem makes no rounding, uniform growing-\(k\), or
+limiting-interchange claim. The sole
 dossier-local oracle is limited to \(k=6\) and checks 332,640 local histories
 of a six-edge base.
 
@@ -227,8 +235,34 @@ This is an exact polynomial optimization lemma, not the source of the
 separate direct charging theorem. Its \(k=4\) row is used only after direct
 four-prefix charging has been supplied; the general finite-\(k\) theorem is
 proved from literal histories, not from the recurrence. Neither result
-supplies uniform control for \(k=k(n)\), and the limiting envelope gives no
-further bound for \(\Lambda_n\) or \(R_2^*(n)\).
+supplies uniform control for \(k=k(n)\). That uniformity is unnecessary for
+the following fixed-\(k\)-by-fixed-\(k\) consequence.
+
+Fix \(\alpha_\infty=(13-2\sqrt2)/23\). For each finite \(k\), the unique
+normalized optimizer defines
+\[
+\beta_i={1+\alpha_\infty+(3\alpha_\infty-1)x_i^{(k)}\over4},
+\qquad
+\lambda_i={(3\alpha_\infty-1)x_i^{(k)}\over\beta_i}.
+\]
+These parameters are strictly ordered and all-middle. Applying charging after
+some tuple-dependent threshold \(N_k\), then taking the fixed-parameter
+liminf, gives
+\[
+L_\Lambda\ge p(\alpha_\infty)
++{(3\alpha_\infty-1)^3M_k\over8}
+\quad\hbox{for every fixed }k.
+\]
+Taking the supremum of these scalar inequalities proves
+\[
+\boxed{
+L_\Lambda\ge{434+4\sqrt2\over1587},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\ge{434+4\sqrt2\over1587\pi}.
+}
+\]
+This uses no \(k=k(n)\), common threshold, or interchange of limits.
 
 At fixed \(k=5\), those two separate theorems can nevertheless be combined
 without a limiting interchange. The fifth simplex row, specialized at
@@ -266,7 +300,8 @@ C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}.
 One standalone standard-library diagnostic checks the optimizer polynomial,
 isolating interval, branch inequalities, coefficient identity, and comparison
 margins. It adds no finite rounding, growing-\(k\), production, artifact,
-schema, backend, test-module, certificate, or enumeration change.
+schema, backend, test-module, certificate, or enumeration change. It remains
+the exact optimum of the fixed \(k=5\) template only.
 
 The one-wrap saturation question is also closed exactly. If
 \[
@@ -660,8 +695,8 @@ P_{r,n}+\sum_{i=1}^k(s_{i-1}-s_i)G_{n,\lambda_i}(s_i).
 \]
 The sole new dossier-local `Fraction` oracle exhausts one \(k=6\)
 six-edge base, including 720 histories that charge six distinct original
-edges. No coefficient is optimized and no rounding, uniform growing-\(k\)
-control, limiting-prefix, or geometric conclusion is added.
+edges. In that isolated theorem no coefficient is optimized and no rounding,
+uniform growing-\(k\) control, or limiting interchange is added.
 
 The normalized simplex behind these fixed-prefix cases now has an exact
 all-\(k\) solution. A Bellman reduction and a telescoping nonnegative
@@ -682,10 +717,12 @@ On \([1/3,1]\) its unique maximum is the degenerate endpoint value \(1/3\)
 at \(\alpha=1\); on the limiting all-middle closure \([1/3,1/2]\), its
 unique maximum is
 \((434+4\sqrt2)/1587\) at
-\((13-2\sqrt2)/23\). Neither number is promoted to a prefix certificate or
-an asymptotic bound. The separate direct theorem handles every finite
-admissible \(k\), but the normalized simplex itself does not supply charging,
-and neither result provides uniform asymptotic control for \(k=k(n)\).
+\((13-2\sqrt2)/23\). The degenerate endpoint \(1/3\) is not promoted to a
+prefix certificate. The all-middle value is promoted by combining the
+separate direct theorem with the normalized optimizer at each fixed finite
+\(k\), then taking the supremum of the scalar inequalities. This gives
+\((434+4\sqrt2)/1587\) and its geometric value divided by \(\pi\), without
+uniform control for \(k=k(n)\) or an interchange of limits.
 
 As of 2026-07-14, the former asymptotic target
 \[
@@ -727,12 +764,18 @@ it to
 {2263404122555368590593580404287
  \over8177706222298165502582585481000\pi}.
 \]
-The global five-prefix optimization improves it further to
+The global five-prefix optimization improves the fixed-\(k=5\) optimum
+further to
 \[
 {346693217780244687187063490332457027500975566238012204
  +1228130489996268437333105902690103574002
   \sqrt{183342238504950468196395903}
  \over1312688475479610714750859896048564873968757997852345827\pi}.
+\]
+The all-fixed-\(k\) supremum corollary improves the current lower coefficient
+further to
+\[
+{434+4\sqrt2\over1587\pi}.
 \]
 This is still only a proved lower coefficient, not an exact asymptotic
 constant for Power-Ringmin.
@@ -740,10 +783,9 @@ constant for Power-Ringmin.
 The zigzag regular-direction construction historically improved the proved
 upper coefficient from \(1/\pi\) to \(1/(2\pi)\). It is now superseded by the
 product-distance construction below, which gives \(8/(25\pi)\). Neither upper
-bound matches the current linear-block geometric lower coefficient
+bound matches the current all-fixed-\(k\) geometric lower coefficient
 \[
-{2263404122555368590593580404287
- \over8177706222298165502582585481000\pi}.
+{434+4\sqrt2\over1587\pi}.
 \]
 The zigzag
 theorem itself generated no leading-order LP, new finite certificate, `n=7`
@@ -1185,9 +1227,15 @@ saturation for every \(n\ge3\).
   \(p(\alpha)+(3\alpha-1)^3/24\) has unique global maximum \(1/3\) at
   \(\alpha=1\) on the full compact closure; the strict domain has only that
   supremum. On the limiting all-middle closure its unique maximum is
-  \((434+4\sqrt2)/1587\) at \((13-2\sqrt2)/23\). These are normalized
-  polynomial statements only, not new coefficients for the original
-  combinatorial or geometric problem.
+  \((434+4\sqrt2)/1587\) at \((13-2\sqrt2)/23\). The normalized theorem
+  alone is a polynomial statement and does not prove charging.
+- EXACT ALL-FIXED-\(k\) COROLLARY: combining the normalized optimizer with
+  the separate direct charging theorem at each fixed finite \(k\), at the
+  strict all-middle density \((13-2\sqrt2)/23\), promotes the latter value to
+  a lower coefficient for \(\Lambda_n\), and its value divided by \(\pi\) to
+  a geometric lower coefficient. The supremum is taken after the individual
+  fixed-\(k\) liminf inequalities; there is no \(k=k(n)\), uniform threshold,
+  or interchange of limits.
 - VERIFIED FACT (FINITE EXACT DOSSIER DIAGNOSTIC): an independent
   dossier-local `Fraction` program checks \(k=1,\ldots,8\) by the scalar and
   ratio recurrences, direct objective evaluation, every exact stationarity
@@ -1352,19 +1400,20 @@ saturation for every \(n\ge3\).
   \ge
   4(\sqrt2-1)>1.
   \]
-- EXACT THEOREM (sharpened global lower bound): the globally optimized
-  five-prefix coefficient gives
+- EXACT THEOREM (SHARPENED ALL-FIXED-\(k\) GLOBAL LOWER BOUND): the
+  fixed-\(k\)-by-fixed-\(k\) supremum argument gives
   \[
   \liminf_{n\to\infty}{\Lambda_n\over n^3}
-  \ge C_{5,*},
+  \ge {434+4\sqrt2\over1587},
   \qquad
   \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-  \ge {C_{5,*}\over\pi}.
+  \ge {434+4\sqrt2\over1587\pi}.
   \]
-  Its exact comparison is
-  \(C_{5,*}>C_{5,\mathrm{rat}}>75/271>C_{4,*}\). This strictly improves the
-  four-prefix and single-subset lower coefficients, while proving neither
-  convergence nor an exact leading coefficient.
+  It uses no \(k=k(n)\), uniform threshold, or interchange of limits. The
+  fixed-five comparison remains
+  \(C_{5,*}>C_{5,\mathrm{rat}}>75/271>C_{4,*}\), while
+  \(C_{5,*}<277/1000<(434+4\sqrt2)/1587\). This proves neither convergence
+  nor an exact leading coefficient.
 - EXACT FINITE THEOREM (rounded three-prefix optimizer): the integer cutoffs
   \(r_n=\lfloor\alpha_*n\rfloor\) and
   \(s_{i,n}=\lceil\beta_{i,*}n\rceil\) satisfy every block, ordering,
@@ -1442,8 +1491,26 @@ saturation for every \(n\ge3\).
   P_{r,n}+\sum_{i=1}^k(s_{i-1}-s_i)G_{n,\lambda_i}(s_i).
   \]
   This pointwise finite theorem has no uniform growing-\(k\) control,
-  coefficient optimization, rounding, limiting-prefix, or geometric
-  consequence.
+  rounding, or limiting-prefix interchange by itself.
+- EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (ALL FIXED \(k\)): at
+  \(\alpha_\infty=(13-2\sqrt2)/23\), the unique normalized optimizer for
+  every fixed finite \(k\) gives strictly ordered, all-middle parameters
+  \[
+  \beta_i={1+\alpha_\infty+(3\alpha_\infty-1)x_i^{(k)}\over4},
+  \qquad
+  \lambda_i={(3\alpha_\infty-1)x_i^{(k)}\over\beta_i}.
+  \]
+  Applying the finite theorem after its tuple-dependent \(N_k\) and taking
+  the fixed-parameter liminf gives one scalar lower bound for every \(k\).
+  Their supremum is
+  \[
+  {434+4\sqrt2\over1587},
+  \qquad
+  {434+4\sqrt2\over1587\pi}
+  \]
+  for \(\Lambda_n\) and \(R_2^*(n)\), respectively. There is no \(k=k(n)\),
+  common threshold, limit interchange, or finite rounded theorem at the
+  unattained supremum.
 - EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY: specialize the fifth exact
   simplex row at \(\alpha=13/30\). The resulting rational \(\beta_i\) and
   \(\lambda_i\) are strictly ordered and all-middle, and the fixed-parameter
@@ -1486,7 +1553,8 @@ saturation for every \(n\ge3\).
   unique strict all-middle point has the exact \(\alpha_{5,*}\), five pairs,
   and coefficient in (CR28dz36)--(CR28dz40), with
   \(C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}\). No finite rounding at that point or
-  growing-\(k\) claim follows.
+  growing-\(k\) claim follows. It is the exact optimum of the fixed \(k=5\)
+  template only.
 - VERIFIED EXACT DOSSIER DIAGNOSTIC: the sole new standalone Fraction script
   checks \(q_5,M_5\), the simplex objective and stationarity, all reduced
   parameters, strict all-middle admissibility, both coefficient evaluations,
@@ -1714,7 +1782,7 @@ saturation for every \(n\ge3\).
 
 ## Consequences
 
-1. The globally optimized five-prefix linear-block lower bound supersedes both the
+1. The all-fixed-\(k\) linear-block lower bound supersedes both the
    induced-subset bound
    and the older full-cycle bound
    \(\liminf 6\pi R_2^*(n)/n^3\ge 1\). Both older statements remain true but
@@ -1724,8 +1792,7 @@ saturation for every \(n\ge3\).
    \[
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
    \ge
-   {2263404122555368590593580404287
-    \over8177706222298165502582585481000\pi}.
+   {434+4\sqrt2\over1587\pi}.
    \]
    This roadmap records a lower coefficient, not a proposed exact constant.
 
@@ -1751,8 +1818,7 @@ saturation for every \(n\ge3\).
 6. The symbolic product-distance construction supersedes zigzag and gives the
    rigorous liminf/limsup bracket
    \[
-   {2263404122555368590593580404287
-    \over8177706222298165502582585481000\pi}
+   {434+4\sqrt2\over1587\pi}
    \le
    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
    \le
@@ -1928,9 +1994,8 @@ saturation for every \(n\ge3\).
     prefixes, including the fifth point used in the explicit witness. The formal limit
     envelope has compact maximum \(1/3\) only at the degenerate endpoint
     \(\alpha=1\), while its all-middle restriction has the interior maximum
-    \((434+4\sqrt2)/1587\). Neither statement supplies the separate direct
-    charging theorem, a uniform-in-\(k\) certificate, or a new bound from the
-    limiting envelope.
+    \((434+4\sqrt2)/1587\). This theorem does not supply the separate direct
+    charging theorem or a uniform-in-\(k\) certificate by itself.
 
 18. Every finite number \(k\ge1\) of selected prefixes admits one direct
     one-use slack partition. The exact \(k+1\)-term convex combination
@@ -1944,10 +2009,26 @@ saturation for every \(n\ge3\).
     The sole new exact oracle is dossier-local and limited to \(k=6\); it
     checks 332,640 local histories, including all-six-base histories and sixth
     splits between inserted endpoints. No uniform growing-\(k\) control,
-    coefficient optimization, rounding, \(k\to\infty\) passage, or geometric
-    conclusion is included.
+    rounding, or limiting interchange is included in this isolated theorem.
 
-19. At fixed \(k=5\), the exact simplex row and direct charging theorem give
+19. Combining those independent theorems at every fixed finite \(k\), with
+    \(\alpha_\infty=(13-2\sqrt2)/23\), gives strictly ordered all-middle
+    parameters and
+    \[
+    L_\Lambda\ge p(\alpha_\infty)
+    +{(3\alpha_\infty-1)^3M_k\over8}
+    \quad\hbox{for every fixed }k.
+    \]
+    The supremum of these scalar inequalities is
+    \[
+    L_\Lambda\ge{434+4\sqrt2\over1587},
+    \qquad
+    \liminf_{n\to\infty}{R_2^*(n)\over n^3}
+    \ge{434+4\sqrt2\over1587\pi}.
+    \]
+    This uses no \(k=k(n)\), uniform threshold, or interchange of limits.
+
+20. At fixed \(k=5\), the exact simplex row and direct charging theorem give
     a concrete rational asymptotic certificate without optimizing all eleven
     continuous parameters. At \(\alpha=13/30\), all five cutoffs and weights
     are strictly ordered and middle-clipped, and
@@ -1969,7 +2050,7 @@ saturation for every \(n\ge3\).
     The later global theorem proves this rational point strictly suboptimal;
     it remains the exact finite witness.
 
-20. The full continuous five-prefix coefficient is globally optimized on its
+21. The full continuous five-prefix coefficient is globally optimized on its
     eleven-parameter compact closure. Exact clipping gives 21 regimes;
     Bellman predecessor maps classify all winning transitions, and the
     collision/facet audit exhausts both ordered simplices. The unique strict
@@ -1981,14 +2062,15 @@ saturation for every \(n\ge3\).
     One standalone exact diagnostic checks its primitive polynomial,
     isolating interval, branch inequalities, coefficient identity, and
     comparison margins. No finite rounding, growing-\(k\), or production
-    change is included.
+    change is included. This remains the exact optimum of the fixed \(k=5\)
+    template only.
 
 ## Updated Research Questions
 
 - OPEN QUESTION: what geometric upper-bound construction, if any, narrows or
-  matches the current globally optimized five-prefix lower coefficient
+  matches the current all-fixed-\(k\) lower coefficient
   \[
-  {C_{5,*}\over\pi}
+  {434+4\sqrt2\over1587\pi}
   \]
   up to lower-order terms?
 - OPEN QUESTION: can the previous reduced-core observations at checked
@@ -1997,10 +2079,10 @@ saturation for every \(n\ge3\).
 - OPEN QUESTION: is \(12\) the least threshold for
   \(R_2^*(n)=R^*_{2:n}\), or can the remaining \(n\le11\) cases be settled by
   stronger exact estimates or counterexamples?
-- OPEN QUESTION: can the gap between the globally optimized five-prefix geometric lower
+- OPEN QUESTION: can the gap between the all-fixed-\(k\) geometric lower
   coefficient
   \[
-  {C_{5,*}\over\pi}
+  {434+4\sqrt2\over1587\pi}
   \]
   and the
   product-distance upper
@@ -2029,6 +2111,11 @@ saturation for every \(n\ge3\).
   boundary-count-independent recursive induction, and exact finite
   \(k\)-segment bound are recorded above. This closure does not provide
   uniformity for \(k=k(n)\) or realize the \(k\to\infty\) simplex limit.
+- CLOSED QUESTION: combining the normalized optimizers and charging theorem at
+  every fixed finite \(k\) gives the all-fixed-\(k\) lower coefficient
+  \((434+4\sqrt2)/1587\), and the corresponding geometric coefficient divided
+  by \(\pi\), with no \(k=k(n)\), uniform threshold, or interchange of
+  limits.
 - CLOSED QUESTION: the exact \(k=5\) simplex at \(\alpha=13/30\) gives one
   strictly admissible rational all-middle witness with coefficient
   \(C_{5,\mathrm{rat}}>75/271>C_{4,*}\). This closes the explicit
@@ -2278,9 +2365,8 @@ Completed:
   four-prefix values, and the exact fifth row used in the rational witness. A
   dossier-local `Fraction` diagnostic checks the first
   eight dimensions and an independent rational grid. This normalized result
-  is independent of the direct charging proof and gives no uniform
-  growing-\(k\) control, asymptotic bound from the limiting envelope,
-  production path, or test-module change.
+  is independent of the direct charging proof and, by itself, gives no uniform
+  growing-\(k\) control, production path, or test-module change.
 - Extended the direct one-use charging proof exactly to five selected
   prefixes. The six-term convex combination telescopes to five disjoint
   segments, the original-edge slack has one canonical charged/unused
@@ -2297,9 +2383,17 @@ Completed:
   partition, and descending insertion induction covers every finite number of
   boundaries without depending on their count. One new dossier-local oracle,
   limited to \(k=6\), checks 332,640 histories without production
-  enumeration. No uniform growing-\(k\) control, coefficient optimization,
-  finite rounding, limiting-prefix passage, geometric claim, production path,
-  test module, artifact, schema, backend, or certificate change was added.
+  enumeration. That isolated task added no uniform growing-\(k\) control,
+  finite rounding, limiting interchange, production path, test module,
+  artifact, schema, backend, or certificate change.
+- Combined the two independent theorems at every fixed finite \(k\), at
+  \(\alpha_\infty=(13-2\sqrt2)/23\). Strict ordering and all-middle
+  admissibility give one tuple-dependent threshold \(N_k\) for each \(k\),
+  and the resulting scalar liminf inequalities have supremum
+  \((434+4\sqrt2)/1587\). The corresponding geometric coefficient is divided
+  by \(\pi\). No \(k=k(n)\), uniform threshold, limit interchange, production,
+  test, artifact, schema, backend, certificate, or enumeration change is
+  involved.
 - Specialized the exact fifth simplex row at \(\alpha=13/30\) and combined it
   with the separate arbitrary finite-prefix charging theorem. All five
   rational cutoffs and weights are strictly ordered and all-middle. Exact
@@ -2330,7 +2424,8 @@ Completed:
   checks the optimizer polynomial, isolating interval, branch inequalities,
   coefficient identity, and comparison margins. No finite rounding,
   growing-\(k\), production, artifact, schema, backend, test-module,
-  certificate, or enumeration change was made.
+  certificate, or enumeration change was made. This is the exact fixed
+  \(k=5\) template optimum, not the current all-fixed-\(k\) coefficient.
 - Implemented the first bounded independent interval-backend cross-check:
   checked `n=3` is recomputed directly with 384-bit Arb through python-flint,
   with exact coverage of one record, three lower-cycle edges, three witness

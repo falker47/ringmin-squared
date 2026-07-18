@@ -1,194 +1,196 @@
 # CURRENT_STATUS - power-ringmin
 
-Last update: 2026-07-17
+Last update: 2026-07-18
 
 ## State
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Active task:** global continuous five-prefix coefficient optimization.
-- **Repository state at startup:** clean main worktree at commit
-  9fc4b2caeb385a7cd34c62fc494fd91182935f06, tracking origin/main.
-- **Implementation state:** the full compact proof, exact optimizer,
-  coefficient comparison, sole standalone diagnostic, authoritative research
-  synchronization, regression checks, independent audits, and final diff
-  inspection are complete.
+- **Active task:** formalize the all-fixed-\(k\) corollary from
+  CR28cr--CR28dd and CR28dr--CR28dw.
+- **Repository state at startup:** clean `main` worktree at commit
+  `6c5eb5b49e40f763a88580656f04a4143b2b4852`, tracking `origin/main`.
+- **Implementation state:** the exact corollary, strict admissibility proof,
+  authoritative synchronization, relevant dossier corrections, sole
+  standalone exact diagnostic, regressions, independent audits, and final
+  source/diff verification are complete.
 - **Current blocker:** none.
 - **Current next atomic action:** user manual review and commit decision.
 - **Awaiting user review:** yes.
 
 ## Objective And Scope
 
-Starting from CR28cr--CR28dd and CR28dr--CR28dw, optimize globally the fixed
-\(k=5\) continuous coefficient over its complete ordered compact closure.
-Classify every clipping regime and transition, audit density/weight
-collisions and every compact face, determine the exact optimizer and
-coefficient, prove
+Fix
 
 \[
-C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*},
+\alpha_\infty={13-2\sqrt2\over23}.
 \]
 
-and add one standalone exact diagnostic.
-
-Finite rounding at the irrational optimizer, growing-\(k\) claims, and
-production, artifact, schema, backend, test-module, certificate, or
-enumeration changes are excluded. The existing rational \(n\ge234\) theorem
-is retained without alteration.
-
-## Exact Compact Classification
-
-Coordinatewise clipping reduces the full eleven-parameter problem to
+For every finite \(k\), use the unique normalized optimizer \(x^{(k)}\) to
+define
 
 \[
-\overline C_5
-=p(\alpha)+\sum_{i=1}^5
-(\beta_{i-1}-\beta_i)\Phi_{1+\alpha}(\beta_i).
-\]
-
-There are exactly 21 ordered regimes \(H^hM^m0^z\),
-\(h+m+z=5\). The 15 words with a trailing zero are nonwinning for
-\(\alpha>1/3\). The exact active winner sequence is
-
-\[
-MMMMM,\ HMMMM,\ HHMMM,\ HHHMM,\ HHHHM,
-\]
-
-with the formal HHHHH transition beyond \(\alpha=1\). The new \(m=4\)
-mixed predecessor margin is positive. Every clipping join, density
-collision, internal and outer weight face, unused segment, and compact
-density face is classified.
-
-## Exact Optimizer
-
-Let
-
-\[
-d_5=183342238504950468196395903.
-\]
-
-The unique global density is
-
-\[
-\boxed{
-\alpha_{5,*}
-={422413777961580309772684503
- -10047852311701\sqrt{d_5}
- \over661485317418210151348973103}.
-}
-\]
-
-It is the smaller root of
-
-\[
-661485317418210151348973103a^2
--844827555923160619545369006a
-+241763928731615232919074902=0
-\]
-
-and lies in
-
-\[
-{432907432458521\over10^{15}}
-<\alpha_{5,*}<
-{432907432458522\over10^{15}}.
-\]
-
-With
-
-\[
-D=30143556935103,
-\quad
-(N_1,\ldots,N_5)
-=(26881208992898,23392470652668,19595592993288,
-15335681473008,10223787648672),
-\]
-
-and \(A_*=3\alpha_{5,*}-1\), the five exact pairs are
-
-\[
-\boxed{
-\beta_{i,*}
-={(D-N_i)+(D+3N_i)\alpha_{5,*}\over4D},
+\beta_i={1+\alpha_\infty+(3\alpha_\infty-1)x_i^{(k)}\over4},
 \qquad
-\lambda_{i,*}
-={4N_iA_*\over(D-N_i)+(D+3N_i)\alpha_{5,*}}.
-}
+\lambda_i={(3\alpha_\infty-1)x_i^{(k)}\over\beta_i}.
 \]
 
-All cutoff, weight, and middle-branch inequalities are strict. Equality in
-the clipping loss, normalized-simplex certificate, and scalar envelope forces
-this unique eleven-tuple.
+Prove strict order and all-middle admissibility, apply the direct charging
+theorem at each fixed \(k\), and take the supremum of the resulting scalar
+liminf inequalities. Synchronize all authoritative sources that denied this
+consequence or described \(C_{5,*}\) as the current general coefficient.
 
-## Exact Coefficient And Comparisons
+Production, tests, artifacts, schemas, backends, certificates, and enumeration
+limits remain unchanged. The only new executable is a dossier-local exact
+diagnostic.
+
+## Exact Strict Admissibility
+
+Put
+
+\[
+A_\infty=3\alpha_\infty-1,
+\qquad
+S_\infty=1+\alpha_\infty.
+\]
+
+The exact bounds \(1/3<\alpha_\infty<1/2\) and the normalized theorem give
+
+\[
+1=x_0^{(k)}>x_1^{(k)}>\cdots>x_k^{(k)}>0.
+\]
+
+For every \(i\),
+
+\[
+\beta_i-{S_\infty\over4}={A_\infty x_i^{(k)}\over4}>0,
+\qquad
+\alpha_\infty-\beta_i
+={A_\infty(1-x_i^{(k)})\over4}>0,
+\]
+
+\[
+{S_\infty\over3}-\beta_i
+={S_\infty-3A_\infty x_i^{(k)}\over12}
+>{1-2\alpha_\infty\over3}>0.
+\]
+
+The map
+\(x\mapsto4A_\infty x/(S_\infty+A_\infty x)\) is strictly increasing.
+Therefore
+
+\[
+0<\beta_k<\cdots<\beta_1<\alpha_\infty<1,
+\qquad
+0<\lambda_k<\cdots<\lambda_1<1,
+\]
+
+and every cutoff lies strictly in the middle clipping branch.
+
+## Exact All-Fixed-k Corollary
+
+For every fixed finite \(k\), the strict margins provide a finite threshold
+\(N_k\), allowed to depend on the complete tuple. CR28dw and CR28ap then give
+
+\[
+L_\Lambda:=\liminf_{n\to\infty}{\Lambda_n\over n^3}
+\ge p(\alpha_\infty)+{A_\infty^3M_k\over8}.
+\]
+
+Since this scalar inequality holds for every fixed finite \(k\) and
+\(M_k\nearrow1/3\),
 
 \[
 \boxed{
+L_\Lambda
+\ge{434+4\sqrt2\over1587}
+=:C_{\mathrm{AF}}.
+}
+\]
+
+The additive cyclic-ratio relation gives the geometric consequence
+
+\[
+\boxed{
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\ge{434+4\sqrt2\over1587\pi}.
+}
+\]
+
+The exact simplification uses
+
+\[
+p(\alpha_\infty)={9038+722\sqrt2\over36501},
+\qquad
+{A_\infty^3\over24}={944-630\sqrt2\over36501}.
+\]
+
+## Quantifier And Limit Audit
+
+- For every fixed \(k\), there is a possibly different threshold \(N_k\).
+- The fixed-parameter \(n\to\infty\) liminf is taken before any supremum in
+  \(k\).
+- The same scalar \(L_\Lambda\) is at least every coefficient \(C_k\), hence
+  it is at least \(\sup_k C_k\).
+- No sequence \(k=k(n)\) is selected.
+- No threshold uniform in \(k\) is asserted or needed.
+- No \(n\)-limit and \(k\)-limit are interchanged.
+- Since \(M_k<1/3\) for every finite \(k\), no finite rounded theorem at
+  \(C_{\mathrm{AF}}\) is claimed.
+
+## Fixed Five-Prefix Status
+
+The full eleven-parameter optimization remains exact and unique inside the
+fixed \(k=5\) template. Its coefficient is unchanged and satisfies
+
+\[
+C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}.
+\]
+
+It is no longer the current cross-\(k\) lower coefficient, because
+
+\[
 C_{5,*}
-={346693217780244687187063490332457027500975566238012204
- +1228130489996268437333105902690103574002\sqrt{d_5}
- \over1312688475479610714750859896048564873968757997852345827}.
-}
+<{276777463862377\over10^{15}}
+<{277\over1000}
+<{434+4\sqrt2\over1587}.
 \]
 
-It lies in
-
-\[
-{276777463862376\over10^{15}}
-<C_{5,*}<
-{276777463862377\over10^{15}}
-\]
-
-and satisfies its recorded primitive quadratic. Rational separators and
-positive squared-radical margins prove
-
-\[
-\boxed{
-C_{5,*}>C_{5,\mathrm{rat}}>{75\over271}>C_{4,*}.
-}
-\]
-
-The fixed-parameter charging theorem and additive cyclic-ratio relation give
-
-\[
-\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{5,*},
-\qquad
-\liminf_{n\to\infty}{R_2^*(n)\over n^3}\ge{C_{5,*}\over\pi}.
-\]
+The rational finite theorem from the minimal threshold \(234\), and the lack
+of finite rounding at the irrational five-prefix optimizer, remain unchanged.
 
 ## Verification
 
-- The sole new standalone standard-library diagnostic passes its clipping,
-  transition, collision, polynomial, isolation, branch, coefficient, and
-  comparison assertions.
-- Independent mathematical audits agree on all exact transition, optimizer,
-  pair, coefficient, and comparison data; their wording corrections have
-  been applied to the compact-face proof.
-- Ruff check and format check pass for the sole new diagnostic.
-- The focused fixed-order suite passes 101 tests; the full suite passes 283
-  tests.
-- Schema checks, four artifact certificates with 76 local brackets, and the
-  four historical exact diagnostics all pass.
-- The source audit finds 366 unique equation tags, balanced delimiters and
-  LaTeX environments, valid UTF-8, synchronized theorem statements, no
-  prohibited scope changes, and a clean `git diff --check`.
-- Three independent audits agree on the optimizer algebra, branch/face audit,
-  coefficient comparisons, and final source synchronization; all concrete
-  wording corrections found during review are applied.
+- The new standalone \(\mathbb Q(\sqrt2)\) diagnostic passes exact checks for
+  \(k=1,\ldots,8\).
+- Ruff check and final format check pass for the sole new diagnostic; its
+  initial format check correctly requested one mechanical reformat.
+- The historical normalized-simplex diagnostic passes 203,489 exact grid
+  states, the arbitrary-charging oracle passes 332,640 histories, and the
+  global-five diagnostic passes all 21 regimes.
+- The focused fixed-order suite passes 101 tests and the full suite passes 283
+  tests. The artifact verifier passes four certificates and 76 local brackets;
+  the schema suite passes four tests.
+- Source structure passes strict UTF-8/LF/final-newline/trailing-whitespace,
+  balanced-display/fence/environment, and 378-unique-equation-tag checks.
+  Repository-wide stale-claim and scope audits pass.
+- Three independent read-only audits confirm the mathematics, authoritative
+  synchronization, diagnostic independence, and protected-path scope.
+- Final `git status`, complete diff inspection, and `git diff --check` pass;
+  only the requested Markdown/dossier files and sole dossier-local diagnostic
+  are changed.
 
 ## Evidence Classification And Limitations
 
-- The compact reduction, branch and face classification, optimizer,
-  coefficient, strict comparisons, and liminf consequences are **exact
+- Strict admissibility, the fixed-\(k\) coefficient identity, the supremum
+  argument, geometric transfer, and comparison with \(C_{5,*}\) are **exact
   method-specific theorems**.
-- The standalone script is a **verified bounded exact computation** that
-  corroborates but does not replace the all-real proof.
-- \(C_{5,*}\) is the global optimum of this fixed five-prefix template, not
-  an exact residual, limit, or geometric leading constant.
-- The finite \(n\ge234\) theorem remains specific to
-  \(C_{5,\mathrm{rat}}\); no finite rounding is claimed at \(C_{5,*}\).
-- No growing-\(k\), convergence, production, artifact, schema, backend,
-  test-module, certificate, or enumeration conclusion is added.
+- The new script is a **verified bounded exact computation** that corroborates
+  but does not replace the all-real proof.
+- The result is a liminf lower coefficient, not convergence, an exact leading
+  constant, an exact residual, or a finite rounded theorem at the supremum.
+- No production, test, artifact, schema, backend, certificate, or enumeration
+  claim changes.
 
 ## Files In Scope
 
@@ -198,7 +200,10 @@ The fixed-parameter charging theorem and additive cyclic-ratio relation give
 - start.md
 - PROJECT_KNOWLEDGE.md
 - CURRENT_STATUS.md
-- ops/TASK-20260717__global_five_prefix_optimization/
+- ops/TASK-20260716__normalized_prefix_simplex/
+- ops/TASK-20260717__arbitrary_finite_prefix_charging/
+- ops/TASK-20260717__global_five_prefix_optimization/TASK_STATUS.md
+- ops/TASK-20260718__all_fixed_k_corollary/
 
 ## Proposed Next Task
 

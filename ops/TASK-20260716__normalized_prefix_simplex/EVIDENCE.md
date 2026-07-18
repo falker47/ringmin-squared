@@ -166,3 +166,23 @@
   READY_FOR_REVIEW.
 - Limitation: the finite diagnostic corroborates but does not replace the
   all-real proof. Hosted GitHub Actions have not run this corrective diff.
+
+## EV-10 - Subsequent All-Fixed-k Consequence
+
+- Classification: exact cross-task theorem and source correction.
+- The EV-05 and EV-09 statements that the limiting all-middle value supplied
+  no new original-problem bound are retained as historical descriptions of
+  the normalized theorem *by itself*.
+- After the independent arbitrary finite-prefix charging theorem was proved,
+  each fixed finite \(k\) yields
+  \[
+  \liminf{\Lambda_n\over n^3}
+  \ge p(\alpha_\infty)
+  +{(3\alpha_\infty-1)^3M_k\over8}.
+  \]
+  Taking the supremum of these scalar inequalities gives
+  \((434+4\sqrt2)/1587\), and the geometric coefficient is divided by
+  \(\pi\).
+- No \(k=k(n)\), common threshold, or limit interchange is used. Current
+  proof and verification are recorded in
+  `ops/TASK-20260718__all_fixed_k_corollary/`.

@@ -2,7 +2,7 @@
 
 Date: 2026-07-14
 
-Last updated: 2026-07-17
+Last updated: 2026-07-18
 
 ## Scope And Classification
 
@@ -277,9 +277,10 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \gamma^{(r)}_{1,n}\ge
   P_{r,n}+\sum_{i=1}^k(s_{i-1}-s_i)G_{n,\lambda_i}(s_i).
   \]
-  This pointwise finite theorem gives no uniform asymptotic control for
-  \(k=k(n)\), coefficient optimization, limiting-prefix passage, or geometric
-  consequence.
+  By itself this pointwise finite theorem gives no uniform asymptotic control
+  for \(k=k(n)\). It can, however, be combined separately with the normalized
+  optimizer at each fixed finite \(k\), as in the all-fixed-\(k\) corollary
+  below.
 - **EXACT THEOREM (NORMALIZED \(k\)-PREFIX SIMPLEX):** for every \(k\ge1\),
   the compact normalized polynomial (CR28cr) has one strictly interior
   maximizer. Its ratios satisfy
@@ -303,6 +304,31 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \([1/3,1/2]\), its unique maximum is
   \((434+4\sqrt2)/1587\) at
   \((13-2\sqrt2)/23\).
+- **EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (ALL FIXED \(k\)):** put
+  \[
+  \alpha_\infty={13-2\sqrt2\over23}.
+  \]
+  For every fixed finite \(k\), use the unique normalized maximizer
+  \(x^{(k)}\) and define
+  \[
+  \beta_i={1+\alpha_\infty+(3\alpha_\infty-1)x_i^{(k)}\over4},
+  \qquad
+  \lambda_i={(3\alpha_\infty-1)x_i^{(k)}\over\beta_i}.
+  \]
+  These cutoffs and weights are strictly ordered and strictly all-middle.
+  Applying (CR28dw) at each fixed \(k\) and then taking the supremum of the
+  resulting scalar inequalities gives
+  \[
+  \liminf_{n\to\infty}{\Lambda_n\over n^3}
+  \ge {434+4\sqrt2\over1587},
+  \qquad
+  \liminf_{n\to\infty}{R_2^*(n)\over n^3}
+  \ge {434+4\sqrt2\over1587\pi}.
+  \]
+  The quantifiers are \(\forall k\,\exists N_k\): no \(k=k(n)\) is used,
+  no threshold uniform in \(k\) is needed, and no limits are interchanged.
+  This coefficient is strictly larger than \(C_{5,*}\), which remains the
+  exact optimum of the fixed \(k=5\) template only.
 - **EXACT METHOD-SPECIFIC THEOREM (GLOBALLY OPTIMIZED FIVE PREFIXES):**
   the full eleven-parameter compact closure reduces coordinatewise to the
   clipped density objective (CR28dz22). All 21 regimes \(H^hM^m0^z\), the
@@ -372,7 +398,8 @@ in `research/ALL_N_LOWER_BOUND.md`.
   statement. A separate direct argument proves one-use charging for every
   finite admissible \(k\), but supplies no threshold or error estimate uniform
   in a growing \(k=k(n)\), no interchange of \(k\) and \(n\), and no finite
-  rounding at the optimized four- or five-prefix points.
+  rounding at the optimized four- or five-prefix points. None of those
+  uniform statements is needed for the all-fixed-\(k\) supremum corollary.
 - **VERIFIED FACT (BOUNDED EXACT FOUR-PREFIX ORACLE):** a standalone
   Fraction oracle literally checks all 840 four-split histories from the
   bounded base \(C_0=(11,14,12,13)\). It imports no project or test helper and
@@ -5193,10 +5220,11 @@ The normalized-simplex argument itself proves no charging theorem. The
 separate direct argument below supplies charging for every finite admissible
 number of selected prefixes. It does not follow from the recurrence or the
 limit \(M_k\to1/3\), and it supplies no control uniform in a growing
-\(k=k(n)\). Both envelope optimizations remain statements about the normalized
-compact polynomial only; they do not promote either value in (CR28dc) or
-(CR28dd) to a lower bound for \(\Lambda_n\) or change any established
-statement about \(R_2^*(n)\).
+\(k=k(n)\). The degenerate endpoint value (CR28dc) is not promoted to a
+lower bound. The all-middle value (CR28dd), however, *is* promoted below by
+applying the two separate theorems at every fixed finite \(k\) and then taking
+the supremum of the resulting scalar lower bounds. That argument uses no
+growing prefix count and no interchange of limits.
 
 ### Arbitrarily many finite selected prefixes with one slack partition
 
@@ -5205,7 +5233,8 @@ depend on the number of selected frontiers. The normalized simplex
 (CR28cr)--(CR28dd) is independent of this charging statement, so the proof
 returns directly to literal split histories. No coefficient optimization,
 finite-rounding specialization, growing-prefix limit, or geometric deduction
-is made.
+is made *inside the finite theorem*. The subsequent corollary combines its
+fixed-\(k\) instances with the independent normalized optimizers.
 
 Fix an arbitrary integer \(k\ge1\), together with
 
@@ -5411,8 +5440,10 @@ This pointwise finite theorem can be instantiated on any individual
 admissible row, even if its finite \(k\) was selected as a function of that
 row. It supplies no cutoff threshold, rounding estimate, or parameter control
 uniform in a growing family \(k=k(n)\), and therefore justifies no exchange
-of \(n\to\infty\) with \(k\to\infty\), no infinite-prefix passage, no
-coefficient optimization, and no asymptotic or geometric consequence.
+of \(n\to\infty\) with \(k\to\infty\) and no infinite-prefix theorem. Those
+limitations do not prevent applying it separately at every fixed \(k\),
+taking the ordinary fixed-parameter \(n\to\infty\) liminf each time, and
+then taking the supremum of the already-established scalar inequalities.
 
 The earlier five-prefix dossier oracle uses
 \[
@@ -5454,9 +5485,210 @@ convex telescope, canonical partition, recursive invariant, local floors, and
 the \(k=6\) instance of (CR28dw). This bounded oracle is not production
 enumeration and does not replace the indexed proof.
 
+### All-fixed-\(k\) asymptotic corollary
+
+The normalized simplex and the direct charging theorem can now be combined
+for *every fixed finite* \(k\). Put
+
+\[
+\boxed{
+\alpha_\infty={13-2\sqrt2\over23},
+\qquad
+S_\infty=1+\alpha_\infty,
+\qquad
+A_\infty=3\alpha_\infty-1.
+}
+\tag{CR28dw1}
+\]
+
+Exact squaring of positive quantities gives
+\(1/3<\alpha_\infty<1/2\), and hence \(A_\infty>0\). For a fixed
+integer \(k\ge1\), let
+\(x^{(k)}=(x_1^{(k)},\ldots,x_k^{(k)})\) be the unique normalized maximizer
+from (CR28cu)--(CR28cv), with \(x_0^{(k)}=1\), and define
+
+\[
+\boxed{
+\beta_i={S_\infty+A_\infty x_i^{(k)}\over4},
+\qquad
+\lambda_i={A_\infty x_i^{(k)}\over\beta_i}
+\quad(1\le i\le k).
+}
+\tag{CR28dw2}
+\]
+
+The strict interiority already proved in (CR28cv) says
+
+\[
+1=x_0^{(k)}>x_1^{(k)}>\cdots>x_k^{(k)}>0.
+\]
+
+Let \(L_\infty=S_\infty/4\) and \(U_\infty=S_\infty/3\), the two
+clipping boundaries in (CR28bw2). For every \(i\),
+
+\[
+\begin{aligned}
+\beta_i-L_\infty
+&={A_\infty x_i^{(k)}\over4}>0,\\
+\alpha_\infty-\beta_i
+&={A_\infty(1-x_i^{(k)})\over4}>0,\\
+U_\infty-\beta_i
+&={S_\infty-3A_\infty x_i^{(k)}\over12}
+>{S_\infty-3A_\infty\over12}
+={1-2\alpha_\infty\over3}>0.
+\end{aligned}
+\tag{CR28dw3}
+\]
+
+Thus all cutoffs are strictly in the middle branch and are strictly ordered.
+Moreover
+
+\[
+\lambda_i
+={4A_\infty x_i^{(k)}\over S_\infty+A_\infty x_i^{(k)}},
+\qquad
+{d\over dx}{4A_\infty x\over S_\infty+A_\infty x}
+={4A_\infty S_\infty\over(S_\infty+A_\infty x)^2}>0,
+\tag{CR28dw4}
+\]
+
+while \(3A_\infty x_i^{(k)}<S_\infty\) by (CR28dw3). Consequently
+
+\[
+\boxed{
+0<\beta_k<\cdots<\beta_1<\alpha_\infty<1,
+\qquad
+0<\lambda_k<\cdots<\lambda_1<1.
+}
+\tag{CR28dw5}
+\]
+
+For this fixed \(k\), all continuous margins are strict. The elementary
+floor/ceiling convergence used after (CR28dr) therefore supplies a finite
+threshold \(N_k\), allowed to depend on the complete \(k\)-tuple, such that
+\(r_n=\lfloor\alpha_\infty n\rfloor\) and
+\(s_{i,n}=\lceil\beta_i n\rceil\) satisfy every integer admissibility
+condition for \(n\ge N_k\). Apply (CR28dw), then (CR28ap), divide by
+\(n^3\), and take the ordinary fixed-parameter liminf. Since the sum has the
+fixed finite length \(k\), (CR28az) gives
+
+\[
+\begin{aligned}
+L_\Lambda
+:={}&\liminf_{n\to\infty}{\Lambda_n\over n^3}\\
+\ge{}&p(\alpha_\infty)
++\sum_{i=1}^k(\beta_{i-1}-\beta_i)
+g(\alpha_\infty,\beta_i,\lambda_i),
+\qquad \beta_0=\alpha_\infty.
+\end{aligned}
+\tag{CR28dw6}
+\]
+
+Equation (CR28dw2) gives
+\(\lambda_i=4-S_\infty/\beta_i\), exactly the middle clipped weight in
+(CR28bw2). Hence (CR28bw3), with \(x_0^{(k)}=1\), yields
+
+\[
+g(\alpha_\infty,\beta_i,\lambda_i)
+={A_\infty^2(x_i^{(k)})^2\over2},
+\qquad
+\beta_{i-1}-\beta_i
+={A_\infty(x_{i-1}^{(k)}-x_i^{(k)})\over4}.
+\tag{CR28dw7}
+\]
+
+Since \(F_k(x^{(k)})=M_k\), the right-hand side of (CR28dw6) is
+
+\[
+C_k(\alpha_\infty)
+:=p(\alpha_\infty)+{A_\infty^3M_k\over8}.
+\tag{CR28dw8}
+\]
+
+This proves the scalar inequality
+\(L_\Lambda\ge C_k(\alpha_\infty)\) for every fixed finite \(k\).
+Taking the supremum of these already-proved inequalities and using
+\(M_k\nearrow1/3\) from (CR28cy) gives
+
+\[
+\boxed{
+L_\Lambda
+\ge\sup_{k\ge1}C_k(\alpha_\infty)
+=p(\alpha_\infty)+{A_\infty^3\over24}
+={434+4\sqrt2\over1587}
+=:C_{\mathrm{AF}}.
+}
+\tag{CR28dw9}
+\]
+
+The last evaluation is (CR28dd). The exact comparison with the former
+current coefficient is strict:
+
+\[
+p(\alpha_\infty)={9038+722\sqrt2\over36501},
+\qquad
+{A_\infty^3\over24}={944-630\sqrt2\over36501};
+\]
+
+their sum is
+\((9982+92\sqrt2)/36501=(434+4\sqrt2)/1587\), giving a direct
+simplification independent of merely quoting the earlier envelope value.
+
+\[
+C_{5,*}
+<{276777463862377\over10^{15}}
+<{277\over1000}
+<C_{\mathrm{AF}}.
+\tag{CR28dw10}
+\]
+
+The first inequality is (CR28dz40). For the last one, clearing positive
+denominators reduces it to \(4000\sqrt2>5599\), whose square margin is
+\(32{,}000{,}000-31{,}348{,}801>0\). Thus \(C_{5,*}\) remains the exact
+global optimum of the *fixed \(k=5\) template*, but it is not the strongest
+coefficient obtained by using all fixed finite \(k\).
+
+Finally, the additive cyclic-ratio relation (CR28), equivalently (CR39),
+has normalized error below \(1/n\). Therefore
+
+\[
+\boxed{
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\ge {C_{\mathrm{AF}}\over\pi}
+={434+4\sqrt2\over1587\pi}.
+}
+\tag{CR28dw11}
+\]
+
+The quantifier order is essential and elementary:
+
+\[
+\forall k\ge1:\
+\left[
+{\Lambda_n\over n^3}\ge B_{k,n}\ \hbox{ eventually},
+\quad B_{k,n}\longrightarrow C_k(\alpha_\infty)
+\right]
+\quad\Longrightarrow\quad
+\forall k\ge1:\ L_\Lambda\ge C_k(\alpha_\infty)
+\quad\Longrightarrow\quad
+L_\Lambda\ge\sup_{k\ge1}C_k(\alpha_\infty).
+\tag{CR28dw12}
+\]
+
+Here \(B_{k,n}\) is the normalized right-hand side of (CR28dw), and its
+eventual validity begins at the tuple-dependent \(N_k\).
+No value \(k=k(n)\) is selected. No common threshold
+\(\sup_kN_k<\infty\) is asserted or needed. No \(n\)-limit is interchanged
+with a \(k\)-limit: \(M_k\to1/3\) is used only to evaluate the supremum of
+the scalar coefficients *after* every fixed-\(k\) liminf inequality has been
+established. Because \(M_k<1/3\) for every finite \(k\), this argument also
+does not produce a finite rounded theorem of the form
+\(\Lambda_n\ge C_{\mathrm{AF}}n^3\) beyond some common threshold.
+
 ### Explicit five-prefix rational asymptotic witness
 
-The two preceding theorems can now be combined at one fixed finite value
+The normalized-simplex and direct charging theorems can also be combined at
+one fixed finite value
 \(k=5\). This is not a use of the limit \(M_k\to1/3\), and no global
 optimization of the five-prefix parameters is needed. From (CR28ct)--(CR28cw),
 
@@ -8138,7 +8370,7 @@ geometric bounds gives
 \]
 and
 \[
-C_{5,*}
+{434+4\sqrt2\over1587}
 \le
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
 \le
@@ -8234,16 +8466,25 @@ Further non-consequences are important.
   descending recursive invariant contains no frontier count and therefore
   survives every finite number of boundaries and every nested history. This
   proves the exact finite indexed inequality by itself. It gives no uniform
-  growing-\(k\) control, coefficient optimization, rounding, limiting-prefix
-  passage, asymptotic coefficient, or geometric claim.
+  growing-\(k\) control, rounding, or infinite-prefix theorem. Its separate
+  fixed-\(k\) instances are used in (CR28dw1)--(CR28dw12).
 - The normalized simplex theorem (CR28cr)--(CR28dd) solves the compact
   polynomial for every fixed \(k\), proves its unique interior maximizer and
   the exact recurrence \(M_k\nearrow1/3\), and generates the first five
   rational simplex points used here. It does not imply the separate direct finite-\(k\)
-  charging theorem or make that theorem uniform in growing \(k\). In
-  particular, neither the formal endpoint value \(1/3\) nor the all-middle
-  value \((434+4\sqrt2)/1587\) is a new coefficient bound for \(\Lambda_n\)
-  or \(R_2^*(n)\).
+  charging theorem or make that theorem uniform in growing \(k\). The formal
+  endpoint value \(1/3\) is not a bound. At the strict all-middle density
+  \(\alpha_\infty=(13-2\sqrt2)/23\), however, the normalized optimizer is
+  strictly admissible for every fixed finite \(k\). Applying charging at each
+  fixed \(k\) gives \(L_\Lambda\ge C_k(\alpha_\infty)\); taking the supremum
+  of those scalar inequalities gives
+  \[
+  L_\Lambda\ge{434+4\sqrt2\over1587},
+  \qquad
+  \liminf_{n\to\infty}{R_2^*(n)\over n^3}
+  \ge{434+4\sqrt2\over1587\pi}.
+  \]
+  This uses no \(k=k(n)\), uniform threshold, or interchange of limits.
 - Combining those two separate theorems only at fixed \(k=5\), with
   \(\alpha=13/30\), gives the explicit rational all-middle point
   (CR28dx)--(CR28dz), the exact coefficient
@@ -8257,7 +8498,9 @@ Further non-consequences are important.
   optimization. The later compact theorem (CR28dz20)--(CR28dz42) optimizes
   all eleven continuous parameters, audits all 21 clipping regimes and every
   compact face, and proves the unique strict all-middle coefficient
-  \(C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}\).
+  \(C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}\). Thus \(C_{5,*}\) remains the
+  exact optimum of the fixed \(k=5\) template, while (CR28dw9) is the stronger
+  all-fixed-\(k\) lower coefficient.
   The exact finite specialization (CR28dz4)--(CR28dz19) retains all four
   parameter families unchanged. Its minimal uniform threshold is \(234\),
   its literal and integer-closed bounds are \(\mathcal B_{5,n}\) and

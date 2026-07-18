@@ -1,6 +1,6 @@
 # TASK STATUS - Arbitrary Finite-Prefix One-Use Charging
 
-Last update: 2026-07-17
+Last update: 2026-07-18
 
 ## State
 
@@ -52,6 +52,16 @@ Last update: 2026-07-17
   prove charging.
 - Pointwise validity for every finite admissible row does not supply
   thresholds, rounding, errors, or parameter control uniform in \(k=k(n)\).
+
+## Subsequent Correction - 2026-07-18
+
+The preceding limitation remains exact, but it does not block taking a
+supremum of consequences obtained separately at every fixed finite \(k\).
+Combined with the independent normalized optimizer at
+\(\alpha_\infty=(13-2\sqrt2)/23\), the theorem gives the all-fixed-\(k\)
+coefficient \((434+4\sqrt2)/1587\) and its geometric value divided by
+\(\pi\). No \(k=k(n)\), uniform threshold, or interchange of limits is used;
+see `ops/TASK-20260718__all_fixed_k_corollary/`.
 
 ## Decisions And Rationale
 

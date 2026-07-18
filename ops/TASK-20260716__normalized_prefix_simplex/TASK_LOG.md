@@ -107,3 +107,18 @@
   `git diff --check` passed.
 - Set the corrected task to READY_FOR_REVIEW for user inspection and a manual
   commit decision.
+
+## 2026-07-18 - Subsequent All-Fixed-k Correction
+
+- A later STRICT task identified that the historical phrase “no new bound”
+  was correct only for the normalized theorem in isolation.
+- The independently proved CR28dr--CR28dw theorem applies charging at every
+  fixed finite \(k\). At
+  \(\alpha_\infty=(13-2\sqrt2)/23\), its fixed-\(k\) consequences have
+  supremum \((434+4\sqrt2)/1587\), with the geometric value divided by
+  \(\pi\).
+- This correction uses no \(k=k(n)\), uniform threshold, or interchange of
+  limits and does not alter the simplex theorem or its diagnostic.
+- **Evidence:**
+  `../TASK-20260718__all_fixed_k_corollary/EVIDENCE.md#ev-002---exact-all-fixed-k-theorem`.
+- **Next step:** use the newer dossier for current project-wide consequences.

@@ -3,7 +3,7 @@
 - Task ID: `TASK-20260716__normalized_prefix_simplex`
 - Mode: STRICT
 - Status: READY_FOR_REVIEW
-- Last updated: 2026-07-16
+- Last updated: 2026-07-18
 - Blocker: none
 
 ## Objective
@@ -59,7 +59,21 @@ limiting polynomial envelope, exact agreement with the documented
   degenerate endpoint \(\alpha=1\). On the limiting all-middle closure its
   unique maximum is \((434+4\sqrt2)/1587\) at
   \((13-2\sqrt2)/23\).
-- Neither envelope value is a new coefficient bound.
+- The normalized theorem alone supplies no charging and therefore no
+  original-problem coefficient by itself. A later correction combines it with
+  the independent arbitrary finite-prefix charging theorem at every fixed
+  finite \(k\), obtaining the all-fixed-\(k\) coefficient
+  \((434+4\sqrt2)/1587\). See
+  `ops/TASK-20260718__all_fixed_k_corollary/`.
+
+## Subsequent Correction - 2026-07-18
+
+The earlier task correctly excluded a new bound from the normalized-simplex
+theorem *in isolation*, but its absolute project-wide wording became stale
+after arbitrary finite-\(k\) charging was proved. For each fixed \(k\), the
+two independent theorems now give a scalar liminf inequality; taking their
+supremum requires no \(k=k(n)\), uniform threshold, or interchange of limits.
+The append-only chronology is preserved in `TASK_LOG.md`.
 
 ## Completion Checklist
 

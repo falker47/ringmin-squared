@@ -1,6 +1,6 @@
 # TASK STATUS - Global Five-Prefix Optimization
 
-Last update: 2026-07-17
+Last update: 2026-07-18
 
 ## State
 
@@ -79,6 +79,17 @@ Last update: 2026-07-17
 
 - No blocker. The formal all-middle envelope is used for equality only on its
   audited branch. No finite theorem is claimed at the irrational optimizer.
+
+## Subsequent Scope Clarification - 2026-07-18
+
+The optimizer and coefficient in this dossier remain exact, unique, and
+unchanged for the fixed \(k=5\) template. A later all-fixed-\(k\) corollary
+proves
+\[
+C_{5,*}<{277\over1000}<{434+4\sqrt2\over1587},
+\]
+so \(C_{5,*}\) is no longer the current cross-\(k\) lower coefficient. See
+`ops/TASK-20260718__all_fixed_k_corollary/`.
 
 ## Next Atomic Action
 

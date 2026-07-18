@@ -612,10 +612,10 @@ every nested history. The exact result is
 P_{r,n}+\sum_{i=1}^k(s_{i-1}-s_i)G_{n,\lambda_i}(s_i),
 \qquad s_0=r.
 \]
-It gives no coefficient optimization, rounding, uniform growing-\(k\)
-control, limiting-prefix passage, or geometric consequence. The sole new
-dossier-local oracle is limited to \(k=6\) and checks all 332,640 histories of
-one six-edge base without changing production enumeration.
+By itself it gives no rounding or uniform growing-\(k\) control. Its separate
+fixed-\(k\) instances are combined below with the normalized optimizer. The
+sole dossier-local oracle is limited to \(k=6\) and checks all 332,640
+histories of one six-edge base without changing production enumeration.
 
 Independently of that charging theorem, the normalized prefix simplex is
 solved exactly in every fixed dimension. For \(k\ge1\), let
@@ -697,10 +697,75 @@ E_\infty(\alpha)={434+4\sqrt2\over1587}.
 
 These are exact normalized-polynomial statements for each fixed \(k\). The
 normalized-simplex proof itself supplies no charging theorem; the direct
-finite-\(k\) theorem above is separate. Its pointwise validity supplies no
-cutoff threshold, rounding estimate, or parameter control uniform in
-\(k=k(n)\). Thus no interchange of \(k\) and \(n\) is justified, and the
-normalized limit yields no new bound for \(\Lambda_n\) or \(R_2^*(n)\).
+finite-\(k\) theorem above is separate. They nevertheless have the following
+exact all-fixed-\(k\) consequence. Fix
+
+\[
+\alpha_\infty={13-2\sqrt2\over23},
+\qquad
+A_\infty=3\alpha_\infty-1,
+\qquad
+S_\infty=1+\alpha_\infty.
+\]
+
+For each finite \(k\), use its unique normalized optimizer \(x^{(k)}\) and
+define
+
+\[
+\beta_i={S_\infty+A_\infty x_i^{(k)}\over4},
+\qquad
+\lambda_i={A_\infty x_i^{(k)}\over\beta_i}.
+\]
+
+Because \(1/3<\alpha_\infty<1/2\) and
+\(1>x_1^{(k)}>\cdots>x_k^{(k)}>0\),
+
+\[
+\beta_i-{S_\infty\over4}={A_\infty x_i^{(k)}\over4}>0,
+\quad
+\alpha_\infty-\beta_i
+={A_\infty(1-x_i^{(k)})\over4}>0,
+\]
+
+\[
+{S_\infty\over3}-\beta_i
+>{1-2\alpha_\infty\over3}>0.
+\]
+
+Thus the cutoffs and weights are strictly ordered and strictly all-middle:
+
+\[
+0<\beta_k<\cdots<\beta_1<\alpha_\infty<1,
+\qquad
+0<\lambda_k<\cdots<\lambda_1<1.
+\]
+
+For each fixed \(k\), some tuple-dependent threshold \(N_k\) makes the
+integer cutoffs admissible. The charging theorem and fixed-parameter liminf
+then give
+
+\[
+L_\Lambda:=\liminf_{n\to\infty}{\Lambda_n\over n^3}
+\ge p(\alpha_\infty)+{A_\infty^3M_k\over8}.
+\]
+
+This scalar inequality holds for every fixed finite \(k\). Taking its
+supremum and using \(M_k\nearrow1/3\) proves
+
+\[
+\boxed{
+L_\Lambda\ge{434+4\sqrt2\over1587},
+\qquad
+\liminf_{n\to\infty}{R_2^*(n)\over n^3}
+\ge{434+4\sqrt2\over1587\pi}.
+}
+\]
+
+No \(k=k(n)\) is used, no threshold uniform in \(k\) is needed, and no
+limits are interchanged. The operation is only the supremum of scalar
+inequalities already proved one fixed \(k\) at a time. The formal endpoint
+value \(1/3\) at \(\alpha=1\) is not promoted, and the supremum above gives
+no new uniformly rounded finite-\(n\) theorem.
 
 At fixed \(k=5\), the full continuous coefficient can nevertheless be
 optimized without a growing-\(k\) interchange. Coordinatewise weight clipping
@@ -749,7 +814,12 @@ Thus
 One standalone exact diagnostic checks the 21 regimes, five transition rows,
 optimizer and coefficient polynomials and isolating intervals, strict branch
 inequalities, coefficient identity, and comparison margins. No finite
-rounding at this irrational optimizer is asserted.
+rounding at this irrational optimizer is asserted. The number \(C_{5,*}\)
+remains the exact optimum of the fixed \(k=5\) template, but
+\[
+C_{5,*}<{277\over1000}<{434+4\sqrt2\over1587},
+\]
+so it is not the current all-fixed-\(k\) lower coefficient.
 
 At the single fixed value \(k=5\), however, the two separate exact theorems
 may be combined without any limiting interchange. Put
@@ -1279,8 +1349,7 @@ The cubic order is exact, but existence of a limiting coefficient, a
 leading-term asymptotic formula, and an upper bound matching the current
 linear-block lower coefficient remain unresolved. Current exact bounds give
 \[
-\frac{2263404122555368590593580404287}
-     {8177706222298165502582585481000\pi}
+\frac{434+4\sqrt2}{1587\pi}
 \le
 \liminf_{n\to\infty}\frac{R_2^*(n)}{n^3}
 \le
@@ -1306,7 +1375,8 @@ Out of scope:
 - treating the fixed-\(k\) normalized simplex lemma as the source of the
   separate direct finite-\(k\) charging theorem, treating that theorem as
   uniform for \(k=k(n)\), interchanging \(k\) with \(n\), or improving any
-  bound for \(\Lambda_n\) or \(R_2^*(n)\) without a separate argument;
+  bound for \(\Lambda_n\) or \(R_2^*(n)\) without a separate argument; the
+  all-fixed-\(k\) supremum proof above is that required separate argument;
 - silently generalizing Ringmin results to quadratic radii;
 - modifying the original Ringmin repository.
 
@@ -1475,8 +1545,9 @@ its global compact optimization, two independent four-prefix diagnostics, the
 exact one-use theorem for every finite number of selected prefixes, its
 bounded six-prefix dossier oracle, the historical five-prefix oracle, the
 exact normalized prefix-simplex lemma
-for every fixed \(k\), its envelope classification, and asymptotic
-limitations, plus the exact global \(k=5\) compact optimization, all 21
+for every fixed \(k\), its envelope classification, the exact all-fixed-\(k\)
+supremum corollary and its strict admissibility/quantifier audit, plus the
+exact global \(k=5\) compact optimization, all 21
 clipping regimes and compact faces, its unique eleven-parameter quadratic-surd
 optimizer, strict comparison \(C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}\), and
 standalone exact diagnostic. One-wrap saturation
@@ -1840,9 +1911,9 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   The case \(k=1\) recovers the one-prefix theorem and \(k=5\) recovers the
   former five-segment statement. No positivity of the individual floors is
   required. Pointwise validity for every finite admissible row supplies no
-  uniform cutoff, rounding, or parameter control for \(k=k(n)\), no
-  coefficient optimization, no \(k\to\infty\) passage, and no geometric
-  consequence.
+  uniform cutoff, rounding, or parameter control for \(k=k(n)\), and no
+  \(k\to\infty\) passage. Its individual fixed-\(k\) consequences are
+  combined with the normalized theorem below.
 - EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (EXPLICIT FIVE-PREFIX WITNESS):
   with \(D=30143556935103\) and
   \[
@@ -1900,9 +1971,10 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
    \over1312688475479610714750859896048564873968757997852345827}
   >C_{5,\mathrm{rat}}>C_{4,*}.
   \]
-  Hence the two liminf bounds hold with \(C_{5,*}\). This is fixed \(k=5\);
-  it supplies no finite rounding at the irrational point or growing-\(k\)
-  passage.
+  Hence the two liminf bounds hold with \(C_{5,*}\). This is fixed \(k=5\)
+  and is the exact optimum of that template; it supplies no finite rounding
+  at the irrational point or growing-\(k\) passage. The all-fixed-\(k\)
+  corollary below gives a strictly larger general lower coefficient.
 - EXACT FINITE METHOD-SPECIFIC THEOREM (FIXED RATIONAL FIVE-PREFIX WITNESS):
   retain the preceding rational parameters, define
   \(r_n=\lfloor13n/30\rfloor\) and
@@ -1976,6 +2048,34 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \(\alpha=1\); on \([1/3,1)\) it is only a supremum. The limiting all-middle
   closure \([1/3,1/2]\) has the unique maximum
   \((434+4\sqrt2)/1587\) at \((13-2\sqrt2)/23\).
+- EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (ALL FIXED \(k\)): at
+  \(\alpha_\infty=(13-2\sqrt2)/23\), define from each unique optimizer
+  \(x^{(k)}\)
+  \[
+  \beta_i={1+\alpha_\infty+(3\alpha_\infty-1)x_i^{(k)}\over4},
+  \qquad
+  \lambda_i={(3\alpha_\infty-1)x_i^{(k)}\over\beta_i}.
+  \]
+  For every finite \(k\), these parameters are strictly ordered and
+  all-middle. A tuple-dependent threshold \(N_k\) suffices for charging, and
+  the fixed-parameter limit gives
+  \[
+  L_\Lambda\ge
+  p(\alpha_\infty)+{(3\alpha_\infty-1)^3M_k\over8}.
+  \]
+  Taking the supremum of these scalar inequalities proves
+  \[
+  \boxed{
+  L_\Lambda\ge{434+4\sqrt2\over1587},
+  \qquad
+  \liminf_{n\to\infty}{R_2^*(n)\over n^3}
+  \ge{434+4\sqrt2\over1587\pi}.
+  }
+  \]
+  No \(k=k(n)\), uniform threshold, or interchange of limits occurs.
+  Moreover
+  \(C_{5,*}<277/1000<(434+4\sqrt2)/1587\), so \(C_{5,*}\) remains only the
+  exact fixed-\(k=5\) template optimum.
 - VERIFIED FACT (FINITE EXACT DOSSIER DIAGNOSTIC): a standalone `Fraction`
   diagnostic independently checks the value and ratio recurrences, direct
   objectives, stationarity, strict feasibility, and the first four exact
@@ -1984,9 +2084,10 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   This bounded check corroborates the proof but is not the all-real theorem.
 - LIMITATION: the normalized simplex theorem is independent of the charging
   argument. A separate direct proof establishes one-use charging for every
-  finite admissible \(k\), but neither result supplies control uniform in a
-  growing \(k=k(n)\), an interchange between \(k\) and \(n\), or a new bound
-  from the limiting envelope.
+  finite admissible \(k\). Neither result supplies control uniform in a
+  growing \(k=k(n)\) or an interchange between \(k\) and \(n\); neither is
+  needed for the all-fixed-\(k\) supremum corollary. No finite rounded theorem
+  at its unattained supremum coefficient is asserted.
 - VERIFIED FACT (FINITE EXACT DOSSIER ORACLE): the standalone
   ops/TASK-20260716__four_prefix_charging/literal_oracle.py imports no
   project or test helper and checks all 840 literal four-split histories from
@@ -2644,13 +2745,22 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   {2263404122555368590593580404287
    \over8177706222298165502582585481000\pi}.
   \]
-  The globally optimized five-prefix template raises it further to
+  The globally optimized five-prefix template raises its fixed-\(k=5\)
+  optimum further to
   \[
   {346693217780244687187063490332457027500975566238012204
    +1228130489996268437333105902690103574002
     \sqrt{183342238504950468196395903}
    \over1312688475479610714750859896048564873968757997852345827\pi}.
   \]
+  Finally, applying the independent normalized optimizer and charging theorem
+  at every fixed finite \(k\), then taking the supremum of the resulting
+  scalar inequalities, raises the current lower coefficient to
+  \[
+  {434+4\sqrt2\over1587\pi}.
+  \]
+  This last step uses no \(k=k(n)\), uniform threshold, or interchange of
+  limits; the five-prefix surd remains the exact optimum of its template.
   All four irrational multi-prefix optimizers are exact and unique in their
   respective templates. The older rational witness remains the finite two-prefix theorem
   from \(n=59\); the irrational three-prefix optimizer now has the stronger
