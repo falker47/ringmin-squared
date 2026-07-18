@@ -185,6 +185,18 @@
   is equivalent to \(W(\sigma_\alpha)=T=W_n\). Thus (PG49) is exactly the
   edge support of full-optimal scaffold bijections, not merely of locally
   feasible matchings.
+- **EXACT THEOREM (Ferrers count of full-optimal scaffold bijections):** put
+  \(d=8m+4\) and
+  \(\kappa_j=\lceil j(d-1)/(2(d+j))\rceil\). The exact labelled count is
+  \[
+  \#\{\alpha:W(\sigma_\alpha)=T=W_n\}
+  =\prod_{j=1}^{2m-1}(j+1-\kappa_j).
+  \]
+  This is the permanent of the reduced PG49 Ferrers board, obtained by a
+  one-step nested-neighborhood recurrence rather than permutation
+  enumeration. Distinct assignments give distinct canonical dihedral core
+  orders in this fixed oriented scaffold, so the same integer also counts
+  its dihedral classes; no symmetry factor is divided out.
 - **CONJECTURE:** none is proposed from nine finite cases.
 
 Fractions are oriented exactly as displayed below. The accepted angular
@@ -5299,6 +5311,207 @@ proof applies to all relation-compatible bijections. This is a combinatorial
 surrogate theorem; it does not identify a geometric optimum or improve the
 already recorded regular-direction upper bound.
 
+### Exact Ferrers count of full-optimal scaffold bijections
+
+We now count the arbitrary bijections classified above. This is not an edge
+count: it is the number of perfect matchings of the PG49 support. Keep
+\(v=2m\), \(d=8m+4\), and the inclusive column thresholds
+
+\[
+\kappa_j=
+\left\lceil{j(d-1)\over2(d+j)}\right\rceil
+\qquad(0\le j<v).
+\]
+
+Define the set and its labelled cardinality by
+
+\[
+\mathfrak F_m
+=\{\alpha:\{0,\ldots,v-1\}\to\{0,\ldots,v-1\}:
+\alpha\text{ is bijective and }
+(\alpha(j),j)\in\mathcal R_{\rm ext}\text{ for every }j\},
+\qquad
+\mathsf F_m^{\rm lab}=|\mathfrak F_m|.
+\tag{PG64}
+\]
+
+Here the gaps \(G_j\) and the retained oriented paths \(P_k\) are indexed,
+distinct objects. Thus \(\mathsf F_m^{\rm lab}\) is, by definition, a labelled
+count. Repeated Ferrers thresholds do not identify rows or columns.
+
+Let \(A_m=(a_{k,j})_{0\le k,j<v}\) be the support matrix, with rows indexed
+by paths and columns by gaps, as in the preceding Ferrers convention. PG49
+gives the exact matrix
+
+\[
+a_{k,j}=
+\begin{cases}
+1,&(k,j)=(0,0),\\
+1,&1\le j<v\text{ and }k\ge\kappa_j,\\
+0,&\text{otherwise}.
+\end{cases}
+\qquad
+\mathsf F_m^{\rm lab}=\operatorname{per}(A_m).
+\tag{PG65}
+\]
+
+In particular, row and column zero are forced. Deleting them leaves the
+square board \(1\le j,k<v\), whose gap neighborhoods are the nested suffixes
+
+\[
+N(G_j)=\{P_{\kappa_j},\ldots,P_{v-1}\}
+\qquad(1\le j<v).
+\tag{PG66}
+\]
+
+Process these gaps in the order
+\(G_{v-1},G_{v-2},\ldots,G_1\). When \(G_j\) is reached, the
+\(v-1-j\) paths already used by the narrower columns all belong to
+\(N(G_j)\), by monotonicity of \(\kappa_j\). Since
+\(|N(G_j)|=v-\kappa_j\), the number of available paths is exactly
+
+\[
+(v-\kappa_j)-(v-1-j)=j+1-\kappa_j,
+\tag{PG67}
+\]
+
+independently of which valid choices were made later in the suffix. Thus, if
+\(C_{m,v}=1\) and \(C_{m,j}\) counts the injective assignments of
+\(G_j,\ldots,G_{v-1}\), the exact recurrence is
+
+\[
+C_{m,j}=(j+1-\kappa_j)C_{m,j+1}
+\quad(j=v-1,\ldots,1),
+\qquad
+\mathsf F_m^{\rm lab}=C_{m,1}.
+\tag{PG68}
+\]
+
+Consequently the requested symbolic formula is
+
+\[
+\boxed{
+\mathsf F_m^{\rm lab}
+=\prod_{j=1}^{2m-1}
+\left(
+j+1-
+\left\lceil{j(8m+3)\over2(8m+4+j)}\right\rceil
+\right)
+}
+\qquad(m\ge3).
+\tag{PG69}
+\]
+
+There is an equivalent row-threshold form. Put
+\(q_m=\kappa_{2m-1}=\lfloor(4m+3)/5\rfloor\). This is the first path
+index whose residual row contains every positive gap. For triple rows put
+
+\[
+\ell_k=
+\min\!\left\{2m-1,
+\left\lfloor{2k(8m+4)\over8m+3-2k}\right\rfloor\right\}
+\qquad(1\le k\le m).
+\]
+
+After deleting the forced zero edge, such a row has the positive-gap
+neighborhood \(G_1,\ldots,G_{\ell_k}\), whereas each singleton row has all
+\(2m-1\) positive gaps. Applying the same recurrence to these nested initial
+segments gives the independently readable identity
+
+\[
+\boxed{
+\mathsf F_m^{\rm lab}
+=(m-1)!\prod_{k=1}^{m}(\ell_k-k+1)
+=(2m-q_m)!\prod_{k=1}^{q_m-1}(\ell_k-k+1).
+}
+\tag{PG70}
+\]
+
+Every boundary in the two products is literal.
+
+- At column zero, PG49 forces \(\alpha(0)=0\); the omitted factor would be
+  \(1-\kappa_0=1\). At the first positive column,
+  \(\kappa_1=1\), so the factor is also one.
+- For \(2\le j<v\), PG40 gives \(\kappa_j\le j-1\), so every factor in
+  (PG69) is at least two. In particular, no formal Hall-zero factor is
+  hidden.
+- At the last nonclosing and closing columns, respectively,
+
+  \[
+  \kappa_{2m-2}=\left\lfloor{4m+1\over5}\right\rfloor,
+  \qquad
+  \kappa_{2m-1}=\left\lfloor{4m+3\over5}\right\rfloor,
+  \tag{PG71}
+  \]
+
+  and (PG69) uses the factors
+  \(2m-1-\lfloor(4m+1)/5\rfloor\) and
+  \(2m-\lfloor(4m+3)/5\rfloor\). These formulas include all five residue
+  classes of \(m\).
+- Since \(q_m\le m\), all rows from \(P_{q_m}\) onward are universal on the
+  positive gaps; this gives the second product in (PG70). At the displayed
+  path-type transition, \(\ell_m=2m-1\), so the last triple row
+  contributes \(m\). The first singleton row \(k=m+1\) contributes
+  \(m-1\), and the terminal singleton \(k=2m-1\) contributes one. Thus the
+  triple/singleton boundary and terminal row require no correction. The
+  asserted saturation is exact because
+
+  \[
+  2m(8m+4)-(2m-1)(6m+3)=4m^2+8m+3>0.
+  \]
+- Equality at either a row or column cutoff is included by the floor/ceiling
+  definitions. Hence the nontrivial equalities already allowed by PG26 are
+  counted, not discarded.
+
+At the minimum parameter, PG48 gives
+
+\[
+m=3:\qquad
+(\kappa_0,\ldots,\kappa_5)=(0,1,1,2,2,3),
+\qquad
+\mathsf F_3^{\rm lab}=1\cdot2\cdot2\cdot3\cdot3=36.
+\tag{PG72}
+\]
+
+This also checks the row form: the triple cutoffs are
+\((\ell_0,\ell_1,\ell_2,\ell_3)=(0,2,4,5)\), and the two singleton rows are
+universal.
+
+It remains to identify exactly what the permanent counts. Every matching of
+the PG49 board uses only edges of \(\mathcal R_{\rm loc}\), so PG36 makes it
+relation-compatible. Conversely, every relation-compatible bijection uses
+only extendible edges and is a matching of the PG49 board. Finally PG62,
+whose quantifier is over arbitrary bijections rather than only the interval
+shifts, gives
+
+\[
+\boxed{
+\mathfrak F_m
+=\{\alpha:\alpha\text{ is relation-compatible}\}
+=\{\alpha:W(\sigma_\alpha)=T=W_n\}.
+}
+\tag{PG73}
+\]
+
+Thus (PG69)--(PG70) count exactly all full-optimal bijections in the fixed
+scaffold classified by PG50--PG63, and no incompatible or merely
+edge-extendible partial assignment is counted.
+
+For clarity about symmetries, the formula remains a labelled count: no
+rotation, reflection, path permutation, or automorphism of the Ferrers board
+is quotiented out. Nevertheless, distinct \(\alpha\) give distinct canonical
+dihedral core-order classes in this particular labelled scaffold. Indeed,
+the label \(n=E_{v-1}\) fixes the rotation, its forward and backward
+neighbors are respectively \(2=\lambda_{v-1}\) and
+\(3=\rho_{v-1}\), and hence the displayed orientation is already the
+canonical one with second entry smaller than the last. The word between each
+\(\lambda_j\) and \(\rho_{j+1}\) then recovers the unique oriented path
+\(P_{\alpha(j)}\). Reflection starts instead with \((n,3,\ldots,2)\) and
+cannot be another displayed scaffold order. Therefore \(\mathsf F_m^{\rm lab}\)
+also equals the number of dihedral classes represented by these full-optimal
+scaffold orders, by injectivity rather than by division by a symmetry factor.
+No assertion is made about alternative scaffolds or geometric optima.
+
 ## Verification Boundary And Open Questions
 
 `tests/test_product_distance.py` checks exact rational comparisons, canonical
@@ -5389,6 +5602,14 @@ checks the literal compatible closure. It separately constructs only the two
 sharp PG46 witnesses with \(P_m\) in \(G_{2m-2}\) or \(G_{2m-1}\) and scores
 their complete orders. It enumerates no path permutation or matching and
 imports no project or test helper.
+The sole diagnostic for (PG64)--(PG73) is the standalone standard-library
+script in ops/TASK-20260718__ferrers_bijection_count/. For
+\(m=3,\ldots,8\), it builds the PG49 support directly from integer
+cross-multiplied inequalities and computes its reduced permanent by Ryser
+inclusion--exclusion. It compares that independent value with both Ferrers
+products and fixed expected integers, including every terminal-threshold
+residue class and the minimum row. It enumerates column subsets, not path
+permutations or matchings, and imports no project or test helper.
 
 The following remain unresolved.
 
@@ -5404,13 +5625,22 @@ The following remain unresolved.
 - **CLOSED LOCAL QUESTION:** the exact support of relation-compatible
   bijections is (PG49). The sole extendible edge in column zero is \((0,0)\);
   every local edge in a positive column is extendible by one of the explicit
-  interval shifts. It does not classify every compatible bijection.
+  interval shifts. By itself this support theorem does not count the perfect
+  matchings; (PG64)--(PG73) now supply that separate count.
 - **CLOSED FULL-SCORE QUESTION:** (PG50)--(PG63) treat \(\alpha\) as arbitrary,
   classify every distance-three start and transition including cyclic closure,
   and prove \(W(\sigma_\alpha)=W^{(\le2)}(\sigma_\alpha)\) for every
   bijection. Hence every relation-compatible bijection, including every shift
   above, has \(W=T=W_n\). Conversely, every full-optimal bijection in the
   scaffold is relation-compatible, so (PG49) is its exact edge support.
+- **CLOSED COUNTING QUESTION:** (PG64)--(PG73) count those bijections exactly
+  by the permanent of the reduced PG49 Ferrers board. The nested-neighborhood
+  recurrence gives (PG69), with the dual row product (PG70), every endpoint
+  and transition boundary, and the exact minimum value
+  \(\mathsf F_3^{\rm lab}=36\).
+  The count is labelled; it also equals the number of dihedral classes
+  represented by this fixed scaffold because the canonical-order map is
+  injective, not because a symmetry factor is removed.
 - **OPEN QUESTION:** for which \(n\ge94\) is
   \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\)? Criterion (MS2)
   certifies equality whenever it holds, including \(n=94\), but no complete

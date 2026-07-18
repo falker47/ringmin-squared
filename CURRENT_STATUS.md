@@ -6,183 +6,183 @@ Last update: 2026-07-18
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Active task:** determine exactly the induced-subset objective \(K\) for
-  `residue_two_product_distance_order(n)` on \(n=5k+2\), \(k\ge2\), and
-  compare it pointwise and asymptotically with (K825-4).
+- **Active task:** derive the exact symbolic count of relation-compatible,
+  equivalently full-optimal, path-to-gap scaffold bijections on
+  \(n=10m+3\), \(m\ge3\), from the PG49 Ferrers support without enumerating
+  path permutations.
 - **Repository state at startup:** clean `main` worktree at commit
-  `6edc37325200dec1826173b2506dd0893219b28b`, tracking `origin/main`.
-- **Implementation state:** the exact score, unique-maximizer classification,
-  all-\(k\) shortcut-budget proof, parity/boundary treatment, K825 comparison,
-  sole bounded diagnostic, authorized consequences, authoritative
-  synchronization, independent audits, and final verification are complete.
+  `b1a4054d1fac75443cf1929921dddb38f9750a5f`, tracking `origin/main`.
+- **Implementation state:** the permanent recurrence, exact column and row
+  products, complete boundary treatment, PG50--PG63 class identity,
+  labelled/dihedral convention, sole bounded independent diagnostic,
+  authoritative synchronization, independent audits, and repository
+  verification are complete.
 - **Current blocker:** none.
 - **Current next atomic action:** user manual review and commit decision.
 - **Awaiting user review:** yes.
 
 ## Objective And Scope
 
-For the exact-threshold residue-two cyclic core order \(\tau_n^{(2)}\)
-returned by `residue_two_product_distance_order(n)`, determine
-\[
-K(\tau_n^{(2)})
-=\max_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P_{\tau_n^{(2)}}(U)
-\]
-for every \(n=5k+2\), \(k\ge2\), without enumerating subsets or cyclic
-orders. Classify every maximizer, treat both parities and every smallest path
-boundary, compare exactly and asymptotically with K825, and transfer only
-consequences licensed by label-one elimination and the fixed-order sandwich.
-Production, tests, artifacts, schemas, certificates, and enumeration limits
-remain unchanged because no defect was found.
+For the fixed indexed paths \(P_0,\ldots,P_{2m-1}\) and oriented terminal
+gaps \(G_0,\ldots,G_{2m-1}\), count exactly every relation-compatible
+bijection using the nested PG49 support. Prove that the counted set is exactly
+the full-optimal scaffold class from PG50--PG63, cover every endpoint and
+path-type boundary, and specify the symmetry convention. Use no permutation
+enumeration. Add only one small standard-library diagnostic and make no
+geometric inference or alternative-scaffold study.
 
-## Exact Theorem And Argmax Classification
+## Exact Ferrers Formula And Recurrence
 
-Put \(\varepsilon=k\bmod2\). For every \(k\ge2\), the sole maximizing
-subset is
+Put
+
 \[
-\boxed{S_k=\{2k+1,\ldots,5k+2\}.}
+v=2m,
+\qquad
+d=8m+4,
+\qquad
+\kappa_j=
+\left\lceil{j(d-1)\over2(d+j)}\right\rceil.
 \]
-There are no ties, parity-dependent argmaxes, or exceptional boundary
-maximizers. The exact score is
+
+PG49 forces \((P_0,G_0)\). On the reduced board
+\(1\le j,k<v\), gap \(G_j\) has the nested suffix neighborhood
+\[
+N(G_j)=\{P_{\kappa_j},\ldots,P_{v-1}\}.
+\]
+After assigning the narrower gaps \(G_{v-1},\ldots,G_{j+1}\), exactly
+\(v-1-j\) used paths lie in \(N(G_j)\). Therefore every partial assignment
+has precisely
+\[
+(v-\kappa_j)-(v-1-j)=j+1-\kappa_j
+\]
+extensions at \(G_j\). Thus
+\[
+C_{m,v}=1,
+\qquad
+C_{m,j}=(j+1-\kappa_j)C_{m,j+1},
+\qquad
+\mathsf F_m^{\rm lab}=C_{m,1},
+\]
+and the exact labelled count is
 \[
 \boxed{
-K(\tau_n^{(2)})
-={286k^3+459k^2+198k+16
- +\varepsilon(-10k^2+40k+27)\over8}.
+\mathsf F_m^{\rm lab}
+=\prod_{j=1}^{2m-1}
+\left(
+j+1-
+\left\lceil{j(8m+3)\over2(8m+4+j)}\right\rceil
+\right)
+}
+\qquad(m\ge3).
+\]
+
+The equivalent row formula is
+\[
+\boxed{
+\mathsf F_m^{\rm lab}
+=(m-1)!\prod_{k=1}^{m}(\ell_k-k+1)
+=(2m-q_m)!\prod_{k=1}^{q_m-1}(\ell_k-k+1),
 }
 \]
-Equivalently,
+where
 \[
-K(\tau_n^{(2)})=
-\begin{cases}
-\dfrac{286n^3+579n^2-798n-1008}{1000},
- &n\equiv2\pmod {10},\\[6pt]
-\dfrac{286n^3+529n^2+402n+167}{1000},
- &n\equiv7\pmod {10}.
-\end{cases}
-\]
-
-## Proof Architecture And Boundary Cases
-
-- Delete exactly the isolated holes \(\{2,\ldots,2k\}\), retaining the
-  closing label \(L=2k+1\). Every deletion gain is positive, with exact
-  minimum \(10k+6\).
-- Every compressed path with at least two edges has strict positive shortcut
-  margin. The proof treats hole endpoints, connector and closing middle
-  labels, every three-edge path, and all longer paths separately.
-- Equality in the shortcut budget therefore forces exactly \(S_k\).
-- Direct even/odd block summation gives the displayed quasipolynomial. At
-  \(k=2\) the doubleton is final and gives \(K=567\); at \(k=3\) the odd
-  nonfinal-singleton range is empty and gives \(K=1565\); at \(k=4\) the
-  even nonfinal-singleton range is empty. The same theorem holds without a
-  boundary correction. The smallest shortcut margin is \(7\) at \(k=2\).
-
-## Exact K825 Comparison
-
-On the symbolic canonical domain \(k\ge7\), the parameters are
-\(e=8\), \(v=k-1\), and the K825 parity is \(1-\varepsilon\). Exact
-subtraction gives
-\[
-K_{825}(k)-K(\tau_n^{(2)})
-={21k^2+(50+30\varepsilon)k+4+35\varepsilon\over4}
--25\mathbf1_{\{k=7\}}.
-\]
-The explicit gaps at \(k=2,\ldots,6\) are
-\(26,44,124,178,361\), and the K825 boundary gap at \(k=7\) is \(382\).
-Every gap is positive; there is no crossover. Rowwise in \(n\),
-\[
-K_{825}(n)-K(\tau_n^{(2)})=
-\begin{cases}
-\dfrac{21n^2+166n-316}{100},&n\equiv2\pmod {10},\\[6pt]
-\dfrac{21n^2+316n+259}{100},&n\equiv7\pmod {10},
-\end{cases}
--25\mathbf1_{\{n=37\}}
-\]
-on the symbolic rows. Both families have cubic coefficient \(143/500\), and
-\[
-K_{825}(n)-K(\tau_n^{(2)})={21\over100}n^2+O(n).
-\]
-Thus the improvement is pointwise and quadratic, not cubic.
-
-## Permitted Cyclic-Ratio And Geometric Consequences
-
-For every insertion gap \(g\), exact label-one elimination and the fixed-
-order sandwich give
-\[
-\Lambda(\sigma_{n,g}^{(2)})=K(\tau_n^{(2)}),
+\ell_k=
+\min\!\left\{2m-1,
+\left\lfloor{2k(8m+4)\over8m+3-2k}\right\rfloor\right\},
 \qquad
-{K(\tau_n^{(2)})\over\pi}-n^2
-<\rho_{\sigma_{n,g}^{(2)}}
-<{K(\tau_n^{(2)})\over\pi}.
+q_m=\left\lfloor{4m+3\over5}\right\rfloor.
 \]
-No maximizing subset contains label \(1\), so the same
-\(S_k=\{2k+1,\ldots,5k+2\}\) is the unique subset attaining
-\(\Lambda(\sigma_{n,g}^{(2)})\) for every insertion gap.
-At the global level, only
+
+## Exact Class Identity
+
+Let \(\mathfrak F_m\) be the perfect matchings of the PG49 support. Since
+\(\mathcal R_{\rm ext}\subseteq\mathcal R_{\rm loc}\), PG36 makes every such
+matching relation-compatible. Conversely, every relation-compatible
+bijection witnesses the extendibility of each of its own edges. PG62 then
+gives the exact set identity
 \[
-\Lambda_n\le K(\tau_n^{(2)}),
-\qquad
-R_2^*(n)<{\Lambda_n\over\pi}
-\le{K(\tau_n^{(2)})\over\pi}
+\boxed{
+\mathfrak F_m
+=\{\alpha:\alpha\text{ is relation-compatible}\}
+=\{\alpha:W(\sigma_\alpha)=T=W_n\}.
+}
 \]
-is licensed on \(n=5k+2\). Consequently,
-\[
-\limsup_{k\to\infty}{\Lambda_{5k+2}\over(5k+2)^3}
-\le{143\over500},
-\qquad
-\limsup_{k\to\infty}{R_2^*(5k+2)\over(5k+2)^3}
-\le{143\over500\pi}.
-\]
-These are the existing canonical cubic coefficients, not an improved
-all-residue or subsequential cubic bound.
+Hence the product counts all and only the full-optimal scaffold bijections
+classified by PG50--PG63, not support edges or partial assignments.
+
+## Boundaries And Symmetry Convention
+
+- PG49 forces \(\alpha(0)=0\); \(\kappa_1=1\) gives the first positive
+  factor one.
+- For \(2\le j<2m\), \(\kappa_j\le j-1\), so every remaining factor is at
+  least two.
+- The last nonclosing and closing thresholds are
+  \(\lfloor(4m+1)/5\rfloor\) and \(\lfloor(4m+3)/5\rfloor\), covering every
+  residue class of \(m\).
+- Rows from \(P_{q_m}\) onward are universal on positive gaps. In particular,
+  the last triple, first singleton, and terminal singleton contribute
+  \(m\), \(m-1\), and \(1\), respectively.
+- Floor/ceiling cutoff equalities are included.
+- At \(m=3\),
+  \((\kappa_0,\ldots,\kappa_5)=(0,1,1,2,2,3)\) and
+  \(\mathsf F_3^{\rm lab}=36\); there is no exceptional minimum branch.
+- The formula is primarily a **labelled** count of indexed gaps and retained
+  oriented paths. No rotation, reflection, or Ferrers-board automorphism is
+  quotiented out. Distinct assignments nevertheless yield distinct canonical
+  dihedral core-order representatives: the unique label \(n\) fixes rotation,
+  its oriented neighbors are \(2<3\), and the gap words recover \(\alpha\).
+  Thus the same integer also counts the dihedral classes represented by this
+  fixed scaffold, by injectivity rather than division by a symmetry factor.
 
 ## Verification
 
-- The sole standard-library diagnostic independently reconstructs both block
-  orders. For \(2\le k\le30\), each increasing-path max-plus DP checks
-  4,623,615 transitions and the residue-two audit checks all 238,670 oriented
-  shortcut arcs. Every row has the predicted sole argmax; minimum bounded
-  hole and path margins are respectively \(26\) and \(7\). Direct formulas
-  and comparison continue through \(k=1000\), with no crossover.
-- Ruff lint/format and `py_compile` pass for the sole diagnostic.
-- The full repository suite passes 283 tests. The checked-artifact verifier
-  accepts four certificates, 76 local brackets, and summary rows
-  \(n=3,4,5,6\); the focused schema suite passes four tests.
-- Three independent read-only audits pass the mathematics, K825 comparison,
-  diagnostic semantics, and authoritative scope. Their one logical wording
-  correction and three editorial clarifications were incorporated.
-- Strict UTF-8/LF/final-newline/trailing-whitespace, display/fence, LaTeX
-  environment, and equation-tag checks pass on all ten intended source paths.
-  All 489 primary tags are unique, including KR2-1 through KR2-36.
-- Final Git status contains only the six intended tracked Markdown files and
-  the four-file dossier. Complete diff inspection and `git diff --check`
-  pass; no production, test, artifact, or cache path changed.
+- The sole standard-library diagnostic independently builds the PG49 matrix
+  by cross-multiplied integer inequalities and applies Ryser
+  inclusion--exclusion to its reduced permanent. For \(m=3,\ldots,8\), it
+  agrees with both Ferrers products at
+  \[
+  36,\ 720,\ 21600,\ 725760,\ 46448640,\ 3292047360.
+  \]
+  It enumerates 43,674 nonempty column subsets in total, not path
+  permutations or matchings.
+- The diagnostic passes after an orientation-consistency correction; in-memory
+  compilation and Ruff lint/format pass. One initial Ruff format-check failure
+  was retained and resolved by mechanical formatting.
+- The focused product-distance suite passes 49 tests; the complete repository
+  suite passes 283 tests; the schema suite passes four tests; checked-artifact
+  verification accepts four certificates and 76 local brackets.
+- Three independent read-only audits pass the mathematics, diagnostic, and
+  cross-file synchronization. The synchronization audit found one row/column
+  wording mismatch; PG65 and the diagnostic were transposed consistently,
+  after which proof and code re-audits passed.
+- Final encoding, equation-tag, whitespace, complete-diff, and Git checks pass
+  on the intended nine-file scope.
 
 ## Evidence Classification And Limitations
 
-- The exact score, unique argmax, shortcut-budget proof, parity formulas,
-  pointwise K825 comparison, and permitted sandwich consequences are
+- The permanent recurrence, both product formulas, boundary treatment,
+  full-optimal class identity, and labelled/dihedral injectivity statement are
   **exact theorems**.
 - The diagnostic is a **bounded exact computation** that corroborates but
-  does not replace the infinite symbolic proof.
-- The result is construction-specific. It proves no equality
-  \(\Lambda_n=K(\tau_n^{(2)})\), global lower bound
-  \(K/\pi-n^2<R_2^*(n)\), global minimizing-order classification,
-  classification of active geometric/STN constraints at the exact threshold,
-  exact ordering of the two angular thresholds, exact quadratic geometric
-  term, convergence, or improved cubic coefficient.
+  does not prove the all-\(m\) theorem.
+- The result is confined to the fixed retained scaffold and its path
+  orientations. It proves no geometric feasibility, exact value of
+  \(R_2^*(n)\), classification of alternative scaffolds, or asymptotic formula
+  for the new count. Production, tests, artifacts, schemas, backends,
+  certificates, and enumeration limits are unchanged.
 
 ## Files In Scope
 
-- `research/FIXED_ORDER_CYCLE_RATIO.md`
 - `research/PRODUCT_DISTANCE_SURROGATE.md`
 - `research/NEXT_RESEARCH_STEPS.md`
 - `start.md`
 - `PROJECT_KNOWLEDGE.md`
 - `CURRENT_STATUS.md`
-- `ops/TASK-20260718__residue_two_exact_k/`
+- `ops/TASK-20260718__ferrers_bijection_count/`
 
 ## Proposed Next Task
 
-After manual review and in a fresh STRICT chat, derive an exact symbolic
-count of relation-compatible, equivalently full-optimal, scaffold bijections
-from the nested Ferrers support (PG49), without enumerating path permutations.
+After manual review and in a fresh STRICT chat, derive the leading asymptotics
+of \(\log \mathsf F_m^{\rm lab}\) from the exact Ferrers product, with a
+rigorous error term and without permutation enumeration, alternative
+scaffolds, or geometric claims.

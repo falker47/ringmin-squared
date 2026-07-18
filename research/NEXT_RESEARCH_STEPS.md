@@ -125,6 +125,24 @@ for every bijection, and relation-compatibility is equivalent to
 full-optimal scaffold bijections. A polynomial local diagnostic checks four
 fixed rows and two sharp PG46 witnesses without enumerating path
 permutations. No new geometric consequence follows.
+The exact counting question is now closed too. With
+\[
+\kappa_j=
+\left\lceil{j(8m+3)\over2(8m+4+j)}\right\rceil,
+\]
+the reduced PG49 board has nested columns, and the backward recurrence leaves
+\(j+1-\kappa_j\) choices at gap \(G_j\). Hence
+\[
+\mathsf F_m^{\rm lab}
+=\prod_{j=1}^{2m-1}(j+1-\kappa_j)
+\]
+counts exactly all relation-compatible, equivalently full-optimal, scaffold
+bijections. The dual row product, all boundary columns and rows, inclusive
+cutoffs, and \(m=3\) are explicit. This is a labelled count with no symmetry
+quotient. The same integer also counts represented dihedral classes because
+the canonical scaffold-order map is injective. One small standard-library
+Ryser diagnostic checks six rows by subset inclusion--exclusion without
+enumerating path permutations or matchings.
 The fixed-order certification debt is now closed mathematically by
 `research/FIXED_ORDER_ANGULAR_STN.md`, which proves exact angular/STN
 equivalence, the negative-cycle criterion, potential recovery, radius
@@ -2232,13 +2250,28 @@ saturation for every \(n\ge3\).
   with every positive-column local edge. Residual Hall excludes precisely
   \((k,0)\), \(k>0\), and deterministic interval shifts construct a witness
   in the three index-order cases. This proves nonidentity existence inside
-  \(\mathcal R_{\rm loc}\) but does not classify all compatible bijections.
+  \(\mathcal R_{\rm loc}\); the later Ferrers theorem counts all compatible
+  bijections without enumerating them.
 - CLOSED FULL-SCORE QUESTION: every path-to-gap bijection satisfies
   \(W(\sigma_\alpha)=W^{(\le2)}(\sigma_\alpha)\). The distance-three bound
   \(n(5m+2)/3<T\) is sharp on the compatible class, and every longer pair is
   strictly below \(T\). Thus every relation-compatible bijection has full
   score \(T=W_n\), every incompatible one has larger score, and PG49 is the
   exact edge support of full-optimal scaffold bijections.
+- CLOSED FERRERS-COUNT QUESTION: the exact labelled number of those
+  bijections is
+  \[
+  \mathsf F_m^{\rm lab}
+  =\prod_{j=1}^{2m-1}
+  \left(
+  j+1-
+  \left\lceil{j(8m+3)\over2(8m+4+j)}\right\rceil
+  \right).
+  \]
+  The recurrence counts perfect matchings of PG49, not support edges, and
+  PG36/PG62 identify them with exactly the full-optimal class. No quotient by
+  rotations or reflections is used; injectivity makes the value coincide
+  with the represented dihedral-class count in this fixed scaffold.
 - CLOSED QUESTION: the fixed-order STN/geometric equivalence, endpoint
   semantics, and negative-cycle proof obligations are now recorded
   independently of every asymptotic claim in
@@ -2586,12 +2619,19 @@ Immediate:
   equivalent to \(W=T=W_n\). PG49 is therefore the exact support of
   full-optimal scaffold bijections. One polynomial diagnostic scans local
   states and two sharp shifts without enumerating path permutations.
+- The Ferrers-bijection counting task is complete. The reduced PG49 permanent
+  has the exact nested-column product
+  \(\prod_{j=1}^{2m-1}(j+1-\kappa_j)\), an equivalent row product, and no
+  exceptional endpoint or transition branch. It counts the complete
+  full-optimal class from PG50--PG63, is labelled, and equals the represented
+  dihedral-class count only by canonical-map injectivity. One bounded Ryser
+  diagnostic uses column subsets rather than path permutations or matchings.
 
 Next:
 
-- Derive an exact symbolic count of relation-compatible, equivalently
-  full-optimal, scaffold bijections from the nested Ferrers thresholds,
-  without enumerating path permutations.
+- Derive the leading asymptotics of \(\log \mathsf F_m^{\rm lab}\) from the
+  exact Ferrers product, with a rigorous error term and without permutation
+  enumeration or geometric interpretation.
 - Seek a geometric all-pairs construction or lower obstruction that narrows
   the remaining coefficient gap without relying on larger exhaustive finite
   certificates.
@@ -2622,15 +2662,14 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: derive an exact symbolic count of relation-compatible, equivalently
-full-optimal, scaffold bijections on the \(n=10m+3\) symbolic branch.
+Task: derive the leading asymptotics of the exact labelled Ferrers count
+\(\mathsf F_m^{\rm lab}\) on the \(n=10m+3\) symbolic branch.
 
 Acceptance criteria:
 
-- derive the count directly from the nested Ferrers thresholds and the exact
-  support (PG49), without enumerating path permutations;
-- treat every symbolic boundary and show that the counted bijections are
-  exactly the full-optimal scaffold bijections classified by (PG50)--(PG63);
-- corroborate the formula with one bounded independent exact diagnostic;
-- leave alternative scaffolds, geometric claims, and larger exhaustive
-  enumeration out of scope.
+- derive the dominant term of \(\log \mathsf F_m^{\rm lab}\) directly from
+  (PG69), including a rigorous remainder bound;
+- control the floor/ceiling thresholds uniformly rather than fitting finite
+  values;
+- use no path-permutation enumeration;
+- leave alternative scaffolds and geometric claims out of scope.

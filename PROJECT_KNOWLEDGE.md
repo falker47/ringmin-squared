@@ -2546,8 +2546,41 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   =\{(0,0)\}\cup
   \{(k,j)\in\mathcal R_{\rm loc}:j\ge1\}.
   \]
-  The theorem classifies their score and edge support, not the bijections
-  themselves, and has no new geometric consequence.
+  This theorem classifies their score and edge support; the separate Ferrers
+  theorem below supplies their count without enumerating them. Neither has a
+  geometric consequence.
+- EXACT FERRERS COUNT THEOREM: put \(v=2m\), \(d=8m+4\), and
+  \[
+  \kappa_j=
+  \left\lceil{j(d-1)\over2(d+j)}\right\rceil.
+  \]
+  PG49 forces \((0,0)\). On the reduced board, assigning the nested columns
+  in the order \(G_{v-1},\ldots,G_1\) leaves exactly
+  \(j+1-\kappa_j\) choices at \(G_j\), independently of the narrower-column
+  choices. Therefore the exact labelled count is
+  \[
+  \boxed{
+  \mathsf F_m^{\rm lab}
+  =\prod_{j=1}^{2m-1}(j+1-\kappa_j)
+  }
+  \qquad(m\ge3).
+  \]
+  The dual row form is
+  \[
+  \mathsf F_m^{\rm lab}
+  =(m-1)!\prod_{k=1}^{m}(\ell_k-k+1),
+  \]
+  with the inclusive PG26 cutoffs \(\ell_k\). PG36 and PG62 prove that the
+  perfect matchings counted are exactly all relation-compatible,
+  equivalently full-optimal, bijections in the fixed scaffold. The formula
+  is labelled: indexed gaps and oriented paths are not quotiented by any
+  symmetry. Distinct assignments yield distinct canonical dihedral core
+  orders rooted at \(n\) with neighbors \(2<3\), so the same value also
+  counts the represented dihedral classes by injectivity. The forced zero
+  edge, first positive column, both terminal columns, universal-row threshold,
+  triple/singleton transition, terminal singleton, cutoff equalities, and
+  \(m=3\) are explicit; \(\mathsf F_3^{\rm lab}=36\). This is a
+  combinatorial count with no geometric or alternative-scaffold consequence.
 - VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the standalone
   standard-library script in
   ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
@@ -2577,6 +2610,16 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   sharp PG46 witnesses per row. It enumerates no path permutation or matching
   and imports no project or test helper. The finite check corroborates rather
   than proves the theorem.
+- VERIFIED FACT (FINITE EXACT FERRERS-COUNT DIAGNOSTIC): the sole standalone
+  standard-library script in
+  ops/TASK-20260718__ferrers_bijection_count/ builds the PG49 matrix directly
+  from integer cross-multiplied inequalities for \(m=3,\ldots,8\), then
+  evaluates its reduced permanent by Ryser inclusion--exclusion over column
+  subsets. It independently agrees with both Ferrers products and the fixed
+  exact counts \(36,720,21600,725760,46448640,3292047360\). It enumerates no
+  path permutation or matching, constructs no cyclic order, scores no pair,
+  and imports no project or test helper. The finite check corroborates rather
+  than proves the all-\(m\) theorem.
 - OPEN QUESTION: for which \(n\ge94\) is the minimizer inclusion strict? No
   persistence from \(n=93\) onward is claimed; the sufficient equality
   criterion already holds again at \(n=94\).
@@ -3006,6 +3049,13 @@ Candidate-set extraction uses the following finite-certificate semantics.
   equivalent to full score \(T=W_n\), and PG49 is the exact support of
   full-optimal scaffold bijections. One polynomial standalone diagnostic
   scans local types and two sharp witnesses without enumerating bijections.
+- COMPLETED PRIORITY: the nested PG49 Ferrers board now has an exact symbolic
+  permanent. Its labelled full-optimal scaffold-bijection count is
+  \(\prod_{j=1}^{2m-1}(j+1-\kappa_j)\), with an equivalent row product,
+  every boundary, and minimum value \(36\). PG36 and PG62 identify the
+  counted perfect matchings exactly with the full-optimal class from
+  PG50--PG63. A sole bounded Ryser diagnostic checks six small rows by subset
+  inclusion--exclusion without enumerating path permutations or matchings.
 - COMPLETED PRIORITY: the canonical eight-twenty-fifths core order now has an
   exact all-domain \(K\) theorem. The symbolic maximizer is the tail from
   \(2v+1\), with connector \(2v+2\) additionally removed exactly for
@@ -3026,10 +3076,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \(21n^2/100+O(n)\). The proof covers every shortcut and the \(k=2,3,4\)
   path boundaries; one bounded standard-library diagnostic changes no
   production or test path.
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, derive an exact symbolic
-  count of relation-compatible, equivalently full-optimal, scaffold
-  bijections from the nested Ferrers support (PG49), without enumerating path
-  permutations.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, derive the leading
+  asymptotics of \(\log \mathsf F_m^{\rm lab}\) from the exact Ferrers product,
+  with a rigorous error term and without permutation enumeration, alternative
+  scaffolds, or geometric claims.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order

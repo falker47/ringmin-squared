@@ -1439,6 +1439,41 @@ edge support of full-optimal scaffold bijections. This classifies all
 compatible bijections by score without enumerating them and has no new
 geometric consequence.
 
+The remaining counting question is now closed as well. Put \(v=2m\),
+\(d=8m+4\), and
+\[
+\kappa_j=
+\left\lceil{j(d-1)\over2(d+j)}\right\rceil.
+\]
+PG49 forces \(P_0\) into \(G_0\). On the residual Ferrers board, processing
+the nested columns from \(G_{v-1}\) back to \(G_1\) leaves exactly
+\(j+1-\kappa_j\) choices at column \(j\), independently of the previous
+suffix choices. Hence the exact labelled count is
+\[
+\boxed{
+\mathsf F_m^{\rm lab}
+=\prod_{j=1}^{2m-1}(j+1-\kappa_j)
+}
+\qquad(m\ge3).
+\]
+Equivalently, with the retained triple cutoffs \(\ell_k\),
+\[
+\mathsf F_m^{\rm lab}
+=(m-1)!\prod_{k=1}^{m}(\ell_k-k+1).
+\]
+The proof includes the forced zero column, first positive column, both
+terminal thresholds, the triple/singleton transition, the terminal singleton,
+inclusive cutoff equalities, and \(m=3\), where the count is \(36\). PG36
+and PG62 identify these perfect matchings with exactly the relation-compatible,
+equivalently full-optimal, scaffold bijections. The formula is a labelled
+count of indexed gaps and oriented paths; no symmetry quotient is taken.
+Distinct assignments nevertheless give distinct canonical dihedral core
+orders in this fixed scaffold, so the same integer also counts the represented
+dihedral classes by injectivity, not by division. One bounded standard-library
+Ryser diagnostic checks \(m=3,\ldots,8\) without enumerating path
+permutations or matchings. No geometric or alternative-scaffold consequence
+is inferred.
+
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also a disproved claim.
@@ -2867,6 +2902,24 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   bijection is full-optimal, although the bijections themselves are not
   enumerated. This is a surrogate theorem and gives no new geometric
   conclusion.
+- EXACT FERRERS COUNT THEOREM: with
+  \[
+  \kappa_j=
+  \left\lceil{j(8m+3)\over2(8m+4+j)}\right\rceil,
+  \]
+  the number of labelled relation-compatible bijections, equivalently all
+  full-optimal bijections in the fixed scaffold, is
+  \[
+  \mathsf F_m^{\rm lab}
+  =\prod_{j=1}^{2m-1}(j+1-\kappa_j).
+  \]
+  The nested-column recurrence computes the reduced PG49 permanent without
+  permutation enumeration. The dual row product is
+  \((m-1)!\prod_{k=1}^{m}(\ell_k-k+1)\). Every endpoint, transition, and
+  inclusive-cutoff boundary is explicit, and \(\mathsf F_3^{\rm lab}=36\).
+  No quotient by symmetries is used. Because each assignment has a distinct
+  canonical representative rooted at \(n\) with neighbors \(2<3\), the same
+  integer also counts the dihedral classes represented by this scaffold.
 - VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the sole standalone
   standard-library script in
   ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
@@ -2893,6 +2946,15 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   closure, the sharp equality placements, and exactly two PG46 full-order
   witnesses per row. It enumerates no path permutation or matching and
   imports no project or test helper.
+- VERIFIED FACT (FINITE EXACT FERRERS-COUNT DIAGNOSTIC): the sole standalone
+  standard-library script in
+  ops/TASK-20260718__ferrers_bijection_count/ builds the PG49 support directly
+  from cross-multiplied integer inequalities for \(m=3,\ldots,8\). Ryser
+  inclusion--exclusion over column subsets independently recovers the two
+  Ferrers products and the exact counts
+  \(36,720,21600,725760,46448640,3292047360\). It enumerates no path
+  permutation or matching, constructs no core order, scores no positional
+  pair, and imports no project or test helper.
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
   \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved
