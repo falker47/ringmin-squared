@@ -1474,6 +1474,29 @@ Ryser diagnostic checks \(m=3,\ldots,8\) without enumerating path
 permutations or matchings. No geometric or alternative-scaffold consequence
 is inferred.
 
+The logarithm of this exact labelled count now has a direct all-\(m\)
+asymptotic theorem. With
+\[
+C_{\rm F}=14\log2+6\log3-10\log5-2,
+\]
+one has, for every \(m\ge3\),
+\[
+1+\log{5\over6}-\log m
+<\log\mathsf F_m^{\rm lab}-(2m\log m+C_{\rm F}m)
+<{9\over4}+\log\bigl(2m(2m+1)\bigr),
+\]
+and therefore
+\[
+\log\mathsf F_m^{\rm lab}=2m\log m+C_{\rm F}m+O(\log m).
+\]
+The proof treats the literal ceiling/no-ceiling delta separately from its
+lower comparator, factors the singular \(j/m\to0\) range exactly, and keeps
+the forced, first positive, terminal, and triple/singleton boundaries. A
+standalone growing-row diagnostic sums the exact product factors directly
+and audits the comparison factors. This is a labelled-count theorem;
+canonical injectivity remains a downstream interpretation, and no geometric
+conclusion follows.
+
 One of the two sharp PG46 witnesses is now evaluated exactly for the
 induced-subset objective. For the shift that sends \(P_m\) to the closing gap
 \(G_{2m-1}\), the corresponding core order has the unique maximizing subset
@@ -2958,6 +2981,23 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   No quotient by symmetries is used. Because each assignment has a distinct
   canonical representative rooted at \(n\) with neighbors \(2<3\), the same
   integer also counts the dihedral classes represented by this scaffold.
+- EXACT FERRERS LOG-ASYMPTOTIC THEOREM: put
+  \[
+  C_{\rm F}=14\log2+6\log3-10\log5-2.
+  \]
+  Directly from the exact product, for every \(m\ge3\),
+  \[
+  1+\log{5\over6}-\log m
+  <\log\mathsf F_m^{\rm lab}-(2m\log m+C_{\rm F}m)
+  <{9\over4}+\log\bigl(2m(2m+1)\bigr).
+  \]
+  Hence
+  \(\log\mathsf F_m^{\rm lab}=2m\log m+C_{\rm F}m+O(\log m)\).
+  The ceiling, singular endpoint, terminal columns, and triple/singleton row
+  transition are controlled separately. The primary object is the labelled
+  count; equality with the represented canonical image is only by prior
+  injectivity. No finer logarithmic coefficient or geometric statement is
+  claimed.
 - EXACT CLOSING-PG46 CORE-ORDER THEOREM: for the PG46 bijection placing
   \(P_m\) in \(G_{2m-1}\), the exact induced-subset argmax is the singleton
   family \(\{\{4m+1,\ldots,10m+3\}\}\), and

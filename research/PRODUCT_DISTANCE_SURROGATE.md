@@ -5541,6 +5541,213 @@ also equals the number of dihedral classes represented by these full-optimal
 scaffold orders, by injectivity rather than by division by a symmetry factor.
 No assertion is made about alternative scaffolds or geometric optima.
 
+### Asymptotics of the exact Ferrers count
+
+All logarithms in this subsection are natural. We derive the asymptotic
+directly from (PG69), without enumerating a path permutation or a matching.
+For \(m\ge3\), put \(N=2m-1\) and, for \(1\le j\le N\), write
+
+\[
+h_{m,j}={j(8m+3)\over2(8m+4+j)},
+\qquad
+a_{m,j}=j+1-\lceil h_{m,j}\rceil .
+\tag{PG74}
+\]
+
+Thus \(\mathsf F_m^{\rm lab}=\prod_{j=1}^N a_{m,j}\). The three comparison
+factors needed below are
+
+\[
+c_{m,j}=j-h_{m,j}
+={j(2j+8m+5)\over2(j+8m+4)},
+\qquad
+s_{m,j}=c_{m,j}+1,
+\qquad
+r_{m,j}={j(j+4m)\over j+8m}
+=m f(j/m),
+\tag{PG75}
+\]
+
+where \(f(x)=x(x+4)/(x+8)\). Here \(s_{m,j}=j+1-h_{m,j}\) is the factor
+obtained by literally removing the ceiling, while \(c_{m,j}\) is a lower
+comparison factor adapted to the integer rounding. These roles must not be
+interchanged.
+
+Since \(j+1\) is an integer,
+
+\[
+a_{m,j}=\lfloor c_{m,j}+1\rfloor=1+\lfloor c_{m,j}\rfloor,
+\qquad
+c_{m,j}<a_{m,j}\le c_{m,j}+1=s_{m,j}.
+\tag{PG76}
+\]
+
+This is the complete effect of the ceiling, including equality at a cutoff.
+Moreover \(c_{m,j}>j/2\), because the latter inequality reduces to
+\(j+1>0\). Hence
+
+\[
+0\le
+\sum_{j=1}^N\log s_{m,j}-\log\mathsf F_m^{\rm lab}
+<\sum_{j=1}^N\log\left(1+{2\over j}\right)
+=\log\bigl(m(2m+1)\bigr).
+\tag{PG77}
+\]
+
+Thus the direct ceiling/no-ceiling change has the displayed sign and is
+rigorously \(O(\log m)\); it is not being declared \(O(1)\). For the lower
+comparator in (PG76), put
+
+\[
+\Theta_m=\sum_{j=1}^N\log{a_{m,j}\over c_{m,j}}.
+\]
+
+Then \(0<\Theta_m<\log(m(2m+1))\). This positive quantity is a comparison
+with \(c_{m,j}\), not the direct ceiling effect in (PG77).
+
+The remaining perturbation from the homogeneous factor is uniformly
+summable. Direct cancellation gives
+
+\[
+{c_{m,j}\over r_{m,j}}
+=
+{1+5/(2(j+4m))\over1+4/(j+8m)}.
+\tag{PG78}
+\]
+
+Since \(8m-3j>0\) for every \(1\le j\le2m-1\), this ratio is greater than
+one. Also
+
+\[
+0<
+\Delta_m:=\sum_{j=1}^N\log{c_{m,j}\over r_{m,j}}
+<\sum_{j=1}^N{5\over2(j+4m)}
+<{5\over4}.
+\tag{PG79}
+\]
+
+Consequently
+
+\[
+\log\mathsf F_m^{\rm lab}
+=\log Z_m+\Delta_m+\Theta_m,
+\qquad
+Z_m:=\prod_{j=1}^{2m-1}r_{m,j}
+={(2m-1)!(6m-1)!(8m)!\over(4m)!(10m-1)!}.
+\tag{PG80}
+\]
+
+The factorial identity in (PG80) isolates the endpoint singularity: the
+factor \(j\) in \(r_{m,j}\) contains all of the \(\log(j/m)\) behavior as
+\(j/m\to0\). No Euler--Maclaurin estimate uniform at zero is required. For
+a completely elementary all-\(m\) bound, set
+
+\[
+u(x)=\log{x+4\over x+8},
+\qquad
+L_m=\sum_{j=1}^{2m-1}\log(j/m),
+\qquad
+U_m=\sum_{j=1}^{2m-1}u(j/m).
+\]
+
+The monotone integral bounds for \(\log x\), applied to \((2m)!\), and the
+left and right Riemann sums for the increasing function \(u\) give
+
+\[
+\begin{aligned}
+m(2\log2-2)+1-\log2
+&\le L_m
+\le m(2\log2-2)+1+\log m,\\
+\log{5\over3}
+&\le U_m-m\int_0^2u(x)\,dx
+\le\log2.
+\end{aligned}
+\tag{PG81}
+\]
+
+These inequalities include the missing grid point \(x=2\), the first point
+\(j=1\), and the fact that there are \(2m-1\), not \(2m\), product factors.
+Since
+
+\[
+\begin{aligned}
+C_{\rm F}
+:=\int_0^2\log f(x)\,dx
+&=(2\log2-2)
+  +6\log6-4\log4-10\log10+8\log8\\
+&=14\log2+6\log3-10\log5-2,
+\end{aligned}
+\tag{PG82}
+\]
+
+(PG81) yields
+
+\[
+1+\log{5\over6}-\log m
+\le
+\log Z_m-\bigl(2m\log m+C_{\rm F}m\bigr)
+\le1+\log2.
+\tag{PG83}
+\]
+
+Combining (PG79), the bound on \(\Theta_m\), and (PG83) proves the following
+quantitative theorem for every integer \(m\ge3\):
+
+\[
+\boxed{
+1+\log{5\over6}-\log m
+<
+\log\mathsf F_m^{\rm lab}
+-\bigl(2m\log m+C_{\rm F}m\bigr)
+<
+{9\over4}+\log\bigl(2m(2m+1)\bigr).
+}
+\tag{PG84}
+\]
+
+In particular, the proposed linear coefficient is correct:
+
+\[
+\boxed{
+\log\mathsf F_m^{\rm lab}
+=2m\log m
++(14\log2+6\log3-10\log5-2)m
++O(\log m).
+}
+\tag{PG85}
+\]
+
+There is no hidden boundary correction in this derivation. Column zero has
+the forced unit factor from PG65 and is deliberately outside (PG74), because
+the homogeneous factor \(r_{m,0}\) vanishes. Column one has
+\(\kappa_1=1\) and exact factor one; its nonuniform relative discrepancy is
+covered by the first harmonic term in (PG77). The last two columns retain
+the literal PG71 factors for all five residue classes of \(m\), and all the
+inequalities above include \(j=2m-2,2m-1\).
+
+The row form (PG70) supplies a separate audit of the path-type transition.
+The first universal row index
+\(q_m=\kappa_{2m-1}=\lfloor(4m+3)/5\rfloor\) is itself a triple row
+throughout the domain, since \(q_m\le m\); it must not be identified with the
+triple/singleton boundary. At that boundary,
+\(\ell_m=2m-1\), because
+
+\[
+2m(8m+4)-(2m-1)(6m+3)=4m^2+8m+3>0.
+\]
+
+Thus the last triple contributes exactly \(m\), while the universal
+singleton rows contribute \(m-1,m-2,\ldots,1\), namely the factor
+\((m-1)!\). No transition or terminal correction is missing from (PG85).
+
+Finally, (PG84)--(PG85) are theorems about the labelled cardinality defined
+in PG64. The already proved canonical injectivity only identifies the same
+number with the cardinality of the represented image of scaffold orders; it
+is not a symmetry quotient and plays no role in the asymptotic proof. The
+result gives no count for alternative scaffolds and no geometric conclusion.
+The \(O(\log m)\) theorem does not determine a finer coefficient of
+\(\log m\).
+
 ## Verification Boundary And Open Questions
 
 `tests/test_product_distance.py` checks exact rational comparisons, canonical

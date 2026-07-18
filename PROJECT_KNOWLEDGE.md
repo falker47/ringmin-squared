@@ -2581,6 +2581,37 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   triple/singleton transition, terminal singleton, cutoff equalities, and
   \(m=3\) are explicit; \(\mathsf F_3^{\rm lab}=36\). This is a
   combinatorial count with no geometric or alternative-scaffold consequence.
+- EXACT FERRERS LOG-ASYMPTOTIC THEOREM: define
+  \[
+  C_{\rm F}=14\log2+6\log3-10\log5-2.
+  \]
+  The exact PG69 factors satisfy, for every integer \(m\ge3\),
+  \[
+  1+\log{5\over6}-\log m
+  <\log\mathsf F_m^{\rm lab}-(2m\log m+C_{\rm F}m)
+  <{9\over4}+\log\bigl(2m(2m+1)\bigr).
+  \]
+  Consequently
+  \[
+  \log\mathsf F_m^{\rm lab}
+  =2m\log m+C_{\rm F}m+O(\log m).
+  \]
+  The proof first writes each integer factor as an exact floor of the literal
+  no-ceiling factor, then compares with
+  \(r_{m,j}=j(j+4m)/(j+8m)\). Its product is exactly
+  \[
+  {(2m-1)!(6m-1)!(8m)!\over(4m)!(10m-1)!},
+  \]
+  which isolates the \(j/m\to0\) singularity. Monotone integral bounds give
+  the displayed all-\(m\) envelope. The direct ceiling/no-ceiling delta has
+  the correct nonpositive sign and magnitude \(O(\log m)\); it is distinct
+  from the positive lower-comparator correction. The forced zero factor,
+  first positive factor, both terminal columns, universal-row threshold,
+  triple/singleton transition, and terminal singleton are explicit.
+  This theorem concerns the labelled count. The equal cardinality of the
+  represented canonical image is only a corollary of prior injectivity, not a
+  quotient; no finer \(\log m\) coefficient or geometric conclusion is
+  established.
 - EXACT CLOSING-PG46 CORE-ORDER THEOREM: on \(n=10m+3\), \(m\ge3\), let
   \(\alpha(j)=j\) for \(j<m\), \(\alpha(j)=j+1\) for
   \(m\le j<2m-1\), and \(\alpha(2m-1)=m\). For the corresponding core
@@ -3123,6 +3154,16 @@ Candidate-set extraction uses the following finite-certificate semantics.
   counted perfect matchings exactly with the full-optimal class from
   PG50--PG63. A sole bounded Ryser diagnostic checks six small rows by subset
   inclusion--exclusion without enumerating path permutations or matchings.
+- COMPLETED PRIORITY: the exact Ferrers product now gives
+  \[
+  \log\mathsf F_m^{\rm lab}
+  =2m\log m+(14\log2+6\log3-10\log5-2)m+O(\log m)
+  \]
+  with explicit lower and upper residual bounds for every \(m\ge3\). The
+  proof controls the ceiling, singular endpoint, terminal columns, and
+  triple/singleton transition directly. One standalone growing-row residual
+  diagnostic uses neither permutation nor matching enumeration. The theorem
+  is labelled and has no geometric consequence.
 - COMPLETED PRIORITY: the closing PG46 core order now has an exact all-\(m\)
   induced-\(K\) theorem. Its sole maximizing subset is the tail from \(4m+1\),
   its score is \((572m^3+631m^2+223m+22)/2\), and its exact K825 difference
@@ -3159,10 +3200,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \(21n^2/100+O(n)\). The proof covers every shortcut and the \(k=2,3,4\)
   path boundaries; one bounded standard-library diagnostic changes no
   production or test path.
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, derive the leading
-  asymptotics of \(\log\mathsf F_m^{\rm lab}\) from the exact PG49 Ferrers
-  product, with a rigorous error term, explicit cutoff control, no
-  permutation or matching enumeration, and no geometric interpretation.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, determine whether the
+  ceiling correction admits a precise logarithmic coefficient, and hence
+  whether PG85 can be sharpened to
+  \(2m\log m+C_{\rm F}m+\gamma\log m+O(1)\), without inferring such a
+  coefficient from the bounded diagnostic.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order

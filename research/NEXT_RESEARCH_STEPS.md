@@ -2303,6 +2303,20 @@ saturation for every \(n\ge3\).
   PG36/PG62 identify them with exactly the full-optimal class. No quotient by
   rotations or reflections is used; injectivity makes the value coincide
   with the represented dihedral-class count in this fixed scaffold.
+- CLOSED FERRERS-ASYMPTOTIC QUESTION: with
+  \[
+  C_{\rm F}=14\log2+6\log3-10\log5-2,
+  \]
+  the exact product proves, for every \(m\ge3\),
+  \[
+  1+\log{5\over6}-\log m
+  <\log\mathsf F_m^{\rm lab}-(2m\log m+C_{\rm F}m)
+  <{9\over4}+\log\bigl(2m(2m+1)\bigr).
+  \]
+  The proof handles the literal ceiling delta, \(j/m\to0\) singularity,
+  both terminal columns, and the triple/singleton transition directly. It is
+  a labelled-count theorem; canonical injectivity is only a separate
+  interpretation, and no geometric conclusion follows.
 - CLOSED QUESTION: the fixed-order STN/geometric equivalence, endpoint
   semantics, and negative-cycle proof obligations are now recorded
   independently of every asymptotic claim in
@@ -2657,6 +2671,16 @@ Immediate:
   full-optimal class from PG50--PG63, is labelled, and equals the represented
   dihedral-class count only by canonical-map injectivity. One bounded Ryser
   diagnostic uses column subsets rather than path permutations or matchings.
+- The Ferrers log-asymptotic task is complete. Direct factor comparison and
+  monotone integral bounds give
+  \[
+  \log\mathsf F_m^{\rm lab}
+  =2m\log m+(14\log2+6\log3-10\log5-2)m+O(\log m)
+  \]
+  with an explicit all-\(m\) envelope. The proof and one standalone
+  growing-row diagnostic keep ceiling, singular, endpoint, and
+  triple/singleton effects separate and use no permutation or matching
+  enumeration. The result is labelled and non-geometric.
 - The closing-PG46 induced-\(K\) task is complete. The unique maximizer is
   \(\{4m+1,\ldots,10m+3\}\), the exact score is
   \((572m^3+631m^2+223m+22)/2\), and its K825 difference is
@@ -2674,9 +2698,10 @@ Immediate:
 
 Next:
 
-- Derive the leading asymptotics of \(\log \mathsf F_m^{\rm lab}\) from the
-  exact Ferrers product, with a rigorous error term and without permutation
-  enumeration or geometric interpretation.
+- Determine whether the ceiling correction has a precise logarithmic
+  coefficient and whether the Ferrers theorem can be sharpened to a
+  \(\gamma\log m+O(1)\) remainder. Do not infer convergence from the bounded
+  residual table.
 - Seek a geometric all-pairs construction or lower obstruction that narrows
   the remaining coefficient gap without relying on larger exhaustive finite
   certificates.
@@ -2707,14 +2732,14 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: derive the leading asymptotics of
-\(\log\mathsf F_m^{\rm lab}\) from the exact PG49 Ferrers product.
+Task: determine whether the ceiling correction has a precise logarithmic
+coefficient in \(\log\mathsf F_m^{\rm lab}\).
 
 Acceptance criteria:
 
-- obtain the leading term and a rigorous explicit error order directly from
-  \(\prod_{j=1}^{2m-1}(j+1-\kappa_j)\);
-- control the ceiling cutoffs and endpoint ranges without permutation or
-  matching enumeration;
-- distinguish labelled-count asymptotics from any dihedral injectivity
-  statement and draw no geometric conclusion.
+- derive a symbolic asymptotic for the direct ceiling/no-ceiling correction,
+  or preserve an explicit unresolved obstruction if no coefficient exists;
+- decide rigorously whether the PG85 remainder is
+  \(\gamma\log m+O(1)\), without extrapolating the finite residual table;
+- keep the labelled count, canonical-image interpretation, and geometry
+  separate, with no permutation or matching enumeration.
