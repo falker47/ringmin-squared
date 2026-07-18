@@ -2581,6 +2581,31 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   triple/singleton transition, terminal singleton, cutoff equalities, and
   \(m=3\) are explicit; \(\mathsf F_3^{\rm lab}=36\). This is a
   combinatorial count with no geometric or alternative-scaffold consequence.
+- EXACT CLOSING-PG46 CORE-ORDER THEOREM: on \(n=10m+3\), \(m\ge3\), let
+  \(\alpha(j)=j\) for \(j<m\), \(\alpha(j)=j+1\) for
+  \(m\le j<2m-1\), and \(\alpha(2m-1)=m\). For the corresponding core
+  order, the complete maximizing-subset classification is
+
+  \[
+  \operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}
+  P(U)=\bigl\{\{4m+1,\ldots,10m+3\}\bigr\},
+  \]
+
+  and
+
+  \[
+  K={572m^3+631m^2+223m+22\over2}.
+  \]
+
+  An exhaustive isolated-hole table and compressed-path shortcut budget prove
+  uniqueness, and direct block summation proves the score. The exact
+  canonical comparison is
+  \(K-K_{825}=m^2-6m-4\): improvement exactly for \(m=3,4,5,6\), strict
+  worsening for every \(m\ge7\), and no integer equality. In terms of \(n\),
+  the difference is \((n^2-66n-211)/100\), so the family retains cubic
+  coefficient \(143/500\) and is eventually worse at quadratic order. This
+  theorem concerns one explicit order only and has no geometric or global
+  optimality consequence.
 - VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the standalone
   standard-library script in
   ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
@@ -2620,6 +2645,16 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   path permutation or matching, constructs no cyclic order, scores no pair,
   and imports no project or test helper. The finite check corroborates rather
   than proves the all-\(m\) theorem.
+- VERIFIED FACT (FINITE EXACT CLOSING-PG46 K DIAGNOSTIC): the sole standalone
+  standard-library script in
+  ops/TASK-20260718__pg46_closing_exact_k/ reconstructs only the prescribed
+  PG46 order. For \(m=3,\ldots,30\), it independently checks the exact score,
+  unique maximizing subset through a max-plus increasing-path DP, every
+  isolated-hole gain, and every oriented compressed shortcut arc. Direct
+  score/formula comparisons continue through \(m=1000\). It imports no
+  project or test helper and enumerates no subsets, permutations, or
+  matchings. The bounded computation corroborates rather than proves the
+  symbolic theorem.
 - OPEN QUESTION: for which \(n\ge94\) is the minimizer inclusion strict? No
   persistence from \(n=93\) onward is claimed; the sufficient equality
   criterion already holds again at \(n=94\).
@@ -3056,6 +3091,14 @@ Candidate-set extraction uses the following finite-certificate semantics.
   counted perfect matchings exactly with the full-optimal class from
   PG50--PG63. A sole bounded Ryser diagnostic checks six small rows by subset
   inclusion--exclusion without enumerating path permutations or matchings.
+- COMPLETED PRIORITY: the closing PG46 core order now has an exact all-\(m\)
+  induced-\(K\) theorem. Its sole maximizing subset is the tail from \(4m+1\),
+  its score is \((572m^3+631m^2+223m+22)/2\), and its exact K825 difference
+  is \(m^2-6m-4\). It improves K825 only for \(m=3,4,5,6\), worsens it from
+  \(m=7\) onward, and retains coefficient \(143/500\). The proof covers every
+  block, shortcut, cyclic closure, and minimum-row boundary. One standalone
+  DP/scorer diagnostic corroborates without permutation or matching
+  enumeration; no geometric or global conclusion is inferred.
 - COMPLETED PRIORITY: the canonical eight-twenty-fifths core order now has an
   exact all-domain \(K\) theorem. The symbolic maximizer is the tail from
   \(2v+1\), with connector \(2v+2\) additionally removed exactly for
@@ -3076,10 +3119,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \(21n^2/100+O(n)\). The proof covers every shortcut and the \(k=2,3,4\)
   path boundaries; one bounded standard-library diagnostic changes no
   production or test path.
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, derive the leading
-  asymptotics of \(\log \mathsf F_m^{\rm lab}\) from the exact Ferrers product,
-  with a rigorous error term and without permutation enumeration, alternative
-  scaffolds, or geometric claims.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, evaluate \(K\) exactly for
+  the other sharp PG46 witness, which places \(P_m\) in \(G_{2m-2}\), and
+  compare it with both the closing-PG46 formula and canonical K825. Classify
+  all maximizing subsets and boundaries without permutation or matching
+  enumeration and without geometric or global claims.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order

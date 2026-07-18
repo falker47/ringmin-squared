@@ -56,6 +56,17 @@ in `research/ALL_N_LOWER_BOUND.md`.
   smaller than K825 on every row, with no crossover, but the two families
   have the same cubic coefficient \(143/500\); their difference is only
   \(21n^2/100+O(n)\).
+- **EXACT THEOREM (CLOSING PG46 CORE):** on \(n=10m+3\), \(m\ge3\),
+  Section 11 proves that the PG46 order placing \(P_m\) in \(G_{2m-1}\)
+  has the sole maximizing subset \(\{4m+1,\ldots,n\}\) and
+  \[
+  K={572m^3+631m^2+223m+22\over2}.
+  \]
+  Its exact K825 difference is \(m^2-6m-4\): it improves K825 exactly for
+  \(m=3,4,5,6\), is worse for \(m\ge7\), and never ties. It retains cubic
+  coefficient \(143/500\), so it gives no coefficient improvement. This is
+  a construction-specific core-order theorem, not a geometric or global
+  optimality result.
 - **EXACT THEOREM:** the accepted same-order comparison gives
   \(\Lambda_n\le(n-1)W_n\). Combined with the strict cyclic-ratio sandwich,
   this yields
@@ -9962,7 +9973,340 @@ quadratic geometric term. Finally, the coefficient in (KR2-36) is the
 existing canonical coefficient, not an improved all-residue limsup or a
 convergence theorem.
 
-## 11. Asymptotic Consequences And Non-Consequences
+## 11. Exact \(K\) For The Closing PG46 Core Order
+
+The extendibility construction (PG46) in
+`research/PRODUCT_DISTANCE_SURROGATE.md` contains a distinguished closing
+shift. On
+\[
+n=10m+3,\qquad m\ge3,\qquad d=8m+4,\qquad v=2m,
+\]
+retain the scaffold notation
+\[
+E_j=d+j,\qquad
+\lambda_j=4m-2j,\qquad
+\rho_j=4m+1-2j,
+\tag{KPG46-1}
+\]
+and the paths
+\[
+P_k=(A_k,c_k,B_k)
+=(d-1-2k,\ 4m+2+k,\ d-2-2k)
+\quad(0\le k\le m),
+\]
+\[
+P_k=(x_k)=(4m+2+k)
+\quad(m+1\le k\le2m-1).
+\tag{KPG46-2}
+\]
+Specialize (PG46) to the target edge \((m,2m-1)\):
+\[
+\alpha_m(j)=
+\begin{cases}
+j,&0\le j<m,\\
+j+1,&m\le j<2m-1,\\
+m,&j=2m-1.
+\end{cases}
+\tag{KPG46-3}
+\]
+Thus \(P_m\) occupies the closing gap \(G_{2m-1}\), while the singleton
+paths shift one gap to the left. Let \(\tau_m^{\rm cl}=\sigma_{\alpha_m}\)
+be the resulting cyclic core order. This section evaluates \(K\) on this one
+order family. Relation-compatibility and full optimality for \(W\), already
+proved by (PG46) and (PG62), are inputs; they do not determine \(K\).
+
+### Exact statement and compressed backbone
+
+Put
+\[
+L=4m+1,\qquad
+S_m=\{L,L+1,\ldots,n\},\qquad
+H_m=\{2,3,\ldots,4m\}.
+\tag{KPG46-4}
+\]
+Every member of \(H_m\) is isolated between two members of \(S_m\). After
+deleting these holes, the cyclic backbone is
+\[
+\begin{aligned}
+(&L,E_0,P_0,E_1,P_1,\ldots,E_{m-1},P_{m-1},E_m,
+ x_{m+1},E_{m+1},\ldots,\\
+ &E_{2m-2},x_{2m-1},E_{2m-1},P_m).
+\end{aligned}
+\tag{KPG46-5}
+\]
+Here every displayed triple path is expanded in its retained orientation.
+The exact result is
+\[
+\boxed{
+\operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}
+P_{\tau_m^{\rm cl}}(U)=\{S_m\},
+}
+\tag{KPG46-6}
+\]
+and
+\[
+\boxed{
+K(\tau_m^{\rm cl})
+={572m^3+631m^2+223m+22\over2}
+}
+\qquad(m\ge3).
+\tag{KPG46-7}
+\]
+Thus every row has exactly one maximizing subset; there is no parity branch
+or boundary correction.
+
+### Positive hole gains
+
+We apply the isolated-hole shortcut-budget lemma (K825-6)--(K825-9). If a
+hole \(h\) lies between its two backbone neighbors \(a,b\), its deletion gain
+is \(ab-h(a+b)\). Direct substitution in the five exhaustive position
+ranges gives
+\[
+\begin{array}{c|c|c}
+\text{hole position}&\text{range}&\text{deletion gain}\\ \hline
+\lambda_j&0\le j\le m-1&
+-4j^2+(28m+9)j+28m+12\\
+\rho_{j+1}&0\le j\le m-1&
+-4j^2+(28m+5)j+44m+17\\
+\lambda_j&m\le j\le2m-2&
+5j^2+(28m+21)j-16m^2+12m+12\\
+\rho_{j+1}&m\le j\le2m-2&
+5j^2+(28m+26)j-16m^2+24m+23\\
+\lambda_{2m-1}=2&j=2m-1&60m^2+16m-3
+\end{array}
+\tag{KPG46-8}
+\]
+Each polynomial in a displayed interval is increasing there. Its left-end
+value is, respectively,
+\[
+28m+12,\quad44m+17,\quad
+17m^2+33m+12,\quad17m^2+50m+23,
+\tag{KPG46-9}
+\]
+while the closing value is already positive. Hence
+\[
+\boxed{\min_{h\in H_m}\bigl(ab-h(a+b)\bigr)=28m+12>0.}
+\tag{KPG46-10}
+\]
+The ranges in (KPG46-8) include the last unshifted triple, the first and last
+shifted singletons, and the closing triple separately.
+
+### Complete shortcut audit
+
+Consider an oriented arc of \(\tau_m^{\rm cl}\), delete its internal holes,
+and write the compressed path as
+\((z_0,z_1,\ldots,z_q)\), with \(q\ge2\). Every internal label is at least
+\(L\).
+
+If an endpoint \(a\) is a hole, then \(a\le L-1\). The two boundary edges
+alone give
+\[
+L(a+b)-ab\ge4L-4=16m>12m+4
+\qquad(2\le a\le L-1,\ 2\le b\le n),
+\tag{KPG46-11}
+\]
+because \(L(a+b)-ab=La+(L-a)b\): first allowing the smallest \(b=2\),
+then the smallest \(a=2\), gives a valid lower bound on the whole rectangle.
+Thus endpoint-hole arcs cannot attain the global compressed-path minimum, and
+only arcs whose two endpoints lie in \(S_m\) remain.
+
+For \(q=2\), a middle label \(y>n/2\) has
+\(y(a+b)-ab>0\), since \(ab/(a+b)\le n/2\). The only backbone labels not
+covered by this observation are
+\[
+L,\qquad c_j=4m+2+j\quad(0\le j\le m-1);
+\]
+the moved connector \(c_m=5m+2\) is already strictly above \(n/2\). Their
+exact margins are
+\[
+\begin{aligned}
+c_j(A_j+B_j)-A_jB_j
+&=-8j^2+(32m+7)j+12m+4\ge12m+4,\\
+L(B_m+E_0)-B_mE_0&=8m^2-2m-2>12m+4.
+\end{aligned}
+\tag{KPG46-12}
+\]
+It remains to compare the generic high-middle roles with the displayed
+minimum. Since \(n\) is odd and the three labels of a two-edge path are
+distinct, \(y\ge(n+1)/2=5m+2\). The identity
+\[
+y(a+b)-ab=y^2-(a-y)(b-y)
+\]
+splits the endpoint ranges exactly. If \(a,b>y\), then distinctness and
+monotonicity give
+\[
+y^2-(a-y)(b-y)
+\ge y^2-(n-y)(n-1-y)
+\ge {3n-1\over2}=15m+4.
+\]
+If \(a,b<y\), the analogous lower corner \(L,L+1\) gives at least
+\[
+(2L+1){n+1\over2}-L(L+1)=24m^2+19m+4,
+\]
+and if the endpoints straddle \(y\), the margin is at least \(y^2\).
+All three bounds exceed \(12m+4\). The first expression in (KPG46-12) is
+increasing on \(0\le j\le m-1\), and the second displayed strict inequality
+uses \(8m^2-14m-6>0\) for \(m\ge3\). This checks every two-edge role, including
+both path-type joins and the cyclic closure, and proves that the exact
+two-edge minimum is \(12m+4\) at \(c_0\).
+
+For \(q=3\), every pair of consecutive internal backbone labels contains
+one label at least
+\[
+R=6m+2.
+\]
+Indeed, the labels below \(R\) are \(L\), the connectors \(c_0,\ldots,c_m\),
+and the shifted singletons; each is flanked in (KPG46-5) by a terminal or an
+outer triple label at least \(R\). Therefore, for endpoints \(a,b\in S_m\),
+orienting the two internal labels so the first is at least \(R\) gives
+\[
+aR+RL+Lb-ab
+\ge RL
+=24m^2+14m+2>12m+4.
+\tag{KPG46-13}
+\]
+The reversed internal orientation is identical after exchanging \(a,b\).
+For the displayed inequality, the bilinear remainder \(aR+Lb-ab\) is
+nonnegative at all four corners of \([L,n]^2\), using \(R+L=n\).
+For \(q\ge4\), discarding any excess above \(L\) gives
+\[
+\begin{aligned}
+\sum_{i=0}^{q-1}z_i z_{i+1}-z_0z_q
+&\ge L(a+b)+(q-2)L^2-ab\\
+&\ge2Ln+2L^2-n^2
+=12m^2-1>12m+4.
+\end{aligned}
+\tag{KPG46-14}
+\]
+The last bilinear expression attains its minimum on the corners of
+\([L,n]^2\); allowing the potentially smallest corner \((n,n)\) gives the
+displayed bound. The final strict inequality holds for every \(m\ge3\).
+
+Equations (KPG46-10)--(KPG46-14) verify both hypotheses of the shortcut
+lemma for every \(m\ge3\). Hence \(S_m\) is the unique maximizer among
+subsets of cardinality at least two. It contains \(n-1,n\), so its score is
+at least \(2n(n-1)>n^2\); no singleton can tie it. This proves
+(KPG46-6), including every boundary range.
+Together with (KPG46-11)--(KPG46-14), the role \(c_0\) proves the exact
+global nontrivial compressed-path margin \(12m+4\).
+
+### Exact block sum
+
+For a nonempty path \(P=(p_1,\ldots,p_s)\), retain
+\[
+\mathcal C(x,P,y)=xp_1+\sum_{i=1}^{s-1}p_ip_{i+1}+p_sy.
+\]
+The backbone score is
+\[
+\begin{aligned}
+P_{\tau_m^{\rm cl}}(S_m)={}&LE_0
++\sum_{j=0}^{m-1}\mathcal C(E_j,P_j,E_{j+1})\\
+&+\sum_{j=m}^{2m-2}
+  \bigl(E_jx_{j+1}+x_{j+1}E_{j+1}\bigr)
++\mathcal C(E_{2m-1},P_m,L).
+\end{aligned}
+\tag{KPG46-15}
+\]
+The two repeated block summands and the combined closing contribution are
+\[
+\begin{aligned}
+\mathcal C(E_j,P_j,E_{j+1})
+&=-8j^2-16mj-16j+192m^2+164m+32,\\
+E_jx_{j+1}+x_{j+1}E_{j+1}
+&=2j^2+24mj+15j+64m^2+84m+27,\\
+LE_0+\mathcal C(E_{2m-1},P_m,L)
+&=176m^2+135m+25.
+\end{aligned}
+\tag{KPG46-16}
+\]
+Summing \(j\), \(j^2\) on the exact ranges in (KPG46-15) gives
+(KPG46-7) directly and proves its integrality.
+
+### Minimum row and exact comparison with K825
+
+At \(m=3\),
+\[
+\alpha_3=(0,1,2,4,5,3),
+\]
+and the expanded order is
+\[
+\begin{aligned}
+(&28,12,27,14,26,11,29,10,25,15,24,9,30,8,23,16,22,7,\\
+ &31,6,18,5,32,4,19,3,33,2,21,17,20,13).
+\end{aligned}
+\tag{KPG46-17}
+\]
+Its sole maximizing subset is \(\{13,\ldots,33\}\), its exact score is
+\[
+K(\tau_3^{\rm cl})=10907,
+\]
+and the minimum hole and nontrivial compressed-path margins are \(96\) and
+\(40\). Thus the smallest admitted row is not an exceptional branch.
+
+For the canonical K825 order on the same indices, (K825-1)--(K825-4)
+specialize to
+\[
+e=4,\qquad v=2m,\qquad\varepsilon=0,qquad
+\chi=0,\qquad\Gamma=-12m-4<0.
+\]
+Its unique maximizer is the same label set \(S_m\), and
+\[
+K_{825}(m)
+={572m^3+629m^2+235m+30\over2}.
+\tag{KPG46-18}
+\]
+Exact subtraction gives the pointwise comparison
+\[
+\boxed{
+K(\tau_m^{\rm cl})-K_{825}(m)=m^2-6m-4.
+}
+\tag{KPG46-19}
+\]
+The crossover audit is complete:
+
+| \(m\) | \(K(\tau_m^{\rm cl})\) | \(K_{825}(m)\) | PG46 minus K825 |
+|---:|---:|---:|---:|
+| 3 | 10907 | 10920 | -13 |
+| 4 | 23809 | 23821 | -12 |
+| 5 | 44206 | 44215 | -9 |
+| 6 | 73814 | 73818 | -4 |
+| 7 | 114349 | 114346 | 3 |
+
+The difference in (KPG46-19) is strictly positive and increasing for every
+integer \(m\ge7\). Its real roots are \(3\pm\sqrt{13}\), so no admitted
+integer row is tied. Consequently the closing PG46 shift improves K825
+exactly for \(m=3,4,5,6\), and is strictly worse for every \(m\ge7\).
+
+In terms of \(n=10m+3\), the two exact formulas are
+\[
+K(\tau_m^{\rm cl})
+={286n^3+581n^2-58n-1777\over1000},
+\]
+\[
+K_{825}(n)
+={286n^3+571n^2+602n+333\over1000},
+\tag{KPG46-20}
+\]
+and their difference is
+\[
+{n^2-66n-211\over100}.
+\]
+Therefore
+\[
+\boxed{
+K(\tau_m^{\rm cl})={143\over500}n^3+O(n^2),
+\qquad
+K(\tau_m^{\rm cl})-K_{825}(n)={1\over100}n^2+O(n).
+}
+\tag{KPG46-21}
+\]
+The closing PG46 family does not improve the coefficient \(143/500\); it is
+eventually worse already at quadratic order. These are exact statements
+about \(K\) on two explicit core-order families. They imply no geometric or
+global optimality, no identity with \(W\), no angular-threshold ordering, and
+no minimizing-order classification.
+
+## 12. Asymptotic Consequences And Non-Consequences
 
 Dividing (CR28) by \(\pi n^3\) gives the exact vanishing-error comparison
 \[

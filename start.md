@@ -1474,6 +1474,28 @@ Ryser diagnostic checks \(m=3,\ldots,8\) without enumerating path
 permutations or matchings. No geometric or alternative-scaffold consequence
 is inferred.
 
+One of the two sharp PG46 witnesses is now evaluated exactly for the
+induced-subset objective. For the shift that sends \(P_m\) to the closing gap
+\(G_{2m-1}\), the corresponding core order has the unique maximizing subset
+\[
+S_m=\{4m+1,\ldots,10m+3\}
+\]
+and
+\[
+K={572m^3+631m^2+223m+22\over2}
+\qquad(m\ge3).
+\]
+An exhaustive symbolic isolated-hole and compressed-shortcut audit proves
+uniqueness, and an exact block sum gives the formula. On the same rows,
+\[
+K-K_{825}=m^2-6m-4,
+\]
+so the order improves K825 exactly at \(m=3,4,5,6\), is worse for every
+\(m\ge7\), and has no integer tie. In terms of \(n\), both leading cubic
+coefficients are \(143/500\), while this PG46 value is eventually larger by
+\(n^2/100+O(n)\). This is a fixed-core-order theorem only; it proves no
+geometric or global optimality statement.
+
 Consequently the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also a disproved claim.
@@ -2920,6 +2942,19 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   No quotient by symmetries is used. Because each assignment has a distinct
   canonical representative rooted at \(n\) with neighbors \(2<3\), the same
   integer also counts the dihedral classes represented by this scaffold.
+- EXACT CLOSING-PG46 CORE-ORDER THEOREM: for the PG46 bijection placing
+  \(P_m\) in \(G_{2m-1}\), the exact induced-subset argmax is the singleton
+  family \(\{\{4m+1,\ldots,10m+3\}\}\), and
+
+  \[
+  K={572m^3+631m^2+223m+22\over2}.
+  \]
+
+  The exact canonical comparison is \(K-K_{825}=m^2-6m-4\). Hence the
+  PG46 order is better exactly on \(m=3,4,5,6\), worse on \(m\ge7\), never
+  tied, and retains coefficient \(143/500\). The theorem covers every block,
+  shortcut, closure, and minimum-row boundary; it is not a geometric or
+  global optimality result.
 - VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the sole standalone
   standard-library script in
   ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
@@ -2955,6 +2990,15 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \(36,720,21600,725760,46448640,3292047360\). It enumerates no path
   permutation or matching, constructs no core order, scores no positional
   pair, and imports no project or test helper.
+- VERIFIED FACT (FINITE EXACT CLOSING-PG46 K DIAGNOSTIC): the sole standalone
+  standard-library script in
+  ops/TASK-20260718__pg46_closing_exact_k/ reconstructs the specified core
+  order and, for \(m=3,\ldots,30\), checks its score, unique optimizer with a
+  max-plus increasing-path DP, all isolated-hole gains, and every oriented
+  shortcut arc. Direct score/formula comparisons continue through \(m=1000\).
+  It enumerates no subsets, permutations, or matchings and imports no project
+  or test helper. This bounded check corroborates rather than proves the
+  all-\(m\) theorem.
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
   \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved

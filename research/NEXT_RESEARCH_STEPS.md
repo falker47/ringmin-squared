@@ -143,6 +143,25 @@ quotient. The same integer also counts represented dihedral classes because
 the canonical scaffold-order map is injective. One small standard-library
 Ryser diagnostic checks six rows by subset inclusion--exclusion without
 enumerating path permutations or matchings.
+The induced-subset question is now closed for the sharp PG46 witness that
+places \(P_m\) in the closing gap \(G_{2m-1}\). Its corresponding core order
+has exactly one maximizing subset,
+\(\{4m+1,\ldots,10m+3\}\), and
+\[
+K={572m^3+631m^2+223m+22\over2}.
+\]
+The block and shortcut-budget proof covers every \(m\ge3\), including all
+range boundaries and the minimum row. Exact comparison with canonical K825
+gives
+\[
+K-K_{825}=m^2-6m-4.
+\]
+Thus the closing PG46 order is better exactly for \(m=3,4,5,6\), worse for
+every \(m\ge7\), and never tied. It retains cubic coefficient \(143/500\),
+so it supplies no coefficient improvement. One standard-library diagnostic
+uses a max-plus increasing-path DP and shortcut audit without enumerating
+subsets, permutations, or matchings. No geometric or global conclusion is
+drawn.
 The fixed-order certification debt is now closed mathematically by
 `research/FIXED_ORDER_ANGULAR_STN.md`, which proves exact angular/STN
 equivalence, the negative-cycle criterion, potential recovery, radius
@@ -2626,6 +2645,13 @@ Immediate:
   full-optimal class from PG50--PG63, is labelled, and equals the represented
   dihedral-class count only by canonical-map injectivity. One bounded Ryser
   diagnostic uses column subsets rather than path permutations or matchings.
+- The closing-PG46 induced-\(K\) task is complete. The unique maximizer is
+  \(\{4m+1,\ldots,10m+3\}\), the exact score is
+  \((572m^3+631m^2+223m+22)/2\), and its K825 difference is
+  \(m^2-6m-4\). The proof covers every shortcut and block boundary from
+  \(m=3\) onward. A sole bounded DP/scorer diagnostic corroborates the
+  theorem without permutation or matching enumeration. The result is
+  construction-specific and leaves the coefficient \(143/500\) unchanged.
 
 Next:
 
@@ -2662,14 +2688,16 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: derive the leading asymptotics of the exact labelled Ferrers count
-\(\mathsf F_m^{\rm lab}\) on the \(n=10m+3\) symbolic branch.
+Task: evaluate \(K\) exactly for the other sharp PG46 witness, which places
+\(P_m\) in \(G_{2m-2}\), on the \(n=10m+3\) symbolic branch.
 
 Acceptance criteria:
 
-- derive the dominant term of \(\log \mathsf F_m^{\rm lab}\) directly from
-  (PG69), including a rigorous remainder bound;
-- control the floor/ceiling thresholds uniformly rather than fitting finite
-  values;
-- use no path-permutation enumeration;
-- leave alternative scaffolds and geometric claims out of scope.
+- classify every maximizing subset and derive an exact formula or a precisely
+  delimited obstruction for every \(m\ge3\);
+- prove every block, shortcut, cyclic-closure, minimum-row, and boundary
+  range symbolically;
+- compare pointwise and asymptotically with both the closing PG46 value and
+  canonical K825;
+- use at most one standard-library DP/scorer diagnostic, with no permutation
+  or matching enumeration and no geometric or global inference.

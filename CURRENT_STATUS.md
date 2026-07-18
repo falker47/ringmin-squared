@@ -6,183 +6,138 @@ Last update: 2026-07-18
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Active task:** derive the exact symbolic count of relation-compatible,
-  equivalently full-optimal, path-to-gap scaffold bijections on
-  \(n=10m+3\), \(m\ge3\), from the PG49 Ferrers support without enumerating
-  path permutations.
-- **Repository state at startup:** clean `main` worktree at commit
-  `b1a4054d1fac75443cf1929921dddb38f9750a5f`, tracking `origin/main`.
-- **Implementation state:** the permanent recurrence, exact column and row
-  products, complete boundary treatment, PG50--PG63 class identity,
-  labelled/dihedral convention, sole bounded independent diagnostic,
-  authoritative synchronization, independent audits, and repository
-  verification are complete.
+- **Active task:** evaluate the induced-subset objective \(K\) exactly for the
+  PG46 bijection that places \(P_m\) in the closing gap \(G_{2m-1}\) on
+  \(n=10m+3\), \(m\ge3\).
+- **Repository state at startup:** clean main worktree at commit
+  963aa533e254cc94e17c1d5e7cd81284df13d552, tracking origin/main.
+- **Implementation state:** exact optimizer classification, shortcut-budget
+  proof, block sum, minimum row, all boundary ranges, K825 comparison, one
+  independent diagnostic, authoritative synchronization, repository
+  regressions, and independent audits are complete.
 - **Current blocker:** none.
 - **Current next atomic action:** user manual review and commit decision.
 - **Awaiting user review:** yes.
 
 ## Objective And Scope
 
-For the fixed indexed paths \(P_0,\ldots,P_{2m-1}\) and oriented terminal
-gaps \(G_0,\ldots,G_{2m-1}\), count exactly every relation-compatible
-bijection using the nested PG49 support. Prove that the counted set is exactly
-the full-optimal scaffold class from PG50--PG63, cover every endpoint and
-path-type boundary, and specify the symmetry convention. Use no permutation
-enumeration. Add only one small standard-library diagnostic and make no
-geometric inference or alternative-scaffold study.
+For the fixed PG46 assignment
+\[
+\alpha(j)=
+\begin{cases}
+j,&0\le j<m,\\
+j+1,&m\le j<2m-1,\\
+m,&j=2m-1,
+\end{cases}
+\]
+determine the exact value of \(K\), classify all maximizing subsets, and
+compare pointwise and asymptotically with canonical K825. Relation
+compatibility and full optimality for \(W\) are prior inputs. Other PG46
+witnesses, geometry, angular realizability, global minimization, production
+code, artifacts, schemas, and certificates are outside this task.
 
-## Exact Ferrers Formula And Recurrence
+## Exact Theorem
 
 Put
-
 \[
-v=2m,
-\qquad
-d=8m+4,
-\qquad
-\kappa_j=
-\left\lceil{j(d-1)\over2(d+j)}\right\rceil.
+S_m=\{4m+1,\ldots,10m+3\}.
 \]
-
-PG49 forces \((P_0,G_0)\). On the reduced board
-\(1\le j,k<v\), gap \(G_j\) has the nested suffix neighborhood
-\[
-N(G_j)=\{P_{\kappa_j},\ldots,P_{v-1}\}.
-\]
-After assigning the narrower gaps \(G_{v-1},\ldots,G_{j+1}\), exactly
-\(v-1-j\) used paths lie in \(N(G_j)\). Therefore every partial assignment
-has precisely
-\[
-(v-\kappa_j)-(v-1-j)=j+1-\kappa_j
-\]
-extensions at \(G_j\). Thus
-\[
-C_{m,v}=1,
-\qquad
-C_{m,j}=(j+1-\kappa_j)C_{m,j+1},
-\qquad
-\mathsf F_m^{\rm lab}=C_{m,1},
-\]
-and the exact labelled count is
+For every \(m\ge3\), the complete maximizing-subset classification is
 \[
 \boxed{
-\mathsf F_m^{\rm lab}
-=\prod_{j=1}^{2m-1}
-\left(
-j+1-
-\left\lceil{j(8m+3)\over2(8m+4+j)}\right\rceil
-\right)
+\operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,10m+3\}}
+P(U)=\{S_m\}
 }
-\qquad(m\ge3).
 \]
-
-The equivalent row formula is
+and
 \[
 \boxed{
-\mathsf F_m^{\rm lab}
-=(m-1)!\prod_{k=1}^{m}(\ell_k-k+1)
-=(2m-q_m)!\prod_{k=1}^{q_m-1}(\ell_k-k+1),
+K={572m^3+631m^2+223m+22\over2}.
 }
 \]
-where
+There is no parity branch, exceptional minimum row, or second maximizing
+subset.
+
+## Block And Shortcut Certificate
+
+- Deleting the isolated holes \(H_m=\{2,\ldots,4m\}\) leaves an explicit
+  cyclic backbone consisting of the \(m\) unshifted triples, the shifted
+  singleton chain, the closing triple \(P_m\), and \(4m+1\).
+- Five exhaustive hole-position ranges have positive deletion gain. Their
+  exact global minimum is \(28m+12\).
+- Every compressed oriented path has positive shortcut margin. Endpoint-hole,
+  high-middle, \(L\), three-edge, and at-least-four-edge roles have separate
+  symbolic bounds, proving the exact global minimum \(12m+4\).
+- Direct summation of the unshifted triple blocks, shifted singleton blocks,
+  and combined cyclic closing block yields the displayed cubic formula.
+- At \(m=3\), the unique maximizer is \(\{13,\ldots,33\}\),
+  \(K=10907\), and the minimum hole and shortcut margins are \(96\) and
+  \(40\). Thus the least admitted row obeys the same theorem.
+
+## Exact K825 Comparison
+
+On the same \(n=10m+3\) rows,
 \[
-\ell_k=
-\min\!\left\{2m-1,
-\left\lfloor{2k(8m+4)\over8m+3-2k}\right\rfloor\right\},
+K_{825}={572m^3+629m^2+235m+30\over2}
+\]
+and therefore
+\[
+\boxed{K-K_{825}=m^2-6m-4.}
+\]
+The closing PG46 order is strictly better for \(m=3,4,5,6\), strictly worse
+for every \(m\ge7\), and never tied. In terms of \(n\),
+\[
+K={286n^3+581n^2-58n-1777\over1000},
 \qquad
-q_m=\left\lfloor{4m+3\over5}\right\rfloor.
+K-K_{825}={n^2-66n-211\over100}.
 \]
-
-## Exact Class Identity
-
-Let \(\mathfrak F_m\) be the perfect matchings of the PG49 support. Since
-\(\mathcal R_{\rm ext}\subseteq\mathcal R_{\rm loc}\), PG36 makes every such
-matching relation-compatible. Conversely, every relation-compatible
-bijection witnesses the extendibility of each of its own edges. PG62 then
-gives the exact set identity
-\[
-\boxed{
-\mathfrak F_m
-=\{\alpha:\alpha\text{ is relation-compatible}\}
-=\{\alpha:W(\sigma_\alpha)=T=W_n\}.
-}
-\]
-Hence the product counts all and only the full-optimal scaffold bijections
-classified by PG50--PG63, not support edges or partial assignments.
-
-## Boundaries And Symmetry Convention
-
-- PG49 forces \(\alpha(0)=0\); \(\kappa_1=1\) gives the first positive
-  factor one.
-- For \(2\le j<2m\), \(\kappa_j\le j-1\), so every remaining factor is at
-  least two.
-- The last nonclosing and closing thresholds are
-  \(\lfloor(4m+1)/5\rfloor\) and \(\lfloor(4m+3)/5\rfloor\), covering every
-  residue class of \(m\).
-- Rows from \(P_{q_m}\) onward are universal on positive gaps. In particular,
-  the last triple, first singleton, and terminal singleton contribute
-  \(m\), \(m-1\), and \(1\), respectively.
-- Floor/ceiling cutoff equalities are included.
-- At \(m=3\),
-  \((\kappa_0,\ldots,\kappa_5)=(0,1,1,2,2,3)\) and
-  \(\mathsf F_3^{\rm lab}=36\); there is no exceptional minimum branch.
-- The formula is primarily a **labelled** count of indexed gaps and retained
-  oriented paths. No rotation, reflection, or Ferrers-board automorphism is
-  quotiented out. Distinct assignments nevertheless yield distinct canonical
-  dihedral core-order representatives: the unique label \(n\) fixes rotation,
-  its oriented neighbors are \(2<3\), and the gap words recover \(\alpha\).
-  Thus the same integer also counts the dihedral classes represented by this
-  fixed scaffold, by injectivity rather than division by a symmetry factor.
+Consequently its cubic coefficient is still \(143/500\); there is no
+coefficient improvement, and the family is eventually worse by
+\(n^2/100+O(n)\).
 
 ## Verification
 
-- The sole standard-library diagnostic independently builds the PG49 matrix
-  by cross-multiplied integer inequalities and applies Ryser
-  inclusion--exclusion to its reduced permanent. For \(m=3,\ldots,8\), it
-  agrees with both Ferrers products at
-  \[
-  36,\ 720,\ 21600,\ 725760,\ 46448640,\ 3292047360.
-  \]
-  It enumerates 43,674 nonempty column subsets in total, not path
-  permutations or matchings.
-- The diagnostic passes after an orientation-consistency correction; in-memory
-  compilation and Ruff lint/format pass. One initial Ruff format-check failure
-  was retained and resolved by mechanical formatting.
-- The focused product-distance suite passes 49 tests; the complete repository
-  suite passes 283 tests; the schema suite passes four tests; checked-artifact
-  verification accepts four certificates and 76 local brackets.
-- Three independent read-only audits pass the mathematics, diagnostic, and
-  cross-file synchronization. The synchronization audit found one row/column
-  wording mismatch; PG65 and the diagnostic were transposed consistently,
-  after which proof and code re-audits passed.
-- Final encoding, equation-tag, whitespace, complete-diff, and Git checks pass
-  on the intended nine-file scope.
+- The sole dossier-local standard-library diagnostic reconstructs the order
+  without production imports.
+- For \(m=3,\ldots,30\), a max-plus increasing-path DP independently finds
+  the stated score, one optimizer, and the stated subset; an all-oriented-arc
+  audit independently checks the hole and shortcut certificate.
+- Direct score/formula and K825 comparisons continue through \(m=1000\).
+- The diagnostic passes with 36,989,498 DP transitions and 958,916 oriented
+  shortcut arcs; Ruff lint and format checks pass.
+- Focused regressions pass 150 tests; the complete suite passes 283 tests;
+  the schema regression passes four tests; checked-artifact verification
+  accepts four certificates and 76 local brackets.
+- Three independent read-only audits pass after one local exact-minimum proof
+  gap was corrected. KPG46 tags, added Markdown/LaTeX structure, whitespace,
+  final diff, and Git status checks pass.
 
 ## Evidence Classification And Limitations
 
-- The permanent recurrence, both product formulas, boundary treatment,
-  full-optimal class identity, and labelled/dihedral injectivity statement are
-  **exact theorems**.
+- The optimizer classification, formula, block sum, shortcut inequalities,
+  boundary treatment, K825 comparison, and coefficient decision are **exact
+  theorems**.
 - The diagnostic is a **bounded exact computation** that corroborates but
   does not prove the all-\(m\) theorem.
-- The result is confined to the fixed retained scaffold and its path
-  orientations. It proves no geometric feasibility, exact value of
-  \(R_2^*(n)\), classification of alternative scaffolds, or asymptotic formula
-  for the new count. Production, tests, artifacts, schemas, backends,
-  certificates, and enumeration limits are unchanged.
+- The result concerns one explicit full-\(W\)-optimal core order. It proves no
+  geometric feasibility or optimality, no global \(K\)-minimizer
+  classification, no improvement of an all-residue coefficient, and no
+  statement about the other sharp PG46 witness.
 
 ## Files In Scope
 
-- `research/PRODUCT_DISTANCE_SURROGATE.md`
-- `research/NEXT_RESEARCH_STEPS.md`
-- `start.md`
-- `PROJECT_KNOWLEDGE.md`
-- `CURRENT_STATUS.md`
-- `ops/TASK-20260718__ferrers_bijection_count/`
+- research/FIXED_ORDER_CYCLE_RATIO.md
+- research/PRODUCT_DISTANCE_SURROGATE.md
+- research/NEXT_RESEARCH_STEPS.md
+- start.md
+- PROJECT_KNOWLEDGE.md
+- CURRENT_STATUS.md
+- ops/TASK-20260718__pg46_closing_exact_k/
 
 ## Proposed Next Task
 
-After manual review and in a fresh STRICT chat, derive the leading asymptotics
-of \(\log \mathsf F_m^{\rm lab}\) from the exact Ferrers product, with a
-rigorous error term and without permutation enumeration, alternative
-scaffolds, or geometric claims.
+After manual review and in a fresh STRICT chat, evaluate \(K\) exactly for
+the other sharp PG46 witness, which places \(P_m\) in \(G_{2m-2}\), and
+compare it pointwise and asymptotically with both the closing-PG46 formula and
+canonical K825. Classify every maximizing subset and boundary without
+permutation or matching enumeration and without geometric or global claims.

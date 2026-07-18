@@ -197,6 +197,25 @@
   enumeration. Distinct assignments give distinct canonical dihedral core
   orders in this fixed oriented scaffold, so the same integer also counts
   its dihedral classes; no symmetry factor is divided out.
+- **EXACT THEOREM (later closing-PG46 shortcut evaluation):** for the PG46
+  bijection placing \(P_m\) in the closing gap \(G_{2m-1}\), the corresponding
+  core order has the sole induced-subset maximizer
+
+  \[
+  S_m=\{4m+1,\ldots,10m+3\},
+  \]
+
+  and
+
+  \[
+  K={572m^3+631m^2+223m+22\over2}.
+  \]
+
+  Its exact difference from canonical K825 is \(m^2-6m-4\): it is smaller
+  exactly for \(m=3,4,5,6\), larger for every \(m\ge7\), and never tied.
+  Both families have cubic coefficient \(143/500\). This is a theorem about
+  one explicit core-order family only; it has no geometric or global
+  optimality consequence.
 - **CONJECTURE:** none is proposed from nine finite cases.
 
 Fractions are oriented exactly as displayed below. The accepted angular
@@ -5610,6 +5629,13 @@ inclusion--exclusion. It compares that independent value with both Ferrers
 products and fixed expected integers, including every terminal-threshold
 residue class and the minimum row. It enumerates column subsets, not path
 permutations or matchings, and imports no project or test helper.
+The sole diagnostic for the later closing-PG46 \(K\) evaluation is the
+standalone standard-library script in
+ops/TASK-20260718__pg46_closing_exact_k/. For \(m=3,\ldots,30\), it
+reconstructs only the prescribed order, runs a max-plus increasing-path DP,
+and checks every oriented shortcut arc; direct formula checks continue to
+\(m=1000\). It enumerates no subsets, permutations, or matchings and imports
+no project or test helper.
 
 The following remain unresolved.
 
@@ -5641,6 +5667,12 @@ The following remain unresolved.
   The count is labelled; it also equals the number of dihedral classes
   represented by this fixed scaffold because the canonical-order map is
   injective, not because a symmetry factor is removed.
+- **CLOSED CORE-ORDER QUESTION:** the later theorem (KPG46-1)--(KPG46-21) in
+  `research/FIXED_ORDER_CYCLE_RATIO.md` evaluates \(K\) exactly for the one
+  PG46 shift placing \(P_m\) in \(G_{2m-1}\). Its unique maximizing subset,
+  exact block sum, every shortcut boundary, minimum row, K825 crossover, and
+  unchanged coefficient \(143/500\) are proved without inferring geometric
+  or global optimality.
 - **OPEN QUESTION:** for which \(n\ge94\) is
   \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\)? Criterion (MS2)
   certifies equality whenever it holds, including \(n=94\), but no complete
