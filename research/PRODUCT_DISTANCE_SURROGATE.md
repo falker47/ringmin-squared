@@ -108,6 +108,14 @@
   residue-one row. This sharpens only the residue-one subsequential upper
   coefficient for \(\Lambda_n\) and \(R_2^*(n)\); it does not change the
   all-residue limsup bound.
+- **EXACT THEOREM (later residue-two shortcut evaluation):** for
+  \(n=5k+2\), \(k\ge2\), the parity-aware order
+  \(\tau_n^{(2)}=\operatorname{residue\_two\_product\_distance\_order}(n)\)
+  has the unique induced-subset maximizer \(\{2k+1,\ldots,n\}\). Its exact
+  parity quasipolynomial is strictly below K825 on every residue-two row,
+  without crossover. Both have cubic coefficient \(143/500\); their rowwise
+  difference is \(21n^2/100+O(n)\), so it sharpens finite and quadratic
+  terms but not the established cubic upper coefficient.
 - **EXACT THEOREM (residue-class matching):** for \(n\ge9\),
   \[
   H_n=
@@ -2624,6 +2632,19 @@ domain. The supplied finite witnesses were used only to falsify candidate
 forms and identify this block structure; the production formula (R2C1)--
 (R2C7) performs no search, and canonical cyclic-order enumeration remains
 hard-bounded to \(n\le11\).
+
+The induced-subset objective on this same cyclic core is evaluated separately
+in Section 10 of `research/FIXED_ORDER_CYCLE_RATIO.md`, where it is denoted by
+\(\tau_n^{(2)}=\sigma_n^{(2)}\). Its shortcut-budget theorem proves that the
+unique maximizing subset is \(\{2k+1,\ldots,n\}\) and that
+\[
+K(\tau_n^{(2)})=K(\sigma_n^{(2)})
+={143\over500}n^3+O(n^2).
+\]
+The exact two parity branches are (KR2-3)--(KR2-4). They are strictly below
+the canonical K825 score in every residue-two row, with no crossover and
+with difference \(21n^2/100+O(n)\). This is a statement about \(K\), not a
+change to the exact surrogate identity \(W(\sigma_n^{(2)})=J_n\).
 
 ### Exact construction in residue one
 

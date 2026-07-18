@@ -33,6 +33,16 @@ It beats the canonical K825 score in every admissible residue-one row, with
 no crossover. Exact label-one elimination and the fixed-order sandwich give
 the corresponding residue-one subsequential upper coefficient
 \(857/(3000\pi)\), but do not improve the all-residue limsup bound.
+The exact-threshold residue-two order has now been evaluated too. For every
+\(n=5k+2\), \(k\ge2\), its sole maximizing subset is
+\(\{2k+1,\ldots,n\}\). The two exact parity branches are strictly below
+K825 on every row, with no crossover, but they retain the same cubic
+coefficient \(143/500\):
+\[
+K_{825}(n)-K(\tau_n^{(2)})={21\over100}n^2+O(n).
+\]
+Thus this is a pointwise and quadratic construction improvement, not a new
+cubic subsequential or all-residue coefficient.
 One explicit parametric perturbation of the matching \(8/25\) construction
 is now closed as well. On \(n=10m+3\), reversing the outer entries of one
 triple has score \(T\) for every nonzero triple index and
@@ -2514,6 +2524,14 @@ Completed:
 
 Immediate:
 
+- The exact-threshold residue-two \(K\)-evaluation task is complete. The
+  unique argmax is \(\{2k+1,\ldots,5k+2\}\) for every \(k\ge2\). The
+  all-\(k\) shortcut-budget proof treats both parity branches, hole endpoints,
+  and the empty or terminal path ranges at \(k=2,3,4\). One bounded
+  standard-library diagnostic reconstructs both orders independently and
+  uses max-plus dynamic programming and arc budgets, not subset or order
+  enumeration. The score beats K825 everywhere but only by
+  \(21n^2/100+O(n)\), so the cubic coefficient stays \(143/500\).
 - The exact-threshold residue-one \(K\)-evaluation task is complete. The
   unique argmax is \(\{2k+1,\ldots,5k+1\}\) for every \(k\ge2\), including
   both smallest boundary rows; parity changes only the exact lower-order
@@ -2571,11 +2589,6 @@ Immediate:
 
 Next:
 
-- In a separate STRICT task, evaluate \(K\) exactly for the sharper
-  residue-two product-distance order and compare it pointwise and
-  asymptotically with the canonical \(143/500\) family using the same
-  shortcut-budget method. Do not infer its answer from the completed
-  residue-one theorem.
 - Derive an exact symbolic count of relation-compatible, equivalently
   full-optimal, scaffold bijections from the nested Ferrers thresholds,
   without enumerating path permutations.
@@ -2609,15 +2622,15 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: evaluate \(K\) exactly for the sharper residue-two product-distance
-core order and compare it with the canonical eight-twenty-fifths family.
+Task: derive an exact symbolic count of relation-compatible, equivalently
+full-optimal, scaffold bijections on the \(n=10m+3\) symbolic branch.
 
 Acceptance criteria:
 
-- derive the exact induced-subset maximum from its symbolic block word and
-  shortcut gains, without enumerating subsets or cyclic orders;
-- classify every maximizing subset and all parity/boundary rows;
-- compare the exact values with (K825-4), including the leading coefficient
-  and any finite crossover;
-- deduce only those \(\Lambda_n\) and geometric consequences justified by
-  exact label-one elimination and the fixed-order sandwich.
+- derive the count directly from the nested Ferrers thresholds and the exact
+  support (PG49), without enumerating path permutations;
+- treat every symbolic boundary and show that the counted bijections are
+  exactly the full-optimal scaffold bijections classified by (PG50)--(PG63);
+- corroborate the formula with one bounded independent exact diagnostic;
+- leave alternative scaffolds, geometric claims, and larger exhaustive
+  enumeration out of scope.

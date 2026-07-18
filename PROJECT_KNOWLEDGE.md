@@ -1517,6 +1517,84 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   pointwise comparison checks continue through \(k=1000\). No subset or
   permutation is enumerated; the bounded computation corroborates rather
   than replaces the all-\(k\) proof.
+- EXACT THEOREM (EXACT-THRESHOLD RESIDUE-TWO \(K\)): let
+  \(\tau_n^{(2)}\) be the core order returned by
+  `residue_two_product_distance_order(n)` for \(n=5k+2\), \(k\ge2\), and
+  put \(\varepsilon=k\bmod2\). Its unique maximizing subset is
+  \[
+  \{2k+1,2k+2,\ldots,5k+2\},
+  \]
+  and
+  \[
+  K(\tau_n^{(2)})
+  ={286k^3+459k^2+198k+16
+   +\varepsilon(-10k^2+40k+27)\over8}.
+  \]
+  Equivalently,
+  \[
+  K(\tau_n^{(2)})=
+  \begin{cases}
+  (286n^3+579n^2-798n-1008)/1000,&n\equiv2\pmod {10},\\
+  (286n^3+529n^2+402n+167)/1000,&n\equiv7\pmod {10}.
+  \end{cases}
+  \]
+  The proof deletes precisely the isolated holes \(\{2,\ldots,2k\}\),
+  proves every hole gain and every non-atomic compressed-path margin strictly
+  positive, and sums the parity-specific block word. There is no tie or
+  score correction. At \(k=2\) the doubleton is final, at \(k=3\) the odd
+  nonfinal-singleton range is empty, and at \(k=4\) the corresponding even
+  range is empty; the theorem remains unchanged.
+- EXACT POINTWISE AND ASYMPTOTIC RESIDUE-TWO COMPARISON: on the symbolic K825
+  domain, \(e=8\), \(v=k-1\), and the boundary correction is \(-25\) at
+  \(k=7\). Thus
+  \[
+  K_{825}-K(\tau_n^{(2)})
+  ={21k^2+(50+30\varepsilon)k+4+35\varepsilon\over4}
+  -25\mathbf1_{\{k=7\}}.
+  \]
+  The explicit differences at \(k=2,3,4,5,6\) are
+  \(26,44,124,178,361\), and the boundary difference at \(k=7\) is
+  \(382\). Every gap is positive, so there is no crossover. Both cubic
+  coefficients equal \(143/500\), and
+  \[
+  K_{825}(n)-K(\tau_n^{(2)})={21\over100}n^2+O(n).
+  \]
+- EXACT RESIDUE-TWO CYCLIC-RATIO CONSEQUENCE: inserting label \(1\) in any
+  gap gives
+  \[
+  \Lambda(\sigma_{n,g}^{(2)})=K(\tau_n^{(2)}),
+  \qquad
+  {K(\tau_n^{(2)})\over\pi}-n^2
+  <\rho_{\sigma_{n,g}^{(2)}}
+  <{K(\tau_n^{(2)})\over\pi}.
+  \]
+  No maximizing subset contains label \(1\), so the same unique core subset
+  is the unique subset attaining \(\Lambda\) after every insertion.
+  Globally, only
+  \[
+  \Lambda_n\le K(\tau_n^{(2)}),
+  \qquad
+  R_2^*(n)<{\Lambda_n\over\pi}
+  \le{K(\tau_n^{(2)})\over\pi}
+  \]
+  follows on this residue class. The subsequential limsup coefficients are
+  therefore at most \(143/500\) and \(143/(500\pi)\), the already-known
+  canonical coefficients. No global equality, lower sandwich transfer,
+  minimizing-order theorem, active geometric/STN classification at the exact
+  threshold, exact angular ordering, quadratic geometric coefficient, or
+  all-residue improvement follows.
+- VERIFIED FACT (BOUNDED EXACT DOSSIER DIAGNOSTIC): the standalone
+  `ops/TASK-20260718__residue_two_exact_k/exact_diagnostic.py` imports only
+  standard-library modules and no project or test helper. It independently
+  reconstructs both block orders, runs increasing-path max-plus DPs, and
+  audits every residue-two oriented shortcut arc for \(2\le k\le30\). Each
+  DP checks 4,623,615 transitions, all 238,670 arcs pass, every row has the
+  predicted sole argmax, and the bounded minimum hole and path margins are
+  respectively \(26\) and \(7\). Direct formula and K825 comparison checks
+  continue through
+  \(k=1000\), with no crossover. This finite computation enumerates neither
+  subsets nor cyclic orders and corroborates rather than replaces the
+  all-\(k\) proof.
 - VERIFIED FACT: `src/power_ringmin/fixed_order_cycle_ratio.py` implements the
   exact scorer by maximum descending-path closure, a one-wrap macro graph, and
   Karp maximum-cycle-mean dynamic programming in integer/`Fraction`
@@ -2941,11 +3019,17 @@ Candidate-set extraction uses the following finite-certificate semantics.
   it strictly improves K825 on every residue-one row with no crossover. The
   proof handles every shortcut and both smallest boundaries symbolically; one
   bounded standard-library diagnostic changes no production or test path.
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, evaluate \(K\) exactly for
-  the sharper residue-two product-distance order, then compare it pointwise
-  and asymptotically with the canonical eight-twenty-fifths family using
-  shortcut budgets rather than subset enumeration. Do not infer its answer
-  from residue one.
+- COMPLETED PRIORITY: the sharper residue-two core order now has an exact
+  all-\(k\) \(K\) theorem. Its sole argmax is the tail from \(2k+1\), and
+  its two parity branches strictly improve K825 on every row without a
+  crossover. Both retain cubic coefficient \(143/500\); the gain is
+  \(21n^2/100+O(n)\). The proof covers every shortcut and the \(k=2,3,4\)
+  path boundaries; one bounded standard-library diagnostic changes no
+  production or test path.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, derive an exact symbolic
+  count of relation-compatible, equivalently full-optimal, scaffold
+  bijections from the nested Ferrers support (PG49), without enumerating path
+  permutations.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order

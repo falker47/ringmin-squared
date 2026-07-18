@@ -1205,8 +1205,38 @@ the fixed-order sandwich give
 \]
 These are residue-one subsequential upper bounds. They do not improve the
 all-residue limsup coefficient, identify a global minimizing order, compare
-the exact angular thresholds of the two constructed orders, or say anything
-about residue two.
+the exact angular thresholds of the two constructed orders, or identify an
+exact quadratic geometric term.
+On the exact-threshold residue-two order
+\(\tau_n^{(2)}=\operatorname{residue\_two\_product\_distance\_order}(n)\),
+write \(n=5k+2\), \(k\ge2\), with the same
+\(\varepsilon=k\bmod2\). Its sole maximizing subset is
+\[
+\{2k+1,2k+2,\ldots,5k+2\},
+\]
+and
+\[
+K(\tau_n^{(2)})
+={286k^3+459k^2+198k+16
+ +\varepsilon(-10k^2+40k+27)\over8}
+={143\over500}n^3+O(n^2).
+\]
+The exact shortcut-budget proof handles both parity branches and the
+smallest rows \(k=2,3,4\), with no exceptional argmax or score correction.
+This value is strictly smaller than K825 on every residue-two row, including
+the five explicit rows and the K825 boundary \(k=7\); there is no crossover,
+but
+\[
+K_{825}(n)-K(\tau_n^{(2)})={21\over100}n^2+O(n).
+\]
+Thus both families retain cubic coefficient \(143/500\). Label-one
+elimination and the fixed-order sandwich give only the corresponding exact
+fixed-order score, its width-\(n^2\) angular bounds, and the residue-two
+subsequential upper bounds. Label-one elimination also shows that the same
+tail is the unique complete-order \(\Lambda\)-maximizing subset after every
+insertion. These facts do not order the exact angular thresholds, identify a
+global minimizing order or active geometric subsystem, or improve the cubic
+all-residue bound.
 The same threshold now gives an exact residue-class classification of the
 lower obstruction. For every \(n\ge9\), with \(d=d_n\),
 \[
@@ -2573,6 +2603,32 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   checks continue through \(k=1000\). The computation enumerates neither
   subsets nor permutations and corroborates rather than replaces the all-
   \(k\) proof.
+- EXACT THEOREM (RESIDUE-TWO EXACT-THRESHOLD \(K\)): for
+  \(n=5k+2\), \(k\ge2\), the order returned by
+  `residue_two_product_distance_order(n)` has the unique maximizing subset
+  \(\{2k+1,\ldots,n\}\). With \(\varepsilon=k\bmod2\), its value is
+  \[
+  {286k^3+459k^2+198k+16
+   +\varepsilon(-10k^2+40k+27)\over8}.
+  \]
+  It is strictly below K825 for every \(k\ge2\), without crossover, but the
+  two cubic coefficients are both \(143/500\); their difference is
+  \(21n^2/100+O(n)\). Exact label-one elimination and the fixed-order
+  sandwich yield only the fixed-order identities, width-\(n^2\) bounds, and
+  residue-two subsequential upper bounds; the unique core argmax also remains
+  the unique complete-order \(\Lambda\)-maximizing subset after every
+  insertion. This proves no global equality, angular ordering, active
+  geometric/STN classification, or improved cubic coefficient.
+- VERIFIED FACT (FINITE EXACT DOSSIER DIAGNOSTIC): the standalone
+  `ops/TASK-20260718__residue_two_exact_k/exact_diagnostic.py` imports no
+  project or test helper and independently reconstructs both block orders.
+  On \(2\le k\le30\), its two increasing-path max-plus DPs each check
+  4,623,615 transitions, every residue-two row has the sole predicted
+  maximizer, and all 238,670 oriented shortcut arcs pass with minimum hole
+  and path margins \(26\) and \(7\). Direct formula and K825 comparisons
+  continue through \(k=1000\), with no crossover. This bounded exact
+  computation enumerates neither subsets nor cyclic orders and does not
+  replace the symbolic theorem.
 - EXACT THEOREM: for \(n\ge9\), the terminal-high obstruction has the exact
   residue-class form
   \[

@@ -49,6 +49,13 @@ in `research/ALL_N_LOWER_BOUND.md`.
   K825 value on every row in this residue class. The improvement gives a
   sharper residue-one subsequential upper coefficient, not a new all-residue
   limsup theorem.
+- **EXACT THEOREM (EXACT-THRESHOLD RESIDUE-TWO CORE):** for
+  \(n=5k+2\), \(k\ge2\), Section 10 proves that the order returned by
+  `residue_two_product_distance_order(n)` also has the unique maximizing
+  subset \(\{2k+1,\ldots,n\}\). Its exact period-two formula is strictly
+  smaller than K825 on every row, with no crossover, but the two families
+  have the same cubic coefficient \(143/500\); their difference is only
+  \(21n^2/100+O(n)\).
 - **EXACT THEOREM:** the accepted same-order comparison gives
   \(\Lambda_n\le(n-1)W_n\). Combined with the strict cyclic-ratio sandwich,
   this yields
@@ -9518,9 +9525,444 @@ order their exact angular thresholds \(\rho\). The fixed-order sandwich has
 width \(n^2\), so the quadratic terms of (KR1-4) are not exact geometric
 coefficients. Finally, a strict improvement in only one residue class does
 not improve the existing all-\(n\) limsup coefficient \(143/500\); it gives
-only (KR1-32). No statement about residue two is made here.
+only (KR1-32).
 
-## 10. Asymptotic Consequences And Non-Consequences
+## 10. Exact \(K\) For The Exact-Threshold Residue-Two Core Order
+
+Let \(\tau_n^{(2)}\) be the cyclic core order returned by
+`residue_two_product_distance_order(n)`. Retain the block notation from
+(R2C1)--(R2C8):
+\[
+n=5k+2,\qquad k\ge2,\qquad
+D=4k+3,\qquad L=2k+1,
+\]
+\[
+\varepsilon=k\bmod2,\qquad
+t=\left\lceil{k\over2}\right\rceil={k+\varepsilon\over2},
+\qquad E_j=D+j,
+\]
+\[
+\lambda_j=2k-2j,\qquad \rho_j=2k+1-2j,
+\qquad
+\tau_n^{(2)}
+=\bigoplus_{j=0}^{k-1}(E_j,\lambda_j,P_j,\rho_{j+1}),
+\tag{KR2-1}
+\]
+where the subscript on \(\rho\) is cyclic. The first \(t\) paths are
+\[
+P_j=(A_j,c_j,B_j)
+=(D-1-2j,\ 2k+2+j,\ D-2-2j),
+\qquad 0\le j<t,
+\]
+and the residual paths are the parity branches (R2C5)--(R2C6).
+
+### Exact theorem and all maximizing subsets
+
+For every \(k\ge2\), the unique maximizing subset is
+\[
+\boxed{
+S_k=\{L,L+1,\ldots,n\}=\{2k+1,\ldots,5k+2\}.
+}
+\tag{KR2-2}
+\]
+It has cardinality \(3k+2\). The exact value is
+\[
+\boxed{
+K_{\rm R2}(k):=K(\tau_n^{(2)})
+={286k^3+459k^2+198k+16
+ +\varepsilon(-10k^2+40k+27)\over8}.
+}
+\tag{KR2-3}
+\]
+Equivalently,
+\[
+\boxed{
+K_{\rm R2}(n)=
+\begin{cases}
+\dfrac{286n^3+579n^2-798n-1008}{1000},
+ &n\equiv2\pmod {10},\\[6pt]
+\dfrac{286n^3+529n^2+402n+167}{1000},
+ &n\equiv7\pmod {10}.
+\end{cases}}
+\tag{KR2-4}
+\]
+Parity changes only the lower-order terms and the internal path types. There
+are no parity-dependent ties or exceptional maximizing subsets.
+
+### Positive isolated-hole gains
+
+Apply the shortcut-budget lemma (K825-6)--(K825-9) with
+\[
+H_k=\{2,\ldots,2k\},\qquad V\setminus H_k=S_k.
+\tag{KR2-5}
+\]
+Every member of \(H_k\) is isolated in (KR2-1). The closing label
+\(\rho_0=L\) is retained, and deleting all holes gives the cyclic backbone
+\[
+(L,E_0,P_0,E_1,P_1,\ldots,E_{k-1},P_{k-1}).
+\tag{KR2-6}
+\]
+If \(F_j\) and \(G_j\) are the first and last labels of \(P_j\), the
+actual left and right deletion gains are
+\[
+h_j^{\rm L}=E_jF_j-\lambda_j(E_j+F_j),\qquad
+h_j^{\rm R}=G_jE_{j+1}-\rho_{j+1}(G_j+E_{j+1}).
+\tag{KR2-7}
+\]
+The right gain is required only for \(j\le k-2\), since the last right
+label is the retained \(\rho_0\).
+
+On a triple path, \(0\le j<t\), direct substitution gives
+\[
+\begin{aligned}
+h_j^{\rm L}&=10k+6+(14k+6)j-4j^2,\\
+h_j^{\rm R}&=18k+9+(14k+2)j-4j^2.
+\end{aligned}
+\tag{KR2-8}
+\]
+The left sequence is strictly increasing on its range, and
+\(h_j^{\rm R}-h_j^{\rm L}=8k+3-4j>0\). Thus every actual triple-hole
+gain is at least \(10k+6\).
+
+If \(k=2m+1\), then \(t=m+1\) and the residual singleton at index
+\(m+1\le j\le2m\) is \(P_j=(2k+j+2)\). Its gains are
+\[
+\begin{aligned}
+h_j^{\rm L}
+ &=5j^2+(14k+15)j-4k^2+4k+6,\\
+h_j^{\rm R}
+ &=5j^2+(14k+20)j-4k^2+10k+14.
+\end{aligned}
+\tag{KR2-9}
+\]
+Here the right formula is an actual hole gain only for \(j\le2m-1\); at
+\(j=2m\), the right label is the retained \(\rho_0=L\).
+The left expression increases with \(j\), the right exceeds it by
+\(5j+6k+8\), and at the first residual index
+\[
+h_{m+1}^{\rm L}=17m^2+59m+40>0.
+\tag{KR2-10}
+\]
+
+If \(k=2m\), then \(P_m=(5m+2,5m+3)\). The two possible gains there are
+\[
+h_m^{\rm L}=(m+1)(17m+6),\qquad
+h_m^{\rm R}=17m^2+47m+19,
+\tag{KR2-11}
+\]
+where the right hole exists only when \(m\ge2\) and its gain exceeds the
+left one by \(24m+13\). For the residual
+singletons \(P_j=(2k+j+3)\), \(m+1\le j\le2m-1\),
+\[
+\begin{aligned}
+h_j^{\rm L}
+ &=5j^2+(14k+18)j-4k^2+6k+9,\\
+h_j^{\rm R}
+ &=5j^2+(14k+23)j-4k^2+12k+19,
+\end{aligned}
+\qquad
+h_{m+1}^{\rm L}=17m^2+68m+32.
+\tag{KR2-12}
+\]
+The right formula is required only for \(j\le2m-2\); the final singleton
+again ends at the retained \(\rho_0=L\).
+Again the left gains increase, and the right exceeds the left by
+\(5j+6k+10\). These formulas include every actual hole and prove
+the claimed exact minimum: after subtracting \(10k+6\), the first odd
+residual gain leaves \(17m^2+39m+24\), the even-doubleton left gain leaves
+\(17m^2+3m\), and the first even-singleton gain leaves
+\(17m^2+48m+26\), all positive on their stated ranges. Hence
+\[
+\boxed{
+\min_{x\in H_k}h_x=10k+6>0,
+}
+\tag{KR2-13}
+\]
+with equality at \(\lambda_0\).
+
+### Strict compressed-path margins
+
+Take an arbitrary oriented arc, delete only its internal holes, and let its
+compressed path have endpoints \(a,b\) and \(q\ge2\) edges. If \(q=2\)
+and, say, \(a\) is a hole, the middle label \(x\) lies in the backbone and
+\(x\ge L>a\), so
+\[
+ax+xb-ab=ax+b(x-a)>0.
+\tag{KR2-14}
+\]
+Suppose both endpoints are in the backbone. A middle label greater than
+\(n/2\) gives a positive margin because \(ab/(a+b)\le n/2\). The only
+remaining middle roles are a triple connector \(c_j\) and the closing label
+\(L\). Their exact margins are
+\[
+c_j(A_j+B_j)-A_jB_j
+=10k+4+(16k+1)j-8j^2
+=8j(2k-j)+10k+j+4>0
+\tag{KR2-15}
+\]
+and, with \(z=\operatorname{last}(P_{k-1})\),
+\[
+L(z+D)-zD=
+\begin{cases}
+2k^2-1,&k\text{ even},\\
+2k^2+2k+1,&k\text{ odd}.
+\end{cases}
+\tag{KR2-16}
+\]
+In particular, the even connector that can equal \(n/2\) is covered by
+(KR2-15), while the smallest closing margin is \(7\) at \(k=2\).
+
+Put
+\[
+M=\left\lfloor{n\over2}\right\rfloor+1
+ ={5k+4-\varepsilon\over2}.
+\tag{KR2-17}
+\]
+Every compressed-backbone edge has one endpoint at least \(M\) and the
+other at least \(L\). Indeed, terminal and outer-triple labels provide the
+high endpoint around each connector, all residual-path labels are at least
+\(M\), and the two edges at \(L\) have high endpoints \(z,D\). Therefore,
+up to reversing a three-edge path, its margin is at least
+\[
+Ma+ML+Lb-ab
+\ge {5k^2+21k+8-\varepsilon(7k+3)\over2}>0.
+\tag{KR2-18}
+\]
+The second inequality is the minimum over the four corners of
+\([2,n]^2\), attained by the lower-bound expression at \(a=b=n\).
+
+For \(q\ge4\), every internal label is at least \(L\), so another
+four-corner check gives
+\[
+\begin{aligned}
+\sum_{xy\in E(C)}xy-ab
+&\ge L(a+b)+(q-2)L^2-ab\\
+&\ge3k^2+6k+2+(q-4)L^2>0.
+\end{aligned}
+\tag{KR2-19}
+\]
+Equations (KR2-14)--(KR2-19) cover every oriented arc, including arcs with
+hole endpoints. Together with (KR2-13), they establish both strict
+hypotheses of the shortcut-budget lemma. Equality therefore forces every
+hole to be omitted and every backbone label to be selected. Hence (KR2-2)
+is the unique maximizer among subsets of cardinality at least two. It
+dominates the two-element subset \(\{n-1,n\}\), whose score is
+\(2n(n-1)>n^2\), so no singleton ties it. This completes the all-subset
+argument without enumerating a subset or a cyclic order.
+
+### Direct block sum, parity, and boundary rows
+
+For a nonempty path \(P=(p_1,\ldots,p_s)\), write
+\[
+\mathcal C(x,P,y)=xp_1+
+\sum_{i=1}^{s-1}p_ip_{i+1}+p_sy.
+\]
+The backbone score obtained directly from (KR2-6) is
+\[
+LD+\sum_{j=0}^{k-2}\mathcal C(E_j,P_j,E_{j+1})
+ +\mathcal C(E_{k-1},P_{k-1},L).
+\tag{KR2-20}
+\]
+
+Let first \(k=2m\) with \(m\ge2\). The closure, triple, doubleton,
+nonfinal-singleton, and final-singleton terms are respectively
+\[
+\begin{array}{rcl}
+LD&=&32m^2+20m+3,\\
+T_j&=&192m^2+124m+16-(16m+16)j-8j^2,
+       \quad0\le j\le m-1,\\
+Q_{\rm d}&=&115m^2+105m+24,\\
+Q_j&=&64m^2+76m+21+(24m+13)j+2j^2,
+       \quad m+1\le j\le2m-2,\\
+F_{\rm even}&=&84m^2+46m+6.
+\end{array}
+\tag{KR2-21}
+\]
+The standard sums of \(j\) and \(j^2\) give
+\[
+K_{\rm R2}(2m)
+={572m^3+459m^2+99m+4\over2}.
+\tag{KR2-22}
+\]
+At the smallest even row, \(k=2\), the doubleton is final and both
+singleton ranges are empty. Directly,
+\[
+LD+T_0+F_{\rm double}=55+332+180=567,
+\tag{KR2-23}
+\]
+which agrees with (KR2-22). At \(k=4\), the nonfinal-singleton range in
+(KR2-21) is empty, but the displayed sum remains valid.
+
+For \(k=2m+1\), \(m\ge1\), the corresponding terms are
+\[
+\begin{array}{rcl}
+LD&=&32m^2+52m+21,\\
+T_j&=&192m^2+316m+126-(16m+24)j-8j^2,
+       \quad0\le j\le m,\\
+Q_j&=&64m^2+124m+60+(24m+23)j+2j^2,
+       \quad m+1\le j\le2m-1,\\
+F_{\rm odd}&=&84m^2+116m+40.
+\end{array}
+\tag{KR2-24}
+\]
+Thus
+\[
+K_{\rm R2}(2m+1)
+={572m^3+1307m^2+997m+254\over2}.
+\tag{KR2-25}
+\]
+At \(k=3\), the nonfinal-singleton range is empty and the four remaining
+parts give \(1565\). Equations (KR2-22)--(KR2-25) are exactly the two
+branches of (KR2-3), including all smallest parity and path-range
+boundaries; there is no score correction.
+
+### Pointwise and asymptotic comparison with K825
+
+Let \(K_{825}(k)\) denote the score of
+`eight_twenty_fifths_order(5k+2)`. On its symbolic domain \(k\ge7\), the
+parameters in (K825-1)--(K825-4) specialize to
+\[
+e=8,\qquad v=k-1,\qquad
+\varepsilon_{825}=1-\varepsilon,\qquad
+\Gamma=10k+6,\qquad
+\chi=\mathbf1_{\{k=7\}}.
+\tag{KR2-26}
+\]
+Consequently,
+\[
+K_{825}(k)
+={286k^3+(501-10\varepsilon)k^2
+ +(298+100\varepsilon)k+24+97\varepsilon\over8}
+ -25\mathbf1_{\{k=7\}},
+\tag{KR2-27}
+\]
+and exact subtraction gives
+\[
+\boxed{
+K_{825}(k)-K_{\rm R2}(k)
+={21k^2+(50+30\varepsilon)k+4+35\varepsilon\over4}
+ -25\mathbf1_{\{k=7\}}.
+}
+\tag{KR2-28}
+\]
+The five earlier K825 orders are explicit, \(k=7\) is the symbolic boundary
+correction, and \(k=8\) is the first uncorrected even symbolic-domain row:
+
+| \(k\) | \(n\) | \(K_{\rm R2}\) | \(K_{825}\) | \(K_{825}-K_{\rm R2}\) |
+|---:|---:|---:|---:|---:|
+| 2 | 12 | 567 | 593 | 26 |
+| 3 | 17 | 1565 | 1609 | 44 |
+| 4 | 22 | 3307 | 3431 | 124 |
+| 5 | 27 | 6026 | 6204 | 178 |
+| 6 | 32 | 9938 | 10299 | 361 |
+| 7 | 37 | 15226 | 15608 | 382 |
+| 8 | 42 | 22176 | 22613 | 437 |
+
+All displayed gaps are positive. For even \(k\ge8\), (KR2-28) is
+\((21k^2+50k+4)/4>0\); for odd \(k\ge9\), it is
+\((21k^2+80k+39)/4>0\). Thus
+\[
+\boxed{K_{\rm R2}(k)<K_{825}(k)\qquad(k\ge2),}
+\tag{KR2-29}
+\]
+and there is no crossover.
+
+On the symbolic-domain rows, the exact K825 branches in terms of \(n\) are
+\[
+K_{825}(n)=
+\begin{cases}
+\dfrac{286n^3+789n^2+862n-4168}{1000},
+ &n\equiv2\pmod {10},\\[6pt]
+\dfrac{286n^3+739n^2+3562n+2757}{1000},
+ &n\equiv7\pmod {10},
+\end{cases}
+-25\mathbf1_{\{n=37\}}.
+\tag{KR2-30}
+\]
+Together with (KR2-4), this gives the rowwise gaps
+\[
+K_{825}(n)-K_{\rm R2}(n)=
+\begin{cases}
+\dfrac{21n^2+166n-316}{100},
+ &n\equiv2\pmod {10},\\[6pt]
+\dfrac{21n^2+316n+259}{100},
+ &n\equiv7\pmod {10},
+\end{cases}
+-25\mathbf1_{\{n=37\}}.
+\tag{KR2-31}
+\]
+In particular, the new order improves the quadratic terms in both parity
+rows but not the cubic coefficient:
+\[
+\boxed{
+K_{\rm R2}(n)={143\over500}n^3+O(n^2),\qquad
+K_{825}(n)-K_{\rm R2}(n)={21\over100}n^2+O(n).
+}
+\tag{KR2-32}
+\]
+Equivalently,
+\(K_{\rm R2}(n)/K_{825}(n)
+=1-105/(143n)+O(n^{-2})\) on this subsequence.
+
+### Permitted cyclic-ratio and geometric consequences
+
+Insert label \(1\) into any gap \(g\) of \(\tau_n^{(2)}\), and call the
+complete order \(\sigma_{n,g}^{(2)}\). Exact label-one elimination and the
+fixed-order sandwich give precisely
+\[
+\boxed{
+\Lambda(\sigma_{n,g}^{(2)})=K_{\rm R2}(n),\qquad
+{K_{\rm R2}(n)\over\pi}-n^2
+<\rho_{\sigma_{n,g}^{(2)}}
+<{K_{\rm R2}(n)\over\pi}.
+}
+\tag{KR2-33}
+\]
+Equations (CR12l) and (CR12q) also transfer the argmax classification:
+no \(\Lambda\)-maximizing subset contains label \(1\), and every core-subset
+score is unchanged by insertion. Thus \(S_k\) in (KR2-2) is the unique
+label subset attaining \(\Lambda(\sigma_{n,g}^{(2)})\) for every gap \(g\).
+Hence every sequence of insertion gaps along this family satisfies
+\[
+{\rho_{\sigma_{n,g}^{(2)}}\over n^3}
+\longrightarrow{143\over500\pi}
+\qquad(n=5k+2\to\infty).
+\tag{KR2-34}
+\]
+At the global level only the one-sided substitution is licensed:
+\[
+\boxed{
+\Lambda_n\le K_{\rm R2}(n),\qquad
+R_2^*(n)<{\Lambda_n\over\pi}
+\le{K_{\rm R2}(n)\over\pi}
+\qquad(n=5k+2,\ k\ge2).
+}
+\tag{KR2-35}
+\]
+Consequently,
+\[
+\limsup_{k\to\infty}{\Lambda_{5k+2}\over(5k+2)^3}
+\le{143\over500},\qquad
+\limsup_{k\to\infty}{R_2^*(5k+2)\over(5k+2)^3}
+\le{143\over500\pi}.
+\tag{KR2-36}
+\]
+
+These deductions do not prove \(\Lambda_n=K_{\rm R2}(n)\), a global lower
+bound \(K_{\rm R2}(n)/\pi-n^2<R_2^*(n)\), a minimizing-order
+classification, or an identity between \(K\) and \(W\). The unique argmax
+classification for \(K\) does transfer to the complete-order subset
+objective as stated above, but it does not classify active geometric or STN
+constraints at the exact angular threshold. The strict comparison (KR2-29)
+orders the exact \(\Lambda\) scores of the two inserted construction
+families. However, the rowwise formulas give
+\(0<(K_{825}-K_{\rm R2})/\pi<n^2\), so the two fixed-order sandwiches
+overlap and do not order the exact angular thresholds or identify an exact
+quadratic geometric term. Finally, the coefficient in (KR2-36) is the
+existing canonical coefficient, not an improved all-residue limsup or a
+convergence theorem.
+
+## 11. Asymptotic Consequences And Non-Consequences
 
 Dividing (CR28) by \(\pi n^3\) gives the exact vanishing-error comparison
 \[
