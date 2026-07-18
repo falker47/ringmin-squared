@@ -6,13 +6,13 @@ Last update: 2026-07-18
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Active task:** formalize the all-fixed-\(k\) corollary from
-  CR28cr--CR28dd and CR28dr--CR28dw.
+- **Active task:** classify the complete continuous finite-prefix template
+  family, including every clipped regime, for arbitrary finite \(k\).
 - **Repository state at startup:** clean `main` worktree at commit
-  `6c5eb5b49e40f763a88580656f04a4143b2b4852`, tracking `origin/main`.
-- **Implementation state:** the exact corollary, strict admissibility proof,
-  authoritative synchronization, relevant dossier corrections, sole
-  standalone exact diagnostic, regressions, independent audits, and final
+  `807d79eca25249b404ce9b3374472e19c67e5adf`, tracking `origin/main`.
+- **Implementation state:** the exact full-family theorem, compact Bellman
+  envelope, global all-middle proof, authoritative synchronization, sole
+  dossier-local exact diagnostic, regressions, independent audits, and final
   source/diff verification are complete.
 - **Current blocker:** none.
 - **Current next atomic action:** user manual review and commit decision.
@@ -20,175 +20,155 @@ Last update: 2026-07-18
 
 ## Objective And Scope
 
-Fix
+Determine whether
 
 \[
-\alpha_\infty={13-2\sqrt2\over23}.
+C_{\mathrm{AF}}={434+4\sqrt2\over1587}
 \]
 
-For every finite \(k\), use the unique normalized optimizer \(x^{(k)}\) to
-define
+is the supremum of the complete continuous template family with any finite
+number of prefixes, rather than only of the all-middle restriction. The task
+allows one small independent exact diagnostic and pertinent authoritative
+documentation only. Finite rounding, production source, artifacts, schemas,
+backends, test modules, certificates, and enumeration limits remain outside
+scope.
+
+## Exact Compact Clipped Envelope
+
+For fixed finite \(k\), put \(\beta_0=\alpha\), \(s=1+\alpha\), and let
+\(\Phi_s\) be the exact coordinatewise clipped floor. Since its optimizing
+weight is nondecreasing in the cutoff, coordinatewise clipping respects the
+ordered-weight constraints. Thus
 
 \[
-\beta_i={1+\alpha_\infty+(3\alpha_\infty-1)x_i^{(k)}\over4},
+\mathscr H_k(\alpha)
+=p(\alpha)+
+\max_{0\le\beta_k\le\cdots\le\beta_1\le\alpha}
+\sum_{i=1}^k(\beta_{i-1}-\beta_i)\Phi_s(\beta_i).
+\]
+
+With \(t=\alpha/(1+\alpha)\) and the normalized increasing clipped floor
+\(\phi\), this becomes the compact Bellman envelope
+
+\[
+\boxed{
+\mathscr H_k(\alpha)=p(\alpha)+(1+\alpha)^3V_k(t),
 \qquad
-\lambda_i={(3\alpha_\infty-1)x_i^{(k)}\over\beta_i}.
+V_m(t)=\max_{0\le x\le t}
+\bigl((t-x)\phi(x)+V_{m-1}(x)\bigr),
+\quad V_0=0.
+}
 \]
 
-Prove strict order and all-middle admissibility, apply the direct charging
-theorem at each fixed \(k\), and take the supremum of the resulting scalar
-liminf inequalities. Synchronize all authoritative sources that denied this
-consequence or described \(C_{5,*}\) as the current general coefficient.
+It covers exactly \((k+1)(k+2)/2\) ordered regimes \(H^hM^m0^z\).
 
-Production, tests, artifacts, schemas, backends, certificates, and enumeration
-limits remain unchanged. The only new executable is a dossier-local exact
-diagnostic.
+## Exact Global Classification
 
-## Exact Strict Admissibility
-
-Put
+Every finite Bellman chain is a lower Darboux sum for \(\phi\). The values
+increase monotonically and uniformly to its integral, giving
 
 \[
-A_\infty=3\alpha_\infty-1,
+\mathscr H_{\rm fin}(\alpha)
+=\sup_{k<\infty}\mathscr H_k(\alpha)
+=
+\begin{cases}
+p(\alpha),&0\le\alpha\le1/3,\\[1mm]
+(23\alpha^3-39\alpha^2+21\alpha+3)/24,
+ &1/3\le\alpha\le1/2,\\[1mm]
+(5\alpha^3-21\alpha^2+15\alpha+17)/72,
+ &1/2\le\alpha\le1.
+\end{cases}
+\]
+
+The regions \([0,1/3]\) and \([1/2,1]\) are strictly below the feasible
+one-prefix all-middle optimum. Hence every finite-\(k\) global maximizer lies
+in \(1/3<\alpha<1/2\), where high clipping is impossible and
+
+\[
+\mathscr H_k(\alpha)
+=p(\alpha)+{M_k\over8}(3\alpha-1)^3.
+\]
+
+Strict concavity and the normalized-simplex equality classification give the
+unique density
+
+\[
+\alpha_{k,*}
+={27M_k+4-2\sqrt{2(4-9M_k)}\over81M_k-4}
+\]
+
+and one strict all-middle tuple (CR28dw25). No high-clipped counterexample
+regime exists for any finite \(k\).
+
+## Family Supremum And Charging Relation
+
+The exact fixed-template maxima satisfy
+
+\[
+C_{k,*}\nearrow
+{434+4\sqrt2\over1587}=C_{\mathrm{AF}},
 \qquad
-S_\infty=1+\alpha_\infty.
+\alpha_{k,*}\longrightarrow{13-2\sqrt2\over23}.
 \]
 
-The exact bounds \(1/3<\alpha_\infty<1/2\) and the normalized theorem give
-
-\[
-1=x_0^{(k)}>x_1^{(k)}>\cdots>x_k^{(k)}>0.
-\]
-
-For every \(i\),
-
-\[
-\beta_i-{S_\infty\over4}={A_\infty x_i^{(k)}\over4}>0,
-\qquad
-\alpha_\infty-\beta_i
-={A_\infty(1-x_i^{(k)})\over4}>0,
-\]
-
-\[
-{S_\infty\over3}-\beta_i
-={S_\infty-3A_\infty x_i^{(k)}\over12}
->{1-2\alpha_\infty\over3}>0.
-\]
-
-The map
-\(x\mapsto4A_\infty x/(S_\infty+A_\infty x)\) is strictly increasing.
 Therefore
 
 \[
-0<\beta_k<\cdots<\beta_1<\alpha_\infty<1,
-\qquad
-0<\lambda_k<\cdots<\lambda_1<1,
-\]
-
-and every cutoff lies strictly in the middle clipping branch.
-
-## Exact All-Fixed-k Corollary
-
-For every fixed finite \(k\), the strict margins provide a finite threshold
-\(N_k\), allowed to depend on the complete tuple. CR28dw and CR28ap then give
-
-\[
-L_\Lambda:=\liminf_{n\to\infty}{\Lambda_n\over n^3}
-\ge p(\alpha_\infty)+{A_\infty^3M_k\over8}.
-\]
-
-Since this scalar inequality holds for every fixed finite \(k\) and
-\(M_k\nearrow1/3\),
-
-\[
 \boxed{
-L_\Lambda
-\ge{434+4\sqrt2\over1587}
-=:C_{\mathrm{AF}}.
+\sup_{\substack{k<\infty\\
+ (\alpha,\boldsymbol\beta,\boldsymbol\lambda)\in\mathcal D_k}}
+C_k(\alpha,\boldsymbol\beta,\boldsymbol\lambda)
+=C_{\mathrm{AF}}.
 }
 \]
 
-The additive cyclic-ratio relation gives the geometric consequence
+The supremum is not attained at finite \(k\). Applying the already-proved
+charging theorem separately to the unique optimizer at each fixed \(k\)
+recovers the existing bounds
 
 \[
-\boxed{
+\liminf_{n\to\infty}{\Lambda_n\over n^3}\ge C_{\mathrm{AF}},
+\qquad
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
-\ge{434+4\sqrt2\over1587\pi}.
-}
+\ge{C_{\mathrm{AF}}\over\pi}.
 \]
 
-The exact simplification uses
-
-\[
-p(\alpha_\infty)={9038+722\sqrt2\over36501},
-\qquad
-{A_\infty^3\over24}={944-630\sqrt2\over36501}.
-\]
-
-## Quantifier And Limit Audit
-
-- For every fixed \(k\), there is a possibly different threshold \(N_k\).
-- The fixed-parameter \(n\to\infty\) liminf is taken before any supremum in
-  \(k\).
-- The same scalar \(L_\Lambda\) is at least every coefficient \(C_k\), hence
-  it is at least \(\sup_k C_k\).
-- No sequence \(k=k(n)\) is selected.
-- No threshold uniform in \(k\) is asserted or needed.
-- No \(n\)-limit and \(k\)-limit are interchanged.
-- Since \(M_k<1/3\) for every finite \(k\), no finite rounded theorem at
-  \(C_{\mathrm{AF}}\) is claimed.
-
-## Fixed Five-Prefix Status
-
-The full eleven-parameter optimization remains exact and unique inside the
-fixed \(k=5\) template. Its coefficient is unchanged and satisfies
-
-\[
-C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}.
-\]
-
-It is no longer the current cross-\(k\) lower coefficient, because
-
-\[
-C_{5,*}
-<{276777463862377\over10^{15}}
-<{277\over1000}
-<{434+4\sqrt2\over1587}.
-\]
-
-The rational finite theorem from the minimal threshold \(234\), and the lack
-of finite rounding at the irrational five-prefix optimizer, remain unchanged.
+No \(k=k(n)\), common threshold, finite rounding, or interchange of limits is
+used. The formal polynomial endpoint \(E_\infty(1)=1/3\) is not a clipped
+finite-prefix coefficient.
 
 ## Verification
 
-- The new standalone \(\mathbb Q(\sqrt2)\) diagnostic passes exact checks for
-  \(k=1,\ldots,8\).
-- Ruff check and final format check pass for the sole new diagnostic; its
+- The new standard-library exact diagnostic passes the clipped formulas,
+  rational-grid integral and Bellman checks, twelve exact normalized-simplex
+  rows, critical brackets, exact surd comparisons, and the adversarial check
+  \(M_7>C_{\mathrm{AF}}\).
+- Ruff check and final format check pass for the sole new diagnostic; the
   initial format check correctly requested one mechanical reformat.
 - The historical normalized-simplex diagnostic passes 203,489 exact grid
   states, the arbitrary-charging oracle passes 332,640 histories, and the
   global-five diagnostic passes all 21 regimes.
-- The focused fixed-order suite passes 101 tests and the full suite passes 283
-  tests. The artifact verifier passes four certificates and 76 local brackets;
-  the schema suite passes four tests.
-- Source structure passes strict UTF-8/LF/final-newline/trailing-whitespace,
-  balanced-display/fence/environment, and 378-unique-equation-tag checks.
-  Repository-wide stale-claim and scope audits pass.
-- Three independent read-only audits confirm the mathematics, authoritative
-  synchronization, diagnostic independence, and protected-path scope.
+- The full suite passes 283 tests. The checked-artifact verifier passes four
+  certificates and 76 local brackets; the schema suite passes four tests.
+- Strict UTF-8/LF/final-newline/trailing-whitespace and balanced
+  display/fence/environment checks pass for all 10 intended paths; all 395
+  primary equation tags are unique.
+- Three independent read-only audits confirm the proof, source consistency,
+  diagnostic independence, and protected-path scope after four local wording
+  and endpoint qualifications were corrected.
 - Final `git status`, complete diff inspection, and `git diff --check` pass;
-  only the requested Markdown/dossier files and sole dossier-local diagnostic
-  are changed.
+  only the six pertinent authoritative Markdown files and the new four-file
+  task dossier are changed.
 
 ## Evidence Classification And Limitations
 
-- Strict admissibility, the fixed-\(k\) coefficient identity, the supremum
-  argument, geometric transfer, and comparison with \(C_{5,*}\) are **exact
-  method-specific theorems**.
-- The new script is a **verified bounded exact computation** that corroborates
-  but does not replace the all-real proof.
-- The result is a liminf lower coefficient, not convergence, an exact leading
-  constant, an exact residual, or a finite rounded theorem at the supremum.
+- The compact envelope, all-middle classification, exact maximizers, and
+  family supremum are **exact method-specific theorems**.
+- The dossier-local script is a **verified bounded exact computation** that
+  corroborates but does not replace the all-real proof.
+- The result is optimality inside this continuous template family. It is not
+  a matching upper bound for the original geometric problem, convergence, an
+  exact leading constant, an exact residual, or a finite rounded theorem.
 - No production, test, artifact, schema, backend, certificate, or enumeration
   claim changes.
 
@@ -200,10 +180,7 @@ of finite rounding at the irrational five-prefix optimizer, remain unchanged.
 - start.md
 - PROJECT_KNOWLEDGE.md
 - CURRENT_STATUS.md
-- ops/TASK-20260716__normalized_prefix_simplex/
-- ops/TASK-20260717__arbitrary_finite_prefix_charging/
-- ops/TASK-20260717__global_five_prefix_optimization/TASK_STATUS.md
-- ops/TASK-20260718__all_fixed_k_corollary/
+- ops/TASK-20260718__global_finite_prefix_envelope/
 
 ## Proposed Next Task
 

@@ -119,7 +119,10 @@ template then gave \(C_{2,*}\), the three-prefix extension gave
 \(C_{4,*}\), and the full eleven-parameter five-prefix optimization gives the
 exact fixed-template optimum \(C_{5,*}\). All 21 five-prefix clipping regimes,
 transitions, collisions, and compact faces are classified. The stronger
-all-fixed-\(k\) corollary gives the current rigorous lower coefficients
+global clipped arbitrary-\(k\) theorem now proves that every finite-template
+global maximizer is strict all-middle and that the whole continuous family
+has exact unattained supremum \(C_{\mathrm{AF}}\). The all-fixed-\(k\)
+corollary gives the corresponding current rigorous lower coefficients
 \[
 \liminf_{n\to\infty}{\Lambda_n\over n^3}
 \ge
@@ -717,8 +720,13 @@ On \([1/3,1]\) its unique maximum is the degenerate endpoint value \(1/3\)
 at \(\alpha=1\); on the limiting all-middle closure \([1/3,1/2]\), its
 unique maximum is
 \((434+4\sqrt2)/1587\) at
-\((13-2\sqrt2)/23\). The degenerate endpoint \(1/3\) is not promoted to a
-prefix certificate. The all-middle value is promoted by combining the
+\((13-2\sqrt2)/23\). The complete clipped Bellman envelope now proves that
+the degenerate endpoint \(1/3\) is not a finite-prefix template value: its
+high-coordinate formal relaxation overestimates the clipped problem. Exact
+integration of the clipped lower sums excludes the outer density regions,
+forces every finite-\(k\) global maximizer to be strict all-middle, and gives
+\(C_{k,*}\nearrow(434+4\sqrt2)/1587\). The same value is promoted to a
+lower coefficient by combining the
 separate direct theorem with the normalized optimizer at each fixed finite
 \(k\), then taking the supremum of the scalar inequalities. This gives
 \((434+4\sqrt2)/1587\) and its geometric value divided by \(\pi\), without
@@ -777,6 +785,10 @@ further to
 \[
 {434+4\sqrt2\over1587\pi}.
 \]
+The separate full clipped Bellman classification proves that its numerator
+is also the exact unattained supremum of the entire continuous finite-prefix
+template family. This is method-specific optimality, not a matching upper
+bound for the original geometric problem.
 This is still only a proved lower coefficient, not an exact asymptotic
 constant for Power-Ringmin.
 
@@ -1229,6 +1241,18 @@ saturation for every \(n\ge3\).
   supremum. On the limiting all-middle closure its unique maximum is
   \((434+4\sqrt2)/1587\) at \((13-2\sqrt2)/23\). The normalized theorem
   alone is a polynomial statement and does not prove charging.
+- EXACT GLOBAL CLIPPED FINITE-PREFIX CLASSIFICATION: coordinatewise clipping
+  gives, for every finite \(k\), the exact compact Bellman envelope
+  \[
+  \mathscr H_k(\alpha)
+  =p(\alpha)+(1+\alpha)^3V_k\!\left({\alpha\over1+\alpha}\right).
+  \]
+  Its \((k+1)(k+2)/2\) regimes are finite lower Darboux sums for the
+  increasing clipped floor. The resulting three-piece integral envelope
+  excludes both outer density regions. Thus every finite-\(k\) global
+  maximizer is uniquely strict all-middle, and its value satisfies
+  \(C_{k,*}\nearrow(434+4\sqrt2)/1587\). The limit is the exact unattained
+  supremum of the entire continuous finite-prefix family.
 - EXACT ALL-FIXED-\(k\) COROLLARY: combining the normalized optimizer with
   the separate direct charging theorem at each fixed finite \(k\), at the
   strict all-middle density \((13-2\sqrt2)/23\), promotes the latter value to
@@ -2101,6 +2125,13 @@ saturation for every \(n\ge3\).
 - CLOSED QUESTION: the normalized compact simplex for arbitrary fixed \(k\)
   has the unique interior maximizer, exact ratio/value recurrences, monotone
   limit \(M_k\to1/3\), and envelope classification recorded above.
+- CLOSED QUESTION: the complete clipped compact template for arbitrary finite
+  \(k\) has exact Bellman envelope (CR28dw16)--(CR28dw17), with
+  \((k+1)(k+2)/2\) regimes. Its lower-Darboux-sum integral comparison excludes
+  every outer-density and high-clipped global winner. Each finite \(k\) has a
+  unique strict all-middle global maximizer, and
+  \(C_{k,*}\nearrow C_{\mathrm{AF}}\), the exact unattained supremum of the
+  whole continuous finite-prefix family.
 - CLOSED QUESTION: the combined-height, one-use charging theorem extends
   exactly from three to four selected prefixes. The exact convex
   decomposition, canonical original-edge partition, recursive invariant, and
@@ -2394,6 +2425,16 @@ Completed:
   by \(\pi\). No \(k=k(n)\), uniform threshold, limit interchange, production,
   test, artifact, schema, backend, certificate, or enumeration change is
   involved.
+- Globally classified the complete continuous finite-prefix template family
+  for arbitrary finite \(k\), not only the all-middle substructure.
+  Coordinatewise clipping gives the compact Bellman envelope and all
+  \((k+1)(k+2)/2\) ordered regimes at once. Exact lower-Darboux-sum
+  integration and outer-region comparisons prove a unique strict all-middle
+  maximizer for every finite \(k\), with
+  \(C_{k,*}\nearrow(434+4\sqrt2)/1587\). One small independent exact
+  diagnostic corroborates the formulas and comparisons. No finite rounding,
+  production, artifact, schema, backend, test-module, certificate, or
+  enumeration-limit change is involved.
 - Specialized the exact fifth simplex row at \(\alpha=13/30\) and combined it
   with the separate arbitrary finite-prefix charging theorem. All five
   rational cutoffs and weights are strictly ordered and all-middle. Exact

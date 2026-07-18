@@ -914,7 +914,11 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \ge{434+4\sqrt2\over1587\pi}.
   }
   \]
-  No \(k=k(n)\), uniform threshold, or interchange of limits is used.
+  No \(k=k(n)\), uniform threshold, or interchange of limits is used. The
+  separate full clipped arbitrary-\(k\) classification proves that the scalar
+  coefficient is also the exact unattained supremum of the entire continuous
+  finite-prefix template family and that every finite-\(k\) global maximizer
+  is uniquely strict all-middle.
 - EXACT METHOD-SPECIFIC THEOREM (GLOBALLY OPTIMIZED FIVE PREFIXES): the
   \(k=5\) coefficient on its full eleven-parameter compact closure clips
   coordinatewise to 21 ordered regimes \(H^hM^m0^z\). Every transition,
@@ -1170,7 +1174,7 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   E_\infty(\alpha)
   =p(\alpha)+{(3\alpha-1)^3\over24}.
   \]
-  The full compact envelope has the unique maximum
+  The formal normalized-polynomial envelope has the unique maximum
   \(E_\infty(1)=1/3\); on \([1/3,1)\) that value is only a nonattained
   supremum. The limiting all-middle closure is \([1/3,1/2]\), where the
   unique maximum is
@@ -1179,15 +1183,38 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \qquad
   E_\infty(\alpha_{\rm mid})={434+4\sqrt2\over1587}.
   \]
-- LIMITATION AND COROLLARY: this is an exact normalized-polynomial theorem for
-  every fixed \(k\), independent of the charging argument. A separate direct
-  proof establishes charging for every finite admissible \(k\). Neither
-  theorem supplies uniform control for growing \(k=k(n)\) or an interchange
-  of limits. Those are unnecessary for the all-fixed-\(k\) corollary: at the
-  strict all-middle density \(\alpha_\infty\), apply both theorems separately
-  at each fixed \(k\), then take the supremum of the resulting scalar liminf
-  inequalities to obtain \((434+4\sqrt2)/1587\) and its geometric value
-  divided by \(\pi\).
+- EXACT GLOBAL CLIPPED FINITE-PREFIX CLASSIFICATION: for the complete compact
+  continuous \(k\)-prefix template, coordinatewise weight clipping is exact
+  and leaves \((k+1)(k+2)/2\) ordered regimes \(H^hM^m0^z\). With \(\phi\)
+  from (CR28dw15), the exact compact envelope is
+  \[
+  \mathscr H_k(\alpha)
+  =p(\alpha)+(1+\alpha)^3V_k\!\left({\alpha\over1+\alpha}\right),
+  \quad
+  V_m(t)=\max_{0\le x\le t}
+  \bigl((t-x)\phi(x)+V_{m-1}(x)\bigr).
+  \]
+  These Bellman values are finite lower Darboux sums. Their monotone uniform
+  limit gives the exact three-piece clipped envelope (CR28dw20). Its outer
+  density pieces are strictly below a feasible one-prefix value, so for every
+  finite \(k\) the unique global compact maximizer is strict all-middle,
+  with density and tuple (CR28dw24)--(CR28dw25). Its value satisfies
+  \[
+  C_{k,*}\nearrow{434+4\sqrt2\over1587}=C_{\mathrm{AF}}.
+  \]
+  Hence \(C_{\mathrm{AF}}\) is the exact unattained supremum of the entire
+  continuous finite-prefix family. The formal value \(E_\infty(1)=1/3\) is
+  not a clipped-family coefficient.
+- LIMITATION AND COROLLARY: the \(M_k,E_k\) statements are exact
+  normalized-polynomial theorems, and \(\mathscr H_k\) is the separate full
+  clipped continuous classification. Both are independent of the charging
+  argument. A third direct proof establishes charging for every finite
+  admissible \(k\). None supplies uniform control for growing \(k=k(n)\) or
+  an interchange of limits. Those are unnecessary for the all-fixed-\(k\)
+  corollary: at the strict all-middle density \(\alpha_\infty\), apply the
+  normalized and charging theorems separately at each fixed \(k\), then take
+  the supremum of the resulting scalar liminf inequalities to obtain
+  \((434+4\sqrt2)/1587\) and its geometric value divided by \(\pi\).
 - EXACT GLOBAL LOWER COROLLARY (TWO-PREFIX RATIONAL WITNESS): at
   \[
   (\alpha,\beta_1,\beta_2,\lambda_{\rm hi},\lambda_{\rm lo})
@@ -2508,8 +2535,9 @@ Candidate-set extraction uses the following finite-certificate semantics.
   strict-interior maximizer, value and ratio recurrences, monotone limit
   \(M_k\to1/3\),
   exact \(k=1,2,3,4\) agreement, formal and all-middle envelope
-  classifications, and independent bounded `Fraction` diagnostic, plus the
-  all-fixed-\(k\) combination at
+  classifications, the full clipped arbitrary-\(k\) Bellman envelope and
+  global all-middle classification, and independent bounded `Fraction`
+  diagnostics, plus the all-fixed-\(k\) combination at
   \(\alpha_\infty=(13-2\sqrt2)/23\), its strict ordering/all-middle proof,
   quantifier audit, and current lower coefficient
   \((434+4\sqrt2)/(1587\pi)\), plus the
@@ -2639,6 +2667,23 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \]
   This all-fixed-\(k\) corollary uses no \(k=k(n)\), uniform threshold, or
   interchange of limits.
+- COMPLETED PRIORITY: the complete continuous finite-prefix template family
+  is now globally classified for arbitrary finite \(k\). Coordinatewise
+  clipping gives \((k+1)(k+2)/2\) regimes and an exact compact Bellman
+  envelope. Its values are lower Darboux sums for the increasing clipped
+  floor; exact integration and outer-region comparison prove that every
+  finite-\(k\) global maximizer is uniquely strict all-middle. The optimum
+  values satisfy
+  \[
+  C_{k,*}\nearrow C_{\mathrm{AF}}
+  ={434+4\sqrt2\over1587},
+  \]
+  so this existing coefficient is the exact unattained supremum of the whole
+  continuous family. One dossier-local standard-library exact diagnostic
+  corroborates the clipped formulas, integral, Bellman sums, exact simplex
+  rows, critical brackets, and surd comparisons. No finite rounding,
+  production, artifact, schema, backend, test-module, certificate, or
+  enumeration-limit change is included.
 - COMPLETED PRIORITY: the fixed \(k=5\) simplex has now been specialized at
   \(\alpha=13/30\) and combined with the separate finite-prefix charging
   theorem. All five rational cutoffs and weights are strictly ordered and
@@ -2761,8 +2806,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - LIMITATION: no exact geometric optimum value \(R_2^*(n)\) has been proved
   in this repository; the exact all-\(n\) classification of the combinatorial
   surrogate \(W_n\) is a different statement.
-- LIMITATION: no upper bound matching the current all-fixed-\(k\) lower
-  coefficient has been proved in this repository.
+- LIMITATION: no upper bound for the original geometric problem matching the
+  current all-fixed-\(k\) lower coefficient has been proved in this
+  repository. This does not contradict the exact supremum classification of
+  the continuous finite-prefix template family.
 - LIMITATION: the later indices \(n\ge94\) with strict distance-two/full
   minimizer inclusion have not been classified.
 - LIMITATION: neither existence of \(\lim R_2^*(n)/n^3\) nor a leading-term
@@ -2771,7 +2818,9 @@ Candidate-set extraction uses the following finite-certificate semantics.
   sublinear block length. The one-prefix CR28ax--CR28bg specialization is
   jointly optimized over all constant densities, and CR28bw is now globally
   optimized over all five two-prefix parameters. The three-, four-, and
-  five-prefix extensions are globally optimized over their compact closures.
+  five-prefix extensions remain individually globally optimized, while the
+  new clipped Bellman theorem globally classifies every finite-prefix compact
+  closure at once.
   The rational five-prefix point remains the separate finite witness. Finite
   rounding at the irrational two-, four-, and five-prefix optimizers, the exact
   residual and exact leading coefficient of the selected block, and

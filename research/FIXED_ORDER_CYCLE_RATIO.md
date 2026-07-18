@@ -304,6 +304,21 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \([1/3,1/2]\), its unique maximum is
   \((434+4\sqrt2)/1587\) at
   \((13-2\sqrt2)/23\).
+- **EXACT GLOBAL CLIPPED FINITE-PREFIX CLASSIFICATION:** for arbitrary
+  \(k\), coordinatewise weight clipping gives (CR28dw14), with
+  \((k+1)(k+2)/2\) regimes \(H^hM^m0^z\), and the exact compact Bellman
+  envelope is (CR28dw16)--(CR28dw17). Its normalized summands are lower
+  Darboux sums for the increasing clipped floor \(\phi\). Their uniform
+  finite-prefix supremum is the explicit three-piece polynomial
+  (CR28dw20), whose unique global maximum is
+  \[
+  C_{\mathrm{AF}}={434+4\sqrt2\over1587}
+  \]
+  at \((13-2\sqrt2)/23\). For every finite \(k\), the complete compact
+  template has one strict all-middle maximizer (CR28dw24)--(CR28dw25);
+  its value \(C_{k,*}\) increases strictly to \(C_{\mathrm{AF}}\). Thus no
+  high-clipped counterexample exists, and the supremum is not attained at
+  finite \(k\).
 - **EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (ALL FIXED \(k\)):** put
   \[
   \alpha_\infty={13-2\sqrt2\over23}.
@@ -327,8 +342,10 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \]
   The quantifiers are \(\forall k\,\exists N_k\): no \(k=k(n)\) is used,
   no threshold uniform in \(k\) is needed, and no limits are interchanged.
-  This coefficient is strictly larger than \(C_{5,*}\), which remains the
-  exact optimum of the fixed \(k=5\) template only.
+  The global clipped classification proves that this is the exact supremum
+  of the entire continuous finite-prefix template family. It is strictly
+  larger than \(C_{5,*}\), which remains the exact optimum of the fixed
+  \(k=5\) template only.
 - **EXACT METHOD-SPECIFIC THEOREM (GLOBALLY OPTIMIZED FIVE PREFIXES):**
   the full eleven-parameter compact closure reduces coordinatewise to the
   clipped density objective (CR28dz22). All 21 regimes \(H^hM^m0^z\), the
@@ -5685,6 +5702,353 @@ established. Because \(M_k<1/3\) for every finite \(k\), this argument also
 does not produce a finite rounded theorem of the form
 \(\Lambda_n\ge C_{\mathrm{AF}}n^3\) beyond some common threshold.
 
+### Global compact clipped envelope for every finite prefix count
+
+The preceding corollary used one all-middle point for each fixed \(k\). It
+remains to decide whether a clipped high-weight regime can do better when the
+*entire* continuous finite-prefix family is optimized. The answer is no.
+
+Fix \(k\ge1\), put \(\beta_0=\alpha\), and take the full ordered compact
+closure
+
+\[
+\mathcal D_k=
+\left\{
+\begin{aligned}
+&0\le\beta_k\le\cdots\le\beta_1\le\alpha\le1,\\
+&0\le\lambda_k\le\cdots\le\lambda_1\le1
+\end{aligned}
+\right\}.
+\]
+
+The continuous coefficient on this closure is
+
+\[
+C_k(\alpha,\boldsymbol\beta,\boldsymbol\lambda)
+=p(\alpha)+\sum_{i=1}^k
+(\beta_{i-1}-\beta_i)g(\alpha,\beta_i,\lambda_i).
+\tag{CR28dw13}
+\]
+
+Let \(s=1+\alpha\). For fixed densities, (CR28bw1)--(CR28bw3) give
+the unique clipped optimum \(\psi_s(\beta_i)\) on every positive segment.
+The map \(\psi_s\) is nondecreasing, so these coordinatewise optima already
+satisfy the ordered-weight constraints. Zero-length segments leave their
+weights unused but do not change the value. Hence the exact compact density
+reduction for arbitrary finite \(k\) is
+
+\[
+\boxed{
+\overline C_k(\alpha,\boldsymbol\beta)
+=p(\alpha)+\sum_{i=1}^k
+(\beta_{i-1}-\beta_i)\Phi_s(\beta_i),
+}
+\tag{CR28dw14}
+\]
+
+where \(\Phi_s\) is (CR28bw3). Density order leaves exactly
+
+\[
+H^hM^m0^z,
+\qquad h,m,z\ge0,
+\qquad h+m+z=k,
+\]
+
+so the full clipped problem has \((k+1)(k+2)/2\) regimes. This includes all
+clipping surfaces, density collisions, and unused weight faces without a
+fixed-\(k\) regime enumeration.
+
+Normalize
+
+\[
+\tau={\alpha\over1+\alpha},
+\qquad
+\rho_i={\beta_i\over1+\alpha},
+\qquad
+\rho_0=\tau,
+\]
+
+and define the continuous increasing function
+
+\[
+\phi(x)=
+\begin{cases}
+0,&0\le x\le1/4,\\[1mm]
+(4x-1)^2/2,&1/4\le x\le1/3,\\[1mm]
+-x^2+2x-1/2,&1/3\le x\le1/2.
+\end{cases}
+\tag{CR28dw15}
+\]
+
+Thus \(\Phi_s(sx)=s^2\phi(x)\). The exact density-optimized clipped envelope
+at fixed \(\alpha\) is
+
+\[
+\boxed{
+\mathscr H_k(\alpha)
+=p(\alpha)+(1+\alpha)^3V_k\!\left({\alpha\over1+\alpha}\right),
+}
+\tag{CR28dw16}
+\]
+
+where either of the equivalent compact definitions may be used:
+
+\[
+\begin{aligned}
+V_k(t)
+&=\max_{0\le\rho_k\le\cdots\le\rho_1\le t}
+\sum_{i=1}^k(\rho_{i-1}-\rho_i)\phi(\rho_i),
+\qquad \rho_0=t,\\
+V_0(t)&=0,
+\qquad
+V_m(t)=\max_{0\le x\le t}
+\bigl((t-x)\phi(x)+V_{m-1}(x)\bigr).
+\end{aligned}
+\tag{CR28dw17}
+\]
+
+This is the requested compact clipped envelope for arbitrary \(k\). It is
+different from the formal polynomial relaxation \(E_k\) in (CR28cz) whenever
+a high coordinate is present.
+
+There is a short global comparison that keeps the clipping. On
+\([1/4,1/2]\), \(\phi\) is strictly increasing and has Lipschitz constant
+\(4/3\). Every finite chain in (CR28dw17) is a lower Darboux sum, possibly
+with an omitted initial interval. Therefore, with
+
+\[
+I(t)=
+\begin{cases}
+0,&0\le t\le1/4,\\[1mm]
+(4t-1)^3/24,&1/4\le t\le1/3,\\[1mm]
+-t^3/3+t^2-t/2+5/72,&1/3\le t\le1/2,
+\end{cases}
+\tag{CR28dw18}
+\]
+
+one has
+
+\[
+V_k(t)<I(t)\quad(t>1/4).
+\]
+
+Conversely, divide \([1/4,t]\) into \(k\) equal intervals and use their
+lower endpoints as the cutoffs. The resulting admissible sum gives
+
+\[
+0\le I(t)-V_k(t)
+\le {2(t-1/4)^2\over3k}
+\le {1\over24k}.
+\tag{CR28dw19}
+\]
+
+Duplicating the last cutoff of any maximizing chain shows
+\(V_{k+1}(t)\ge V_k(t)\). Hence the displayed error bound gives the claimed
+monotone convergence, not merely convergence along a selected sequence.
+Consequently \(V_k\nearrow I\) uniformly, and the pointwise supremum of the
+full clipped envelopes over all finite prefix counts is
+
+\[
+\boxed{
+\mathscr H_{\mathrm{fin}}(\alpha)
+:=\sup_{k<\infty}\mathscr H_k(\alpha)
+=
+\begin{cases}
+p(\alpha),&0\le\alpha\le1/3,\\[1mm]
+\dfrac{23\alpha^3-39\alpha^2+21\alpha+3}{24},
+ &1/3\le\alpha\le1/2,\\[3mm]
+\dfrac{5\alpha^3-21\alpha^2+15\alpha+17}{72},
+ &1/2\le\alpha\le1.
+\end{cases}
+}
+\tag{CR28dw20}
+\]
+
+The notation \(\mathscr H_{\mathrm{fin}}\) denotes a pointwise supremum of
+finite templates, not an admissible infinite-prefix charging statement.
+
+The outer density regions cannot contain a finite-\(k\) global maximizer.
+For \(0\le\alpha\le1/3\), the residual vanishes and
+\(p(\alpha)\le22/81\). On \([1/2,1]\), the last polynomial in
+(CR28dw20) has derivative
+
+\[
+{5\alpha^2-14\alpha+5\over24}<0,
+\]
+
+so it is at most \(53/192\). Both bounds are strictly below the feasible
+one-prefix all-middle optimum
+
+\[
+C_{1,*}={4+2\sqrt3\over27},
+\qquad
+C_{1,*}-{22\over81}={6\sqrt3-10\over81}>0,
+\qquad
+C_{1,*}-{53\over192}={128\sqrt3-221\over1728}>0.
+\tag{CR28dw21}
+\]
+
+The last sign follows from the positive square margin
+\(128^2\cdot3-221^2=311\). For every \(k\), a strict \(k\)-prefix
+all-middle point at the one-prefix optimizing density has value at least
+\(C_{1,*}\), because \(M_k\ge M_1\). Hence every global compact maximizer
+has
+
+\[
+{1\over3}<\alpha<{1\over2}.
+\]
+
+On this interval no cutoff can be high, because
+\(\beta_i\le\alpha<(1+\alpha)/3\). Put
+
+\[
+A=3\alpha-1,
+\qquad
+X_i=4\beta_i-(1+\alpha)
+\]
+
+on the active middle prefix, and replace an inactive suffix by \(X_i=0\).
+Then \(X_0=A\), and (CR28dw14) reduces exactly to the normalized simplex:
+
+\[
+\boxed{
+\mathscr H_k(\alpha)
+=E_k(\alpha)
+=p(\alpha)+{M_k\over8}(3\alpha-1)^3
+\qquad(1/3\le\alpha\le1/2).
+}
+\tag{CR28dw22}
+\]
+
+For \(1/3<\alpha\le1/2\), equality is unique in the density variables by
+(CR28cu)--(CR28cv), and its normalized coordinates are \(x^{(k)}\). In
+particular, the unique simplex point has no inactive suffix. At
+\(\alpha=1/3\), the residual is identically zero and density uniqueness is
+neither true nor needed; the global maximizer has already been localized to
+the open interval.
+
+The one-variable envelope is strictly concave on this interval. Indeed,
+
+\[
+E_k''(\alpha)
+=-1-\alpha+{27M_k\over4}(3\alpha-1),
+\]
+
+which is affine and is negative at both endpoints, while
+
+\[
+E_k'(1/3)={1\over9}>0,
+\qquad
+E_k'(1/2)={9M_k-4\over32}<-{1\over32}.
+\tag{CR28dw23}
+\]
+
+Thus its unique maximum is the smaller root in \((1/3,1/2)\) of
+
+\[
+(81M_k-4)\alpha^2-(54M_k+8)\alpha+(9M_k+4)=0,
+\]
+
+namely
+
+\[
+\boxed{
+\alpha_{k,*}
+={27M_k+4-2\sqrt{2(4-9M_k)}\over81M_k-4}.
+}
+\tag{CR28dw24}
+\]
+
+The unique full compact maximizing tuple is
+
+\[
+\boxed{
+\begin{aligned}
+\beta_{i,*}
+&={1+\alpha_{k,*}+(3\alpha_{k,*}-1)x_i^{(k)}\over4},\\
+\lambda_{i,*}
+&={4(3\alpha_{k,*}-1)x_i^{(k)}
+ \over1+\alpha_{k,*}+(3\alpha_{k,*}-1)x_i^{(k)}}
+\qquad(1\le i\le k).
+\end{aligned}
+}
+\tag{CR28dw25}
+\]
+
+All density and weight inequalities are strict. More explicitly,
+\(x_1^{(k)}=q_k<1\), and the first all-middle-to-high transition of the
+normalized equality point is
+
+\[
+\alpha_{\mathrm{tr},k}
+={3q_k+1\over9q_k-1}>{1\over2}.
+\tag{CR28dw26}
+\]
+
+Thus every global maximizer is not merely representable by an all-middle
+tuple: for every finite \(k\), it is the single strict all-middle tuple
+(CR28dw24)--(CR28dw25). No clipped counterexample regime exists.
+
+Define the exact fixed-template optimum
+
+\[
+C_{k,*}:=E_k(\alpha_{k,*}).
+\]
+
+Because \(M_{k+1}>M_k\), evaluating \(E_{k+1}\) at \(\alpha_{k,*}\)
+shows \(C_{k+1,*}>C_{k,*}\). Uniform convergence on
+\([1/3,1/2]\) and the unique limiting maximum (CR28dd) give
+
+\[
+\boxed{
+\alpha_{k,*}\longrightarrow{13-2\sqrt2\over23},
+\qquad
+C_{k,*}\nearrow{434+4\sqrt2\over1587}=C_{\mathrm{AF}}.
+}
+\tag{CR28dw27}
+\]
+
+Since \(M_k<1/3\), every finite value \(C_{k,*}\) is strictly below
+\(C_{\mathrm{AF}}\). Combining (CR28dw20)--(CR28dw27) proves the exact
+classification of the whole family:
+
+\[
+\boxed{
+\sup_{\substack{k<\infty\\
+ (\alpha,\boldsymbol\beta,\boldsymbol\lambda)\in\mathcal D_k}}
+C_k(\alpha,\boldsymbol\beta,\boldsymbol\lambda)
+=\max_{0\le\alpha\le1}\mathscr H_{\mathrm{fin}}(\alpha)
+=C_{\mathrm{AF}}.
+}
+\tag{CR28dw28}
+\]
+
+The supremum is not attained at any finite \(k\); its unique limiting density
+is \((13-2\sqrt2)/23\). For each fixed \(k\), the strict tuple
+(CR28dw25) has its own eventual integer-admissibility threshold, so (CR28dw)
+also gives
+
+\[
+L_\Lambda\ge C_{k,*}\quad(k<\infty),
+\qquad
+L_\Lambda\ge\sup_k C_{k,*}=C_{\mathrm{AF}}.
+\tag{CR28dw29}
+\]
+
+This recovers (CR28dw9) with the globally optimized member at each finite
+\(k\), but it does not change the numerical lower coefficient. It introduces
+no \(k=k(n)\), uniform threshold, finite rounding, production computation,
+or interchange with the \(n\to\infty\) liminf.
+
+The dossier-local standard-library exact diagnostic independently checks the
+clipped formulas, the three-piece integral on a rational grid, discrete
+Bellman lower sums, the first twelve exact simplex rows and critical-point
+brackets, the surd comparisons in (CR28dw21), bounded sampled comparisons
+supporting (CR28dw28), and the adversarial fact \(M_7>C_{\mathrm{AF}}\). The
+last check confirms that the valid but loose formal upper relaxation
+\(E_7(1)=M_7\) cannot by itself prove the sharp clipped bound
+\(C_{\mathrm{AF}}\).
+
 ### Explicit five-prefix rational asymptotic witness
 
 The normalized-simplex and direct charging theorems can also be combined at
@@ -8467,7 +8831,8 @@ Further non-consequences are important.
   survives every finite number of boundaries and every nested history. This
   proves the exact finite indexed inequality by itself. It gives no uniform
   growing-\(k\) control, rounding, or infinite-prefix theorem. Its separate
-  fixed-\(k\) instances are used in (CR28dw1)--(CR28dw12).
+  fixed-\(k\) instances are used in (CR28dw1)--(CR28dw12) and
+  (CR28dw29).
 - The normalized simplex theorem (CR28cr)--(CR28dd) solves the compact
   polynomial for every fixed \(k\), proves its unique interior maximizer and
   the exact recurrence \(M_k\nearrow1/3\), and generates the first five
@@ -8485,6 +8850,21 @@ Further non-consequences are important.
   \ge{434+4\sqrt2\over1587\pi}.
   \]
   This uses no \(k=k(n)\), uniform threshold, or interchange of limits.
+- The global clipped classification (CR28dw13)--(CR28dw29) solves the full
+  compact continuous template for arbitrary finite \(k\), not only its
+  all-middle restriction. Coordinatewise clipping gives
+  \((k+1)(k+2)/2\) regimes and the exact Bellman envelope. Its values are
+  finite lower Darboux sums for the increasing clipped floor; the limiting
+  integral excludes every high regime from global optimality. For each
+  finite \(k\), the unique global tuple is strict all-middle, with density
+  \(\alpha_{k,*}\) from (CR28dw24) and value \(C_{k,*}\). These values
+  increase strictly to
+  \[
+  \sup_{k<\infty}C_{k,*}=C_{\mathrm{AF}},
+  \]
+  so the existing all-fixed-\(k\) lower coefficient is exactly the supremum
+  of the entire finite-prefix template family and is not attained at finite
+  \(k\).
 - Combining those two separate theorems only at fixed \(k=5\), with
   \(\alpha=13/30\), gives the explicit rational all-middle point
   (CR28dx)--(CR28dz), the exact coefficient

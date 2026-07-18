@@ -685,9 +685,10 @@ E_\infty(\alpha)
 =p(\alpha)+{(3\alpha-1)^3\over24}.
 \]
 
-Its unique maximum on the full compact interval is the degenerate endpoint
-\(E_\infty(1)=1/3\); on \([1/3,1)\) this is only a nonattained supremum. On
-the limiting all-middle closure \([1/3,1/2]\), the unique maximum is
+The formal normalized-polynomial envelope has its unique maximum on the full
+compact interval at the degenerate endpoint \(E_\infty(1)=1/3\); on
+\([1/3,1)\) this is only a nonattained supremum. On the limiting all-middle
+closure \([1/3,1/2]\), the unique maximum is
 
 \[
 \alpha={13-2\sqrt2\over23},
@@ -695,10 +696,53 @@ the limiting all-middle closure \([1/3,1/2]\), the unique maximum is
 E_\infty(\alpha)={434+4\sqrt2\over1587}.
 \]
 
-These are exact normalized-polynomial statements for each fixed \(k\). The
-normalized-simplex proof itself supplies no charging theorem; the direct
-finite-\(k\) theorem above is separate. They nevertheless have the following
-exact all-fixed-\(k\) consequence. Fix
+The complete clipped family, rather than only this all-middle restriction, is
+also solved for arbitrary finite \(k\). If \(\Phi_{1+\alpha}\) is the exact
+coordinatewise clipped floor and \(\phi\) its normalized form from
+(CR28dw15), then
+
+\[
+\mathscr H_k(\alpha)
+=p(\alpha)+(1+\alpha)^3V_k\!\left({\alpha\over1+\alpha}\right),
+\qquad
+V_m(t)=\max_{0\le x\le t}
+\bigl((t-x)\phi(x)+V_{m-1}(x)\bigr),
+\quad V_0=0.
+\]
+
+There are exactly \((k+1)(k+2)/2\) ordered regimes \(H^hM^m0^z\).
+The Bellman values are finite lower Darboux sums for the increasing clipped
+floor, and their pointwise supremum is
+
+\[
+\mathscr H_{\rm fin}(\alpha)=
+\begin{cases}
+p(\alpha),&0\le\alpha\le1/3,\\
+(23\alpha^3-39\alpha^2+21\alpha+3)/24,
+ &1/3\le\alpha\le1/2,\\
+(5\alpha^3-21\alpha^2+15\alpha+17)/72,
+ &1/2\le\alpha\le1.
+\end{cases}
+\]
+
+The outer pieces are exactly dominated by a feasible one-prefix all-middle
+value. Therefore every finite \(k\) has one strict all-middle global
+maximizer, with value \(C_{k,*}\), and
+
+\[
+C_{k,*}\nearrow C_{\mathrm{AF}}
+={434+4\sqrt2\over1587}.
+\]
+
+Thus the formal endpoint \(E_\infty(1)=1/3\) is not a clipped-family value:
+\(C_{\mathrm{AF}}\) is the exact, unattained supremum of the complete
+continuous finite-prefix template family.
+
+The statements about \(M_k\) and \(E_k\) are exact normalized-polynomial
+theorems, while the \(\mathscr H_k\) result is the separate full clipped
+continuous optimization. Neither supplies charging; the direct finite-\(k\)
+theorem above is a third independent input. Together they nevertheless have
+the following exact all-fixed-\(k\) consequence. Fix
 
 \[
 \alpha_\infty={13-2\sqrt2\over23},
@@ -1545,8 +1589,10 @@ its global compact optimization, two independent four-prefix diagnostics, the
 exact one-use theorem for every finite number of selected prefixes, its
 bounded six-prefix dossier oracle, the historical five-prefix oracle, the
 exact normalized prefix-simplex lemma
-for every fixed \(k\), its envelope classification, the exact all-fixed-\(k\)
-supremum corollary and its strict admissibility/quantifier audit, plus the
+for every fixed \(k\), its envelope classification, the full clipped
+arbitrary-\(k\) Bellman envelope and global all-middle theorem, the exact
+all-fixed-\(k\) supremum corollary and its strict admissibility/quantifier
+audit, plus the
 exact global \(k=5\) compact optimization, all 21
 clipping regimes and compact faces, its unique eleven-parameter quadratic-surd
 optimizer, strict comparison \(C_{5,*}>C_{5,\mathrm{rat}}>C_{4,*}\), and
@@ -2044,10 +2090,23 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   E_\infty(\alpha)
   =p(\alpha)+{(3\alpha-1)^3\over24}
   \]
-  uniformly. The full compact envelope has the unique maximum \(1/3\) at
-  \(\alpha=1\); on \([1/3,1)\) it is only a supremum. The limiting all-middle
-  closure \([1/3,1/2]\) has the unique maximum
+  uniformly. The formal normalized-polynomial envelope has the unique
+  maximum \(1/3\) at \(\alpha=1\); on \([1/3,1)\) it is only a supremum. The
+  limiting all-middle closure \([1/3,1/2]\) has the unique maximum
   \((434+4\sqrt2)/1587\) at \((13-2\sqrt2)/23\).
+- EXACT GLOBAL CLIPPED FINITE-PREFIX CLASSIFICATION: for every finite \(k\),
+  coordinatewise clipping gives the compact Bellman envelope
+  \[
+  \mathscr H_k(\alpha)
+  =p(\alpha)+(1+\alpha)^3V_k\!\left({\alpha\over1+\alpha}\right).
+  \]
+  Its \((k+1)(k+2)/2\) regimes are finite lower Darboux sums for the
+  increasing clipped floor. The integral envelope is the explicit
+  three-piece polynomial in (CR28dw20). Its outer pieces cannot win, so the
+  unique global maximizer at every finite \(k\) is strict all-middle, with
+  value \(C_{k,*}\), and
+  \(C_{k,*}\nearrow(434+4\sqrt2)/1587\). This unattained limit is the exact
+  supremum of the entire continuous finite-prefix family.
 - EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (ALL FIXED \(k\)): at
   \(\alpha_\infty=(13-2\sqrt2)/23\), define from each unique optimizer
   \(x^{(k)}\)
@@ -2759,8 +2818,12 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \[
   {434+4\sqrt2\over1587\pi}.
   \]
-  This last step uses no \(k=k(n)\), uniform threshold, or interchange of
-  limits; the five-prefix surd remains the exact optimum of its template.
+  The full clipped Bellman classification proves separately that the scalar
+  numerator is the exact unattained supremum of the complete continuous
+  finite-prefix template family and that every finite-\(k\) maximizer is
+  uniquely strict all-middle. The charging step uses no \(k=k(n)\), uniform
+  threshold, or interchange of limits; the five-prefix surd remains the exact
+  optimum of its template.
   All four irrational multi-prefix optimizers are exact and unique in their
   respective templates. The older rational witness remains the finite two-prefix theorem
   from \(n=59\); the irrational three-prefix optimizer now has the stronger

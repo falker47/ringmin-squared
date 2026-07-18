@@ -279,7 +279,10 @@ Last updated: 2026-07-18
   \ge {434+4\sqrt2\over1587\pi}.
   \]
   No \(k=k(n)\), threshold uniform in \(k\), or interchange of limits is
-  used. This coefficient is strictly larger than \(C_{5,*}\).
+  used. The full clipped arbitrary-\(k\) optimization proves in addition
+  that this coefficient is the exact, unattained supremum of the entire
+  continuous finite-prefix template family, not only of its all-middle
+  subfamily. It is strictly larger than \(C_{5,*}\).
 - EXACT THEOREM (globally optimized five-prefix linear-block refinement):
   optimizing the \(k=5\) specialization on the complete eleven-parameter
   compact closure reduces the ordered weights coordinatewise. All 21 clipping
@@ -1672,6 +1675,71 @@ Consequently it yields no interchange of \(n\to\infty\) with
 \(k\to\infty\) and no infinite-prefix theorem. This does not preclude taking
 the supremum of separate scalar consequences proved at every fixed \(k\).
 
+### Full clipped continuous envelope at arbitrary finite \(k\)
+
+For the complete compact continuous template, coordinatewise weight
+optimization is exact because the clipped optimizer is nondecreasing in its
+cutoff. With \(s=1+\alpha\), \(\beta_0=\alpha\), and the clipped floor
+\(\Phi_s\) from (CR28bw3), the value is therefore
+
+\[
+\mathscr H_k(\alpha)
+=p(\alpha)+
+\max_{0\le\beta_k\le\cdots\le\beta_1\le\alpha}
+\sum_{i=1}^k(\beta_{i-1}-\beta_i)\Phi_s(\beta_i).
+\]
+
+Equivalently, with \(t=\alpha/(1+\alpha)\) and the increasing clipped
+function \(\phi\) in (CR28dw15),
+
+\[
+\mathscr H_k(\alpha)=p(\alpha)+(1+\alpha)^3V_k(t),
+\qquad
+V_m(t)=\max_{0\le x\le t}
+\bigl((t-x)\phi(x)+V_{m-1}(x)\bigr),
+\quad V_0=0.
+\]
+
+This compact Bellman envelope contains exactly
+\((k+1)(k+2)/2\) ordered clipping regimes \(H^hM^m0^z\). Its finite
+chains are lower Darboux sums for \(\phi\), and they converge monotonically
+and uniformly to its integral. The resulting pointwise finite-prefix
+supremum is
+
+\[
+\mathscr H_{\rm fin}(\alpha)=
+\begin{cases}
+p(\alpha),&0\le\alpha\le1/3,\\[1mm]
+(23\alpha^3-39\alpha^2+21\alpha+3)/24,
+ &1/3\le\alpha\le1/2,\\[1mm]
+(5\alpha^3-21\alpha^2+15\alpha+17)/72,
+ &1/2\le\alpha\le1.
+\end{cases}
+\]
+
+The two outer intervals are strictly below the feasible one-prefix
+all-middle optimum. Hence, for every finite \(k\), the unique global compact
+maximizer lies in \(1/3<\alpha<1/2\), where no high coordinate is feasible
+and the exact envelope is
+
+\[
+E_k(\alpha)=p(\alpha)+{M_k\over8}(3\alpha-1)^3.
+\]
+
+It follows that the unique full optimizer is strict all-middle, with
+\(\alpha_{k,*}\) and the original cutoff/weight tuple given in
+(CR28dw24)--(CR28dw25), and
+
+\[
+C_{k,*}\nearrow
+{434+4\sqrt2\over1587}=C_{\mathrm{AF}}.
+\]
+
+Thus \(C_{\mathrm{AF}}\) is the exact supremum of the whole continuous
+finite-prefix family and is not attained at finite \(k\). This is a
+continuous template classification; it introduces no finite rounding,
+uniform threshold, or growing-prefix charging assertion.
+
 ### All-fixed-\(k\) corollary
 
 Fix
@@ -2761,6 +2829,14 @@ Neither the improved upper bound nor the lower bound proves that
   \]
   for \(\Lambda_n\) and the geometry. This is not a use of \(k=k(n)\), a
   uniform threshold, or an interchange of limits.
+- The full compact clipped envelope at arbitrary finite \(k\) is the Bellman
+  lower-sum problem above, with \((k+1)(k+2)/2\) regimes. Exact integration
+  excludes all outer-density and high-clipped regimes from global
+  optimality. Every finite-\(k\) global maximizer is uniquely strict
+  all-middle, its value is \(C_{k,*}\), and
+  \(C_{k,*}\nearrow C_{\mathrm{AF}}\). Hence the existing coefficient is the
+  exact unattained supremum of the entire continuous finite-prefix template
+  family, not merely an all-middle lower construction.
 - At fixed \(k=5\), combining that theorem with the exact fifth simplex row
   and \(\alpha=13/30\) gives
   \[
