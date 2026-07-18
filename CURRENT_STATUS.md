@@ -6,198 +6,191 @@ Last update: 2026-07-18
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Active task:** determine exactly the induced-subset objective K for the
-  canonical core order of the symbolic eight-twenty-fifths construction on
-  its complete public domain.
+- **Active task:** determine exactly the induced-subset objective \(K\) for
+  `residue_one_product_distance_order(n)` on \(n=5k+1\), \(k\ge2\), and
+  compare it with the canonical formula (K825-4).
 - **Repository state at startup:** clean `main` worktree at commit
-  `1ec6e0b7fca85b9ed1bb81636c87934564994e97`, tracking `origin/main`.
-- **Implementation state:** the exact formula, maximizing-subset
-  classification, shortcut-budget proof, consequences, authoritative
-  synchronization, sole dossier-local diagnostic, regressions, independent
-  audits, source checks, and final diff inspection are complete.
+  `aca4a7b3544fa015b21774be2413296321f47ed3`, tracking `origin/main`.
+- **Implementation state:** the exact formula, unique-maximizer
+  classification, all-\(k\) shortcut-budget proof, boundary/parity analysis,
+  K825 comparison, permitted consequences, sole bounded diagnostic,
+  independent audits, source checks, and complete diff inspection are done.
 - **Current blocker:** none.
 - **Current next atomic action:** user manual review and commit decision.
 - **Awaiting user review:** yes.
 
 ## Objective And Scope
 
-For the canonical cyclic core order `tau_n` returned by
-`eight_twenty_fifths_order(n)`, determine
+For the exact-threshold residue-one cyclic core order
+\(\tau_n^{(1)}\) returned by `residue_one_product_distance_order(n)`,
+determine
 
 \[
-K(\tau_n)
-=\max_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P_{\tau_n}(U)
+K(\tau_n^{(1)})
+=\max_{\varnothing\ne U\subseteq\{2,\ldots,n\}}
+P_{\tau_n^{(1)}}(U)
 \]
 
-for every public row `n>=9`, without enumerating subsets or permutations.
-Classify every maximizing subset and transfer the result through exact
-label-one elimination and the angular sandwich. Production, test modules,
-artifacts, schemas, backends, certificates, and enumeration limits remain
-unchanged.
+for every \(n=5k+1\), \(k\ge2\), without enumerating subsets or
+permutations. Classify every maximizer, compare exactly and asymptotically
+with K825, and transfer only consequences licensed by label-one elimination
+and the fixed-order sandwich. Residue two, production/test changes, artifacts,
+schemas, certificates, and global minimizing-order claims remain out of scope.
 
-## Exact Symbolic Theorem
+## Exact Theorem And Argmax Classification
 
-On the symbolic domain write
+Put \(\varepsilon=k\bmod2\). For every \(k\ge2\), the sole maximizing
+subset is
 
 \[
-d=4v+e,\qquad n=5v+e-1,\qquad 4\le e\le8,
+\boxed{S_k=\{2k+1,\ldots,5k+1\}.}
 \]
 
-and put `L=2v+1`. The unique maximizing subset is
+There are no ties, parity-dependent argmaxes, or exceptional boundary
+maximizers. The exact score is
 
 \[
 \boxed{
-U_n^*=
-\begin{cases}
-\{L,L+1,\ldots,n\},&e=4,5,\\
-\{L,L+1,\ldots,n\}\setminus\{L+1\},&e=6,7,8.
-\end{cases}}
-\]
-
-With
-
-\[
-t=\left\lfloor{v+e-2\over2}\right\rfloor,
-\qquad
-\varepsilon=v+e-2-2t,
-\qquad
-\chi=\mathbf1_{\{v=e-2\}},
-\]
-
-define
-
-\[
-\begin{aligned}
-\mathcal Q(v,e,\varepsilon)={1\over8}\bigg[{}
-&286v^3+(180e-91+10\varepsilon)v^2\\
-&+(38e^2-34e-2-8(e+2)\varepsilon)v\\
-&+{e(8e^2-9e-2)\over3}
- +(-2e^2-10e+21)\varepsilon\bigg],\\
-\Gamma(v,e)&=(4e-22)v+e^2-7e+8.
-\end{aligned}
-\]
-
-Then
-
-\[
-\boxed{
-K(\tau_n)=\mathcal Q(v,e,\varepsilon)
- -(4e-7)\chi+\max\{0,\Gamma(v,e)\}.
+K(\tau_n^{(1)})
+={857k^3+891k^2+214k
+ +\varepsilon(27k^2-51k-18)\over24}.
 }
 \]
 
-The fourteen nonsymbolic public orders have the exact unique maximizing
-tails and K values recorded in the K825 theorem. Thus the full public domain
-is classified.
-
-## Proof Architecture
-
-- Delete isolated holes from the core cycle. Each deletion has exact gain
-  `ab-x(a+b)`.
-- The shortcut-budget lemma rewrites every selected gap as its compressed
-  backbone path plus the gains of its internal holes.
-- All hole gains are positive for the stated candidate. Every compressed
-  path with at least two edges has product sum strictly larger than its
-  endpoint product.
-- Exact block formulas prove those inequalities for all `v>=e`. Ten `r=0`
-  rows and the sole generic four-edge inequality exception `n=47` use exact
-  bounded local margins. The fourteen explicit orders use the same finite
-  local certificate.
-- Equality in the budget forces every hole omitted and every backbone label
-  selected, proving uniqueness without subset enumeration.
-- Direct block summation gives the exact formula.
-
-## Asymptotic And Geometric Consequences
-
-The exact formula gives
+Equivalently,
 
 \[
-K(\tau_n)={143\over4}v^3+O(v^2)
-          ={143\over500}n^3+O(n^2),
+K(\tau_n^{(1)})=
+\begin{cases}
+\dfrac{857n^3+1884n^2-989n-1752}{3000},
+ &n\equiv1\pmod {10},\\[6pt]
+\dfrac{857n^3+2019n^2-2534n-2592}{3000},
+ &n\equiv6\pmod {10}.
+\end{cases}
 \]
 
-so the shortcut construction improves the regular-direction coefficient by
+## Proof Architecture And Boundary Cases
+
+- Delete the isolated holes \(\{2,\ldots,2k\}\) while retaining the closing
+  label \(2k+1\). Every exact deletion gain is positive.
+- The compressed backbone satisfies a strict shortcut margin for every
+  oriented path with at least two edges, including paths whose endpoints are
+  holes. Equality in the shortcut budget therefore forces precisely \(S_k\).
+- Direct even/odd block summation yields the displayed quasipolynomial.
+  At \(k=2\), the final path is a triple and gives \(K=452\); at \(k=3\),
+  the singleton range is empty and \(K=1328\). In odd rows the final triple
+  connector equals \(n/2\), and its separate exact margin remains strict.
+
+## Exact K825 Comparison
+
+On the symbolic canonical domain \(k\ge6\), (K825-4) specializes to
 
 \[
-{8\over25}-{143\over500}={17\over500}.
+K_{825}(k)
+={858k^3+(933+30\varepsilon)k^2
+ +(570-276\varepsilon)k+120-195\varepsilon\over24}
+-21\mathbf1_{\{k=6\}}.
 \]
 
-For every insertion gap `g`, exact label-one elimination and the fixed-order
-sandwich give
+Exact subtraction, together with the four earlier explicit canonical rows,
+proves
 
 \[
-\Lambda(\sigma_{n,g})=K(\tau_n),
+K(\tau_n^{(1)})<K_{825}(k)
+\qquad(k\ge2).
+\]
+
+There is no crossover. The gaps for \(k=2,\ldots,7\) are respectively
+\(7,18,61,63,145,142\); parity means the gap need not be monotone. The cubic
+coefficient improves from \(143/500=858/3000\) to \(857/3000\), while the
+quadratic coefficients improve from \(697/1000\) to \(157/250\) on
+\(n\equiv1\pmod {10}\), and from \(747/1000\) to \(673/1000\) on
+\(n\equiv6\pmod {10}\). Thus
+
+\[
+K_{825}(n)-K(\tau_n^{(1)})={n^3\over3000}+O(n^2).
+\]
+
+## Permitted Cyclic-Ratio And Geometric Consequences
+
+For every insertion gap \(g\), exact label-one elimination and the
+fixed-order sandwich give
+
+\[
+\Lambda(\sigma_{n,g}^{(1)})=K(\tau_n^{(1)}),
 \qquad
-{K(\tau_n)\over\pi}-n^2
-<\rho_{\sigma_{n,g}}<{K(\tau_n)\over\pi}.
+{K(\tau_n^{(1)})\over\pi}-n^2
+<\rho_{\sigma_{n,g}^{(1)}}
+<{K(\tau_n^{(1)})\over\pi}.
 \]
 
-Globally, only
+At the global level, only
 
 \[
-\Lambda_n\le K(\tau_n),
+\Lambda_n\le K(\tau_n^{(1)}),
 \qquad
-R_2^*(n)<{\Lambda_n\over\pi}\le{K(\tau_n)\over\pi}
+R_2^*(n)<{\Lambda_n\over\pi}
+\le{K(\tau_n^{(1)})\over\pi}
 \]
 
-is valid. Combining this upper construction with
-`C_AF=(434+4 sqrt(2))/1587` yields
+is licensed on \(n=5k+1\). Consequently,
 
 \[
-C_{\rm AF}
-\le\liminf{\Lambda_n\over n^3}
-\le\limsup{\Lambda_n\over n^3}
-\le{143\over500},
+\limsup_{k\to\infty}{\Lambda_{5k+1}\over(5k+1)^3}
+\le{857\over3000},
+\qquad
+\limsup_{k\to\infty}{R_2^*(5k+1)\over(5k+1)^3}
+\le{857\over3000\pi}.
 \]
 
-with the same bracket divided by `pi` for the geometric optimum.
+These are residue-one subsequence bounds, not an improved all-\(n\) limsup.
 
 ## Verification
 
-- The standard-library diagnostic independently reconstructs every order.
-  Its increasing-path max-plus DP and shortcut audit pass all 112 rows
-  `n=9..120`, with 8,495,284 transitions and 561,568 oriented arcs; a direct
-  formula-only tail continues through `n=1000`.
+- The sole standard-library diagnostic independently reconstructs both block
+  orders. For \(2\le k\le30\), each increasing-path max-plus DP checks
+  4,504,280 transitions and the residue-one audit checks all 234,030 oriented
+  shortcut arcs. Every row has the predicted sole argmax; minimum bounded
+  hole/path margins are 14/15. Direct formulas and the comparison continue
+  through \(k=1000\), with no crossover.
 - The full repository suite passes 283 tests.
 - The checked-artifact verifier accepts four certificates, 76 local brackets,
-  and summary rows `n=3,4,5,6`; the focused schema suite passes four tests.
-- Ruff lint and format checks pass for the sole new diagnostic.
-- Strict UTF-8/LF/final-newline/trailing-whitespace, display/fence, and primary
-  equation-tag checks pass on the current intended Markdown paths, including
-  all 26 unique K825 tags.
-- Three independent read-only audits confirm the proof, diagnostic, and
-  authoritative consistency. They found and prompted correction of one
-  n=47 four-edge-margin transcription and one symbolic/explicit scope phrase.
-- Final Git status shows only the seven intended authoritative Markdown files
-  and the four-file dossier; complete diff inspection and `git diff --check`
-  pass.
+  and summary rows \(n=3,4,5,6\); the focused schema suite passes four tests.
+- Ruff lint/format and `py_compile` pass for the sole diagnostic.
+- Three independent read-only audits pass the mathematics, diagnostic
+  semantics, and authoritative scope. Two non-substantive wording ambiguities
+  were corrected.
+- Strict UTF-8/LF/final-newline/trailing-whitespace, display/fence, LaTeX
+  environment, and equation-tag checks pass on all nine intended Markdown
+  paths. All 453 primary tags are unique, including KR1-1 through KR1-32.
+- Final Git status contains only the six intended tracked Markdown files and
+  the four-file dossier; complete diff inspection and `git diff --check` pass.
 
 ## Evidence Classification And Limitations
 
-- The K formula, maximizing subsets, shortcut-budget lemma, asymptotic leading
-  term, and sandwich consequences are **exact theorems**.
-- The diagnostic is a **verified bounded exact computation** that corroborates
-  but does not replace the infinite symbolic proof.
-- The fourteen explicit rows and eleven symbolic boundary/exception rows use
-  finite local shortcut certificates, not subset or permutation enumeration.
+- The exact score, unique argmax, shortcut-budget proof, parity formulas,
+  pointwise K825 comparison, and permitted sandwich consequences are
+  **exact theorems**.
+- The diagnostic is a **bounded exact computation** that corroborates but
+  does not replace the infinite symbolic proof.
 - The result is construction-specific. It proves no equality
-  `Lambda_n=K(tau_n)`, global minimizing-order classification, convergence,
-  exact global leading constant, or exact geometric finite optimum.
+  \(\Lambda_n=K(\tau_n^{(1)})\), global lower bound
+  \(K/\pi-n^2<R_2^*(n)\), exact ordering of the two families' angular
+  thresholds, exact quadratic geometric term, all-\(n\) coefficient
+  improvement, or residue-two result.
 
 ## Files In Scope
 
-- research/FIXED_ORDER_CYCLE_RATIO.md
-- research/PRODUCT_DISTANCE_SURROGATE.md
-- research/ALL_N_LOWER_BOUND.md
-- research/NEXT_RESEARCH_STEPS.md
-- start.md
-- PROJECT_KNOWLEDGE.md
-- CURRENT_STATUS.md
-- ops/TASK-20260718__canonical_eight_twenty_fifths_k/
+- `research/FIXED_ORDER_CYCLE_RATIO.md`
+- `research/PRODUCT_DISTANCE_SURROGATE.md`
+- `research/NEXT_RESEARCH_STEPS.md`
+- `start.md`
+- `PROJECT_KNOWLEDGE.md`
+- `CURRENT_STATUS.md`
+- `ops/TASK-20260718__residue_one_exact_k/`
 
 ## Proposed Next Task
 
-In a fresh STRICT task, evaluate K exactly for the sharper residue-one and
-residue-two product-distance core orders and compare them pointwise and
-asymptotically with the canonical 143/500 family using shortcut budgets rather
-than subset enumeration.
+After manual review and in a fresh STRICT chat, determine the analogous exact
+\(K\) theorem for the residue-two product-distance core order. No residue-two
+mathematics is included in the current task.

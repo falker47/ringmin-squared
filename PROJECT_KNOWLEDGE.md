@@ -1447,6 +1447,76 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   transitions and 561,568 oriented arcs, obtains one optimizer on all 112
   full-certificate rows, and uses neither subset nor permutation enumeration.
   This corroborates but does not replace the symbolic proof.
+- EXACT THEOREM (EXACT-THRESHOLD RESIDUE-ONE \(K\)): let
+  \(\tau_n^{(1)}\) be the core order returned by
+  `residue_one_product_distance_order(n)` for \(n=5k+1\), \(k\ge2\), and
+  put \(\varepsilon=k\bmod2\). Its unique maximizing subset is
+  \[
+  \{2k+1,2k+2,\ldots,5k+1\},
+  \]
+  and
+  \[
+  K(\tau_n^{(1)})
+  ={857k^3+891k^2+214k
+   +\varepsilon(27k^2-51k-18)\over24}.
+  \]
+  Equivalently,
+  \[
+  K(\tau_n^{(1)})=
+  \begin{cases}
+  (857n^3+1884n^2-989n-1752)/3000,&n\equiv1\pmod {10},\\
+  (857n^3+2019n^2-2534n-2592)/3000,&n\equiv6\pmod {10}.
+  \end{cases}
+  \]
+  The proof deletes exactly the isolated holes \(\{2,\ldots,2k\}\), proves
+  every deletion gain and every non-atomic compressed-path margin strictly
+  positive, and then sums the parity-specific block word. There is no tie or
+  argmax exception; \(k=2\) has a final triple and \(k=3\) has an empty
+  singleton range, but the same theorem and formula hold.
+- EXACT POINTWISE AND ASYMPTOTIC COMPARISON: on \(n=5k+1\), the canonical
+  symbolic parameters are \(e=7\), \(v=k-1\), with the boundary correction
+  at \(k=6\). For \(k\ge6\),
+  \[
+  K_{825}-K(\tau_n^{(1)})
+  ={k^3+(42+3\varepsilon)k^2
+    +(356-225\varepsilon)k+120-177\varepsilon\over24}
+  -21\mathbf1_{\{k=6\}}.
+  \]
+  The explicit differences at \(k=2,3,4,5\) are \(7,18,61,63\), and the
+  boundary difference at \(k=6\) is \(145\). The difference is positive on
+  every row, so there is no crossover. The cubic coefficient improves from
+  \(143/500=858/3000\) to \(857/3000\), exactly \(1/3000\) lower.
+- EXACT RESIDUE-ONE CYCLIC-RATIO CONSEQUENCE: inserting label \(1\) in any
+  gap gives
+  \[
+  \Lambda(\sigma_{n,g}^{(1)})=K(\tau_n^{(1)}),
+  \qquad
+  {K(\tau_n^{(1)})\over\pi}-n^2
+  <\rho_{\sigma_{n,g}^{(1)}}
+  <{K(\tau_n^{(1)})\over\pi}.
+  \]
+  Globally, only
+  \[
+  \Lambda_n\le K(\tau_n^{(1)}),
+  \qquad
+  R_2^*(n)<{\Lambda_n\over\pi}
+  \le{K(\tau_n^{(1)})\over\pi}
+  \]
+  follows on this residue class. Hence the subsequential limsup coefficients
+  are at most \(857/3000\) and \(857/(3000\pi)\). This does not improve the
+  all-residue limsup, globalize the lower side of the fixed-order sandwich,
+  order the exact angular thresholds of the two constructions, transfer the
+  quadratic terms to geometry, or prove a global minimizing-order theorem.
+- VERIFIED FACT (BOUNDED EXACT DOSSIER DIAGNOSTIC): the standalone
+  `ops/TASK-20260718__residue_one_exact_k/exact_diagnostic.py` imports only
+  standard-library modules and no project or test helper. It reconstructs
+  both block orders, runs independent increasing-path max-plus DPs, and
+  audits every residue-one oriented shortcut arc on \(2\le k\le30\). Each
+  DP checks 4,504,280 transitions, all 234,030 shortcut arcs pass, and every
+  residue-one row has exactly the predicted sole argmax. Direct formula and
+  pointwise comparison checks continue through \(k=1000\). No subset or
+  permutation is enumerated; the bounded computation corroborates rather
+  than replaces the all-\(k\) proof.
 - VERIFIED FACT: `src/power_ringmin/fixed_order_cycle_ratio.py` implements the
   exact scorer by maximum descending-path closure, a one-wrap macro graph, and
   Karp maximum-cycle-mean dynamic programming in integer/`Fraction`
@@ -2865,11 +2935,17 @@ Candidate-set extraction uses the following finite-certificate semantics.
   Exact block summation gives the quasipolynomial (K825-4) and coefficient
   \(143/500\). The proof uses the shortcut-budget backbone lemma and one
   bounded local diagnostic, without subset or permutation enumeration.
+- COMPLETED PRIORITY: the sharper residue-one core order now has an exact
+  all-\(k\) \(K\) theorem. Its sole argmax is the tail from \(2k+1\), its
+  period-two formula in \(k\) has coefficient \(857/3000\) in \(n\), and
+  it strictly improves K825 on every residue-one row with no crossover. The
+  proof handles every shortcut and both smallest boundaries symbolically; one
+  bounded standard-library diagnostic changes no production or test path.
 - RECOMMENDED NEXT TASK: in a fresh STRICT task, evaluate \(K\) exactly for
-  the sharper residue-one and residue-two product-distance orders, then
-  compare them pointwise and asymptotically with the canonical
-  eight-twenty-fifths family using shortcut budgets rather than subset
-  enumeration.
+  the sharper residue-two product-distance order, then compare it pointwise
+  and asymptotically with the canonical eight-twenty-fifths family using
+  shortcut budgets rather than subset enumeration. Do not infer its answer
+  from residue one.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order

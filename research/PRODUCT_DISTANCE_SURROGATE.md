@@ -99,6 +99,15 @@
   the current upper coefficients to \(143/500\) for \(\Lambda_n\) and
   \(143/(500\pi)\) geometrically. This does not change the exact \(8/25\)
   product-distance asymptotic.
+- **EXACT THEOREM (later residue-one shortcut evaluation):** for
+  \(n=5k+1\), \(k\ge2\), the sharper order
+  \(\tau_n^{(1)}=\operatorname{residue\_one\_product\_distance\_order}(n)\)
+  has the unique induced-subset maximizer \(\{2k+1,\ldots,n\}\). Its exact
+  parity quasipolynomial has leading coefficient \(857/3000\), and its
+  \(K\) value is strictly below the canonical K825 value on every admitted
+  residue-one row. This sharpens only the residue-one subsequential upper
+  coefficient for \(\Lambda_n\) and \(R_2^*(n)\); it does not change the
+  all-residue limsup bound.
 - **EXACT THEOREM (residue-class matching):** for \(n\ge9\),
   \[
   H_n=
@@ -2900,6 +2909,19 @@ edge (R1C21) proves equality:
 \boxed{W(\sigma_n^{(1)})=h}.
 \tag{R1C24}
 \]
+
+The induced-subset objective on this same cyclic core is evaluated separately
+in Section 9 of `research/FIXED_ORDER_CYCLE_RATIO.md`, where it is denoted by
+\(\tau_n^{(1)}=\sigma_n^{(1)}\). Its shortcut-budget theorem proves that the
+unique maximizing subset is \(\{2k+1,\ldots,n\}\) and that
+\[
+K(\tau_n^{(1)})=K(\sigma_n^{(1)})
+={857\over3000}n^3+O(n^2).
+\]
+The exact two parity branches are (KR1-3)--(KR1-4). They are strictly below
+the canonical K825 score in every residue-one row, with no crossover. This is
+a statement about \(K\), not a change to the exact surrogate identity
+\(W(\sigma_n^{(1)})=h\).
 
 Exact bounded positional-constraint search was used only to falsify the
 naive family and identify this pattern. The production formula (R1C3)--(R1C9)

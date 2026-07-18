@@ -22,6 +22,17 @@ This sharpens the current upper coefficients for \(\Lambda_n\) and the
 geometric problem to \(143/500\) and \(143/(500\pi)\), respectively. The
 proof uses symbolic shortcut budgets plus bounded local certificates, not
 subset or permutation enumeration.
+The sharper exact-threshold residue-one order has now been evaluated as well.
+For every \(n=5k+1\), \(k\ge2\), its unique maximizing subset is
+\(\{2k+1,\ldots,n\}\), and its exact parity quasipolynomial has leading
+coefficient
+\[
+{857\over3000}<{143\over500}={858\over3000}.
+\]
+It beats the canonical K825 score in every admissible residue-one row, with
+no crossover. Exact label-one elimination and the fixed-order sandwich give
+the corresponding residue-one subsequential upper coefficient
+\(857/(3000\pi)\), but do not improve the all-residue limsup bound.
 One explicit parametric perturbation of the matching \(8/25\) construction
 is now closed as well. On \(n=10m+3\), reversing the outer entries of one
 triple has score \(T\) for every nonzero triple index and
@@ -2503,6 +2514,13 @@ Completed:
 
 Immediate:
 
+- The exact-threshold residue-one \(K\)-evaluation task is complete. The
+  unique argmax is \(\{2k+1,\ldots,5k+1\}\) for every \(k\ge2\), including
+  both smallest boundary rows; parity changes only the exact lower-order
+  coefficients. A shortcut-budget proof covers every subset at once, and one
+  independent standard-library max-plus/arc diagnostic supplies bounded
+  corroboration without subset or permutation enumeration. The resulting
+  coefficient \(857/3000\) strictly improves K825 on this subsequence only.
 - The canonical eight-twenty-fifths \(K\)-evaluation task is complete. The
   symbolic block order has one unique maximizing backbone, with connector
   \(2v+2\) deleted exactly for \(e=6,7,8\), and its exact quasipolynomial has
@@ -2554,9 +2572,10 @@ Immediate:
 Next:
 
 - In a separate STRICT task, evaluate \(K\) exactly for the sharper
-  residue-one and residue-two product-distance orders, and compare them
-  pointwise and asymptotically with the canonical \(143/500\) family using
-  the same shortcut-budget method.
+  residue-two product-distance order and compare it pointwise and
+  asymptotically with the canonical \(143/500\) family using the same
+  shortcut-budget method. Do not infer its answer from the completed
+  residue-one theorem.
 - Derive an exact symbolic count of relation-compatible, equivalently
   full-optimal, scaffold bijections from the nested Ferrers thresholds,
   without enumerating path permutations.
@@ -2590,15 +2609,14 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: evaluate \(K\) exactly for the sharper residue-one and residue-two
-product-distance core orders and compare them with the canonical
-eight-twenty-fifths family.
+Task: evaluate \(K\) exactly for the sharper residue-two product-distance
+core order and compare it with the canonical eight-twenty-fifths family.
 
 Acceptance criteria:
 
-- derive the two exact induced-subset maxima from their symbolic block words
-  and shortcut gains, without enumerating subsets or cyclic orders;
-- classify every maximizing subset and all residue/parity boundary rows;
+- derive the exact induced-subset maximum from its symbolic block word and
+  shortcut gains, without enumerating subsets or cyclic orders;
+- classify every maximizing subset and all parity/boundary rows;
 - compare the exact values with (K825-4), including the leading coefficient
   and any finite crossover;
 - deduce only those \(\Lambda_n\) and geometric consequences justified by

@@ -1178,6 +1178,35 @@ sharpen the current global upper coefficients to
 \]
 These are upper coefficients, not exact asymptotic constants or convergence
 theorems.
+On the sharper exact-threshold residue-one order
+\(\tau_n^{(1)}=\operatorname{residue\_one\_product\_distance\_order}(n)\),
+write \(n=5k+1\), \(k\ge2\), and \(\varepsilon=k\bmod2\). Its unique
+maximizing subset is
+\[
+\{2k+1,2k+2,\ldots,5k+1\},
+\]
+and the exact value is
+\[
+K(\tau_n^{(1)})
+={857k^3+891k^2+214k
+ +\varepsilon(27k^2-51k-18)\over24}
+={857\over3000}n^3+O(n^2).
+\]
+This is strictly smaller than the canonical K825 value on every admissible
+residue-one row, including the explicit rows \(k=2,3,4,5\) and the K825
+boundary row \(k=6\); there is no crossover. Exact label-one elimination and
+the fixed-order sandwich give
+\[
+\limsup_{k\to\infty}{\Lambda_{5k+1}\over(5k+1)^3}
+\le{857\over3000},
+\qquad
+\limsup_{k\to\infty}{R_2^*(5k+1)\over(5k+1)^3}
+\le{857\over3000\pi}.
+\]
+These are residue-one subsequential upper bounds. They do not improve the
+all-residue limsup coefficient, identify a global minimizing order, compare
+the exact angular thresholds of the two constructed orders, or say anything
+about residue two.
 The same threshold now gives an exact residue-class classification of the
 lower obstruction. For every \(n\ge9\), with \(d=d_n\),
 \[
@@ -2522,6 +2551,28 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   112 rows have the unique predicted maximizer, and a formula-only tail check
   continues through \(n=1000\). This bounded computation enumerates neither
   subsets nor permutations and does not replace the symbolic proof.
+- EXACT THEOREM (RESIDUE-ONE EXACT-THRESHOLD \(K\)): for
+  \(n=5k+1\), \(k\ge2\), the order returned by
+  `residue_one_product_distance_order(n)` has the unique maximizing subset
+  \(\{2k+1,\ldots,n\}\) and exact value
+  \[
+  {857k^3+891k^2+214k
+   +(k\bmod2)(27k^2-51k-18)\over24}.
+  \]
+  Its coefficient is \(857/3000\), exactly \(1/3000\) below the canonical
+  \(143/500\). The exact pointwise difference is positive for every
+  \(k\ge2\), so there is no crossover; parity changes only lower-order
+  terms. Label-one elimination and the fixed-order sandwich yield only the
+  fixed-order identities/inequalities and the residue-one subsequential
+  global upper bounds, not an all-residue limsup improvement.
+- VERIFIED FACT (FINITE EXACT DOSSIER DIAGNOSTIC): the standalone
+  `ops/TASK-20260718__residue_one_exact_k/exact_diagnostic.py` imports no
+  project helper. On \(2\le k\le30\), independent max-plus DPs check both
+  fixed orders, every residue-one row has exactly one predicted maximizer,
+  and all 234,030 oriented shortcut arcs pass. Direct formula and comparison
+  checks continue through \(k=1000\). The computation enumerates neither
+  subsets nor permutations and corroborates rather than replaces the all-
+  \(k\) proof.
 - EXACT THEOREM: for \(n\ge9\), the terminal-high obstruction has the exact
   residue-class form
   \[
