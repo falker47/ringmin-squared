@@ -215,6 +215,16 @@
   row. Its separate exact induced-\(K\) theorem is (KPGSTAR-3)--(KPGSTAR-28)
   in `research/FIXED_ORDER_CYCLE_RATIO.md`; neither result has a geometric
   or global-optimality consequence.
+- **EXACT THEOREM (later monotone threshold-closing shortcut evaluation):**
+  specialize (PG46) to \((q,2m-1)\), where
+  \(q=\lfloor(4m+3)/5\rfloor=\kappa_{2m-1}\). This puts \(P_q\) in the
+  closing gap and keeps every other path increasing. The separate theorem
+  (KPG46Q-1)--(KPG46Q-29) in `research/FIXED_ORDER_CYCLE_RATIO.md` proves
+  that \(\{4m+1,\ldots,10m+3\}\) is the sole induced-subset maximizer and
+  gives its exact five-branch score. The order has coefficient \(143/500\),
+  and its exact excess over PG49-star is \(m(m-1)(m-2)/3\); hence the
+  singleton reversal accounts for the complete cubic PG49-star gain. This
+  is a fixed-core-order comparison only.
 - **EXACT THEOREM (later closing-PG46 shortcut evaluation):** for the PG46
   bijection placing \(P_m\) in the closing gap \(G_{2m-1}\), the corresponding
   core order has the sole induced-subset maximizer
@@ -6501,6 +6511,15 @@ max-plus increasing-path DP plus every proper oriented arc, hence every
 nontrivial shortcut, for \(m=3,\ldots,30\). Formula and comparator checks
 continue through \(m=1000\). It enumerates no subset, path permutation, or
 matching and imports no project or test helper.
+The sole diagnostic for (KPG46Q-1)--(KPG46Q-29) is the standalone
+standard-library script in
+ops/TASK-20260719__pg46_threshold_closing_exact_k/. It constructs only the
+closing interval shift \(\alpha_{q,2m-1}\), checks every Ferrers edge, and
+runs a direct increasing-path max-plus DP plus every proper oriented arc for
+\(m=3,\ldots,30\). Exact residue, singleton-inversion, formula, and
+comparator checks continue through \(m=1000\). It enumerates no subset, path
+permutation, matching, or cyclic-order family and imports no project or test
+helper.
 
 The following remain unresolved.
 
@@ -6562,6 +6581,15 @@ The following remain unresolved.
   residue formulas, coefficient \(857/3000\), and strict improvement over
   K825 and both PG46 orders on every admitted row. No geometric or global
   optimality conclusion follows.
+- **CLOSED CORE-ORDER QUESTION:** the interval shift (PG46) with target
+  \((q,2m-1)\), \(q=\lfloor(4m+3)/5\rfloor\), keeps every residual path
+  increasing. The separate theorem (KPG46Q-1)--(KPG46Q-29) proves its unique
+  maximizing backbone, exact score and five residue formulas, every
+  deletion gain and compressed shortcut, both cyclic-closing roles, and all
+  comparisons with PG49-star, K825, and the two prior PG46 orders. Its exact
+  excess over PG49-star is \(m(m-1)(m-2)/3\), so singleton reversal accounts
+  for the full cubic PG49-star gain. No angular, geometric, or global
+  minimizing-order conclusion follows.
 - **OPEN QUESTION:** for which \(n\ge94\) is
   \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\)? Criterion (MS2)
   certifies equality whenever it holds, including \(n=94\), but no complete

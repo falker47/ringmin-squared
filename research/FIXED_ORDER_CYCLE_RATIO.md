@@ -99,6 +99,19 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \(n\). This value is strictly below K825 and both PG46 values for every
   \(m\ge3\). The theorem concerns one explicit fixed core-order family and
   has no geometric or global-optimality consequence.
+- **EXACT THEOREM (MONOTONE THRESHOLD-CLOSING PG46 CORE):** on the same
+  rows, Section 16 evaluates the interval shift \(\alpha_{q,2m-1}\), where
+  \(q=\lfloor(4m+3)/5\rfloor\), that keeps every residual path increasing.
+  Its sole maximizing subset is again \(B_m=\{4m+1,\ldots,n\}\), and
+  \[
+  K={572m^3+619m^2+8mq+207m+4q^2+16q+22\over2}.
+  \]
+  It is strictly below K825 and preclosing PG46 on every row, below closing
+  PG46 except for equality at \(m=3\), and strictly above PG49-star. The
+  exact difference from PG49-star is \(m(m-1)(m-2)/3\), proving that the
+  reversed singleton block supplies the entire cubic coefficient reduction
+  from \(143/500\) to \(857/3000\). No angular, geometric, or global
+  minimizing-order conclusion follows.
 - **EXACT THEOREM:** the accepted same-order comparison gives
   \(\Lambda_n\le(n-1)W_n\). Combined with the strict cyclic-ratio sandwich,
   this yields
@@ -11970,3 +11983,513 @@ family. They give no exact angular threshold, geometric feasibility or
 optimality statement, global \(K\)-minimizer classification, or equality
 with \(\Lambda_n\). In particular, the coefficient in (KPGSTAR-24) is a
 fixed-family subsequential coefficient only.
+
+## 16. Exact \(K\) For The Monotone Threshold-Closing PG46 Shift
+
+Retain the scaffold (KPGSTAR-1)--(KPGSTAR-2) on
+
+\[
+n=10m+3,\qquad m\ge3,\qquad d=8m+4,\qquad v=2m,
+\]
+
+and put
+
+\[
+q=\left\lfloor{4m+3\over5}\right\rfloor
+=\kappa_{2m-1}.
+\]
+
+Specialize the interval shift (PG46) to the closing target
+\((q,2m-1)\). Explicitly,
+
+\[
+\boxed{
+\alpha_m^\uparrow(j)=
+\begin{cases}
+j,&0\le j<q,\\
+j+1,&q\le j\le2m-2,\\
+q,&j=2m-1.
+\end{cases}}
+\tag{KPG46Q-1}
+\]
+
+Thus \(P_q\) occupies the cyclic closing gap and all other paths occur in
+increasing path-index order. Since the target is exactly the final Ferrers
+threshold, (PG46)--(PG49) already prove that this is a relation-compatible
+bijection. Let \(\tau_m^\uparrow=\sigma_{\alpha_m^\uparrow}\). The present
+section evaluates the distinct induced-subset objective \(K\); it does not
+infer that evaluation from Ferrers compatibility or from \(W\).
+
+Put
+
+\[
+L=4m+1,\qquad
+B_m=\{L,L+1,\ldots,n\},\qquad
+H_m=\{2,3,\ldots,4m\}.
+\]
+
+Every member of \(H_m\) is isolated between two members of \(B_m\).
+Deleting those holes gives the cyclic backbone
+
+\[
+\boxed{
+\left(
+L,
+(E_j,P_j)_{j=0}^{q-1},
+(E_j,P_{j+1})_{j=q}^{m-1},
+(E_j,x_{j+1})_{j=m}^{2m-2},
+E_{2m-1},P_q
+\right).
+}
+\tag{KPG46Q-2}
+\]
+
+Every indexed block is concatenated in increasing \(j\), every triple is
+expanded in its retained orientation, and an empty range contributes
+nothing. The exact maximizing-subset classification is
+
+\[
+\boxed{
+\operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}
+P_{\tau_m^\uparrow}(U)=\{B_m\}.
+}
+\tag{KPG46Q-3}
+\]
+
+In particular, the displayed singleton is the complete list of maximizing
+subsets. Its value is
+
+\[
+\boxed{
+K(\tau_m^\uparrow)
+={572m^3+619m^2+8mq+207m+4q^2+16q+22\over2}.
+}
+\tag{KPG46Q-4}
+\]
+
+We first prove (KPG46Q-3), independently of the block sum.
+
+### Exhaustive deletion gains
+
+For a hole \(z\) between its two backbone neighbors \(a,b\), write
+
+\[
+h_z=ab-z(a+b).
+\tag{KPG46Q-5}
+\]
+
+Direct substitution in (KPG46Q-2) gives exactly seven position classes:
+
+\[
+\begin{array}{c|c|c}
+\text{hole}&\text{gap range}&h_z\\ \hline
+\lambda_j&0\le j<q&
+-4j^2+(28m+9)j+28m+12\\
+\rho_{j+1}&0\le j<q&
+-4j^2+(28m+5)j+44m+17\\
+\lambda_j&q\le j\le m-1&
+-4j^2+(28m+3)j+20m+4\\
+\rho_{j+1}&q\le j\le m-1&
+-4j^2+(28m-1)j+36m+5\\
+\lambda_j&m\le j\le2m-2&
+5j^2+(28m+21)j-16m^2+12m+12\\
+\rho_{j+1}&m\le j\le2m-2&
+5j^2+(28m+26)j-16m^2+24m+23\\
+\lambda_{2m-1}=2&&
+80m^2-(20m+2)q+18m-3.
+\end{array}
+\tag{KPG46Q-6}
+\]
+
+The six ranged classes contain
+\(2q+2(m-q)+2(m-1)=4m-2\) holes; the closing row supplies the last one,
+so (KPG46Q-6) accounts for all \(|H_m|=4m-1\) holes. In particular,
+\(\rho_0=L\) is correctly retained and is not counted as a hole.
+
+The forward differences of the six polynomials, in table order, are
+
+\[
+28m+5-8j,\quad28m+1-8j,\quad
+28m-1-8j,\quad28m-5-8j,\quad
+10j+28m+26,\quad10j+28m+31.
+\tag{KPG46Q-7}
+\]
+
+They are positive on their displayed ranges. The first two left-end values
+are \(28m+12\) and \(44m+17\). If the shifted-triple range is nonempty,
+then \(m\ge4\), \(q\ge3\), and \(q\le m\); subtracting \(28m+12\) from
+its two left-end values gives the respective lower bounds
+\(64m+1\) and \(80m-10\). The two singleton ranges begin at
+
+\[
+17m^2+33m+12,\qquad17m^2+50m+23.
+\]
+
+Finally, the closing excess satisfies
+
+\[
+h_{\lambda_{2m-1}}-(28m+12)
+=80m^2-(20m+2)q-10m-15
+\ge60m^2-12m-15>0.
+\tag{KPG46Q-8}
+\]
+
+Consequently every low deletion is strictly profitable and
+
+\[
+\boxed{
+\min_{z\in H_m}h_z=28m+12>0,
+}
+\tag{KPG46Q-9}
+\]
+
+with equality only at \(\lambda_0=4m\). The last row of (KPG46Q-6) is the
+literal cyclic closing gain; no nonclosing right-hole formula has been
+continued through the cut.
+
+### Complete compressed-shortcut audit
+
+Apply the shortcut-budget identity (K825-6)--(K825-9). After deleting only
+the internal holes from an oriented arc, write the resulting compressed path
+as
+
+\[
+C=(z_0,z_1,\ldots,z_s),\qquad s\ge2,
+\]
+
+and put
+
+\[
+M(C)=\sum_{i=0}^{s-1}z_i z_{i+1}-z_0z_s.
+\tag{KPG46Q-10}
+\]
+
+If an endpoint \(a\) is a hole, every internal vertex is at least \(L\).
+For the other endpoint \(b\), the two boundary edges give
+
+\[
+M(C)\ge L(a+b)-ab=La+(L-a)b
+\ge4L-4=16m>12m+4.
+\tag{KPG46Q-11}
+\]
+
+This covers one or two low endpoints in either orientation. It remains to
+take both endpoints in \([L,n]\).
+
+For \(s=2\), all possible middle roles split as follows. A triple connector
+\(c_k\), \(0\le k\le m\), remains between \(A_k,b_k\), and has margin
+
+\[
+c_k(A_k+b_k)-A_kb_k
+=12m+4+(32m+7)k-8k^2.
+\tag{KPG46Q-12}
+\]
+
+Its forward difference is \(32m-16k-1>0\), so the minimum is
+\(12m+4\), uniquely at \(c_0\). A monotone singleton \(x_{j+1}\),
+\(m\le j\le2m-2\), lies between \(E_j,E_{j+1}\), with exact margin
+
+\[
+x_{j+1}(E_j+E_{j+1})-E_jE_{j+1}
+=j^2+(8m+6)j+12m+7
+\ge9m^2+18m+7.
+\tag{KPG46Q-13}
+\]
+
+The retained closing label \(L=\rho_0\) lies literally between
+\(b_q,E_0\), and its distinct margin is
+
+\[
+L(b_q+E_0)-b_qE_0
+=2\bigl((4m+3)q-4m-1\bigr)
+\ge16m+16,
+\tag{KPG46Q-14}
+\]
+
+using \(q\ge3\).
+
+The remaining middle roles are outer triple labels and terminals; together
+with the singletons, they all satisfy \(y\ge(n+1)/2=5m+2\). For any such
+integer middle label, distinct endpoints and
+
+\[
+y(a+b)-ab=y^2-(a-y)(b-y)
+\]
+
+give, according as both endpoints are above \(y\), below \(y\), or on
+opposite sides, the respective lower bounds
+
+\[
+{3n-1\over2}=15m+4,\qquad
+(2L+1){n+1\over2}-L(L+1)=24m^2+19m+4,\qquad y^2.
+\tag{KPG46Q-15}
+\]
+
+The connectors, \(L\), outer triple labels, terminals, and singletons count
+\((m+1)+1+2(m+1)+2m+(m-1)=6m+3=|B_m|\) middle roles, so no two-edge role
+is omitted. Equations (KPG46Q-12)--(KPG46Q-15) prove that the exact
+two-edge minimum is \(12m+4\), uniquely on the forward compressed path
+\((A_0,c_0,b_0)\).
+
+For \(s=3\), every consecutive pair of internal backbone labels contains a
+label at least
+
+\[
+R=6m+2,\qquad R+L=n,
+\]
+
+and its other label is at least \(L\). Inside each triple one member of
+every adjacent pair is an outer label at least \(R\); every ordinary block
+join contains a terminal
+\(E_j\ge d>R\); every monotone singleton is flanked by terminals; and the
+cyclic edges are \(b_qL\) and \(LE_0\), where \(b_q\ge R\) and
+\(E_0\ge R\). Orienting
+the internal pair with the \(R\)-bounded label first, or exchanging the two
+endpoints, gives
+
+\[
+M(C)\ge aR+RL+Lb-ab\ge RL
+=24m^2+14m+2>12m+4.
+\tag{KPG46Q-16}
+\]
+
+The second inequality is the four-corner minimum on \([L,n]^2\). For every
+\(s\ge4\), the uniform internal lower bound \(L\) instead gives
+
+\[
+\begin{aligned}
+M(C)
+&\ge L(a+b)+(s-2)L^2-ab\\
+&\ge2Ln+2L^2-n^2+(s-4)L^2\\
+&=12m^2-1+(s-4)L^2>12m+4.
+\end{aligned}
+\tag{KPG46Q-17}
+\]
+
+The full compressed closing word is
+\(E_{2m-1},A_q,c_q,b_q,L,E_0\). Thus (KPG46Q-14) separately checks the
+two-edge role through \(L\), (KPG46Q-16) checks both closing backbone
+edges, and (KPG46Q-17) covers every longer arc across the cyclic cut.
+Together with the distinct closing-hole gain (KPG46Q-8), this exhausts
+cyclic closure. We have proved
+
+\[
+\boxed{
+\min_{C:\,s\ge2}M(C)=12m+4>0,
+}
+\tag{KPG46Q-18}
+\]
+
+with equality only on \((A_0,c_0,b_0)\) in the fixed forward cyclic
+orientation.
+
+The strict deletion gains (KPG46Q-9), strict shortcut audit
+(KPG46Q-18), and exact lemma (K825-6)--(K825-9) prove that \(B_m\) is the
+unique maximizer among subsets of cardinality at least two. The same lemma
+compared with \(\{n-1,n\}\) gives
+\(P_{\tau_m^\uparrow}(B_m)\ge2n(n-1)>n^2\), so no singleton can tie. This
+proves (KPG46Q-3), including every equality case.
+
+### Exact block sum and five residue classes
+
+Using \(\mathcal C\) from (KPG46-15), the backbone score is
+
+\[
+\begin{aligned}
+P_{\tau_m^\uparrow}(B_m)={}&LE_0
++\sum_{j=0}^{q-1}\mathcal C(E_j,P_j,E_{j+1})\\
+&+\sum_{j=q}^{m-1}\mathcal C(E_j,P_{j+1},E_{j+1})\\
+&+\sum_{j=m}^{2m-2}x_{j+1}(E_j+E_{j+1})
++\mathcal C(E_{2m-1},P_q,L).
+\end{aligned}
+\tag{KPG46Q-19}
+\]
+
+The four repeated summands are
+
+\[
+\begin{aligned}
+\mathcal C(E_j,P_j,E_{j+1})
+&=-8j^2-16mj-16j+192m^2+164m+32,\\
+\mathcal C(E_j,P_{j+1},E_{j+1})
+&=-8j^2-16mj-28j+192m^2+132m+7,\\
+x_{j+1}(E_j+E_{j+1})
+&=2j^2+24mj+15j+64m^2+84m+27,\\
+\mathcal C(E_{2m-1},P_q,L)
+&=176m^2-28mq+122m-4q^2-11q+21.
+\end{aligned}
+\tag{KPG46Q-20}
+\]
+
+Summing \(j\) and \(j^2\) on the exact ranges in (KPG46Q-19) gives
+(KPG46Q-4) directly. Put
+
+\[
+q={4m+c_r\over5},
+\qquad(c_0,c_1,c_2,c_3,c_4)=(0,1,2,3,-1),
+\qquad r=m\bmod5.
+\]
+
+Then the exact five-branch expression is
+
+\[
+K(\tau_m^\uparrow)
+={14300m^3+15699m^2+(5495+72c_r)m
+  +550+80c_r+4c_r^2\over50},
+\tag{KPG46Q-21}
+\]
+
+or, explicitly,
+
+\[
+\begin{array}{c|c|c}
+r&q&50K(\tau_m^\uparrow)\\ \hline
+0&4m/5&14300m^3+15699m^2+5495m+550\\
+1&(4m+1)/5&14300m^3+15699m^2+5567m+634\\
+2&(4m+2)/5&14300m^3+15699m^2+5639m+726\\
+3&(4m+3)/5&14300m^3+15699m^2+5711m+826\\
+4&(4m-1)/5&14300m^3+15699m^2+5423m+474.
+\end{array}
+\tag{KPG46Q-22}
+\]
+
+Each numerator is divisible by \(50\) on its stated residue class because
+it equals the integer block score (KPG46Q-19). Since \(n=10m+3\),
+
+\[
+\boxed{
+K(\tau_m^\uparrow)=286m^3+O(m^2)
+={143\over500}n^3+O(n^2).
+}
+\tag{KPG46Q-23}
+\]
+
+### Exact comparisons and the singleton-inversion contribution
+
+The PG49-star order (PG110) and the monotone order (KPG46Q-1) agree in
+every block except the singleton gaps \(m\le j\le2m-2\). The monotone
+assignment uses \(x_{j+1}=4m+j+3\), while PG49-star uses
+\(x_{3m-1-j}=7m+1-j\). Therefore direct edge cancellation gives
+
+\[
+\begin{aligned}
+K(\tau_m^\uparrow)-K(\tau_m^*)
+&=\sum_{j=m}^{2m-2}
+ (2j-3m+2)(16m+9+2j)\\
+&={m(m-1)(m-2)\over3}
+={ (n-3)(n-13)(n-23)\over3000}>0.
+\end{aligned}
+\tag{KPG46Q-24}
+\]
+
+The individual summands in (KPG46Q-24) have mixed signs; it is their exact
+aggregate, not a gapwise improvement, that is positive. At \(m=3\) the
+gain is already \(2\).
+
+Against the three retained coefficient-\(143/500\) comparators, exact
+subtraction gives
+
+\[
+\begin{aligned}
+K(\tau_m^\uparrow)-K_{825}(m)
+&=2q^2+4mq+8q-5m^2-14m-4,\\
+K(\tau_m^\uparrow)-K_{\rm cl}(m)
+&=-2(m-q)(3m+q+4),\\
+K(\tau_m^\uparrow)-K_{\rm pre}(m)
+&=-2(m-q)(3m+q+4)-6m.
+\end{aligned}
+\tag{KPG46Q-25}
+\]
+
+The first expression is increasing in \(q\), and
+\(q\le(4m+3)/5\), so
+
+\[
+K(\tau_m^\uparrow)-K_{825}(m)
+\le{-13m^2-82m+38\over25}<0.
+\tag{KPG46Q-26}
+\]
+
+Also \(q\le m\), with equality exactly at \(m=3\): for \(m>3\), the
+unfloored quotient \((4m+3)/5\) is already smaller than \(m\). Hence the
+second line of (KPG46Q-25) is zero only at \(m=3\) and is otherwise
+negative; the third is always negative. Combining these signs with
+(KPG46-19) and (KPG46P-18) yields the complete ordering
+
+\[
+K_\uparrow:=K(\tau_m^\uparrow),
+\qquad
+K_*:=K(\tau_m^*),
+\]
+
+where every comparator below is evaluated on the same row \(m\):
+
+\[
+\boxed{
+\begin{array}{ll}
+m=3:&K_*<K_\uparrow=K_{\rm cl}<K_{825}<K_{\rm pre},\\
+4\le m\le6:&K_*<K_\uparrow<K_{\rm cl}<K_{825}<K_{\rm pre},\\
+m\ge7:&K_*<K_\uparrow<K_{825}<K_{\rm cl}<K_{\rm pre}.
+\end{array}}
+\tag{KPG46Q-27}
+\]
+
+At the minimum row, \(q=m=3\), the shifted-triple range in
+(KPG46Q-2) is empty but the two-element singleton block is not. Here
+
+\[
+\alpha_3^\uparrow=(0,1,2,4,5,3),
+\qquad
+\boxed{
+K_*=10905<K_\uparrow=K_{\rm cl}=10907<K_{825}=10920<K_{\rm pre}=10925
+},
+\tag{KPG46Q-28}
+\]
+
+Thus the monotone order literally coincides with closing PG46 only on this
+row. Its unique maximizer is
+\(B_3=\{13,\ldots,33\}\), and its minimum deletion and shortcut margins
+are \(96\) and \(40\), so no minimum-row exception is hidden.
+
+Finally, for each comparator
+\(C\in\{K_{825},K_{\rm cl},K_{\rm pre}\}\), with \(C(m)\) denoting its
+value on the current row, (KPG46Q-24) gives the exact decomposition
+
+\[
+C(m)-K(\tau_m^*)
+=\bigl(C(m)-K(\tau_m^\uparrow)\bigr)
++{m(m-1)(m-2)\over3}.
+\tag{KPG46Q-29}
+\]
+
+The monotone threshold-closing order already weakly improves all three
+comparators: strictly for K825 and preclosing on every row, strictly for
+closing when \(m\ge4\), and with equality to closing at \(m=3\). These
+gains are only \(O(n^2)\), as (KPG46Q-25) shows. The reversed singleton
+block contributes exactly
+
+\[
+{(n-3)(n-13)(n-23)\over3000}
+={n^3\over3000}+O(n^2),
+\]
+
+and therefore accounts for the entire cubic improvement from
+\(858/3000=143/500\) to the PG49-star coefficient \(857/3000\). This is an
+aggregate statement about the two fixed induced-\(K\) scores, not a claim
+that each reversed singleton gap improves separately.
+
+The sole diagnostic for (KPG46Q-1)--(KPG46Q-29) is the standalone
+standard-library script
+`ops/TASK-20260719__pg46_threshold_closing_exact_k/exact_diagnostic.py`.
+It constructs only (KPG46Q-1). On \(m=3,\ldots,30\), an independent
+increasing-path max-plus recurrence checks the unique maximizing subset, and
+an all-oriented-arc scan checks every isolated-hole gain and every
+nontrivial compressed shortcut, including cyclic-cut arcs. Lighter exact
+formula, Ferrers, residue, inversion, and comparator checks continue through
+\(m=1000\). It enumerates no subset, path permutation, matching, or family
+of cyclic orders. The bounded computation corroborates the symbolic proof
+and does not extend its scope.
+
+All results in this section concern \(K\) on one prescribed cyclic core
+order. They imply no exact angular-threshold comparison, geometric result,
+global \(K\)-minimality, or minimizing-order classification.

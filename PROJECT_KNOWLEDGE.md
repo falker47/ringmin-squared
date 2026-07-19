@@ -2743,6 +2743,40 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   all have coefficient \(857/3000\) in \(n\). This value is strictly below
   K825 and both PG46 values for every \(m\ge3\), with no tie. The theorem is
   fixed-order and combinatorial; it implies no geometric or global optimum.
+- EXACT MONOTONE THRESHOLD-CLOSING PG46 CORE-ORDER THEOREM: on the same
+  \(n=10m+3\), \(m\ge3\), rows, put
+  \(q=\lfloor(4m+3)/5\rfloor=\kappa_{2m-1}\) and specialize (PG46) to
+  \((q,2m-1)\). The resulting bijection places \(P_q\) in the closing gap
+  and leaves every residual path increasing. Its complete maximizer set is
+  \[
+  \operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P(U)
+  =\bigl\{B_m\bigr\},
+  \qquad B_m=\{4m+1,\ldots,10m+3\},
+  \]
+  and
+  \[
+  K={572m^3+619m^2+8mq+207m+4q^2+16q+22\over2}.
+  \]
+  The seven deletion-gain classes have unique minimum \(28m+12\), while
+  the exhaustive compressed-shortcut audit has unique minimum \(12m+4\).
+  The closing low \(\lambda_{2m-1}=2\), retained role \(b_q-L-E_0\), every
+  longer cut-crossing arc, and \(m=3\) are separate. All five
+  \(m\bmod5\) branches retain coefficient \(143/500\). The exact
+  comparisons are
+  \[
+  K_\uparrow-K_*={m(m-1)(m-2)\over3}>0,
+  \]
+  \[
+  K_\uparrow-K_{825}<0,\qquad
+  K_\uparrow-K_{\rm cl}\le0,\qquad
+  K_\uparrow-K_{\rm pre}<0,
+  \]
+  with equality only in the middle comparison at \(m=3\). Since the
+  PG49-star and monotone orders differ only on the singleton block, its
+  reversal supplies exactly the complete cubic gain
+  \((n-3)(n-13)(n-23)/3000\); individual gap deltas have mixed signs. These
+  are fixed-order combinatorial results, with no angular, geometric, or
+  global-minimizer consequence.
 - VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the standalone
   standard-library script in
   ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
@@ -2822,6 +2856,17 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   formula, and comparator checks continue through \(m=1000\). It enumerates
   no subset, path permutation, or matching. The finite check corroborates
   rather than proves the symbolic theorem.
+- VERIFIED FACT (FINITE EXACT MONOTONE THRESHOLD-CLOSING K DIAGNOSTIC): the
+  sole standalone standard-library script in
+  ops/TASK-20260719__pg46_threshold_closing_exact_k/ directly constructs
+  only \(\alpha_{q,2m-1}\). For \(m=3,\ldots,30\), its increasing-path
+  max-plus DP checks the exact score and unique backbone, while its
+  all-oriented-arc audit checks every low gain and compressed shortcut,
+  including the cyclic cut. It performs 36,989,498 DP transitions and checks
+  958,916 proper oriented arcs. Formula, residue, Ferrers, inversion, and
+  comparator checks continue through \(m=1000\). It enumerates no subset,
+  path permutation, matching, or order family. This finite result
+  corroborates rather than proves the all-\(m\) theorem.
 - OPEN QUESTION: for which \(n\ge94\) is the minimizer inclusion strict? No
   persistence from \(n=93\) onward is claimed; the sufficient equality
   criterion already holds again at \(n=94\).
@@ -3309,6 +3354,18 @@ Candidate-set extraction uses the following finite-certificate semantics.
   equality case, and cyclic-closing role is explicit. One bounded direct
   max-plus/shortcut diagnostic enumerates no subset, path permutation, or
   matching; no geometric or global conclusion is inferred.
+- COMPLETED PRIORITY: the paired monotone PG46 interval shift
+  \(\alpha_{q,2m-1}\) now has an exact all-\(m\) theorem. It places the same
+  threshold path \(P_q\) in the closing gap while leaving every other path
+  increasing. Its sole maximizing subset is \(B_m\), and its five exact
+  formulas retain coefficient \(143/500\). It beats K825 and preclosing on
+  every row, beats closing from \(m=4\) onward, and ties closing only at
+  \(m=3\). Its exact PG49-star excess is
+  \(m(m-1)(m-2)/3\), proving that singleton reversal supplies the whole
+  cubic \(n^3/3000\) PG49-star advantage. Seven deletion-gain classes,
+  every shortcut length, both cyclic-closing roles, and the minimum row are
+  explicit. One bounded standard-library diagnostic corroborates without
+  subset, path-permutation, or matching enumeration.
 - COMPLETED PRIORITY: the canonical eight-twenty-fifths core order now has an
   exact all-domain \(K\) theorem. The symbolic maximizer is the tail from
   \(2v+1\), with connector \(2v+2\) additionally removed exactly for
@@ -3329,13 +3386,11 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \(21n^2/100+O(n)\). The proof covers every shortcut and the \(k=2,3,4\)
   path boundaries; one bounded standard-library diagnostic changes no
   production or test path.
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, evaluate the monotone PG46
-  interval shift placing the same threshold path
-  \(P_q\), \(q=\lfloor(4m+3)/5\rfloor\), in the closing gap while leaving
-  the remaining paths increasing. Determine exactly which PG49-star gain
-  comes from reversing the singleton block, with all maximizers, five residue
-  formulas, complete shortcut/closure audit, and no geometric or global
-  minimizing-order inference.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, classify the exact
+  Diophantine zero-gain set \(\mathcal Z_m\) for the descending-min PG49
+  order. Determine whether zero rows are finite or infinite and characterize
+  both \(L_{m,j}=0\) and \(R_{m,j}=0\) under the plateau inequalities from
+  (KPGMIN-21), without inferring an all-\(m\) result from bounded sweeps.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order

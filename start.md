@@ -1565,6 +1565,27 @@ The proof audits every deletion gain and compressed shortcut, including both
 roles of the cyclic closure. This is a fixed-core-order theorem only; it
 proves no geometric or global optimality statement.
 
+The paired monotone interval shift is now exact as well. With the same
+\(q=\lfloor(4m+3)/5\rfloor\), use (PG46) to send \(P_q\) to the closing
+gap while leaving all other paths in increasing order. Its sole maximizing
+subset is the same \(B_m\), and
+\[
+K={572m^3+619m^2+8mq+207m+4q^2+16q+22\over2}.
+\]
+The five residue branches retain coefficient \(143/500\). This value is
+strictly below K825 and preclosing PG46 on every row, below closing PG46 for
+\(m\ge4\), and equal to closing PG46 only at \(m=3\). PG49-star is smaller
+by exactly
+\[
+{m(m-1)(m-2)\over3}
+={ (n-3)(n-13)(n-23)\over3000}.
+\]
+The two orders differ only on the singleton block, so its reversal supplies
+the whole cubic improvement from \(143/500\) to \(857/3000\), although the
+individual gap contributions have mixed signs. The deletion, shortcut, and
+cyclic-closure proof is exact and has no angular, geometric, or global
+optimality consequence.
+
 Separately, prior global results disprove the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\). The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also disproved.
@@ -3108,6 +3129,31 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   five residue formulas have coefficient \(857/3000\) in \(n\). The value
   strictly improves K825 and both PG46 orders for every admitted row, with no
   tie. These are fixed-order combinatorial statements only.
+- EXACT MONOTONE THRESHOLD-CLOSING PG46 THEOREM: put
+  \(q=\lfloor(4m+3)/5\rfloor\) and specialize (PG46) to
+  \((q,2m-1)\). The resulting assignment moves \(P_q\) to the closing gap
+  and leaves every other path increasing. Its complete induced-subset
+  classification is
+  \[
+  \operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P(U)
+  =\bigl\{\{4m+1,\ldots,10m+3\}\bigr\},
+  \]
+  and
+  \[
+  K={572m^3+619m^2+8mq+207m+4q^2+16q+22\over2}.
+  \]
+  Seven exhaustive deletion-gain classes have unique minimum \(28m+12\),
+  and every nontrivial compressed shortcut is positive with unique minimum
+  \(12m+4\). The closing hole and retained \(b_q-L-E_0\) role are audited
+  separately. All five residue formulas have coefficient \(143/500\) in
+  \(n\). Exact subtraction gives
+  \[
+  K_\uparrow-K_*={m(m-1)(m-2)\over3},
+  \]
+  so reversal of the singleton block supplies exactly the entire cubic
+  PG49-star improvement. The monotone order is below K825 and preclosing on
+  every row, below closing for \(m\ge4\), and tied with closing only at
+  \(m=3\). No angular, geometric, or global-minimizer conclusion follows.
 - VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the sole standalone
   standard-library script in
   ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
@@ -3179,6 +3225,17 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   Ferrers, formula, and comparator checks continue through \(m=1000\). It
   enumerates no subset, path permutation, or matching. This bounded
   computation corroborates rather than proves the all-\(m\) theorem.
+- VERIFIED FACT (FINITE EXACT MONOTONE THRESHOLD-CLOSING K DIAGNOSTIC): the
+  sole standalone standard-library script in
+  ops/TASK-20260719__pg46_threshold_closing_exact_k/ constructs only
+  \(\alpha_{q,2m-1}\). On \(m=3,\ldots,30\), its increasing-path max-plus
+  DP checks the exact score and unique backbone, while a direct audit checks
+  all 958,916 proper oriented arcs, including every nontrivial shortcut and
+  cyclic-cut arc. It performs 36,989,498 max-plus transitions. Ferrers,
+  residue, inversion-delta, formula, and comparator checks continue through
+  \(m=1000\). It enumerates no subset, path permutation, matching, or order
+  family. The bounded computation corroborates rather than proves the
+  symbolic theorem.
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
   \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved

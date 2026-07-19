@@ -55,6 +55,23 @@ The five \(m\bmod5\) branches all have fixed-family coefficient
 \(857/3000\) in \(n\), and the value is strictly below K825 and both PG46
 orders for every \(m\ge3\). This is a fixed core-order theorem; no geometric
 or global-optimality inference is made.
+The paired monotone shift \(\alpha_{q,2m-1}\) is now classified too. It
+places the same \(P_q\) in the closing gap while keeping every other path
+in increasing order. Its sole maximizing subset is \(B_m\), and
+\[
+K={572m^3+619m^2+8mq+207m+4q^2+16q+22\over2}.
+\]
+All five residue branches retain coefficient \(143/500\). The order beats
+K825 and preclosing PG46 on every row, beats closing PG46 for \(m\ge4\),
+and ties closing only at \(m=3\). Since it differs from PG49-star solely by
+the singleton order,
+\[
+K_\uparrow-K_*={m(m-1)(m-2)\over3}
+={ (n-3)(n-13)(n-23)\over3000}.
+\]
+Thus singleton reversal supplies the complete cubic PG49-star gain; this is
+an aggregate fixed-order statement, not a gapwise, geometric, or global
+claim.
 One explicit parametric perturbation of the matching \(8/25\) construction
 is now closed as well. On \(n=10m+3\), reversing the outer entries of one
 triple has score \(T\) for every nonzero triple index and
@@ -2732,14 +2749,18 @@ Immediate:
   coefficient \(857/3000\), and the order strictly beats K825 and both PG46
   witnesses on every row. One bounded standard-library max-plus/shortcut
   diagnostic enumerates no subset, path permutation, or matching.
+- The monotone threshold-closing PG46 task is complete. The shift
+  \(\alpha_{q,2m-1}\) has the same unique backbone \(B_m\), exact five-
+  residue score (KPG46Q-21)--(KPG46Q-22), and coefficient \(143/500\).
+  Seven deletion-gain classes have unique minimum \(28m+12\), and the
+  complete shortcut audit has unique minimum \(12m+4\); the closing hole,
+  retained \(b_q-L-E_0\) role, and every cut-crossing length are explicit.
+  Its exact excess over PG49-star is \(m(m-1)(m-2)/3\), isolating the entire
+  cubic contribution of singleton reversal. The sole bounded diagnostic
+  enumerates no subset, path permutation, or matching.
 
 Next:
 
-- Evaluate the corresponding monotone PG46 interval shift that places the
-  same threshold path \(P_q\) in \(G_{2m-1}\), keeping the remaining paths
-  in increasing order. Determine exactly which part of the PG49-star gain is
-  caused by reversing the singleton block, with the same complete shortcut
-  and cyclic-closure audit and no global-optimality inference.
 - Classify the Diophantine zero-gain set \(\mathcal Z_m\) for the
   descending-min PG49 order: determine whether zero rows are finite or
   infinite and characterize both \(L_{m,j}=0\) and \(R_{m,j}=0\) under the
@@ -2778,16 +2799,16 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: evaluate the monotone threshold-closing PG46 shift paired with the
-PG49-star order.
+Task: classify the Diophantine zero-gain set for the descending-min PG49
+order.
 
 Acceptance criteria:
 
-- fix the one PG46 interval shift \(\alpha_{q,2m-1}\) from (PG46), with
-  \(q=\lfloor(4m+3)/5\rfloor\), before scoring;
-- determine its exact \(K\), all maximizing subsets, five residue formulas,
-  and comparisons with PG49-star, K825, and both existing PG46 witnesses;
-- audit every deletion gain and compressed shortcut, including closure, with
-  at most one bounded standard-library diagnostic and no subset, matching,
-  or permutation enumeration;
-- infer no geometric or global minimizing-order conclusion.
+- start from the exact plateau constraints and gain formulas
+  (KPGMIN-19)--(KPGMIN-21), retaining both \(L_{m,j}\) and \(R_{m,j}\);
+- determine whether the set of zero-gain rows is finite or infinite and give
+  a rigorous parameterization or obstruction in either case;
+- preserve the known exact large \(L_{m,j}=0\) witness and actively test for
+  missing right-hole or boundary families;
+- use bounded computation only diagnostically, never to infer the all-row
+  classification, and infer no geometric or global minimizing-order result.
