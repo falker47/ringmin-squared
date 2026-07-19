@@ -2594,7 +2594,7 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   Consequently
   \[
   \log\mathsf F_m^{\rm lab}
-  =2m\log m+C_{\rm F}m+O(\log m).
+  =2m\log m+C_{\rm F}m+{3\over4}\log m+O(1).
   \]
   The proof first writes each integer factor as an exact floor of the literal
   no-ceiling factor, then compares with
@@ -2603,15 +2603,20 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   {(2m-1)!(6m-1)!(8m)!\over(4m)!(10m-1)!},
   \]
   which isolates the \(j/m\to0\) singularity. Monotone integral bounds give
-  the displayed all-\(m\) envelope. The direct ceiling/no-ceiling delta has
-  the correct nonpositive sign and magnitude \(O(\log m)\); it is distinct
-  from the positive lower-comparator correction. The forced zero factor,
-  first positive factor, both terminal columns, universal-row threshold,
-  triple/singleton transition, and terminal singleton are explicit.
-  This theorem concerns the labelled count. The equal cardinality of the
-  represented canonical image is only a corollary of prior injectivity, not a
-  quotient; no finer \(\log m\) coefficient or geometric conclusion is
-  established.
+  the displayed all-\(m\) envelope. Stirling gives logarithmic coefficient
+  \(-1/2\) for the factorial product, the smooth perturbation converges with
+  coefficient zero, and an exact parity reduction plus a jump-inclusive
+  dyadic sawtooth estimate gives \(5/4\) for
+  \(\sum_j\log(a_{m,j}/c_{m,j})\). The signed direct
+  ceiling/no-ceiling delta is instead
+  \(-\tfrac34\log m+O(1)\). The ranges \(j\le\sqrt m\),
+  \(\sqrt m<j\le m/2\), and \(j>m/2\), exact cutoff hits, the forced and
+  first positive factors, both terminal columns, every class modulo five,
+  the universal-row threshold, triple/singleton transition, and terminal
+  singleton are explicit. This theorem concerns the labelled count. The
+  equal cardinality of the represented canonical image is only a corollary
+  of prior injectivity, not a quotient; convergence of the bounded remainder
+  and every geometric conclusion remain unproved.
 - EXACT CLOSING-PG46 CORE-ORDER THEOREM: on \(n=10m+3\), \(m\ge3\), let
   \(\alpha(j)=j\) for \(j<m\), \(\alpha(j)=j+1\) for
   \(m\le j<2m-1\), and \(\alpha(2m-1)=m\). For the corresponding core
@@ -3157,13 +3162,17 @@ Candidate-set extraction uses the following finite-certificate semantics.
 - COMPLETED PRIORITY: the exact Ferrers product now gives
   \[
   \log\mathsf F_m^{\rm lab}
-  =2m\log m+(14\log2+6\log3-10\log5-2)m+O(\log m)
+  =2m\log m+(14\log2+6\log3-10\log5-2)m
+  +{3\over4}\log m+O(1)
   \]
-  with explicit lower and upper residual bounds for every \(m\ge3\). The
-  proof controls the ceiling, singular endpoint, terminal columns, and
-  triple/singleton transition directly. One standalone growing-row residual
-  diagnostic uses neither permutation nor matching enumeration. The theorem
-  is labelled and has no geometric consequence.
+  while retaining the prior explicit lower and upper residual bounds for
+  every \(m\ge3\). The coefficient splits as \(-1/2+0+5/4\) across the
+  factorial product, smooth perturbation, and rounding. A uniform
+  jump-inclusive sawtooth lemma controls the singular, intermediate, bulk,
+  residue, and endpoint regions. Two standalone formula diagnostics use
+  neither permutation nor matching enumeration. The theorem is labelled,
+  makes no claim that the bounded remainder converges, and has no geometric
+  consequence.
 - COMPLETED PRIORITY: the closing PG46 core order now has an exact all-\(m\)
   induced-\(K\) theorem. Its sole maximizing subset is the tail from \(4m+1\),
   its score is \((572m^3+631m^2+223m+22)/2\), and its exact K825 difference
@@ -3201,10 +3210,10 @@ Candidate-set extraction uses the following finite-certificate semantics.
   path boundaries; one bounded standard-library diagnostic changes no
   production or test path.
 - RECOMMENDED NEXT TASK: in a fresh STRICT task, determine whether the
-  ceiling correction admits a precise logarithmic coefficient, and hence
-  whether PG85 can be sharpened to
-  \(2m\log m+C_{\rm F}m+\gamma\log m+O(1)\), without inferring such a
-  coefficient from the bounded diagnostic.
+  bounded residual after subtracting the proved
+  \((3/4)\log m\) term converges, has distinct limit points, or admits an
+  explicit finer obstruction. Do not infer convergence from the bounded
+  formula-only diagnostic.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order

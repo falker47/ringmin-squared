@@ -2675,12 +2675,16 @@ Immediate:
   monotone integral bounds give
   \[
   \log\mathsf F_m^{\rm lab}
-  =2m\log m+(14\log2+6\log3-10\log5-2)m+O(\log m)
+  =2m\log m+(14\log2+6\log3-10\log5-2)m
+  +{3\over4}\log m+O(1)
   \]
-  with an explicit all-\(m\) envelope. The proof and one standalone
-  growing-row diagnostic keep ceiling, singular, endpoint, and
-  triple/singleton effects separate and use no permutation or matching
-  enumeration. The result is labelled and non-geometric.
+  while retaining the explicit all-\(m\) envelope. The proof separates the
+  \(-1/2\) factorial coefficient, zero smooth-perturbation coefficient, and
+  \(5/4\) rounding coefficient. A jump-inclusive sawtooth estimate treats
+  the singular, intermediate, bulk, residue, and endpoint regions uniformly.
+  Two standalone formula diagnostics use no permutation or matching
+  enumeration. The result is labelled and non-geometric; convergence of the
+  bounded remainder is not established.
 - The closing-PG46 induced-\(K\) task is complete. The unique maximizer is
   \(\{4m+1,\ldots,10m+3\}\), the exact score is
   \((572m^3+631m^2+223m+22)/2\), and its K825 difference is
@@ -2698,10 +2702,10 @@ Immediate:
 
 Next:
 
-- Determine whether the ceiling correction has a precise logarithmic
-  coefficient and whether the Ferrers theorem can be sharpened to a
-  \(\gamma\log m+O(1)\) remainder. Do not infer convergence from the bounded
-  residual table.
+- Determine whether the bounded Ferrers residual after subtracting the
+  proved \((3/4)\log m\) term converges, has distinct limit points, or has an
+  explicit finer obstruction. Do not infer convergence from the bounded
+  formula table.
 - Seek a geometric all-pairs construction or lower obstruction that narrows
   the remaining coefficient gap without relying on larger exhaustive finite
   certificates.
@@ -2732,14 +2736,18 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: determine whether the ceiling correction has a precise logarithmic
-coefficient in \(\log\mathsf F_m^{\rm lab}\).
+Task: determine the finer behavior of the bounded Ferrers residual after the
+proved logarithmic term.
 
 Acceptance criteria:
 
-- derive a symbolic asymptotic for the direct ceiling/no-ceiling correction,
-  or preserve an explicit unresolved obstruction if no coefficient exists;
-- decide rigorously whether the PG85 remainder is
-  \(\gamma\log m+O(1)\), without extrapolating the finite residual table;
+- decide rigorously whether
+  \[
+  \log\mathsf F_m^{\rm lab}
+  -2m\log m-C_{\rm F}m-{3\over4}\log m
+  \]
+  converges, has distinct limit points, or admits another explicit
+  obstruction;
+- do not extrapolate convergence from the bounded formula-only diagnostic;
 - keep the labelled count, canonical-image interpretation, and geometry
   separate, with no permutation or matching enumeration.

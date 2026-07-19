@@ -1489,13 +1489,24 @@ and therefore
 \[
 \log\mathsf F_m^{\rm lab}=2m\log m+C_{\rm F}m+O(\log m).
 \]
-The proof treats the literal ceiling/no-ceiling delta separately from its
-lower comparator, factors the singular \(j/m\to0\) range exactly, and keeps
-the forced, first positive, terminal, and triple/singleton boundaries. A
-standalone growing-row diagnostic sums the exact product factors directly
-and audits the comparison factors. This is a labelled-count theorem;
-canonical injectivity remains a downstream interpretation, and no geometric
-conclusion follows.
+The logarithmic remainder is now sharp:
+\[
+\boxed{
+\log\mathsf F_m^{\rm lab}
+=2m\log m+C_{\rm F}m+{3\over4}\log m+O(1).
+}
+\]
+The exact factorial product contributes \(-\tfrac12\log m\), the smooth
+perturbation converges to a constant, and the floor/ceiling rounding
+contributes \(\tfrac54\log m+O(1)\). The rounding proof treats
+\(j\le\sqrt m\), the intermediate phase-cycling range, the bulk, exact
+cutoff hits, all five terminal residue classes, and both endpoints
+separately. The signed literal ceiling/no-ceiling change is instead
+\(-\tfrac34\log m+O(1)\). Two standalone formula diagnostics sum only the
+explicit factors and audit the comparison components. This is a
+labelled-count theorem; canonical injectivity remains a downstream
+interpretation, and no geometric conclusion follows. Convergence of the
+remaining bounded term is not claimed.
 
 One of the two sharp PG46 witnesses is now evaluated exactly for the
 induced-subset objective. For the shift that sends \(P_m\) to the closing gap
@@ -2992,12 +3003,21 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   <{9\over4}+\log\bigl(2m(2m+1)\bigr).
   \]
   Hence
-  \(\log\mathsf F_m^{\rm lab}=2m\log m+C_{\rm F}m+O(\log m)\).
-  The ceiling, singular endpoint, terminal columns, and triple/singleton row
-  transition are controlled separately. The primary object is the labelled
-  count; equality with the represented canonical image is only by prior
-  injectivity. No finer logarithmic coefficient or geometric statement is
-  claimed.
+  \[
+  \boxed{
+  \log\mathsf F_m^{\rm lab}
+  =2m\log m+C_{\rm F}m+{3\over4}\log m+O(1).
+  }
+  \]
+  The coefficient \(3/4\) splits as \(-1/2+0+5/4\) from the exact
+  factorial product, the smooth perturbation, and the lower-comparator
+  rounding. A jump-inclusive sawtooth estimate controls the singular,
+  intermediate, bulk, exact-cutoff, residue-class, and endpoint regions.
+  The direct ceiling/no-ceiling correction is
+  \(-\tfrac34\log m+O(1)\). The primary object is the labelled count;
+  equality with the represented canonical image is only by prior
+  injectivity. No convergence of the bounded remainder and no geometric
+  statement is claimed.
 - EXACT CLOSING-PG46 CORE-ORDER THEOREM: for the PG46 bijection placing
   \(P_m\) in \(G_{2m-1}\), the exact induced-subset argmax is the singleton
   family \(\{\{4m+1,\ldots,10m+3\}\}\), and

@@ -5745,8 +5745,361 @@ in PG64. The already proved canonical injectivity only identifies the same
 number with the cardinality of the represented image of scaffold orders; it
 is not a symmetry quotient and plays no role in the asymptotic proof. The
 result gives no count for alternative scaffolds and no geometric conclusion.
-The \(O(\log m)\) theorem does not determine a finer coefficient of
-\(\log m\).
+The bounds in (PG84)--(PG85) alone do not determine a finer coefficient of
+\(\log m\); the following argument supplies that missing coefficient.
+
+### Sharp logarithmic coefficient for the exact Ferrers count
+
+We retain the exact decomposition (PG80), including its signs:
+
+\[
+\log\mathsf F_m^{\rm lab}=\log Z_m+\Delta_m+\Theta_m,
+\qquad
+\Delta_m=\sum_{j=1}^{2m-1}\log{c_{m,j}\over r_{m,j}},
+\qquad
+\Theta_m=\sum_{j=1}^{2m-1}\log{a_{m,j}\over c_{m,j}}.
+\tag{PG86}
+\]
+
+The first two terms have ordinary smooth expansions. From the exact gamma
+quotient in (PG80) and Stirling's formula, used only at positive multiples of
+\(m\),
+
+\[
+\boxed{
+\log Z_m
+=2m\log m+C_{\rm F}m-{1\over2}\log m
++{1\over2}\log{10\pi\over3}
++{53\over1440m}+O(m^{-3}).
+}
+\tag{PG87}
+\]
+
+Indeed, for \(a>0\) fixed and \(\epsilon\in\{0,1\}\),
+\[
+\log\Gamma(am+\epsilon)
+=am(\log m+\log a-1)
++(\epsilon-\tfrac12)(\log m+\log a)
++\tfrac12\log(2\pi)+{1\over12am}+O(m^{-3}),
+\]
+and the five signed gamma factors are
+\(\Gamma(2m)\Gamma(6m)\Gamma(8m+1)/
+[\Gamma(4m+1)\Gamma(10m)]\). Thus the complete singular behavior near
+\(j/m=0\) is already contained in an exact factorial product; no pointwise
+endpoint expansion is being made there.
+
+For the perturbation, put
+
+\[
+\alpha(x)={5\over2(x+4)},
+\qquad
+\beta(x)={4\over x+8}.
+\]
+
+Uniformly for \(0\le x\le2\), (PG78) gives
+
+\[
+\log{c_{m,j}\over r_{m,j}}
+={\alpha(j/m)-\beta(j/m)\over m}
+-{\alpha(j/m)^2-\beta(j/m)^2\over2m^2}
++O(m^{-3}).
+\tag{PG88}
+\]
+
+Put \(g=\alpha-\beta\) and \(w=\alpha^2-\beta^2\). The composite
+trapezoidal estimate, with both omitted endpoint half-weights kept, and the
+ordinary Riemann estimate give
+
+\[
+{1\over m}\sum_{j=1}^{2m-1}g(j/m)
+=\int_0^2g(x)\,dx-{g(0)+g(2)\over2m}+O(m^{-2}),
+\]
+
+\[
+{1\over m}\sum_{j=1}^{2m-1}w(j/m)
+=\int_0^2w(x)\,dx+O(m^{-1}).
+\]
+
+Here
+
+\[
+(\alpha-\beta)(0)={1\over8},
+\qquad
+(\alpha-\beta)(2)={1\over60},
+\qquad
+\int_0^2(\alpha^2-\beta^2)\,dx={29\over240}.
+\]
+
+Thus the coefficient of \(m^{-1}\) is
+\(-\tfrac12(1/8+1/60)-\tfrac12(29/240)=-21/160\).
+
+It follows that
+
+\[
+\boxed{
+\Delta_m
+=D_0-{21\over160m}+O(m^{-2}),
+\qquad
+D_0={5\over2}\log{3\over2}-4\log{5\over4}.
+}
+\tag{PG89}
+\]
+
+This estimate is uniform at both ends. If \(K=o(m)\), each summand with
+\(j\le K\) is
+\(1/(8m)+O(j/m^2+m^{-2})\), while each summand with
+\(2m-j\le K\) is
+\(1/(60m)+O((2m-j)/m^2+m^{-2})\). Either endpoint region therefore
+contributes \(o(1)\); the global trapezoidal estimate supplies the integral
+in (PG89) uniformly across the remaining indices. There is no floor,
+ceiling, or residue-class dependence in this perturbation.
+
+It remains to analyze the only nonsmooth term, \(\Theta_m\). Put
+\(D=8m+4\) and use the exact identity
+
+\[
+c_{m,j}={j\over2}+\delta_m(j),
+\qquad
+\delta_m(x)={x(x+1)\over2(D+x)},
+\qquad
+e_{m,j}:=a_{m,j}-c_{m,j}=1-\{c_{m,j}\}.
+\tag{PG90}
+\]
+
+Here \(1-\{c\}=1\) when \(c\) is an integer, exactly as required by
+\(a=1+\lfloor c\rfloor\). If \(G(t)=1-\{t\}\), then
+
+\[
+e_{m,j}=
+\begin{cases}
+G(\delta_m(j)),&j\ \text{even},\\
+G(\delta_m(j)+\tfrac12),&j\ \text{odd}.
+\end{cases}
+\]
+
+Since \(0<e_{m,j}\le1\), the elementary inequality
+\(0\le x-\log(1+x)\le x^2/2\), together with
+
+\[
+{2\over j}-{1\over c_{m,j}}
+={2(j+1)\over j(2j+8m+5)},
+\]
+
+shows, uniformly in \(m\), that
+
+\[
+\boxed{
+\Theta_m
+=2\sum_{j=1}^{2m-1}{e_{m,j}\over j}+O(1).
+}
+\tag{PG91}
+\]
+
+Both discarded error sums are bounded: the logarithmic Taylor error is at
+most a constant times \(\sum j^{-2}\), and the displayed reciprocal
+difference sums to \(O(1)\).
+
+First consider the slow initial region. Let
+\(J=\lfloor\sqrt m\rfloor\). For \(j\le J\),
+\(0<\delta_m(j)<1/2\), and hence
+
+\[
+e_{m,j}=
+\begin{cases}
+1-\delta_m(j),&j\ \text{even},\\
+\tfrac12-\delta_m(j),&j\ \text{odd}.
+\end{cases}
+\]
+
+Moreover
+
+\[
+\sum_{j\le J}{\delta_m(j)\over j}
+={1\over2}\sum_{j\le J}{j+1\over D+j}=O(1).
+\]
+
+Separating the two parity classes in the harmonic sum therefore gives
+
+\[
+\boxed{
+\sum_{j\le J}{e_{m,j}\over j}
+={3\over4}\log J+O(1)
+={3\over8}\log m+O(1).
+}
+\tag{PG92}
+\]
+
+The scale above \(\sqrt m\) requires a uniform floor/ceiling estimate. We
+use the following elementary sawtooth lemma. Let
+\(\psi(t)=1/2-\{t\}\), with \(\psi(k)=1/2\) at integers. If
+\(\phi\) is increasing and convex on an integer block of length at most
+\(X\), and
+
+\[
+0<\lambda\le\phi'(x)\le d<1,
+\]
+
+then every partial sum on that block satisfies
+
+\[
+\left|\sum\psi(\phi(k))\right|
+\le C\left(Xd+{1\over\lambda}+1\right)
+\tag{PG93}
+\]
+
+for an absolute constant \(C\). To prove this, compare the sum with the
+integral over the corresponding unit cells. A cell not crossing an integer
+of the phase costs at most \(d\), while on semi-open unit cells the number
+of cells meeting a jump is \(O(Xd+1)\); this also includes samples lying
+exactly at a jump. In the integral, the change of variable \(t=\phi(x)\)
+produces the decreasing weight
+\(1/\phi'(\phi^{-1}(t))\). Integration by parts against the bounded
+one-periodic primitive of \(\psi\) costs at most a constant times
+\(1/\lambda\), proving (PG93).
+
+The phase in (PG90) has
+
+\[
+\delta_m'(x)
+={x^2+2Dx+D\over2(D+x)^2},
+\qquad
+\delta_m''(x)={D(D-1)\over(D+x)^3}>0,
+\qquad
+{x\over2(D+x)}
+\le\delta_m'(x)
+\le{2x+1\over2(D+x)}.
+\tag{PG94}
+\]
+
+Apply (PG93) separately to the phases
+\(\delta_m(2k)\) and
+\(\delta_m(2k-1)+1/2\). On a dyadic block \(j\asymp X\), with
+\(J<j\le B:=\lfloor m/2\rfloor\), (PG94) gives
+\(\lambda\asymp X/m\) and \(d\asymp X/m<1\). Thus the unweighted
+centered partial sums are
+\(O(X^2/m+m/X)\). Abel summation with weight \(1/j\) makes the block
+contribution
+
+\[
+O\left({X\over m}+{m\over X^2}\right).
+\]
+
+The sum of these bounds over \(X=J,2J,4J,\ldots,B\) is \(O(1)\). Hence,
+uniformly over both parities and all exact cutoff hits,
+
+\[
+\sum_{J<j\le B}{e_{m,j}-1/2\over j}=O(1),
+\qquad
+\sum_{J<j\le B}{e_{m,j}\over j}
+={1\over2}\log{B\over J}+O(1)
+={1\over4}\log m+O(1).
+\tag{PG95}
+\]
+
+This covers every growing sublinear regime above \(\sqrt m\). The true bulk
+needs no equidistribution assertion: because \(0<e_{m,j}\le1\),
+
+\[
+0<\sum_{B<j\le2m-1}{e_{m,j}\over j}
+\le\sum_{B<j\le2m-1}{1\over j}=O(1).
+\]
+
+Combining this with (PG92), (PG95), and (PG91) proves the sharp rounding
+estimate
+
+\[
+\boxed{
+\sum_{j=1}^{2m-1}{e_{m,j}\over j}
+={5\over8}\log m+O(1),
+\qquad
+\Theta_m={5\over4}\log m+O(1).
+}
+\tag{PG96}
+\]
+
+The arithmetic boundary cases do not hide another logarithm. An odd \(j\)
+cannot satisfy \(\delta_m(j)+1/2\in\mathbb Z\): it would make
+\(j(j+1)/(D+j)\) an odd integer, whereas division by the odd number
+\(D+j\) cannot remove the factor two from \(j+1\). For even \(j\), exact
+hits can occur, but strict monotonicity gives at most one hit for each
+integer level \(q\). Since
+\(\delta_m(j)\le j(j+1)/(16m+8)\), its hit index satisfies
+\(j_q\gg\sqrt{mq}\); moreover
+\(q\le\delta_m(2m-1)<m/5\). Consequently
+\(\sum_q1/j_q=O(1)\). This agrees with, and is already covered by, the
+jump-inclusive proof of (PG93).
+
+The two right endpoint factors exhibit all five residue classes explicitly.
+For \(m=5u+r\),
+
+\[
+\begin{array}{c|cc}
+r&a_{m,2m-2}&a_{m,2m-1}\\ \hline
+0&6u-1&6u\\
+1&6u&6u+1\\
+2&6u+2&6u+2\\
+3&6u+3&6u+3\\
+4&6u+4&6u+5
+\end{array}
+\tag{PG97}
+\]
+
+Each corresponding \(\log(a_{m,j}/c_{m,j})\) is \(O(m^{-1})\), because
+\(c_{m,j}>j/2\) and \(0<e_{m,j}\le1\). At the left endpoint,
+
+\[
+a_{m,1}=1,
+\qquad
+c_{m,1}={1\over2}+{1\over8m+5},
+\]
+
+so its contribution is \(\log2+O(m^{-1})\); column zero remains the forced
+unit factor outside (PG86). Thus neither endpoint, any class modulo five, nor
+an exact internal cutoff changes (PG96).
+
+Finally, (PG87), (PG89), and (PG96) give the requested theorem:
+
+\[
+\boxed{
+\log\mathsf F_m^{\rm lab}
+=2m\log m+C_{\rm F}m+{3\over4}\log m+O(1).
+}
+\tag{PG98}
+\]
+
+Thus the logarithmic coefficient exists and is uniquely
+\(\gamma=3/4\). Equivalently,
+
+\[
+{\log\mathsf F_m^{\rm lab}-(2m\log m+C_{\rm F}m)\over\log m}
+\longrightarrow{3\over4}.
+\]
+
+The three contributions to this coefficient are respectively
+\(-1/2\) from \(Z_m\), zero from \(c_{m,j}/r_{m,j}\), and \(5/4\) from
+the rounding \(a_{m,j}/c_{m,j}\). This bounded-remainder theorem does not
+assert that the remaining \(O(1)\) term converges.
+
+For comparison with the literal removal of the ceiling, recall
+\(s_{m,j}=c_{m,j}+1\). The same reciprocal estimates used in (PG91) give
+
+\[
+\sum_{j=1}^{2m-1}\log{s_{m,j}\over c_{m,j}}
+=2\log m+O(1),
+\qquad
+\boxed{
+\sum_{j=1}^{2m-1}\log{a_{m,j}\over s_{m,j}}
+=-{3\over4}\log m+O(1).
+}
+\tag{PG99}
+\]
+
+The negative coefficient in the second formula is the signed direct
+ceiling/no-ceiling correction. It must not be confused with the positive
+\(5/4\) coefficient of the lower-comparator rounding in (PG96). All results
+in this sharpening remain statements about the labelled PG69 formula only;
+no permutation or matching enumeration and no geometric inference enters
+the proof.
 
 ## Verification Boundary And Open Questions
 
