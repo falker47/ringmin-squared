@@ -72,6 +72,19 @@ K_\uparrow-K_*={m(m-1)(m-2)\over3}
 Thus singleton reversal supplies the complete cubic PG49-star gain; this is
 an aggregate fixed-order statement, not a gapwise, geometric, or global
 claim.
+On the separate odd-\(v\) branch \(n=10m+8\), \(m\ge1\), the analogous
+PG49-star map has now been fixed and classified at the product-distance
+level. With
+\(q=\lfloor(4m+5)/5\rfloor=\kappa_{2m}\), it shifts the residual triples
+and the doubleton, reverses exactly the actual singleton block, and places
+\(P_q\) in the genuine closing gap. Its five image blocks form a partition,
+every image meets the newly derived odd Ferrers threshold, and the minimum
+row is \((0,2,1)\). The complete cyclic distance audit gives
+\[
+W={(8m+8)(8m+7)\over2}.
+\]
+This theorem evaluates neither \(K\) nor any geometric or global-optimality
+quantity.
 One explicit parametric perturbation of the matching \(8/25\) construction
 is now closed as well. On \(n=10m+3\), reversing the outer entries of one
 triple has score \(T\) for every nonzero triple index and
@@ -2759,6 +2772,13 @@ Immediate:
   coefficient \(857/3000\), and the order strictly beats K825 and both PG46
   witnesses on every row. One bounded standard-library max-plus/shortcut
   diagnostic enumerates no subset, path permutation, or matching.
+- The odd-\(v\) PG49-star parity task is complete at exactly the requested
+  \(W\)-level. On \(n=10m+8\), \(m\ge1\), the a-priori map (PGODD-6) is a
+  search-free Ferrers/PG49-compatible bijection: its image intervals,
+  threshold inequalities, residual Hall support, minimum row, and literal
+  closing word are exact. Its score is \((8m+8)(8m+7)/2\). The sole bounded
+  integer diagnostic constructs no alternative order or matching. No \(K\),
+  angular, geometric, or global-optimality conclusion is included.
 - The monotone threshold-closing PG46 task is complete. The shift
   \(\alpha_{q,2m-1}\) has the same unique backbone \(B_m\), exact five-
   residue score (KPG46Q-21)--(KPG46Q-22), and coefficient \(143/500\).
@@ -2771,6 +2791,9 @@ Immediate:
 
 Next:
 
+- In a fresh STRICT task, evaluate the induced-subset score \(K\) of the
+  already fixed odd-\(v\) map (PGODD-6), without changing the candidate or
+  inferring geometry or global optimality.
 - Seek an unconditional theorem for the filtered convergents in
   (KPGZERO-23): either construct an infinite left or right subsequence meeting
   the exact congruence and `g` windows, or prove eventual exclusion.  A finite

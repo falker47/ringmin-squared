@@ -5,176 +5,174 @@ Last update: 2026-07-19
 ## State
 
 - **Mode:** STRICT
-- **Status:** BLOCKED
-- **Active task:** classify the descending-min PG49 zero-gain set on
-  \(n=10m+3\), starting from (KPGMIN-19)--(KPGMIN-21).
+- **Status:** READY_FOR_REVIEW
+- **Active task:** classify the fixed odd-\(v\) PG49-star parity analogue on
+  \(n=10m+8\) through construction, Ferrers/PG49 compatibility, and exact
+  product-distance score \(W\) only.
 - **Repository state at startup:** clean main worktree at commit
-  78e0007ee1ca7967a787b60c072f167b3b8a2abe.
-- **Implementation state:** the separate left/right gain equations, unique
-  primitive parameters, integrality, domain, literal plateau inequalities,
-  every endpoint and outer column, explicit quadratic scale windows,
-  continued-fraction reduction, giant left witness, and a new exact right
-  witness are proved and synchronized.  The sole bounded standard-library
-  diagnostic and all repository-proportional checks pass.
-- **Current blocker:** no theorem available in the repository or identified
-  primary literature decides whether the exact congruence-filtered,
-  one-sided convergent set for the specified cubic root is finite or
-  infinite.  Therefore the requested global cardinality dichotomy remains
-  an unresolved Diophantine claim.
-- **Current next atomic action:** user review; in a fresh STRICT task, attack
-  the filtered-convergent obstruction (KPGZERO-23)--(KPGZERO-24).
+  c45a5dc7133670874bc76246684cc7d8ed323f89.
+- **Implementation state:** the candidate was fixed before scoring; its
+  search-free formula, odd Ferrers thresholds, exact extendible support,
+  image partition, boundary rows, literal cyclic closure, and all
+  distance classes for \(W\) are proved and synchronized. The sole bounded
+  independent diagnostic and repository-proportional checks pass.
+- **Current blocker:** none.
+- **Current next atomic action:** user review; a fresh STRICT task may
+  evaluate \(K\) for this already fixed order without changing it.
 - **Awaiting user review:** yes.
 
 ## Objective And Scope
 
-For the fixed descending-min PG49 order, classify
+On the canonical eight-twenty-fifths scaffold with
 
 \[
-\mathcal Z_m=
-\{\lambda_j:L_{m,j}=0\}\mathbin\cup
-\{\rho_{j+1}:R_{m,j}=0\}
+n=10m+8,\qquad v=2m+1,\qquad d=8m+8,\qquad m\ge1,
 \]
 
-with \(m\ge3\), \(1\le j<m\), and
-\(\kappa_j=\kappa_{j+1}\).  The two equations and their two literal
-half-open ceiling inequalities must remain separate.  Geometry, angular
-thresholds, global \(K\)-minimality, minimizing-order classification, and
-all-row deductions from a finite sweep are excluded.
+determine whether the odd-\(v\) analogue that moves the threshold path into
+the genuine closing gap and reverses the singleton block is a
+Ferrers/PG49-compatible bijection on its whole symbolic domain. Evaluate
+only its exact fixed-order score \(W\).
 
-## Exact Branchwise Classification
+The task excludes \(K\), induced-subset maximizers, angular or geometric
+claims, global minimizing-order or optimality conclusions, and production
+changes.
 
-Use \(\delta=0\) for \(L=0\) and \(\delta=1\) for \(R=0\).  Every gain-zero
-equation has unique parameters
+## Exact Construction
+
+Let
 
 \[
-g>0,\qquad \gcd(u,w)=1,\qquad u>w>0,
+\kappa_j=
+\left\lceil{j(d-1)\over2(d+j)}\right\rceil,
+\qquad
+q=\kappa_{2m}=\left\lfloor{4m+5\over5}\right\rfloor.
 \]
 
-with
+The fixed map is
 
 \[
-\begin{aligned}
-j_\delta&={gu(u-w)-(4+3\delta)\over5},\\
-m_\delta&={gu(2u+3w)-(8+\delta)\over20},\\
-r_\delta&={g(10w^2-4u^2-uw)+(6-3\delta)\over10}.
-\end{aligned}
+\alpha^\circ(j)=
+\begin{cases}
+0,&j=0,\\
+j,&1\le j<q,\\
+j+1,&q\le j\le m,\\
+3m+1-j,&m+1\le j\le2m-1,\\
+q,&j=2m.
+\end{cases}
 \]
 
-Integrality is equivalent to
+It shifts the residual triples and the doubleton one gap left, preserves the
+doubleton orientation, reverses only the actual singleton block, and places
+\(P_q\) in \(G_{2m}\). Its five images are
 
 \[
-gu(2u+3w)\equiv8+\delta\pmod {20},
+\{0\},\quad[1,q-1],\quad[q+1,m+1],\quad
+[m+2,2m],\quad\{q\},
 \]
 
-and (KPGZERO-6) gives the four exact inequalities for
-\(j\ge1\), \(m\ge3\), \(j<m\), and \(r\ge1\).  The distinct residual pairs
-(KPGZERO-10) and (KPGZERO-12) are exactly equivalent to both literal
-ceilings.  The allowed left upper endpoint is retained; the left lower
-endpoint and both right endpoints are impossible.  Jump columns, \(j=0\),
-\(r=1\), \(j=m-1\), all \(j\ge m\), and the cyclic closing position are
-audited symbolically.
+which are pairwise disjoint and complete.
 
-The common cubic form is
+## Exact Compatibility And Boundaries
+
+The newly derived odd local relation is
 
 \[
-\Phi(u,w)=50w^3+51uw^2-27u^2w-24u^3.
+(k,j)\in\mathcal R^{\rm odd}_{\rm loc}
+\quad\Longleftrightarrow\quad
+k\ge\kappa_j.
 \]
 
-Its sign gives the four explicit radical intervals in \(g\) recorded in
-(KPGZERO-20)--(KPGZERO-21).  Intersecting the appropriate interval with the
-integrality congruence and domain is a necessary-and-sufficient finite
-parameter set for each primitive fraction.
-
-## Exact Cardinality Obstruction
-
-Let \(\xi\in(7/5,10/7)\) be the unique root in \((1,\infty)\) of
+The doubleton and singleton rows are strictly universal. Nested-neighborhood
+Hall inequalities give the exact extendible support
 
 \[
-50+51t-27t^2-24t^3=0.
+\mathcal R^{\rm odd}_{\rm ext}
+=\{(0,0)\}\mathbin\cup
+\{(k,j):1\le j\le2m,\ \kappa_j\le k\le2m\}.
 \]
 
-The polynomial is irreducible modulo seven.  Every admitted primitive ratio
-satisfies
+Every image of \(\alpha^\circ\) lies in this support. The closing image is
+the exact threshold equality
+\(\alpha^\circ(2m)=q=\kappa_{2m}\), checked in the literal word
 
 \[
-\left|{u\over w}-\xi\right|<{1\over2w^2},
+(n,2,A_q,c_q,B_q,4m+3,d).
 \]
 
-so it is a regular continued-fraction convergent.  Conversely, a convergent
-produces a zero exactly when it passes the side, congruence, domain, and
-finite scale-window tests.  This is the exact bijection (KPGZERO-23).
+At \(m=1\), the singleton range is empty and
+\(\alpha^\circ=(0,2,1)\); at \(m=2\), singleton reversal is order-neutral.
+The equality \(q=m\) holds exactly for \(1\le m\le5\), when the shifted
+third image block reduces to the doubleton at its endpoint.
 
-Consequences:
+## Exact Score
 
-- every fixed \(\mathcal Z_m\) is finite, already from \(1\le j<m\);
-- both the left and right global branches are nonempty;
-- no fixed primitive ratio supports infinitely many scales \(g\);
-- the global union is infinite exactly if infinitely many filtered
-  one-sided convergents pass one of the four scale windows;
-- neither finiteness nor infinitude of that filtered subsequence is proved.
+Compatibility controls every pair at positional distance one or two.
+The fixed path \(P_0\subset G_0\) supplies
 
-The conic \(X^2-Y^2=8J^2\) describes the gain equation alone and cannot
-replace the plateau filters; (KPGZERO-18) includes explicit integral points
-that fail both ceilings.
+\[
+A_0c_0=T={d(d-1)\over2}.
+\]
 
-## Exact Witnesses
+No distance-three pair contains two terminals, so its score is strictly
+below \(T\) by \(3d-2n=4m+8>0\). Every distance at least four is strictly
+below \(T\) because
 
-- **Left:** \((g,u,w)=(4,11116408784,7852541895)\) reconstructs the
-  giant row (KPGMIN-19)--(KPGMIN-20), both literal ceiling residuals,
-  \(L_{m,j}=0\), and the stated negative \(R_{m,j}\).
-- **Right:** the primitive \(g=19\) triple (KPGZERO-27) reconstructs the
-  full \((m,j,r)\), right label, singleton path index, strict plateau
-  residuals, \(R_{m,j}=0\), and positive \(L_{m,j}\) in
-  (KPGZERO-28)--(KPGZERO-30).  Universal right-hole nonexistence is therefore
-  disproved; an infinite right-hole family is not proved.
+\[
+4T-n(n-1)=28m^2+90m+56>0.
+\]
+
+Therefore
+
+\[
+W(\sigma_{\alpha^\circ})
+=T
+={(8m+8)(8m+7)\over2}
+\qquad(m\ge1).
+\]
+
+No obstruction occurs.
 
 ## Verification
 
-- The sole standard-library diagnostic passes.  Its declared finite bounds
-  are literal rows \(m=3,\ldots,500\), direct denominators \(w\le10^5\),
-  proposed convergents with denominator at most \(10^{200}\), and
-  \(g\le200\).
-- Every proposed positive witness is rechecked with exact integer formulas,
-  both literal ceilings, the appropriate literal gain, and the exact
-  sign-dependent scale window.  The bounded proposal set contains 56 left
-  and eight right parameter triples.
+- The sole bounded integer diagnostic passes. Formula, image, and Ferrers
+  checks cover \(m=1,\ldots,1000\); local-relation and residual-Hall checks
+  cover \(m=1,\ldots,40\); exact all-pairs scoring covers
+  \(m=1,\ldots,80\), including 8,906,280 unordered cyclic pairs.
 - Full pytest passes: 283 passed.
 - The focused checked-artifact schema suite passes: 4 passed.
 - The standalone checked-artifact verifier passes:
   certificates=4, local_brackets=76, n=3,4,5,6.
-- Scoped Ruff lint and format checks pass for the sole new Python file.
-- The KPGZERO source audit passes with 30 sequential unique primary tags,
-  balanced displays and aligned environments, no cubic-root notation
-  collision, and exactly one dossier diagnostic.
-- An independent formula audit reports no remaining mathematical or material
-  defect in (KPGZERO-1)--(KPGZERO-30).
+- Standalone syntax, scoped Ruff lint, and Ruff format checks pass for the
+  sole new Python file.
+- The source audit passes with 27 sequential unique PGODD tags, balanced
+  displays and environments, no unescaped TeX control word, and no control
+  character.
+- The initial diagnostic-domain defect, initial Ruff formatting failure,
+  one unescaped TeX token, and one overly strict doubleton-bound sentence
+  were corrected and retained in task evidence.
 - Complete diff inspection and final whitespace hygiene pass.
 
 ## Evidence Classification And Limitations
 
-- (KPGZERO-1)--(KPGZERO-23) and both witnesses are **exact
-  combinatorial/Diophantine results**.
-- The finite diagnostic output is **bounded exact computation** used for
-  falsification and initial corroboration only.
-- (KPGZERO-24) is an **unresolved Diophantine claim**, not a finiteness or
-  infinitude theorem.
-- No geometric result, angular result, global \(K\)-minimality result,
-  minimizing-order classification, or Ringmin generalization is asserted.
+- (PGODD-1)--(PGODD-27) are an **exact combinatorial theorem** about one
+  fixed cyclic order.
+- The diagnostic is **bounded exact computation** used only for independent
+  corroboration.
+- No \(K\), angular, geometric, global-optimality, or upstream Ringmin result
+  is asserted or inferred.
 
 ## Files In Scope
 
-- research/FIXED_ORDER_CYCLE_RATIO.md
 - research/PRODUCT_DISTANCE_SURROGATE.md
 - research/NEXT_RESEARCH_STEPS.md
 - start.md
 - PROJECT_KNOWLEDGE.md
 - CURRENT_STATUS.md
-- ops/TASK-20260719__pg49_zero_gain_classification/
+- ops/TASK-20260719__pg49_star_parity_w/
 
 ## Proposed Next Task
 
-In a fresh STRICT task, attack the exact filtered-convergent obstruction.
-Prove an infinite congruence-compatible one-sided subsequence entering a
-left or right scale window, prove eventual exclusion, or record a strictly
-sharper literature-backed obstruction.  Further bounded expansion alone is
-not an acceptance criterion.
+In a fresh STRICT task, evaluate the induced-subset score \(K\) of the
+already fixed map (PGODD-6), including its boundary rows and cyclic closure,
+without changing the candidate or inferring geometry or global optimality.

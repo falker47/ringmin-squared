@@ -1586,6 +1586,20 @@ individual gap contributions have mixed signs. The deletion, shortcut, and
 cyclic-closure proof is exact and has no angular, geometric, or global
 optimality consequence.
 
+The odd-\(v\) parity analogue is now exact separately at the \(W\)-level.
+On \(n=10m+8\), \(m\ge1\), put
+\(q=\lfloor(4m+5)/5\rfloor=\kappa_{2m}\) and use the fixed map (PGODD-6):
+shift the remaining triples and the doubleton, reverse only the actual
+singleton block, and place \(P_q\) in the genuine closing gap. The five
+image blocks partition every path index, all values satisfy the exact odd
+Ferrers thresholds, and the boundary row is \((0,2,1)\). The literal closing
+word and every cyclic distance class give
+\[
+W={(8m+8)(8m+7)\over2}.
+\]
+This theorem does not evaluate \(K\) and has no angular, geometric, or
+global-optimality consequence.
+
 Separately, prior global results disprove the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\). The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also disproved.
@@ -3144,6 +3158,19 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   five residue formulas have coefficient \(857/3000\) in \(n\). The value
   strictly improves K825 and both PG46 orders for every admitted row, with no
   tie. These are fixed-order combinatorial statements only.
+- EXACT ODD-\(v\) PG49-STAR PARITY \(W\) THEOREM: on
+  \(n=10m+8\), \(m\ge1\), put
+  \(q=\lfloor(4m+5)/5\rfloor=\kappa_{2m}\) and use (PGODD-6). The five
+  image blocks partition \(\{0,\ldots,2m\}\); all positive-column images
+  pass the exact odd Ferrers thresholds; the residual Hall calculation gives
+  the full odd PG49 support; and the genuine closing column holds at
+  equality. The minimum row is \(\alpha^\circ=(0,2,1)\), including its
+  doubleton and empty singleton range. The exact fixed-order score is
+  \[
+  W(\sigma_{\alpha^\circ})={(8m+8)(8m+7)\over2}.
+  \]
+  This is only a construction, compatibility, and product-distance theorem:
+  \(K\), geometry, and global optimality are not evaluated.
 - EXACT MONOTONE THRESHOLD-CLOSING PG46 THEOREM: put
   \(q=\lfloor(4m+3)/5\rfloor\) and specialize (PG46) to
   \((q,2m-1)\). The resulting assignment moves \(P_q\) to the closing gap
@@ -3250,6 +3277,15 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   Ferrers, formula, and comparator checks continue through \(m=1000\). It
   enumerates no subset, path permutation, or matching. This bounded
   computation corroborates rather than proves the all-\(m\) theorem.
+- VERIFIED FACT (BOUNDED EXACT ODD-\(v\) PG49-STAR \(W\) DIAGNOSTIC): the
+  sole standalone integer script in
+  ops/TASK-20260719__pg49_star_parity_w/ constructs only (PGODD-6).
+  Formula, image, and threshold checks cover \(m=1,\ldots,1000\); literal
+  local-word and residual-Hall checks cover \(m=1,\ldots,40\); and exact
+  all-pairs cyclic scoring covers \(m=1,\ldots,80\). It checks 8,906,280
+  unordered cyclic pairs without enumerating an order family, matching, path
+  permutation, or subset. The computation corroborates rather than proves
+  the all-\(m\) theorem.
 - VERIFIED FACT (FINITE EXACT MONOTONE THRESHOLD-CLOSING K DIAGNOSTIC): the
   sole standalone standard-library script in
   ops/TASK-20260719__pg46_threshold_closing_exact_k/ constructs only

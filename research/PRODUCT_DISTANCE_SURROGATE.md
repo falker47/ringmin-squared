@@ -215,6 +215,23 @@
   row. Its separate exact induced-\(K\) theorem is (KPGSTAR-3)--(KPGSTAR-28)
   in `research/FIXED_ORDER_CYCLE_RATIO.md`; neither result has a geometric
   or global-optimality consequence.
+- **EXACT THEOREM (odd-\(v\) PG49-star parity analogue):** on the symbolic
+  \(n=10m+8\), \(m\ge1\), scaffold, put
+  \(q=\lfloor(4m+5)/5\rfloor=\kappa_{2m}\) and use (PGODD-6).  Its five
+  image blocks partition every path index; it shifts the residual triples
+  and the doubleton, reverses precisely the singleton block, and puts
+  \(P_q\) in the genuine closing gap.  The doubleton and all singleton rows
+  are strictly universal in the exact odd Ferrers board, so the map is a
+  PG49-compatible bijection on the whole domain, including
+  \(\alpha^\circ=(0,2,1)\) at \(m=1\).  Direct cyclic distance bounds give
+  the fixed-order score
+  \[
+  W(\sigma_{\alpha^\circ})
+  ={(8m+8)(8m+7)\over2}.
+  \]
+  This is a construction, compatibility, and \(W\)-score theorem only; it
+  evaluates no induced-subset objective and makes no geometric or global
+  optimality assertion.
 - **EXACT THEOREM (later monotone threshold-closing shortcut evaluation):**
   specialize (PG46) to \((q,2m-1)\), where
   \(q=\lfloor(4m+3)/5\rfloor=\kappa_{2m-1}\). This puts \(P_q\) in the
@@ -6380,6 +6397,387 @@ displayed \(\alpha_*\) is a relation-compatible bijection for every integer
 needed or inferred here. Its distinct induced-subset objective is evaluated
 separately by (KPGSTAR-1)--(KPGSTAR-28).
 
+### The odd-\(v\) PG49-star parity analogue
+
+We now fix, before any scoring, the parity analogue requested on the other
+symbolic \(e=4\) branch.  Let
+
+\[
+n=10m+8,\qquad m\ge1,\qquad
+v=2m+1,\qquad d=8m+8,\qquad
+T={d(d-1)\over2}.
+\tag{PGODD-1}
+\]
+
+This is the complete symbolic domain on this subsequence: \(m=1\) gives
+\(n=18\), while \(m=0\) is outside the \(n\ge9\) construction and fails the
+condition \(v\ge e-2\) in (UC5)--(UC6).  Retain
+
+\[
+E_j=d+j,\qquad
+\lambda_j=4m+2-2j,\qquad
+\rho_j=4m+3-2j
+\quad(0\le j\le2m),
+\tag{PGODD-2}
+\]
+
+and let \(j^+=j+1\pmod{2m+1}\).  The canonical middle paths are
+
+\[
+\begin{aligned}
+P_k&=(A_k,c_k,B_k)
+=(d-1-2k,\ 4m+4+k,\ d-2-2k),
+&&0\le k\le m,\\
+P_{m+1}&=(a,b)=(5m+5,\ 5m+6),&&\\
+P_k&=(x_k)=(4m+5+k),
+&&m+2\le k\le2m.
+\end{aligned}
+\tag{PGODD-3}
+\]
+
+The last range is empty at \(m=1\).  Gap \(G_j\) receiving \(P_k\) has
+the cyclic word
+
+\[
+G_{k,j}=(E_j,\lambda_j,P_k,\rho_{j^+},E_{j^+}).
+\tag{PGODD-4}
+\]
+
+Put
+
+\[
+\kappa_j=
+\left\lceil{j(d-1)\over2(d+j)}\right\rceil,
+\qquad 0\le j\le2m,
+\tag{PGODD-5}
+\]
+
+and fix the following map once and for all:
+
+\[
+q=\left\lfloor{4m+5\over5}\right\rfloor,
+\qquad
+\boxed{
+\alpha^\circ(j)=
+\begin{cases}
+0,&j=0,\\
+j,&1\le j<q,\\
+j+1,&q\le j\le m,\\
+3m+1-j,&m+1\le j\le2m-1,\\
+q,&j=2m.
+\end{cases}}
+\tag{PGODD-6}
+\]
+
+Thus \(P_q\) is prescribed in the closing gap, the residual triples and the
+doubleton shift one gap to the left, and the singleton block is reversed.
+No part of (PGODD-6) is selected or changed after inspecting its score.
+
+#### Exact Ferrers thresholds and support
+
+For a triple, the path-bearing adjacent maximum and the unique
+placement-dependent distance-two maximum are
+
+\[
+A_kc_k=T-k(2k+1)\le T,
+\qquad
+M^{\rm tr}_2(k,j)={E_jA_k\over2}
+=T+{jA_k-2kd\over2}.
+\tag{PGODD-7}
+\]
+
+Here both terminals exceed \(A_k>B_k>c_k\), while
+\(c_k>\lambda_j,\rho_{j^+}\). Thus \(A_kc_k\) dominates every adjacent
+path-bearing form; among the distance-two forms, \(E_jA_k\) dominates
+\(\lambda_jc_k\), \(A_kB_k\), and \(c_k\rho_{j^+}\). The only remaining
+competitor is the right terminal product, and it is strictly smaller. Off
+the cut,
+
+\[
+E_jA_k-B_kE_{j+1}=j+2k+2>0,
+\]
+
+while the literal closing comparison is
+
+\[
+nA_k-dB_k=2mA_k+d>0.
+\tag{PGODD-8}
+\]
+
+Every other adjacent or distance-two form is dominated by those already
+displayed or by an unchanged terminal--low form.  Consequently a triple is
+locally admitted exactly when
+
+\[
+jA_k\le2kd
+\quad\Longleftrightarrow\quad
+k\ge\kappa_j.
+\tag{PGODD-9}
+\]
+
+The new doubleton causes no parity exception.  Its internal edge has the
+strict margin
+
+\[
+T-ab=(m+1)(7m-2)>0.
+\tag{PGODD-10}
+\]
+
+Its exact distance-two maximum is
+
+\[
+M^{\rm dbl}_2(j)=
+\begin{cases}
+b(d+j+1)/2,&0\le j\le2m-1,\\
+na/2,&j=2m,
+\end{cases}
+\]
+
+because the only competing terminal products satisfy
+\[
+b(d+j+1)-a(d+j)=d+j+a+1>0
+\]
+off the cut, whereas at the cut
+\[
+na-bd=2(m+1)(5m-4)>0.
+\]
+All terminals exceed \(b>a>4m+3\), so the low-bearing competitors are
+smaller. The off-cut branch is at most \(nb/2\), with equality only at
+\(j=2m-1\), while the closing branch \(na/2\) is smaller. Both are
+therefore strictly below \(T\), since
+
+\[
+T-{nb\over2}=7m^2+10m+4>0.
+\tag{PGODD-11}
+\]
+
+For a singleton, the corresponding exact maximum is
+
+\[
+M^{\rm sing}_2(k,j)=
+\begin{cases}
+x_k(d+j+1)/2,&0\le j\le2m-1,\\
+x_kn/2,&j=2m.
+\end{cases}
+\tag{PGODD-12}
+\]
+
+All singleton branches are strict because \(x_k\le6m+5\) and
+
+\[
+T-{n(6m+5)\over2}=2m^2+11m+8>0.
+\tag{PGODD-13}
+\]
+
+Their adjacent forms are also strict; the largest possible low--singleton
+product has margin
+
+\[
+T-(4m+3)(6m+5)=8m^2+22m+13>0.
+\tag{PGODD-14}
+\]
+
+The unchanged terminal--low maximum is
+\(d(4m+3)=T-d/2<T\), and every low--low distance-two form is smaller.
+Equations (PGODD-7)--(PGODD-14) therefore prove the exact Ferrers relation
+
+\[
+\boxed{
+(k,j)\in\mathcal R^{\rm odd}_{\rm loc}
+\quad\Longleftrightarrow\quad
+k\ge\kappa_j,
+\qquad
+N(G_j)=\{P_{\kappa_j},\ldots,P_{2m}\}.}
+\tag{PGODD-15}
+\]
+
+Indeed the doubleton and singleton indices all exceed the largest triple
+threshold, as (PGODD-17) below makes explicit, and are strictly universal.
+
+The elementary threshold properties are uniform down to \(m=1\).  If
+\(h_j=j(d-1)/(2(d+j))\), then
+
+\[
+h_{j+1}-h_j={d(d-1)\over2(d+j)(d+j+1)}>0,
+\qquad
+\kappa_0=0,\qquad\kappa_1=1,
+\]
+
+and, for \(2\le j\le2m\),
+
+\[
+2(d+j)(j-1)-j(d-1)
+=d(j-2)+2j^2-j>0,
+\qquad
+1\le\kappa_j\le j-1.
+\tag{PGODD-16}
+\]
+
+The closing threshold is exact rather than borrowed from the last
+nonclosing column:
+
+\[
+{4m\over5}
+<h_{2m}={m(8m+7)\over10m+8}
+<{4m+1\over5}.
+\]
+
+Hence
+
+\[
+\boxed{
+\kappa_{2m}
+=\left\lfloor{4m\over5}\right\rfloor+1
+=\left\lfloor{4m+5\over5}\right\rfloor=q,}
+\qquad 1\le q\le m.
+\tag{PGODD-17}
+\]
+
+For completeness, the exact extendible support has the same PG49 form as in
+the even-\(v\) board:
+
+\[
+\boxed{
+\mathcal R^{\rm odd}_{\rm ext}
+=\{(0,0)\}
+\mathbin\cup
+\{(k,j):1\le j\le2m,\ \kappa_j\le k\le2m\}.}
+\tag{PGODD-18}
+\]
+
+To see this without enumerating matchings, fix a local edge \((k,j)\).
+The column neighborhoods are nested, so for any residual column set the
+largest set with the same minimum column is the corresponding residual
+suffix; these suffixes are therefore necessary and sufficient for Hall.
+For a residual suffix whose minimum column is \(r\ne j\), its condition is
+exactly
+
+\[
+\kappa_r+\mathbf1_{\{k\ge\kappa_r\}}
+\le r+\mathbf1_{\{j>r\}}.
+\tag{PGODD-19}
+\]
+
+Monotonicity and (PGODD-16) prove this for every positive-column local edge;
+they also prove it for \((0,0)\).  Every \((k,0)\) with \(k>0\) fails at
+\(r=1\), where \(\kappa_1+1=2>1\).  Thus (PGODD-18) is exact, including
+the minimum three-by-three Ferrers board.
+
+#### Images, boundary rows, and closing column
+
+The five pieces of the already fixed map (PGODD-6) have images
+
+\[
+\boxed{
+\{0\},\quad[1,q-1],\quad[q+1,m+1],\quad
+[m+2,2m],\quad\{q\}.}
+\tag{PGODD-20}
+\]
+
+They are pairwise disjoint and cover \(\{0,\ldots,2m\}\), so
+\(\alpha^\circ\) is a bijection.  The first interval and the singleton
+image interval are empty when \(m=1\); \([q+1,m+1]\) is never empty and
+reduces to the doubleton image \(\{m+1\}\) whenever \(q=m\). In fact,
+\(q=m\) exactly for \(1\le m\le5\); at \(m=2\) the singleton image interval
+has one element, so its reversal is literal but order-neutral.
+
+Every image passes its literal column threshold:
+
+\[
+\begin{array}{c|c|c}
+\text{column range}&\alpha^\circ(j)&\text{Ferrers comparison}\\ \hline
+j=0&0&\alpha^\circ(0)=\kappa_0\\
+1\le j<q&j&j\ge\kappa_j\\
+q\le j\le m&j+1&j+1>\kappa_j\\
+m+1\le j\le2m-1&3m+1-j&m+2>q\ge\kappa_j\\
+j=2m&q&\alpha^\circ(2m)=\kappa_{2m}.
+\end{array}
+\tag{PGODD-21}
+\]
+
+At the smallest row all empty ranges are literal:
+
+\[
+(m,d,n,T,q)=(1,16,18,120,1),\qquad
+(\kappa_0,\kappa_1,\kappa_2)=(0,1,1),\qquad
+\boxed{\alpha^\circ=(0,2,1)}.
+\tag{PGODD-22}
+\]
+
+There is no singleton to reverse at this boundary; \(P_2=(10,11)\) is the
+doubleton and \(P_1\) is the threshold triple.  At every row the genuine
+closing word is
+
+\[
+\boxed{
+(n,2,A_q,c_q,B_q,4m+3,d),}
+\tag{PGODD-23}
+\]
+
+so (PGODD-8), (PGODD-9), and the equality
+\(q=\kappa_{2m}\) check the cyclic column itself.  No last-nonclosing
+surrogate is used.  Equations (PGODD-15)--(PGODD-23) prove that
+\(\alpha^\circ\) is a search-free Ferrers/PG49-compatible bijection on the
+whole domain \(m\ge1\).
+
+#### Exact product-distance score
+
+Compatibility proves that every pair at positional distance one or two has
+score at most \(T\).  The internal edge of the fixed path \(P_0\subset G_0\)
+attains it:
+
+\[
+A_0c_0=(d-1){d\over2}=T.
+\tag{PGODD-24}
+\]
+
+It remains only to rule out a longer pair.  Every gap contains a low label,
+a nonempty path, and a second low label, so distinct terminals are never at
+positional distance three.  Every distance-three pair therefore has at most
+one terminal endpoint and obeys
+
+\[
+{ij\over3}\le{n(d-1)\over3}<T,
+\qquad
+3d-2n=4m+8>0.
+\tag{PGODD-25}
+\]
+
+For every circular positional distance \(s\ge4\),
+
+\[
+{ij\over s}\le{n(n-1)\over4}<T,
+\]
+
+because
+
+\[
+4T-n(n-1)
+=2d(d-1)-n(n-1)
+=28m^2+90m+56>0.
+\tag{PGODD-26}
+\]
+
+These are cyclic bounds: (PGODD-25) covers every three-step arc crossing the
+displayed cut, while (PGODD-26) covers every longer closing arc.  The one-
+and two-step closing pairs are already checked in the literal word
+(PGODD-23).  Combining (PGODD-24)--(PGODD-26) proves the exact fixed-order
+score
+
+\[
+\boxed{
+W(\sigma_{\alpha^\circ})
+=T
+={(8m+8)(8m+7)\over2}}
+\qquad(m\ge1).
+\tag{PGODD-27}
+\]
+
+This theorem concerns only the construction, Ferrers/PG49 compatibility,
+and its product-distance score \(W\).  It does not evaluate \(K\), compare
+induced-subset scores, infer an angular or geometric statement, or assert any
+global optimality consequence.
+
 ## Verification Boundary And Open Questions
 
 `tests/test_product_distance.py` checks exact rational comparisons, canonical
@@ -6530,6 +6928,14 @@ max-plus increasing-path DP plus every proper oriented arc, hence every
 nontrivial shortcut, for \(m=3,\ldots,30\). Formula and comparator checks
 continue through \(m=1000\). It enumerates no subset, path permutation, or
 matching and imports no project or test helper.
+The sole diagnostic for (PGODD-1)--(PGODD-27) is the standalone integer
+script in ops/TASK-20260719__pg49_star_parity_w/. It constructs only the
+a-priori fixed map (PGODD-6). Formula, image, and Ferrers checks cover
+\(m=1,\ldots,1000\); direct local-word and residual-Hall checks cover
+\(m=1,\ldots,40\); and exact all-pairs cyclic scoring covers
+\(m=1,\ldots,80\). It searches no order or matching, enumerates no path
+permutation or subset, and imports no project or test helper. The finite
+rows corroborate but do not replace the all-\(m\) proof.
 The sole diagnostic for (KPG46Q-1)--(KPG46Q-29) is the standalone
 standard-library script in
 ops/TASK-20260719__pg46_threshold_closing_exact_k/. It constructs only the
@@ -6600,6 +7006,15 @@ The following remain unresolved.
   residue formulas, coefficient \(857/3000\), and strict improvement over
   K825 and both PG46 orders on every admitted row. No geometric or global
   optimality conclusion follows.
+- **CLOSED PARITY-ANALOGUE QUESTION:** (PGODD-1)--(PGODD-27) prove directly
+  that the fixed odd-\(v\) analogue on \(n=10m+8\), \(m\ge1\), is a
+  bijection of its newly derived Ferrers/PG49 board. The doubleton is shifted
+  without reversal, the actual singleton block is reversed, and
+  \(P_q\), \(q=\lfloor(4m+5)/5\rfloor=\kappa_{2m}\), occupies the genuine
+  closing gap. Its exact fixed-order score is
+  \((8m+8)(8m+7)/2\). This closes only construction, compatibility, and
+  \(W\); no \(K\), angular, geometric, or global-optimality statement is
+  inferred.
 - **CLOSED CORE-ORDER QUESTION:** the interval shift (PG46) with target
   \((q,2m-1)\), \(q=\lfloor(4m+3)/5\rfloor\), keeps every residual path
   increasing. The separate theorem (KPG46Q-1)--(KPG46Q-29) proves its unique

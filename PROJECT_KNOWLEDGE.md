@@ -2761,6 +2761,27 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   all have coefficient \(857/3000\) in \(n\). This value is strictly below
   K825 and both PG46 values for every \(m\ge3\), with no tie. The theorem is
   fixed-order and combinatorial; it implies no geometric or global optimum.
+- EXACT ODD-\(v\) PG49-STAR PARITY \(W\) THEOREM: on the distinct
+  \(n=10m+8\), \(m\ge1\), branch, put
+  \[
+  q=\left\lfloor{4m+5\over5}\right\rfloor=\kappa_{2m}
+  \]
+  and use the a-priori map (PGODD-6). It shifts the residual triples and
+  doubleton, reverses only the actual singleton block, and assigns \(P_q\)
+  to the genuine closing gap. The five image blocks partition all
+  \(2m+1\) path indices. The exact odd local relation is
+  \(k\ge\kappa_j\); its extendible support consists of \((0,0)\) and all
+  positive-column local edges. Every image of (PGODD-6) is supported,
+  including the exact closing equality and the minimum row
+  \(\alpha^\circ=(0,2,1)\). Hence the map is a search-free
+  Ferrers/PG49-compatible bijection on the whole domain, and
+  \[
+  W(\sigma_{\alpha^\circ})
+  ={(8m+8)(8m+7)\over2}.
+  \]
+  This theorem is confined to construction, compatibility, and \(W\);
+  it evaluates no \(K\) and implies no angular, geometric, or global
+  optimum.
 - EXACT MONOTONE THRESHOLD-CLOSING PG46 CORE-ORDER THEOREM: on the same
   \(n=10m+3\), \(m\ge3\), rows, put
   \(q=\lfloor(4m+3)/5\rfloor=\kappa_{2m-1}\) and specialize (PG46) to
@@ -2885,6 +2906,15 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   formula, and comparator checks continue through \(m=1000\). It enumerates
   no subset, path permutation, or matching. The finite check corroborates
   rather than proves the symbolic theorem.
+- VERIFIED FACT (BOUNDED EXACT ODD-\(v\) PG49-STAR \(W\) DIAGNOSTIC): the
+  sole standalone integer script in
+  ops/TASK-20260719__pg49_star_parity_w/ constructs only the prescribed map
+  (PGODD-6). Formula, image, and Ferrers checks cover
+  \(m=1,\ldots,1000\); direct local-word and residual-Hall checks cover
+  \(m=1,\ldots,40\); and exact all-pairs cyclic scoring covers
+  \(m=1,\ldots,80\). It checks 8,906,280 unordered pairs and enumerates no
+  alternative order, matching, path permutation, or subset. The bounded
+  computation corroborates rather than proves the all-domain theorem.
 - VERIFIED FACT (FINITE EXACT MONOTONE THRESHOLD-CLOSING K DIAGNOSTIC): the
   sole standalone standard-library script in
   ops/TASK-20260719__pg46_threshold_closing_exact_k/ directly constructs
@@ -3405,6 +3435,16 @@ Candidate-set extraction uses the following finite-certificate semantics.
   every shortcut length, both cyclic-closing roles, and the minimum row are
   explicit. One bounded standard-library diagnostic corroborates without
   subset, path-permutation, or matching enumeration.
+- COMPLETED PRIORITY: the odd-\(v\) PG49-star parity analogue now has an
+  exact all-domain construction, compatibility, and \(W\) theorem. On
+  \(n=10m+8\), \(m\ge1\), the pre-fixed map (PGODD-6) shifts the doubleton
+  without reversing it, reverses precisely the singleton block, and puts
+  \(P_q\), \(q=\lfloor(4m+5)/5\rfloor=\kappa_{2m}\), in the genuine closing
+  gap. Exact image blocks, thresholds, residual Hall support, boundary row,
+  and cyclic closure prove bijectivity and score
+  \((8m+8)(8m+7)/2\). One bounded independent integer diagnostic performs no
+  order or matching search. \(K\), geometry, and global optimality remain
+  deliberately unevaluated.
 - COMPLETED PRIORITY: the canonical eight-twenty-fifths core order now has an
   exact all-domain \(K\) theorem. The symbolic maximizer is the tail from
   \(2v+1\), with connector \(2v+2\) additionally removed exactly for
