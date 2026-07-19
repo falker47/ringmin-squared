@@ -2722,6 +2722,27 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   transcendental by Hermite--Lindemann. Therefore the exact score function is
   neither polynomial nor eventual quasipolynomial. These facts concern one
   combinatorial core order and imply no geometric or global optimum.
+- EXACT EXPLICIT PG49-STAR FERRERS AND CORE-ORDER THEOREM: on
+  \(n=10m+3\), \(m\ge3\), put
+  \(q=\lfloor(4m+3)/5\rfloor\) and use the piecewise map (PG110). Its image
+  blocks partition every path index, its positive values meet the exact
+  Ferrers thresholds, and the cyclic closing value is
+  \(q=\kappa_{2m-1}\). For the resulting core order,
+  \[
+  \operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P(U)
+  =\bigl\{B_m\bigr\},
+  \qquad B_m=\{4m+1,\ldots,10m+3\},
+  \]
+  and
+  \[
+  K={1714m^3+1863m^2+24mq+617m+12q^2+48q+66\over6}.
+  \]
+  The complete low-gain audit has unique minimum \(28m+12\), and the
+  complete compressed-shortcut audit has exact minimum \(12m+4\); both
+  roles of the cyclic closure are separate. The five \(m\bmod5\) formulas
+  all have coefficient \(857/3000\) in \(n\). This value is strictly below
+  K825 and both PG46 values for every \(m\ge3\), with no tie. The theorem is
+  fixed-order and combinatorial; it implies no geometric or global optimum.
 - VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the standalone
   standard-library script in
   ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
@@ -2790,6 +2811,17 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \(m=1000\). It enumerates no subset, permutation, or matching. Its
   zero-free observation is confined to the checked rows and does not
   contradict the exact much larger zero-gain example.
+- VERIFIED FACT (FINITE EXACT PG49-STAR K DIAGNOSTIC): the sole standalone
+  standard-library script in
+  ops/TASK-20260719__explicit_pg49_star_exact_k/ directly constructs only
+  the prescribed assignment. On \(m=3,\ldots,30\), its increasing-path
+  max-plus DP checks the exact score and unique backbone, while an
+  all-oriented-arc audit checks every hole and shortcut, including the cyclic
+  cut. It performs 36,989,498 max-plus transitions and checks all 958,916
+  proper oriented arcs, including every nontrivial shortcut. Ferrers,
+  formula, and comparator checks continue through \(m=1000\). It enumerates
+  no subset, path permutation, or matching. The finite check corroborates
+  rather than proves the symbolic theorem.
 - OPEN QUESTION: for which \(n\ge94\) is the minimizer inclusion strict? No
   persistence from \(n=93\) onward is claimed; the sufficient equality
   criterion already holds again at \(n=94\).
@@ -3268,6 +3300,15 @@ Candidate-set extraction uses the following finite-certificate semantics.
   quasipolynomial. One bounded max-plus/shortcut diagnostic enumerates no
   subset, path permutation, or matching, and no geometric conclusion is
   inferred.
+- COMPLETED PRIORITY: the explicit PG49-star assignment now has an exact
+  all-\(m\) theorem. Its piecewise image blocks prove bijectivity, and its
+  closing value equals the exact final Ferrers threshold. The sole maximizing
+  subset is \(B_m\), its exact score is (KPGSTAR-4), and the five residue
+  formulas retain coefficient \(857/3000\). It strictly improves K825 and
+  both PG46 witnesses on every row. Every deletion gain, shortcut length,
+  equality case, and cyclic-closing role is explicit. One bounded direct
+  max-plus/shortcut diagnostic enumerates no subset, path permutation, or
+  matching; no geometric or global conclusion is inferred.
 - COMPLETED PRIORITY: the canonical eight-twenty-fifths core order now has an
   exact all-domain \(K\) theorem. The symbolic maximizer is the tail from
   \(2v+1\), with connector \(2v+2\) additionally removed exactly for
@@ -3288,12 +3329,13 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \(21n^2/100+O(n)\). The proof covers every shortcut and the \(k=2,3,4\)
   path boundaries; one bounded standard-library diagnostic changes no
   production or test path.
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, classify the exact
-  Diophantine zero-gain rows of the descending-min PG49 order. Determine
-  whether \(\mathcal Z_m\ne\varnothing\) occurs finitely or infinitely often
-  and characterize both gain equations under the exact plateau inequalities,
-  starting from (KPGMIN-21). Do not infer an all-\(m\) result from a bounded
-  zero-free sweep.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, evaluate the monotone PG46
+  interval shift placing the same threshold path
+  \(P_q\), \(q=\lfloor(4m+3)/5\rfloor\), in the closing gap while leaving
+  the remaining paths increasing. Determine exactly which PG49-star gain
+  comes from reversing the singleton block, with all maximizers, five residue
+  formulas, complete shortcut/closure audit, and no geometric or global
+  minimizing-order inference.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order

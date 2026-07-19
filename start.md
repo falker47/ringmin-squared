@@ -1546,9 +1546,28 @@ altered cyclic three-edge path, and the minimum row. It retains cubic
 coefficient \(143/500\) and proves no geometric or global optimality
 statement.
 
-Consequently the former target
-\(R_2^*(n)=n^3/(6\pi)(1+o(1))\) is a disproved claim. The stronger target
-\(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also a disproved claim.
+A distinct explicit PG49 representative is now exact too. Put
+\(q=\lfloor(4m+3)/5\rfloor\), send \(P_q\) to the closing gap, shift the
+remaining triples by one, and place the singleton paths in decreasing order
+as in (PG110). The map is a Ferrers-compatible bijection for every
+\(m\ge3\), with exact equality in the cyclic closing column. Its unique
+maximizing subset is
+\[
+B_m=\{4m+1,\ldots,10m+3\},
+\]
+and
+\[
+K={1714m^3+1863m^2+24mq+617m+12q^2+48q+66\over6}.
+\]
+The five \(m\bmod5\) branches have coefficient \(857/3000\) in \(n\), and
+the value is strictly below K825 and both PG46 orders for every \(m\ge3\).
+The proof audits every deletion gain and compressed shortcut, including both
+roles of the cyclic closure. This is a fixed-core-order theorem only; it
+proves no geometric or global optimality statement.
+
+Separately, prior global results disprove the former target
+\(R_2^*(n)=n^3/(6\pi)(1+o(1))\). The stronger target
+\(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also disproved.
 
 The checked-artifact verification path is now a project foundation: the
 repository has a GitHub Actions matrix for tests, checked-artifact semantic
@@ -3070,6 +3089,25 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \(0.2881683105370884612\ldots>143/500\); the exact coefficient is
   transcendental, so no polynomial or eventual quasipolynomial formula
   exists. This is a combinatorial fixed-order theorem only.
+- EXACT EXPLICIT PG49-STAR THEOREM: put
+  \(q=\lfloor(4m+3)/5\rfloor\) and use (PG110). Its five image blocks
+  partition \(\{0,\ldots,2m-1\}\), every value passes its exact Ferrers
+  threshold, and \(\alpha_*(2m-1)=q=\kappa_{2m-1}\). Thus it is a
+  relation-compatible bijection for every \(m\ge3\). For the resulting core
+  order,
+  \[
+  \operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P(U)
+  =\bigl\{\{4m+1,\ldots,10m+3\}\bigr\},
+  \]
+  and
+  \[
+  K={1714m^3+1863m^2+24mq+617m+12q^2+48q+66\over6}.
+  \]
+  All low deletion gains are positive with exact minimum \(28m+12\), and
+  every compressed shortcut is strict with exact minimum \(12m+4\). The
+  five residue formulas have coefficient \(857/3000\) in \(n\). The value
+  strictly improves K825 and both PG46 orders for every admitted row, with no
+  tie. These are fixed-order combinatorial statements only.
 - VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the sole standalone
   standard-library script in
   ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
@@ -3132,6 +3170,15 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \(m=1000\). It enumerates no subset, permutation, or matching. Its
   zero-free statement is explicitly bounded and does not supersede the exact
   large counterexample.
+- VERIFIED FACT (FINITE EXACT PG49-STAR K DIAGNOSTIC): the sole standalone
+  standard-library script in
+  ops/TASK-20260719__explicit_pg49_star_exact_k/ constructs only (PG110).
+  For \(m=3,\ldots,30\), a direct increasing-path max-plus DP checks the
+  score, unique backbone, every isolated-hole gain, and all 958,916 proper
+  oriented arcs, including every nontrivial shortcut and cyclic closure.
+  Ferrers, formula, and comparator checks continue through \(m=1000\). It
+  enumerates no subset, path permutation, or matching. This bounded
+  computation corroborates rather than proves the all-\(m\) theorem.
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
   \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved

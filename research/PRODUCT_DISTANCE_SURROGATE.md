@@ -206,6 +206,15 @@
   (PG104). Its separate induced-subset evaluation is (KPGMIN-9) in
   `research/FIXED_ORDER_CYCLE_RATIO.md`; no geometric conclusion is inferred
   from either theorem.
+- **EXACT THEOREM (explicit PG49-star representative):** on the same
+  \(n=10m+3\), \(m\ge3\), scaffold, put
+  \(q=\lfloor(4m+3)/5\rfloor\) and use the piecewise bijection (PG110).
+  Its image intervals partition all path indices, every positive-column
+  value satisfies its exact Ferrers threshold, and the closing value is
+  \(q=\kappa_{2m-1}\). Hence it is relation-compatible for every admitted
+  row. Its separate exact induced-\(K\) theorem is (KPGSTAR-3)--(KPGSTAR-28)
+  in `research/FIXED_ORDER_CYCLE_RATIO.md`; neither result has a geometric
+  or global-optimality consequence.
 - **EXACT THEOREM (later closing-PG46 shortcut evaluation):** for the PG46
   bijection placing \(P_m\) in the closing gap \(G_{2m-1}\), the corresponding
   core order has the sole induced-subset maximizer
@@ -6275,6 +6284,92 @@ different quantity and is evaluated separately in
 `research/FIXED_ORDER_CYCLE_RATIO.md`; no assertion about it is smuggled
 into the Ferrers proof.
 
+### An explicit threshold-closing PG49 representative
+
+We now fix a second deterministic matching of the same Ferrers board. It is
+specified directly, not selected by a search. Retain \(v=2m\), \(d=8m+4\),
+the thresholds in (PG38), and put
+
+\[
+q=\kappa_{v-1}=\left\lfloor{4m+3\over5}\right\rfloor.
+\]
+
+Define
+
+\[
+\boxed{
+\alpha_*(0)=0,\qquad
+\alpha_*(j)=
+\begin{cases}
+j,&1\le j<q,\\
+j+1,&q\le j\le m-1,\\
+3m-1-j,&m\le j\le2m-2,\\
+q,&j=2m-1.
+\end{cases}}
+\tag{PG110}
+\]
+
+The five residue classes make every endpoint literal. If \(m\equiv r\pmod
+5\), then
+
+\[
+q={4m+c_r\over5},
+\qquad
+(c_0,c_1,c_2,c_3,c_4)=(0,1,2,3,-1).
+\tag{PG111}
+\]
+
+Thus \(3\le q\le m\), with \(q=m\) only at \(m=3\). The images of the
+five pieces in (PG110) are
+
+\[
+\boxed{
+\{0\},\quad[1,q-1],\quad[q+1,m],\quad
+[m+1,2m-1],\quad\{q\}.
+}
+\tag{PG112}
+\]
+
+They are disjoint and cover \(\{0,\ldots,2m-1\}\), so \(\alpha_*\) is a
+bijection. The interval \([q+1,m]\) is empty exactly in the minimum row;
+this creates neither a duplicate nor a missing index.
+
+It remains to prove Ferrers compatibility, rather than infer it from the
+displayed permutation. Equations (PG39)--(PG40) give
+\(\kappa_1=1\), \(\kappa_j\le j-1\) for \(2\le j<v\), monotonicity, and
+\(\kappa_{v-1}=q\). Hence
+
+\[
+\boxed{
+\begin{array}{c|c|c}
+\text{column range}&\alpha_*(j)&\text{Ferrers comparison}\\ \hline
+j=0&0&\alpha_*(0)=0\\
+j=1&1&\alpha_*(1)=\kappa_1\\
+2\le j<q&j&j>\kappa_j\\
+q\le j\le m-1&j+1&j+1>\kappa_j\\
+m\le j\le2m-2&3m-1-j&m+1>q\ge\kappa_j\\
+j=2m-1&q&\alpha_*(j)=\kappa_{2m-1}.
+\end{array}}
+\tag{PG113}
+\]
+
+The last line is the genuine cyclic column; it does not replace its threshold
+by the last nonclosing value. At \(m=3\), (PG48) and (PG110) read
+
+\[
+(\kappa_0,\ldots,\kappa_5)=(0,1,1,2,2,3),
+\qquad
+\boxed{\alpha_*=(0,1,2,5,4,3)}.
+\tag{PG114}
+\]
+
+Equations (PG110)--(PG114), together with the exact support equivalence
+(PG38)--(PG49), prove the **EXACT FERRERS-COMPATIBILITY THEOREM**: the
+displayed \(\alpha_*\) is a relation-compatible bijection for every integer
+\(m\ge3\). No full-score, geometric, or global-optimality consequence is
+needed or inferred here. Its distinct induced-subset objective is evaluated
+separately by (KPGSTAR-1)--(KPGSTAR-28).
+
 ## Verification Boundary And Open Questions
 
 `tests/test_product_distance.py` checks exact rational comparisons, canonical
@@ -6398,6 +6493,14 @@ increasing-path DP plus every oriented shortcut budget for
 imports no project or test helper. Its absence of zero gains is explicitly
 limited to the checked rows; (KPGMIN-19)--(KPGMIN-21) give an exact much
 larger zero-gain counterexample.
+The sole diagnostic for (PG110)--(PG114) and
+(KPGSTAR-1)--(KPGSTAR-28) is the standalone standard-library script in
+ops/TASK-20260719__explicit_pg49_star_exact_k/. It constructs only the
+piecewise assignment (PG110), checks every Ferrers edge, and runs a direct
+max-plus increasing-path DP plus every proper oriented arc, hence every
+nontrivial shortcut, for \(m=3,\ldots,30\). Formula and comparator checks
+continue through \(m=1000\). It enumerates no subset, path permutation, or
+matching and imports no project or test helper.
 
 The following remain unresolved.
 
@@ -6451,6 +6554,14 @@ The following remain unresolved.
   proves that its cubic coefficient is transcendental and strictly worse
   than \(143/500\). No polynomial or eventual quasipolynomial formula and no
   geometric consequence result.
+- **CLOSED CORE-ORDER QUESTION:** (PG110)--(PG114) prove that the explicit
+  threshold-closing PG49-star assignment is a relation-compatible bijection
+  for every \(m\ge3\). The separate theorem
+  (KPGSTAR-1)--(KPGSTAR-28) proves its unique maximizing backbone, complete
+  deletion-gain and shortcut audit including cyclic closure, five exact
+  residue formulas, coefficient \(857/3000\), and strict improvement over
+  K825 and both PG46 orders on every admitted row. No geometric or global
+  optimality conclusion follows.
 - **OPEN QUESTION:** for which \(n\ge94\) is
   \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\)? Criterion (MS2)
   certifies equality whenever it holds, including \(n=94\), but no complete

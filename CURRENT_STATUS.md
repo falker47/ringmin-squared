@@ -6,181 +6,183 @@ Last update: 2026-07-19
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Active task:** evaluate the descending-min PG49 representative on the
-  residue branch \(n=10m+3\), \(m\ge3\).
+- **Active task:** evaluate the explicit threshold-closing PG49-star order on
+  `n=10m+3`, `m>=3`.
 - **Repository state at startup:** clean `main` worktree at commit
-  `c310228d86fd0f0598dee1ff7984b5100726337b`, tracking `origin/main`.
-- **Implementation state:** the all-\(m\) Ferrers proof, exact \(K\) formula,
-  complete maximizer classification, comparator theorem, asymptotic formula
-  class, one bounded independent diagnostic, durable synchronization,
-  complete regressions, independent audits, and final diff hygiene are
-  complete.
+  `fded0cc29029b5d2e725f1609f71ea17b4468e38`, tracking `origin/main`.
+- **Implementation state:** Ferrers compatibility, the exact fixed-order `K`
+  theorem, all maximizing subsets, five residue formulas, cubic coefficient,
+  comparator theorem, complete gain/shortcut audit, cyclic closure, and the
+  sole bounded independent diagnostic are complete. Repository-wide
+  regressions, independent audits, and final diff hygiene all pass.
 - **Current blocker:** none.
-- **Current next atomic action:** user manual review and commit decision.
+- **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
 ## Objective And Scope
 
-Fix \(\alpha_{\min}(0)=0\). For
-\(j=2m-1,\ldots,1\), assign to \(G_j\) the least unused path index
-\(k\ge\kappa_j\). Prove that this recursion is a relation-compatible
-bijection for every \(m\ge3\); determine the exact induced-subset objective
-\(K\), all maximizing subsets, the exact formula class and cubic coefficient;
-and compare it exactly with K825 and the closing and preclosing PG46 orders.
-Only this explicit combinatorial core order is in scope. Permutation,
-matching, or subset enumeration and geometric or global-optimality
-consequences are out of scope.
+For `n=10m+3`, `v=2m`, and
+`q=floor((4m+3)/5)=kappa_{v-1}`, evaluate the one piecewise bijection
+`alpha_*` in (PG110). Prove Ferrers compatibility first; then determine the
+exact induced-subset objective `K`, every maximizing subset, all five
+`m mod 5` formulas, the cubic coefficient in `n`, and exact comparisons with
+K825 and the closing and preclosing PG46 orders. Only this explicit
+combinatorial core order is in scope. No geometric, exact-angular, or global
+minimizing-order conclusion is authorized.
 
 ## Exact Ferrers Theorem
 
-With \(v=2m\) and
+The exact support threshold is
+
 \[
-\Delta_j=\kappa_{j+1}-\kappa_j\in\{0,1\},
+\kappa_j=
+\left\lceil{j(8m+3)\over2(8m+4+j)}\right\rceil.
 \]
-the suffix after assigning \(G_j,\ldots,G_{v-1}\) is exactly
+
+The images of the five branches of `alpha_*` are
+
 \[
-\{\alpha_{\min}(t):j\le t\le v-1\}
-=[\kappa_j,\kappa_j+v-1-j].
+\{0\},\quad[1,q-1],\quad[q+1,m],\quad
+[m+1,2m-1],\quad\{q\},
 \]
-Consequently every step exists, every chosen index satisfies its Ferrers
-threshold, and
+
+so the map is bijective. Equations (PG39)--(PG40) give
+`kappa_1=1`, `kappa_j<=j-1` for `j>=2`, monotonicity, and
+`kappa_{2m-1}=q`. Every branch therefore satisfies its Ferrers inequality,
+and the genuine cyclic closing column has exact equality
+
 \[
-\alpha_{\min}(j)
-=\kappa_j+(1-\Delta_j)(v-1-j)
-\quad(1\le j\le v-2),
-\qquad
-\alpha_{\min}(v-1)=\kappa_{v-1}.
+\alpha_*(2m-1)=q=\kappa_{2m-1}.
 \]
-Together with \(\alpha_{\min}(0)=0\), this is a relation-compatible
-bijection for every integer \(m\ge3\).
+
+Thus (PG110) is a relation-compatible bijection for every `m>=3`.
 
 ## Exact K And All Maximizers
 
-The resulting rooted core order \(\tau_m^{\min}\) satisfies
-\[
-\boxed{
-K(\tau_m^{\min})=K_{825}(m)+D_m+G_m,
-}
-\]
-where \(D_m\) is the exact path-connection sum (KPGMIN-4) and \(G_m\) is the
-positive-part sum of the two early-plateau singleton gains
-(KPGMIN-7)--(KPGMIN-8). This is an exact \(O(m)\) integer evaluation, not a
-search.
-
 Let
+
 \[
-B_m=\{4m+1,\ldots,10m+3\},
+B_m=\{4m+1,\ldots,10m+3\}.
 \]
-and let \(\mathcal P_m,\mathcal Z_m\) be respectively the positive- and
-zero-gain low-label sets in (KPGMIN-13). All and only the maximizing subsets
-are
+
+Every low label `2,...,4m` is isolated. Its deletion gain is positive, with
+exact unique minimum `28m+12` at `lambda_0`. Every nontrivial compressed
+shortcut has positive margin, with exact minimum `12m+4` on
+`(A_0,c_0,b_0)`. The closing low gain and the separate shortcut through
+`rho_0=4m+1` are audited literally. The strict shortcut identity proves
+
 \[
 \boxed{
-B_m\cup\mathcal P_m\cup Z',
-\qquad Z'\subseteq\mathcal Z_m,
+\operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P(U)
+=\{B_m\}.
 }
 \]
-so their exact number is \(2^{|\mathcal Z_m|}\). A signed shortcut proof,
-not subset enumeration, establishes the equality cases.
 
-Universal uniqueness is a **disproved claim**. The exact row
+Hence all and only the maximizing subsets consist of the single set `B_m`.
+No conjecture supplied in the task is false.
+
+## Exact Formula And Cubic Coefficient
+
+The exact value is
+
 \[
-\begin{aligned}
-m&=101805057120180546870,\\
-j&=29025982843749082380,\\
-\kappa_j=\kappa_{j+1}&=14013559766810587979
-\end{aligned}
+\boxed{
+K(\tau_m^*)=P_{\tau_m^*}(B_m)
+={1714m^3+1863m^2+24mq+617m+12q^2+48q+66\over6}.
+}
 \]
-assigns singleton index \(188597691163422599338\) and has
-\(L_{m,j}=0\). It therefore has a genuine independent zero-gain toggle.
+
+For `r=m mod 5`, write `c_r=(0,1,2,3,-1)`. Then
+
+\[
+q={4m+c_r\over5},
+\]
+
+and
+
+\[
+K(\tau_m^*)
+={42850m^3+47247m^2+(16385+216c_r)m
+  +1650+240c_r+12c_r^2\over150}.
+\]
+
+Thus the five `(linear coefficient, constant)` pairs are
+
+\[
+(16385,1650),\ (16601,1902),\ (16817,2178),\
+(17033,2478),\ (16169,1422).
+\]
+
+Since `n=10m+3`,
+
+\[
+K(\tau_m^*)={857\over3000}n^3+O(n^2).
+\]
 
 ## Exact Comparisons
 
-Write \(H_m=D_m+G_m\). Then
-\[
-\begin{aligned}
-K(\tau_m^{\min})-K_{825}&=H_m,\\
-K(\tau_m^{\min})-K(\tau_m^{\rm cl})
- &=H_m-(m^2-6m-4),\\
-K(\tau_m^{\min})-K(\tau_m^{\rm pre})
- &=H_m-(m^2-4).
-\end{aligned}
-\]
-Exact Abel bounds prove \(D_m>m^2-4\) for every \(m\ge5\), while the initial
-rows give
-\[
-(D_3,G_3)=(12,0),\qquad
-(D_4,G_4)=(-4,0).
-\]
-Thus the descending-min order is below K825 and preclosing PG46 exactly at
-\(m=4\), above both at \(m=3\) and every \(m\ge5\), above closing PG46 for
-every \(m\ge3\), and never tied.
+Direct subtraction gives (KPGSTAR-26). Using only `q<=m` proves that the
+three differences from K825, closing PG46, and preclosing PG46 are strictly
+negative for every `m>=3`. There is no tie or crossover involving the new
+order. The complete ordering is
 
-## Cubic Coefficient And Formula Class
+\[
+K_*<K_{\rm cl}<K_{825}<K_{\rm pre}
+\quad(3\le m\le6),
+\]
 
-Let \(a\in(0,1)\) be the unique root of
-\[
-a^3-30a^2-216a+64=0.
-\]
-The exact coefficient is
-\[
-\begin{aligned}
-C={}&206\sqrt{41}-{2546\over3}
-+128\bigl(56\log2+10\log5-19\log(13+\sqrt{41})\bigr)\\
-&+{24\over5}a^2-{3212\over5}a+{1616\over15}
-+2176\log{a+8\over8},
-\end{aligned}
-\]
 and
+
 \[
-K(\tau_m^{\min})
-=Cm^3+O(m^2),
-\qquad
-C=288.1683105370884612135\ldots.
+K_*<K_{825}<K_{\rm cl}<K_{\rm pre}
+\quad(m\ge7).
 \]
-Since \(n=10m+3\), the \(n^3\) coefficient is
+
+At the minimum row, the values are
+
 \[
-{C\over1000}
-=0.2881683105370884612135\ldots>{143\over500}.
+10905<10907<10920<10925.
 \]
-The logarithms combine as \(128\log Q\) for the nonunit algebraic number
-\(Q\) in (KPGMIN-39). Hermite--Lindemann makes \(C\) transcendental.
-Therefore this integer-valued exact score is neither polynomial nor eventual
-quasipolynomial; (KPGMIN-9) is the exact replacement.
+
+Relative to each comparator, the fixed-family leading improvement is
+`-n^3/3000+O(n^2)`.
 
 ## Verification
 
-- The standalone standard-library diagnostic passes on 28
-  max-plus/shortcut rows \(m=3,\ldots,30\), checking 36,989,498 max-plus
-  transitions and 958,916 oriented shortcut arcs. Formula and comparator
-  checks pass on 998 rows through \(m=1000\).
-- The diagnostic constructs only the prescribed greedy order. It enumerates
-  no subset, permutation, or matching. Its absence of zero gains through
-  \(m=1000\) is explicitly bounded and does not override the exact large
-  counterexample.
-- Scoped Ruff lint and format checks and an in-memory compile pass.
-- The complete repository suite passes: 283 tests in 65.04 seconds. The
-  focused checked-artifact schema suite passes four tests in 0.74 seconds.
-  Semantic checked-artifact verification passes for four certificates and
-  76 local brackets.
-- Independent read-only audits reproduce PG100--PG109 and KPGMIN-1--KPGMIN-39,
-  including the exact counterexample, signed equality cases, Abel comparison,
-  uniform \(O(m^2)\) remainder, and transcendence argument.
-- Source tags, final status, complete diff, whitespace, and
-  `git diff --check` pass.
+- The sole standalone standard-library diagnostic passes on 28 max-plus and
+  shortcut rows `m=3,...,30`.
+- It checks 36,989,498 max-plus transitions and all 958,916 proper oriented
+  arcs, including every nontrivial shortcut and cyclic-cut orientation, and
+  finds the unique optimizer `B_m` on every row.
+- Exact Ferrers, formula, and comparator checks pass on 998 rows through
+  `m=1000`.
+- The diagnostic constructs only the prescribed order and enumerates no
+  subset, path permutation, or matching.
+- `python -m pytest -p no:cacheprovider` passes all 283 tests.
+- The focused checked-artifact schema suite passes all 4 tests, and the
+  standalone artifact verifier confirms 4 certificates and 76 local
+  brackets for `n=3,4,5,6`.
+- Ruff lint/format, scoped source-tag and delimiter audits, Python compile,
+  and `git diff --check` pass.
+- Three independent audits pass: mathematical proof, diagnostic design, and
+  synchronized-source scope/classification. No blocking residue remains.
 
 ## Evidence Classification And Limitations
 
-- PG100--PG109 are an **exact Ferrers/bijection theorem**.
-- KPGMIN-1--KPGMIN-39 are an **exact fixed-order combinatorial theorem**,
-  including all maximizers, pointwise comparisons, asymptotics, and formula
-  classification.
-- The enormous zero row is an **exact counterexample** to universal
-  uniqueness.
+- PG110--PG114 are an **exact Ferrers/bijection theorem**.
+- KPGSTAR-1--KPGSTAR-28 are an **exact fixed-order combinatorial theorem**,
+  including the unique maximizer, score, formulas, coefficient, and
+  comparisons.
 - Diagnostic rows are **bounded exact computations** that corroborate but do
-  not prove the all-\(m\) theorem.
-- No geometric feasibility, angular-threshold equality, global
-  \(K\)-minimality, or Power-Ringmin optimum follows.
+  not prove the all-`m` theorem.
+- A generic whole-file delimiter count still sees the same inherited two
+  surplus display openers in `PRODUCT_DISTANCE_SURROGATE.md` in both `HEAD`
+  and the working copy; the new PG110--PG114 section is balanced and the
+  count is not caused by this task.
+- There is no counterexample to preserve because all three initial
+  conjectures are true.
+- No geometric feasibility, exact angular-threshold comparison, global
+  `K`-minimality, or Power-Ringmin optimum follows.
 
 ## Files In Scope
 
@@ -190,12 +192,13 @@ quasipolynomial; (KPGMIN-9) is the exact replacement.
 - `start.md`
 - `PROJECT_KNOWLEDGE.md`
 - `CURRENT_STATUS.md`
-- `ops/TASK-20260719__ferrers_greedy_exact_k/`
+- `ops/TASK-20260719__explicit_pg49_star_exact_k/`
 
 ## Proposed Next Task
 
-After manual review and in a fresh STRICT chat, classify the exact
-Diophantine zero-gain rows of the descending-min PG49 order. Determine whether
-\(\mathcal Z_m\ne\varnothing\) occurs finitely or infinitely often and
-characterize both equations \(L_{m,j}=0\) and \(R_{m,j}=0\) under the exact
-plateau inequalities, without using a bounded sweep as an infinite proof.
+In a fresh STRICT task, evaluate the monotone PG46 interval shift that sends
+the same threshold path `P_q` to the closing gap but leaves the remaining
+paths increasing. Determine exactly which part of the PG49-star improvement
+comes from reversing the singleton block, with the same complete gain,
+shortcut, and cyclic-closure audit and no geometric or global-optimality
+inference.

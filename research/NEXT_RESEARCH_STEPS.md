@@ -43,6 +43,18 @@ K_{825}(n)-K(\tau_n^{(2)})={21\over100}n^2+O(n).
 \]
 Thus this is a pointwise and quadratic construction improvement, not a new
 cubic subsequential or all-residue coefficient.
+The explicit PG49-star assignment on \(n=10m+3\), \(m\ge3\), is now
+classified exactly as well. Its closing path index is
+\(q=\lfloor(4m+3)/5\rfloor=\kappa_{2m-1}\), so the displayed piecewise map
+is Ferrers-compatible on every row. Its unique induced-subset maximizer is
+\(B_m=\{4m+1,\ldots,10m+3\}\), and
+\[
+K={1714m^3+1863m^2+24mq+617m+12q^2+48q+66\over6}.
+\]
+The five \(m\bmod5\) branches all have fixed-family coefficient
+\(857/3000\) in \(n\), and the value is strictly below K825 and both PG46
+orders for every \(m\ge3\). This is a fixed core-order theorem; no geometric
+or global-optimality inference is made.
 One explicit parametric perturbation of the matching \(8/25\) construction
 is now closed as well. On \(n=10m+3\), reversing the outer entries of one
 triple has score \(T\) for every nonzero triple index and
@@ -2711,9 +2723,23 @@ Immediate:
   eventual quasipolynomial. One bounded max-plus/shortcut diagnostic uses no
   subset, permutation, or matching enumeration. No geometric conclusion is
   inferred.
+- The explicit PG49-star task is complete. The piecewise path assignment is
+  a Ferrers-compatible bijection for every \(m\ge3\), with exact equality in
+  the closing column. Every low deletion gain is positive, with minimum
+  \(28m+12\), and every nontrivial compressed shortcut is strict, with
+  minimum \(12m+4\); both roles of the cyclic closure are explicit. Hence
+  \(B_m\) is the unique maximizing subset. The five exact formulas have
+  coefficient \(857/3000\), and the order strictly beats K825 and both PG46
+  witnesses on every row. One bounded standard-library max-plus/shortcut
+  diagnostic enumerates no subset, path permutation, or matching.
 
 Next:
 
+- Evaluate the corresponding monotone PG46 interval shift that places the
+  same threshold path \(P_q\) in \(G_{2m-1}\), keeping the remaining paths
+  in increasing order. Determine exactly which part of the PG49-star gain is
+  caused by reversing the singleton block, with the same complete shortcut
+  and cyclic-closure audit and no global-optimality inference.
 - Classify the Diophantine zero-gain set \(\mathcal Z_m\) for the
   descending-min PG49 order: determine whether zero rows are finite or
   infinite and characterize both \(L_{m,j}=0\) and \(R_{m,j}=0\) under the
@@ -2752,14 +2778,16 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: classify the exact zero-gain rows of the descending-min PG49 core order.
+Task: evaluate the monotone threshold-closing PG46 shift paired with the
+PG49-star order.
 
 Acceptance criteria:
 
-- characterize all integer solutions of \(L_{m,j}=0\) and \(R_{m,j}=0\)
-  compatible with \(m\ge3\), \(1\le j<m\), and
-  \(\kappa_j=\kappa_{j+1}\), or prove a precise finite/infinite substitute;
-- explain the arithmetic role of the factorization (KPGMIN-21) and preserve
-  the known exact counterexample;
-- use no bounded sweep as an infinite proof and infer no geometric or global
-  minimizing-order consequence.
+- fix the one PG46 interval shift \(\alpha_{q,2m-1}\) from (PG46), with
+  \(q=\lfloor(4m+3)/5\rfloor\), before scoring;
+- determine its exact \(K\), all maximizing subsets, five residue formulas,
+  and comparisons with PG49-star, K825, and both existing PG46 witnesses;
+- audit every deletion gain and compressed shortcut, including closure, with
+  at most one bounded standard-library diagnostic and no subset, matching,
+  or permutation enumeration;
+- infer no geometric or global minimizing-order conclusion.

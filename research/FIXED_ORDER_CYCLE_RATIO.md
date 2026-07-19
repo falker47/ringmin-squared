@@ -88,6 +88,17 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \(0.2881683105370884612\ldots>143/500\). Its exact formula is neither
   polynomial nor eventual quasipolynomial. These are core-order statements,
   with no geometric or global-optimality consequence.
+- **EXACT THEOREM (EXPLICIT PG49-STAR CORE):** on \(n=10m+3\),
+  \(m\ge3\), Section 15 evaluates the piecewise Ferrers bijection (PG110).
+  Its sole maximizing subset is \(B_m=\{4m+1,\ldots,n\}\), and
+  \[
+  K={1714m^3+1863m^2+24mq+617m+12q^2+48q+66\over6},
+  \qquad q=\left\lfloor{4m+3\over5}\right\rfloor.
+  \]
+  The five \(m\bmod5\) branches have cubic coefficient \(857/3000\) in
+  \(n\). This value is strictly below K825 and both PG46 values for every
+  \(m\ge3\). The theorem concerns one explicit fixed core-order family and
+  has no geometric or global-optimality consequence.
 - **EXACT THEOREM:** the accepted same-order comparison gives
   \(\Lambda_n\le(n-1)W_n\). Combined with the strict cyclic-ratio sandwich,
   this yields
@@ -11478,3 +11489,484 @@ Further non-consequences are important.
 - The exact real-arithmetic theorem supplies no new interval-backend audit,
   certificate, exact geometric finite optimum value, or checked-artifact
   conclusion.
+
+## 15. Exact \(K\) For The Explicit PG49-Star Core Order
+
+Retain the symbolic scaffold on
+
+\[
+n=10m+3,\qquad m\ge3,\qquad d=8m+4,\qquad v=2m,
+\]
+
+with terminals, low labels, and oriented paths
+
+\[
+E_j=d+j,\qquad
+\lambda_j=4m-2j,\qquad
+\rho_j=4m+1-2j,
+\tag{KPGSTAR-1}
+\]
+
+\[
+P_k=(A_k,c_k,b_k)
+=(8m+3-2k,\ 4m+2+k,\ 8m+2-2k)
+\quad(0\le k\le m),
+\]
+
+\[
+P_k=(x_k)=(4m+2+k)
+\quad(m+1\le k\le2m-1).
+\tag{KPGSTAR-2}
+\]
+
+Let \(\alpha_*\) be the relation-compatible bijection (PG110), put
+
+\[
+q=\left\lfloor{4m+3\over5}\right\rfloor,
+\qquad
+\tau_m^*=\sigma_{\alpha_*},
+\]
+
+and define the proposed backbone and its low complement by
+
+\[
+B_m=\{4m+1,\ldots,10m+3\},
+\qquad
+H_m=\{2,\ldots,4m\}.
+\]
+
+The exact theorem is
+
+\[
+\boxed{
+\operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}
+P_{\tau_m^*}(U)=\{B_m\}.
+}
+\tag{KPGSTAR-3}
+\]
+
+Thus the maximizer is unique on every admitted row. Its value is
+
+\[
+\boxed{
+K(\tau_m^*)=P_{\tau_m^*}(B_m)
+={1714m^3+1863m^2+24mq+617m+12q^2+48q+66\over6}.
+}
+\tag{KPGSTAR-4}
+\]
+
+We prove the maximizer classification first, without using (KPGSTAR-4) as a
+surrogate for the shortcut audit.
+
+### Complete deletion-gain audit
+
+Every member of \(H_m\) is isolated between two members of \(B_m\). After
+deleting those low labels, the cyclic backbone is
+
+\[
+\boxed{
+\left(
+L,
+(E_j,P_j)_{j=0}^{q-1},
+(E_j,P_{j+1})_{j=q}^{m-1},
+(E_j,x_{3m-1-j})_{j=m}^{2m-2},
+E_{2m-1},P_q
+\right),
+\qquad L=4m+1.
+}
+\tag{KPGSTAR-5}
+\]
+
+Each indexed block is concatenated in increasing \(j\), every path is
+expanded in its displayed orientation, and an empty range contributes
+nothing. In particular, (KPGSTAR-5) remains literal when \(m=3\) and
+\(q=m\).
+
+For a low label \(z\) between backbone neighbors \(a,b\), use the deletion
+gain
+
+\[
+h_z=ab-z(a+b).
+\tag{KPGSTAR-6}
+\]
+
+There are exactly seven position classes. The first six are the left and
+right holes in the three nonclosing assignment blocks; the last is the sole
+closing hole \(\lambda_{2m-1}=2\):
+
+\[
+\begin{array}{c|c|c}
+\text{hole}&\text{gap range}&h_z\\ \hline
+\lambda_j&0\le j<q&
+-4j^2+(28m+9)j+28m+12\\
+\rho_{j+1}&0\le j<q&
+-4j^2+(28m+5)j+44m+17\\
+\lambda_j&q\le j\le m-1&
+-4j^2+(28m+3)j+20m+4\\
+\rho_{j+1}&q\le j\le m-1&
+-4j^2+(28m-1)j+36m+5\\
+\lambda_j&m\le j\le2m-2&
+-j^2+(29m+7)j-4m^2+16m+4\\
+\rho_{j+1}&m\le j\le2m-2&
+-j^2+(29m+8)j-4m^2+34m+11\\
+\lambda_{2m-1}=2&&
+80m^2-(20m+2)q+18m-3.
+\end{array}
+\tag{KPGSTAR-7}
+\]
+
+The four triple expressions and the two singleton expressions have forward
+differences, in the same order,
+
+\[
+28m+5-8j,\quad28m+1-8j,\quad
+28m-1-8j,\quad28m-5-8j,\quad
+29m+6-2j,\quad29m+7-2j.
+\tag{KPGSTAR-8}
+\]
+
+Each is positive throughout its displayed range. The first two classes have
+respective minima \(28m+12\) and \(44m+17\) at \(j=0\). If the shifted
+triple range is nonempty, then \(m\ge4\), \(q\ge3\), and its two left-end
+values exceed \(28m+12\). Indeed, subtracting that value from the shifted
+left gain gives at least \(64m+1\), while the shifted right gain gives at
+least \(79m-7\), using \(-4q^2\ge-4mq\), \(q\ge3\), and \(q\le m\).
+The singleton classes begin at
+
+\[
+24m^2+23m+4,\qquad24m^2+42m+11.
+\]
+
+Finally, the closing value exceeds \(28m+12\), since
+
+\[
+80m^2-(20m+2)q+18m-3-(28m+12)
+\ge60m^2-12m-15>0.
+\]
+
+Consequently every low deletion is strictly profitable, and the complete
+minimum is
+
+\[
+\boxed{
+\min_{z\in H_m}h_z=28m+12>0,
+}
+\tag{KPGSTAR-9}
+\]
+
+attained only at \(\lambda_0=4m\). Equation (KPGSTAR-7) treats the cyclic
+closing hole separately; no nonclosing right-hole formula has been extended
+through the cut.
+
+### Complete compressed-shortcut audit
+
+Apply the exact arc identity (K825-8). After deleting only the internal
+members of \(H_m\) from an oriented arc, write its compressed path as
+
+\[
+C=(z_0,z_1,\ldots,z_s),\qquad s\ge2,
+\]
+
+and put
+
+\[
+M(C)=\sum_{i=0}^{s-1}z_i z_{i+1}-z_0z_s.
+\tag{KPGSTAR-10}
+\]
+
+We prove \(M(C)>0\) in every endpoint and length class.
+
+If an endpoint, say \(a\), is a low label, every internal vertex is in
+\(B_m\) and is therefore at least \(L\). Writing the other endpoint as
+\(b\), the two boundary edges already give
+
+\[
+M(C)\ge L(a+b)-ab=La+(L-a)b
+\ge4L-4=16m>12m+4.
+\tag{KPGSTAR-11}
+\]
+
+The rectangle is \(2\le a\le L-1\), \(2\le b\le n\); checking its four
+corners gives the displayed minimum. The argument also covers two low
+endpoints and every orientation.
+
+It remains to take both endpoints \(a,b\) in \([L,n]\). First suppose
+\(s=2\), with middle label \(y\). Every possible middle role is one of the
+following.
+
+For a triple connector \(c_k\), \(0\le k\le m\), its neighbors remain
+\(A_k,b_k\), and
+
+\[
+c_k(A_k+b_k)-A_kb_k
+=12m+4+(32m+7)k-8k^2.
+\tag{KPGSTAR-12}
+\]
+
+Its forward difference is \(32m-16k-1>0\) on the displayed range, so its
+minimum is \(12m+4\) at \(c_0\). For a reversed singleton gap, write
+\(j=m+t\), \(0\le t\le m-2\). Then
+\(x_{3m-1-j}=6m+1-t\), and its exact terminal-to-terminal margin is
+
+\[
+\begin{aligned}
+&x_{3m-1-j}(E_j+E_{j+1})-E_jE_{j+1}\\
+&\qquad={}
+27m^2-24mt-9m-3t^2-16t-11
+\ge35m+9.
+\end{aligned}
+\tag{KPGSTAR-13}
+\]
+
+The polynomial decreases in \(t\), so the last value \(t=m-2\) gives the
+displayed minimum. The closing backbone label \(L=\rho_0\) lies literally
+between \(b_q\) and \(E_0\). Its exact margin is
+
+\[
+L(b_q+E_0)-b_qE_0
+=2\bigl((4m+3)q-4m-1\bigr)
+\ge16m+16,
+\tag{KPGSTAR-14}
+\]
+
+using \(q\ge3\). This is the second, distinct role of the cyclic closure;
+the closing low gain was already (KPGSTAR-7).
+
+The remaining two-edge middle roles are outer triple labels and terminals;
+they satisfy \(y\ge(n+1)/2=5m+2\). More generally, for any such integer
+middle label,
+
+\[
+y(a+b)-ab=y^2-(a-y)(b-y)
+\ge
+\begin{cases}
+(3n-1)/2=15m+4,&a,b>y,\\
+(2L+1)(n+1)/2-L(L+1)=24m^2+19m+4,&a,b<y,\\
+y^2,&a<y<b\text{ or }b<y<a.
+\end{cases}
+\tag{KPGSTAR-15}
+\]
+
+Distinctness of the two endpoints gives the first two corner bounds. Every
+entry is strictly larger than \(12m+4\). Equations
+(KPGSTAR-12)--(KPGSTAR-15) therefore exhaust all two-edge middle labels and
+prove that their exact global minimum is \(12m+4\), attained at
+\((A_0,c_0,b_0)\).
+
+For \(s=3\), every adjacent pair of internal backbone labels contains one
+label at least
+
+\[
+R=6m+2,
+\qquad R+L=n,
+\tag{KPGSTAR-16}
+\]
+
+while the other is at least \(L\). This follows block by block: a terminal
+is larger than \(R\); each internal triple edge contains \(A_k\ge6m+3\) or
+\(b_k\ge6m+2\); a singleton is flanked by terminals; and the two cyclic
+edges are \(b_qL\) and \(LE_0\), with
+\(b_q=8m+2-2q\ge R\). Orienting the internal pair so the first label is at
+least \(R\), or reversing the path, gives
+
+\[
+M(C)\ge aR+RL+Lb-ab\ge RL
+=24m^2+14m+2>12m+4.
+\tag{KPGSTAR-17}
+\]
+
+The second inequality is the four-corner minimum of
+\(aR+Lb-ab\) on \([L,n]^2\), using \(R+L=n\).
+
+Finally, for every \(s\ge4\), all internal labels are at least \(L\), so
+
+\[
+\begin{aligned}
+M(C)
+&\ge L(a+b)+(s-2)L^2-ab\\
+&\ge2Ln+2L^2-n^2+(s-4)L^2\\
+&=12m^2-1+(s-4)L^2>12m+4.
+\end{aligned}
+\tag{KPGSTAR-18}
+\]
+
+Again the bilinear minimum is at the corners of \([L,n]^2\). The cyclic
+backbone in (KPGSTAR-5), including both edges through \(L\), is used in
+(KPGSTAR-16); hence (KPGSTAR-11)--(KPGSTAR-18) cover every oriented arc,
+not only arcs inside the displayed linear cut. We have proved
+
+\[
+\boxed{
+\min_{C:\,s\ge2}M(C)=12m+4>0,
+}
+\tag{KPGSTAR-19}
+\]
+
+with equality exactly on the forward compressed arc
+\((A_0,c_0,b_0)\) in the displayed cyclic orientation. Its reversal appears
+only after reflecting the entire cyclic representative; it is not a second
+forward arc of the fixed presentation.
+
+The positive gains (KPGSTAR-9), strict shortcuts (KPGSTAR-19), and exact
+identity (K825-8)--(K825-9) now apply without subset enumeration. Equality
+forces every member of \(H_m\) to be omitted and every selected gap to be a
+single backbone edge. Thus \(B_m\) is the unique maximizer among subsets of
+cardinality at least two. It dominates the two-label subset
+\(\{n-1,n\}\), whose score is \(2n(n-1)>n^2\), so no singleton can tie.
+This proves (KPGSTAR-3), including all equality cases.
+
+### Exact block sum and the five residue classes
+
+For a nonempty path \(P=(p_1,\ldots,p_s)\), put
+
+\[
+\mathcal C(x,P,y)=xp_1+
+\sum_{i=1}^{s-1}p_ip_{i+1}+p_sy.
+\]
+
+Reading (KPGSTAR-5) from \(L\), its score is
+
+\[
+\begin{aligned}
+P_{\tau_m^*}(B_m)={}&LE_0
++\sum_{j=0}^{q-1}\mathcal C(E_j,P_j,E_{j+1})\\
+&+\sum_{j=q}^{m-1}\mathcal C(E_j,P_{j+1},E_{j+1})\\
+&+\sum_{j=m}^{2m-2}
+  x_{3m-1-j}(E_j+E_{j+1})
++\mathcal C(E_{2m-1},P_q,L).
+\end{aligned}
+\tag{KPGSTAR-20}
+\]
+
+The three repeated summands and the closing term are
+
+\[
+\begin{aligned}
+\mathcal C(E_j,P_j,E_{j+1})
+&=-8j^2-16mj-16j+192m^2+164m+32,\\
+\mathcal C(E_j,P_{j+1},E_{j+1})
+&=-8j^2-16mj-28j+192m^2+132m+7,\\
+x_{3m-1-j}(E_j+E_{j+1})
+&=-2j^2-2mj-7j+112m^2+79m+9,\\
+\mathcal C(E_{2m-1},P_q,L)
+&=176m^2-28mq+122m-4q^2-11q+21.
+\end{aligned}
+\tag{KPGSTAR-21}
+\]
+
+Using the standard sums of \(j\) and \(j^2\) on the exact ranges in
+(KPGSTAR-20) gives (KPGSTAR-4). This also covers the empty shifted range at
+\(m=3\); there is no boundary correction.
+
+For the requested five branches, retain \(c_r\) from (PG111). Direct
+substitution of \(q=(4m+c_r)/5\) gives
+
+\[
+K(\tau_m^*)
+={42850m^3+47247m^2+(16385+216c_r)m
+  +1650+240c_r+12c_r^2\over150}.
+\tag{KPGSTAR-22}
+\]
+
+Equivalently,
+
+\[
+\begin{array}{c|c|c}
+r=m\bmod5&q&150K(\tau_m^*)\\ \hline
+0&4m/5&42850m^3+47247m^2+16385m+1650\\
+1&(4m+1)/5&42850m^3+47247m^2+16601m+1902\\
+2&(4m+2)/5&42850m^3+47247m^2+16817m+2178\\
+3&(4m+3)/5&42850m^3+47247m^2+17033m+2478\\
+4&(4m-1)/5&42850m^3+47247m^2+16169m+1422.
+\end{array}
+\tag{KPGSTAR-23}
+\]
+
+Every displayed numerator is divisible by \(150\) on its stated residue
+class because it equals the integer score in (KPGSTAR-20). Since
+\(n=10m+3\), all five branches have the exact fixed-order coefficient
+
+\[
+\boxed{
+K(\tau_m^*)={857\over3}m^3+O(m^2)
+={857\over3000}n^3+O(n^2).
+}
+\tag{KPGSTAR-24}
+\]
+
+This proves the proposed coefficient for this family; it is not imported
+from the different residue-one construction (KR1-1).
+
+### Exact comparison with K825 and both PG46 orders
+
+On the same \(n=10m+3\) rows, the retained exact values are
+
+\[
+\begin{aligned}
+K_{825}(m)&={572m^3+629m^2+235m+30\over2},\\
+K_{\rm cl}(m)&={572m^3+631m^2+223m+22\over2},\\
+K_{\rm pre}(m)&={572m^3+631m^2+235m+22\over2}.
+\end{aligned}
+\tag{KPGSTAR-25}
+\]
+
+Subtracting them from (KPGSTAR-4) gives
+
+\[
+\begin{aligned}
+K(\tau_m^*)-K_{825}(m)
+&={-m^3-12m^2+12mq-44m+6q^2+24q-12\over3},\\
+K(\tau_m^*)-K_{\rm cl}(m)
+&={-m^3-15m^2+12mq-26m+6q^2+24q\over3},\\
+K(\tau_m^*)-K_{\rm pre}(m)
+&={-m^3-15m^2+12mq-44m+6q^2+24q\over3}.
+\end{aligned}
+\tag{KPGSTAR-26}
+\]
+
+The comparison has no hidden crossover. Since \(q\le m\), three times the
+respective differences are at most
+
+\[
+\begin{aligned}
+&-m^3+6m^2-20m-12<0,\\
+&-m^3+3m^2-2m=-m(m-1)(m-2)<0,\\
+&-m^3+3m^2-20m=-m(m^2-3m+20)<0.
+\end{aligned}
+\tag{KPGSTAR-27}
+\]
+
+For the first line, its negative is
+\((m-3)^3+3(m-3)^2+11(m-3)+45>0\). Therefore the PG49-star value is
+strictly below all three comparators for every \(m\ge3\), with no tie. At
+the minimum row,
+
+\[
+\alpha_*=(0,1,2,5,4,3),
+\qquad
+\boxed{10905<10907<10920<10925},
+\tag{KPGSTAR-28}
+\]
+
+where the four values are respectively PG49-star, closing PG46, K825, and
+preclosing PG46. Combining (KPG46-19) and (KPG46P-18), the complete ordering
+is PG49-star \(<\) closing PG46 \(<\) K825 \(<\) preclosing PG46 for
+\(3\le m\le6\), and PG49-star \(<\) K825 \(<\) closing PG46 \(<\)
+preclosing PG46 for \(m\ge7\). Relative to each comparator, the leading
+difference is \(-n^3/3000+O(n^2)\).
+
+The sole diagnostic for (PG110)--(PG114) and
+(KPGSTAR-1)--(KPGSTAR-28) is the standalone standard-library script
+`ops/TASK-20260719__explicit_pg49_star_exact_k/exact_diagnostic.py`. It
+constructs only the displayed assignment. On \(m=3,\ldots,30\), its direct
+increasing-path max-plus scorer checks uniqueness and every proper oriented
+arc, hence every nontrivial compressed shortcut, including paths crossing
+the cyclic cut; lighter exact formula and Ferrers checks extend through
+\(m=1000\). It enumerates no subset, path permutation, or matching. These
+bounded rows corroborate the symbolic proof and do not extend its scope.
+
+All results in this section concern \(K\) on one explicit cyclic core-order
+family. They give no exact angular threshold, geometric feasibility or
+optimality statement, global \(K\)-minimizer classification, or equality
+with \(\Lambda_n\). In particular, the coefficient in (KPGSTAR-24) is a
+fixed-family subsequential coefficient only.
