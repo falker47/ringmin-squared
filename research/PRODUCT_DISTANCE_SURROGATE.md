@@ -197,6 +197,15 @@
   enumeration. Distinct assignments give distinct canonical dihedral core
   orders in this fixed oriented scaffold, so the same integer also counts
   its dihedral classes; no symmetry factor is divided out.
+- **EXACT THEOREM (descending-min PG49 representative):** fixing
+  \(\alpha_{\min}(0)=0\) and assigning the least unused
+  \(k\ge\kappa_j\) while \(j=2m-1,\ldots,1\) is always well defined.
+  Its used suffix is the exact interval
+  \([\kappa_j,\kappa_j+2m-1-j]\), so it is a relation-compatible
+  bijection for every \(m\ge3\), with the closed binary-jump formula
+  (PG104). Its separate induced-subset evaluation is (KPGMIN-9) in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`; no geometric conclusion is inferred
+  from either theorem.
 - **EXACT THEOREM (later closing-PG46 shortcut evaluation):** for the PG46
   bijection placing \(P_m\) in the closing gap \(G_{2m-1}\), the corresponding
   core order has the sole induced-subset maximizer
@@ -6101,6 +6110,171 @@ in this sharpening remain statements about the labelled PG69 formula only;
 no permutation or matching enumeration and no geometric inference enters
 the proof.
 
+### The descending-min representative of the PG49 board
+
+We now select one deterministic matching of the PG49 Ferrers board. This is
+not a search over its matchings. Retain \(v=2m\), \(d=8m+4\), and the exact
+thresholds \(\kappa_j\) from (PG38). Define
+
+\[
+\alpha_{\min}(0)=0,
+\]
+
+and, for \(j=v-1,v-2,\ldots,1\), let \(\alpha_{\min}(j)\) be the least
+path index not used at a later step and satisfying
+\(\alpha_{\min}(j)\ge\kappa_j\). Put
+
+\[
+\Delta_j=\kappa_{j+1}-\kappa_j
+\qquad(0\le j<v-1).
+\tag{PG100}
+\]
+
+The increments are binary. Indeed, (PG39) gives strict increase of \(h_j\),
+while
+
+\[
+0<h_{j+1}-h_j
+={d(d-1)\over2(d+j)(d+j+1)}<1.
+\]
+
+Therefore
+
+\[
+\boxed{\Delta_j\in\{0,1\}.}
+\tag{PG101}
+\]
+
+The following suffix invariant proves simultaneously that the prescription
+is well defined and identifies every one of its choices. Immediately after
+the columns \(G_j,G_{j+1},\ldots,G_{v-1}\) have been assigned, their used
+positive path indices are exactly
+
+\[
+\boxed{
+U_j=\{\kappa_j,\kappa_j+1,\ldots,
+       \kappa_j+v-1-j\}.
+}
+\tag{PG102}
+\]
+
+For \(j=v-1\), the least admissible index is \(\kappa_{v-1}\), so (PG102)
+holds. Suppose it holds at \(j+1\). If \(\Delta_j=1\), the new least
+available index is the one immediately below \(U_{j+1}\), namely
+\(\kappa_j\). If \(\Delta_j=0\), the old interval starts at
+\(\kappa_j\), so the least available index is the one immediately above it,
+\(\kappa_j+v-1-j\). In both cases adjoining that index gives (PG102).
+There is no overflow: for \(j\ge2\), (PG40) gives
+\(\kappa_j+v-1-j\le v-2\), while at \(j=1\) the endpoint is exactly
+\(v-1\). Equivalently, before assigning \(G_j\) the number of available
+indices in its neighborhood is the positive integer
+
+\[
+(v-\kappa_j)-(v-1-j)=j+1-\kappa_j.
+\tag{PG103}
+\]
+
+At \(j=1\), (PG102) is \(U_1=\{1,\ldots,v-1\}\). Together with the
+separately fixed value \(\alpha_{\min}(0)=0\), this proves that all and only
+the \(v\) path indices are used. Thus the procedure has the closed form
+
+\[
+\boxed{
+\begin{aligned}
+\alpha_{\min}(0)&=0,\\
+\alpha_{\min}(j)
+&=\kappa_j+(1-\Delta_j)(v-1-j)
+&& (1\le j\le v-2),\\
+\alpha_{\min}(v-1)&=\kappa_{v-1}.
+\end{aligned}}
+\tag{PG104}
+\]
+
+Every positive-column value in (PG104) is at least its Ferrers threshold,
+and column zero uses the sole extendible edge \((0,0)\). By (PG49),
+\(\alpha_{\min}\) is therefore a relation-compatible bijection for every
+integer \(m\ge3\). By the already proved, independent implication (PG62),
+its product-distance score is \(W=T=W_n\). This last statement is only a
+surrogate-score consequence; it is not a geometric conclusion.
+
+There is also a useful dual reading of (PG104). Put
+
+\[
+q=\kappa_{v-1}=\left\lfloor{4m+3\over5}\right\rfloor,
+\qquad
+\ell_k=\left\lfloor{2k(8m+4)\over8m+3-2k}\right\rfloor
+\quad(1\le k<q).
+\tag{PG105}
+\]
+
+For every integer \(1\le k<q\), the ceiling definition and direct inversion
+give the exact cutoff
+\[
+\kappa_j\le k
+\quad\Longleftrightarrow\quad
+h_j\le k
+\quad\Longleftrightarrow\quad
+j\le
+\left\lfloor{2k(8m+4)\over8m+3-2k}\right\rfloor=\ell_k.
+\]
+Together with strict monotonicity of \(h_j\) and its increments below one,
+this shows that
+
+\[
+\boxed{
+\{j:1\le j\le v-2,\ \Delta_j=1\}
+=\{\ell_1,\ldots,\ell_{q-1}\},
+\qquad
+\alpha_{\min}(\ell_k)=k.
+}
+\tag{PG106}
+\]
+
+The closing column receives \(P_q\). Reading the remaining positive gaps
+in increasing order, the plateau columns receive
+\(P_{v-1},P_{v-2},\ldots,P_{q+1}\). Thus (PG106) and this decreasing
+plateau list describe the entire bijection without executing the recursion.
+In particular,
+
+\[
+\alpha_{\min}(1)=v-1,
+\qquad
+\alpha_{\min}(2)=1.
+\tag{PG107}
+\]
+
+For the two terminal columns put
+\(p=\lfloor(4m+1)/5\rfloor\). Then
+
+\[
+\boxed{
+\alpha_{\min}(v-1)=q,
+\qquad
+\alpha_{\min}(v-2)=
+\begin{cases}
+p,&m\equiv2,3\pmod5,\\
+p+1,&m\equiv0,1,4\pmod5.
+\end{cases}}
+\tag{PG108}
+\]
+
+This explicitly includes the closing, preclosing, and all five residue
+boundaries. At the minimum parameter,
+
+\[
+m=3:\qquad
+(\kappa_0,\ldots,\kappa_5)=(0,1,1,2,2,3),
+\qquad
+\boxed{\alpha_{\min}=(0,5,1,4,2,3)}.
+\tag{PG109}
+\]
+
+Equations (PG100)--(PG109) establish existence, bijectivity, and exact
+relation compatibility only. The induced core-order objective \(K\) is a
+different quantity and is evaluated separately in
+`research/FIXED_ORDER_CYCLE_RATIO.md`; no assertion about it is smuggled
+into the Ferrers proof.
+
 ## Verification Boundary And Open Questions
 
 `tests/test_product_distance.py` checks exact rational comparisons, canonical
@@ -6213,6 +6387,17 @@ reconstructs only the order placing \(P_m\) in \(G_{2m-2}\), runs a max-plus
 increasing-path DP, and checks every oriented shortcut arc; direct score and
 comparison checks continue through \(m=1000\). It enumerates no subsets,
 permutations, or matchings and imports no project or test helper.
+The sole diagnostic for (PG100)--(PG109) and (KPGMIN-1)--(KPGMIN-39) is the
+standalone standard-library script in
+ops/TASK-20260719__ferrers_greedy_exact_k/. It compares the literal
+descending-min recursion with (PG104), checks every suffix interval and
+Ferrers edge, reconstructs only this one core order, and runs a max-plus
+increasing-path DP plus every oriented shortcut budget for
+\(m=3,\ldots,30\). Exact formula and comparator checks continue through
+\(m=1000\). It enumerates no subset, path permutation, or matching and
+imports no project or test helper. Its absence of zero gains is explicitly
+limited to the checked rows; (KPGMIN-19)--(KPGMIN-21) give an exact much
+larger zero-gain counterexample.
 
 The following remain unresolved.
 
@@ -6258,6 +6443,14 @@ The following remain unresolved.
   strictly worse than both closing PG46 and K825 on every admitted row, with
   the same unchanged coefficient \(143/500\). No geometric or global
   conclusion follows.
+- **CLOSED CORE-ORDER QUESTION:** (PG100)--(PG109) prove that the
+  descending-min PG49 rule is a relation-compatible bijection for every
+  \(m\ge3\). The separate theorem (KPGMIN-1)--(KPGMIN-39) evaluates its
+  exact \(K\), classifies all maximizers including genuine zero-gain toggles,
+  proves every exact comparison with K825 and the two PG46 witnesses, and
+  proves that its cubic coefficient is transcendental and strictly worse
+  than \(143/500\). No polynomial or eventual quasipolynomial formula and no
+  geometric consequence result.
 - **OPEN QUESTION:** for which \(n\ge94\) is
   \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\)? Criterion (MS2)
   certifies equality whenever it holds, including \(n=94\), but no complete

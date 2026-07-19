@@ -2,7 +2,7 @@
 
 Date: 2026-07-14
 
-Last updated: 2026-07-18
+Last updated: 2026-07-19
 
 ## Scope And Classification
 
@@ -76,6 +76,18 @@ in `research/ALL_N_LOWER_BOUND.md`.
   It exceeds the closing value by \(6m\) and K825 by \(m^2-4\), so it is
   strictly worse than both on every admitted row. It retains coefficient
   \(143/500\) and has no geometric or global-optimality consequence.
+- **EXACT THEOREM (DESCENDING-MIN PG49 CORE):** on \(n=10m+3\),
+  \(m\ge3\), Section 13 evaluates the deterministic Ferrers representative
+  (PG104) by the exact floor/positive-part formula (KPGMIN-9). Its maximizing
+  subsets are precisely
+  \(B_m\cup\mathcal P_m\cup Z'\), \(Z'\subseteq\mathcal Z_m\), so their
+  number is \(2^{|\mathcal Z_m|}\). The zero set is genuinely nonempty on
+  at least one explicit, very large row; universal uniqueness is false. The
+  value is smaller than K825 and preclosing PG46 only at \(m=4\), is never
+  smaller than closing PG46, and has cubic coefficient
+  \(0.2881683105370884612\ldots>143/500\). Its exact formula is neither
+  polynomial nor eventual quasipolynomial. These are core-order statements,
+  with no geometric or global-optimality consequence.
 - **EXACT THEOREM:** the accepted same-order comparison gives
   \(\Lambda_n\le(n-1)W_n\). Combined with the strict cyclic-ratio sandwich,
   this yields
@@ -10623,7 +10635,649 @@ orders. They do not compare exact angular thresholds, prove geometric
 feasibility or optimality, identify a global \(K\)-minimizer, or improve an
 all-residue coefficient.
 
-## 13. Asymptotic Consequences And Non-Consequences
+## 13. Exact \(K\) For The Descending-Min PG49 Core Order
+
+We now evaluate the deterministic PG49 representative constructed in
+(PG100)--(PG109). This section concerns the induced-subset objective \(K\),
+not the product-distance score \(W\). Retain
+
+\[
+v=2m,\qquad d=8m+4,\qquad n=10m+3,\qquad
+q=\kappa_{v-1}=\left\lfloor{4m+3\over5}\right\rfloor,
+\]
+
+and write \(\alpha=\alpha_{\min}\). The resulting core order, rooted at its
+largest label, is
+
+\[
+\begin{aligned}
+\tau_m^{\min}={}&(
+E_{v-1},\lambda_{v-1},P_q,\rho_0,
+E_0,\lambda_0,P_0,\rho_1,\ldots,\\
+&\hspace{8em}
+E_{v-2},\lambda_{v-2},P_{\alpha(v-2)},\rho_{v-1}).
+\end{aligned}
+\tag{KPGMIN-1}
+\]
+
+The ellipsis follows increasing gap index and expands every retained path in
+its prescribed orientation. Let
+
+\[
+B_m=\{4m+1,4m+2,\ldots,n\}
+\tag{KPGMIN-2}
+\]
+
+be the high backbone obtained by deleting the isolated labels
+\(2,\ldots,4m\).
+
+### Exact finite-sum formula
+
+For a path \(P_k\), denote its first and last labels by \(f_k,l_k\), with
+the same label used twice for a singleton, and put
+
+\[
+r_k=f_k+l_k=
+\begin{cases}
+16m+5-4k,&0\le k\le m,\\
+8m+4+2k,&m<k<v.
+\end{cases}
+\tag{KPGMIN-3}
+\]
+
+Define
+
+\[
+\boxed{
+D_m=
+\sum_{j=0}^{v-1}j\bigl(r_{\alpha(j)}-r_j\bigr)
+-(6m+3)(2m+1-2q).
+}
+\tag{KPGMIN-4}
+\]
+
+This is the exact change of the high-backbone score from the identity
+assignment. To see the cancellation, in a nonclosing block write
+
+\[
+E_jf_k+P(P_k)+l_kE_{j+1}
+={2E_j+1\over2}r_k+
+\left(P(P_k)+{l_k-f_k\over2}\right),
+\tag{KPGMIN-5}
+\]
+
+where \(P(P_k)\) is the sum of the internal path-edge products. The
+parenthesized term depends only on \(k\), so its sum is unchanged by a path
+permutation; the constant part of \((2E_j+1)/2=d+j+1/2\) also cancels.
+At the cyclic block, replacing the fictitious next terminal \(n+1\) by
+\(\rho_0=4m+1,E_0=d\) contributes
+
+\[
+-(6m+3)(l_q-l_{v-1})
+=-(6m+3)(2m+1-2q),
+\]
+
+which is the last term of (KPGMIN-4). Direct substitution for the identity
+assignment gives the already established branch value
+
+\[
+K_{825}(m)={572m^3+629m^2+235m+30\over2}.
+\tag{KPGMIN-6}
+\]
+
+It remains to decide which isolated low labels should be inserted into the
+backbone. Put \([x]_+=\max(x,0)\). For
+\(1\le j<m\) with \(\Delta_j=0\), let \(r=\kappa_j\) and define the two
+exact insertion gains
+
+\[
+\begin{aligned}
+L_{m,j}={}&j^2-26jm-3jr-7j+8m^2
+            -4mr-12m-4r-4,\\
+R_{m,j}={}&L_{m,j}-j-16m-2r-7,
+\end{aligned}
+\tag{KPGMIN-7}
+\]
+
+corresponding respectively to \(\lambda_j\) and \(\rho_{j+1}\). Finally put
+
+\[
+G_m=
+\sum_{\substack{1\le j<m\\\Delta_j=0}}
+\bigl([L_{m,j}]_+ +[R_{m,j}]_+\bigr).
+\tag{KPGMIN-8}
+\]
+
+Then the exact answer for every integer \(m\ge3\) is
+
+\[
+\boxed{
+K(\tau_m^{\min})=K_{825}(m)+D_m+G_m.
+}
+\tag{KPGMIN-9}
+\]
+
+Thus (KPGMIN-3)--(KPGMIN-9), together with the ceiling formula for
+\(\kappa_j\) and (PG104), are an exact \(O(m)\) integer evaluation. They do
+not enumerate a path permutation, matching, or subset.
+
+### Exhaustive low-gain classification
+
+For completeness, we prove that (KPGMIN-7) contains every low label whose
+insertion can be nonnegative. If \(P_k\) is a triple in \(G_j\), direct
+substitution gives the insertion gains
+
+\[
+\begin{aligned}
+g_{\lambda}(j,k)
+&=-2j^2+6jk-36jm-17j+8km+8k-28m-12,\\
+g_{\rho}(j,k)
+&=g_{\lambda}(j,k)+4k-16m-5.
+\end{aligned}
+\tag{KPGMIN-10}
+\]
+
+Every triple selected by the descending-min rule satisfies \(k\le j\):
+this follows from (PG40) on a jump column, from
+\(k=\kappa_j+2m-1-j\le m\) on a plateau triple, where
+\(\kappa_j\ge1\) also forces \(j\ge m\) and therefore \(k\le m\le j\),
+and from \(q<2m-1\) at the closing column. Hence, for \(j\ge1\),
+
+\[
+g_{\lambda}(j,k)
+\le-20jm-9j-28m-12<0,
+\qquad
+g_{\rho}(j,k)\le g_{\lambda}(j,k)-12m-5<0.
+\tag{KPGMIN-11}
+\]
+
+At \(j=0,k=0\), the two values are \(-28m-12\) and \(-44m-17\).
+There is no closing \(\rho\)-hole because \(\rho_0\in B_m\).
+
+A singleton can occur only on a nonclosing plateau, where
+\(k=\kappa_j+2m-1-j\). Substitution gives exactly \(L_{m,j},R_{m,j}\).
+If \(j\ge m\), all omitted terms have the favorable sign for the bound
+
+\[
+L_{m,j}\le j^2-26jm+8m^2\le-17m^2<0,
+\qquad R_{m,j}<L_{m,j}.
+\tag{KPGMIN-12}
+\]
+
+If \(j<m\), the same plateau formula automatically has \(k>m\), and these
+are precisely the positions retained in (KPGMIN-7). This proves exhaustion.
+
+Define the positive- and zero-gain low sets by
+
+\[
+\begin{aligned}
+\mathcal P_m={}&
+\{\lambda_j:1\le j<m,\ \Delta_j=0,\ L_{m,j}>0\}\\
+&\mathbin\cup
+\{\rho_{j+1}:1\le j<m,\ \Delta_j=0,\ R_{m,j}>0\},\\
+\mathcal Z_m={}&
+\{\lambda_j:1\le j<m,\ \Delta_j=0,\ L_{m,j}=0\}\\
+&\mathbin\cup
+\{\rho_{j+1}:1\le j<m,\ \Delta_j=0,\ R_{m,j}=0\}.
+\end{aligned}
+\tag{KPGMIN-13}
+\]
+
+The complete maximizing-subset classification is
+
+\[
+\boxed{
+\operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}
+P_{\tau_m^{\min}}(U)
+=\{B_m\mathbin\cup\mathcal P_m\mathbin\cup Z':
+Z'\subseteq\mathcal Z_m\}.
+}
+\tag{KPGMIN-14}
+\]
+
+In particular, there are exactly
+
+\[
+\boxed{2^{|\mathcal Z_m|}}
+\tag{KPGMIN-15}
+\]
+
+maximizers. This formula includes, rather than assumes away, every possible
+zero-gain boundary.
+
+### Strict shortcut audit and equality cases
+
+We prove (KPGMIN-14) with the signed version of the shortcut identity
+(K825-8), not by searching subsets. Compress all low labels to the high
+backbone \(B_m\). Put \(L_0=4m+1\) and \(H_0=6m+2\). Every two-edge
+backbone path is strict. The only possible internal labels below \(H_0\)
+have the following exhaustive roles:
+
+\[
+\begin{aligned}
+c_k(A_k+B_k)-A_kB_k
+&=12m+4+k(32m+7-8k)\ge12m+4,\\
+x_k(E_j+E_{j+1})-E_jE_{j+1}
+&\ge35m+9,\\
+\rho_0(B_q+E_0)-B_qE_0
+&=2\bigl((4m+3)q-4m-1\bigr)\ge16m+16.
+\end{aligned}
+\tag{KPGMIN-16}
+\]
+
+The singleton minimum in the second line is attained in the wider endpoint
+box at \((j,k)=(2m-2,m+1)\), so it is valid for every singleton actually
+assigned by \(\alpha\). Every other internal backbone label \(z\) is at
+least \(H_0\); since \(2H_0>n\),
+\(z(a+b)-ab=ab(z/a+z/b-1)>0\) for all possible endpoints.
+
+In the backbone, every label below \(H_0\) is isolated between labels at
+least \(H_0\). Consequently, for compressed paths having
+three, four, or at least five edges, respectively, the direct endpoint-box
+bounds are
+
+\[
+\sum z_i z_{i+1}-z_0z_s\ge
+\begin{cases}
+4m^2-2m-1,&s=3,\\
+28m^2+12m+1,&s=4,\\
+28m^2+8m,&s\ge5,
+\end{cases}
+\tag{KPGMIN-17}
+\]
+
+all strictly positive for \(m\ge3\). If an arc endpoint is itself a selected
+low label \(x<L_0\), the reduced boundary contribution is already
+
+\[
+xL_0+yL_0+(s-2)L_0^2-xy
+=xL_0+y(L_0-x)+(s-2)L_0^2>0;
+\tag{KPGMIN-18}
+\]
+
+two low endpoints only strengthen this conclusion.
+
+Reinserting an internal label of \(\mathcal P_m\cup\mathcal Z_m\) changes
+the corresponding arc sum by its nonnegative insertion gain. Hence the only
+zero shortcut is the atomic two-edge path through one member of
+\(\mathcal Z_m\); every shortcut omitting a backbone label or a positive-
+gain low label is strict. The exact arc identity (K825-8) now forces all
+members of \(B_m\cup\mathcal P_m\), forbids every negative-gain low label,
+and leaves precisely the independent choices \(Z'\subseteq\mathcal Z_m\).
+The candidate is obtained from \(B_m\) by nonnegative-gain insertions, so its
+score is at least
+\[
+P(B_m)\ge(6m+3)(4m+1)^2>n^2;
+\]
+the last margin is \(96m^3-4m^2-30m-6>0\) for \(m\ge3\). Hence no
+singleton can tie. This proves
+(KPGMIN-14)--(KPGMIN-15) for all subset cardinalities.
+
+The zero set is not always empty. The contrary statement, suggested by all
+small rows, is exactly disproved as follows. Take
+
+\[
+\begin{aligned}
+m&=101805057120180546870,\\
+j&=29025982843749082380,\\
+\kappa_j=\kappa_{j+1}
+&=14013559766810587979.
+\end{aligned}
+\tag{KPGMIN-19}
+\]
+
+The two exact ceiling residuals are
+
+\[
+\begin{aligned}
+2\kappa_j(d+j)-j(d-1)
+ &=912801999149094883612,\\
+2\kappa_j(d+j+1)-(j+1)(d-1)
+ &=126388661721271684607,
+\end{aligned}
+\]
+
+and direct comparison with their respective denominators puts both values
+in the required half-open ceiling intervals. Thus \(\Delta_j=0\). The
+assigned singleton index and gains are
+
+\[
+\begin{aligned}
+k&=188597691163422599338>m,\\
+L_{m,j}&=0,\\
+R_{m,j}&=-1685934016300259008265.
+\end{aligned}
+\tag{KPGMIN-20}
+\]
+
+This is an exact, not numerical, zero. One derivation starts from
+\(x(a+b)=ab\), or \((a-x)(b-x)=x^2\), for
+\(x=\lambda_j\), \(a=E_j\), and the adjacent singleton \(b=x_k\).
+Writing
+
+\[
+a-x=gu^2,\qquad b-x=gw^2,\qquad x=guw
+\]
+
+gives
+
+\[
+j={gu(u-w)-4\over5},\qquad
+m={gu(2u+3w)-8\over20},\qquad
+\kappa_j={g(10w^2-4u^2-uw)+6\over10}.
+\tag{KPGMIN-21}
+\]
+
+The choice
+\((g,u,w)=(4,11116408784,7852541895)\) yields (KPGMIN-19)--(KPGMIN-20).
+It follows that the maximizer is not universally unique; at this row at
+least the inclusion or omission of \(\lambda_j\) gives two maximizers.
+
+### Exact comparison with K825 and both PG46 witnesses
+
+Let \(\beta=\alpha^{-1}\),
+\(d_k=\beta(k)-k\), and
+\(C_t=\sum_{k=1}^t d_k\). Since \(\beta\) permutes the positive
+positions, \(C_{v-1}=0\). Abel summation and (KPGMIN-3) give
+
+\[
+S_m:=\sum_{j=0}^{v-1}j(r_{\alpha(j)}-r_j)
+=4\sum_{t=1}^{m-1}C_t+(2m-1)C_m
+-2\sum_{t=m+1}^{2m-2}C_t.
+\tag{KPGMIN-22}
+\]
+
+For \(m\ge5\), \(q\le m-1\). If \(k<q\), (PG106) gives
+\(\beta(k)=\ell_k\ge2k\), because \(h_{2k}<k\); also
+\(\beta(q)=v-1\ge2q\). Hence
+
+\[
+C_t\ge{t(t+1)\over2}\quad(t\le q),
+\qquad
+C_t\ge{q(q+1)\over2}\quad(q<t\le m).
+\tag{KPGMIN-23}
+\]
+
+For \(q<k\le m\), the path lies on a plateau and
+\(\beta(k)=v-1+\kappa_{\beta(k)}-k\ge v-k\ge k\), which proves the
+second bound. For \(k=m+s>m\), the same identity and
+\(\kappa_{\beta(k)}\le m\) give
+
+\[
+C_{m+u}\le C_m+u(m-u-2)
+\qquad(1\le u\le m-2).
+\tag{KPGMIN-24}
+\]
+
+Put
+
+\[
+\mathcal A=
+\sum_{t=1}^{q}{t(t+1)\over2}
++(m-1-q){q(q+1)\over2},\qquad
+\mathcal B={(m-2)(m-1)(m-3)\over6}.
+\]
+
+Equations (KPGMIN-22)--(KPGMIN-24), with the negative sign on the final
+sum retained, yield
+
+\[
+S_m\ge4\mathcal A+{3q(q+1)\over2}-2\mathcal B.
+\tag{KPGMIN-25}
+\]
+
+Substitute \(q=\lfloor(4m+3)/5\rfloor\) and write \(m=5u+r\). The lower
+bound for \(D_m-(m^2-4)\), for \(r=0,1,2,3,4\), is respectively
+
+\[
+\begin{array}{c|l}
+r&\text{lower margin}\\ \hline
+0&3(11u^3-u^2-17u+1)\\
+1&33u^3+20u^2-34u-3\\
+2&33u^3+43u^2-7u-2\\
+3&33u^3+66u^2+30u+8\\
+4&33u^3+73u^2-11u-37.
+\end{array}
+\tag{KPGMIN-26}
+\]
+
+On the admitted ranges \(m\ge6\), these become, after shifting \(u\) to
+a nonnegative variable where necessary,
+
+\[
+\begin{gathered}
+33x^3+195x^2+333x+153,
+\quad33x^3+119x^2+105x+16,\\
+33x^3+142x^2+178x+67,
+\quad33x^3+66x^2+30x+8,\\
+33x^3+172x^2+234x+58,
+\end{gathered}
+\]
+
+so every margin is positive. The omitted row \(m=5\) is a direct exact
+evaluation, \(D_5=56>21=m^2-4\). Therefore
+
+\[
+\boxed{D_m>m^2-4\qquad(m\ge5).}
+\tag{KPGMIN-27}
+\]
+
+Since \(G_m\ge0\), write \(H_m=D_m+G_m\). The exact three differences are
+
+\[
+\begin{aligned}
+K(\tau_m^{\min})-K_{825}(m)&=H_m,\\
+K(\tau_m^{\min})-K(\tau_m^{\rm cl})
+ &=H_m-(m^2-6m-4),\\
+K(\tau_m^{\min})-K(\tau_m^{\rm pre})
+ &=H_m-(m^2-4).
+\end{aligned}
+\tag{KPGMIN-28}
+\]
+
+The only initial values needed in addition to (KPGMIN-27) are
+
+\[
+(D_3,G_3)=(12,0),\qquad
+(D_4,G_4)=(-4,0),\qquad
+(D_5,G_5)=(56,0).
+\tag{KPGMIN-29}
+\]
+
+Consequently the descending-min order is smaller than K825 and the
+preclosing PG46 value exactly at \(m=4\), and is larger at \(m=3\) and
+every \(m\ge5\). It is larger than the closing PG46 value for every
+\(m\ge3\). No equality occurs. The first three rows make every sign visible:
+
+\[
+\begin{array}{c|r|r|r|r}
+m&K(\tau_m^{\rm cl})&K_{825}&K(\tau_m^{\rm pre})
+ &K(\tau_m^{\min})\\ \hline
+3&10907&10920&10925&10932\\
+4&23809&23821&23833&23817\\
+5&44206&44215&44236&44271.
+\end{array}
+\tag{KPGMIN-30}
+\]
+
+At \(m=3\), the canonical rooted order itself is
+
+\[
+\begin{aligned}
+(&33,2,21,17,20,13,28,12,27,14,26,11,29,10,19,9,\\
+ &30,8,25,15,24,7,31,6,18,5,32,4,23,16,22,3).
+\end{aligned}
+\tag{KPGMIN-31}
+\]
+
+Its sole maximizing subset is \(B_3=\{13,\ldots,33\}\), its score is
+10932, its minimum nontrivial compressed-path margin is 40, and its minimum
+positive deletion gain is 71. Thus the minimum row has no hidden empty
+range or cyclic exception.
+
+### Cubic coefficient and failure of quasipolynomiality
+
+The exact positive-part sum (KPGMIN-9) is not a polynomial or an eventual
+quasipolynomial. We first compute its cubic coefficient. Put
+
+\[
+f(x)={4x\over8+x},\qquad
+f'(x)={32\over(8+x)^2},\qquad
+g(x)=2-x+f(x),\qquad
+b={\sqrt{41}-3\over2}.
+\tag{KPGMIN-32}
+\]
+
+Uniformly, \(\kappa_j/m=f(j/m)+O(m^{-1})\). A jump column has asymptotic
+path index \(f(x)m\), while a plateau column has index \(g(x)m\); the
+jump and plateau densities are respectively \(f'(x)\) and \(1-f'(x)\).
+The jump path is always a triple, while the plateau path changes from a
+singleton to a triple at the unique point \(g(b)=1\). For a terminal block
+with scaled gap index \(x\) and scaled path index \(y\), its leading
+contributions are
+
+\[
+C_{\rm tr}(x,y)=2(8-2y)(12+x+y),\qquad
+C_{\rm si}(x,y)=2(8+x)(4+y).
+\tag{KPGMIN-33}
+\]
+
+Here is the uniform error control needed below. If \(\Phi\) is Lipschitz on
+\([0,2]\), discrete summation by parts and
+\(\kappa_j=mf(j/m)+O(1)\) give
+
+\[
+\sum_{j=0}^{v-2}\Delta_j\Phi(j/m)
+=m\int_0^2 f'(x)\Phi(x)\,dx+O(1),
+\qquad
+\sum_{j=0}^{v-2}(1-\Delta_j)\Phi(j/m)
+=m\int_0^2(1-f'(x))\Phi(x)\,dx+O(1),
+\]
+
+where changing the finitely many endpoints only changes the \(O(1)\) term.
+On jump and plateau columns respectively,
+\(\alpha(j)/m=f(j/m)+O(m^{-1})\) and
+\(\alpha(j)/m=g(j/m)+O(m^{-1})\). Each exact block contribution is therefore
+\(m^2C_{\rm tr}(x,y)+O(m)\) or
+\(m^2C_{\rm si}(x,y)+O(m)\), uniformly. Moreover
+\(g'(x)=f'(x)-1\) is bounded away from zero on \([0,2]\), so the discrete
+triple/singleton transition differs by only \(O(1)\) columns from the unique
+solution \(g(b)=1\). Thus the accumulated error is \(O(m^2)\).
+
+Applying these summation estimates, followed by the ordinary Riemann sum on
+the plateaus, gives the high-backbone coefficient
+
+\[
+\begin{aligned}
+C_0={}&\int_0^b
+ \bigl[f'C_{\rm tr}(x,f)+(1-f')C_{\rm si}(x,g)\bigr],dx\\
+&+\int_b^2
+ \bigl[f'C_{\rm tr}(x,f)+(1-f')C_{\rm tr}(x,g)\bigr],dx\\
+={}&206\sqrt{41}-{2546\over3}
++128\bigl(56\log2+10\log5-19\log(13+\sqrt{41})\bigr).
+\end{aligned}
+\tag{KPGMIN-34}
+\]
+
+For an early plateau, both low insertion gains have the same leading scaled
+form
+
+\[
+I(x)={x^3-30x^2-216x+64\over x+8}.
+\tag{KPGMIN-35}
+\]
+
+The numerator is strictly decreasing on \([0,2]\), is positive at zero,
+and is negative at one. Let \(a\in(0,1)\) be its unique root. The two low
+positions and the plateau density give
+
+\[
+\begin{aligned}
+C_{\rm ins}
+&=2\int_0^a(1-f'(x))I(x)\,dx\\
+&={24\over5}a^2-{3212\over5}a+{1616\over15}
+ +2176\log{a+8\over8}.
+\end{aligned}
+\tag{KPGMIN-36}
+\]
+
+The zero boundary has measure zero, so the positive part introduces no
+additional leading term. More precisely, uniformly on the relevant early
+plateaus,
+\[
+L_{m,j}=m^2I(j/m)+O(m),
+\qquad
+R_{m,j}=m^2I(j/m)+O(m).
+\]
+Because \(x\mapsto[x]_+\) is \(1\)-Lipschitz, the same summation estimate
+applied to the Lipschitz function \([I]_+\) shows that replacing the exact
+positive parts by the integral in (KPGMIN-36) costs \(O(m^2)\). Hence
+
+\[
+\boxed{
+K(\tau_m^{\min})=Cm^3+O(m^2),\qquad
+C=C_0+C_{\rm ins}
+=288.1683105370884612135111915\ldots
+}
+\tag{KPGMIN-37}
+\]
+
+and, because \(n=10m+3\),
+
+\[
+\boxed{
+K(\tau_m^{\min})
+=0.2881683105370884612135112\ldots\,n^3+O(n^2).
+}
+\tag{KPGMIN-38}
+\]
+
+This coefficient is strictly larger than \(143/500\), not merely
+numerically so. Indeed (KPGMIN-27) and the existence of the limit imply
+\(C_0\ge286\), while the integral in (KPGMIN-36) is strictly positive.
+Thus \(C>286\), and division by \(10^3\) gives
+\(C/1000>286/1000=143/500\). The descending-min choice is therefore
+asymptotically worse than K825 and both PG46 witnesses at cubic order.
+
+Finally combine the logarithms in (KPGMIN-34)--(KPGMIN-36):
+
+\[
+C=206\sqrt{41}+{24\over5}a^2-{3212\over5}a-{11114\over15}
++128\log Q,
+\]
+
+\[
+Q={2^5 5^{10}(a+8)^{17}\over(13+\sqrt{41})^{19}}.
+\tag{KPGMIN-39}
+\]
+
+The cubic defining \(a\) takes the nonzero values
+\(1,1,3,6,2,4,4\) at the seven residues modulo seven. Hence it is
+irreducible and
+\([\mathbb Q(a):\mathbb Q]=3\). Therefore
+\(\mathbb Q(a)\cap\mathbb Q(\sqrt{41})=\mathbb Q\). If \(Q=1\), then
+\((a+8)^{17}=2^{-5}5^{-10}(13+\sqrt{41})^{19}\) would belong to this
+intersection. The right side is not rational, because its positive quadratic
+conjugate replaces \(13+\sqrt{41}\) by the distinct
+\(13-\sqrt{41}\). Thus \(Q\ne1\).
+
+Hermite--Lindemann now implies that \(\log Q\) is transcendental: if it were
+a nonzero algebraic number, its exponential \(Q\) would be transcendental.
+Consequently \(C\) is transcendental. An integer-valued eventual
+quasipolynomial bounded by \(O(m^3)\) restricts on each residue class to an
+integer-valued polynomial of degree at most three, whose leading coefficient
+is rational by finite differences. The common limit in (KPGMIN-37) would
+force that rational coefficient to equal the transcendental number \(C\), a
+contradiction. Hence the exact floor/positive-part sum (KPGMIN-9) is the
+required replacement: no polynomial or quasipolynomial formula exists.
+
+All conclusions in this section concern one explicit combinatorial core
+order. Its relation compatibility gives \(W=T\) by the separate PG62
+theorem, but no geometric feasibility, angular-threshold identity, global
+\(K\)-minimality, or geometric consequence follows from the present
+calculation.
+
+## 14. Asymptotic Consequences And Non-Consequences
 
 Dividing (CR28) by \(\pi n^3\) gives the exact vanishing-error comparison
 \[

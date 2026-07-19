@@ -1,6 +1,6 @@
 # PROJECT_KNOWLEDGE - power-ringmin
 
-Last reviewed: 2026-07-18
+Last reviewed: 2026-07-19
 
 This file is stable durable project memory. Chronology, command transcripts, failed attempts, and task-local evidence belong in `ops/`.
 
@@ -2665,6 +2665,63 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   strictly worse than both on every admitted row. It shares cubic and
   quadratic coefficients with closing PG46, retains cubic coefficient
   \(143/500\), and has no geometric or global-optimality consequence.
+- EXACT DESCENDING-MIN PG49 THEOREM: retain
+  \(\kappa_j=\lceil j(8m+3)/(2(8m+4+j))\rceil\), put
+  \(\Delta_j=\kappa_{j+1}-\kappa_j\), and assign the least unused
+  admissible path while reading \(j=2m-1,\ldots,1\), with
+  \(\alpha_{\min}(0)=0\). The exact invariant is
+  \[
+  \{\alpha_{\min}(t):j\le t\le2m-1\}
+  =[\kappa_j,\kappa_j+2m-1-j],
+  \]
+  and hence
+  \[
+  \alpha_{\min}(j)
+  =\kappa_j+(1-\Delta_j)(2m-1-j)\quad(1\le j<2m-1),
+  \qquad
+  \alpha_{\min}(2m-1)=\kappa_{2m-1}.
+  \]
+  Thus the rule is well defined, bijective, and relation-compatible for every
+  \(m\ge3\), without matching enumeration.
+- EXACT DESCENDING-MIN CORE-ORDER THEOREM: for this one representative,
+  (KPGMIN-9) gives the exact integer floor/positive-part formula
+  \[
+  K(\tau_m^{\min})=K_{825}(m)+D_m+G_m,
+  \]
+  where \(D_m\) is the explicit path-connection sum (KPGMIN-4), and \(G_m\)
+  is the positive part of the two early-plateau singleton insertion gains
+  (KPGMIN-7)--(KPGMIN-8). With
+  \(B_m=\{4m+1,\ldots,10m+3\}\), \(\mathcal P_m\) the positive-gain low
+  labels, and \(\mathcal Z_m\) the zero-gain low labels, all and only the
+  maximizing subsets are
+  \[
+  B_m\cup\mathcal P_m\cup Z',\qquad Z'\subseteq\mathcal Z_m,
+  \]
+  so their exact number is \(2^{|\mathcal Z_m|}\). A signed shortcut audit,
+  not subset enumeration, proves this equality classification.
+- DISPROVED CLAIM: the descending-min PG49 core order does not always have a
+  unique maximizing subset. At
+  \[
+  m=101805057120180546870,\qquad
+  j=29025982843749082380,\qquad
+  \kappa_j=\kappa_{j+1}=14013559766810587979,
+  \]
+  the assigned singleton index is \(188597691163422599338\) and the
+  \(\lambda_j\) insertion gain is exactly zero. The general
+  \(2^{|\mathcal Z_m|}\) formula is therefore essential; bounded zero-free
+  ranges do not imply universal uniqueness.
+- EXACT DESCENDING-MIN COMPARISON AND ASYMPTOTIC THEOREM: the value is below
+  K825 and preclosing PG46 exactly at \(m=4\), above both at \(m=3\) and every
+  \(m\ge5\), above closing PG46 for every \(m\ge3\), and never tied. Its
+  cubic coefficient is
+  \[
+  0.2881683105370884612135112\ldots
+  \]
+  in \(n^3\), strictly larger than \(143/500\). The exact radical,
+  algebraic-root, and logarithmic expression (KPGMIN-34)--(KPGMIN-39) is
+  transcendental by Hermite--Lindemann. Therefore the exact score function is
+  neither polynomial nor eventual quasipolynomial. These facts concern one
+  combinatorial core order and imply no geometric or global optimum.
 - VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the standalone
   standard-library script in
   ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
@@ -2723,6 +2780,16 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \(m=1000\). It enumerates no subsets, permutations, or matchings and imports
   no project or test helper. The finite check corroborates rather than proves
   the symbolic theorem.
+- VERIFIED FACT (FINITE EXACT DESCENDING-MIN PG49 K DIAGNOSTIC): the sole
+  standalone standard-library script in
+  ops/TASK-20260719__ferrers_greedy_exact_k/ compares the literal recursion
+  with its closed formula, checks the exact Ferrers suffix invariant, and
+  reconstructs only the prescribed core. For \(m=3,\ldots,30\), a max-plus
+  increasing-path DP and every oriented shortcut arc check the exact score
+  and bounded optimizer; formula and comparison checks continue through
+  \(m=1000\). It enumerates no subset, permutation, or matching. Its
+  zero-free observation is confined to the checked rows and does not
+  contradict the exact much larger zero-gain example.
 - OPEN QUESTION: for which \(n\ge94\) is the minimizer inclusion strict? No
   persistence from \(n=93\) onward is claimed; the sufficient equality
   criterion already holds again at \(n=94\).
@@ -3189,6 +3256,18 @@ Candidate-set extraction uses the following finite-certificate semantics.
   every shortcut length, the altered cyclic closure, and the minimum row.
   One standalone DP/scorer diagnostic corroborates without permutation or
   matching enumeration; no geometric or global conclusion is inferred.
+- COMPLETED PRIORITY: the descending-min PG49 assignment now has an exact
+  all-\(m\) theorem. Its suffix is the interval
+  \([\kappa_j,\kappa_j+2m-1-j]\), proving a relation-compatible bijection.
+  Its exact induced \(K\) is (KPGMIN-9), with all maximizers
+  \(B_m\cup\mathcal P_m\cup Z'\), \(Z'\subseteq\mathcal Z_m\). A giant exact
+  zero-gain row disproves universal uniqueness. Exact comparison shows an
+  improvement over K825 and preclosing only at \(m=4\), never over closing;
+  the transcendental cubic coefficient is
+  \(0.2881683105370884612\ldots>143/500\), so the formula is not eventual
+  quasipolynomial. One bounded max-plus/shortcut diagnostic enumerates no
+  subset, path permutation, or matching, and no geometric conclusion is
+  inferred.
 - COMPLETED PRIORITY: the canonical eight-twenty-fifths core order now has an
   exact all-domain \(K\) theorem. The symbolic maximizer is the tail from
   \(2v+1\), with connector \(2v+2\) additionally removed exactly for
@@ -3209,11 +3288,12 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \(21n^2/100+O(n)\). The proof covers every shortcut and the \(k=2,3,4\)
   path boundaries; one bounded standard-library diagnostic changes no
   production or test path.
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, determine whether the
-  bounded residual after subtracting the proved
-  \((3/4)\log m\) term converges, has distinct limit points, or admits an
-  explicit finer obstruction. Do not infer convergence from the bounded
-  formula-only diagnostic.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, classify the exact
+  Diophantine zero-gain rows of the descending-min PG49 order. Determine
+  whether \(\mathcal Z_m\ne\varnothing\) occurs finitely or infinitely often
+  and characterize both gain equations under the exact plateau inequalities,
+  starting from (KPGMIN-21). Do not infer an all-\(m\) result from a bounded
+  zero-free sweep.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order

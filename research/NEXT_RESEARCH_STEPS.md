@@ -2699,13 +2699,29 @@ Immediate:
   classes, every shortcut length, the changed cyclic closure, and \(m=3\)
   are explicit; the result is construction-specific and keeps coefficient
   \(143/500\).
+- The descending-min PG49 task is complete. The suffix-interval invariant
+  proves that the recursion is a relation-compatible bijection for every
+  \(m\ge3\). Its exact core score is the floor/positive-part sum
+  (KPGMIN-9), and every maximizing subset is
+  \(B_m\cup\mathcal P_m\cup Z'\), \(Z'\subseteq\mathcal Z_m\). The zero set
+  is genuinely nonempty at one exact enormous row, so universal uniqueness is
+  disproved. The value improves K825 and preclosing only at \(m=4\), never
+  closing, and has transcendental cubic coefficient
+  \(0.2881683105370884612\ldots>143/500\); hence it is not polynomial or
+  eventual quasipolynomial. One bounded max-plus/shortcut diagnostic uses no
+  subset, permutation, or matching enumeration. No geometric conclusion is
+  inferred.
 
 Next:
 
-- Determine whether the bounded Ferrers residual after subtracting the
+- Classify the Diophantine zero-gain set \(\mathcal Z_m\) for the
+  descending-min PG49 order: determine whether zero rows are finite or
+  infinite and characterize both \(L_{m,j}=0\) and \(R_{m,j}=0\) under the
+  exact plateau inequalities, starting from (KPGMIN-21). Do not infer a
+  classification from bounded zero-free sweeps.
+- Determine whether the bounded Ferrers count residual after subtracting the
   proved \((3/4)\log m\) term converges, has distinct limit points, or has an
-  explicit finer obstruction. Do not infer convergence from the bounded
-  formula table.
+  explicit finer obstruction.
 - Seek a geometric all-pairs construction or lower obstruction that narrows
   the remaining coefficient gap without relying on larger exhaustive finite
   certificates.
@@ -2736,18 +2752,14 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: determine the finer behavior of the bounded Ferrers residual after the
-proved logarithmic term.
+Task: classify the exact zero-gain rows of the descending-min PG49 core order.
 
 Acceptance criteria:
 
-- decide rigorously whether
-  \[
-  \log\mathsf F_m^{\rm lab}
-  -2m\log m-C_{\rm F}m-{3\over4}\log m
-  \]
-  converges, has distinct limit points, or admits another explicit
-  obstruction;
-- do not extrapolate convergence from the bounded formula-only diagnostic;
-- keep the labelled count, canonical-image interpretation, and geometry
-  separate, with no permutation or matching enumeration.
+- characterize all integer solutions of \(L_{m,j}=0\) and \(R_{m,j}=0\)
+  compatible with \(m\ge3\), \(1\le j<m\), and
+  \(\kappa_j=\kappa_{j+1}\), or prove a precise finite/infinite substitute;
+- explain the arithmetic role of the factorization (KPGMIN-21) and preserve
+  the known exact counterexample;
+- use no bounded sweep as an infinite proof and infer no geometric or global
+  minimizing-order consequence.

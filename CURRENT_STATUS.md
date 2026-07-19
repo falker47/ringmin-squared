@@ -1,152 +1,201 @@
 # CURRENT_STATUS - power-ringmin
 
-Last update: 2026-07-18
+Last update: 2026-07-19
 
 ## State
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Active task:** determine the precise logarithmic coefficient of the exact
-  labelled PG69 Ferrers count.
+- **Active task:** evaluate the descending-min PG49 representative on the
+  residue branch \(n=10m+3\), \(m\ge3\).
 - **Repository state at startup:** clean `main` worktree at commit
-  `6e7a1b6e241899883d4432d670ef8c261b3ca02d`, tracking `origin/main`.
-- **Implementation state:** the symbolic proof, uniform floor/ceiling lemma,
-  residue/endpoint audit, formula-only diagnostic, authoritative
-  synchronization, complete regressions, independent audits, and final diff
-  hygiene are complete.
+  `c310228d86fd0f0598dee1ff7984b5100726337b`, tracking `origin/main`.
+- **Implementation state:** the all-\(m\) Ferrers proof, exact \(K\) formula,
+  complete maximizer classification, comparator theorem, asymptotic formula
+  class, one bounded independent diagnostic, durable synchronization,
+  complete regressions, independent audits, and final diff hygiene are
+  complete.
 - **Current blocker:** none.
 - **Current next atomic action:** user manual review and commit decision.
 - **Awaiting user review:** yes.
 
 ## Objective And Scope
 
-Starting from PG69 and the PG74--PG85 decomposition, decide rigorously whether
-there is a constant \(\gamma\) such that
-\[
-\log\mathsf F_m^{\rm lab}
-=2m\log m+C_{\rm F}m+\gamma\log m+O(1),
-\]
-with separate factorial, smooth-perturbation, and rounding contributions.
-The singular range \(j=o(m)\), bulk, exact cutoff hits, residue classes, and
-endpoints are in scope. Permutation or matching enumeration, production code,
-artifacts, alternative scaffolds, and geometry are out of scope.
+Fix \(\alpha_{\min}(0)=0\). For
+\(j=2m-1,\ldots,1\), assign to \(G_j\) the least unused path index
+\(k\ge\kappa_j\). Prove that this recursion is a relation-compatible
+bijection for every \(m\ge3\); determine the exact induced-subset objective
+\(K\), all maximizing subsets, the exact formula class and cubic coefficient;
+and compare it exactly with K825 and the closing and preclosing PG46 orders.
+Only this explicit combinatorial core order is in scope. Permutation,
+matching, or subset enumeration and geometric or global-optimality
+consequences are out of scope.
 
-## Exact Theorem
+## Exact Ferrers Theorem
 
-Put
+With \(v=2m\) and
 \[
-C_{\rm F}=14\log2+6\log3-10\log5-2.
+\Delta_j=\kappa_{j+1}-\kappa_j\in\{0,1\},
 \]
-Then
+the suffix after assigning \(G_j,\ldots,G_{v-1}\) is exactly
+\[
+\{\alpha_{\min}(t):j\le t\le v-1\}
+=[\kappa_j,\kappa_j+v-1-j].
+\]
+Consequently every step exists, every chosen index satisfies its Ferrers
+threshold, and
+\[
+\alpha_{\min}(j)
+=\kappa_j+(1-\Delta_j)(v-1-j)
+\quad(1\le j\le v-2),
+\qquad
+\alpha_{\min}(v-1)=\kappa_{v-1}.
+\]
+Together with \(\alpha_{\min}(0)=0\), this is a relation-compatible
+bijection for every integer \(m\ge3\).
+
+## Exact K And All Maximizers
+
+The resulting rooted core order \(\tau_m^{\min}\) satisfies
 \[
 \boxed{
-\log\mathsf F_m^{\rm lab}
-=2m\log m+C_{\rm F}m+{3\over4}\log m+O(1).
+K(\tau_m^{\min})=K_{825}(m)+D_m+G_m,
 }
 \]
-Consequently the logarithmic coefficient exists uniquely and
-\[
-\boxed{\gamma={3\over4}}.
-\]
-Equivalently, the residual divided by \(\log m\) tends to \(3/4\). The
-theorem does not assert convergence of the remaining bounded residual.
+where \(D_m\) is the exact path-connection sum (KPGMIN-4) and \(G_m\) is the
+positive-part sum of the two early-plateau singleton gains
+(KPGMIN-7)--(KPGMIN-8). This is an exact \(O(m)\) integer evaluation, not a
+search.
 
-## Component Certificate
+Let
+\[
+B_m=\{4m+1,\ldots,10m+3\},
+\]
+and let \(\mathcal P_m,\mathcal Z_m\) be respectively the positive- and
+zero-gain low-label sets in (KPGMIN-13). All and only the maximizing subsets
+are
+\[
+\boxed{
+B_m\cup\mathcal P_m\cup Z',
+\qquad Z'\subseteq\mathcal Z_m,
+}
+\]
+so their exact number is \(2^{|\mathcal Z_m|}\). A signed shortcut proof,
+not subset enumeration, establishes the equality cases.
 
-For the exact PG80 decomposition
+Universal uniqueness is a **disproved claim**. The exact row
 \[
-\log\mathsf F_m^{\rm lab}=\log Z_m+\Delta_m+\Theta_m,
+\begin{aligned}
+m&=101805057120180546870,\\
+j&=29025982843749082380,\\
+\kappa_j=\kappa_{j+1}&=14013559766810587979
+\end{aligned}
 \]
-the three pieces satisfy
+assigns singleton index \(188597691163422599338\) and has
+\(L_{m,j}=0\). It therefore has a genuine independent zero-gain toggle.
+
+## Exact Comparisons
+
+Write \(H_m=D_m+G_m\). Then
 \[
-\log Z_m
-=2m\log m+C_{\rm F}m-{1\over2}\log m
-+{1\over2}\log{10\pi\over3}+{53\over1440m}+O(m^{-3}),
+\begin{aligned}
+K(\tau_m^{\min})-K_{825}&=H_m,\\
+K(\tau_m^{\min})-K(\tau_m^{\rm cl})
+ &=H_m-(m^2-6m-4),\\
+K(\tau_m^{\min})-K(\tau_m^{\rm pre})
+ &=H_m-(m^2-4).
+\end{aligned}
 \]
+Exact Abel bounds prove \(D_m>m^2-4\) for every \(m\ge5\), while the initial
+rows give
 \[
-\Delta_m
-=\sum_j\log{c_{m,j}\over r_{m,j}}
-={5\over2}\log{3\over2}-4\log{5\over4}
--{21\over160m}+O(m^{-2}),
+(D_3,G_3)=(12,0),\qquad
+(D_4,G_4)=(-4,0).
+\]
+Thus the descending-min order is below K825 and preclosing PG46 exactly at
+\(m=4\), above both at \(m=3\) and every \(m\ge5\), above closing PG46 for
+every \(m\ge3\), and never tied.
+
+## Cubic Coefficient And Formula Class
+
+Let \(a\in(0,1)\) be the unique root of
+\[
+a^3-30a^2-216a+64=0.
+\]
+The exact coefficient is
+\[
+\begin{aligned}
+C={}&206\sqrt{41}-{2546\over3}
++128\bigl(56\log2+10\log5-19\log(13+\sqrt{41})\bigr)\\
+&+{24\over5}a^2-{3212\over5}a+{1616\over15}
++2176\log{a+8\over8},
+\end{aligned}
 \]
 and
 \[
-\Theta_m
-=\sum_j\log{a_{m,j}\over c_{m,j}}
-={5\over4}\log m+O(1).
+K(\tau_m^{\min})
+=Cm^3+O(m^2),
+\qquad
+C=288.1683105370884612135\ldots.
 \]
-Thus the respective logarithmic coefficients are \(-1/2\), zero, and
-\(5/4\). With \(s_{m,j}=c_{m,j}+1\), the signed literal
-ceiling/no-ceiling correction is instead
+Since \(n=10m+3\), the \(n^3\) coefficient is
 \[
-\sum_j\log{a_{m,j}\over s_{m,j}}
-=-{3\over4}\log m+O(1).
+{C\over1000}
+=0.2881683105370884612135\ldots>{143\over500}.
 \]
-
-## Uniform Rounding Audit
-
-- The exact identity
-  \[
-  c_{m,j}={j\over2}+{j(j+1)\over2(j+8m+4)}
-  \]
-  reduces \(a_{m,j}-c_{m,j}\) to one of two parity-shifted sawtooths.
-- For \(j\le\lfloor\sqrt m\rfloor\), the even/odd weights are respectively
-  \(1+O(\delta_{m,j})\) and \(1/2+O(\delta_{m,j})\), producing
-  \((3/8)\log m\) before the outer factor two.
-- Between \(\sqrt m\) and \(m/2\), a jump-inclusive sum--integral lemma and
-  dyadic Abel summation give mean one half with weighted error \(O(1)\). On a
-  block \(j\asymp X\), the error is
-  \(O(X/m+m/X^2)\), summable over all blocks.
-- The bulk \(j>m/2\) is \(O(1)\) directly. Exact odd hits are impossible;
-  possible even hits have total harmonic weight \(O(1)\).
-- The two right endpoint factors are explicit in every class modulo five and
-  each contributes \(O(m^{-1})\). The left endpoint contributes
-  \(\log2+O(m^{-1})\), and column zero is the forced omitted unit factor.
+The logarithms combine as \(128\log Q\) for the nonunit algebraic number
+\(Q\) in (KPGMIN-39). Hermite--Lindemann makes \(C\) transcendental.
+Therefore this integer-valued exact score is neither polynomial nor eventual
+quasipolynomial; (KPGMIN-9) is the exact replacement.
 
 ## Verification
 
-- Three independent read-only audits found no mathematical error in
-  PG86--PG99; their trapezoidal, semi-open-cell, hit-range, diagnostic, and
-  wording suggestions were incorporated.
-- The standalone standard-library component diagnostic passes on 25 formula
-  rows from \(m=3\) through \(m=262144\), including all five residues on
-  four growing blocks. It imports no project helper and constructs no
-  permutation, matching, or geometric object.
-- On the five terminal rows \(m=262140,\ldots,262144\), the centered total
-  residual lies between `1.38013609747` and `1.38112123003`. These are bounded
-  floating observations, not the proof and not a convergence claim.
-- Diagnostic Ruff lint, format, and compile checks pass. Broader repository
-  verification passes: 49 focused and 283 complete tests. The initial
-  sandboxed full-suite run retained 252 passes and 31 basetemp setup errors;
-  the approved identical rerun passed all 283. A broad Ruff probe retained
-  four lint and 39 format findings in unrelated pre-existing files; the new
-  script's scoped Ruff checks pass and no unrelated file changed.
-- Exactly five authoritative files and four new dossier files are in scope.
-  Final status, complete diff, whitespace, tag, generated-cache, and basetemp
-  checks pass.
+- The standalone standard-library diagnostic passes on 28
+  max-plus/shortcut rows \(m=3,\ldots,30\), checking 36,989,498 max-plus
+  transitions and 958,916 oriented shortcut arcs. Formula and comparator
+  checks pass on 998 rows through \(m=1000\).
+- The diagnostic constructs only the prescribed greedy order. It enumerates
+  no subset, permutation, or matching. Its absence of zero gains through
+  \(m=1000\) is explicitly bounded and does not override the exact large
+  counterexample.
+- Scoped Ruff lint and format checks and an in-memory compile pass.
+- The complete repository suite passes: 283 tests in 65.04 seconds. The
+  focused checked-artifact schema suite passes four tests in 0.74 seconds.
+  Semantic checked-artifact verification passes for four certificates and
+  76 local brackets.
+- Independent read-only audits reproduce PG100--PG109 and KPGMIN-1--KPGMIN-39,
+  including the exact counterexample, signed equality cases, Abel comparison,
+  uniform \(O(m^2)\) remainder, and transcendence argument.
+- Source tags, final status, complete diff, whitespace, and
+  `git diff --check` pass.
 
 ## Evidence Classification And Limitations
 
-- PG87--PG99 and \(\gamma=3/4\) are **exact asymptotic theorems**.
-- The 25 diagnostic rows are **bounded numerical observations**.
-- The theorem concerns the labelled PG69 count. Prior canonical injectivity
-  is only a downstream cardinality interpretation, not a symmetry quotient.
-- No convergence or limit-point classification of the bounded remainder,
-  alternative-scaffold count, global surrogate conclusion, or geometric
-  conclusion is established.
+- PG100--PG109 are an **exact Ferrers/bijection theorem**.
+- KPGMIN-1--KPGMIN-39 are an **exact fixed-order combinatorial theorem**,
+  including all maximizers, pointwise comparisons, asymptotics, and formula
+  classification.
+- The enormous zero row is an **exact counterexample** to universal
+  uniqueness.
+- Diagnostic rows are **bounded exact computations** that corroborate but do
+  not prove the all-\(m\) theorem.
+- No geometric feasibility, angular-threshold equality, global
+  \(K\)-minimality, or Power-Ringmin optimum follows.
 
 ## Files In Scope
 
 - `research/PRODUCT_DISTANCE_SURROGATE.md`
+- `research/FIXED_ORDER_CYCLE_RATIO.md`
 - `research/NEXT_RESEARCH_STEPS.md`
 - `start.md`
 - `PROJECT_KNOWLEDGE.md`
 - `CURRENT_STATUS.md`
-- `ops/TASK-20260718__ferrers_log_gamma/`
+- `ops/TASK-20260719__ferrers_greedy_exact_k/`
 
 ## Proposed Next Task
 
-After manual review and in a fresh STRICT chat, determine whether the bounded
-residual after subtracting \((3/4)\log m\) converges, has distinct limit
-points, or admits another explicit finer obstruction, without extrapolating
-from the finite formula table.
+After manual review and in a fresh STRICT chat, classify the exact
+Diophantine zero-gain rows of the descending-min PG49 order. Determine whether
+\(\mathcal Z_m\ne\varnothing\) occurs finitely or infinitely often and
+characterize both equations \(L_{m,j}=0\) and \(R_{m,j}=0\) under the exact
+plateau inequalities, without using a bounded sweep as an infinite proof.

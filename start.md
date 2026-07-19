@@ -3046,6 +3046,30 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   coefficients; the preclosing one is worse by a linear term. The theorem
   covers every hole, shortcut, closure, and boundary but has no geometric or
   global-optimality consequence.
+- EXACT DESCENDING-MIN PG49 THEOREM: fixing \(\alpha_{\min}(0)=0\) and,
+  for \(j=2m-1,\ldots,1\), choosing the least unused
+  \(k\ge\kappa_j\) is always well defined. The used suffix is exactly
+  \([\kappa_j,\kappa_j+2m-1-j]\), so the result is a bijective,
+  relation-compatible PG49 assignment for every \(m\ge3\). Its closed form
+  is (PG104), with binary threshold jumps only.
+- EXACT DESCENDING-MIN CORE-ORDER THEOREM: for the resulting core order,
+  \[
+  K=K_{825}+D_m+G_m,
+  \]
+  with the exact floor/positive-part terms in (KPGMIN-4)--(KPGMIN-8). If
+  \(B_m=\{4m+1,\ldots,10m+3\}\), \(\mathcal P_m\) contains the positive-
+  gain lows, and \(\mathcal Z_m\) the zero-gain lows, then every maximizer is
+  exactly
+  \[
+  B_m\cup\mathcal P_m\cup Z',\qquad Z'\subseteq\mathcal Z_m,
+  \]
+  and there are \(2^{|\mathcal Z_m|}\). Universal uniqueness is false: the
+  exact row \(m=101805057120180546870\) in (KPGMIN-19)--(KPGMIN-21) has a
+  genuine zero-gain \(\lambda_j\). The value beats K825 and preclosing only
+  at \(m=4\), never beats closing, and never ties. Its cubic coefficient is
+  \(0.2881683105370884612\ldots>143/500\); the exact coefficient is
+  transcendental, so no polynomial or eventual quasipolynomial formula
+  exists. This is a combinatorial fixed-order theorem only.
 - VERIFIED FACT (FINITE EXACT GENERIC-PATH DIAGNOSTIC): the sole standalone
   standard-library script in
   ops/TASK-20260717__generic_path_terminal_gap_classification/ scans only
@@ -3099,6 +3123,15 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   comparison checks continue through \(m=1000\). It enumerates no subsets,
   permutations, or matchings and imports no project or test helper. This
   bounded check corroborates rather than proves the all-\(m\) theorem.
+- VERIFIED FACT (FINITE EXACT DESCENDING-MIN PG49 K DIAGNOSTIC): the sole
+  standalone standard-library script in
+  ops/TASK-20260719__ferrers_greedy_exact_k/ checks the literal and closed
+  assignments, suffix intervals, the one prescribed core, a max-plus
+  increasing-path DP, and every oriented shortcut arc for
+  \(m=3,\ldots,30\); exact formula and comparator checks continue through
+  \(m=1000\). It enumerates no subset, permutation, or matching. Its
+  zero-free statement is explicitly bounded and does not supersede the exact
+  large counterexample.
 - VERIFIED FACT (FINITE EXACT FORMULA EVALUATION):
   \((Q_3,\dots,Q_{11})=(6,12,12,20,21,30,63/2,42,45)\). In this bounded table
   \(\max(A_n,Q_n)=A_n\); this does not affect the strictly improved
