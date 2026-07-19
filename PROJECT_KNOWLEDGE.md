@@ -2710,6 +2710,24 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \(\lambda_j\) insertion gain is exactly zero. The general
   \(2^{|\mathcal Z_m|}\) formula is therefore essential; bounded zero-free
   ranges do not imply universal uniqueness.
+- EXACT DIOPHANTINE CLASSIFICATION WITH OPEN CARDINALITY: for each
+  descending-min plateau \(1\le j<m\), the separate equations
+  \(L_{m,j}=0\) and \(R_{m,j}=0\) have the unique primitive parametrization
+  (KPGZERO-2)--(KPGZERO-6).  Their two literal half-open ceilings are exactly
+  the distinct residual windows (KPGZERO-10)--(KPGZERO-14), including the
+  allowed left upper endpoint and the three proved-impossible endpoints.
+  The finite scale windows are the explicit quadratics
+  (KPGZERO-20)--(KPGZERO-21).  Every admitted \(u/w\) is a regular
+  convergent of the irreducible cubic root
+  \(\xi\in(7/5,10/7)\) of
+  \(50+51t-27t^2-24t^3\), and (KPGZERO-23) is an exact bijection after
+  congruence, domain, side, and scale filters.  The giant left witness is
+  reconstructed exactly.  The primitive \(g=19\) witness
+  (KPGZERO-27)--(KPGZERO-30) proves that right holes also exist.  For every
+  fixed \(m\), \(\mathcal Z_m\) is finite; whether
+  \(\bigcup_{m\ge3}\mathcal Z_m\) is finite or infinite remains the explicit
+  filtered-cubic-convergent obstruction (KPGZERO-24), not a conclusion from
+  bounded data.
 - EXACT DESCENDING-MIN COMPARISON AND ASYMPTOTIC THEOREM: the value is below
   K825 and preclosing PG46 exactly at \(m=4\), above both at \(m=3\) and every
   \(m\ge5\), above closing PG46 for every \(m\ge3\), and never tied. Its
@@ -2845,6 +2863,17 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \(m=1000\). It enumerates no subset, permutation, or matching. Its
   zero-free observation is confined to the checked rows and does not
   contradict the exact much larger zero-gain example.
+- VERIFIED FACT (BOUNDED EXACT PG49 ZERO-GAIN DIAGNOSTIC): the sole
+  standard-library script in
+  ops/TASK-20260719__pg49_zero_gain_classification/ checks literal rows only
+  through \(m=500\), direct near-root denominators only through \(10^5\),
+  and proposed convergents only through denominator \(10^{200}\) and
+  \(g\le200\).  Every reported candidate is accepted by exact integer
+  reconstruction, both literal ceilings, and the corresponding literal
+  gain.  It reconstructs the giant left witness and finds exact right
+  witnesses, reporting 56 left and eight right parameter triples in its
+  bounded proposal set.  These counts prove neither absence outside the
+  bounds nor global finiteness or infinitude.
 - VERIFIED FACT (FINITE EXACT PG49-STAR K DIAGNOSTIC): the sole standalone
   standard-library script in
   ops/TASK-20260719__explicit_pg49_star_exact_k/ directly constructs only
@@ -3345,6 +3374,16 @@ Candidate-set extraction uses the following finite-certificate semantics.
   quasipolynomial. One bounded max-plus/shortcut diagnostic enumerates no
   subset, path permutation, or matching, and no geometric conclusion is
   inferred.
+- COMPLETED PRIORITY: the descending-min PG49 zero equations now have an
+  exact branchwise Diophantine classification.  Primitive parameters,
+  integrality, domain, all plateau endpoints, and finite quadratic
+  \(g\)-windows are necessary and sufficient.  Both branches are nonempty:
+  the prior giant left witness is reconstructed and a new exact right
+  witness disproves universal right-hole nonexistence.  Every admitted ratio
+  is a convergent of one specified irreducible cubic root.  Global
+  finite-versus-infinite cardinality remains equivalent to a filtered
+  one-sided convergent problem not decided by the present theory; the sole
+  bounded diagnostic is falsification evidence only.
 - COMPLETED PRIORITY: the explicit PG49-star assignment now has an exact
   all-\(m\) theorem. Its piecewise image blocks prove bijectivity, and its
   closing value equals the exact final Ferrers threshold. The sole maximizing
@@ -3386,11 +3425,13 @@ Candidate-set extraction uses the following finite-certificate semantics.
   \(21n^2/100+O(n)\). The proof covers every shortcut and the \(k=2,3,4\)
   path boundaries; one bounded standard-library diagnostic changes no
   production or test path.
-- RECOMMENDED NEXT TASK: in a fresh STRICT task, classify the exact
-  Diophantine zero-gain set \(\mathcal Z_m\) for the descending-min PG49
-  order. Determine whether zero rows are finite or infinite and characterize
-  both \(L_{m,j}=0\) and \(R_{m,j}=0\) under the plateau inequalities from
-  (KPGMIN-21), without inferring an all-\(m\) result from bounded sweeps.
+- RECOMMENDED NEXT TASK: in a fresh STRICT task, attack the exact filtered
+  cubic-convergent obstruction (KPGZERO-23)--(KPGZERO-24).  Either construct
+  an infinite congruence-compatible left or right subsequence entering its
+  quadratic \(g\)-window, prove eventual exclusion, or record a strictly
+  sharper literature-backed obstruction.  Preserve side, approximation
+  coefficient, congruence, domain, and both plateau endpoints; finite
+  continued-fraction extensions remain diagnostic only.
 - EXACT THEOREM: the reduced-core insertion question has an all-configuration
   answer at the level of feasible radii for `n>=12`: index `1` can be inserted
   without increasing the central radius. This does not assert a fixed-order

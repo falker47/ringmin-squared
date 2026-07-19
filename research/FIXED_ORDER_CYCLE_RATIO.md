@@ -10997,6 +10997,583 @@ The choice
 It follows that the maximizer is not universally unique; at this row at
 least the inclusion or omission of \(\lambda_j\) gives two maximizers.
 
+### Exact Diophantine classification of the zero-gain set
+
+We now classify both equations defining \(\mathcal Z_m\), including the
+plateau and its half-open endpoints.  The classification is exact, but it
+also exposes a residual cubic-continued-fraction question which the present
+argument does not decide.  In particular, neither finiteness nor infinitude
+of the union over all \(m\) will be inferred from a finite sweep.
+
+Retain \(1\le j<m\), put \(r=\kappa_j=\kappa_{j+1}\), and use
+\(\delta=0\) for the left hole \(\lambda_j\) and \(\delta=1\) for the
+right hole \(\rho_{j+1}\).  Define
+
+\[
+x_\delta=4m-2j-\delta,
+\qquad
+a_\delta=8m+4+j+\delta,
+\qquad
+b=6m+1+r-j.
+\]
+
+Thus \(b\) is the assigned singleton, while \(a_0=E_j\) and
+\(a_1=E_{j+1}\).  Direct expansion, with the two equations kept distinct,
+gives
+
+\[
+\begin{aligned}
+L_{m,j}
+ &=x_0(a_0+b)-a_0b
+  =x_0^2-(a_0-x_0)(b-x_0),\\
+R_{m,j}
+ &=x_1(a_1+b)-a_1b
+  =x_1^2-(a_1-x_1)(b-x_1).
+\end{aligned}
+\tag{KPGZERO-1}
+\]
+
+All factors in (KPGZERO-1) are positive on the stated domain.  If either
+gain is zero, take
+
+\[
+g=\gcd(a_\delta-x_\delta,b-x_\delta).
+\]
+
+The standard coprime square-factor argument is reversible and unique:
+
+\[
+\boxed{
+a_\delta-x_\delta=gu^2,\qquad
+b-x_\delta=gw^2,\qquad
+x_\delta=guw,\qquad
+g>0,\quad \gcd(u,w)=1.
+}
+\tag{KPGZERO-2}
+\]
+
+Moreover \(u>w>0\).  Indeed the plateau gives \(r\le j\), and hence
+\(a_\delta-x_\delta>b-x_\delta\).  Solving (KPGZERO-2) gives the unified
+formulas
+
+\[
+\boxed{
+\begin{aligned}
+j_\delta&={gu(u-w)-(4+3\delta)\over5},\\
+m_\delta&={gu(2u+3w)-(8+\delta)\over20},\\
+r_\delta&={g(10w^2-4u^2-uw)+(6-3\delta)\over10}.
+\end{aligned}}
+\tag{KPGZERO-3}
+\]
+
+For \(\delta=0\), these are exactly (KPGMIN-21).  For \(\delta=1\), the
+previously missing right-hole formulas are
+
+\[
+j={gu(u-w)-7\over5},\qquad
+m={gu(2u+3w)-9\over20},\qquad
+r={g(10w^2-4u^2-uw)+3\over10}.
+\tag{KPGZERO-4}
+\]
+
+The three quantities in (KPGZERO-3) are integers if and only if
+
+\[
+\boxed{gu(2u+3w)\equiv8+\delta\pmod {20}.}
+\tag{KPGZERO-5}
+\]
+
+Modulo five, this congruence is equivalent to
+\(gu(u-w)\equiv4+3\delta\pmod5\), and it then supplies the required
+modulo-five condition for \(r\).  The parity of \(gu(2u+3w)\) is \(guw\),
+so (KPGZERO-5) also supplies the remaining parity condition for \(r\).
+In particular, the right branch
+forces \(g,u,w\) all odd; it also forces \(j\) odd and \(r\) even.  On the
+left, (KPGZERO-5) is equivalently
+
+\[
+gu(u-w)\equiv4\pmod5,\qquad 4\mid gu(2u+3w).
+\]
+
+The four domain conditions are exactly
+
+\[
+\boxed{
+\begin{aligned}
+gu(u-w)&\ge9+3\delta,\\
+gu(2u+3w)&\ge68+\delta,\\
+gu(7w-2u)&\ge12-11\delta,\\
+g(10w^2-4u^2-uw)&\ge4+3\delta.
+\end{aligned}}
+\tag{KPGZERO-6}
+\]
+
+They are respectively \(j\ge1\), \(m\ge3\), \(j<m\), and \(r\ge1\).
+Thus (KPGZERO-2)--(KPGZERO-6) are an exact, unique parametrization of the
+two gain equations before the plateau inequalities are imposed.
+
+We now impose those inequalities integrally.  Put
+
+\[
+d=8m+4,\qquad
+c_t=2r(d+t)-t(d-1).
+\]
+
+The literal ceiling convention is
+
+\[
+\boxed{
+\kappa_t=r
+\quad\Longleftrightarrow\quad
+0\le c_t<2(d+t).
+}
+\tag{KPGZERO-7}
+\]
+
+Consequently the plateau requires (KPGZERO-7) at both \(t=j\) and
+\(t=j+1\).  The difference is
+\(c_j-c_{j+1}=d-1-2r>0\).  In the parametrization,
+
+\[
+5(d-1-2r)=
+g(8u^2+7uw-10w^2)-(7-\delta)>0,
+\]
+
+because, for \(u=w+s\), \(s\ge1\), the quadratic is
+\(5w^2+23ws+8s^2\ge36\).  Hence all four half-open inequalities are
+equivalent to
+
+\[
+c_{j+1}\ge0,\qquad c_j<2(d+j).
+\tag{KPGZERO-8}
+\]
+
+Define the common cubic form
+
+\[
+\Phi(u,w)=50w^3+51uw^2-27u^2w-24u^3.
+\tag{KPGZERO-9}
+\]
+
+For the **left equation** \(L_{m,j}=0\), direct substitution gives
+
+\[
+\begin{aligned}
+N_L:=25c_{j+1}
+ &=g^2u\Phi+g(7u^2+18uw+50w^2)+31,\\
+Q_L:=25\bigl(c_j-2(d+j)\bigr)
+ &=g^2u\Phi-3gu(u-w)-4.
+\end{aligned}
+\tag{KPGZERO-10}
+\]
+
+Thus the complete left plateau is
+
+\[
+\boxed{N_L\ge0,\qquad Q_L<0.}
+\tag{KPGZERO-11}
+\]
+
+The equality \(N_L=0\), namely the allowed endpoint
+\(h_{j+1}=r\), must be retained.  It can occur only in the residual
+subcase \(g\mid31\); parity and (KPGZERO-5) further force
+\(g\in\{1,31\}\), \(u\) odd, and \(w\) even.  We neither discard nor
+assert existence of this boundary subcase.  The equality \(Q_L=0\), namely
+the excluded endpoint \(h_j=r-1\), cannot occur in the admitted domain:
+it would force \(gu\mid4\), and the finitely many possibilities contradict
+either (KPGZERO-5) or the first inequality in (KPGZERO-6).  Since both
+residuals are multiples of \(25\), every admitted left row has
+\(N_L=0\) or \(N_L\ge25\), and always \(Q_L\le-25\).
+
+For the **right equation** \(R_{m,j}=0\), the corresponding exact residuals
+are
+
+\[
+\begin{aligned}
+N_R:=25c_{j+1}
+ &=g^2u\Phi+2gu(13u+12w)-6,\\
+Q_R:=25\bigl(c_j-2(d+j)\bigr)
+ &=g^2u\Phi+g(16u^2+9uw-50w^2)+14.
+\end{aligned}
+\tag{KPGZERO-12}
+\]
+
+Thus the complete right plateau is, separately,
+
+\[
+\boxed{N_R\ge0,\qquad Q_R<0.}
+\tag{KPGZERO-13}
+\]
+
+Here both endpoints are automatically strict.  If \(N_R=0\), then
+\(gu\mid6\); the oddness forced by (KPGZERO-5) and the first domain bound
+leave no possibility.  The number \(Q_R\) is odd before using its
+divisibility by \(25\), so \(Q_R=0\) is impossible.  Therefore every
+admitted right row satisfies
+
+\[
+\boxed{N_R\ge25,\qquad Q_R\le-25.}
+\tag{KPGZERO-14}
+\]
+
+Equations (KPGZERO-2)--(KPGZERO-6), (KPGZERO-10)--(KPGZERO-11), and
+(KPGZERO-12)--(KPGZERO-13) are a necessary-and-sufficient polynomial and
+congruential classification, with no ceiling or floor left implicit.  In
+particular, if \(\mathfrak P_\delta\) denotes the resulting parameter set,
+then
+
+\[
+\boxed{
+\begin{aligned}
+\mathcal Z_m={}&
+\{\lambda_{j_0(g,u,w)}:(g,u,w)\in\mathfrak P_0,
+                         m_0(g,u,w)=m\}\\
+&\mathbin\cup
+\{\rho_{j_1(g,u,w)+1}:(g,u,w)\in\mathfrak P_1,
+                              m_1(g,u,w)=m\}.
+\end{aligned}}
+\tag{KPGZERO-15}
+\]
+
+For each fixed \(m\), this already gives
+\(|\mathcal Z_m|\le2(m-1)\), so \(\mathcal Z_m\) is finite.  The
+nontrivial cardinality question below concerns the union over all \(m\).
+
+The union is disjoint at each plateau, since
+
+\[
+R_{m,j}=L_{m,j}-(j+16m+2r+7)<L_{m,j}.
+\tag{KPGZERO-16}
+\]
+
+There are no omitted boundary columns.  If a plateau has \(r=1\), then
+\(\kappa_{j+1}=1\) gives
+\((j+1)(d-3)\le2d\); since \(d\ge28\), this forces \(j=1\).
+At \(j=r=1\), both gains are odd and cannot vanish.  At \(j=m-1\),
+
+\[
+L_{m,m-1}=-17m^2+5m+4-(7m+1)r<0,
+\qquad R_{m,m-1}<L_{m,m-1}.
+\tag{KPGZERO-17}
+\]
+
+Every jump column \(\Delta_j=1\) carries a triple and both of its insertion
+gains are strictly negative by (KPGMIN-11).  Column \(j=0\) is likewise a
+triple, with gains \(-28m-12\) and \(-44m-17\).  All singleton columns
+\(j\ge m\) have \(R_{m,j}<L_{m,j}\le-17m^2\) by (KPGMIN-12), and there is
+no closing \(\rho\)-hole because \(\rho_0\in B_m\).  This exhausts the
+outer and jump-column cases independently of the Diophantine
+parametrization.  For reference, the gain equation alone also has the conic
+normal form
+
+\[
+X_\delta^2-Y_\delta^2=8J_\delta^2,
+\tag{KPGZERO-18}
+\]
+
+where
+
+\[
+\begin{aligned}
+J_\delta&=5j+4+3\delta=gu(u-w),\\
+X_\delta&=2r+19j+14+12\delta
+ =g(3u^2-4uw+2w^2),\\
+Y_\delta&=8m-13j-2r-6-8\delta
+ =g(-u^2+4uw-2w^2).
+\end{aligned}
+\]
+
+This conic parametrizes the zero equation, not the plateau.  For example,
+the right parameters \((g,u,w)=(1,13,9)\) give the integral gain-zero point
+\((m,j,r)=(34,9,2)\), while
+\(\kappa_9=\kappa_{10}=5\ne2\).  Therefore a Pell-style argument applied
+only to (KPGZERO-18) does not prove a zero-gain family.
+
+We next make the remaining cardinality obstruction exact.  Let
+
+\[
+\phi(t)=50+51t-27t^2-24t^3.
+\]
+
+It is strictly decreasing for \(t>1\), with
+
+\[
+\phi(7/5)={328\over125}>0,
+\qquad
+\phi(10/7)=-{760\over343}<0.
+\]
+
+Hence it has a unique root in \((1,\infty)\), denoted
+\(\xi\in(7/5,10/7)\).  Modulo seven,
+\(\phi(t)=4t^3+t^2+2t+1\) has no root, so \(\phi\) is irreducible and
+\(\xi\) is genuinely cubic.  Also
+
+\[
+\Phi(u,w)=w^3\phi(u/w)\ne0.
+\tag{KPGZERO-19}
+\]
+
+Each primitive fraction supports only finitely many values of \(g\), and the
+finite windows can be written without a hidden ceiling.  Put
+
+\[
+\begin{aligned}
+S_L&=7u^2+18uw+50w^2,\\
+S_R&=2u(13u+12w),\\
+B_L&=3u(u-w),\\
+T_R&=50w^2-16u^2-9uw.
+\end{aligned}
+\]
+
+The right domain bound in (KPGZERO-6) gives
+\(T_R>4u(u-w)>0\).  If \(\Phi=-H<0\), the exact active quadratic
+windows are
+
+\[
+\boxed{
+uHg^2-S_Lg-31\le0\quad(L),
+\qquad
+uHg^2-S_Rg+31\le0\quad(R).
+}
+\tag{KPGZERO-20}
+\]
+
+Indeed \(Q_L<0\) is immediate, while
+\(Q_R=-g^2uH-gT_R+14<0\) follows from
+\(gT_R>4gu(u-w)\ge48\).  If \(\Phi>0\), the exact active windows are
+
+\[
+\boxed{
+u\Phi g^2-3u(u-w)g+21\le0\quad(L),
+\qquad
+u\Phi g^2-T_Rg+39\le0\quad(R).
+}
+\tag{KPGZERO-21}
+\]
+
+Here \(N_L>0\), and \(N_R=g^2u\Phi+S_Rg-6>0\), so the other residual is
+automatic.  The constants \(21,31,39\) use divisibility by \(25\) and the
+endpoint audit in (KPGZERO-11)--(KPGZERO-14); on parameters satisfying
+(KPGZERO-5), these closed inequalities are equivalent to the original
+half-open ones.  Intersecting (KPGZERO-20) or (KPGZERO-21) with the
+congruence (KPGZERO-5), the domain (KPGZERO-6), and positive integers gives
+the complete finite set of scales \(g\).  Explicitly, for \(\Phi=-H<0\),
+
+\[
+\begin{aligned}
+L:\quad&
+0<g\le {S_L+\sqrt{S_L^2+124uH}\over2uH},\\
+R:\quad&
+{S_R-\sqrt{S_R^2-124uH}\over2uH}
+\le g\le
+{S_R+\sqrt{S_R^2-124uH}\over2uH},
+\qquad S_R^2\ge124uH;
+\end{aligned}
+\]
+
+for \(\Phi>0\),
+
+\[
+\begin{aligned}
+L:\quad&
+{B_L-\sqrt{B_L^2-84u\Phi}\over2u\Phi}
+\le g\le
+{B_L+\sqrt{B_L^2-84u\Phi}\over2u\Phi},
+\qquad B_L^2\ge84u\Phi,\\
+R:\quad&
+{T_R-\sqrt{T_R^2-156u\Phi}\over2u\Phi}
+\le g\le
+{T_R+\sqrt{T_R^2-156u\Phi}\over2u\Phi},
+\qquad T_R^2\ge156u\Phi.
+\end{aligned}
+\]
+
+In every line \(g\) is restricted further to
+\(\mathbb Z_{>0}\) and (KPGZERO-5)--(KPGZERO-6).  These closed radical
+intervals are therefore an exact finite parametrization, not merely an
+asymptotic bound.
+
+More sharply, every admitted primitive ratio is a regular continued-fraction
+convergent of \(\xi\).  The residual windows and the mean-value theorem
+give
+
+\[
+\boxed{
+\left|{u\over w}-\xi\right|<{1\over2w^2}.
+}
+\tag{KPGZERO-22}
+\]
+
+On \(t>7/5\), one has
+\(-\phi'(t)=72t^2+54t-51>165\); on \(t>1\), the same quantity is
+strictly greater than \(75\).  Here are uniform bounds retaining both
+sides.  For a left solution above
+\(\xi\), (KPGZERO-20), \(w\ge7\), and
+\(7t+18+50/t<64\) give
+\(w^2(t-\xi)<65/165\).  The assertion \(w\ge7\) has no finite
+exception: \(r\ge1\) gives
+\(t<(\sqrt{161}-1)/8<3/2\), while \(\xi>7/5\), and none of the open
+intervals \((7w/5,3w/2)\), \(1\le w\le6\), contains an integer \(u\).
+Below \(\xi\), one has \(w\ge2\); (KPGZERO-21) first forces
+\(t>7/5\) (otherwise the lower bound
+\(\Phi\ge(328/125)w^3\) contradicts that window), and then gives
+\(w^2(\xi-t)<5/165\).  For a right solution
+above \(\xi\), (KPGZERO-20) gives
+\(w^2(t-\xi)<63/165\); below \(\xi\), (KPGZERO-21) gives the bound
+\(25/75\).  Each is strictly below \(1/2\).  Legendre's criterion now
+proves (KPGZERO-22).
+
+Let \(p_\nu/q_\nu\) be the regular convergents of \(\xi\), and let
+\(\mathcal G_\delta(p_\nu,q_\nu)\) be the finite set of positive integers
+\(g\) satisfying (KPGZERO-5)--(KPGZERO-6) and the corresponding separate
+plateau window (KPGZERO-11) or (KPGZERO-13).  The exact global
+classification is the bijection
+
+\[
+\boxed{
+\mathfrak P_\delta
+\longleftrightarrow
+\{(\nu,g):g\in\mathcal G_\delta(p_\nu,q_\nu)\},
+\qquad \delta=0,1,
+}
+\tag{KPGZERO-23}
+\]
+
+followed by (KPGZERO-3) and (KPGZERO-15).  Necessity is
+(KPGZERO-22); sufficiency is direct substitution into the congruences,
+domain bounds, and exact plateau residuals.
+
+This is also the sharp obstruction to the requested finite/infinite
+dichotomy.  The global left or right set is infinite exactly when infinitely
+many one-sided convergents of this particular cubic root pass both a fixed
+congruence filter and the displayed finite \(g\)-window.  Infinitely many
+convergents by itself is insufficient: side, approximation coefficient, and
+residue class all matter.  No theorem established in this repository decides
+that filtered cubic subsequence.  The general scarcity of information about
+partial quotients of algebraic numbers of degree at least three is documented
+by Adamczewski and Bugeaud, *Acta Mathematica* 195 (2005), 1--20
+([preprint](https://arxiv.org/abs/math/0511677)).  Accordingly,
+
+\[
+\boxed{
+\text{finiteness versus infinitude of }
+\bigcup_{m\ge3}\mathcal Z_m
+\text{ remains an unresolved Diophantine claim.}
+}
+\tag{KPGZERO-24}
+\]
+
+Equation (KPGZERO-24) is not a guess from a sweep: it records the exact point
+at which the proof stops.  Proving either alternative requires an additional
+theorem about the filtered convergents in (KPGZERO-23).
+
+The large left witness (KPGMIN-19) is recovered primitively by
+
+\[
+(g,u,w)=(4,11116408784,7852541895),\qquad \gcd(u,w)=1.
+\]
+
+It gives
+
+\[
+\begin{aligned}
+a_0-x_0&=494298177011969434624=4u^2,\\
+b-x_0&=246649656850920764100=4w^2,\\
+x_0&=349168262793224022720=4uw,
+\end{aligned}
+\tag{KPGZERO-25}
+\]
+
+and reconstructs exactly the \((m,j,r,k)\) of
+(KPGMIN-19)--(KPGMIN-20).  Its plateau chain is
+
+\[
+0<126388661721271684607
+<912801999149094883612
+<1686932879610386914688=2(d+j),
+\tag{KPGZERO-26}
+\]
+
+where the first two numbers are \(c_{j+1}\) and \(c_j\).  Thus neither
+half-open boundary is hidden, and
+
+\[
+L_{m,j}=0,\qquad
+R_{m,j}=-1685934016300259008265.
+\]
+
+The right branch is also genuinely nonempty.  One primitive exact witness is
+
+\[
+\begin{aligned}
+g={}&19,\\
+u={}&7473073805813661315256495159240494740302603139227,\\
+w={}&5278919324111360426689943587091134465306838560333.
+\end{aligned}
+\tag{KPGZERO-27}
+\]
+
+These integers satisfy \(\gcd(u,w)=1\) and
+\(gu(2u+3w)\equiv9\pmod {20}\), namely (KPGZERO-5).
+Formula (KPGZERO-4) gives
+
+\[
+\begin{aligned}
+m={}&218540779117020202383060408199944193641213755526502466925065296490539746241930204347394895037374689,\\
+j={}&62308897855848837760124442915698598519487605320218795625218461754986470706211023818397029209164763,\\
+r={}&30082339289161262936522647650311907662203655554834208483736149273057046182033506346960514256432748.
+\end{aligned}
+\tag{KPGZERO-28}
+\]
+
+At this row the zero label and assigned singleton-path index are respectively
+
+\[
+\begin{aligned}
+\rho_{j+1}={}&749545320756383134011992746968379577525879811465572276449824262452186043555298769752785521731169229,\\
+k={}&404854999667352829942519021134501696425143561287620346708648280499150067959682891223353275122017362.
+\end{aligned}
+\]
+
+The exact plateau residuals and denominators are
+
+\[
+\begin{aligned}
+c_j={}&2557444511371761079345392522862588370572067010168649625564320432471158263160903904496874695905261439,\\
+c_{j+1}={}&869282957013921986153954552563658636766764277066298307131270359092954385589529282411636564119129420,\\
+2(d+j)={}&3621270261584020913649215417030504295298395299064477062051481667358608881283305317195112379016324558,\\
+2(d+j+1)={}&3621270261584020913649215417030504295298395299064477062051481667358608881283305317195112379016324560.
+\end{aligned}
+\tag{KPGZERO-29}
+\]
+
+They lie strictly in their respective half-open intervals, and direct gain
+evaluation gives
+
+\[
+\boxed{
+R_{m,j}=0,\qquad
+L_{m,j}=3619126042306494601762136269415429512103315004853926683393735504149736502941161306070636378320025290.
+}
+\tag{KPGZERO-30}
+\]
+
+Thus a universal right-hole obstruction is false.  What remains unresolved
+is an infinite right-hole family, not right-hole existence.
+
+The sole bounded diagnostic for this subsection is the standalone
+standard-library script in
+`ops/TASK-20260719__pg49_zero_gain_classification/`.  It checks literal rows
+through \(m=500\), a direct near-root denominator range through \(10^5\),
+and finitely many proposed convergents with denominator at most \(10^{200}\)
+and \(g\le200\).  Decimal arithmetic is used only to propose convergents;
+every reported zero is then reconstructed and accepted by exact integer
+formulas, both literal ceilings, and the appropriate literal gain.  The run
+finds 56 left parameter triples and eight right parameter triples, including
+(KPGZERO-25) and (KPGZERO-27).  These counts are **bounded exact diagnostic
+evidence**, not an exhaustive all-\(m\) result and not evidence sufficient to
+choose either side of (KPGZERO-24).
+
 ### Exact comparison with K825 and both PG46 witnesses
 
 Let \(\beta=\alpha^{-1}\),

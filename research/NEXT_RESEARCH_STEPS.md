@@ -2740,6 +2740,16 @@ Immediate:
   eventual quasipolynomial. One bounded max-plus/shortcut diagnostic uses no
   subset, permutation, or matching enumeration. No geometric conclusion is
   inferred.
+- The descending-min zero-gain equations are now classified exactly up to a
+  sharp cubic continued-fraction obstruction.  Both branches have unique
+  primitive `(g,u,w)` parametrizations, exact congruences, all four half-open
+  plateau inequalities, finite per-convergent `g` windows, and complete
+  endpoint handling.  Every accepted `u/w` is a regular convergent of the
+  same irreducible cubic root.  The known giant left witness is reconstructed,
+  and an exact right witness disproves universal right-hole nonexistence.
+  What remains unresolved is whether infinitely many congruence-filtered
+  one-sided convergents enter either finite `g` window; bounded evidence does
+  not decide this global cardinality question.
 - The explicit PG49-star task is complete. The piecewise path assignment is
   a Ferrers-compatible bijection for every \(m\ge3\), with exact equality in
   the closing column. Every low deletion gain is positive, with minimum
@@ -2761,11 +2771,11 @@ Immediate:
 
 Next:
 
-- Classify the Diophantine zero-gain set \(\mathcal Z_m\) for the
-  descending-min PG49 order: determine whether zero rows are finite or
-  infinite and characterize both \(L_{m,j}=0\) and \(R_{m,j}=0\) under the
-  exact plateau inequalities, starting from (KPGMIN-21). Do not infer a
-  classification from bounded zero-free sweeps.
+- Seek an unconditional theorem for the filtered convergents in
+  (KPGZERO-23): either construct an infinite left or right subsequence meeting
+  the exact congruence and `g` windows, or prove eventual exclusion.  A finite
+  continued-fraction extension is diagnostic only and cannot close this
+  question.
 - Determine whether the bounded Ferrers count residual after subtracting the
   proved \((3/4)\log m\) term converges, has distinct limit points, or has an
   explicit finer obstruction.
@@ -2799,16 +2809,15 @@ Deliberately deferred:
 
 ## Recommended Next Atomic Task
 
-Task: classify the Diophantine zero-gain set for the descending-min PG49
-order.
+Task: attack the residual filtered-cubic-convergent obstruction for the
+descending-min PG49 zero set.
 
 Acceptance criteria:
 
-- start from the exact plateau constraints and gain formulas
-  (KPGMIN-19)--(KPGMIN-21), retaining both \(L_{m,j}\) and \(R_{m,j}\);
-- determine whether the set of zero-gain rows is finite or infinite and give
-  a rigorous parameterization or obstruction in either case;
-- preserve the known exact large \(L_{m,j}=0\) witness and actively test for
-  missing right-hole or boundary families;
-- use bounded computation only diagnostically, never to infer the all-row
-  classification, and infer no geometric or global minimizing-order result.
+- use the exact bijection (KPGZERO-23), not the gain conic alone;
+- retain side, approximation coefficient, congruence class, finite `g`
+  window, and both plateau endpoints simultaneously;
+- prove an infinite admitted subsequence or an eventual exclusion theorem,
+  or record a strictly sharper literature-backed obstruction;
+- do not promote further bounded convergent data to an all-row theorem, and
+  infer no geometric or global minimizing-order result.

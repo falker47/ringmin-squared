@@ -3110,6 +3110,21 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \(0.2881683105370884612\ldots>143/500\); the exact coefficient is
   transcendental, so no polynomial or eventual quasipolynomial formula
   exists. This is a combinatorial fixed-order theorem only.
+- EXACT DESCENDING-MIN ZERO-GAIN CLASSIFICATION: the left and right equations
+  defining \(\mathcal Z_m\) are classified separately by
+  (KPGZERO-1)--(KPGZERO-23).  They have unique primitive \((g,u,w)\)
+  parameters, one exact integrality congruence, four domain inequalities,
+  distinct integral plateau residuals with every half-open endpoint audited,
+  and explicit finite quadratic windows in \(g\).  Every admitted \(u/w\)
+  is a regular convergent of the irreducible cubic root
+  \(\xi\in(7/5,10/7)\) of \(50+51t-27t^2-24t^3\).  The prior giant left
+  witness is reconstructed, and (KPGZERO-27)--(KPGZERO-30) give an exact
+  primitive right witness.  Thus right holes exist.  Each fixed
+  \(\mathcal Z_m\) is finite, but the cardinality of
+  \(\bigcup_{m\ge3}\mathcal Z_m\) remains the explicit
+  congruence-filtered one-sided-convergent obstruction (KPGZERO-24); no
+  finite sweep settles it.  This has no geometric or global
+  \(K\)-minimality consequence.
 - EXACT EXPLICIT PG49-STAR THEOREM: put
   \(q=\lfloor(4m+3)/5\rfloor\) and use (PG110). Its five image blocks
   partition \(\{0,\ldots,2m-1\}\), every value passes its exact Ferrers
@@ -3216,6 +3231,16 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \(m=1000\). It enumerates no subset, permutation, or matching. Its
   zero-free statement is explicitly bounded and does not supersede the exact
   large counterexample.
+- VERIFIED FACT (BOUNDED EXACT PG49 ZERO-GAIN DIAGNOSTIC): the sole
+  standard-library script in
+  ops/TASK-20260719__pg49_zero_gain_classification/ scans literal rows only
+  through \(m=500\), a direct near-root denominator range only through
+  \(10^5\), and finitely proposed convergents only through denominator
+  \(10^{200}\) and \(g\le200\).  All accepted candidates are rechecked by
+  exact integer parameter formulas, both literal ceilings, and the literal
+  branch gain.  It reports 56 left and eight right parameter triples,
+  including the two recorded witnesses.  The counts are bounded
+  falsification evidence and imply neither finiteness nor infinitude.
 - VERIFIED FACT (FINITE EXACT PG49-STAR K DIAGNOSTIC): the sole standalone
   standard-library script in
   ops/TASK-20260719__explicit_pg49_star_exact_k/ constructs only (PG110).

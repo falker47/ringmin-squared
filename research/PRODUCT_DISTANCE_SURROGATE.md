@@ -6503,6 +6503,25 @@ increasing-path DP plus every oriented shortcut budget for
 imports no project or test helper. Its absence of zero gains is explicitly
 limited to the checked rows; (KPGMIN-19)--(KPGMIN-21) give an exact much
 larger zero-gain counterexample.
+The exact branchwise KPGZERO theorem, including primitive parameters,
+integrality, domain, both half-open plateau ceilings, all boundary columns,
+and finite quadratic scale windows, is (KPGZERO-1)--(KPGZERO-23).  It
+reconstructs the giant left witness and proves existence of a right-hole
+witness.  Its exact remaining obstruction (KPGZERO-24) is the cardinality of
+a congruence-filtered one-sided convergent set for one irreducible cubic
+root; it is not decided here.
+The sole diagnostic for that KPGZERO Diophantine classification is the
+standalone standard-library script in
+ops/TASK-20260719__pg49_zero_gain_classification/. It scans literal rows only
+through `m=500`, direct near-root denominators only through `100000`, and a
+finite list of proposed cubic-root convergents with denominator at most
+`10^200` and `g<=200`. Decimal arithmetic proposes candidates only; each
+reported zero is accepted by exact integer reconstruction, both literal
+half-open ceilings, and the corresponding literal gain. It finds 56 left and
+eight right parameter triples, thereby furnishing exact witnesses in both
+branches. These bounded counts prove neither finiteness nor infinitude; the
+all-parameter result and continued-fraction obstruction are
+(KPGZERO-1)--(KPGZERO-30).
 The sole diagnostic for (PG110)--(PG114) and
 (KPGSTAR-1)--(KPGSTAR-28) is the standalone standard-library script in
 ops/TASK-20260719__explicit_pg49_star_exact_k/. It constructs only the
