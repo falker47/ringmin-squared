@@ -229,9 +229,13 @@
   W(\sigma_{\alpha^\circ})
   ={(8m+8)(8m+7)\over2}.
   \]
-  This is a construction, compatibility, and \(W\)-score theorem only; it
-  evaluates no induced-subset objective and makes no geometric or global
-  optimality assertion.
+  This remains a construction, compatibility, and \(W\)-score theorem.
+  The unchanged core order is evaluated separately by
+  (KPGODD-1)--(KPGODD-36) in
+  research/FIXED_ORDER_CYCLE_RATIO.md: its sole induced-subset maximizer is
+  \(\{4m+3,\ldots,10m+8\}\), its five exact residue formulas have coefficient
+  \(857/3000\), and its score is strictly below canonical K825 on every row.
+  Neither theorem makes a geometric or global-optimality assertion.
 - **EXACT THEOREM (later monotone threshold-closing shortcut evaluation):**
   specialize (PG46) to \((q,2m-1)\), where
   \(q=\lfloor(4m+3)/5\rfloor=\kappa_{2m-1}\). This puts \(P_q\) in the
@@ -6778,6 +6782,15 @@ and its product-distance score \(W\).  It does not evaluate \(K\), compare
 induced-subset scores, infer an angular or geometric statement, or assert any
 global optimality consequence.
 
+The distinct induced-subset objective on this same unchanged core is evaluated
+later in (KPGODD-1)--(KPGODD-36) of
+research/FIXED_ORDER_CYCLE_RATIO.md. That theorem reconstructs the literal
+core order, proves the unique maximizing tail
+\(\{4m+3,\ldots,10m+8\}\), treats the doubleton, singleton block, cyclic
+closure, and \(m=1,2\) shortcut boundaries, and compares the exact five-branch
+score with canonical K825. It does not alter any statement in
+(PGODD-1)--(PGODD-27).
+
 ## Verification Boundary And Open Questions
 
 `tests/test_product_distance.py` checks exact rational comparisons, canonical
@@ -6936,6 +6949,14 @@ a-priori fixed map (PGODD-6). Formula, image, and Ferrers checks cover
 \(m=1,\ldots,80\). It searches no order or matching, enumerates no path
 permutation or subset, and imports no project or test helper. The finite
 rows corroborate but do not replace the all-\(m\) proof.
+The sole diagnostic for (KPGODD-1)--(KPGODD-36) is the standalone
+standard-library script in ops/TASK-20260719__pgodd_exact_k/. It constructs
+only (PGODD-6). On \(m=1,\ldots,30\), its independent max-plus recurrence
+checks the exact score and unique backbone, while its all-oriented-arcs scan
+checks every isolated-hole gain and compressed shortcut, including the
+cyclic cut. Formula, residue, boundary, and K825 checks continue through
+\(m=1000\). It enumerates no subset, path permutation, matching, or order
+family and imports no project or test helper.
 The sole diagnostic for (KPG46Q-1)--(KPG46Q-29) is the standalone
 standard-library script in
 ops/TASK-20260719__pg46_threshold_closing_exact_k/. It constructs only the
@@ -7013,8 +7034,13 @@ The following remain unresolved.
   \(P_q\), \(q=\lfloor(4m+5)/5\rfloor=\kappa_{2m}\), occupies the genuine
   closing gap. Its exact fixed-order score is
   \((8m+8)(8m+7)/2\). This closes only construction, compatibility, and
-  \(W\); no \(K\), angular, geometric, or global-optimality statement is
-  inferred.
+  \(W\). The separate theorem (KPGODD-1)--(KPGODD-36) now evaluates the
+  unchanged core's \(K\): its sole maximizer is
+  \(\{4m+3,\ldots,10m+8\}\), its exact five-branch formula has coefficient
+  \(857/3000\), and it strictly improves canonical K825 on the same
+  subsequence. The only \(m=1,2\) exception is the identity of the unique
+  minimum shortcut, not the formula or argmax. No angular, geometric,
+  global-minimizer, or global-optimality statement is inferred.
 - **CLOSED CORE-ORDER QUESTION:** the interval shift (PG46) with target
   \((q,2m-1)\), \(q=\lfloor(4m+3)/5\rfloor\), keeps every residual path
   increasing. The separate theorem (KPG46Q-1)--(KPG46Q-29) proves its unique

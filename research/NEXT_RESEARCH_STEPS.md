@@ -83,8 +83,17 @@ row is \((0,2,1)\). The complete cyclic distance audit gives
 \[
 W={(8m+8)(8m+7)\over2}.
 \]
-This theorem evaluates neither \(K\) nor any geometric or global-optimality
-quantity.
+The induced-subset objective of this same unchanged core is now classified
+too. Its sole maximizing subset is \(B_m=\{4m+3,\ldots,10m+8\}\), and
+\[
+K={1714m^3+4467m^2+24mq+3749m+12q^2+60q+1032\over6}.
+\]
+All five \(m\bmod5\) branches have coefficient \(857/3000\), and the score
+is strictly below canonical K825 on the same subsequence for every \(m\ge1\).
+There is no argmax or formula exception at \(m=1,2\); only the unique
+minimum shortcut changes to the retained closing label. These are
+fixed-core combinatorial statements, with no geometric or global-optimality
+consequence.
 One explicit parametric perturbation of the matching \(8/25\) construction
 is now closed as well. On \(n=10m+3\), reversing the outer entries of one
 triple has score \(T\) for every nonzero triple index and
@@ -2772,13 +2781,19 @@ Immediate:
   coefficient \(857/3000\), and the order strictly beats K825 and both PG46
   witnesses on every row. One bounded standard-library max-plus/shortcut
   diagnostic enumerates no subset, path permutation, or matching.
-- The odd-\(v\) PG49-star parity task is complete at exactly the requested
-  \(W\)-level. On \(n=10m+8\), \(m\ge1\), the a-priori map (PGODD-6) is a
+- The odd-\(v\) PG49-star parity construction and induced-\(K\) tasks are
+  complete. On \(n=10m+8\), \(m\ge1\), the a-priori map (PGODD-6) is a
   search-free Ferrers/PG49-compatible bijection: its image intervals,
   threshold inequalities, residual Hall support, minimum row, and literal
   closing word are exact. Its score is \((8m+8)(8m+7)/2\). The sole bounded
-  integer diagnostic constructs no alternative order or matching. No \(K\),
-  angular, geometric, or global-optimality conclusion is included.
+  construction diagnostic constructs no alternative order or matching. The
+  unchanged core has sole induced-subset maximizer
+  \(\{4m+3,\ldots,10m+8\}\), exact score (KPGODD-4), five residue branches
+  with coefficient \(857/3000\), and a strict all-row improvement over
+  canonical K825. Nine hole classes, every shortcut length, the doubleton,
+  singleton block, cyclic cut, and \(m=1,2\) are explicit. One separate
+  bounded max-plus/all-arcs diagnostic constructs only (PGODD-6). No angular,
+  geometric, global-minimizer, or global-optimality conclusion is included.
 - The monotone threshold-closing PG46 task is complete. The shift
   \(\alpha_{q,2m-1}\) has the same unique backbone \(B_m\), exact five-
   residue score (KPG46Q-21)--(KPG46Q-22), and coefficient \(143/500\).
@@ -2791,9 +2806,6 @@ Immediate:
 
 Next:
 
-- In a fresh STRICT task, evaluate the induced-subset score \(K\) of the
-  already fixed odd-\(v\) map (PGODD-6), without changing the candidate or
-  inferring geometry or global optimality.
 - Seek an unconditional theorem for the filtered convergents in
   (KPGZERO-23): either construct an infinite left or right subsequence meeting
   the exact congruence and `g` windows, or prove eventual exclusion.  A finite

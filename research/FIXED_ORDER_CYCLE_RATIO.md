@@ -99,6 +99,19 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \(n\). This value is strictly below K825 and both PG46 values for every
   \(m\ge3\). The theorem concerns one explicit fixed core-order family and
   has no geometric or global-optimality consequence.
+- **EXACT THEOREM (ODD-\(v\) PG49-STAR PARITY CORE):** on
+  \(n=10m+8\), \(m\ge1\), Section 17 evaluates the core order fixed earlier
+  by (PGODD-6), without changing the candidate. Its sole maximizing subset
+  is \(B_m=\{4m+3,\ldots,10m+8\}\), and, with
+  \(q=\lfloor(4m+5)/5\rfloor\),
+  \[
+  K={1714m^3+4467m^2+24mq+3749m+12q^2+60q+1032\over6}.
+  \]
+  The five \(m\bmod5\) branches have coefficient \(857/3000\) in \(n\)
+  and are strictly below canonical K825 on every row. There is no argmax or
+  formula exception at \(m=1,2\); only the unique minimum compressed
+  shortcut changes from the stable triple connector to the retained cyclic
+  closing label. No geometric or global-optimality consequence follows.
 - **EXACT THEOREM (MONOTONE THRESHOLD-CLOSING PG46 CORE):** on the same
   rows, Section 16 evaluates the interval shift \(\alpha_{q,2m-1}\), where
   \(q=\lfloor(4m+3)/5\rfloor\), that keeps every residual path increasing.
@@ -13070,3 +13083,533 @@ and does not extend its scope.
 All results in this section concern \(K\) on one prescribed cyclic core
 order. They imply no exact angular-threshold comparison, geometric result,
 global \(K\)-minimality, or minimizing-order classification.
+
+## 17. Exact \(K\) For The Odd-\(v\) PG49-Star Parity Core Order
+
+Retain exactly the scaffold, paths, and a-priori map (PGODD-1)--(PGODD-6):
+
+\[
+n=10m+8,\qquad m\ge1,\qquad d=8m+8,\qquad
+q=\left\lfloor{4m+5\over5}\right\rfloor.
+\]
+
+With \(j^+=j+1\pmod{2m+1}\), reconstruct the fixed cyclic core order as
+
+\[
+\boxed{
+\tau_m^\circ
+=\mathop{\bigcirc}_{j=0}^{2m}
+ (E_j,\lambda_j,P_{\alpha^\circ(j)},\rho_{j^+}) .}
+\tag{KPGODD-1}
+\]
+
+The concatenation starts at \(E_0\), each path is expanded in its orientation
+from (PGODD-3), and the final \(\rho_0\) closes back to \(E_0\). Thus
+(KPGODD-1), rather than a reordered surrogate, is the core whose induced
+subsets are evaluated below. Put
+
+\[
+L=4m+3,\qquad
+H_m=\{2,\ldots,4m+2\},\qquad
+B_m=\{L,\ldots,10m+8\}.
+\tag{KPGODD-2}
+\]
+
+The exact all-domain theorem is
+
+\[
+\boxed{
+\operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}
+ P_{\tau_m^\circ}(U)=\{B_m\}.}
+\tag{KPGODD-3}
+\]
+
+In particular, the maximizer is unique for every \(m\ge1\). Its score is
+
+\[
+\boxed{
+K(\tau_m^\circ)
+={1714m^3+4467m^2+24mq+3749m+12q^2+60q+1032\over6}.}
+\tag{KPGODD-4}
+\]
+
+We first prove (KPGODD-3), including all equality and boundary cases, without
+using the value (KPGODD-4) as a substitute for the shortcut audit.
+
+### Exact compressed backbone
+
+Every label in \(H_m\) is isolated between two members of \(B_m\). Deleting
+all of them from (KPGODD-1) gives, starting at \(L=\rho_0\), the cyclic word
+
+\[
+\boxed{
+\left(
+L,
+(E_j,P_j)_{j=0}^{q-1},
+(E_j,P_{j+1})_{j=q}^{m-1},
+E_m,a,b,
+(E_j,x_{3m+1-j})_{j=m+1}^{2m-1},
+E_{2m},P_q
+\right).}
+\tag{KPGODD-5}
+\]
+
+All indexed blocks are concatenated in increasing \(j\), and every displayed
+path is expanded. Empty ranges are literal: the shifted-triple block is
+empty exactly when \(q=m\), hence for \(1\le m\le5\); the singleton block is
+empty at \(m=1\) and has one member at \(m=2\). The doubleton
+\((a,b)=(5m+5,5m+6)\) is always present and retains its orientation.
+
+### Complete elimination-gain audit
+
+For a hole \(z\in H_m\) between backbone neighbors \(u,w\), let
+
+\[
+h_z=uw-z(u+w).
+\tag{KPGODD-6}
+\]
+
+The nine exhaustive position classes are
+
+\[
+\begin{array}{c|c|c}
+\text{hole}&\text{gap range}&h_z\\ \hline
+\lambda_j&0\le j<q&
+-4j^2+(28m+23)j+28m+26\\
+\rho_{j+1}&0\le j<q&
+-4j^2+(28m+19)j+44m+39\\
+\lambda_j&q\le j\le m-1&
+-4j^2+(28m+17)j+20m+14\\
+\rho_{j+1}&q\le j\le m-1&
+-4j^2+(28m+13)j+36m+23\\
+\lambda_m&&17m^2+31m+14\\
+\rho_{m+1}&&17m^2+55m+39\\
+\lambda_j&m+1\le j\le2m-1&
+-j^2+(29m+26)j-4m^2+18m+20\\
+\rho_{j+1}&m+1\le j\le2m-1&
+-j^2+(29m+27)j-4m^2+36m+39\\
+\lambda_{2m}=2&&80m^2-20mq+98m-12q+26.
+\end{array}
+\tag{KPGODD-7}
+\]
+
+The middle two rows are precisely the left and right holes of the doubleton.
+The last row is the genuine closing hole between \(E_{2m}=n\) and \(A_q\);
+no off-cut right-hole formula has been extended through the cyclic cut.
+Their class cardinalities sum to
+\[
+2q+2(m-q)+2+2(m-1)+1=4m+1=|H_m|,
+\]
+with empty ranges interpreted literally, so no hole class is missing.
+
+The forward differences of the four triple and two singleton polynomials,
+in their displayed order, are
+
+\[
+\begin{gathered}
+28m+19-8j,\quad28m+15-8j,\quad
+28m+13-8j,\quad28m+9-8j,\\
+29m+25-2j,\quad29m+26-2j.
+\end{gathered}
+\tag{KPGODD-8}
+\]
+
+They are positive on their exact ranges. The first left class therefore has
+minimum \(28m+26\) at \(j=0\), while the first right class starts at
+\(44m+39\). If the shifted range is nonempty, then \(m\ge6\), \(q\ge5\),
+and its two left-end excesses over \(28m+26\) are bounded below by
+
+\[
+(24m+17)q-8m-12>0,\qquad
+(24m+13)q+8m-3>0.
+\tag{KPGODD-9}
+\]
+
+The doubleton left excess is \(17m^2+3m-12>0\), already at \(m=1\),
+and its right excess is \(17m^2+27m+13>0\). When the singleton range is
+nonempty, its two initial excesses factor as
+
+\[
+(m+1)(24m+19),\qquad(2m+3)(12m+13).
+\tag{KPGODD-10}
+\]
+
+Finally, using \(q\le m\), the closing excess is at least
+
+\[
+80m^2-20mq+70m-12q
+\ge2m(30m+29)>0.
+\tag{KPGODD-11}
+\]
+
+Consequently every elimination is strictly profitable and
+
+\[
+\boxed{
+\min_{z\in H_m}h_z=28m+26,}
+\tag{KPGODD-12}
+\]
+
+with equality only for \(z=\lambda_0=4m+2\), between \(E_0=d\) and
+\(A_0=d-1\). This includes both doubleton holes, every singleton hole, and
+the literal cyclic closing hole.
+
+### Complete compressed-shortcut audit
+
+Apply the exact identity (K825-8). After deleting only the internal members
+of \(H_m\) from an oriented arc, write the compressed path as
+
+\[
+C=(z_0,z_1,\ldots,z_s),\qquad s\ge2,\qquad
+M(C)=\sum_{i=0}^{s-1}z_i z_{i+1}-z_0z_s.
+\tag{KPGODD-13}
+\]
+
+We prove \(M(C)>0\) and record every case of equality in the exact minimum.
+If an endpoint \(a\) is a hole, the boundary-adjacent internal vertices,
+which coincide when \(s=2\), are at least \(L\). With the other endpoint
+\(b\), the four corners of
+\(2\le a\le L-1\), \(2\le b\le n\) give
+
+\[
+M(C)\ge L(a+b)-ab\ge4L-4=16m+8.
+\tag{KPGODD-14}
+\]
+
+This also covers two low endpoints and both orientations. It remains to
+take both endpoints in \(B_m=[L,n]\).
+
+For \(s=2\), first consider a triple connector \(c_k\), \(0\le k\le m\).
+Its neighbors are \(A_k,B_k\), independently of the assigned gap, and
+
+\[
+c_k(A_k+B_k)-A_kB_k
+=-8k^2+(32m+23)k+12m+10.
+\tag{KPGODD-15}
+\]
+
+Its forward difference is \(32m+15-16k>0\), so the unique connector minimum
+is \(12m+10\) at \(c_0\).
+
+For a reversed singleton, write \(j=m+1+t\),
+\(0\le t\le m-2\). Its exact terminal-to-terminal margin is
+
+\[
+27m^2-24mt+33m-3t^2-28t+5\ge65m+49.
+\tag{KPGODD-16}
+\]
+
+The expression decreases in \(t\), so equality in this class occurs only at
+the final singleton. The range is empty at \(m=1\) and contains only that
+endpoint at \(m=2\).
+
+The two doubleton labels give the separate two-edge margins
+
+\[
+\begin{aligned}
+a(E_m+b)-E_mb&=25m^2+46m+22,\\
+b(a+E_{m+1})-aE_{m+1}&=25m^2+64m+39.
+\end{aligned}
+\tag{KPGODD-17}
+\]
+
+The retained closing label \(L=\rho_0\), which lies between \(B_q\) and
+\(E_0\), has margin
+
+\[
+M(B_q,L,E_0)=8mq-8m+10q-6.
+\tag{KPGODD-18}
+\]
+
+It equals \(4\) at \(m=1\) and \(30\) at \(m=2\). For \(m\ge3\), \(q\ge3\),
+and its excess over \(12m+10\) is at least \(4m+14>0\).
+
+The remaining possible middle roles are outer triple labels and terminals,
+all at least \(6m+6\). For distinct neighbors \(a,b\in[L,n]\), the identity
+
+\[
+y(a+b)-ab=y^2-(a-y)(b-y)
+\]
+
+and the three relative-order cases give
+
+\[
+y(a+b)-ab\ge
+\begin{cases}
+20m^2+60m+34,&a,b>y,\\
+32m^2+62m+30,&a,b<y,\\
+(6m+6)^2,&\text{the endpoints straddle }y.
+\end{cases}
+\tag{KPGODD-19}
+\]
+
+Each bound is strictly above \(12m+10\). Equations
+(KPGODD-15)--(KPGODD-19) exhaust every two-edge middle role, including both
+members of the doubleton and the cyclic closing label. Indeed their counts
+are
+\[
+(m+1)+2+(m-1)+1+2(m+1)+(2m+1)=6m+6=|B_m|
+\]
+for connectors, doubleton members, singletons, \(L\), outer triple labels,
+and terminals, respectively.
+
+For \(s=3\), every adjacent pair of internal backbone labels has one member
+at least
+
+\[
+R=5m+6
+\tag{KPGODD-20}
+\]
+
+and the other at least \(L\). This is literal on the doubleton edge because
+\(b=R\); a triple edge contains an outer label at least \(6m+6\), a
+singleton is flanked by terminals, and the two closing edges contain
+\(B_q\ge6m+6\) or \(E_0\). The exact doubleton three-edge window is, more
+strongly,
+
+\[
+M(E_m,a,b,E_{m+1})=2(m+1)(17m+26)>0.
+\tag{KPGODD-21}
+\]
+
+Since \(M(C)=M(C^{\rm rev})\), reverse \(C\) if necessary so that the
+\(R\)-bounded internal member comes first. The four corners of \([L,n]^2\)
+then yield
+
+\[
+M(C)\ge z_0R+RL+Lz_3-z_0z_3
+\ge10m^2+41m+26.
+\tag{KPGODD-22}
+\]
+
+For every \(s\ge4\), all internal labels are at least \(L\), so another
+four-corner calculation gives
+
+\[
+\begin{aligned}
+M(C)
+&\ge L(z_0+z_s)+(s-2)L^2-z_0z_s\\
+&\ge12m^2+12m+2+(s-4)L^2.
+\end{aligned}
+\tag{KPGODD-23}
+\]
+
+The full compressed closing word is
+
+\[
+E_{2m},A_q,c_q,B_q,L,E_0.
+\]
+
+Thus (KPGODD-18) treats the retained two-edge closing role,
+(KPGODD-20) and (KPGODD-22) treat both adjacent closing pairs, while
+(KPGODD-23) treats every longer arc across the cut. The distinct closing
+hole was already handled in the last row of (KPGODD-7). Combining all
+lengths proves the exact equality classification
+
+\[
+\boxed{
+\min_{C:\,s\ge2}M(C)=
+\begin{cases}
+4,&m=1,\quad C=(12,7,16),\\
+30,&m=2,\quad C=(18,11,24),\\
+12m+10,&m\ge3,\quad C=(A_0,c_0,B_0).
+\end{cases}}
+\tag{KPGODD-24}
+\]
+
+In each row the displayed forward arc is the unique equality arc in the
+fixed cyclic presentation. Therefore the boundary change is real but affects
+only the shortcut-minimum witness, not the sign needed by the proof.
+
+The strict hole gains (KPGODD-12), strict shortcuts (KPGODD-24), and exact
+identity (K825-8)--(K825-9) now force equality as follows. Every hole must be
+omitted, and every selected gap must be one edge of the compressed backbone;
+hence the selected subset is exactly \(B_m\). Conversely \(B_m\) attains its
+backbone score. Applying the same inequality to the two-element subset
+\(\{n-1,n\}\), with its product counted twice, gives
+\(P_{\tau_m^\circ}(B_m)\ge2n(n-1)>n^2\), so no singleton can tie. This proves
+(KPGODD-3), including the doubleton case, singleton subsets, cyclic closure,
+and every equality case.
+
+### Exact block sum and five residue classes
+
+For a nonempty path \(P=(p_1,\ldots,p_s)\), retain
+
+\[
+\mathcal C(x,P,y)=xp_1+\sum_{i=1}^{s-1}p_ip_{i+1}+p_sy.
+\]
+
+Reading (KPGODD-5) from \(L\), the exact score is
+
+\[
+\begin{aligned}
+P_{\tau_m^\circ}(B_m)={}&LE_0
++\sum_{j=0}^{q-1}\mathcal C(E_j,P_j,E_{j+1})\\
+&+\sum_{j=q}^{m-1}\mathcal C(E_j,P_{j+1},E_{j+1})
++\mathcal C(E_m,(a,b),E_{m+1})\\
+&+\sum_{j=m+1}^{2m-1}x_{3m+1-j}(E_j+E_{j+1})
++\mathcal C(E_{2m},P_q,L).
+\end{aligned}
+\tag{KPGODD-25}
+\]
+
+The shifted-triple sum is empty for \(1\le m\le5\); the singleton sum is
+empty only at \(m=1\) and has one term at \(m=2\). The repeated summands,
+doubleton, and closing term are
+
+\[
+\begin{aligned}
+\mathcal C(E_j,P_j,E_{j+1})
+&=-8j^2-16mj-24j+192m^2+356m+162,\\
+\mathcal C(E_j,P_{j+1},E_{j+1})
+&=-8j^2-16mj-36j+192m^2+324m+121,\\
+\mathcal C(E_m,(a,b),E_{m+1})
+&=115m^2+239m+124,\\
+x_{3m+1-j}(E_j+E_{j+1})
+&=-2j^2-2mj-5j+112m^2+215m+102,\\
+\mathcal C(E_{2m},P_q,L)
+&=176m^2-28mq+298m-4q^2-25q+126,
+\end{aligned}
+\tag{KPGODD-26}
+\]
+
+while \(LE_0=32m^2+56m+24\). Standard sums of \(j\) and \(j^2\) on the
+exact ranges in (KPGODD-25) give (KPGODD-4), with no boundary correction.
+
+Only five residue classes are needed. If \(r=m\bmod5\), put
+
+\[
+q={4m+c_r\over5},\qquad
+(c_0,c_1,c_2,c_3,c_4)=(5,1,2,3,4).
+\tag{KPGODD-27}
+\]
+
+Then
+
+\[
+K(\tau_m^\circ)
+={42850m^3+112347m^2+(94925+216c_r)m
+ +25800+300c_r+12c_r^2\over150},
+\tag{KPGODD-28}
+\]
+
+or explicitly
+
+\[
+\begin{array}{c|c|c|c}
+r&q&n\bmod50&150K(\tau_m^\circ)\\ \hline
+0&(4m+5)/5&8&42850m^3+112347m^2+96005m+27600\\
+1&(4m+1)/5&18&42850m^3+112347m^2+95141m+26112\\
+2&(4m+2)/5&28&42850m^3+112347m^2+95357m+26448\\
+3&(4m+3)/5&38&42850m^3+112347m^2+95573m+26808\\
+4&(4m+4)/5&48&42850m^3+112347m^2+95789m+27192.
+\end{array}
+\tag{KPGODD-29}
+\]
+
+The \(r=0\) row begins at \(m=5\); the other rows begin at their smallest
+positive representatives. Every numerator is divisible by \(150\) on its
+stated class because it equals the integer block score (KPGODD-25). There is
+no additional parity split. Equivalently, with
+\(q=\lfloor(2n+9)/25\rfloor\),
+
+\[
+K(\tau_m^\circ)
+={857n^3+1767n^2+1200nq-5366n
+ +6000q^2+20400q+7056\over3000},
+\tag{KPGODD-30}
+\]
+
+and hence this fixed subsequence has coefficient \(857/3000\).
+
+### Exact same-row comparison with canonical K825
+
+On \(n=10m+8\), the K825 parameters are
+\(e=4\), \(v=2m+1\), \(\varepsilon=1\), and \(\Gamma=-12m-10<0\).
+Its unique maximizing subset is the same set \(B_m\), but its cyclic order
+is the canonical unshifted order, not (KPGODD-1). Specializing (K825-4)
+gives
+
+\[
+K_{825}(m)={572m^3+1497m^2+1279m+354\over2}.
+\tag{KPGODD-31}
+\]
+
+Exact subtraction, performed only after both scores have been evaluated,
+gives
+
+\[
+K(\tau_m^\circ)-K_{825}(m)
+={-m^3-12m^2+12mq-44m+6q^2+30q-15\over3}.
+\tag{KPGODD-32}
+\]
+
+The numerator is increasing in \(q\ge0\). Since \(q\le m\), with equality
+exactly for \(1\le m\le5\),
+
+\[
+3\bigl(K(\tau_m^\circ)-K_{825}(m)\bigr)
+\le-m^3+6m^2-14m-15
+=-\bigl((m-2)^3+2m+23\bigr)<0.
+\tag{KPGODD-33}
+\]
+
+Thus there is no comparison tie or crossover: the fixed PGODD order is
+strictly lower on every row. Only after this exact comparison may one state
+
+\[
+K(\tau_m^\circ)={857\over3000}n^3+O(n^2),\qquad
+K_{825}(m)={858\over3000}n^3+O(n^2),
+\tag{KPGODD-34}
+\]
+
+so their fixed-core score difference has leading term
+\(-n^3/3000\). This is not a global coefficient improvement or a minimizing-
+order theorem.
+
+### Literal boundary rows and verification boundary
+
+At \(m=1\), the singleton range is empty and
+
+\[
+\begin{aligned}
+\alpha^\circ&=(0,2,1),\\
+\tau_1^\circ&=(16,6,15,8,14,5,17,4,10,11,3,18,2,13,9,12,7),\\
+B_1&=\{7,\ldots,18\},\qquad
+K(\tau_1^\circ)=1843<1851=K_{825}(1).
+\end{aligned}
+\tag{KPGODD-35}
+\]
+
+At \(m=2\), singleton reversal is order-neutral because the block has one
+member, and
+
+\[
+\begin{aligned}
+\alpha^\circ&=(0,1,3,4,2),\\
+\tau_2^\circ&=(24,10,23,12,22,9,25,8,21,13,20,7,26,6,15,16,5,\\
+&\qquad 27,4,17,3,28,2,19,14,18,11),\\
+B_2&=\{11,\ldots,28\},\qquad
+K(\tau_2^\circ)=6729<6738=K_{825}(2).
+\end{aligned}
+\tag{KPGODD-36}
+\]
+
+Neither row is an exception to the formula or unique argmax. Their only
+exception is the shortcut-minimum role recorded in (KPGODD-24).
+
+The sole diagnostic for (KPGODD-1)--(KPGODD-36) is the standalone
+standard-library script
+ops/TASK-20260719__pgodd_exact_k/exact_diagnostic.py. It constructs only
+(PGODD-6). On \(m=1,\ldots,30\), an independent least-selected-position
+max-plus recurrence checks the exact score and unique backbone through
+39,461,580 transitions, while a separate scan checks all 1,007,210 proper
+oriented arcs, including 1,000,460 nontrivial compressed shortcuts and every
+cyclic-cut arc. Literal formula, residue, boundary, and K825 comparisons
+continue through \(m=1000\). It enumerates no subset, path permutation,
+matching, or family of cyclic orders. These bounded checks corroborate but do
+not prove the symbolic theorem.
+
+All claims in this section concern \(K\) on the one core order fixed by
+(PGODD-6). They imply no exact angular statement, geometry, global
+\(K\)-minimality, minimizing-order classification, or global optimality.

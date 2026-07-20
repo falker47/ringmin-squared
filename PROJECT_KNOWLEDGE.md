@@ -2761,7 +2761,7 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   all have coefficient \(857/3000\) in \(n\). This value is strictly below
   K825 and both PG46 values for every \(m\ge3\), with no tie. The theorem is
   fixed-order and combinatorial; it implies no geometric or global optimum.
-- EXACT ODD-\(v\) PG49-STAR PARITY \(W\) THEOREM: on the distinct
+- EXACT ODD-\(v\) PG49-STAR PARITY THEOREMS: on the distinct
   \(n=10m+8\), \(m\ge1\), branch, put
   \[
   q=\left\lfloor{4m+5\over5}\right\rfloor=\kappa_{2m}
@@ -2779,9 +2779,22 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   W(\sigma_{\alpha^\circ})
   ={(8m+8)(8m+7)\over2}.
   \]
-  This theorem is confined to construction, compatibility, and \(W\);
-  it evaluates no \(K\) and implies no angular, geometric, or global
-  optimum.
+  The unchanged core order has the exact induced-subset classification
+  \[
+  \operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P(U)
+  =\bigl\{\{4m+3,\ldots,10m+8\}\bigr\},
+  \]
+  and
+  \[
+  K={1714m^3+4467m^2+24mq+3749m+12q^2+60q+1032\over6}.
+  \]
+  Nine exhaustive hole classes have unique minimum \(28m+26\). The exact
+  shortcut minimum is uniquely \(4\) at \(m=1\), \(30\) at \(m=2\), and
+  \(12m+10\) for \(m\ge3\); this is the only boundary exception. The five
+  residue branches have coefficient \(857/3000\), and exact subtraction
+  proves a strict all-row improvement over same-subsequence K825. These are
+  fixed-order combinatorial theorems and imply no angular, geometric, global
+  \(K\)-minimality, or global optimum.
 - EXACT MONOTONE THRESHOLD-CLOSING PG46 CORE-ORDER THEOREM: on the same
   \(n=10m+3\), \(m\ge3\), rows, put
   \(q=\lfloor(4m+3)/5\rfloor=\kappa_{2m-1}\) and specialize (PG46) to
@@ -2915,6 +2928,16 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \(m=1,\ldots,80\). It checks 8,906,280 unordered pairs and enumerates no
   alternative order, matching, path permutation, or subset. The bounded
   computation corroborates rather than proves the all-domain theorem.
+- VERIFIED FACT (FINITE EXACT ODD-\(v\) PG49-STAR \(K\) DIAGNOSTIC): the
+  sole standalone standard-library script in
+  ops/TASK-20260719__pgodd_exact_k/ constructs only (PGODD-6). On
+  \(m=1,\ldots,30\), its independent max-plus DP checks the exact score and
+  unique backbone through 39,461,580 transitions. A separate all-arcs audit
+  checks 1,007,210 proper oriented arcs, including 1,000,460 nontrivial
+  compressed shortcuts and every cyclic-cut arc. Formula, residue, boundary,
+  and K825 checks continue through \(m=1000\). It enumerates no subset, path
+  permutation, matching, or order family. The bounded computation
+  corroborates rather than proves the symbolic theorem.
 - VERIFIED FACT (FINITE EXACT MONOTONE THRESHOLD-CLOSING K DIAGNOSTIC): the
   sole standalone standard-library script in
   ops/TASK-20260719__pg46_threshold_closing_exact_k/ directly constructs
@@ -3436,15 +3459,21 @@ Candidate-set extraction uses the following finite-certificate semantics.
   explicit. One bounded standard-library diagnostic corroborates without
   subset, path-permutation, or matching enumeration.
 - COMPLETED PRIORITY: the odd-\(v\) PG49-star parity analogue now has an
-  exact all-domain construction, compatibility, and \(W\) theorem. On
+  exact all-domain construction, compatibility, \(W\), and induced-\(K\)
+  theorem. On
   \(n=10m+8\), \(m\ge1\), the pre-fixed map (PGODD-6) shifts the doubleton
   without reversing it, reverses precisely the singleton block, and puts
   \(P_q\), \(q=\lfloor(4m+5)/5\rfloor=\kappa_{2m}\), in the genuine closing
   gap. Exact image blocks, thresholds, residual Hall support, boundary row,
   and cyclic closure prove bijectivity and score
-  \((8m+8)(8m+7)/2\). One bounded independent integer diagnostic performs no
-  order or matching search. \(K\), geometry, and global optimality remain
-  deliberately unevaluated.
+  \((8m+8)(8m+7)/2\). Its sole induced-subset maximizer is
+  \(\{4m+3,\ldots,10m+8\}\), with exact score (KPGODD-4), coefficient
+  \(857/3000\), and a strict all-row improvement over canonical K825. The
+  complete gain/shortcut proof treats doubleton, singleton block, cyclic
+  closure, all equality cases, and both minimum rows. Two bounded independent
+  diagnostics, one for construction/\(W\) and one max-plus/all-arcs for
+  \(K\), construct no alternative order or matching. Geometry and global
+  optimality remain deliberately unevaluated.
 - COMPLETED PRIORITY: the canonical eight-twenty-fifths core order now has an
   exact all-domain \(K\) theorem. The symbolic maximizer is the tail from
   \(2v+1\), with connector \(2v+2\) additionally removed exactly for

@@ -6,173 +6,187 @@ Last update: 2026-07-19
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Active task:** classify the fixed odd-\(v\) PG49-star parity analogue on
-  \(n=10m+8\) through construction, Ferrers/PG49 compatibility, and exact
-  product-distance score \(W\) only.
+- **Active task:** evaluate exactly the induced-subset objective \(K\) for
+  the already fixed odd-\(v\) map (PGODD-6) on \(n=10m+8\), \(m\ge1\),
+  without changing the candidate.
 - **Repository state at startup:** clean main worktree at commit
-  c45a5dc7133670874bc76246684cc7d8ed323f89.
-- **Implementation state:** the candidate was fixed before scoring; its
-  search-free formula, odd Ferrers thresholds, exact extendible support,
-  image partition, boundary rows, literal cyclic closure, and all
-  distance classes for \(W\) are proved and synchronized. The sole bounded
-  independent diagnostic and repository-proportional checks pass.
+  513f294e14cb3a5d8fa345344915416f8be5e20c.
+- **Implementation state:** the literal core, unique maximizing subset,
+  all elimination gains, every compressed shortcut and equality case, exact
+  score, residue formulas, boundary rows, and same-subsequence K825
+  comparison are proved and synchronized.
 - **Current blocker:** none.
-- **Current next atomic action:** user review; a fresh STRICT task may
-  evaluate \(K\) for this already fixed order without changing it.
+- **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
 ## Objective And Scope
 
-On the canonical eight-twenty-fifths scaffold with
+For the fixed map
 
 \[
-n=10m+8,\qquad v=2m+1,\qquad d=8m+8,\qquad m\ge1,
-\]
-
-determine whether the odd-\(v\) analogue that moves the threshold path into
-the genuine closing gap and reverses the singleton block is a
-Ferrers/PG49-compatible bijection on its whole symbolic domain. Evaluate
-only its exact fixed-order score \(W\).
-
-The task excludes \(K\), induced-subset maximizers, angular or geometric
-claims, global minimizing-order or optimality conclusions, and production
-changes.
-
-## Exact Construction
-
-Let
-
-\[
-\kappa_j=
-\left\lceil{j(d-1)\over2(d+j)}\right\rceil,
-\qquad
-q=\kappa_{2m}=\left\lfloor{4m+5\over5}\right\rfloor.
-\]
-
-The fixed map is
-
-\[
+q=\left\lfloor{4m+5\over5}\right\rfloor,\qquad
 \alpha^\circ(j)=
 \begin{cases}
 0,&j=0,\\
 j,&1\le j<q,\\
 j+1,&q\le j\le m,\\
 3m+1-j,&m+1\le j\le2m-1,\\
-q,&j=2m.
+q,&j=2m,
 \end{cases}
 \]
 
-It shifts the residual triples and the doubleton one gap left, preserves the
-doubleton orientation, reverses only the actual singleton block, and places
-\(P_q\) in \(G_{2m}\). Its five images are
+reconstruct its cyclic core order and determine \(K\), every maximizing
+subset, all boundary exceptions, and the exact comparison with canonical
+K825. The task includes doubleton, singleton block, cyclic closure, every
+shortcut length, and every equality case.
+
+The task excludes candidate modification or search, alternative order
+families, angular or geometric claims, global \(K\)-minimality, and global
+optimality.
+
+## Exact Core And Maximizer
+
+With the retained symbols from (PGODD-2)--(PGODD-3), the fixed core is
 
 \[
-\{0\},\quad[1,q-1],\quad[q+1,m+1],\quad
-[m+2,2m],\quad\{q\},
+\tau_m^\circ
+=\mathop{\bigcirc}_{j=0}^{2m}
+(E_j,\lambda_j,P_{\alpha^\circ(j)},\rho_{j+1\bmod(2m+1)}).
 \]
 
-which are pairwise disjoint and complete.
-
-## Exact Compatibility And Boundaries
-
-The newly derived odd local relation is
+Put
 
 \[
-(k,j)\in\mathcal R^{\rm odd}_{\rm loc}
-\quad\Longleftrightarrow\quad
-k\ge\kappa_j.
+L=4m+3,\qquad
+H_m=\{2,\ldots,4m+2\},\qquad
+B_m=\{L,\ldots,10m+8\}.
 \]
 
-The doubleton and singleton rows are strictly universal. Nested-neighborhood
-Hall inequalities give the exact extendible support
+Deleting \(H_m\) gives the exact cyclic backbone
 
 \[
-\mathcal R^{\rm odd}_{\rm ext}
-=\{(0,0)\}\mathbin\cup
-\{(k,j):1\le j\le2m,\ \kappa_j\le k\le2m\}.
+\left(
+L,(E_j,P_j)_{j=0}^{q-1},
+(E_j,P_{j+1})_{j=q}^{m-1},
+E_m,a,b,
+(E_j,x_{3m+1-j})_{j=m+1}^{2m-1},
+E_{2m},P_q
+\right),
 \]
 
-Every image of \(\alpha^\circ\) lies in this support. The closing image is
-the exact threshold equality
-\(\alpha^\circ(2m)=q=\kappa_{2m}\), checked in the literal word
+with every empty range literal. The all-domain theorem is
 
 \[
-(n,2,A_q,c_q,B_q,4m+3,d).
+\operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}
+P_{\tau_m^\circ}(U)=\{B_m\}.
 \]
 
-At \(m=1\), the singleton range is empty and
-\(\alpha^\circ=(0,2,1)\); at \(m=2\), singleton reversal is order-neutral.
-The equality \(q=m\) holds exactly for \(1\le m\le5\), when the shifted
-third image block reduces to the doubleton at its endpoint.
+Thus the maximizing subset is unique for every \(m\ge1\).
 
-## Exact Score
-
-Compatibility controls every pair at positional distance one or two.
-The fixed path \(P_0\subset G_0\) supplies
+## Exact Score, Residues, And K825 Comparison
 
 \[
-A_0c_0=T={d(d-1)\over2}.
+\boxed{
+K(\tau_m^\circ)
+={1714m^3+4467m^2+24mq+3749m+12q^2+60q+1032\over6}.}
 \]
 
-No distance-three pair contains two terminals, so its score is strictly
-below \(T\) by \(3d-2n=4m+8>0\). Every distance at least four is strictly
-below \(T\) because
+The only required split is \(m\bmod5\), with
 
 \[
-4T-n(n-1)=28m^2+90m+56>0.
+q={4m+c_r\over5},\qquad
+(c_0,c_1,c_2,c_3,c_4)=(5,1,2,3,4).
 \]
 
-Therefore
+These classes correspond to \(n\bmod50=8,18,28,38,48\), respectively.
+All five branches have coefficient \(857/3000\) in \(n\).
+
+On the same rows, canonical K825 specializes to
 
 \[
-W(\sigma_{\alpha^\circ})
-=T
-={(8m+8)(8m+7)\over2}
-\qquad(m\ge1).
+K_{825}(m)={572m^3+1497m^2+1279m+354\over2},
 \]
 
-No obstruction occurs.
+and
+
+\[
+K(\tau_m^\circ)-K_{825}(m)
+={-m^3-12m^2+12mq-44m+6q^2+30q-15\over3}<0.
+\]
+
+There is no tie or crossover. The fixed-family coefficients are
+\(857/3000\) and \(858/3000=143/500\), respectively. This comparison is
+not a global coefficient or minimizing-order theorem.
+
+## Gains, Shortcuts, And Boundaries
+
+- The nine exhaustive elimination-gain classes are all strict. Their unique
+  minimum is \(28m+26\), attained only by \(\lambda_0=4m+2\).
+- Every nontrivial compressed shortcut is strict. Its exact unique minimum
+  is
+  \[
+  \begin{cases}
+  4,&m=1,\ C=(12,7,16),\\
+  30,&m=2,\ C=(18,11,24),\\
+  12m+10,&m\ge3,\ C=(A_0,c_0,B_0).
+  \end{cases}
+  \]
+- The doubleton has two separate positive two-edge margins and the exact
+  three-edge window \(2(m+1)(17m+26)\). Singleton, terminal, outer-label,
+  all three-edge, all longer, and every cyclic-cut role are separate.
+- At \(m=1\), \(\alpha^\circ=(0,2,1)\), the singleton range is empty,
+  \(K=1843\), and K825 is \(1851\).
+- At \(m=2\), \(\alpha^\circ=(0,1,3,4,2)\), singleton reversal is
+  order-neutral, \(K=6729\), and K825 is \(6738\).
+- Neither minimum row is an exception to the formula or unique argmax; only
+  the identity of the minimum shortcut changes.
 
 ## Verification
 
-- The sole bounded integer diagnostic passes. Formula, image, and Ferrers
-  checks cover \(m=1,\ldots,1000\); local-relation and residual-Hall checks
-  cover \(m=1,\ldots,40\); exact all-pairs scoring covers
-  \(m=1,\ldots,80\), including 8,906,280 unordered cyclic pairs.
+- The sole standalone standard-library diagnostic constructs only
+  (PGODD-6) and passes: 1,000 formula/residue rows; 5,012,000 literal core
+  entries; 30 max-plus rows with 39,461,580 transitions; 1,007,210 proper
+  oriented arcs, including 1,000,460 nontrivial compressed shortcuts.
+- Standalone syntax and scoped Ruff lint pass. The first Ruff format check
+  found one mechanical formatting delta; formatting was applied and the
+  final check passes.
 - Full pytest passes: 283 passed.
 - The focused checked-artifact schema suite passes: 4 passed.
-- The standalone checked-artifact verifier passes:
-  certificates=4, local_brackets=76, n=3,4,5,6.
-- Standalone syntax, scoped Ruff lint, and Ruff format checks pass for the
-  sole new Python file.
-- The source audit passes with 27 sequential unique PGODD tags, balanced
-  displays and environments, no unescaped TeX control word, and no control
-  character.
-- The initial diagnostic-domain defect, initial Ruff formatting failure,
-  one unescaped TeX token, and one overly strict doubleton-bound sentence
-  were corrected and retained in task evidence.
-- Complete diff inspection and final whitespace hygiene pass.
+- The standalone checked-artifact verifier passes for four certificates,
+  76 local brackets, and \(n=3,4,5,6\).
+- The scoped source audit passes with 36 sequential unique KPGODD tags,
+  42 balanced displays, balanced aligned/array/cases/gathered environments,
+  and no control characters or unescaped TeX token.
+- Two independent mathematical audits and one independent diagnostic audit
+  report no remaining defect after wording hardening.
+- Final Git status, complete tracked/untracked diff inspection, and
+  `git diff --check` pass. Git emitted only the sandbox-specific warning that
+  the user-level exclude file outside the repository was unreadable; every
+  repository-local command completed with exit code zero.
 
 ## Evidence Classification And Limitations
 
-- (PGODD-1)--(PGODD-27) are an **exact combinatorial theorem** about one
-  fixed cyclic order.
-- The diagnostic is **bounded exact computation** used only for independent
-  corroboration.
-- No \(K\), angular, geometric, global-optimality, or upstream Ringmin result
-  is asserted or inferred.
+- (KPGODD-1)--(KPGODD-36) are an **exact combinatorial theorem** about one
+  fixed cyclic core order.
+- The standalone diagnostic is **bounded exact computation** used only for
+  independent corroboration.
+- No angular, geometric, global-minimizer, global-optimality, or upstream
+  Ringmin conclusion is asserted or inferred.
 
 ## Files In Scope
 
+- research/FIXED_ORDER_CYCLE_RATIO.md
 - research/PRODUCT_DISTANCE_SURROGATE.md
 - research/NEXT_RESEARCH_STEPS.md
 - start.md
 - PROJECT_KNOWLEDGE.md
 - CURRENT_STATUS.md
-- ops/TASK-20260719__pg49_star_parity_w/
+- ops/TASK-20260719__pgodd_exact_k/
 
 ## Proposed Next Task
 
-In a fresh STRICT task, evaluate the induced-subset score \(K\) of the
-already fixed map (PGODD-6), including its boundary rows and cyclic closure,
-without changing the candidate or inferring geometry or global optimality.
+In a fresh STRICT task, attack the filtered cubic-convergent obstruction
+(KPGZERO-23)--(KPGZERO-24): construct an infinite congruence-compatible
+subsequence entering an exact \(g\)-window, prove eventual exclusion, or
+record a strictly sharper exact obstruction. Finite continued-fraction
+extension remains diagnostic only.

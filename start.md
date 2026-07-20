@@ -1586,7 +1586,8 @@ individual gap contributions have mixed signs. The deletion, shortcut, and
 cyclic-closure proof is exact and has no angular, geometric, or global
 optimality consequence.
 
-The odd-\(v\) parity analogue is now exact separately at the \(W\)-level.
+The odd-\(v\) parity analogue is now exact at both its separately proved
+\(W\)- and induced-\(K\) levels.
 On \(n=10m+8\), \(m\ge1\), put
 \(q=\lfloor(4m+5)/5\rfloor=\kappa_{2m}\) and use the fixed map (PGODD-6):
 shift the remaining triples and the doubleton, reverse only the actual
@@ -1597,8 +1598,11 @@ word and every cyclic distance class give
 \[
 W={(8m+8)(8m+7)\over2}.
 \]
-This theorem does not evaluate \(K\) and has no angular, geometric, or
-global-optimality consequence.
+The construction theorem itself stops at \(W\). For the same unchanged core,
+(KPGODD-1)--(KPGODD-36) prove the sole induced-subset maximizer
+\(\{4m+3,\ldots,10m+8\}\), exact score (KPGODD-4), coefficient
+\(857/3000\), and strict same-row improvement over K825. No angular,
+geometric, global-minimizer, or global-optimality consequence follows.
 
 Separately, prior global results disprove the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\). The stronger target
@@ -3158,7 +3162,7 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   five residue formulas have coefficient \(857/3000\) in \(n\). The value
   strictly improves K825 and both PG46 orders for every admitted row, with no
   tie. These are fixed-order combinatorial statements only.
-- EXACT ODD-\(v\) PG49-STAR PARITY \(W\) THEOREM: on
+- EXACT ODD-\(v\) PG49-STAR PARITY THEOREMS: on
   \(n=10m+8\), \(m\ge1\), put
   \(q=\lfloor(4m+5)/5\rfloor=\kappa_{2m}\) and use (PGODD-6). The five
   image blocks partition \(\{0,\ldots,2m\}\); all positive-column images
@@ -3169,8 +3173,21 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \[
   W(\sigma_{\alpha^\circ})={(8m+8)(8m+7)\over2}.
   \]
-  This is only a construction, compatibility, and product-distance theorem:
-  \(K\), geometry, and global optimality are not evaluated.
+  For this same unchanged core order, the exact induced-subset theorem is
+  \[
+  \operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P(U)
+  =\bigl\{\{4m+3,\ldots,10m+8\}\bigr\},
+  \]
+  and
+  \[
+  K={1714m^3+4467m^2+24mq+3749m+12q^2+60q+1032\over6}.
+  \]
+  Nine exhaustive deletion-gain classes have unique minimum \(28m+26\).
+  Every compressed shortcut is strict; its unique minimum is \(4\) at
+  \(m=1\), \(30\) at \(m=2\), and \(12m+10\) for \(m\ge3\). The five
+  residue branches have coefficient \(857/3000\) and strictly beat
+  canonical K825 on the same subsequence, with no tie or crossover. Neither
+  theorem infers geometry, global \(K\)-minimality, or global optimality.
 - EXACT MONOTONE THRESHOLD-CLOSING PG46 THEOREM: put
   \(q=\lfloor(4m+3)/5\rfloor\) and specialize (PG46) to
   \((q,2m-1)\). The resulting assignment moves \(P_q\) to the closing gap
@@ -3286,6 +3303,16 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   unordered cyclic pairs without enumerating an order family, matching, path
   permutation, or subset. The computation corroborates rather than proves
   the all-\(m\) theorem.
+- VERIFIED FACT (FINITE EXACT ODD-\(v\) PG49-STAR \(K\) DIAGNOSTIC): the
+  sole standalone standard-library script in
+  ops/TASK-20260719__pgodd_exact_k/ constructs only (PGODD-6). For
+  \(m=1,\ldots,30\), an independent max-plus DP checks the exact score and
+  unique backbone through 39,461,580 transitions, and a separate all-arcs
+  audit checks 1,007,210 proper oriented arcs, including 1,000,460
+  nontrivial compressed shortcuts and the cyclic cut. Formula, residue,
+  boundary, and K825 checks continue through \(m=1000\). It enumerates no
+  subset, path permutation, matching, or order family. This bounded
+  computation corroborates rather than proves the all-\(m\) theorem.
 - VERIFIED FACT (FINITE EXACT MONOTONE THRESHOLD-CLOSING K DIAGNOSTIC): the
   sole standalone standard-library script in
   ops/TASK-20260719__pg46_threshold_closing_exact_k/ constructs only
