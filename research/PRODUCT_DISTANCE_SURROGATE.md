@@ -212,6 +212,22 @@
   not classify global \(W\)-minimizers outside this scaffold and is not a
   selected construction or a \(K\), angular, geometric, or global
   geometric-optimality result.
+- **EXACT THEOREM (later fixed PGE5 interval-shift \(K\) evaluation):** on
+  that same \(e=5\), \(n=10m+4\), \(m\ge2\) scaffold, fix only
+  \(\alpha_{q,2m-1}\) from (PGE5-22), where
+  \(q=\lfloor(4m+3)/5\rfloor\).  The separate theorem
+  (KPGE5-1)--(KPGE5-30) in
+  `research/FIXED_ORDER_CYCLE_RATIO.md` proves that its sole maximizing
+  induced subset is \(\{4m+1,\ldots,10m+4\}\), and
+  \[
+  K={572m^3+809m^2+8mq+329m+4q^2+20q+36\over2}.
+  \]
+  All five residue branches are regular, including the exact \(m=2\) row.
+  The score is strictly below canonical K825 on every same-subsequence row,
+  with gap \(13n^2/2500+O(n)\), while both retain cubic coefficient
+  \(143/500\).  This fixed-core theorem optimizes over no other supported
+  bijection, counts no permanent, and has no angular, geometric,
+  global-minimizer, or global-optimality consequence.
 - **EXACT THEOREM (Ferrers count on the earlier \(n=10m+3\), \(e=4\)
   scaffold):** put \(d=8m+4\) and
   \(\kappa_j=\lceil j(d-1)/(2(d+j))\rceil\). The exact labelled count is
@@ -8287,6 +8303,18 @@ Independently, exhaustive enumeration of all 41,064 scaffold bijections for
 \(W=W^{(\le2)}\) and local compatibility iff \(W=W_n\). These are bounded
 internal repository diagnostics, not production code, an external audit, or
 evidence of hosted CI; they corroborate but do not replace the proof.
+The sole diagnostic for (KPGE5-1)--(KPGE5-30) is the standalone
+standard-library script in
+`ops/TASK-20260720__pge5_interval_shift_exact_k/`. It constructs only the
+fixed closing shift \(\alpha_{q,2m-1}\). On \(m=2,\ldots,30\), its
+candidate-free max-plus recurrence checks the exact score and complete
+argmax classification through 37,475,656 transitions, while a separate
+all-arcs scan checks every deletion budget and all 968,774 proper oriented
+arcs, including the cyclic cut. Formula, support, five-residue, boundary,
+and same-row K825 checks continue through \(m=1000\). It enumerates no
+subset, path assignment, path permutation, matching, supported-bijection
+family, or permanent and imports no project or test helper. The bounded
+check corroborates but does not prove the symbolic theorem.
 The sole diagnostic for (KPGODD-1)--(KPGODD-36) is the standalone
 standard-library script in ops/TASK-20260719__pgodd_exact_k/. It constructs
 only (PGODD-6). On \(m=1,\ldots,30\), its independent max-plus recurrence
@@ -8452,11 +8480,15 @@ The following remain unresolved.
   excess over PG49-star is \(m(m-1)(m-2)/3\), so singleton reversal accounts
   for the full cubic PG49-star gain. No angular, geometric, or global
   minimizing-order conclusion follows.
-- **OPEN PGE5 CORE-ORDER QUESTION:** on the distinct \(n=10m+4\), \(e=5\)
-  scaffold of (PGE5-1), the exact value of \(K\) for the interval-shift
-  bijection \(\alpha_{q,2m-1}\),
-  \(q=\lfloor(4m+3)/5\rfloor\), has not been evaluated. The closed
-  \(n=10m+3\) theorem above does not apply to this core order.
+- **CLOSED PGE5 CORE-ORDER QUESTION:** on the distinct
+  \(n=10m+4\), \(e=5\) scaffold of (PGE5-1), fix only the interval shift
+  \(\alpha_{q,2m-1}\), \(q=\lfloor(4m+3)/5\rfloor\).  The separate
+  theorem (KPGE5-1)--(KPGE5-30) proves its unique maximizing backbone,
+  exact score, nine deletion classes, every compressed-shortcut length and
+  cyclic-closing role, the literal \(m=2\) boundary, all five residue
+  formulas, and strict same-row improvement over canonical K825.  It does
+  not optimize another supported bijection, count the permanent, or infer
+  angular, geometric, global-minimizer, or global-optimality consequences.
 - **OPEN QUESTION:** for which \(n\ge94\) is
   \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\)? Criterion (MS2)
   certifies equality whenever it holds, including \(n=94\), but no complete

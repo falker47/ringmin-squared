@@ -6,7 +6,7 @@ This file is the roadmap and priority source only. Stable result summaries
 belong in [PROJECT_KNOWLEDGE.md](../PROJECT_KNOWLEDGE.md), detailed proofs in
 the other research notes, and task evidence in ops/.
 
-## Completed Milestone
+## Completed Milestones
 
 - **COMPLETED -- PGE5 support:** on the canonical even-\(v\), \(e=5\)
   scaffold \(n=10m+4\), \(m\ge2\), the exact local relation, extendible
@@ -18,39 +18,44 @@ the other research notes, and task evidence in ops/.
 
 The superficially similar Ferrers count and monotone threshold-closing
 \(K\)-theorem already in the repository concern the earlier
-\(n=10m+3\), \(e=4\) scaffold. They do not close the \(e=5\) question below.
+\(n=10m+3\), \(e=4\) scaffold; they were not used as the PGE5 theorem.
+
+- **COMPLETED -- fixed PGE5 interval-shift \(K\):** on the distinct
+  \(n=10m+4\), \(m\ge2\) scaffold, (KPGE5-1)--(KPGE5-30) evaluate only
+  \(\alpha_{q,2m-1}\), \(q=\lfloor(4m+3)/5\rfloor\). The sole maximizing
+  subset is \(\{4m+1,\ldots,10m+4\}\), all five residue branches and the
+  literal \(m=2\) row are exact, and the score is strictly below canonical
+  K825 on every same-subsequence row while retaining cubic coefficient
+  \(143/500\). The theorem makes no statement about another supported
+  bijection, the permanent, geometry, or global optimality. See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#20-exact-k-for-the-fixed-pge5-interval-shift)
+  and the [stable synopsis](../PROJECT_KNOWLEDGE.md#product-distance-surrogate).
 
 ## Sole Next Atomic Task
 
-Run one fresh STRICT task to evaluate exactly \(K\) for the canonical PGE5
-interval-shift bijection
-
-\[
-\alpha_{q,2m-1},\qquad
-q=\left\lfloor{4m+3\over5}\right\rfloor,\qquad
-n=10m+4,\quad m\ge2.
-\]
+After manual review, run one fresh STRICT post-review audit of the new
+KPGE5 theorem and its diagnostic at the reviewed commit.
 
 Acceptance criteria:
 
-- construct only this fixed \(e=5\) core order from the PGE5 scaffold;
-- determine the exact maximizing induced subset or subsets and the exact
-  value of \(K\), including the minimum row and every residue branch;
-- audit every deletion/shortcut and the genuine cyclic closing role with an
-  independent bounded diagnostic that does not replace the proof;
-- distinguish the result throughout from the already closed
-  \(n=10m+3\), \(e=4\) theorem for the identically named shift; and
-- infer no angular, geometric, global-\(K\)-minimizer, or global-optimality
-  conclusion without a separate proof.
+- audit KPGE5-1--KPGE5-30 line by line against the literal PGE5 scaffold;
+- independently rederive the block sum, five residue branches, minimum row,
+  and exact K825 subtraction without importing the task formula as an
+  oracle criterion;
+- rerun the standalone bounded oracle and repository verification at the
+  reviewed commit, recording exact provenance and any contradictory result;
+- check document roles, links, tags, and all scope/non-consequence language;
+  and
+- introduce no new bijection, permanent count, or mathematical extension.
 
-This task is recorded here but is not executed by the present consolidation.
-No Ferrers-permanent count is a competing priority.
+This audit is not executed by the present theorem-development task. No
+Ferrers-permanent count is a competing priority.
 
 ## Deferred, Not Prioritized
 
-All other open directions remain deferred until the sole task above is
-reviewed. They include the filtered cubic-convergent obstruction, finer
-Ferrers-count residuals, the asymptotic coefficient gap, tighter finite
+All other open directions remain deferred until the new KPGE5 theorem is
+reviewed and audited. They include the filtered cubic-convergent obstruction,
+finer Ferrers-count residuals, the asymptotic coefficient gap, tighter finite
 brackets at \(n=5,6\), the radius-one threshold below \(12\), and later
 minimizer-set restrictions for \(n\ge94\). Their mathematical context remains
 in the relevant proof notes and stable knowledge; this roadmap does not repeat

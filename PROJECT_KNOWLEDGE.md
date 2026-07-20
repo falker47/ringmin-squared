@@ -2563,10 +2563,50 @@ and `ops/`.
   The local board is Ferrers; the full support is not, while deleting the
   forced pair \((P_0,G_0)\) leaves a matching-covered Ferrers board. This is
   exact \(W\)-minimality only for the supported scaffold bijections: it does
-  not classify outside-scaffold \(W\)-minimizers, evaluate \(K\), or imply an
-  angular or geometric result. Definitions, boundary cases, and the complete
-  proof are authoritative in
+  not classify outside-scaffold \(W\)-minimizers or by itself evaluate
+  \(K\), and it implies no angular or geometric result. Definitions,
+  boundary cases, and the complete support proof are authoritative in
   [`research/PRODUCT_DISTANCE_SURROGATE.md`](research/PRODUCT_DISTANCE_SURROGATE.md#the-canonical-even-v-e5-path-to-gap-support).
+- EXACT FIXED PGE5 INTERVAL-SHIFT CORE THEOREM (KPGE5-1--KPGE5-30): on
+  that same \(n=10m+4\), \(m\ge2\) scaffold, fix only (PGE5-22) at
+  \((q,2m-1)\), where \(q=\lfloor(4m+3)/5\rfloor\). The resulting core has
+  the sole induced-subset maximizer
+  \[
+  B_m=\{4m+1,\ldots,10m+4\}
+  \]
+  and
+  \[
+  K={572m^3+809m^2+8mq+329m+4q^2+20q+36\over2}.
+  \]
+  Its nine deletion classes have unique minimum \(36m+20\) at
+  \(\lambda_0\). Every compressed shortcut is strict; its unique minimum is
+  the genuine closing margin \(9\) at \(m=2\), and \(4m+2\) at the stable
+  connector \(c_0\) for \(m\ge3\). All five \(m\bmod5\) branches are
+  regular. The literal minimum row has \(\alpha=(0,1,3,2)\) and \(K=4297\).
+  On the same subsequence, canonical K825 has the same maximizing label set
+  and
+  \[
+  K_{825}={572m^3+819m^2+361m+44\over2}.
+  \]
+  The fixed shift is strictly smaller on every row, with
+  \(K_{825}-K=13n^2/2500+O(n)\), while both have cubic coefficient
+  \(143/500\). This is one fixed-core combinatorial theorem: it optimizes no
+  other supported bijection, counts no permanent, and gives no angular,
+  geometric, global-minimizer, or global-optimality conclusion. The detailed
+  proof is authoritative in
+  [`research/FIXED_ORDER_CYCLE_RATIO.md`](research/FIXED_ORDER_CYCLE_RATIO.md#20-exact-k-for-the-fixed-pge5-interval-shift).
+- VERIFIED FACT (FINITE EXACT FIXED-PGE5-K DIAGNOSTIC): the standalone
+  standard-library script in
+  `ops/TASK-20260720__pge5_interval_shift_exact_k/` constructs only the
+  prescribed shift. A candidate-free max-plus recurrence checks the exact
+  score and complete argmax classification on \(m=2,\ldots,30\) through
+  37,475,656 transitions; a separate traversal checks every deletion budget
+  and all 968,774 proper oriented arcs, including the cyclic cut. Formula,
+  support, five-residue, boundary, and K825 checks continue through
+  \(m=1000\). It imports no project/test helper and enumerates no subset,
+  matching, path assignment, path permutation, supported-bijection family,
+  or permanent. The finite computation corroborates rather than proves the
+  all-\(m\) theorem.
 - EXACT \(n=10m+3\), \(e=4\) FERRERS COUNT THEOREM: put
   \(v=2m\), \(d=8m+4\), and
   \[
