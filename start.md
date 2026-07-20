@@ -1634,6 +1634,27 @@ known residue-two order and K825 on every row. No alternative candidate,
 production change, angular or geometric inference, global minimizing-order
 classification, or global optimality is part of either theorem.
 
+The remaining odd-\(v\) branch of the same residue-two \(e=2\) scaffold is
+now exact at construction and \(W\) level.  On \(n=10m+7\), \(m\ge1\),
+
+\[
+q=\kappa_{2m}=\left\lfloor{4m+3\over5}\right\rfloor,
+\]
+
+and the pre-score map (PGE2ODD-6) shifts the residual triples, reverses the
+complete singleton block, and puts \(P_q\) in the genuine closing gap.  This
+parity branch has no doubleton.  Its image partition, exact Ferrers
+thresholds, full local Hall support, all empty ranges, minimum map
+\((0,2,1)\), literal closure, and complete cyclic-distance audit prove
+
+\[
+W(\sigma_{\alpha^{(2,\mathrm{odd})}_*})
+={(8m+8)(8m+6)\over2}=32m^2+56m+24.
+\]
+
+This theorem computes no \(K\), changes no production path, and infers no
+angular, geometric, global-minimizer, or global-optimality consequence.
+
 Separately, prior global results disprove the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\). The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also disproved.
@@ -3249,6 +3270,25 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   and the value strictly improves both the known residue-two order and K825
   on every row. Neither theorem changes production or infers angular,
   geometric, global-minimizer, or global-optimality conclusions.
+- EXACT ODD-\(v\) RESIDUE-TWO PG49-STAR THEOREM: on the other parity branch
+  of the same \(e=2\) scaffold, \(n=10m+7\), \(m\ge1\), put
+  \[
+  q=\kappa_{2m}=\left\lfloor{4m+3\over5}\right\rfloor
+  \]
+  and use (PGE2ODD-6).  Its four image blocks partition
+  \(\{0,\ldots,2m\}\), every value passes its exact Ferrers threshold, and
+  every local edge is Hall-extendible because
+  \(\kappa_0=\kappa_1=0\).  The retained triples keep their orientation,
+  the entire singleton block is reversed, and the doubleton class is empty.
+  The shifted-triple range is empty exactly for \(m=1,2,3\); the minimum
+  map is \((0,2,1)\); and the true closing column holds at threshold.  The
+  exact fixed-order score is
+  \[
+  W(\sigma_{\alpha^{(2,\mathrm{odd})}_*})
+  ={(8m+8)(8m+6)\over2}=32m^2+56m+24.
+  \]
+  The theorem evaluates no \(K\), alternative candidate, production path,
+  angular or geometric consequence, global minimizer, or global optimum.
 - EXACT MONOTONE THRESHOLD-CLOSING PG46 THEOREM: put
   \(q=\lfloor(4m+3)/5\rfloor\) and specialize (PG46) to
   \((q,2m-1)\). The resulting assignment moves \(P_q\) to the closing gap
@@ -3374,6 +3414,16 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   alternative, matching, path permutation, or subset, computes no \(K\), and
   imports no project or test helper.  This bounded computation corroborates
   rather than proves the symbolic theorem.
+- VERIFIED FACT (BOUNDED EXACT ODD-\(v\) RESIDUE-TWO PG49-STAR \(W\)
+  DIAGNOSTIC): the sole standalone standard-library script in
+  ops/TASK-20260720__residue_two_odd_v_pg49_star_w/ constructs only
+  (PGE2ODD-6). Formula, image, orientation, empty-range, and Ferrers checks
+  cover \(m=1,\ldots,1000\); literal local-word and residual-Hall checks
+  cover \(m=1,\ldots,40\); and exact all-pairs cyclic scoring covers
+  \(m=1,\ldots,80\), totaling 8,873,400 unordered pairs. It searches no
+  alternative, matching, path assignment, order family, or subset, computes
+  no \(K\), and imports no project or test helper. The bounded computation
+  corroborates rather than proves the symbolic theorem.
 - VERIFIED FACT (FINITE EXACT ODD-\(v\) PG49-STAR \(K\) DIAGNOSTIC): the
   sole standalone standard-library script in
   ops/TASK-20260719__pgodd_exact_k/ constructs only (PGODD-6). For

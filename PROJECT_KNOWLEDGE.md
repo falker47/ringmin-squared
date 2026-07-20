@@ -2838,6 +2838,28 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   and K825. Neither theorem evaluates an alternative candidate, changes
   production, or infers angular, geometric, global-minimizer, or global-
   optimality conclusions.
+- EXACT ODD-\(v\) RESIDUE-TWO PG49-STAR THEOREM: on the other parity branch
+  of the same \(e=2\) scaffold, \(n=10m+7\), \(m\ge1\), put
+  \[
+  q=\kappa_{2m}=\left\lfloor{4m+3\over5}\right\rfloor
+  \]
+  and use the pre-score map (PGE2ODD-6).  It preserves all \(m+1\) triple
+  orientations, reverses the complete block of \(m\) singleton paths, and
+  assigns the threshold triple \(P_q\) to the genuine closing gap.  This
+  branch has no doubleton.  Its four image blocks partition all \(2m+1\)
+  path indices.  The exact local relation is \(k\ge\kappa_j\), and its
+  Hall-extendible support equals the full local board because
+  \(\kappa_0=\kappa_1=0\).  Every image is supported.  The shifted-triple
+  range is empty exactly for \(m=1,2,3\); at \(m=1\),
+  \(\alpha^{(2,\mathrm{odd})}_*=(0,2,1)\).  The complete cyclic-distance
+  audit gives
+  \[
+  W(\sigma_{\alpha^{(2,\mathrm{odd})}_*})
+  ={(8m+8)(8m+6)\over2}=32m^2+56m+24.
+  \]
+  This is a fixed-construction combinatorial theorem. It neither evaluates
+  \(K\) nor inspects an alternative or implies any production, angular,
+  geometric, global-minimizer, or global-optimality conclusion.
 - EXACT MONOTONE THRESHOLD-CLOSING PG46 CORE-ORDER THEOREM: on the same
   \(n=10m+3\), \(m\ge3\), rows, put
   \(q=\lfloor(4m+3)/5\rfloor=\kappa_{2m-1}\) and specialize (PG46) to
@@ -2981,6 +3003,16 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   candidate, matching, path permutation, order family, or subset. It
   computes no \(K\) and imports no project or test helper. The bounded
   computation corroborates rather than proves the all-domain theorem.
+- VERIFIED FACT (BOUNDED EXACT ODD-\(v\) RESIDUE-TWO PG49-STAR \(W\)
+  DIAGNOSTIC): the sole standalone standard-library script in
+  ops/TASK-20260720__residue_two_odd_v_pg49_star_w/ constructs only
+  (PGE2ODD-6). Formula, image, orientation, empty-range, and Ferrers checks
+  cover \(m=1,\ldots,1000\); literal local-word and residual-Hall checks
+  cover \(m=1,\ldots,40\); and exact all-pairs cyclic scoring covers
+  \(m=1,\ldots,80\). It checks 8,873,400 unordered pairs and searches no
+  candidate, matching, path assignment, order family, or subset. It computes
+  no \(K\) and imports no project or test helper. The bounded computation
+  corroborates rather than proves the all-domain theorem.
 - VERIFIED FACT (FINITE EXACT ODD-\(v\) PG49-STAR \(K\) DIAGNOSTIC): the
   sole standalone standard-library script in
   ops/TASK-20260719__pgodd_exact_k/ constructs only (PGODD-6). On
@@ -3555,6 +3587,18 @@ Candidate-set extraction uses the following finite-certificate semantics.
   diagnostics construct only (PGE2-6), without candidate, matching, path,
   order-family, or subset search. No production, geometric, global-
   minimizer, or global-optimality claim is included.
+- COMPLETED PRIORITY: the odd-\(v\) residue-two PG49-star analogue now has
+  exact all-domain construction, compatibility, and \(W\) theorems on
+  \(n=10m+7\), \(m\ge1\).  The one map fixed before scoring preserves the
+  \(m+1\) triple orientations, reverses all \(m\) singleton paths, places
+  \(P_q\), \(q=\lfloor(4m+3)/5\rfloor=\kappa_{2m}\), in the true closing
+  gap, and introduces no doubleton.  Exact image blocks, Ferrers thresholds,
+  full local Hall support, all empty ranges, the minimum map \((0,2,1)\),
+  and cyclic closure prove score \((8m+8)(8m+6)/2\).  Its sole bounded
+  construction/all-pairs diagnostic builds only (PGE2ODD-6), with no
+  candidate, matching, path-assignment, order-family, subset, or \(K\)
+  search. No production, angular, geometric, global-minimizer, or
+  global-optimality claim is included.
 - COMPLETED PRIORITY: the canonical eight-twenty-fifths core order now has an
   exact all-domain \(K\) theorem. The symbolic maximizer is the tail from
   \(2v+1\), with connector \(2v+2\) additionally removed exactly for

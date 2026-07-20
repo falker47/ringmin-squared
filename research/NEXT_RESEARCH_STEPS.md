@@ -125,6 +125,23 @@ strict; the shortcut minimum lies on the retained closing label for
 all-row improvement over both the known residue-two order and K825. No
 alternative candidate, production change, geometric inference, global
 minimizer, or global-optimality conclusion is included.
+On the odd-\(v\) branch of that same residue-two \(e=2\) scaffold,
+\(n=10m+7\), \(m\ge1\), the construction and product-distance question is
+now closed independently.  Its pre-score closing index is
+\[
+q=\kappa_{2m}=\left\lfloor{4m+3\over5}\right\rfloor.
+\]
+The fixed map retains every triple orientation, reverses the entire
+singleton block, and puts \(P_q\) in the genuine closing gap.  This branch
+has no doubleton.  The four image blocks partition all paths, and the two
+initial zero thresholds make every local Ferrers edge Hall-extendible.
+The shifted-triple range is empty exactly at \(m=1,2,3\), the minimum map is
+\((0,2,1)\), and the complete cyclic-distance audit gives
+\[
+W={(8m+8)(8m+6)\over2}=32m^2+56m+24.
+\]
+No \(K\), alternative candidate, production change, geometric inference,
+global minimizer, or global-optimality conclusion is included.
 One explicit parametric perturbation of the matching \(8/25\) construction
 is now closed as well. On \(n=10m+3\), reversing the outer entries of one
 triple has score \(T\) for every nonzero triple index and
@@ -2840,6 +2857,17 @@ Immediate:
   are explicit. Separate bounded construction and max-plus/all-arcs
   diagnostics construct only (PGE2-6). No production, angular, geometric,
   global-minimizer, or global-optimality conclusion is included.
+- The odd-\(v\) residue-two PG49-star construction and \(W\) task is
+  complete. On \(n=10m+7\), \(m\ge1\), the single map fixed before scoring
+  is a search-free Ferrers/PG49-compatible bijection. Its four image blocks,
+  exact thresholds, full local Hall support, shifted-range boundaries,
+  minimum map, and genuine closing word are explicit. It preserves all
+  triple orientations, reverses exactly the complete singleton block, has
+  no doubleton, and has score \((8m+8)(8m+6)/2\). The sole bounded
+  construction/all-pairs diagnostic constructs only (PGE2ODD-6) and
+  searches no candidate, matching, path assignment, order family, subset,
+  or \(K\). No production, angular, geometric, global-minimizer, or
+  global-optimality conclusion is included.
 - The monotone threshold-closing PG46 task is complete. The shift
   \(\alpha_{q,2m-1}\) has the same unique backbone \(B_m\), exact five-
   residue score (KPG46Q-21)--(KPG46Q-22), and coefficient \(143/500\).

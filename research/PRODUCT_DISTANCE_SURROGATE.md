@@ -261,6 +261,28 @@
   both the known residue-two order and canonical K825 on every row. Neither
   theorem changes production or infers geometry, global minimization, or
   global optimality.
+- **EXACT THEOREM (odd-\(v\), residue-two PG49-star analogue):** on the
+  other parity branch of the same \(e=2\) scaffold,
+  \(n=10m+7\), \(m\ge1\), put
+  \[
+  q=\kappa_{2m}
+  =\left\lfloor{4m+3\over5}\right\rfloor
+  \]
+  and use the pre-score map (PGE2ODD-6).  The branch has \(m+1\) retained
+  oriented triples, \(m\) singleton paths, and no doubleton.  The map puts
+  the threshold triple \(P_q\) in the genuine closing gap, shifts the other
+  triples, and reverses the complete singleton block.  Its four image
+  intervals partition every path index.  Because
+  \(\kappa_0=\kappa_1=0\), residual Hall makes every local Ferrers edge
+  extendible; all images are supported, including
+  \(\alpha^{(2,\mathrm{odd})}_*=(0,2,1)\) at \(m=1\).  The exhaustive
+  cyclic-distance audit gives
+  \[
+  W(\sigma_{\alpha^{(2,\mathrm{odd})}_*})
+  ={(8m+8)(8m+6)\over2}=32m^2+56m+24.
+  \]
+  This construction theorem neither evaluates \(K\) nor changes production
+  or infers geometry, global minimization, or global optimality.
 - **EXACT THEOREM (later monotone threshold-closing shortcut evaluation):**
   specialize (PG46) to \((q,2m-1)\), where
   \(q=\lfloor(4m+3)/5\rfloor=\kappa_{2m-1}\). This puts \(P_q\) in the
@@ -7183,6 +7205,380 @@ not evaluate \(K\), compare induced-subset scores, alter a production
 generator, infer an angular or geometric consequence, or assert a global
 minimizing-order or optimality statement.
 
+### The odd-\(v\) residue-two PG49-star analogue
+
+We now close the other parity branch of the existing residue-two scaffold,
+again fixing the construction before inspecting any full-order score.  Put
+
+\[
+n=10m+7,\qquad m\ge1,\qquad v=2m+1,\qquad
+d=8m+8,\qquad D=d-1=8m+7,
+\]
+
+\[
+J={d(d-2)\over2}={D^2-1\over2}.
+\tag{PGE2ODD-1}
+\]
+
+This is the complete odd-\(v\) symbolic domain of (R2C5): \(m=1\) has
+\(v=3\), while \(m=0\) would have \(v=1\) and lies outside the residue-two
+generator domain \(v\ge2\).  For \(0\le j\le2m\), retain
+
+\[
+E_j=D+j,\qquad
+\lambda_j=4m+2-2j,\qquad
+\rho_j=4m+3-2j.
+\tag{PGE2ODD-2}
+\]
+
+The literal oriented middle paths furnished by (R2C3) and (R2C5) are
+
+\[
+\begin{aligned}
+P_k&=(A_k,c_k,B_k)
+=(D-1-2k,\ 4m+4+k,\ D-2-2k),
+&&0\le k\le m,\\
+P_k&=(x_k)=(4m+4+k),
+&&m+1\le k\le2m.
+\end{aligned}
+\tag{PGE2ODD-3}
+\]
+
+Thus this branch has \(m+1\) triples and \(m\) singletons.  It has no
+doubleton on any row: the prospective doubleton type and its index range are
+identically empty.  The triples retain the displayed orientation
+\((A_k,c_k,B_k)\), while a singleton has no internal orientation.  With
+\(j^+=j+1\pmod {2m+1}\), assigning \(P_k\) to gap \(G_j\) means the literal
+cyclic word
+
+\[
+G_{k,j}=(E_j,\lambda_j,P_k,\rho_{j^+},E_{j^+}).
+\tag{PGE2ODD-4}
+\]
+
+Define the prospective Ferrers thresholds and the true closing value by
+
+\[
+\kappa_j=
+\left\lceil{(j-1)(D-1)\over2(D+j)}\right\rceil
+\quad(0\le j\le2m),
+\qquad
+q=\kappa_{2m}.
+\tag{PGE2ODD-5}
+\]
+
+Before any full-order score calculation, fix the sole map considered here:
+
+\[
+\boxed{
+\alpha^{(2,\mathrm{odd})}_*(j)=
+\begin{cases}
+j,&0\le j<q,\\
+j+1,&q\le j\le m-1,\\
+3m-j,&m\le j\le2m-1,\\
+q,&j=2m.
+\end{cases}}
+\tag{PGE2ODD-6}
+\]
+
+Accordingly the final-threshold path \(P_q\) occupies the actual closing
+gap, the other triples shift by one after the hole \(q\), and the complete
+singleton block \(P_{m+1},\ldots,P_{2m}\) is assigned in reverse path-index
+order.  Reversing that assignment order does not reverse any path
+internally.  No part of (PGE2ODD-6) is selected, repaired, or changed after
+its score is known.  The resulting literal cyclic core is
+
+\[
+\sigma_{\alpha^{(2,\mathrm{odd})}_*}
+=\mathop{\bigcirc}_{j=0}^{2m}
+\left(E_j,\lambda_j,
+P_{\alpha^{(2,\mathrm{odd})}_*(j)},\rho_{j^+}\right).
+\tag{PGE2ODD-7}
+\]
+
+#### Exact local relation and Ferrers thresholds
+
+The unchanged terminal--low maximum incident to \(E_j\) is
+
+\[
+f_j=E_j\rho_j,\qquad
+f_{j+1}-f_j=-(12m+4j+13)<0,\qquad
+J-f_0=4m+3>0.
+\tag{PGE2ODD-8}
+\]
+
+The difference formula applies for \(0\le j<2m\); the literal closing
+terminal--low edge is included in the same displayed \(f_j\) family.
+Every low--low distance-two form across a terminal is smaller.  For a
+triple, every path-bearing adjacent form is dominated by
+
+\[
+A_kc_k=J-2k(k+1)\le J.
+\tag{PGE2ODD-9}
+\]
+
+Its unique placement-dependent distance-two maximum is
+
+\[
+M^{\rm tr}_2(k,j)
+={E_jA_k\over2}
+=J+{(j-1)A_k-2kd\over2}.
+\tag{PGE2ODD-10}
+\]
+
+Indeed \(E_jA_k\) dominates the low-bearing and internal distance-two
+forms componentwise.  The only remaining competitor is the right-terminal
+product, and away from and at the displayed cut respectively,
+
+\[
+E_jA_k-B_kE_{j+1}=j+2k+2>0
+\quad(0\le j<2m),
+\]
+
+\[
+nA_k-DB_k=2mA_k+D>0
+\quad(j=2m).
+\tag{PGE2ODD-11}
+\]
+
+Consequently a triple is locally admitted exactly when
+
+\[
+(j-1)A_k\le2kd
+\quad\Longleftrightarrow\quad
+k\ge\kappa_j.
+\tag{PGE2ODD-12}
+\]
+
+There is no doubleton case to test.  For a singleton, the exact
+distance-two maximum is
+
+\[
+M^{\rm sing}_2(k,j)=
+\begin{cases}
+x_k(D+j+1)/2,&0\le j\le2m-1,\\
+x_kn/2,&j=2m.
+\end{cases}
+\tag{PGE2ODD-13}
+\]
+
+All singleton distance-two forms are strict because \(x_k\le6m+4\) and
+
+\[
+2J-n(6m+4)=4m^2+30m+20>0.
+\tag{PGE2ODD-14}
+\]
+
+Their adjacent forms are strict as well.  The largest possible
+low--singleton product has margin
+
+\[
+J-(4m+3)(6m+4)=8m^2+22m+12>0.
+\tag{PGE2ODD-15}
+\]
+
+The singleton indices are at least \(m+1\), whereas the largest triple
+threshold is at most \(m\), as proved below.  Equations
+(PGE2ODD-8)--(PGE2ODD-15), including the terminal--low and low--low forms,
+therefore give the exact local Ferrers relation
+
+\[
+\boxed{
+(k,j)\in\mathcal R^{(2,\mathrm{odd})}_{\rm loc}
+\quad\Longleftrightarrow\quad
+k\ge\kappa_j,
+\qquad
+N(G_j)=\{P_{\kappa_j},\ldots,P_{2m}\}.}
+\tag{PGE2ODD-16}
+\]
+
+Put \(h_j=(j-1)(D-1)/(2(D+j))\).  Then
+
+\[
+h_{j+1}-h_j
+={J\over(D+j)(D+j+1)}>0,
+\]
+
+\[
+\kappa_0=\kappa_1=0,\qquad
+\kappa_2=1,\qquad
+1\le\kappa_j\le j-1
+\quad(2\le j\le2m).
+\tag{PGE2ODD-17}
+\]
+
+In the genuine closing column,
+
+\[
+h_{2m}={(2m-1)(4m+3)\over10m+7},
+\qquad
+{4m-2\over5}<h_{2m}<{4m-1\over5}.
+\]
+
+A direct check of the five residues of \(m\) now gives
+
+\[
+\boxed{
+q=\kappa_{2m}
+=\left\lceil{(2m-1)(4m+3)\over10m+7}\right\rceil
+=\left\lfloor{4m+3\over5}\right\rfloor.}
+\tag{PGE2ODD-18}
+\]
+
+In particular \(1\le q\le m\), and \(q=m\) exactly for
+\(m=1,2,3\).
+
+#### Hall support, images, empty ranges, and closure
+
+As in the even-\(v\) residue-two board, the first two columns have threshold
+zero.  Fix a local edge \((k,j)\).  Nested neighborhoods reduce residual
+Hall exactly to the suffix inequalities
+
+\[
+\kappa_r+\mathbf1_{\{k\ge\kappa_r\}}
+\le r+\mathbf1_{\{j>r\}}
+\qquad(r\ne j).
+\tag{PGE2ODD-19}
+\]
+
+If \(r=0\) is present, both sides equal one.  At \(r=1\), the left side is
+one and the right side is at least one.  For \(r\ge2\),
+(PGE2ODD-17) makes the left side at most \(r\).  Hence every local edge,
+including every edge in either threshold-zero column, is extendible, and no
+nonlocal edge is:
+
+\[
+\boxed{
+\mathcal R^{(2,\mathrm{odd})}_{\rm ext}
+=\mathcal R^{(2,\mathrm{odd})}_{\rm loc}
+=\{(k,j):0\le j,k\le2m,\ k\ge\kappa_j\}.}
+\tag{PGE2ODD-20}
+\]
+
+The four pieces of the already fixed map have images
+
+\[
+\boxed{
+[0,q-1],\qquad[q+1,m],\qquad[m+1,2m],\qquad\{q\}.}
+\tag{PGE2ODD-21}
+\]
+
+They are pairwise disjoint and partition \(\{0,\ldots,2m\}\).  The second
+interval is empty exactly when \(q=m\), hence exactly at \(m=1,2,3\).
+The singleton range and its image always contain \(m\) indices; their
+reversal is order-neutral only at \(m=1\).  The doubleton range is empty on
+every row.  Every image lies in the exact support:
+
+\[
+\begin{array}{c|c|c}
+\text{column range}&\alpha^{(2,\mathrm{odd})}_*(j)
+&\text{Ferrers comparison}\\ \hline
+0\le j<q&j&j\ge\kappa_j\\
+q\le j\le m-1&j+1&j+1>\kappa_j\\
+m\le j\le2m-1&3m-j&m+1>q\ge\kappa_j\\
+j=2m&q&\alpha^{(2,\mathrm{odd})}_*(2m)=\kappa_{2m}.
+\end{array}
+\tag{PGE2ODD-22}
+\]
+
+At the minimum row every boundary is literal:
+
+\[
+(m,d,D,n,J,q)=(1,16,15,17,112,1),\qquad
+(\kappa_0,\kappa_1,\kappa_2)=(0,0,1),
+\]
+
+\[
+P_0=(14,8,13),\qquad
+P_1=(12,9,11),\qquad
+P_2=(10),\qquad
+\boxed{\alpha^{(2,\mathrm{odd})}_*=(0,2,1)}.
+\tag{PGE2ODD-23}
+\]
+
+The complete expanded core order is
+
+\[
+\boxed{
+(15,6,14,8,13,5,16,4,10,3,17,2,12,9,11,7).}
+\tag{PGE2ODD-24}
+\]
+
+There is one singleton, so its reversal is literal but order-neutral; there
+is still no doubleton.  On every row \(q\le m\), so the closing path is the
+triple \(P_q\), and the actual word across the displayed cut is
+
+\[
+\boxed{
+(n,2,A_q,c_q,B_q,4m+3,D).}
+\tag{PGE2ODD-25}
+\]
+
+Equations (PGE2ODD-10)--(PGE2ODD-12), with
+\(q=\kappa_{2m}\), test this closing column itself.  The distance-two
+low--low pair \((4m+3,4m+2)\) across \(D\) is already strict by
+(PGE2ODD-8).  Thus (PGE2ODD-16)--(PGE2ODD-25) prove that the pre-score map
+(PGE2ODD-6) is a search-free Ferrers/PG49-compatible bijection for every
+\(m\ge1\).  There is no symbolic obstruction.  Only after this conclusion
+may its full product-distance score be evaluated.
+
+#### Exact product-distance score
+
+Compatibility now proves that every unordered pair at circular positional
+distance one or two has score at most \(J\), including every such pair
+crossing the cut (PGE2ODD-25) or lying across \(D\).  The unchanged
+orientation of \(P_0\), wherever that path is assigned, supplies equality:
+
+\[
+A_0c_0=(D-1)(4m+4)=J.
+\tag{PGE2ODD-26}
+\]
+
+Every gap contains a low label, a nonempty path, and another low label.
+Thus two terminals are never at positional distance three.  A three-step
+pair has at most one terminal endpoint and its other endpoint is at most
+\(D-1\), so
+
+\[
+{ij\over3}\le{n(D-1)\over3}<J,
+\qquad
+3J-n(D-1)=16m^2+52m+30>0.
+\tag{PGE2ODD-27}
+\]
+
+For every smaller circular positional distance \(s\ge4\), distinctness of
+the labels gives
+
+\[
+{ij\over s}\le{n(n-1)\over4}<J,
+\qquad
+4J-n(n-1)=28m^2+94m+54>0.
+\tag{PGE2ODD-28}
+\]
+
+These are genuinely cyclic bounds: (PGE2ODD-27) includes every three-step
+arc through the displayed cut, while (PGE2ODD-28) includes every longer
+closing arc.  Together with the literal one- and two-step audit in
+(PGE2ODD-8)--(PGE2ODD-25), they cover every unordered pair exactly by its
+smaller circular positional distance.  Hence the exact score of this one
+preassigned construction is
+
+\[
+\boxed{
+W(\sigma_{\alpha^{(2,\mathrm{odd})}_*})
+=J
+={(8m+8)(8m+6)\over2}
+=32m^2+56m+24}
+\qquad(m\ge1).
+\tag{PGE2ODD-29}
+\]
+
+This theorem evaluates only the fixed construction, its exact
+Ferrers/PG49 compatibility, and its product-distance score \(W\).  It does
+not evaluate \(K\), inspect an alternative candidate, alter a production
+generator, infer an angular or geometric consequence, or assert any global
+minimizing-order or optimality statement.
+
 ## Verification Boundary And Open Questions
 
 `tests/test_product_distance.py` checks exact rational comparisons, canonical
@@ -7351,6 +7747,16 @@ pre-score map (PGE2-6). Formula, image, threshold, and Ferrers checks cover
 no path permutation or subset, computes no \(K\), and imports no project or
 test helper. The finite rows corroborate but do not prove the symbolic
 theorem.
+The sole diagnostic for (PGE2ODD-1)--(PGE2ODD-29) is the standalone
+standard-library script in
+ops/TASK-20260720__residue_two_odd_v_pg49_star_w/. It constructs only the
+pre-score map (PGE2ODD-6). Formula, image, orientation, empty-range, and
+Ferrers checks cover \(m=1,\ldots,1000\); direct local-word and
+residual-Hall checks cover \(m=1,\ldots,40\); and exact all-pairs cyclic
+scoring covers \(m=1,\ldots,80\). It checks 8,873,400 unordered cyclic
+pairs, searches no candidate, order, matching, path assignment, or subset,
+computes no \(K\), and imports no project or test helper. The finite rows
+corroborate but do not prove the symbolic theorem.
 The sole diagnostic for (KPGODD-1)--(KPGODD-36) is the standalone
 standard-library script in ops/TASK-20260719__pgodd_exact_k/. It constructs
 only (PGODD-6). On \(m=1,\ldots,30\), its independent max-plus recurrence
@@ -7472,6 +7878,19 @@ The following remain unresolved.
   \(m=1,2\) cases are exhaustive. No alternative-candidate, production,
   angular, geometric, global-minimizer, or global-optimality statement is
   inferred.
+- **CLOSED ODD-\(v\) RESIDUE-TWO PARITY-ANALOGUE QUESTION:**
+  (PGE2ODD-1)--(PGE2ODD-29) prove directly that the one map fixed before
+  scoring on \(n=10m+7\), \(m\ge1\), is a Ferrers/PG49-compatible
+  bijection.  Its closing index is the literal
+  \(q=\kappa_{2m}=\lfloor(4m+3)/5\rfloor\); its two threshold-zero columns
+  make every local edge Hall-extendible; its triple orientations are
+  unchanged; its complete singleton block is reversed; and its doubleton
+  class is empty.  The shifted-triple range is empty exactly for
+  \(m=1,2,3\), while the minimum row is the literal map \((0,2,1)\).
+  Every cyclic positional distance gives the exact fixed-order score
+  \((8m+8)(8m+6)/2\). This theorem computes no \(K\), inspects no
+  alternative, and makes no production, angular, geometric,
+  global-minimizer, or global-optimality assertion.
 - **CLOSED CORE-ORDER QUESTION:** the interval shift (PG46) with target
   \((q,2m-1)\), \(q=\lfloor(4m+3)/5\rfloor\), keeps every residual path
   increasing. The separate theorem (KPG46Q-1)--(KPG46Q-29) proves its unique
