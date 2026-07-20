@@ -18,7 +18,7 @@
   read-only Git status and recent history; obtain three independent
   read-only derivations.
 - **Relevant output:** clean main worktree at
-  `513f294e14cb3a5d8fa345344915416f8be5e20c`; all derivations agree on the
+  `513f294d6c7e79e899d953f8b197ae3e23cded73`; all derivations agree on the
   same core word, unique tail, exact score, residue split, boundary margins,
   and strict same-row K825 comparison.
 - **Interpretation:** the bounded task can proceed without mixing unrelated

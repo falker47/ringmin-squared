@@ -86,3 +86,19 @@ Append-only. Add a new entry to correct previous information.
 - **Evidence:** EV-006.
 - **Next step:** user review; any attack on the residual obstruction belongs
   to a fresh STRICT task.
+
+## 2026-07-20 - Documentary Final-State Correction
+
+- **Action:** re-audited the task objective, its expressly conditional
+  fallback, and the repository status contract; corrected only the final
+  workflow-state interpretation without rewriting the historical entry.
+- **Result:** the task is `READY_FOR_REVIEW`.  The requested conditional
+  output was completed exactly: (KPGZERO-23)--(KPGZERO-24) isolate the
+  congruence-filtered, one-sided cubic-convergent obstruction.
+- **Interpretation:** the prior `BLOCKED` final-state interpretation is
+  superseded as a workflow status.  Global finiteness versus infinitude
+  remains explicitly unresolved; no theorem, formula, diagnostic, or
+  scientific roadmap statement is changed.
+- **Evidence:** `TASK_STATUS.md`, EV-003, and EV-006.
+- **Next step:** user review and manual commit decision.  Any attempt to
+  decide the residual global cardinality belongs to a fresh STRICT task.

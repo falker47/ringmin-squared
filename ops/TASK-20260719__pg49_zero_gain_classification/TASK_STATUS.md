@@ -1,11 +1,11 @@
 # TASK_STATUS - TASK-20260719 / PG49 Zero-Gain Classification
 
-Last update: 2026-07-19
+Last update: 2026-07-20
 
 ## State
 
 - **Mode:** STRICT
-- **Status:** BLOCKED
+- **Status:** READY_FOR_REVIEW
 - **Objective:** classify the left and right zero-gain equations for the
   descending-min PG49 order, including every plateau inequality and boundary;
   decide finite versus infinite if current mathematics permits, otherwise
@@ -88,16 +88,18 @@ Last update: 2026-07-19
 
 ## Blockers / Risks
 
-- The requested global finite/infinite dichotomy is blocked by the exact
-  congruence-filtered, one-sided continued-fraction condition for a cubic
-  irrational.  Neither branch currently has a proved infinite family or a
-  proved finiteness obstruction.
+- No task blocker.  The requested conditional output is complete:
+  (KPGZERO-23)--(KPGZERO-24) isolate exactly the congruence-filtered,
+  one-sided cubic-convergent obstruction.
+- Global finiteness versus infinitude remains explicitly unresolved.  Neither
+  branch currently has a proved infinite family or a proved finiteness
+  obstruction.
 - Residual risk is human review of large exact formulas and integers.
 
 ## Next Atomic Action
 
-- Inspect the complete diff and hand the mathematically blocked cardinality
-  claim to the user for review.
+- User review and manual commit decision.  Any attempt to decide the residual
+  global cardinality belongs to a fresh STRICT task.
 
 ## Handoff
 

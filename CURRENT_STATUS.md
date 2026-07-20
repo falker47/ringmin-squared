@@ -1,6 +1,6 @@
 # CURRENT_STATUS - power-ringmin
 
-Last update: 2026-07-19
+Last update: 2026-07-20
 
 ## State
 
@@ -10,7 +10,7 @@ Last update: 2026-07-19
   the already fixed odd-\(v\) map (PGODD-6) on \(n=10m+8\), \(m\ge1\),
   without changing the candidate.
 - **Repository state at startup:** clean main worktree at commit
-  513f294e14cb3a5d8fa345344915416f8be5e20c.
+  513f294d6c7e79e899d953f8b197ae3e23cded73.
 - **Implementation state:** the literal core, unique maximizing subset,
   all elimination gains, every compressed shortcut and equality case, exact
   score, residue formulas, boundary rows, and same-subsequence K825

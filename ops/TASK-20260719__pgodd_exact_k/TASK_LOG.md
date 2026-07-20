@@ -53,3 +53,18 @@ Append-only. Add a new entry to correct previous information.
   handoff are complete. The task is `READY_FOR_REVIEW`; no commit was made.
 - **Evidence:** `EVIDENCE.md#ev-004---regression-source-and-diff-hygiene`.
 - **Next step:** user review and manual commit decision.
+
+## 2026-07-20 - Documentary Provenance Correction
+
+- **Action:** rechecked the recorded startup revision against the Git object
+  database and the parent of the task's eventual commit; corrected the
+  malformed hash in `TASK_STATUS.md`, `EVIDENCE.md`, and `CURRENT_STATUS.md`.
+- **Result:** all three sources now record
+  `513f294d6c7e79e899d953f8b197ae3e23cded73`, the valid clean-start commit
+  and direct parent of `6cff6844c352cf0314474a63e36ce4b2d44f7c03`.
+- **Interpretation:** this is a provenance-only correction. It changes no
+  theorem, formula, diagnostic result, task completion state, or research
+  conclusion.
+- **Evidence:**
+  `../TASK-20260720__fix_provenance_pg49_status/EVIDENCE.md#ev-001---pgodd-startup-commit-provenance`.
+- **Next step:** user review and manual commit decision.

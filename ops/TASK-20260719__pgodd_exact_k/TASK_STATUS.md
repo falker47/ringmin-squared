@@ -1,6 +1,6 @@
 # TASK_STATUS - TASK-20260719 / PGODD Exact K
 
-Last update: 2026-07-19
+Last update: 2026-07-20
 
 ## State
 
@@ -26,7 +26,7 @@ Last update: 2026-07-19
 ## Verified Facts
 
 - Startup found a clean main worktree at
-  `513f294e14cb3a5d8fa345344915416f8be5e20c`.
+  `513f294d6c7e79e899d953f8b197ae3e23cded73`.
 - The prior task fixed (PGODD-6) before scoring and proved its construction,
   Ferrers compatibility, cyclic boundaries, and exact `W` score.
 - Three independent read-only derivations agree on a unique tail backbone,
