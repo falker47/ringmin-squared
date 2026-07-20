@@ -96,7 +96,8 @@ fixed-core combinatorial statements, with no geometric or global-optimality
 consequence.
 On the even-\(v\) branch of the existing residue-two \(e=2\) scaffold,
 \(n=10m+2\), \(m\ge1\), the corresponding PG49-star analogue is now closed
-at construction, compatibility, and product-distance level only. Its
+both at construction/product-distance level and, separately, for induced
+\(K\). Its
 pre-score closing index is
 \[
 q=\kappa_{2m-1}
@@ -111,8 +112,19 @@ cyclic positional distance gives
 \[
 W={(8m+4)(8m+2)\over2}=32m^2+24m+4.
 \]
-No \(K\), alternative candidate, production, geometric, or global conclusion
-was evaluated.
+For the same unchanged core, (KPGE2-1)--(KPGE2-45) prove the sole maximizer
+\(\{4m+1,\ldots,10m+2\}\) and
+\[
+K={1714m^3+1353m^2+24mq+281m+12q^2+36q+30\over6}.
+\]
+The five regular residue branches have coefficient \(857/3000\), with
+\(m=1\) the sole residual of that branch expansion; the all-row formula
+remains exact. Every deletion gain and shortcut is
+strict; the shortcut minimum lies on the retained closing label for
+\(m=1,2,3\) and on \(c_0\) thereafter. Exact subtraction proves a strict
+all-row improvement over both the known residue-two order and K825. No
+alternative candidate, production change, geometric inference, global
+minimizer, or global-optimality conclusion is included.
 One explicit parametric perturbation of the matching \(8/25\) construction
 is now closed as well. On \(n=10m+3\), reversing the outer entries of one
 triple has score \(T\) for every nonzero triple index and
@@ -2813,16 +2825,21 @@ Immediate:
   singleton block, cyclic cut, and \(m=1,2\) are explicit. One separate
   bounded max-plus/all-arcs diagnostic constructs only (PGODD-6). No angular,
   geometric, global-minimizer, or global-optimality conclusion is included.
-- The even-\(v\) residue-two PG49-star construction and \(W\) task is
-  complete. On \(n=10m+2\), \(m\ge1\), the single map fixed before scoring
+- The even-\(v\) residue-two PG49-star construction, \(W\), and separate
+  induced-\(K\) tasks are complete. On \(n=10m+2\), \(m\ge1\), the single
+  map fixed before scoring
   is a search-free Ferrers/PG49-compatible bijection: its four image blocks,
   exact thresholds, full local Hall support, empty ranges, minimum-row swap,
   and genuine closing word are explicit. It preserves every non-singleton
   orientation, reverses exactly the singleton block, and has score
-  \((8m+4)(8m+2)/2\). One bounded standard-library diagnostic checks every
-  unordered cyclic pair through \(m=80\) and constructs no alternative
-  candidate or matching. No \(K\), production change, geometric inference,
-  or global claim is included.
+  \((8m+4)(8m+2)/2\). Its unchanged core has sole induced maximizer
+  \(\{4m+1,\ldots,10m+2\}\), exact score (KPGE2-4), coefficient
+  \(857/3000\), and a strict all-row improvement over both the known
+  residue-two order and K825. Nine hole classes, every shortcut length,
+  doubleton, singleton block, cyclic cut, all empty ranges, and \(m=1,2\)
+  are explicit. Separate bounded construction and max-plus/all-arcs
+  diagnostics construct only (PGE2-6). No production, angular, geometric,
+  global-minimizer, or global-optimality conclusion is included.
 - The monotone threshold-closing PG46 task is complete. The shift
   \(\alpha_{q,2m-1}\) has the same unique backbone \(B_m\), exact five-
   residue score (KPG46Q-21)--(KPG46Q-22), and coefficient \(143/500\).

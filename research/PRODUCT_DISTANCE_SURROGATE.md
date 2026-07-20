@@ -252,8 +252,15 @@
   \[
   W(\sigma_{\alpha^{(2)}_*})={(8m+4)(8m+2)\over2}.
   \]
-  This evaluates one fixed construction only: no \(K\), production,
-  geometric, or global-optimality conclusion is included.
+  This construction theorem stops at \(W\). The separate fixed-core theorem
+  (KPGE2-1)--(KPGE2-45) in
+  research/FIXED_ORDER_CYCLE_RATIO.md evaluates the same unchanged order:
+  its sole induced-subset maximizer is
+  \(\{4m+1,\ldots,10m+2\}\), its exact score is (KPGE2-4), its five regular
+  residue branches have coefficient \(857/3000\), and it is strictly below
+  both the known residue-two order and canonical K825 on every row. Neither
+  theorem changes production or infers geometry, global minimization, or
+  global optimality.
 - **EXACT THEOREM (later monotone threshold-closing shortcut evaluation):**
   specialize (PG46) to \((q,2m-1)\), where
   \(q=\lfloor(4m+3)/5\rfloor=\kappa_{2m-1}\). This puts \(P_q\) in the
@@ -7352,6 +7359,16 @@ checks every isolated-hole gain and compressed shortcut, including the
 cyclic cut. Formula, residue, boundary, and K825 checks continue through
 \(m=1000\). It enumerates no subset, path permutation, matching, or order
 family and imports no project or test helper.
+The sole diagnostic for (KPGE2-1)--(KPGE2-45) is the standalone
+standard-library script in
+ops/TASK-20260720__residue_two_pg49_star_k/. It constructs only (PGE2-6).
+On \(m=1,\ldots,30\), its independent max-plus recurrence checks the exact
+score and unique backbone through 36,511,800 transitions. Its all-arcs scan
+checks 1,830 deletion gains and all 950,150 proper oriented arcs, including
+943,640 nontrivial compressed shortcuts, the exact arc-budget identity, and
+the cyclic cut. Formula, residual, boundary, residue-two, and K825 checks
+continue through \(m=1000\). It enumerates no subset, matching, path
+permutation, or order family and imports no project or test helper.
 The sole diagnostic for (KPG46Q-1)--(KPG46Q-29) is the standalone
 standard-library script in
 ops/TASK-20260719__pg46_threshold_closing_exact_k/. It constructs only the
@@ -7444,9 +7461,17 @@ The following remain unresolved.
   singleton block is reversed; and \(m=1\) is the compatible swap
   \((1,0)\), not an exception or obstruction.  All cyclic positional
   distances give the exact fixed-order score
-  \((8m+4)(8m+2)/2\).  No \(K\), alternative-candidate, production,
-  angular, geometric, or global-optimality statement is part of this
-  theorem.
+  \((8m+4)(8m+2)/2\). This construction theorem itself computes no \(K\).
+  Separately, (KPGE2-1)--(KPGE2-45) evaluate the unchanged core exactly:
+  the unique maximizer is \(\{4m+1,\ldots,10m+2\}\), the score is
+  \[
+  {1714m^3+1353m^2+24mq+281m+12q^2+36q+30\over6},
+  \]
+  and both named same-subsequence comparators are strictly larger. The
+  deletion, shortcut, doubleton, singleton, empty-range, closing, and
+  \(m=1,2\) cases are exhaustive. No alternative-candidate, production,
+  angular, geometric, global-minimizer, or global-optimality statement is
+  inferred.
 - **CLOSED CORE-ORDER QUESTION:** the interval shift (PG46) with target
   \((q,2m-1)\), \(q=\lfloor(4m+3)/5\rfloor\), keeps every residual path
   increasing. The separate theorem (KPG46Q-1)--(KPG46Q-29) proves its unique

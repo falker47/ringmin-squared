@@ -1605,7 +1605,8 @@ The construction theorem itself stops at \(W\). For the same unchanged core,
 geometric, global-minimizer, or global-optimality consequence follows.
 
 The even-\(v\) analogue on the existing residue-two \(e=2\) scaffold is
-now exact at the requested construction and \(W\) levels only.  On
+now exact at the construction and \(W\) levels and, separately, for induced
+\(K\). On
 \(n=10m+2\), \(m\ge1\), its genuine closing threshold is
 \[
 q=\kappa_{2m-1}
@@ -1620,8 +1621,18 @@ cyclic positional distance give
 \[
 W={(8m+4)(8m+2)\over2}.
 \]
-No \(K\), alternative candidate, production, angular, geometric, or global
-optimality conclusion is part of this theorem.
+The construction theorem itself stops at \(W\). For the same unchanged core,
+(KPGE2-1)--(KPGE2-45) prove the sole induced-subset maximizer
+\(\{4m+1,\ldots,10m+2\}\) and
+\[
+K={1714m^3+1353m^2+24mq+281m+12q^2+36q+30\over6}.
+\]
+Its five regular residue branches have coefficient \(857/3000\), with
+\(m=1\) the sole residual of that branch expansion and the all-row formula
+still exact; the score is strictly below both the
+known residue-two order and K825 on every row. No alternative candidate,
+production change, angular or geometric inference, global minimizing-order
+classification, or global optimality is part of either theorem.
 
 Separately, prior global results disprove the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\). The stronger target
@@ -3222,9 +3233,22 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   \[
   W(\sigma_{\alpha^{(2)}_*})={(8m+4)(8m+2)\over2}.
   \]
-  This is one fixed construction theorem only.  It computes no \(K\),
-  changes no production code, and infers no angular, geometric, or global
-  minimizing-order conclusion.
+  This construction theorem itself stops at \(W\). The separate unchanged-
+  core theorem (KPGE2-1)--(KPGE2-45) gives
+  \[
+  \operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P(U)
+  =\bigl\{\{4m+1,\ldots,10m+2\}\bigr\},
+  \]
+  \[
+  K={1714m^3+1353m^2+24mq+281m+12q^2+36q+30\over6}.
+  \]
+  Nine exhaustive deletion-gain classes have unique minimum \(5\) at
+  \(m=1\) and \(20m+6\) thereafter. Every compressed shortcut is strict;
+  its unique minimum is \(1,21,57\) at \(m=1,2,3\) and \(20m+4\) for
+  \(m\ge4\). The regular residue branches have coefficient \(857/3000\),
+  and the value strictly improves both the known residue-two order and K825
+  on every row. Neither theorem changes production or infers angular,
+  geometric, global-minimizer, or global-optimality conclusions.
 - EXACT MONOTONE THRESHOLD-CLOSING PG46 THEOREM: put
   \(q=\lfloor(4m+3)/5\rfloor\) and specialize (PG46) to
   \((q,2m-1)\). The resulting assignment moves \(P_q\) to the closing gap
@@ -3360,6 +3384,17 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   boundary, and K825 checks continue through \(m=1000\). It enumerates no
   subset, path permutation, matching, or order family. This bounded
   computation corroborates rather than proves the all-\(m\) theorem.
+- VERIFIED FACT (FINITE EXACT EVEN-\(v\) RESIDUE-TWO PG49-STAR \(K\)
+  DIAGNOSTIC): the sole standalone standard-library script in
+  ops/TASK-20260720__residue_two_pg49_star_k/ constructs only (PGE2-6).
+  On \(m=1,\ldots,30\), an independent max-plus DP checks the exact score
+  and unique backbone through 36,511,800 transitions. A separate audit
+  checks 1,830 deletion gains and all 950,150 proper oriented arcs, including
+  943,640 nontrivial compressed shortcuts, the exact arc-budget identity,
+  and the cyclic cut. Formula, residual, boundary, residue-two, and K825
+  checks continue through \(m=1000\). It enumerates no subset, matching,
+  path permutation, or order family. This bounded computation corroborates
+  rather than proves the all-\(m\) theorem.
 - VERIFIED FACT (FINITE EXACT MONOTONE THRESHOLD-CLOSING K DIAGNOSTIC): the
   sole standalone standard-library script in
   ops/TASK-20260719__pg46_threshold_closing_exact_k/ constructs only
