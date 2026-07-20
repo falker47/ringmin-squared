@@ -13,8 +13,9 @@
 | EV-007 | exact proof | Label-one elimination and angular/geometric closure | `research/FIXED_ORDER_CYCLE_RATIO.md` | PROVED |
 | EV-008 | bounded exact computation | Updated elimination and identity diagnostic | `exact_diagnostic.py` | PASS |
 | EV-009 | local verification | Corrected working-tree repository checks | repository root | PASS |
-| EV-010 | hosted CI | Reviewed baseline Python 3.11--3.13 matrix | GitHub Actions run `29771633257` | PASS (BASELINE ONLY) |
-| EV-011 | final inspection | Corrected-delta scope and hygiene | repository root | PASS |
+| EV-010 | historical hosted CI | Pre-correction baseline Python 3.11--3.13 matrix | GitHub Actions run `29771633257` | PASS (HISTORICAL SHA ONLY) |
+| EV-011 | historical final inspection | Pre-acceptance corrected-delta scope and hygiene | repository root | PASS (HISTORICAL) |
+| EV-012 | accepted-baseline verification | Clean local reruns, exact-SHA hosted CI, and hygiene | repository root / GitHub Actions run `29777676234` | PASS |
 
 ## EV-001 - Startup And Source Boundary
 
@@ -230,7 +231,7 @@
   test file changed.
 - **Limitations:** this is local Python 3.14.3 verification, not hosted CI.
 
-## EV-010 - Hosted CI On The Reviewed Baseline
+## EV-010 - Hosted CI On The Pre-Correction Baseline (Historical)
 
 - **Date:** 2026-07-20
 - **Method:** independent inspection of GitHub Actions run metadata, jobs,
@@ -246,11 +247,13 @@
   and trailing-whitespace steps as successful.
 - **Interpretation:** hosted CI independently verifies the reviewed
   KRPGE5-1--KRPGE5-32 baseline commit.
-- **Limitation:** the run predates and does not cover the uncommitted
-  KRPGE5-33--KRPGE5-36 correction. No hosted PASS is claimed for the current
-  working-tree delta.
+- **Limitation:** the run covers only `bce6e4d8...`; it does not cover the
+  KRPGE5-33--KRPGE5-36 correction later accepted in `a15a4d34...`.
+- **Current-status note:** this was the correct limitation when recorded.
+  EV-012 now supplies separate hosted provenance for the later accepted
+  commit; this run remains tied only to `bce6e4d8...` and is not reused.
 
-## EV-011 - Corrected-Delta Final Inspection
+## EV-011 - Corrected-Delta Final Inspection (Historical)
 
 - **Date:** 2026-07-20
 - **Methods or commands:** independent read-only final-diff audit; exact
@@ -273,9 +276,76 @@
   content repair.
 - **Interpretation:** the task delta is coherent, hygienic, locally verified,
   and `READY_FOR_REVIEW`; the user retains manual commit authority.
-- **Limitations:** the Git status commands emit a permission warning for the
-  user's global ignore file, without preventing tracked-diff inspection. The
-  hosted baseline result remains separate and does not cover this uncommitted
-  delta.
+- **Limitations:** the Git status commands emitted a permission warning for
+  the user's global ignore file, without preventing tracked-diff inspection.
+  That hosted baseline result remained separate and did not cover the
+  correction later accepted in `a15a4d34...`.
 - **Linked log entry:**
   `TASK_LOG.md#2026-07-20---corrected-delta-final-inspection-and-handoff`.
+
+## EV-012 - Accepted-Commit Post-Review Verification
+
+- **Date:** 2026-07-20
+- **Accepted baseline:** commit
+  `a15a4d34cc034b669f02382e2e4f27b4822ed382`, title
+  `Correct the KRPGE5 geometric closure`; `HEAD`, `main`, and `origin/main`
+  agreed before verification. Its tree object is
+  `2543f29f79968d8b09144acf20d1f7e0339c1685`.
+- **Clean-state methods:** `git rev-parse HEAD`; `git rev-parse origin/main`;
+  `git status --porcelain=v1 --untracked-files=all`; and `git status
+  --short --branch` before and after the requested checks.
+- **Clean-state result:** exact accepted SHA, branch `main...origin/main`, and
+  empty porcelain status throughout the baseline run.
+- **KRPGE5 command:**
+  `python -B ops/TASK-20260720__pge5_singleton_reversal_exact_k/exact_diagnostic.py`.
+- **KRPGE5 result:** exit 0, PASS in about 17.18 seconds; 29 max-plus/all-arcs
+  rows \(m=2,\ldots,30\); 37,475,656 transitions; 968,774 proper arcs;
+  4,727 insertion gaps; 484,387 distinct neighbor-pair inequalities; and
+  999 formula/support rows through \(m=1000\). The exact coefficient tuple
+  was `(857000, 1219500, 12000, 482500, 6000, 30000, 60000)` and no
+  floating-\(\pi\) check was performed.
+- **Repository commands and results:** `python -m pytest` exited 0 with
+  `283 passed in 73.82s`; `$env:PYTHONPATH='src'; python -m
+  power_ringmin.verify_checked_artifacts` exited 0 after verifying four
+  certificates, 76 local brackets, and summary rows \(n=3,4,5,6\);
+  `python -m pytest tests\test_checked_artifact_schema_validation.py`
+  exited 0 with `4 passed in 0.80s`.
+- **Local environment:** Python 3.14.3 and pytest 9.0.2.
+- **Clean-commit hygiene:** `git diff --check` and `git diff --check
+  a15a4d34cc034b669f02382e2e4f27b4822ed382^
+  a15a4d34cc034b669f02382e2e4f27b4822ed382` emitted no finding;
+  `git grep -n -I -E '[[:blank:]]+$' -- .` returned the expected no-match
+  exit 1; the tracked cache/bytecode path scan was empty; post-check porcelain
+  status remained empty.
+- **Retained command-construction failure:** the first unquoted PowerShell
+  invocation of `git rev-parse a15a4d3...^{tree}` treated `{tree}` as shell
+  syntax and exited 1. Quoting the complete revision corrected the query and
+  returned the tree object above; this was a command parsing error, not a
+  repository failure.
+- **Hosted method:** exact-SHA-filtered GitHub Actions REST inspection, then
+  direct run and latest-jobs inspection for run `29777676234`. No run for
+  `bce6e4d8a935bd9d8509e59b760cf78c345779b6` was queried or reused.
+- **Hosted run:** [Verification `29777676234`](https://github.com/falker47/ringmin-squared/actions/runs/29777676234),
+  workflow `.github/workflows/verification.yml`, run number 90, event
+  `push`, branch `main`, attempt 1, exact `head_sha`
+  `a15a4d34cc034b669f02382e2e4f27b4822ed382`, created and started
+  `2026-07-20T20:48:56Z`, updated `2026-07-20T20:50:36Z`, status
+  `completed`, conclusion `success`.
+- **Hosted jobs:** Python 3.11 job `88470931481`, Python 3.12 job
+  `88470931399`, and Python 3.13 job `88470931382` all completed with
+  conclusion `success`. In every job, full pytest, checked-artifact semantic
+  verification, focused schema pytest, and tracked-text trailing-whitespace
+  steps completed successfully.
+- **Classification:** the diagnostic is bounded exact corroboration; the
+  local repository checks and clean-commit hygiene are verified facts; the
+  exact-SHA hosted run is a hosted verified fact. No new theorem,
+  construction, or mathematical classification is inferred.
+- **Interpretation:** the accepted KRPGE5 baseline has fresh local verification
+  and independent hosted Python 3.11--3.13 verification with exact commit
+  provenance. EV-010 remains historical and is not promoted to this SHA.
+- **Limitations:** the hosted result does not independently audit GitHub or
+  its runners, and the bounded diagnostic is not an all-\(m\) proof. The
+  later documentation-only recording delta is outside the accepted commit
+  and is checked separately by final diff and hygiene inspection.
+- **Linked log entry:**
+  `TASK_LOG.md#2026-07-20---accepted-commit-post-review-state-and-provenance-closure`.

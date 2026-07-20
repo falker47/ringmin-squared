@@ -49,34 +49,28 @@ The superficially similar Ferrers count and monotone threshold-closing
   [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#21-exact-k-for-the-pge5-singleton-reversal-shift)
   and the [stable synopsis](../PROJECT_KNOWLEDGE.md#product-distance-surrogate).
 
-## Sole Next Atomic Task
+## Completed Post-Review Closure
 
-After manual review and commit, run one fresh STRICT post-review audit of the
-corrected KRPGE5 theorem and its diagnostic, and verify hosted CI on that
-corrected commit when a run is available.
+- **COMPLETED -- KRPGE5 state and provenance:** commit
+  `a15a4d34cc034b669f02382e2e4f27b4822ed382` is the accepted
+  KRPGE5-1--KRPGE5-36 baseline. On its clean tree, the standalone diagnostic,
+  full pytest, checked-artifact verifier, focused schema suite, and repository
+  hygiene checks passed. GitHub Actions `Verification` run `29777676234`
+  succeeded for that exact SHA on Python 3.11--3.13. The earlier successful
+  run on `bce6e4d8a935bd9d8509e59b760cf78c345779b6` was not reused. This
+  closure changes no proof, construction, production code, test, artifact,
+  or mathematical classification.
 
-Acceptance criteria:
+## Next Atomic Task
 
-- audit KRPGE5-1--KRPGE5-36 line by line against the literal PGE5 scaffold
-  and the exact CR12p/CR22/CR27 closure;
-- independently rederive support, every deletion/shortcut class, the block
-  sum, target cancellation, five residue branches, and exact K825 subtraction
-  without importing the task formula as an oracle criterion;
-- rerun the standalone bounded oracle and repository verification at the
-  reviewed commit, recording exact provenance and any contradictory result;
-- inspect the hosted Python 3.11--3.13 matrix for the corrected commit without
-  treating the successful baseline run as coverage of the correction;
-- check document roles, links, tags, and all scope/non-consequence language;
-  and
-- introduce no new bijection, permanent count, or mathematical extension.
-
-This audit is not executed by the present correction task. It adds
-no second bijection, and no Ferrers-permanent count is a competing priority.
+No mathematical successor is selected by this state/provenance closure.
+Choose exactly one item from the deferred directions below in a fresh task
+before developing further mathematics.
 
 ## Deferred, Not Prioritized
 
-All other open directions remain deferred until the new KRPGE5 theorem is
-reviewed and audited. They include the filtered cubic-convergent obstruction,
+All open directions remain deferred until one is selected as a fresh bounded
+task. They include the filtered cubic-convergent obstruction,
 finer Ferrers-count residuals, the asymptotic coefficient gap, tighter finite
 brackets at \(n=5,6\), the radius-one threshold below \(12\), and later
 minimizer-set restrictions for \(n\ge94\). Their mathematical context remains

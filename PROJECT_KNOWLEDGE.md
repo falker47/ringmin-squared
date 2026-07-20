@@ -3268,14 +3268,24 @@ and `ops/`.
   recorded a green hosted run after the cross-platform fix, but no commit SHA,
   run identifier, URL, or independently inspected result was recorded. It
   establishes no hosted status for a specific commit.
-- HOSTED VERIFIED FACT (REVIEWED KRPGE5 BASELINE): GitHub Actions
+- HISTORICAL HOSTED VERIFIED FACT (PRE-CORRECTION KRPGE5 BASELINE): GitHub Actions
   `Verification` run
   [`29771633257`](https://github.com/falker47/ringmin-squared/actions/runs/29771633257)
   completed successfully for push commit
   `bce6e4d8a935bd9d8509e59b760cf78c345779b6`; its Python 3.11, 3.12, and
   3.13 jobs and all recorded workflow steps succeeded. This hosted result
-  covers exactly that reviewed KRPGE5-1--KRPGE5-32 baseline commit and
-  establishes no hosted status for any later commit.
+  covers exactly that KRPGE5-1--KRPGE5-32 baseline commit and is not evidence
+  for any later commit.
+- HOSTED VERIFIED FACT (ACCEPTED KRPGE5 BASELINE): GitHub Actions
+  `Verification` run
+  [`29777676234`](https://github.com/falker47/ringmin-squared/actions/runs/29777676234)
+  completed successfully for push commit
+  `a15a4d34cc034b669f02382e2e4f27b4822ed382`; its Python 3.11, 3.12, and
+  3.13 jobs all completed successfully, including full pytest,
+  checked-artifact verification, focused schema validation, and tracked-text
+  trailing-whitespace checks. The run is associated exactly with the accepted
+  KRPGE5-1--KRPGE5-36 baseline; no result from `bce6e4d8...` is reused for
+  that provenance claim.
 - INTERPRETATION: float64 and high-precision numerical search/recheck artifacts are numerical observations unless interval evidence covers the relevant finite order space.
 
 ## Certified Finite Results

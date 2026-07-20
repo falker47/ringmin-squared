@@ -6,29 +6,35 @@ Last update: 2026-07-20
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Objective:** correct the KRPGE5 theorem closure by applying the already
-  proved exact label-one elimination and strict fixed-order/global
-  sandwiches to the singleton-reversal core.
-- **Expected output:** explicit KRPGE5 consequences for \(\Lambda\),
-  \(\rho\), \(R_2^*\), and the one requested subsequence; exact task-local
-  symbolic checks; synchronized durable memory; and no production or test
-  change.
+- **Objective:** perform one post-review closure of state and provenance for
+  the accepted KRPGE5 commit
+  `a15a4d34cc034b669f02382e2e4f27b4822ed382`.
+- **Accepted baseline:** `main` and `origin/main` both resolved to the exact
+  accepted SHA, with a clean worktree before and after all requested baseline
+  checks.
+- **Expected output:** accepted-baseline identification, fresh local
+  verification, one exact-SHA hosted `Verification` record, synchronized
+  status/provenance sources, and no new mathematics.
 
 ## Scope
 
-- **In scope:** the fixed core (KRPGE5-1)--(KRPGE5-32), exact elimination
-  (CR12p), the strict fixed-order sandwich (CR22), the strict global sandwich
-  (CR27), the reduced global objective (CR28a), and task-local exact checks
-  for the resulting closure (KRPGE5-33)--(KRPGE5-36).
-- **Out of scope:** every other new bijection, Ferrers permanent, production
-  or test changes, a minimizing-order or geometric-optimality theorem, a
-  matching global lower bound, an all-\(n\) limsup bound, and an exact leading
-  constant for the global optimum \(R_2^*\).
+- **In scope:** exact accepted-SHA and clean-tree checks; rerunning the sole
+  KRPGE5 diagnostic, full pytest, checked-artifact verifier, focused schema
+  suite, and repository hygiene; inspecting one hosted `Verification` run
+  associated exactly with the accepted SHA; updating current status, roadmap
+  routing, stable hosted provenance, and this dossier.
+- **Out of scope:** changing KRPGE5-1--KRPGE5-36, adding or evaluating any
+  construction, rederiving a mathematical result, changing the diagnostic,
+  production, tests, schemas, artifacts, or workflow, rewriting append-only
+  chronology, or performing any Git write operation.
 
 ## Verified Facts
 
-- Startup found a clean `main` worktree at the reviewed KRPGE5 baseline
-  `bce6e4d8a935bd9d8509e59b760cf78c345779b6`.
+- The accepted KRPGE5-1--KRPGE5-36 baseline is commit
+  `a15a4d34cc034b669f02382e2e4f27b4822ed382`, titled
+  `Correct the KRPGE5 geometric closure`.
+- At startup, `HEAD`, `main`, and `origin/main` resolved to that SHA and
+  `git status --porcelain=v1 --untracked-files=all` was empty.
 - The accepted KPGE5 map shifts every path after \(q\) monotonically; the new
   map instead keeps that shift only through the doubleton and reverses the
   complete singleton block.
@@ -57,71 +63,97 @@ Last update: 2026-07-20
   \]
   follows. Therefore the requested subsequential coefficient is at most
   \(857/(3000\pi)\).
+- The fresh standalone diagnostic passed on the clean accepted commit for
+  29 bounded rows, 37,475,656 max-plus transitions, 968,774 proper arcs,
+  4,727 insertion gaps, 484,387 neighbor-pair inequalities, and 999
+  formula/support rows.
+- Fresh local repository verification on the clean accepted commit reported
+  `283 passed`, verified four checked certificates and 76 local brackets,
+  and reported `4 passed` for the focused schema suite.
+- GitHub Actions `Verification` run
+  [`29777676234`](https://github.com/falker47/ringmin-squared/actions/runs/29777676234)
+  has exact `head_sha`
+  `a15a4d34cc034b669f02382e2e4f27b4822ed382`, event `push`, attempt 1,
+  and conclusion `success`; all Python 3.11, 3.12, and 3.13 jobs succeeded.
+- Historical run `29771633257` remains associated only with
+  `bce6e4d8a935bd9d8509e59b760cf78c345779b6` and was not reused as
+  evidence for the accepted commit.
 
 ## Assumptions / Inferences
 
-- No unproved assumption is used. The all-\(m\) closure statements are exact
-  deductions from proved theorems; bounded computation is classified only as
-  corroboration.
+- No new mathematical inference is made. The existing all-\(m\) statements
+  retain their exact-theorem classification, while the rerun diagnostic is
+  bounded exact corroboration.
+- Hosted provenance is a direct exact-`head_sha` association, not an
+  inference from branch position or from the earlier baseline run.
 
 ## Decisions And Rationale
 
-- Apply CR12p, CR22, CR27, and CR28a literally; do not introduce a new
-  bijection or re-prove their real-arithmetic content inside KRPGE5.
-- Keep the diagnostic task-local and standard-library-only. Check exact
-  integer identities and elimination hypotheses, but do not approximate
-  \(\pi\) or recast the angular sandwich as a numerical experiment.
+- Preserve the historical evidence for commits
+  `15ba9f9c58e8c7783ec2ad39d8eaa44b1be50318` and
+  `bce6e4d8a935bd9d8509e59b760cf78c345779b6`; supersede their former
+  current-status role with a new accepted-baseline evidence item.
+- Associate hosted status only by exact SHA. Do not reuse a successful run
+  from an ancestor as coverage of the accepted commit.
+- Keep this closure documentary and provenance-only; do not alter proof or
+  computational content.
 
 ## Implemented Delta
 
-- Added the exact closure (KRPGE5-33)--(KRPGE5-36) to Section 21 and replaced
-  overbroad angular/geometric negations with the precise limitations.
-- Extended the existing standalone diagnostic with exact \(n\)-form,
-  all-insertion-gap, and label-one elimination checks.
-- Synchronized stable memory, current status, roadmap, and this STRICT
-  dossier.
-- Changed no production file or test.
+- Recorded the accepted KRPGE5 SHA and its fresh clean-commit local results.
+- Recorded `Verification` run `29777676234` and its exact-SHA Python
+  3.11--3.13 success, while retaining the earlier run as historical only.
+- Removed directly connected pre-commit routing and handoff language from
+  current status, stable hosted provenance, roadmap, and this dossier's
+  current truth.
+- Changed no proof, diagnostic, workflow, production file, test, schema, or
+  artifact.
 
 ## Verification
 
-- **Local working-tree checks:** the updated standalone diagnostic passes on
-  \(m=2,\ldots,30\), including 4,727 insertion gaps and 484,387 exact
-  neighbor-pair inequalities; (KRPGE5-31) passes coefficientwise and formulas
-  pass through \(m=1000\). The approved full pytest rerun reports `283
-  passed`; focused schema and Arb suites report `4 passed` and `3 passed`;
-  four certificates and 76 local brackets verify. The two preceding sandbox
-  attempts are retained as environmental `tmp_path` permission failures in
-  `EVIDENCE.md`.
-- **Hosted CI baseline:** GitHub Actions run `29771633257` succeeded for
-  commit `bce6e4d8a935bd9d8509e59b760cf78c345779b6` on Python 3.11--3.13.
-  It verifies the reviewed KRPGE5-1--KRPGE5-32 baseline, not the present
-  uncommitted closure correction.
-- **Limitations:** bounded exact computation corroborates rather than proves
-  the all-\(m\) theorem; the real-arithmetic sandwich is invoked from its
-  proof, not numerically certified here; no hosted run can cover an
-  uncommitted working tree.
+- **Clean accepted-commit diagnostic:**
+  `python -B ops/TASK-20260720__pge5_singleton_reversal_exact_k/exact_diagnostic.py`
+  exited 0 and reported PASS with the counts above.
+- **Clean accepted-commit repository checks:** `python -m pytest` reported
+  `283 passed in 73.82s`; the checked-artifact verifier reported four
+  certificates, 76 local brackets, and summary rows \(n=3,4,5,6\); focused
+  schema pytest reported `4 passed in 0.80s`.
+- **Clean accepted-commit hygiene:** empty porcelain status before and after;
+  `git diff --check` and the accepted commit-delta whitespace check passed;
+  the tracked trailing-whitespace search found no match; the tracked cache
+  scan was empty; `origin/main` equaled the accepted SHA.
+- **Hosted accepted-commit verification:** run `29777676234`, created
+  `2026-07-20T20:48:56Z` and completed with `success`, has exactly the
+  accepted SHA. Full pytest, checked-artifact verification, focused schema
+  validation, and tracked-text whitespace steps succeeded in every matrix
+  job.
+- **Limitations:** bounded computation remains corroboration rather than an
+  all-\(m\) proof. The local and hosted baseline results cover the accepted
+  commit, while this later documentation-only record receives its own final
+  diff and hygiene inspection.
 
 ## Blockers / Risks
 
 - No blocker.
-- Residual risk is external-review or transcription error in the four-step
-  theorem application. Independent mathematical and document audits found
-  none.
+- Residual risk is limited to transcription of commit/run metadata; exact
+  SHA-filtered run and job queries, plus local Git checks, agree.
 
 ## Next Atomic Action
 
-- User review and manual commit decision.
+- User review of this documentation-only post-review record. No further
+  KRPGE5 mathematical action is queued.
 
 ## Handoff
 
-- **Last verified result:** the exact closure, task-local symbolic checks,
-  synchronized durable memory, and local/hosted provenance separation are
-  complete.
-- **Files changed:** proof note, stable memory, current status, roadmap, and
-  the existing four-file KRPGE5 dossier; no production or test file.
-- **Files to read first:** `research/FIXED_ORDER_CYCLE_RATIO.md` Section 21,
-  `exact_diagnostic.py`, and `EVIDENCE.md`.
+- **Last verified result:** accepted commit
+  `a15a4d34cc034b669f02382e2e4f27b4822ed382` has fresh local PASS results
+  and a successful exact-SHA hosted Python 3.11--3.13 matrix.
+- **Files changed:** current status, stable hosted provenance, roadmap
+  routing, and the three documentary KRPGE5 dossier files; no proof, script,
+  workflow, production, test, schema, or artifact file.
+- **Files to read first:** this `TASK_STATUS.md`, EV-012 in `EVIDENCE.md`,
+  and the final entry of `TASK_LOG.md`.
 - **Suggested manual commit message:**
-  `Correct the KRPGE5 geometric closure`.
-- **Proposed next fresh task:** after review and commit, audit
-  KRPGE5-1--KRPGE5-36 and verify hosted CI for the corrected commit.
+  `Close accepted KRPGE5 review provenance`.
+- **Proposed next fresh task:** select one bounded item from the deferred
+  roadmap; this closure does not choose or begin it.

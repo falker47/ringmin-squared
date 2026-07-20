@@ -172,3 +172,36 @@ Append-only. Add a new entry to correct previous information.
 - **Next step:** user review and manual commit decision; after commit, the
   next fresh task audits KRPGE5-1--KRPGE5-36 and verifies hosted CI on the
   corrected commit.
+
+## 2026-07-20 - Accepted-Commit Post-Review State And Provenance Closure
+
+- **Action:** started from clean `main` at the accepted commit
+  `a15a4d34cc034b669f02382e2e4f27b4822ed382`, equal to `origin/main`;
+  reran the sole KRPGE5 diagnostic, full pytest, checked-artifact verifier,
+  focused schema suite, and clean-commit hygiene checks; then inspected
+  GitHub Actions by exact `head_sha` and updated only state, provenance,
+  roadmap routing, and this append-only dossier.
+- **Result:** the diagnostic passed with 37,475,656 transitions, 968,774
+  proper arcs, 4,727 insertion gaps, and 484,387 neighbor-pair inequalities;
+  pytest reported `283 passed`; four certificates and 76 local brackets
+  verified; focused schema pytest reported `4 passed`. `Verification` run
+  `29777676234` completed successfully for the exact accepted SHA, with all
+  Python 3.11--3.13 jobs and their full-test, artifact, schema, and
+  trailing-whitespace steps successful.
+- **Provenance:** run `29771633257` remains historical evidence only for
+  `bce6e4d8a935bd9d8509e59b760cf78c345779b6`; it was neither queried nor
+  reused to establish status for `a15a4d34...`.
+- **Scope and hygiene:** the accepted commit and worktree passed whitespace,
+  tracked-cache, branch, and clean-status checks. The recording delta changes
+  only `CURRENT_STATUS.md`, stable hosted provenance, roadmap routing, and
+  the three documentary KRPGE5 dossier files; it changes no proof,
+  diagnostic, workflow, production code, test, schema, artifact, or
+  mathematical classification. Final diff, stale-scope, and whitespace
+  checks pass.
+- **Interpretation:** the accepted KRPGE5 baseline now has exact local and
+  hosted provenance. This is a state/provenance closure, not a new
+  construction, proof audit, or mathematical result.
+- **Evidence:**
+  `EVIDENCE.md#ev-012---accepted-commit-post-review-verification`.
+- **Next step:** user review of this documentation-only record; no further
+  KRPGE5 mathematical action is selected or started here.
