@@ -40,9 +40,6 @@ jobs:
       - name: Run checked-artifact schema validation tests
         run: python -m pytest tests/test_checked_artifact_schema_validation.py
 
-      - name: Check diff whitespace
-        run: git diff --check
-
       - name: Check tracked text trailing whitespace
         run: |
           python - <<'PY'

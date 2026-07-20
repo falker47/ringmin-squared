@@ -11,7 +11,9 @@
 - **Default work mode:** `STANDARD`; use `STRICT` for mathematical claims, certification, long experiments, or changes affecting reproducibility.
 - **Stack and tools:** Python 3.11+ (`setuptools`, `src` layout); `mpmath` for high-precision and guarded interval arithmetic; optional NumPy/SciPy SLSQP cross-checks; `pytest` and `jsonschema` for verification; JSON artifact schemas, console CLIs, standalone `verify.py`, and a GitHub Actions Python 3.11-3.13 verification matrix.
 - **Canonical commands:** only record commands after they have been run in this repository.
-- **Authoritative sources:** `AGENTS.md`, `start.md`, `PROJECT_KNOWLEDGE.md`, `CURRENT_STATUS.md`, task dossiers under `ops/`, and verified source files once created.
+- **Document source hierarchy:** the unambiguous role and conflict rules are
+  defined in Section 3. `start.md` is a deprecated compatibility pointer, not
+  an authoritative source or project-memory file.
 - **Protected paths/systems:** the upstream Ringmin repository at `C:\Users\Falker\Desktop\Code\circle\ringmin` is read-only; Git remotes, staging, commits, pushes, merges, rebases, resets, and history edits are not allowed for Codex.
 - **Project-specific constraints:** this is an independent repository, not a Ringmin worktree or branch. Do not silently generalize Ringmin results to quadratic radii.
 
@@ -50,6 +52,34 @@ Codex must:
 - Do not rely on previous chat messages being available.
 - Promote only stable, reusable, verified or explicitly classified knowledge to `PROJECT_KNOWLEDGE.md`.
 - Keep transient chronology and evidence inside the relevant task dossier.
+
+### Document Source Hierarchy
+
+Each document class has one role. A file must not take over the role assigned
+to another class.
+
+1. `AGENTS.md` is the authoritative operational contract. It governs how work
+   is performed, but it is not a proof, roadmap, or task-status document.
+2. `research/*.md` contains the authoritative detailed mathematical proofs.
+   When a compact mathematical summary differs from its linked proof, the
+   proof controls the mathematical detail and the summary must be corrected.
+3. `PROJECT_KNOWLEDGE.md` contains only stable, reusable results in compact
+   form, with links to the detailed proof or durable evidence. It contains no
+   task chronology, proof development, current status, or ranked roadmap.
+4. `CURRENT_STATUS.md` contains only the current task, its state, blockers,
+   and the next task. It must not repeat proofs, diagnostics, or prior-task
+   handoffs.
+5. `research/NEXT_RESEARCH_STEPS.md` is the sole roadmap and priority source.
+   It records completed milestones and pending priorities without duplicating
+   proofs or task evidence.
+6. `ops/` contains task-local status, append-only chronology, evidence, and
+   diagnostic assets. A dossier is authoritative only for its task history and
+   evidence; it does not define the current global roadmap.
+
+`start.md` is retained only as a deprecated compatibility stub pointing to
+the current sources above. It is not substantive project memory. Do not create
+another global summary file. In a cross-file conflict, use the source assigned
+to that kind of information and correct the out-of-role duplicate.
 
 ## 4. Manual Review And Manual Commits
 
@@ -96,14 +126,13 @@ At the start of every new task, Codex must:
 
 1. locate the repository root;
 2. read the applicable `AGENTS.md`;
-3. read `start.md`;
-4. read `PROJECT_KNOWLEDGE.md`;
-5. read `CURRENT_STATUS.md`;
-6. inspect relevant task memory;
-7. inspect the Git working tree;
-8. normally require a clean working tree before beginning a new task;
-9. stop and report unrelated uncommitted changes rather than mixing tasks;
-10. inspect the actual code, data, and evidence before reasoning from assumptions.
+3. read `PROJECT_KNOWLEDGE.md`;
+4. read `CURRENT_STATUS.md`;
+5. inspect the relevant proof, roadmap entry, and task dossier;
+6. inspect the Git working tree;
+7. normally require a clean working tree before beginning a new task;
+8. stop and report unrelated uncommitted changes rather than mixing tasks;
+9. inspect the actual code, data, and evidence before reasoning from assumptions.
 
 If required startup files are missing during bootstrap, create only the minimum files needed by the bootstrap task.
 
@@ -114,9 +143,11 @@ Use this minimum structure unless a task justifies more:
 ```text
 <PROJECT_ROOT>/
 |-- AGENTS.md
-|-- start.md
+|-- start.md                         # deprecated compatibility stub
 |-- PROJECT_KNOWLEDGE.md
 |-- CURRENT_STATUS.md
+|-- research/
+|   `-- NEXT_RESEARCH_STEPS.md      # roadmap and priorities only
 |-- UPSTREAM_RINGMIN.md
 |-- AGENTS_GENERIC_TEMPLATE_v2.md
 |-- _TEMPLATES/
@@ -132,7 +163,12 @@ Use this minimum structure unless a task justifies more:
 
 Rules:
 
-- Level 0 files contain project-wide rules, stable knowledge, current status, and provenance.
+- Level 0 files keep their roles from the document source hierarchy; they do
+  not duplicate one another.
+- Detailed proofs live under `research/`; its `NEXT_RESEARCH_STEPS.md` file is
+  roadmap-only.
+- `start.md` remains a short deprecated pointer and contains no project brief,
+  theorem, roadmap, or status.
 - `ops/` contains operational task dossiers, including bootstrap and repository maintenance tasks.
 - Task dossiers contain current task truth, chronology, and evidence.
 - Do not create duplicate project briefs, duplicate global status files, or decorative documentation.
@@ -254,6 +290,13 @@ Evidence must state:
 
 Failed checks are evidence and must be recorded.
 
+### Canonical Local Verification Commands
+
+- `python -m pytest`
+- `python -m pytest tests\test_n3_arb_interval_crosscheck.py`
+- `$env:PYTHONPATH='src'; python -m power_ringmin.verify_checked_artifacts`
+- `python -m pytest tests\test_checked_artifact_schema_validation.py`
+
 ## 12. Completion Protocol
 
 At the end of a successfully completed task, Codex must:
@@ -270,4 +313,3 @@ At the end of a successfully completed task, Codex must:
 10. report the task objective, files changed, commands run, verification results, evidence classification, residual uncertainty or risks, suggested manual commit message, and one proposed next atomic task.
 
 Do not begin the proposed next task in the same chat.
-

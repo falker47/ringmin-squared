@@ -212,8 +212,8 @@
   not classify global \(W\)-minimizers outside this scaffold and is not a
   selected construction or a \(K\), angular, geometric, or global
   geometric-optimality result.
-- **EXACT THEOREM (Ferrers count of full-optimal scaffold bijections):** put
-  \(d=8m+4\) and
+- **EXACT THEOREM (Ferrers count on the earlier \(n=10m+3\), \(e=4\)
+  scaffold):** put \(d=8m+4\) and
   \(\kappa_j=\lceil j(d-1)/(2(d+j))\rceil\). The exact labelled count is
   \[
   \#\{\alpha:W(\sigma_\alpha)=T=W_n\}
@@ -5470,7 +5470,7 @@ proof applies to all relation-compatible bijections. This is a combinatorial
 surrogate theorem; it does not identify a geometric optimum or improve the
 already recorded regular-direction upper bound.
 
-### Exact Ferrers count of full-optimal scaffold bijections
+### Exact Ferrers count on the \(n=10m+3\), \(e=4\) scaffold
 
 We now count the arbitrary bijections classified above. This is not an edge
 count: it is the number of perfect matchings of the PG49 support. Keep
@@ -8267,18 +8267,26 @@ scoring covers \(m=1,\ldots,80\). It checks 8,873,400 unordered cyclic
 pairs, searches no candidate, order, matching, path assignment, or subset,
 computes no \(K\), and imports no project or test helper. The finite rows
 corroborate but do not prove the symbolic theorem.
-The sole diagnostic for (PGE5-1)--(PGE5-26) is the standalone
+The original direct diagnostic for (PGE5-1)--(PGE5-26) is the standalone
 standard-library script in
-ops/TASK-20260720__canonical_e5_even_path_gap_support/. It reconstructs
+`ops/TASK-20260720__canonical_e5_even_path_gap_support/`. It reconstructs
 the literal \(e=5\), even-\(v\) scaffold directly for
 \(m=2,\ldots,40\), including the empty singleton range and cyclic column.
 It checks all 88,556 path/gap incidences, 69,124 local Ferrers edges, and
 4,132,070 residual suffix Hall inequalities. It verifies the exact local
-cutoffs, complete Hall support, global induced \(2K_2\), and reduced Ferrers
-nesting. It constructs no complete path assignment, searches no matching or
-permutation, computes no \(K\), and imports no project or test helper. The
-bounded computation corroborates but does not replace the symbolic local,
-Hall, and full-support proof.
+cutoffs, closed Hall support, global induced \(2K_2\), and reduced Ferrers
+nesting without constructing a complete assignment or searching a matching.
+
+A separate post-review standard-library oracle in
+`ops/TASK-20260720__pge5_post_review_consolidation/` builds its bipartite
+edges only from the literal local words and decides forced-edge extendibility
+by augmenting paths, without using \(\kappa\) or the closed Hall formula as a
+criterion. It agrees with the theoretical support on \(m=2,\ldots,20\).
+Independently, exhaustive enumeration of all 41,064 scaffold bijections for
+\(m=2,3,4\) scores all 36,795,192 unordered cyclic pairs and confirms both
+\(W=W^{(\le2)}\) and local compatibility iff \(W=W_n\). These are bounded
+internal repository diagnostics, not production code, an external audit, or
+evidence of hosted CI; they corroborate but do not replace the proof.
 The sole diagnostic for (KPGODD-1)--(KPGODD-36) is the standalone
 standard-library script in ops/TASK-20260719__pgodd_exact_k/. It constructs
 only (PGODD-6). On \(m=1,\ldots,30\), its independent max-plus recurrence
@@ -8340,7 +8348,8 @@ The following remain unresolved.
   bijection. Hence every relation-compatible bijection, including every shift
   above, has \(W=T=W_n\). Conversely, every full-optimal bijection in the
   scaffold is relation-compatible, so (PG49) is its exact edge support.
-- **CLOSED COUNTING QUESTION:** (PG64)--(PG73) count those bijections exactly
+- **CLOSED \(n=10m+3\), \(e=4\) COUNTING QUESTION:** (PG64)--(PG73) count
+  those bijections exactly
   by the permanent of the reduced PG49 Ferrers board. The nested-neighborhood
   recurrence gives (PG69), with the dual row product (PG70), every endpoint
   and transition boundary, and the exact minimum value
@@ -8433,8 +8442,9 @@ The following remain unresolved.
   closure, and \(m=1,2,3\) cases are exhaustive. No alternative-candidate,
   construction, production, angular, geometric, global-minimizer, or
   global-optimality statement is inferred.
-- **CLOSED CORE-ORDER QUESTION:** the interval shift (PG46) with target
-  \((q,2m-1)\), \(q=\lfloor(4m+3)/5\rfloor\), keeps every residual path
+- **CLOSED \(n=10m+3\), \(e=4\) CORE-ORDER QUESTION:** the interval shift
+  (PG46) with target \((q,2m-1)\),
+  \(q=\lfloor(4m+3)/5\rfloor\), keeps every residual path
   increasing. The separate theorem (KPG46Q-1)--(KPG46Q-29) proves its unique
   maximizing backbone, exact score and five residue formulas, every
   deletion gain and compressed shortcut, both cyclic-closing roles, and all
@@ -8442,6 +8452,11 @@ The following remain unresolved.
   excess over PG49-star is \(m(m-1)(m-2)/3\), so singleton reversal accounts
   for the full cubic PG49-star gain. No angular, geometric, or global
   minimizing-order conclusion follows.
+- **OPEN PGE5 CORE-ORDER QUESTION:** on the distinct \(n=10m+4\), \(e=5\)
+  scaffold of (PGE5-1), the exact value of \(K\) for the interval-shift
+  bijection \(\alpha_{q,2m-1}\),
+  \(q=\lfloor(4m+3)/5\rfloor\), has not been evaluated. The closed
+  \(n=10m+3\) theorem above does not apply to this core order.
 - **OPEN QUESTION:** for which \(n\ge94\) is
   \(\mathcal M_n\subsetneq\mathcal M_n^{(\le2)}\)? Criterion (MS2)
   certifies equality whenever it holds, including \(n=94\), but no complete

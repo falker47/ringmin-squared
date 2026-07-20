@@ -156,6 +156,9 @@ classified.
   `EVIDENCE.md`.
 - **Suggested manual commit message:**
   `Prove canonical e5 path-gap support theorem`.
-- **Proposed next fresh task:** derive the exact labelled permanent/count of
-  the reduced `e=5` Ferrers support, without permutation enumeration or a
-  preferred path assignment.
+- **Historical proposal, superseded:** at baseline `6ec74a8`, this dossier
+  proposed deriving the labelled permanent of the reduced `e=5` support. The
+  post-review consolidation in
+  `ops/TASK-20260720__pge5_post_review_consolidation/` supersedes that
+  task-local proposal; the sole current priority is authoritative only in
+  `research/NEXT_RESEARCH_STEPS.md`.
