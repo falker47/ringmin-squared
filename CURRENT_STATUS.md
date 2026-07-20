@@ -6,49 +6,28 @@ Last update: 2026-07-20
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Active task:** fix and classify one deterministic PG49-star analogue on
-  the odd-\(v\) branch of the residue-two scaffold,
-  \(n=5v+2=10m+7\), \(v=2m+1\), \(m\ge1\).
-- **Repository state at startup:** clean main worktree at commit
-  f4e48e43aee9e9348e68e6c36486ae61c9898b88.
-- **Implementation state:** exact construction, Ferrers/Hall compatibility,
-  all-distance \(W\), sole bounded diagnostic, authoritative synchronization,
-  independent audits, repository regression, and diff hygiene are complete.
+- **Active task:** exact induced-subset objective \(K\) of the unchanged
+  odd-\(v\) residue-two PG49-star core fixed by (PGE2ODD-6),
+  \(n=10m+7\), \(m\ge1\).
+- **Repository state at startup:** clean `main` worktree at commit
+  be6420c4f5f2dbd68c552accdd44a8d4ded91b71.
+- **Implementation state:** exact symbolic theorem, five residue branches,
+  same-row comparisons, sole bounded diagnostic, authoritative
+  synchronization, independent audits, repository verification, and diff
+  hygiene are complete.
 - **Current blocker:** none.
 - **Current next atomic action:** user review and manual commit decision.
 - **Awaiting user review:** yes.
 
-## Fixed Candidate Before Scoring
+## Unchanged Fixed Core
 
-Put
-
-\[
-d=8m+8,\qquad D=8m+7,\qquad
-J={d(d-2)\over2},
-\]
-
-and retain the residue-two paths
+Retain exactly the construction already proved in (PGE2ODD-1)--
+(PGE2ODD-29):
 
 \[
-P_k=(D-1-2k,\ 4m+4+k,\ D-2-2k)
-\qquad(0\le k\le m),
+n=10m+7,\qquad m\ge1,\qquad D=8m+7,
+\qquad q=\left\lfloor{4m+3\over5}\right\rfloor,
 \]
-
-\[
-P_k=(4m+4+k)\qquad(m+1\le k\le2m).
-\]
-
-Thus this parity branch has \(m+1\) oriented triples, \(m\) singletons, and
-no doubleton.  With
-
-\[
-\kappa_j=
-\left\lceil{(j-1)(D-1)\over2(D+j)}\right\rceil,
-\qquad
-q=\kappa_{2m}=\left\lfloor{4m+3\over5}\right\rfloor,
-\]
-
-the sole pre-score map is
 
 \[
 \alpha^{(2,\mathrm{odd})}_*(j)=
@@ -60,139 +39,210 @@ q,&j=2m.
 \end{cases}
 \]
 
-It closes with the threshold triple \(P_q\), shifts the residual triples,
-and reverses the complete singleton block.  No path orientation is changed,
-and no candidate was repaired or replaced after scoring.
+No path assignment or orientation is changed. The branch has \(m+1\)
+oriented triples, \(m\) singleton paths, and no doubleton.
 
-## Exact Compatibility Theorem
+## Exact Induced-Subset Theorem
 
-For every \(m\ge1\),
-
-\[
-N(G_j)=\{P_{\kappa_j},\ldots,P_{2m}\},
-\qquad
-(k,j)\in\mathcal R_{\rm loc}
-\Longleftrightarrow k\ge\kappa_j.
-\]
-
-The thresholds are nondecreasing,
-\(\kappa_0=\kappa_1=0\), \(\kappa_2=1\), and
-\(1\le\kappa_j\le j-1\) for \(2\le j\le2m\).  Residual suffix Hall proves
+Put
 
 \[
-\mathcal R_{\rm ext}=\mathcal R_{\rm loc};
+L=4m+3,\qquad H_m=\{2,\ldots,4m+2\},
+\qquad B_m=\{L,\ldots,10m+7\}.
 \]
 
-every local edge is extendible.  The fixed map has the four images
-
-\[
-[0,q-1],\qquad[q+1,m],\qquad[m+1,2m],\qquad\{q\},
-\]
-
-which are disjoint, exhaustive, and supported.  The shifted-triple range is
-empty exactly for \(m=1,2,3\); the singleton block is always nonempty and
-its reversal is order-neutral only at \(m=1\); the doubleton class is empty
-on every row.
-
-At the minimum row,
-
-\[
-(m,d,D,n,J,q)=(1,16,15,17,112,1),\qquad
-\kappa=(0,0,1),\qquad
-\alpha=(0,2,1),
-\]
-
-and the complete expanded order is
-
-\[
-(15,6,14,8,13,5,16,4,10,3,17,2,12,9,11,7).
-\]
-
-The genuine closing word is
-
-\[
-(n,2,A_q,c_q,B_q,4m+3,D).
-\]
-
-These statements are the exact all-domain theorem
-(PGE2ODD-1)--(PGE2ODD-25).
-
-## Exact Product-Distance Score
-
-Compatibility covers all cyclic distances one and two.  The retained edge
-\(A_0c_0=J\) supplies equality.  The strict remaining margins are
-
-\[
-3J-n(D-1)=16m^2+52m+30>0,
-\]
-
-\[
-4J-n(n-1)=28m^2+94m+54>0.
-\]
-
-Therefore every unordered cyclic pair is covered and
+For every \(m\ge1\), (KPGE2ODD-1)--(KPGE2ODD-43) prove
 
 \[
 \boxed{
-W(\sigma_{\alpha^{(2,\mathrm{odd})}_*})
-=J
-={(8m+8)(8m+6)\over2}
-=32m^2+56m+24}
-\qquad(m\ge1).
+\operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P(U)
+=\{B_m\},}
 \]
 
-This is the exact fixed-construction theorem
-(PGE2ODD-26)--(PGE2ODD-29).  It does not evaluate \(K\), inspect an
-alternative, alter production, or imply an angular, geometric,
-global-minimizer, or global-optimality conclusion.
+\[
+\boxed{
+K={1714m^3+3891m^2+24mq+2921m+12q^2+48q+732\over6}.}
+\]
+
+The compressed backbone is
+
+\[
+\left(
+L,
+(E_j,P_j)_{j=0}^{q-1},
+(E_j,P_{j+1})_{j=q}^{m-1},
+(E_j,x_{3m-j})_{j=m}^{2m-1},
+E_{2m},P_q
+\right).
+\]
+
+The first triple interval is always nonempty. The shifted-triple interval is
+empty exactly for \(m=1,2,3\). The singleton block always has cardinality
+\(m\), including its one-member boundary at \(m=1\). The doubleton type and
+range are identically absent. The true compressed closure is
+
+\[
+E_{2m},A_q,c_q,B_q,L,E_0.
+\]
+
+## Cancellation And Shortcut Proof
+
+- The seven exhaustive cancellation-gain classes cover exactly
+  \(4m+1=|H_m|\) holes.
+- Their unique minimum is
+  \[
+  \min h_z=20m+16
+  \]
+  at \(\lambda_0=4m+2\), between \(E_0=8m+7\) and \(A_0=8m+6\).
+- Every nontrivial compressed shortcut is strict. Its exact unique minimum is
+  \[
+  \begin{cases}
+  17,&m=1,\quad(11,7,15),\\
+  49,&m=2,\quad(17,11,23),\\
+  20m+14,&m\ge3,\quad(A_0,c_0,B_0).
+  \end{cases}
+  \]
+- The exact raw-arc plus cancellation-budget identity forces every hole to
+  be omitted and every backbone label to be retained. The backbone score is
+  at least \(2n(n-1)>n^2\), so no singleton ties; the adopted two-element
+  convention is included.
+
+Thus \(B_m\) is the only maximizing subset. This is an exact all-domain
+combinatorial theorem, not a finite-computation inference.
+
+## Five Regular Residue Branches
+
+For \(r=m\bmod5\),
+
+\[
+q={4m+c_r\over5},\qquad(c_0,c_1,c_2,c_3,c_4)=(0,1,2,3,-1),
+\]
+
+and
+
+\[
+150K=42850m^3+97947m^2+(73985+216c_r)m
++18300+240c_r+12c_r^2.
+\]
+
+The five branches begin at \(m=5,1,2,3,4\), respectively. There is no
+residual row, score correction, or argmax exception. Equivalently,
+
+\[
+q=\left\lfloor{2n+1\over25}\right\rfloor,\qquad
+K={857n^3+1458n^2+1200nq-341n
++6000q^2+15600q+2994\over3000},
+\]
+
+so the cubic coefficient is \(857/3000\).
+
+## Exact Same-Subsequence Comparisons
+
+For the known residue-two order on \(k=2m+1\),
+
+\[
+K_{\rm R2}={572m^3+1307m^2+997m+254\over2},
+\]
+
+\[
+K_{\rm R2}-K
+={m^3+15m^2-12mq+35m-6q^2-24q+15\over3}>0.
+\]
+
+For canonical K825, the rows \(m=1,2\) are explicit, while for \(m\ge3\),
+
+\[
+K_{825}={572m^3+1349m^2+1119m+324\over2}
+-25\mathbf1_{\{m=3\}},
+\]
+
+\[
+K_{825}-K
+={m^3+78m^2-12mq+218m-6q^2-24q+120\over3}
+-25\mathbf1_{\{m=3\}}>0.
+\]
+
+Hence the unchanged PGE2ODD core is strictly below both named orders on
+every same-subsequence row, with no tie or crossover. Both gaps have leading
+term \(n^3/3000\).
+
+## Literal Boundary Rows
+
+\[
+\begin{array}{c|c|c|c|c|c}
+m&q&\alpha^{(2,\mathrm{odd})}_*&K&K_{\rm R2}&K_{825}\\ \hline
+1&1&(0,2,1)&1557&1565&1609\\
+2&2&(0,1,4,3,2)&6015&6026&6204\\
+3&3&(0,1,2,6,5,4,3)&15210&15226&15608.
+\end{array}
+\]
+
+All three shifted-triple intervals are empty. Their singleton blocks have
+sizes one, two, and three; none has a doubleton. At \(m=3\), the shortcut
+minimum has already moved to \(c_0\), and the canonical K825 boundary
+correction is active. None is an exception to the exact formula or unique
+argmax.
+
+## Bounded Diagnostic
+
+The task's sole standalone standard-library diagnostic constructs only
+(PGE2ODD-6). It passes on:
+
+- formula, residue, boundary, closure, and comparator rows
+  \(m=1,\ldots,1000\), totaling 5,011,000 literal core entries;
+- max-plus score and complete argmax counts for \(m=1,\ldots,30\), totaling
+  38,957,975 transitions;
+- every cancellation gain and every proper oriented arc on those 30 rows:
+  1,890 gains, 997,550 arcs, and 990,830 nontrivial compressed shortcuts.
+
+It verifies the exact raw-arc plus internal-hole-budget identity, the cyclic
+cut, all empty intervals, singleton boundaries, absent doubleton, and both
+comparisons. It imports no project or test helper and performs no subset,
+matching, path-assignment, path-permutation, or order-family search.
 
 ## Verification
 
-- The sole standalone standard-library diagnostic constructs only
-  (PGE2ODD-6).  It passes through \(m=1000\) for formulas/images,
-  \(m=40\) for the literal local relation and Hall support, and \(m=80\)
-  for every unordered cyclic pair: 1,002,000 image entries, 91,880 local
-  checks, 5,557,960 Hall inequalities, and 8,873,400 cyclic pairs.
-- Three independent read-only audits of compatibility, scoring/diagnostic
-  code, and synchronization/scope pass.
-- Scoped Ruff lint and post-format checks pass.  The first format check
-  found one mechanical delta, which was applied before the passing reruns.
-- The first post-format diagnostic rerun used an insufficient 10-second
-  timeout and was terminated; the unchanged 120-second rerun passes in
-  38 seconds.
-- The PGE2ODD source audit passes with 29 sequential unique tags,
-  34 balanced displays, balanced environments, and no control characters.
-- Full pytest passes: 283 passed.
-- The focused checked-artifact schema suite passes: 4 passed.
+- The standalone diagnostic passes with the exact bounded counts above.
+- Scoped Ruff lint and format checks pass.
+- The KPGE2ODD source audit passes with 43 sequential unique tags, 48
+  balanced display pairs, balanced environments, and no control characters.
+- Four independent mathematical, comparator, proof/code, and synchronization
+  audits pass.
+- Full pytest passes: 283 tests.
+- The focused checked-artifact schema suite passes: 4 tests.
 - The standalone checked-artifact verifier passes for four certificates,
   76 local brackets, and \(n=3,4,5,6\).
-- Final Git status, complete tracked/untracked diff inspection, and
-  whitespace hygiene pass.
+- Final Git status, complete tracked and untracked scope inspection, source
+  structure, and whitespace hygiene pass.
+- Two initial `rg` synchronization wrappers had malformed regular
+  expressions and exited before completing their searches. Corrected fixed-
+  string searches and the independent source audit pass; no mathematical,
+  code, or repository check failed.
 
-## Evidence Classification And Provenance
+## Evidence Classification And Scope
 
-- (PGE2ODD-1)--(PGE2ODD-25) are an **exact all-domain combinatorial
-  compatibility theorem**.
-- (PGE2ODD-26)--(PGE2ODD-29) are an **exact all-domain fixed-construction
-  product-distance theorem**.
+- (KPGE2ODD-1)--(KPGE2ODD-43) are an **exact all-domain fixed-core
+  combinatorial theorem**.
 - The standalone diagnostic is **bounded exact computation** corroborating,
-  not replacing, those proofs.
-- The authoritative construction/\(W\) odd-parity precedent is
-  (PGODD-1)--(PGODD-27).  The repository's 36-tag sequence is KPGODD,
-  concerns \(K\), and was not evaluated in this task.
+  not replacing, the symbolic proof.
+- Construction, compatibility, and \(W\) remain the separate theorem
+  (PGE2ODD-1)--(PGE2ODD-29); this task does not alter them.
+- No production or test file is changed. No angular, geometric, global-
+  minimizer, or global-optimality conclusion is inferred.
 
 ## Files In Scope
 
+- research/FIXED_ORDER_CYCLE_RATIO.md
 - research/PRODUCT_DISTANCE_SURROGATE.md
 - research/NEXT_RESEARCH_STEPS.md
 - start.md
 - PROJECT_KNOWLEDGE.md
 - CURRENT_STATUS.md
-- ops/TASK-20260720__residue_two_odd_v_pg49_star_w/
+- ops/TASK-20260720__residue_two_odd_v_pg49_star_k/
 
 ## Proposed Next Task
 
-In a fresh STRICT task, and only if explicitly selected, evaluate the
-induced-subset objective \(K\) of the unchanged core fixed by (PGE2ODD-6),
-without changing the construction or inferring geometry or global
-optimality.
+In a fresh STRICT task, attack the exact filtered cubic-convergent obstruction
+(KPGZERO-23)--(KPGZERO-24): construct an infinite congruence-compatible
+subsequence entering its quadratic window, prove eventual exclusion, or
+record a sharper rigorous obstruction.

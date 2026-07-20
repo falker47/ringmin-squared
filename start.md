@@ -1635,7 +1635,8 @@ production change, angular or geometric inference, global minimizing-order
 classification, or global optimality is part of either theorem.
 
 The remaining odd-\(v\) branch of the same residue-two \(e=2\) scaffold is
-now exact at construction and \(W\) level.  On \(n=10m+7\), \(m\ge1\),
+now exact at construction and \(W\) level and, separately, for induced
+\(K\).  On \(n=10m+7\), \(m\ge1\),
 
 \[
 q=\kappa_{2m}=\left\lfloor{4m+3\over5}\right\rfloor,
@@ -1652,8 +1653,18 @@ W(\sigma_{\alpha^{(2,\mathrm{odd})}_*})
 ={(8m+8)(8m+6)\over2}=32m^2+56m+24.
 \]
 
-This theorem computes no \(K\), changes no production path, and infers no
-angular, geometric, global-minimizer, or global-optimality consequence.
+The construction theorem itself stops at \(W\). For the same unchanged core,
+(KPGE2ODD-1)--(KPGE2ODD-43) prove the sole induced-subset maximizer
+\(\{4m+3,\ldots,10m+7\}\) and
+\[
+K={1714m^3+3891m^2+24mq+2921m+12q^2+48q+732\over6}.
+\]
+All five residue branches are regular, including \(m=1,2,3\), and have
+coefficient \(857/3000\); the score is strictly below both the known
+residue-two order and K825 on every row. No alternative candidate,
+construction or production change, angular or geometric inference, global
+minimizing-order classification, or global optimality is part of either
+theorem.
 
 Separately, prior global results disprove the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\). The stronger target
@@ -3287,8 +3298,22 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   W(\sigma_{\alpha^{(2,\mathrm{odd})}_*})
   ={(8m+8)(8m+6)\over2}=32m^2+56m+24.
   \]
-  The theorem evaluates no \(K\), alternative candidate, production path,
-  angular or geometric consequence, global minimizer, or global optimum.
+  This construction theorem itself stops at \(W\). The separate unchanged-
+  core theorem (KPGE2ODD-1)--(KPGE2ODD-43) gives
+  \[
+  \operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P(U)
+  =\bigl\{\{4m+3,\ldots,10m+7\}\bigr\},
+  \]
+  \[
+  K={1714m^3+3891m^2+24mq+2921m+12q^2+48q+732\over6}.
+  \]
+  Seven exhaustive deletion-gain classes have unique minimum \(20m+16\).
+  Every compressed shortcut is strict; its unique minimum is \(17,49\) at
+  \(m=1,2\) and \(20m+14\) for \(m\ge3\). All five residue branches are
+  regular and have coefficient \(857/3000\), and the value strictly improves
+  both the known residue-two order and K825 on every row. Neither theorem
+  changes the construction or production or infers angular, geometric,
+  global-minimizer, or global-optimality conclusions.
 - EXACT MONOTONE THRESHOLD-CLOSING PG46 THEOREM: put
   \(q=\lfloor(4m+3)/5\rfloor\) and specialize (PG46) to
   \((q,2m-1)\). The resulting assignment moves \(P_q\) to the closing gap
@@ -3445,6 +3470,18 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   checks continue through \(m=1000\). It enumerates no subset, matching,
   path permutation, or order family. This bounded computation corroborates
   rather than proves the all-\(m\) theorem.
+- VERIFIED FACT (FINITE EXACT ODD-\(v\) RESIDUE-TWO PG49-STAR \(K\)
+  DIAGNOSTIC): the sole standalone standard-library script in
+  ops/TASK-20260720__residue_two_odd_v_pg49_star_k/ constructs only
+  (PGE2ODD-6). On \(m=1,\ldots,30\), an independent max-plus DP checks the
+  exact score and unique backbone through 38,957,975 transitions. A separate
+  audit checks 1,890 cancellation gains and all 997,550 proper oriented arcs,
+  including 990,830 nontrivial compressed shortcuts, the exact arc-budget
+  identity, and the cyclic cut. Formula, all five regular residue branches,
+  \(m=1,2,3\), residue-two, and K825 checks continue through \(m=1000\). It
+  enumerates no subset, matching, path assignment, path permutation, or order
+  family. This bounded computation corroborates rather than proves the
+  all-\(m\) theorem.
 - VERIFIED FACT (FINITE EXACT MONOTONE THRESHOLD-CLOSING K DIAGNOSTIC): the
   sole standalone standard-library script in
   ops/TASK-20260719__pg46_threshold_closing_exact_k/ constructs only

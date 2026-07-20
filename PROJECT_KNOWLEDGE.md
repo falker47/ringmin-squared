@@ -2857,9 +2857,24 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   W(\sigma_{\alpha^{(2,\mathrm{odd})}_*})
   ={(8m+8)(8m+6)\over2}=32m^2+56m+24.
   \]
-  This is a fixed-construction combinatorial theorem. It neither evaluates
-  \(K\) nor inspects an alternative or implies any production, angular,
-  geometric, global-minimizer, or global-optimality conclusion.
+  This construction theorem itself stops at \(W\). The separate unchanged-
+  core theorem (KPGE2ODD-1)--(KPGE2ODD-43) gives the unique induced-subset
+  maximizer
+  \[
+  B_m=\{4m+3,\ldots,10m+7\}
+  \]
+  and
+  \[
+  K={1714m^3+3891m^2+24mq+2921m+12q^2+48q+732\over6}.
+  \]
+  Seven exhaustive deletion-gain classes have unique minimum \(20m+16\),
+  and every compressed shortcut is strict; its unique minimum is \(17,49\)
+  at \(m=1,2\) and \(20m+14\) for \(m\ge3\). All five residue branches,
+  including \(m=1,2,3\), are regular and have coefficient \(857/3000\).
+  Exact subtraction proves a strict all-row improvement over both the known
+  residue-two order and K825. Neither theorem evaluates an alternative,
+  changes construction or production, or implies an angular, geometric,
+  global-minimizer, or global-optimality conclusion.
 - EXACT MONOTONE THRESHOLD-CLOSING PG46 CORE-ORDER THEOREM: on the same
   \(n=10m+3\), \(m\ge3\), rows, put
   \(q=\lfloor(4m+3)/5\rfloor=\kappa_{2m-1}\) and specialize (PG46) to
@@ -3034,6 +3049,18 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   checks continue through \(m=1000\). It enumerates no subset, matching,
   path permutation, or order family. The bounded computation corroborates
   rather than proves the symbolic theorem.
+- VERIFIED FACT (FINITE EXACT ODD-\(v\) RESIDUE-TWO PG49-STAR \(K\)
+  DIAGNOSTIC): the sole standalone standard-library script in
+  ops/TASK-20260720__residue_two_odd_v_pg49_star_k/ constructs only
+  (PGE2ODD-6). On \(m=1,\ldots,30\), its independent max-plus DP checks the
+  exact score and unique backbone through 38,957,975 transitions. A separate
+  audit checks 1,890 cancellation gains and all 997,550 proper oriented arcs,
+  including 990,830 nontrivial compressed shortcuts, the exact arc-budget
+  identity, and the cyclic cut. Formula, all five regular residue branches,
+  \(m=1,2,3\), residue-two, and K825 checks continue through \(m=1000\). It
+  enumerates no subset, matching, path assignment, path permutation, or order
+  family. The bounded computation corroborates rather than proves the
+  symbolic theorem.
 - VERIFIED FACT (FINITE EXACT MONOTONE THRESHOLD-CLOSING K DIAGNOSTIC): the
   sole standalone standard-library script in
   ops/TASK-20260719__pg46_threshold_closing_exact_k/ directly constructs
@@ -3588,17 +3615,23 @@ Candidate-set extraction uses the following finite-certificate semantics.
   order-family, or subset search. No production, geometric, global-
   minimizer, or global-optimality claim is included.
 - COMPLETED PRIORITY: the odd-\(v\) residue-two PG49-star analogue now has
-  exact all-domain construction, compatibility, and \(W\) theorems on
+  exact all-domain construction, compatibility, \(W\), and separate
+  induced-\(K\) theorems on
   \(n=10m+7\), \(m\ge1\).  The one map fixed before scoring preserves the
   \(m+1\) triple orientations, reverses all \(m\) singleton paths, places
   \(P_q\), \(q=\lfloor(4m+3)/5\rfloor=\kappa_{2m}\), in the true closing
   gap, and introduces no doubleton.  Exact image blocks, Ferrers thresholds,
   full local Hall support, all empty ranges, the minimum map \((0,2,1)\),
-  and cyclic closure prove score \((8m+8)(8m+6)/2\).  Its sole bounded
-  construction/all-pairs diagnostic builds only (PGE2ODD-6), with no
-  candidate, matching, path-assignment, order-family, subset, or \(K\)
-  search. No production, angular, geometric, global-minimizer, or
-  global-optimality claim is included.
+  and cyclic closure prove score \((8m+8)(8m+6)/2\). The unchanged core has
+  sole maximizer \(\{4m+3,\ldots,10m+7\}\), exact score (KPGE2ODD-4), five
+  regular residue branches with coefficient \(857/3000\), and a strict
+  all-row improvement over both the known residue-two order and K825. Seven
+  gain classes, every shortcut length, the absent doubleton, singleton
+  block, cyclic closure, all empty ranges, and \(m=1,2,3\) are explicit.
+  Separate bounded construction and max-plus/all-arcs diagnostics construct
+  only (PGE2ODD-6), without candidate, matching, path-assignment,
+  order-family, or subset search. No production, angular, geometric,
+  global-minimizer, or global-optimality claim is included.
 - COMPLETED PRIORITY: the canonical eight-twenty-fifths core order now has an
   exact all-domain \(K\) theorem. The symbolic maximizer is the tail from
   \(2v+1\), with connector \(2v+2\) additionally removed exactly for

@@ -126,8 +126,9 @@ all-row improvement over both the known residue-two order and K825. No
 alternative candidate, production change, geometric inference, global
 minimizer, or global-optimality conclusion is included.
 On the odd-\(v\) branch of that same residue-two \(e=2\) scaffold,
-\(n=10m+7\), \(m\ge1\), the construction and product-distance question is
-now closed independently.  Its pre-score closing index is
+\(n=10m+7\), \(m\ge1\), the construction and product-distance question and
+the separate induced-\(K\) question are now closed independently. Its
+pre-score closing index is
 \[
 q=\kappa_{2m}=\left\lfloor{4m+3\over5}\right\rfloor.
 \]
@@ -140,8 +141,18 @@ The shifted-triple range is empty exactly at \(m=1,2,3\), the minimum map is
 \[
 W={(8m+8)(8m+6)\over2}=32m^2+56m+24.
 \]
-No \(K\), alternative candidate, production change, geometric inference,
-global minimizer, or global-optimality conclusion is included.
+For the same unchanged core, (KPGE2ODD-1)--(KPGE2ODD-43) prove the sole
+maximizer \(\{4m+3,\ldots,10m+7\}\) and
+\[
+K={1714m^3+3891m^2+24mq+2921m+12q^2+48q+732\over6}.
+\]
+All five residue branches are regular and have coefficient \(857/3000\).
+Every cancellation gain and shortcut is strict; the shortcut minimum lies
+on the retained closing label at \(m=1,2\) and on \(c_0\) thereafter. Exact
+subtraction proves a strict all-row improvement over both the known
+residue-two order and K825. No alternative candidate, construction or
+production change, geometric inference, global minimizer, or global-
+optimality conclusion is included.
 One explicit parametric perturbation of the matching \(8/25\) construction
 is now closed as well. On \(n=10m+3\), reversing the outer entries of one
 triple has score \(T\) for every nonzero triple index and
@@ -2857,17 +2868,22 @@ Immediate:
   are explicit. Separate bounded construction and max-plus/all-arcs
   diagnostics construct only (PGE2-6). No production, angular, geometric,
   global-minimizer, or global-optimality conclusion is included.
-- The odd-\(v\) residue-two PG49-star construction and \(W\) task is
-  complete. On \(n=10m+7\), \(m\ge1\), the single map fixed before scoring
+- The odd-\(v\) residue-two PG49-star construction, \(W\), and separate
+  induced-\(K\) tasks are complete. On \(n=10m+7\), \(m\ge1\), the single
+  map fixed before scoring
   is a search-free Ferrers/PG49-compatible bijection. Its four image blocks,
   exact thresholds, full local Hall support, shifted-range boundaries,
   minimum map, and genuine closing word are explicit. It preserves all
   triple orientations, reverses exactly the complete singleton block, has
-  no doubleton, and has score \((8m+8)(8m+6)/2\). The sole bounded
-  construction/all-pairs diagnostic constructs only (PGE2ODD-6) and
-  searches no candidate, matching, path assignment, order family, subset,
-  or \(K\). No production, angular, geometric, global-minimizer, or
-  global-optimality conclusion is included.
+  no doubleton, and has score \((8m+8)(8m+6)/2\). Its unchanged core has
+  sole induced maximizer \(\{4m+3,\ldots,10m+7\}\), exact score
+  (KPGE2ODD-4), coefficient \(857/3000\), and a strict all-row improvement
+  over both the known residue-two order and K825. Seven hole classes, every
+  shortcut length, absent doubleton, singleton block, cyclic cut, all empty
+  ranges, and \(m=1,2,3\) are explicit. Separate bounded construction and
+  max-plus/all-arcs diagnostics construct only (PGE2ODD-6). No production,
+  angular, geometric, global-minimizer, or global-optimality conclusion is
+  included.
 - The monotone threshold-closing PG46 task is complete. The shift
   \(\alpha_{q,2m-1}\) has the same unique backbone \(B_m\), exact five-
   residue score (KPG46Q-21)--(KPG46Q-22), and coefficient \(143/500\).
