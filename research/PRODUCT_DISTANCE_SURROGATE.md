@@ -185,6 +185,33 @@
   is equivalent to \(W(\sigma_\alpha)=T=W_n\). Thus (PG49) is exactly the
   edge support of full-optimal scaffold bijections, not merely of locally
   feasible matchings.
+- **EXACT THEOREM (canonical even-\(v\), \(e=5\) path/gap support):** on
+  \(n=10m+4\), \(m\ge2\), the scaffold has \(m+1\) triples, one
+  doubleton, and \(m-2\) singletons.  At
+  \(T=W_n=(8m+5)(8m+4)/2\), its complete local relation is the Ferrers board
+  \[
+  (k,j)\in\mathcal R_{\rm loc}
+  \iff k\ge\kappa_j,
+  \qquad
+  \kappa_j=\left\lceil{j(8m+4)\over2(8m+5+j)}\right\rceil.
+  \]
+  Triple locality is equivalently
+  \(j(8m+4-2k)\le2k(8m+5)\); the doubleton and all singletons are universal.
+  The Hall-extendible and full-threshold supports coincide and equal
+  \[
+  \mathcal R_{\rm full}=\mathcal R_{\rm ext}
+  =\{(0,0)\}\cup
+  \{(k,j):1\le j\le2m-1,\ k\ge\kappa_j\}.
+  \]
+  Thus only \((k,0)\), \(k>0\), fail residual Hall.  The global support is
+  not Ferrers because it contains the induced \(2K_2\) on
+  \(P_0,G_0,P_1,G_1\); after deleting the forced pair \((P_0,G_0)\), the
+  reduced support is Ferrers and every edge is matching-covered.  This is a
+  complete PG49 support theorem and therefore an exact global
+  \(W\)-minimality statement for every supported scaffold bijection. It does
+  not classify global \(W\)-minimizers outside this scaffold and is not a
+  selected construction or a \(K\), angular, geometric, or global
+  geometric-optimality result.
 - **EXACT THEOREM (Ferrers count of full-optimal scaffold bijections):** put
   \(d=8m+4\) and
   \(\kappa_j=\lceil j(d-1)/(2(d+j))\rceil\). The exact labelled count is
@@ -7586,6 +7613,482 @@ not evaluate \(K\), inspect an alternative candidate, alter a production
 generator, infer an angular or geometric consequence, or assert any global
 minimizing-order or optimality statement.
 
+### The canonical even-\(v\), \(e=5\) path-to-gap support
+
+We now return to the canonical eight-twenty-fifths scaffold itself and change
+no path orientation.  This subsection selects no path assignment.  It
+classifies every whole-path reassignment at the already proved sharp
+product-distance threshold on the even-\(v\), \(e=5\) branch.  Put
+
+\[
+v=2m,\qquad m\ge2,\qquad
+d=8m+5,\qquad n=10m+4,\qquad
+T={d(d-1)\over2}=W_n.
+\tag{PGE5-1}
+\]
+
+The lower endpoint \(m=2\) is structural: specializing (UC5) gives
+
+\[
+t=m+1,\qquad \varepsilon=1,\qquad r=m-2,
+\tag{PGE5-2}
+\]
+
+so the canonical block formula is valid exactly for \(m\ge2\).  The case
+\(m=1\), namely \(n=14\), belongs to the separate initial-witness list and
+is not a row of this scaffold.
+
+For \(0\le j<2m\), retain
+
+\[
+E_j=d+j,\qquad
+\lambda_j=4m-2j,\qquad
+\rho_j=4m+1-2j.
+\tag{PGE5-3}
+\]
+
+The oriented middle paths are
+
+\[
+\begin{aligned}
+P_k&=(A_k,c_k,B_k)
+     =(d-1-2k,\ 4m+2+k,\ d-2-2k),
+     &&0\le k\le m,\\
+P_{m+1}&=(a,b)=(5m+3,\ 5m+4),\\
+P_k&=(x_k)=(4m+3+k),
+     &&m+2\le k\le2m-1.
+\end{aligned}
+\tag{PGE5-4}
+\]
+
+Thus there are \(m+1\) triples, one doubleton, and \(m-2\) singletons.
+The singleton range is empty exactly at \(m=2\).  In the identity scaffold,
+the canonical gaps \(G_0,\ldots,G_m\) contain triples,
+\(G_{m+1}\) contains the doubleton, and
+\(G_{m+2},\ldots,G_{2m-1}\) contain singletons.  Consequently the canonical
+closing gap is the doubleton gap at \(m=2\) and a singleton gap for
+\(m\ge3\).
+
+Let
+
+\[
+\alpha:\{0,\ldots,2m-1\}\longrightarrow\{0,\ldots,2m-1\}
+\]
+
+be any bijection, with no value prescribed, and let \(G_j\) receive the
+unchanged oriented path \(P_{\alpha(j)}\).  For a prospective pair \((k,j)\),
+write \(j^+=j+1\pmod {2m}\) and form the literal local word
+
+\[
+Q_{k,j}=(E_j,\lambda_j,P_k,\rho_{j^+},E_{j^+}).
+\tag{PGE5-5}
+\]
+
+Call \((k,j)\) **local** when every pair at positional distance one or two
+determined by (PGE5-5) has score at most \(T\).  The unchanged pair across a
+terminal is safe independently of \(k,j\).  Indeed the larger terminal--low
+edge is at most
+
+\[
+d(4m+1)=T-d<T,
+\]
+
+and \(\rho_j\lambda_j<2T\).  Every low--middle edge is also strict, since
+
+\[
+(4m+1)(d-1)=T-(12m+6)<T.
+\tag{PGE5-6}
+\]
+
+#### Triples, doubleton, singletons, and the cyclic column
+
+For a triple, note first that \(c_k=(d-1)/2+k\), so the odd value of \(d\)
+changes the internal-edge identity from the former \(e=4\) branch:
+
+\[
+A_kc_k=T-(4m+2)-2k^2<T.
+\tag{PGE5-7}
+\]
+
+The other path-bearing adjacent products are smaller or are covered by
+(PGE5-6).  The five path-bearing distance-two products are
+
+\[
+E_jA_k,\quad \lambda_jc_k,\quad A_kB_k,\quad
+c_k\rho_{j^+},\quad B_kE_{j^+}.
+\tag{PGE5-8}
+\]
+
+The first is the unique maximum.  For a nonclosing gap,
+
+\[
+E_jA_k-B_kE_{j+1}=j+2k+2>0,
+\]
+
+while in the closing word
+
+\[
+Q_{k,2m-1}=(n,2,A_k,c_k,B_k,4m+1,d),
+\qquad
+nA_k-dB_k=(2m-1)A_k+d>0.
+\tag{PGE5-9}
+\]
+
+The remaining comparisons follow from
+\(E_j>A_k>B_k>c_k>\lambda_j,\rho_{j^+}\), with the last two entries read
+only as the relevant low labels.  Hence the exact triple maximum and local
+condition are
+
+\[
+M^{\rm tr}_2(k,j)={E_jA_k\over2}
+=T+{jA_k-2kd\over2},
+\qquad
+\boxed{(k,j)\text{ local}\iff j(d-1-2k)\le2kd.}
+\tag{PGE5-10}
+\]
+
+Equivalently, put
+
+\[
+\ell_k=
+\min\!\left\{2m-1,
+\left\lfloor{2kd\over d-1-2k}\right\rfloor\right\},
+\qquad
+\kappa_j=
+\left\lceil{j(d-1)\over2(d+j)}\right\rceil.
+\tag{PGE5-11}
+\]
+
+Then a triple row contains exactly \(G_0,\ldots,G_{\ell_k}\), and a column
+contains exactly the triples \(P_{\kappa_j},\ldots,P_m\).
+
+For the doubleton, the internal adjacent product and its strict margin are
+
+\[
+T-ab=7m^2+m-2>0.
+\]
+
+The exact distance-two maximum depends on the cyclic column:
+
+\[
+M^{\rm dbl}_2(j)=
+\begin{cases}
+\dfrac{b(d+j+1)}2,&0\le j\le2m-2,\\[5pt]
+\dfrac{an}2,&j=2m-1.
+\end{cases}
+\tag{PGE5-12}
+\]
+
+The maximizer is unique.  At closure this uses
+\(an-bd=(2m-1)a-d=10m^2-7m-8>0\).  Both branches are strictly safe because
+
+\[
+d(d-1)-nb=14m^2+12m+4>0,
+\qquad
+d(d-1)-na=14m^2+22m+8>0.
+\]
+
+Thus the doubleton is local in every gap.
+
+For a singleton the unique distance-two maximum is similarly
+
+\[
+M^{\rm sing}_2(k,j)=
+\begin{cases}
+\dfrac{x_k(d+j+1)}2,&0\le j\le2m-2,\\[5pt]
+\dfrac{x_kn}2,&j=2m-1.
+\end{cases}
+\tag{PGE5-13}
+\]
+
+All its adjacent products are strict by (PGE5-6), and
+
+\[
+d(d-1)-n(6m+2)=4m^2+28m+12>0.
+\]
+
+Hence every singleton is local in every gap; at \(m=2\) this statement is
+vacuous.  Equations (PGE5-10)--(PGE5-13) classify all three path types in
+both nonclosing and closing columns.
+
+The exact local relation therefore has the equivalent row and column forms
+
+\[
+\boxed{
+\begin{aligned}
+\mathcal R_{\rm loc}
+&=\{(k,j):0\le k\le m,\ 0\le j\le\ell_k\}\\
+&\quad\mathbin\cup
+\{(k,j):m+1\le k\le2m-1,\ 0\le j\le2m-1\}\\
+&=\{(k,j):0\le j,k\le2m-1,\ k\ge\kappa_j\},\\
+N_{\rm loc}(G_j)&=\{P_{\kappa_j},\ldots,P_{2m-1}\}.
+\end{aligned}}
+\tag{PGE5-14}
+\]
+
+To justify the last equality and all boundary columns, put
+
+\[
+h_j={j(d-1)\over2(d+j)}.
+\]
+
+Then
+
+\[
+h_{j+1}-h_j={d(d-1)\over2(d+j)(d+j+1)}>0,
+\qquad
+\kappa_0=0,
+\qquad
+\kappa_1=1.
+\tag{PGE5-15}
+\]
+
+For \(2\le r\le2m-1\),
+
+\[
+2(d+r)(r-1)-r(d-1)=d(r-2)+2r^2-r>0,
+\]
+
+and hence
+
+\[
+1\le\kappa_r\le r-1.
+\]
+
+The two terminal thresholds, by direct reduction over \(m\bmod5\), are
+
+\[
+\boxed{
+\kappa_{2m-2}=\left\lfloor{4m+1\over5}\right\rfloor,
+\qquad
+q:=\kappa_{2m-1}
+=\left\lceil{4m^2-1\over5m+2}\right\rceil
+=\left\lfloor{4m+3\over5}\right\rfloor\le m.}
+\tag{PGE5-16}
+\]
+
+Thus (PGE5-14) really is one Ferrers suffix formula across the triple,
+doubleton, and singleton transition.  The last nonclosing and closing words
+are, literally,
+
+\[
+G_{2m-2}=(n-1,4,P_k,3,n),
+\qquad
+G_{2m-1}=(n,2,P_k,4m+1,d).
+\tag{PGE5-17}
+\]
+
+At the minimum row \(m=2\),
+
+\[
+(\kappa_0,\ldots,\kappa_3)=(0,1,1,2),
+\qquad
+(\ell_0,\ell_1,\ell_2)=(0,2,3),
+\]
+
+and the paths are the three triples
+
+\[
+(20,10,19),\quad(18,11,17),\quad(16,12,15)
+\]
+
+and the doubleton \((13,14)\).  There is no singleton.  In particular,
+\(P_1\) has score \(23\cdot18/2=207<T=210\) in the last nonclosing gap but
+score \(24\cdot18/2=216>T\) at closure.  At \(m=3\),
+
+\[
+(\kappa_0,\ldots,\kappa_5)=(0,1,1,2,2,3),
+\qquad
+(\ell_0,\ldots,\ell_3)=(0,2,4,5).
+\tag{PGE5-18}
+\]
+
+Here there are four triples, the doubleton \((18,19)\), and the sole
+singleton \((20)\).  The analogous boundary pair for \(P_2\) is
+\(33\cdot24/2=396<T=406\) in \(G_4\) but
+\(34\cdot24/2=408>T\) in \(G_5\).  These literal rows prevent the cyclic
+column from being replaced by a fictitious nonclosing terminal.
+
+#### Residual Hall and exact edge support
+
+The neighborhoods in (PGE5-14) are nested suffixes, so
+\(\mathcal R_{\rm loc}\) is a Ferrers relation.  Call a local edge \((k,j)\)
+**Hall-extendible** when some relation-compatible path-to-gap bijection uses
+it.  After fixing \((k,j)\), delete \(P_k\) and \(G_j\).  If a nonempty
+residual gap set has minimum \(r\ne j\), its neighborhood is maximized in
+cardinality demand by the complete suffix beginning at \(G_r\).  The two
+exact cardinalities are
+
+\[
+|N_{k,j}(S)|=2m-\kappa_r-\mathbf1_{\{k\ge\kappa_r\}},
+\qquad
+|S|\le2m-r-\mathbf1_{\{j>r\}}.
+\tag{PGE5-19}
+\]
+
+Consequently residual Hall is necessary and sufficient exactly when
+
+\[
+\boxed{
+\kappa_r+\mathbf1_{\{k\ge\kappa_r\}}
+\le r+\mathbf1_{\{j>r\}}
+\qquad(r\ne j).}
+\tag{PGE5-20}
+\]
+
+If \(j\ge1\) and \((k,j)\) is local, then for \(r<j\) monotonicity reduces
+(PGE5-20) to \(\kappa_r+1\le r+1\).  For \(r>j\), one has \(r\ge2\), so
+the left side is at most \((r-1)+1=r\).  Thus every positive-column local
+edge passes.  The edge \((0,0)\) also passes because
+\(0<\kappa_r\) for every \(r\ge1\).  In contrast, for \(j=0\) and \(k>0\),
+the choice \(r=1\) gives
+
+\[
+\kappa_1+1=2>1.
+\]
+
+Equivalently, the \(2m-1\) residual gaps
+\(G_1,\ldots,G_{2m-1}\) have only the \(2m-2\) remaining neighbors in
+\(P_1,\ldots,P_{2m-1}\).
+
+For completeness, Hall existence can be witnessed without a matching
+search.  If \(1\le j<k\), rotate only \([j,k]\) by
+
+\[
+\alpha_{k,j}(i)=
+\begin{cases}
+k,&i=j,\\
+i-1,&j<i\le k,\\
+i,&\text{otherwise};
+\end{cases}
+\tag{PGE5-21}
+\]
+
+if \(j=k\), use the identity; and if \(j>k\), locality forces \(k\ge1\)
+and one may use
+
+\[
+\alpha_{k,j}(i)=
+\begin{cases}
+i+1,&k\le i<j,\\
+k,&i=j,\\
+i,&\text{otherwise}.
+\end{cases}
+\tag{PGE5-22}
+\]
+
+The auxiliary edges in (PGE5-21) are \((p,p+1)\), admitted by
+\(\kappa_{p+1}\le p\); those in (PGE5-22) are \((p,p-1)\), admitted by
+\(\kappa_{p-1}\le p-1<p\).  No interval wraps the canonical cut, and every
+witness fixes \((0,0)\).  Crossing from triples to the doubleton uses
+\((m,m+1)\) or the universal \((m+1,m)\); crossings involving a singleton
+are vacuous at \(m=2\) and universal thereafter.  When a shift through
+\(P_{2m-1}\) uses the closing auxiliary edge \((2m-2,2m-1)\), its path is
+the universal final triple at \(m=2\), the doubleton at \(m=3\), and a
+singleton for \(m\ge4\).  Hence every type boundary is covered without an
+implicit nonempty range.  These interval shifts are edge-by-edge existence
+witnesses, not a selected new construction.
+
+The exact support is therefore
+
+\[
+\boxed{
+\begin{aligned}
+\mathcal R_{\rm ext}
+&=\{(0,0)\}
+\mathbin\cup\{(k,j)\in\mathcal R_{\rm loc}:1\le j\le2m-1\}\\
+&=\{(0,0)\}
+\mathbin\cup\{(k,j):1\le k\le m,\ 1\le j\le\ell_k\}\\
+&\quad\mathbin\cup\{(m+1,j):1\le j\le2m-1\}\\
+&\quad\mathbin\cup
+\{(k,j):m+2\le k\le2m-1,\ 1\le j\le2m-1\}.
+\end{aligned}}
+\tag{PGE5-23}
+\]
+
+The last set is empty exactly at \(m=2\).  In the closing column, the
+extendible triples are exactly \(P_q,\ldots,P_m\), followed by the doubleton
+and every singleton.
+
+There is an essential Ferrers distinction.  The local relation is Ferrers,
+but the complete support (PGE5-23) is not: \((0,0)\) and \((1,1)\), together
+with the absent cross-edges \((0,1)\) and \((1,0)\), form an induced
+\(2K_2\).  This obstruction is invariant under row and column reorderings.
+After deleting the forced vertices \(P_0,G_0\), however, the reduced support
+has the nested neighborhoods
+
+\[
+N_{\rm red}(G_j)=\{P_{\kappa_j},\ldots,P_{2m-1}\},
+\qquad1\le j\le2m-1,
+\tag{PGE5-24}
+\]
+
+and is Ferrers; every one of its edges is matching-covered.  Thus the exact
+PG49 structure is a forced \(K_{1,1}\) component plus a reduced Ferrers
+board, not one global Ferrers board.
+
+#### From local support to the sharp full score
+
+No additional assignment choice is needed to pass from the local theorem to
+the full product distance.  In every whole-path reassignment, consecutive
+terminals remain at positional distance at least four.  A distance-three
+pair therefore has at most one terminal endpoint, and
+
+\[
+{n(d-1)\over3}<T,
+\qquad
+3d-2n=4m+7>0.
+\]
+
+For every distance at least four,
+
+\[
+{n(n-1)\over4}<T,
+\qquad
+2d(d-1)-n(n-1)=28m^2+74m+28>0.
+\tag{PGE5-25}
+\]
+
+On the other hand, wherever \(P_0\) is placed, its left terminal pair has
+distance-two score
+
+\[
+{E_j(d-1)\over2}=T+{j(d-1)\over2}\ge T.
+\]
+
+It follows for every path-to-gap bijection, compatible or not, that
+
+\[
+W(\sigma_\alpha)=W^{(\le2)}(\sigma_\alpha).
+\]
+
+Combining this identity with (PGE5-14) and (PGE5-23) proves the
+**EXACT FULL-SUPPORT THEOREM**
+
+\[
+\boxed{
+W(\sigma_\alpha)=W_n=T
+\iff
+(\alpha(j),j)\in\mathcal R_{\rm loc}\ \text{for every }j,}
+\]
+
+\[
+\boxed{
+\mathcal R_{\rm full}
+:=\{(k,j):\exists\alpha,\ \alpha(j)=k,\ W(\sigma_\alpha)=W_n\}
+=\mathcal R_{\rm ext}.}
+\tag{PGE5-26}
+\]
+
+Thus there is no obstruction to the PG49 completion mechanism on this
+branch.  The precise obstruction is only to the stronger statement that its
+global support is Ferrers; Ferrers structure begins after removing the forced
+edge \((0,0)\).  The exact global \(W\)-minimality conclusion is precisely
+(PGE5-26). Beyond it, this theorem does not classify \(W\)-minimizers outside
+the scaffold, search over or select a path assignment, compute \(K\), propose
+a new construction, change production code, or infer an angular, geometric,
+global \(K\)-minimality, or global geometric-optimality claim.
+
 ## Verification Boundary And Open Questions
 
 `tests/test_product_distance.py` checks exact rational comparisons, canonical
@@ -7764,6 +8267,18 @@ scoring covers \(m=1,\ldots,80\). It checks 8,873,400 unordered cyclic
 pairs, searches no candidate, order, matching, path assignment, or subset,
 computes no \(K\), and imports no project or test helper. The finite rows
 corroborate but do not prove the symbolic theorem.
+The sole diagnostic for (PGE5-1)--(PGE5-26) is the standalone
+standard-library script in
+ops/TASK-20260720__canonical_e5_even_path_gap_support/. It reconstructs
+the literal \(e=5\), even-\(v\) scaffold directly for
+\(m=2,\ldots,40\), including the empty singleton range and cyclic column.
+It checks all 88,556 path/gap incidences, 69,124 local Ferrers edges, and
+4,132,070 residual suffix Hall inequalities. It verifies the exact local
+cutoffs, complete Hall support, global induced \(2K_2\), and reduced Ferrers
+nesting. It constructs no complete path assignment, searches no matching or
+permutation, computes no \(K\), and imports no project or test helper. The
+bounded computation corroborates but does not replace the symbolic local,
+Hall, and full-support proof.
 The sole diagnostic for (KPGODD-1)--(KPGODD-36) is the standalone
 standard-library script in ops/TASK-20260719__pgodd_exact_k/. It constructs
 only (PGODD-6). On \(m=1,\ldots,30\), its independent max-plus recurrence

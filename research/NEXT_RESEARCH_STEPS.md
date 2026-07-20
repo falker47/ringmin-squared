@@ -2774,6 +2774,17 @@ Immediate:
   equivalent to \(W=T=W_n\). PG49 is therefore the exact support of
   full-optimal scaffold bijections. One polynomial diagnostic scans local
   states and two sharp shifts without enumerating path permutations.
+- The canonical even-\(v\), \(e=5\) path/gap support task is complete
+  without choosing a reassignment. On \(n=10m+4\), \(m\ge2\), the triple,
+  doubleton, singleton, and cyclic-closing calculations give the exact local
+  Ferrers thresholds and the full-threshold support. Residual Hall excludes
+  only \((k,0)\), \(k>0\). The complete support is not Ferrers because of
+  one induced \(2K_2\), but deleting the forced pair \((P_0,G_0)\) leaves a
+  matching-covered Ferrers board. The minimum row, empty singleton range,
+  doubleton closure, all type boundaries, and the full-distance collapse are
+  explicit. One bounded standard-library diagnostic directly reconstructs
+  the scaffold and searches no matching, path permutation, or order family;
+  no \(K\), construction selection, or geometric conclusion is included.
 - The Ferrers-bijection counting task is complete. The reduced PG49 permanent
   has the exact nested-column product
   \(\prod_{j=1}^{2m-1}(j+1-\kappa_j)\), an equivalent row product, and no

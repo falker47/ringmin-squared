@@ -2549,6 +2549,54 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   This theorem classifies their score and edge support; the separate Ferrers
   theorem below supplies their count without enumerating them. Neither has a
   geometric consequence.
+- EXACT CANONICAL EVEN-\(v\), \(e=5\) PATH/GAP SUPPORT THEOREM: for
+  \(n=10m+4\), \(m\ge2\), put \(d=8m+5\) and
+  \(T=W_n=d(d-1)/2\). The scaffold consists of \(m+1\) oriented triples,
+  one doubleton, and \(m-2\) singletons. The singleton range is empty at
+  \(m=2\). A triple \(P_k\) in gap \(G_j\) is local exactly when
+  \[
+  j(d-1-2k)\le2kd.
+  \]
+  The doubleton and every singleton are strictly universal. Equivalently,
+  the complete local relation is the Ferrers board
+  \[
+  \mathcal R_{\rm loc}=\{(k,j):k\ge\kappa_j\},
+  \qquad
+  \kappa_j=\left\lceil{j(d-1)\over2(d+j)}\right\rceil.
+  \]
+  Its thresholds are nondecreasing, satisfy
+  \(\kappa_0=0\), \(\kappa_1=1\), and
+  \(1\le\kappa_r\le r-1\) for \(2\le r\le2m-1\), and end at
+  \[
+  \kappa_{2m-2}=\left\lfloor{4m+1\over5}\right\rfloor,
+  \qquad
+  \kappa_{2m-1}=\left\lfloor{4m+3\over5}\right\rfloor.
+  \]
+  Fixing a local edge \((k,j)\), residual Hall is equivalent to
+  \[
+  \kappa_r+\mathbf1_{\{k\ge\kappa_r\}}
+  \le r+\mathbf1_{\{j>r\}}
+  \qquad(r\ne j).
+  \]
+  Hence the exact Hall and full-threshold support is
+  \[
+  \mathcal R_{\rm full}=\mathcal R_{\rm ext}
+  =\{(0,0)\}\cup
+  \{(k,j):1\le j\le2m-1,\ k\ge\kappa_j\}.
+  \]
+  The only local nonextendible edges are \((k,0)\), \(k>0\); every other
+  local edge has a deterministic interval-shift witness. For every
+  path-to-gap bijection, distance three and every longer distance are
+  strictly below \(T\), while the left terminal pair of \(P_0\) makes
+  \(W^{(\le2)}\ge T\). Thus \(W=W^{(\le2)}\), and local compatibility is
+  equivalent to full score \(T=W_n\). The global support is not Ferrers:
+  \((0,0)\) and \((1,1)\) induce a \(2K_2\). After deleting the forced
+  vertices \(P_0,G_0\), the reduced support is Ferrers and every edge is
+  matching-covered. This is an exact PG49 support theorem and hence an exact
+  global \(W\)-minimality statement for the supported scaffold bijections.
+  It does not classify global \(W\)-minimizers outside this scaffold and is
+  not a selected construction, \(K\)-evaluation, or geometric/global
+  geometric-optimality theorem.
 - EXACT FERRERS COUNT THEOREM: put \(v=2m\), \(d=8m+4\), and
   \[
   \kappa_j=
@@ -3028,6 +3076,18 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   candidate, matching, path assignment, order family, or subset. It computes
   no \(K\) and imports no project or test helper. The bounded computation
   corroborates rather than proves the all-domain theorem.
+- VERIFIED FACT (BOUNDED EXACT CANONICAL EVEN-\(v\), \(e=5\) PATH/GAP
+  SUPPORT DIAGNOSTIC): the sole standalone standard-library script in
+  ops/TASK-20260720__canonical_e5_even_path_gap_support/ reconstructs the
+  literal scaffold directly on \(m=2,\ldots,40\). It checks 88,556 local
+  path/gap incidences, 69,124 local Ferrers edges, 4,132,070 residual suffix
+  Hall inequalities, 67,525 extendible edges, and all 1,599 zero-column
+  obstructions. It verifies the minimum row, empty singleton range, genuine
+  cyclic word, inclusive cutoff equality, global induced \(2K_2\), and
+  reduced Ferrers nesting. It constructs no complete path assignment,
+  searches no matching or permutation, computes no \(K\), and imports no
+  project or test helper. The bounded computation corroborates rather than
+  proves the all-domain theorem.
 - VERIFIED FACT (FINITE EXACT ODD-\(v\) PG49-STAR \(K\) DIAGNOSTIC): the
   sole standalone standard-library script in
   ops/TASK-20260719__pgodd_exact_k/ constructs only (PGODD-6). On
@@ -3632,6 +3692,20 @@ Candidate-set extraction uses the following finite-certificate semantics.
   only (PGE2ODD-6), without candidate, matching, path-assignment,
   order-family, or subset search. No production, angular, geometric,
   global-minimizer, or global-optimality claim is included.
+- COMPLETED PRIORITY: the canonical even-\(v\), \(e=5\) whole-path support
+  is now exact on \(n=10m+4\), \(m\ge2\), without selecting an assignment.
+  All triple, doubleton, singleton, nonclosing, and cyclic-closing local
+  forms reduce to the one suffix threshold \(k\ge\kappa_j\). Residual Hall
+  excludes exactly the positive-path edges in \(G_0\), and every remaining
+  local edge is full-threshold supported. The full support is intrinsically
+  non-Ferrers by one induced \(2K_2\), while deleting the forced pair
+  \((P_0,G_0)\) leaves a matching-covered Ferrers board. The proof includes
+  the minimum row, empty singleton range, doubleton closure, type crossings,
+  and all longer positional distances. One bounded direct standard-library
+  diagnostic searches no permutation or matching and computes no \(K\). The
+  sole global conclusion is the proved \(W\)-minimality; no new construction,
+  production path, angular, geometric, global \(K\)-minimality, or global
+  geometric-optimality claim is included.
 - COMPLETED PRIORITY: the canonical eight-twenty-fifths core order now has an
   exact all-domain \(K\) theorem. The symbolic maximizer is the tail from
   \(2v+1\), with connector \(2v+2\) additionally removed exactly for

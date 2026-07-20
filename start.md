@@ -1666,6 +1666,42 @@ construction or production change, angular or geometric inference, global
 minimizing-order classification, or global optimality is part of either
 theorem.
 
+The canonical even-\(v\), \(e=5\) path-to-gap problem is now exact without
+selecting a new assignment. On \(n=10m+4\), \(m\ge2\), put
+\(d=8m+5\) and \(T=W_n=d(d-1)/2\). The scaffold has \(m+1\) triples, one
+doubleton, and \(m-2\) singletons; the singleton range is empty at the
+minimum row. For every gap \(G_j\), the complete local relation is
+\[
+(k,j)\in\mathcal R_{\rm loc}
+\iff k\ge\kappa_j,
+\qquad
+\kappa_j=\left\lceil{j(d-1)\over2(d+j)}\right\rceil.
+\]
+Equivalently, triple \(P_k\) is local exactly when
+\(j(d-1-2k)\le2kd\); the doubleton and every singleton are universal. The
+true closing threshold is
+\(\kappa_{2m-1}=\lfloor(4m+3)/5\rfloor\), with the last nonclosing value
+\(\lfloor(4m+1)/5\rfloor\).
+
+Residual Hall proves the complete full-threshold support
+\[
+\mathcal R_{\rm full}=\mathcal R_{\rm ext}
+=\{(0,0)\}\cup
+\{(k,j):1\le j\le2m-1,\ k\ge\kappa_j\}.
+\]
+Thus the only local nonextendible edges are \((k,0)\), \(k>0\). Every
+distance-three and longer pair is uniformly below \(T\), whereas \(P_0\)
+forces the distance-at-most-two score to be at least \(T\); hence local
+compatibility is equivalent to full score \(W_n\). The local board is
+Ferrers, but the global support is not: \((0,0)\) and \((1,1)\) form an
+induced \(2K_2\). Removing the forced pair \((P_0,G_0)\) leaves the exact
+reduced Ferrers board, with every edge matching-covered. This is the precise
+PG49 mechanism on the branch. The sole global conclusion here is the exact
+\(W\)-minimality encoded by the displayed full-support identity; global
+\(W\)-minimizers outside this scaffold are not classified. No permutation
+search, chosen construction, \(K\)-evaluation, production change, or
+geometric/global geometric-optimality claim is included.
+
 Separately, prior global results disprove the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\). The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also disproved.
@@ -3094,6 +3130,34 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   bijection is full-optimal, although the bijections themselves are not
   enumerated. This is a surrogate theorem and gives no new geometric
   conclusion.
+- EXACT CANONICAL EVEN-\(v\), \(e=5\) PATH/GAP SUPPORT THEOREM: on
+  \(n=10m+4\), \(m\ge2\), let \(d=8m+5\) and
+  \(T=W_n=d(d-1)/2\). The \(m+1\) triples satisfy the exact local condition
+  \[
+  j(d-1-2k)\le2kd,
+  \]
+  while the unique doubleton and all \(m-2\) singletons are universal.
+  Equivalently,
+  \[
+  \mathcal R_{\rm loc}=\{(k,j):k\ge\kappa_j\},
+  \qquad
+  \kappa_j=\left\lceil{j(d-1)\over2(d+j)}\right\rceil.
+  \]
+  The local relation is Ferrers, its last two thresholds are
+  \(\lfloor(4m+1)/5\rfloor\) and \(\lfloor(4m+3)/5\rfloor\), and residual
+  Hall gives
+  \[
+  \mathcal R_{\rm full}=\mathcal R_{\rm ext}
+  =\{(0,0)\}\cup
+  \{(k,j):1\le j\le2m-1,\ k\ge\kappa_j\}.
+  \]
+  Every whole-path bijection has \(W=W^{(\le2)}\), so this is the complete
+  support at the sharp full threshold, not only local matching support. The
+  global support is not Ferrers: \((0,0),(1,1)\) induce a \(2K_2\). After
+  deleting the forced pair \((P_0,G_0)\), the reduced support is Ferrers and
+  every edge is matching-covered. The theorem includes \(m=2\), its empty
+  singleton range, the doubleton closure, every transition, and the genuine
+  cyclic column; it selects no construction and evaluates no \(K\).
 - EXACT FERRERS COUNT THEOREM: with
   \[
   \kappa_j=
@@ -3449,6 +3513,18 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   alternative, matching, path assignment, order family, or subset, computes
   no \(K\), and imports no project or test helper. The bounded computation
   corroborates rather than proves the symbolic theorem.
+- VERIFIED FACT (BOUNDED EXACT CANONICAL EVEN-\(v\), \(e=5\) PATH/GAP
+  SUPPORT DIAGNOSTIC): the sole standalone standard-library script in
+  ops/TASK-20260720__canonical_e5_even_path_gap_support/ reconstructs the
+  literal scaffold on \(m=2,\ldots,40\). It checks 88,556 path/gap
+  incidences, 69,124 local Ferrers edges, 4,132,070 residual suffix Hall
+  inequalities, 67,525 extendible edges, and all 1,599 zero-column
+  obstructions. Minimum domain, empty singleton range, cyclic closure,
+  inclusive cutoff equality, the global induced \(2K_2\), and reduced
+  Ferrers nesting are all explicit. The script constructs no path assignment,
+  searches no matching or permutation, computes no \(K\), and imports no
+  project or test helper. The bounded computation corroborates rather than
+  proves the all-domain theorem.
 - VERIFIED FACT (FINITE EXACT ODD-\(v\) PG49-STAR \(K\) DIAGNOSTIC): the
   sole standalone standard-library script in
   ops/TASK-20260719__pgodd_exact_k/ constructs only (PGODD-6). For
