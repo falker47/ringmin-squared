@@ -2607,7 +2607,7 @@ and `ops/`.
   matching, path assignment, path permutation, supported-bijection family,
   or permanent. The finite computation corroborates rather than proves the
   all-\(m\) theorem.
-- EXACT PGE5 SINGLETON-REVERSAL THEOREM (KRPGE5-1--KRPGE5-32): on the same
+- EXACT PGE5 SINGLETON-REVERSAL THEOREM (KRPGE5-1--KRPGE5-36): on the same
   \(n=10m+4\), \(m\ge2\) scaffold, put
   \(q=\lfloor(4m+3)/5\rfloor\), retain the interval shift through the
   doubleton, reverse precisely the complete singleton block, and assign
@@ -2633,10 +2633,30 @@ and `ops/`.
   \]
   including equality at \(m=2,3\); therefore the new fixed-subsequence
   coefficient is \(857/3000\). Canonical K825 is strictly larger pointwise,
-  with the five exact gap branches in (KRPGE5-30). This is one fixed-core
-  combinatorial theorem and implies nothing about another supported map, the
-  permanent, production, geometry, global \(K\)-minimality, or global
-  optimality. The detailed proof is authoritative in
+  with the five exact gap branches in (KRPGE5-30). For every cyclic gap
+  \(g\), inserting label \(1\) into the fixed core gives a complete order
+  \(\sigma_{m,g}^{(5,*)}\) satisfying
+  \[
+  \Lambda\bigl(\sigma_{m,g}^{(5,*)}\bigr)=K_*,
+  \qquad
+  {K_*\over\pi}-(10m+4)^2
+  <\rho_{\sigma_{m,g}^{(5,*)}}
+  <{K_*\over\pi}.
+  \]
+  Globally, only
+  \[
+  R_2^*(10m+4)<{\Lambda_{10m+4}\over\pi}\le {K_*\over\pi}
+  \]
+  follows, and hence
+  \[
+  \limsup_{m\to\infty}
+  {R_2^*(10m+4)\over(10m+4)^3}
+  \le {857\over3000\pi}.
+  \]
+  This proves no minimizing-order or geometric optimality, no matching
+  global lower bound, no all-\(n\) limsup bound, and no exact leading
+  constant for the global optimum \(R_2^*\). The detailed proof is
+  authoritative in
   [`research/FIXED_ORDER_CYCLE_RATIO.md`](research/FIXED_ORDER_CYCLE_RATIO.md#21-exact-k-for-the-pge5-singleton-reversal-shift).
 - VERIFIED FACT (FINITE EXACT PGE5 SINGLETON-REVERSAL DIAGNOSTIC): the sole
   standalone standard-library script in
@@ -2645,11 +2665,16 @@ and `ops/`.
   cancellation. On \(m=2,\ldots,30\), a candidate-free max-plus recurrence
   checks the unique backbone through 37,475,656 transitions, while a separate
   all-arcs traversal checks every deletion budget and all 968,774 proper
-  oriented arcs, including the cyclic cut. Formula, support, empty-range,
-  target, residue, and K825 checks continue through \(m=1000\). It imports no
-  project/test helper and searches no subset, matching, path assignment,
-  supported-bijection family, cyclic-order family, or permanent. The finite
-  computation corroborates rather than proves the all-\(m\) theorem.
+  oriented arcs, including the cyclic cut. Every label-one insertion gap and
+  the exact elimination inequalities are checked on those bounded rows,
+  totaling 4,727 gaps and 484,387 distinct neighbor pairs. The \(n\)-form
+  identity is checked coefficientwise in the independent symbols \(m,q\);
+  formula, support, empty-range, target, residue, and K825 checks continue
+  through \(m=1000\). It imports no project/test helper and searches no
+  subset, matching, path assignment, supported-bijection family, alternative
+  core-order family, or permanent. The finite computation corroborates
+  rather than proves the all-\(m\) theorem and does not verify the
+  real-arithmetic angular sandwich.
 - EXACT \(n=10m+3\), \(e=4\) FERRERS COUNT THEOREM: put
   \(v=2m\), \(d=8m+4\), and
   \[
@@ -3243,8 +3268,14 @@ and `ops/`.
   recorded a green hosted run after the cross-platform fix, but no commit SHA,
   run identifier, URL, or independently inspected result was recorded. It
   establishes no hosted status for a specific commit.
-- CURRENT HOSTED STATUS: GitHub Actions for the current `HEAD` has not been
-  independently verified.
+- HOSTED VERIFIED FACT (REVIEWED KRPGE5 BASELINE): GitHub Actions
+  `Verification` run
+  [`29771633257`](https://github.com/falker47/ringmin-squared/actions/runs/29771633257)
+  completed successfully for push commit
+  `bce6e4d8a935bd9d8509e59b760cf78c345779b6`; its Python 3.11, 3.12, and
+  3.13 jobs and all recorded workflow steps succeeded. This hosted result
+  covers exactly that reviewed KRPGE5-1--KRPGE5-32 baseline commit and
+  establishes no hosted status for any later commit.
 - INTERPRETATION: float64 and high-precision numerical search/recheck artifacts are numerical observations unless interval evidence covers the relevant finite order space.
 
 ## Certified Finite Results

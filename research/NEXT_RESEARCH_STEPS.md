@@ -32,36 +32,45 @@ The superficially similar Ferrers count and monotone threshold-closing
   and the [stable synopsis](../PROJECT_KNOWLEDGE.md#product-distance-surrogate).
 
 - **COMPLETED -- PGE5 singleton-reversal \(K\):** on the same
-  \(n=10m+4\), \(m\ge2\) scaffold, (KRPGE5-1)--(KRPGE5-32) evaluate only
+  \(n=10m+4\), \(m\ge2\) scaffold, (KRPGE5-1)--(KRPGE5-36) evaluate only
   the map that keeps the interval shift through the doubleton, reverses the
   complete singleton block, and puts \(P_q\) in the closing gap. The map is
   supported and has \(W=W_n\); its sole induced-\(K\) maximizing subset is
   \(\{4m+1,\ldots,10m+4\}\). Exact cancellation confirms
   \(K_\uparrow-K_*=(m-1)(m-2)(m-3)/3\), the fixed-family coefficient
   \(857/3000\), and strict pointwise improvement over K825. This milestone
-  changes no production or test file and makes no permanent, angular,
-  geometric, or global-optimality claim. See the
+  changes no production or test file. Exact label-one elimination and the
+  fixed-order sandwich give \(\Lambda=K_*\) and strict bounds on \(\rho\)
+  for every insertion gap, plus
+  \(R_2^*(10m+4)<K_*/\pi\) and the subsequential upper coefficient
+  \(857/(3000\pi)\). It proves no optimality, matching global lower bound,
+  all-\(n\) limsup bound, or exact leading constant for the global optimum
+  \(R_2^*\). See the
   [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#21-exact-k-for-the-pge5-singleton-reversal-shift)
   and the [stable synopsis](../PROJECT_KNOWLEDGE.md#product-distance-surrogate).
 
 ## Sole Next Atomic Task
 
-After manual review, run one fresh STRICT post-review audit of the new
-KRPGE5 theorem and its diagnostic at the reviewed commit.
+After manual review and commit, run one fresh STRICT post-review audit of the
+corrected KRPGE5 theorem and its diagnostic, and verify hosted CI on that
+corrected commit when a run is available.
 
 Acceptance criteria:
 
-- audit KRPGE5-1--KRPGE5-32 line by line against the literal PGE5 scaffold;
+- audit KRPGE5-1--KRPGE5-36 line by line against the literal PGE5 scaffold
+  and the exact CR12p/CR22/CR27 closure;
 - independently rederive support, every deletion/shortcut class, the block
   sum, target cancellation, five residue branches, and exact K825 subtraction
   without importing the task formula as an oracle criterion;
 - rerun the standalone bounded oracle and repository verification at the
   reviewed commit, recording exact provenance and any contradictory result;
+- inspect the hosted Python 3.11--3.13 matrix for the corrected commit without
+  treating the successful baseline run as coverage of the correction;
 - check document roles, links, tags, and all scope/non-consequence language;
   and
 - introduce no new bijection, permanent count, or mathematical extension.
 
-This audit is not executed by the present theorem-development task. It adds
+This audit is not executed by the present correction task. It adds
 no second bijection, and no Ferrers-permanent count is a competing priority.
 
 ## Deferred, Not Prioritized

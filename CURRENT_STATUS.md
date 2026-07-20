@@ -4,10 +4,15 @@ Last update: 2026-07-20
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Current task:** exact support, induced-\(K\), target-difference, and K825
-  theorem for the single PGE5 \(e=5\), \(n=10m+4\) singleton-reversal map
-  (KRPGE5-1), with \(q=\lfloor(4m+3)/5\rfloor\).
+- **Current task:** correction of the KRPGE5 closure by applying exact
+  label-one elimination and the proved strict fixed-order/global sandwiches
+  to the singleton-reversal core, without production or test changes.
 - **Blockers:** none.
-- **Next task:** after manual review, run a fresh STRICT post-review audit of
-  KRPGE5-1--KRPGE5-32 and its standalone diagnostic at the reviewed commit,
-  without adding another bijection or mathematical extension.
+- **Local verification:** completed on the corrected working tree; detailed
+  commands and results are in the KRPGE5 dossier.
+- **Hosted CI:** the successful Python 3.11--3.13 run `29771633257` covers
+  baseline commit `bce6e4d8a935bd9d8509e59b760cf78c345779b6`, not the uncommitted
+  correction.
+- **Next task:** after manual review and commit, run a fresh STRICT audit of
+  KRPGE5-1--KRPGE5-36 and verify hosted CI on the corrected commit, without
+  adding another bijection or mathematical extension.

@@ -83,3 +83,92 @@ Append-only. Add a new entry to correct previous information.
 - **Evidence:** `EVIDENCE.md#ev-006---final-inspection`.
 - **Next step:** user review and manual commit decision; do not start the
   proposed post-review audit in this chat.
+
+## 2026-07-20 - Correction Of The Overbroad Non-Consequence
+
+- **Action:** started a new STRICT correction from clean commit
+  `bce6e4d8a935bd9d8509e59b760cf78c345779b6`; reread CR12p, CR22, CR27,
+  CR28a, and the KRPGE5 core theorem; obtained independent mathematical and
+  document audits.
+- **Result:** the prior task's statements that no angular or geometric
+  consequence was inferred are superseded as theorem limitations. Exact
+  label-one elimination applies to every insertion gap, the strict
+  fixed-order sandwich bounds each resulting threshold, and the global
+  one-sided sandwich gives a geometric subsequence upper bound.
+- **Interpretation:** the exact remaining limitations are no minimizing-order
+  or geometric optimality, no matching global lower bound, no all-\(n\)
+  limsup bound, and no exact leading constant for the global optimum
+  \(R_2^*\). Historical entries above are retained because this log is
+  append-only.
+- **Evidence:** `EVIDENCE.md#ev-007---exact-krpge5-closure`.
+- **Next step:** add the four exact closure statements and task-local symbolic
+  checks without changing production or tests.
+
+## 2026-07-20 - Exact Closure And Symbolic Checks
+
+- **Action:** added (KRPGE5-33)--(KRPGE5-36); extended the existing
+  standard-library diagnostic with the exact \(n\)-form identity, every
+  insertion gap on bounded rows, and all CR12m--CR12o neighbor inequalities.
+- **Result:** for every gap \(g\),
+  \(\Lambda(\sigma_{m,g}^{(5,*)})=K_*\) and
+  \(K_*/\pi-(10m+4)^2<\rho_{\sigma_{m,g}^{(5,*)}}<K_*/\pi\). Globally,
+  \(R_2^*(10m+4)<K_*/\pi\), with the requested subsequential coefficient at
+  most \(857/(3000\pi)\). The updated diagnostic passes 4,727 literal
+  insertion gaps and 484,387 exact neighbor-pair inequalities.
+- **Interpretation:** the angular/geometric statements are exact deductions
+  from previously proved real-arithmetic theorems; bounded computation checks
+  their integer elimination hypotheses and does not approximate \(\pi\).
+- **Evidence:** `EVIDENCE.md#ev-007---exact-krpge5-closure` and
+  `EVIDENCE.md#ev-008---updated-exact-diagnostic`.
+- **Next step:** synchronize durable documents and run repository
+  verification, recording local and hosted results separately.
+
+## 2026-07-20 - Corrected Working-Tree Local Verification
+
+- **Action:** ran the final diagnostic and scoped Ruff checks; attempted the
+  full pytest suite twice inside the restricted sandbox; reran it with
+  approval outside that sandbox; then ran the focused schema suite, checked-
+  artifact verifier, and focused Arb cross-check.
+- **Result:** the two sandbox attempts each reached 252 passing tests and 31
+  `tmp_path` setup errors caused only by denied temporary-directory access.
+  The approved local rerun passed all 283 tests. The schema suite passed four
+  tests, the Arb suite passed three, the verifier checked four certificates
+  and 76 local brackets, and the diagnostic/Ruff checks passed.
+- **Interpretation:** the permission errors are environmental evidence; the
+  corrected working tree passes the complete repository verification in an
+  environment with usable temporary storage.
+- **Evidence:** `EVIDENCE.md#ev-009---corrected-working-tree-local-verification`.
+- **Next step:** record hosted CI independently rather than conflating it with
+  the local working-tree result.
+
+## 2026-07-20 - Hosted Baseline Verification
+
+- **Action:** independently inspected GitHub Actions run `29771633257`, its
+  source commit, matrix jobs, and workflow-step conclusions.
+- **Result:** the push run succeeded on Python 3.11, 3.12, and 3.13 for
+  baseline commit `bce6e4d8a935bd9d8509e59b760cf78c345779b6`.
+- **Interpretation:** this is a hosted PASS for the reviewed
+  KRPGE5-1--KRPGE5-32 baseline only. It does not cover the current uncommitted
+  KRPGE5-33--KRPGE5-36 correction, whose results remain local.
+- **Evidence:** `EVIDENCE.md#ev-010---hosted-ci-on-the-reviewed-baseline`.
+- **Next step:** complete document synchronization, inspect the final diff,
+  and retain the task at `READY_FOR_REVIEW`.
+
+## 2026-07-20 - Corrected-Delta Final Inspection And Handoff
+
+- **Action:** completed cross-file synchronization; audited all 36 KRPGE5
+  tags and scope language; asserted the eight-file changed scope; inspected
+  status and diff; ran `git diff --check`; and obtained an independent final
+  mathematical/document/provenance audit.
+- **Result:** every final audit passes; no production or test path changed;
+  the task-local diagnostic is formatted and passing; local and hosted
+  evidence remain explicitly separated; no blocker remains. Two failed audit
+  predicates caused by regex/string-expectation mistakes are preserved in
+  EV-011 and were replaced by corrected passing predicates.
+- **Interpretation:** the correction is complete and `READY_FOR_REVIEW`.
+  Historical broad non-consequence statements remain only in this append-only
+  chronology and are explicitly superseded by the correction entry above.
+- **Evidence:** `EVIDENCE.md#ev-011---corrected-delta-final-inspection`.
+- **Next step:** user review and manual commit decision; after commit, the
+  next fresh task audits KRPGE5-1--KRPGE5-36 and verifies hosted CI on the
+  corrected commit.

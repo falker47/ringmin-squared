@@ -10,6 +10,11 @@
 | EV-004 | documentation | Source roles, links, tags, and scope | project memory/status/roadmap | PASS |
 | EV-005 | local verification | Dynamic and static repository checks | repository root | PASS |
 | EV-006 | final inspection | Diff, status, whitespace, and cache hygiene | repository root | PASS |
+| EV-007 | exact proof | Label-one elimination and angular/geometric closure | `research/FIXED_ORDER_CYCLE_RATIO.md` | PROVED |
+| EV-008 | bounded exact computation | Updated elimination and identity diagnostic | `exact_diagnostic.py` | PASS |
+| EV-009 | local verification | Corrected working-tree repository checks | repository root | PASS |
+| EV-010 | hosted CI | Reviewed baseline Python 3.11--3.13 matrix | GitHub Actions run `29771633257` | PASS (BASELINE ONLY) |
+| EV-011 | final inspection | Corrected-delta scope and hygiene | repository root | PASS |
 
 ## EV-001 - Startup And Source Boundary
 
@@ -43,9 +48,11 @@
   \(K_\uparrow-K_*=(m-1)(m-2)(m-3)/3\), coefficient \(857/3000\), and a
   strict all-row K825 improvement.
 - **Interpretation:** exact theorem for one prescribed supported cyclic core.
-- **Limitations:** no statement about another bijection, permanent,
-  production, angular threshold, geometry, global \(K\)-minimum, or global
-  optimum.
+- **Limitations:** this baseline item checked the fixed-core theorem only;
+  it did not analyze the already available label-one/angular transfer. That
+  omission is corrected, without altering this historical method, by EV-007.
+  No statement about another bijection or permanent and no production change
+  belongs to either delta.
 - **Linked log entry:**
   `TASK_LOG.md#2026-07-20---exact-support-argmax-and-score-theorem`.
 
@@ -79,12 +86,13 @@
   compact stable memory, current status, roadmap, and this STRICT dossier;
   then scanned theorem tags, local links, next-task language, and prohibited
   scope claims.
-- **Relevant result:** KRPGE5-1--KRPGE5-32 occur sequentially and exactly
-  once; the stable-memory proof link and diagnostic path resolve; the roadmap
-  contains one post-review audit; and no production, test, permanent,
-  geometric, or global-optimality delta is claimed.
-- **Interpretation:** document roles and task scope remain consistent with
-  `AGENTS.md`.
+- **Relevant result:** at the baseline checkpoint, KRPGE5-1--KRPGE5-32
+  occurred sequentially and exactly once; the stable-memory proof link and
+  diagnostic path resolved; and no production, test, or permanent delta was
+  present. The later KRPGE5-33--KRPGE5-36 synchronization is audited
+  separately in EV-011.
+- **Interpretation:** this preserves the method and chronology of the
+  original 32-tag document audit; it is not evidence for the later closure.
 - **Limitations:** document consistency alone proves no mathematical formula.
 - **Linked log entry:**
   `TASK_LOG.md#2026-07-20---durable-memory-and-document-audit`.
@@ -125,3 +133,149 @@
 - **Limitations:** no staging, commit, push, or hosted CI run was performed.
 - **Linked log entry:**
   `TASK_LOG.md#2026-07-20---final-inspection-and-handoff`.
+
+## EV-007 - Exact KRPGE5 Closure
+
+- **Date:** 2026-07-20
+- **Method:** direct application of the already proved exact label-one
+  elimination (CR12p), strict fixed-order sandwich (CR22), strict global
+  sandwich (CR27), and reduced global objective (CR28a) to the fixed core
+  evaluated in (KRPGE5-1)--(KRPGE5-32). Two independent read-only
+  mathematical audits rederived the chain.
+- **Relevant result:** for every cyclic insertion gap \(g\),
+  \[
+  \Lambda\bigl(\sigma_{m,g}^{(5,*)}\bigr)=K_*,
+  \qquad
+  {K_*\over\pi}-(10m+4)^2
+  <\rho_{\sigma_{m,g}^{(5,*)}}
+  <{K_*\over\pi}.
+  \]
+  Therefore
+  \[
+  R_2^*(10m+4)<{\Lambda_{10m+4}\over\pi}\le {K_*\over\pi}
+  \]
+  and
+  \[
+  \limsup_{m\to\infty}
+  {R_2^*(10m+4)\over(10m+4)^3}
+  \le {857\over3000\pi}.
+  \]
+- **Classification:** exact theorem and exact geometric subsequence upper
+  corollary, recorded as (KRPGE5-33)--(KRPGE5-36).
+- **Limitations:** no equality \(\Lambda_{10m+4}=K_*\), minimizing-order or
+  geometric-optimality theorem, matching global lower bound, all-\(n\)
+  limsup bound, or exact leading constant for the global optimum \(R_2^*\).
+  The exact \(\rho\) may depend on the insertion gap.
+- **Linked log entry:**
+  `TASK_LOG.md#2026-07-20---correction-of-the-overbroad-non-consequence`.
+
+## EV-008 - Updated Exact Diagnostic
+
+- **Date:** 2026-07-20
+- **Command:**
+  `python -B ops/TASK-20260720__pge5_singleton_reversal_exact_k/exact_diagnostic.py`.
+- **Relevant output:** PASS; 29 max-plus/all-arcs rows
+  \(m=2,\ldots,30\); 37,475,656 max-plus transitions; 968,774 proper
+  oriented arcs; all 4,727 label-one insertion gaps; all 484,387 possible
+  distinct core-neighbor inequalities; and 999 formula/support rows through
+  \(m=1000\). The coefficientwise \(n\)-form identity has exact tuple
+  `(857000, 1219500, 12000, 482500, 6000, 30000, 60000)` on both sides.
+- **Method:** the existing candidate-free core max-plus and independent
+  all-arcs traversal are retained. New standard-library integer checks verify
+  \(q=\lfloor(2n+7)/25\rfloor\), (KRPGE5-31) coefficientwise in \(m,q\),
+  every literal insertion/deletion, the unchanged core-maximizer score, and
+  all three cases (CR12m)--(CR12o).
+- **Interpretation:** exact bounded corroboration of the label-one
+  elimination hypotheses and an unbounded coefficientwise identity check.
+- **Limitations:** the bounded insertion checks are not an all-\(m\) proof;
+  the script intentionally performs no floating approximation of \(\pi\) and
+  does not numerically certify CR22 or CR27.
+- **Linked log entry:**
+  `TASK_LOG.md#2026-07-20---exact-closure-and-symbolic-checks`.
+
+## EV-009 - Corrected Working-Tree Local Verification
+
+- **Date:** 2026-07-20
+- **Environment:** Python 3.14.3; pytest 9.0.2; Ruff 0.11.12;
+  python-flint 0.9.0.
+- **Initial sandbox attempt:**
+  `$env:PYTHONDONTWRITEBYTECODE='1'; python -m pytest -p no:cacheprovider`
+  exited 1 with `252 passed, 31 errors in 62.63s`. Every error was a setup
+  `PermissionError` for pytest's `tmp_path` under
+  `AppData\Local\Temp\pytest-of-Falker`.
+- **Sandbox basetemp retry:**
+  `$env:PYTHONDONTWRITEBYTECODE='1'; python -m pytest -p no:cacheprovider
+  --basetemp=C:\tmp\ringmin-squared-krpge5-pytest-019f8117` exited 1 with
+  `252 passed, 31 errors in 68.25s`; creation of the requested basetemp was
+  likewise denied. These are retained environmental failures, not test
+  failures in the repository.
+- **Approved local rerun:**
+  `$env:PYTHONDONTWRITEBYTECODE='1'; python -m pytest -p no:cacheprovider`
+  outside the restrictive sandbox completed with `283 passed in 71.94s`.
+- **Focused checks:**
+  `$env:PYTHONDONTWRITEBYTECODE='1'; python -m pytest -p no:cacheprovider
+  tests\test_checked_artifact_schema_validation.py` gave `4 passed in
+  0.92s`; `$env:PYTHONDONTWRITEBYTECODE='1'; python -m pytest -p
+  no:cacheprovider tests\test_n3_arb_interval_crosscheck.py` gave `3 passed
+  in 0.08s`.
+- **Checked-artifact verifier:**
+  `$env:PYTHONDONTWRITEBYTECODE='1'; $env:PYTHONPATH='src'; python -m
+  power_ringmin.verify_checked_artifacts` verified four certificates, 76
+  local brackets, and the summary rows \(n=3,4,5,6\).
+- **Static task-local checks:** `python -m ruff check` and `python -m ruff
+  format --check` on `exact_diagnostic.py` both passed; the final standalone
+  diagnostic rerun also passed after the coefficientwise check was added.
+- **Interpretation:** the corrected local working tree passes the full
+  repository suite and all canonical focused verification. No production or
+  test file changed.
+- **Limitations:** this is local Python 3.14.3 verification, not hosted CI.
+
+## EV-010 - Hosted CI On The Reviewed Baseline
+
+- **Date:** 2026-07-20
+- **Method:** independent inspection of GitHub Actions run metadata, jobs,
+  and recorded step conclusions through the connected GitHub data and REST
+  result.
+- **Run:** [Verification `29771633257`](https://github.com/falker47/ringmin-squared/actions/runs/29771633257),
+  event `push`, commit
+  `bce6e4d8a935bd9d8509e59b760cf78c345779b6`, started
+  `2026-07-20T19:21:17Z`, completed `2026-07-20T19:22:52Z`, conclusion
+  `success`.
+- **Relevant result:** the Python 3.11, 3.12, and 3.13 jobs all succeeded;
+  each recorded full pytest, checked-artifact verification, schema pytest,
+  and trailing-whitespace steps as successful.
+- **Interpretation:** hosted CI independently verifies the reviewed
+  KRPGE5-1--KRPGE5-32 baseline commit.
+- **Limitation:** the run predates and does not cover the uncommitted
+  KRPGE5-33--KRPGE5-36 correction. No hosted PASS is claimed for the current
+  working-tree delta.
+
+## EV-011 - Corrected-Delta Final Inspection
+
+- **Date:** 2026-07-20
+- **Methods or commands:** independent read-only final-diff audit; exact
+  KRPGE5 tag-sequence and document-scope Python audit; changed-file scope
+  assertion; `git status --short --branch`; `git diff --name-only`; complete
+  diff inspection; and `git diff --check`.
+- **Relevant output:** (KRPGE5-1)--(KRPGE5-36) are unique and sequential;
+  the proof section no longer contains the superseded categorical
+  angular/geometric negation; proof, stable memory, status, roadmap, and
+  dossier references agree. Exactly eight authorized documentation/dossier
+  files are modified, including the task-local diagnostic; no `src/` or
+  `tests/` path changed. The independent final audit found no mathematical,
+  document-role, diagnostic, or provenance defect. `git diff --check` emits
+  no finding.
+- **Failed audit formulations retained as evidence:** the first tag command
+  used an overescaped regular expression and returned an empty tag list; a
+  later composite command incorrectly required the literal range string in
+  every evidence file. Both commands failed by assertion because of their
+  audit predicates. Corrected patterns then passed and required no project-
+  content repair.
+- **Interpretation:** the task delta is coherent, hygienic, locally verified,
+  and `READY_FOR_REVIEW`; the user retains manual commit authority.
+- **Limitations:** the Git status commands emit a permission warning for the
+  user's global ignore file, without preventing tracked-diff inspection. The
+  hosted baseline result remains separate and does not cover this uncommitted
+  delta.
+- **Linked log entry:**
+  `TASK_LOG.md#2026-07-20---corrected-delta-final-inspection-and-handoff`.

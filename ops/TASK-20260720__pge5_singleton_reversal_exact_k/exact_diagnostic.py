@@ -6,10 +6,16 @@ and computes K with a candidate-free increasing-path max-plus dynamic
 program. A separate all-oriented-arc traversal audits every isolated-hole
 gain and every compressed shortcut, including the cyclic cut.
 
+For the theorem closure, exact integer checks cover every insertion gap on
+the bounded max-plus rows, the three label-one elimination cases, and the
+equivalent n-form score identity. They intentionally do not approximate pi
+or numerically test the real-arithmetic fixed-order sandwich.
+
 The accepted monotone interval shift is reconstructed only for the requested
-pointwise cancellation check. No path assignment is searched, and no subset,
-matching, supported-bijection family, cyclic-order family, or permanent is
-enumerated. The all-m claims remain the symbolic proof in the research note.
+pointwise cancellation check. No path assignment, alternative core order, or
+supported-bijection family is searched, and no subset, matching, or permanent
+is enumerated. The all-m claims remain the symbolic proof in the research
+note.
 """
 
 from __future__ import annotations
@@ -103,6 +109,12 @@ def core_order(m: int, alpha: tuple[int, ...]) -> tuple[int, ...]:
     return result
 
 
+def insert_label_one(core: tuple[int, ...], gap: int) -> tuple[int, ...]:
+    """Insert label one in one literal cyclic gap of the displayed core."""
+    assert 0 <= gap < len(core)
+    return core[:gap] + (1,) + core[gap:]
+
+
 def claimed_backbone(m: int) -> frozenset[int]:
     """Return the set compared with, but not supplied to, the max-plus DP."""
     return frozenset(range(4 * m + 1, 10 * m + 5))
@@ -128,6 +140,53 @@ def score_formula(m: int) -> int:
     )
     assert numerator % 6 == 0
     return numerator // 6
+
+
+def n_form_score_formula(m: int) -> int:
+    """Return the equivalent n-form identity from KRPGE5-31."""
+    n = 10 * m + 4
+    q = (4 * m + 3) // 5
+    assert q == (2 * n + 7) // 25
+    numerator = (
+        857 * n**3
+        + 1911 * n**2
+        + 1200 * n * q
+        - 8174 * n
+        + 6000 * q**2
+        + 25200 * q
+        + 7272
+    )
+    assert numerator % 3000 == 0
+    return numerator // 3000
+
+
+def check_symbolic_n_form_identity() -> tuple[int, ...]:
+    """Check KRPGE5-31 coefficientwise in the independent symbols m,q."""
+    # Coefficient order: m^3, m^2, m*q, m, q^2, q, 1.
+    from_m_form = (
+        500 * 1714,
+        500 * 2439,
+        500 * 24,
+        500 * 965,
+        500 * 12,
+        500 * 60,
+        500 * 120,
+    )
+    from_n_form_after_n_equals_10m_plus_4 = (
+        857 * 1000,
+        857 * 1200 + 1911 * 100,
+        1200 * 10,
+        857 * 480 + 1911 * 80 - 8174 * 10,
+        6000,
+        1200 * 4 + 25200,
+        857 * 64 + 1911 * 16 - 8174 * 4 + 7272,
+    )
+    expected = (857_000, 1_219_500, 12_000, 482_500, 6_000, 30_000, 60_000)
+    assert from_m_form == from_n_form_after_n_equals_10m_plus_4 == expected
+
+    # 2n+7=5(4m+3), so taking floors after division by 25 gives the same q.
+    assert (2 * 10, 2 * 4 + 7) == (5 * 4, 5 * 3)
+    return expected
 
 
 def residue_formula(m: int) -> int:
@@ -306,7 +365,43 @@ def shortcut_certificate(
     )
 
 
-def check_row(m: int, *, use_dp: bool) -> tuple[int, int, int]:
+def label_one_elimination_certificate(
+    core: tuple[int, ...], selected: frozenset[int], score: int
+) -> tuple[int, int]:
+    """Check every gap and the exact CR12m--CR12o elimination cases."""
+    n = len(core) + 1
+    assert sorted(core) == list(range(2, n + 1))
+    assert 1 < 4 <= score
+    assert score > n**2
+
+    # CR12n: every two-label subset containing one is dominated by the
+    # corresponding core singleton, which in turn is below K_star here.
+    for label in core:
+        assert 2 * label <= label**2 <= n**2 < score
+
+    # CR12o: for every possible pair of distinct core neighbors of label one,
+    # deleting one increases the induced cyclic score by this exact amount.
+    neighbor_pairs = 0
+    for left in range(2, n + 1):
+        for right in range(left + 1, n + 1):
+            gain = left * right - left - right
+            assert gain == (left - 1) * (right - 1) - 1
+            assert gain >= 1
+            neighbor_pairs += 1
+
+    # Each literal insertion deletes back to the same core and leaves the
+    # core maximizing subset and its score unchanged.
+    for gap in range(len(core)):
+        complete = insert_label_one(core, gap)
+        assert sorted(complete) == list(range(1, n + 1))
+        assert tuple(label for label in complete if label != 1) == core
+        assert 1 not in selected
+        assert cycle_score(complete, selected) == score
+
+    return len(core), neighbor_pairs
+
+
+def check_row(m: int, *, use_dp: bool) -> tuple[int, int, int, int, int]:
     """Check one exact row and return finite-work counters."""
     alpha = singleton_reversal_shift(m)
     check_fixed_assignment(m, alpha)
@@ -319,7 +414,7 @@ def check_row(m: int, *, use_dp: bool) -> tuple[int, int, int]:
     assert upper_score == monotone_score_formula(m)
     assert upper_score - score == reversal_gain(m)
 
-    assert score == score_formula(m) == residue_formula(m)
+    assert score == score_formula(m) == residue_formula(m) == n_form_score_formula(m)
     assert canonical_k825(m) - score == exact_canonical_gap(m)
     assert canonical_k825(m) - score == canonical_k825(m) - upper_score + reversal_gain(
         m
@@ -328,7 +423,7 @@ def check_row(m: int, *, use_dp: bool) -> tuple[int, int, int]:
     assert score > (10 * m + 4) ** 2
 
     if not use_dp:
-        return 0, 0, score
+        return 0, 0, 0, 0, score
 
     optimum, count, witness, transitions = max_plus_k(order)
     assert (optimum, count, witness) == (score, 1, selected)
@@ -341,7 +436,10 @@ def check_row(m: int, *, use_dp: bool) -> tuple[int, int, int]:
     assert minimum_hole == 36 * m + 20
     assert minimum_paths == (expected_path,)
     assert minimum_holes == (4 * m,)
-    return transitions, arcs, score
+    insertion_gaps, neighbor_pairs = label_one_elimination_certificate(
+        order, selected, score
+    )
+    return transitions, arcs, insertion_gaps, neighbor_pairs, score
 
 
 def main() -> None:
@@ -375,6 +473,7 @@ def main() -> None:
     assert core_order(2, singleton_reversal_shift(2)) == minimum_order
     assert singleton_reversal_shift(3) == monotone_interval_shift(3)
     assert singleton_reversal_shift(4) == (0, 1, 2, 4, 5, 7, 6, 3)
+    symbolic_coefficients = check_symbolic_n_form_identity()
 
     expected_initial = (
         4_297,
@@ -390,11 +489,15 @@ def main() -> None:
     observed_initial: list[int] = []
     dp_transitions = 0
     shortcut_arcs = 0
+    insertion_gaps = 0
+    elimination_neighbor_pairs = 0
 
     for m in range(2, MAX_DP_M + 1):
-        transitions, arcs, score = check_row(m, use_dp=True)
+        transitions, arcs, gaps, neighbor_pairs, score = check_row(m, use_dp=True)
         dp_transitions += transitions
         shortcut_arcs += arcs
+        insertion_gaps += gaps
+        elimination_neighbor_pairs += neighbor_pairs
         if m <= 10:
             observed_initial.append(score)
 
@@ -405,6 +508,8 @@ def main() -> None:
 
     assert dp_transitions == 37_475_656
     assert shortcut_arcs == 968_774
+    assert insertion_gaps == 4_727
+    assert elimination_neighbor_pairs == 484_387
     assert Fraction(143, 500) - Fraction(857, 3000) == Fraction(1, 3000)
     assert (score_formula(2), canonical_k825(2), exact_canonical_gap(2)) == (
         4_297,
@@ -421,10 +526,14 @@ def main() -> None:
     print(f"max-plus/all-arcs rows: {MAX_DP_M - 1} (m=2..{MAX_DP_M})")
     print(f"max-plus transitions: {dp_transitions}")
     print(f"proper oriented-arc checks: {shortcut_arcs}")
+    print(f"label-one insertion gaps checked: {insertion_gaps}")
+    print(f"label-one neighbor-pair inequalities: {elimination_neighbor_pairs}")
     print(f"formula/support rows: {FORMULA_MAX_M - 1} (m=2..{FORMULA_MAX_M})")
     print("unique argmax B_m on every max-plus row")
     print("doubleton, empty ranges, and every cyclic-cut arc included")
-    print("target identity, five residue branches, and K825 gaps verified")
+    print("n-form identity, target, five residue branches, and K825 gaps verified")
+    print(f"symbolic n-form coefficient tuple: {symbolic_coefficients}")
+    print("rho and geometric bounds use CR22/CR27; no floating-pi diagnostic")
 
 
 if __name__ == "__main__":

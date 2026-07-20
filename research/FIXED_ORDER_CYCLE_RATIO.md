@@ -183,9 +183,13 @@ in `research/ALL_N_LOWER_BOUND.md`.
   Every deletion gain and compressed shortcut is strict. The exact identity
   \(K_\uparrow-K_*=(m-1)(m-2)(m-3)/3\) proves the fixed-subsequence
   coefficient \(857/3000\). Canonical K825 is strictly larger on every
-  row. These are one-map combinatorial statements with no production,
-  permanent, angular, geometric, global-minimizer, or global-optimality
-  consequence.
+  row. For every insertion of label \(1\), exact elimination gives
+  \(\Lambda=K_*\), and the strict fixed-order sandwich bounds its angular
+  threshold between \(K_*/\pi-n^2\) and \(K_*/\pi\). Consequently
+  \(R_2^*(10m+4)<K_*/\pi\), with subsequential upper coefficient
+  \(857/(3000\pi)\). This proves no minimizing-order or geometric
+  optimality, no matching global lower bound, no all-residue limsup bound,
+  and no exact leading constant for the global optimum \(R_2^*\).
 - **EXACT THEOREM:** the accepted same-order comparison gives
   \(\Lambda_n\le(n-1)W_n\). Combined with the strict cyclic-ratio sandwich,
   this yields
@@ -16014,26 +16018,98 @@ K_{825}-K_*={1\over3000}n^3+O(n^2).}
 
 Equivalently, (KRPGE5-28) supplies the full reduction from the monotone
 coefficient \(143/500=858/3000\) to \(857/3000\).  This is a coefficient
-for one fixed PGE5 subsequence and one fixed supported order, not a global
-minimizing-order or geometric coefficient theorem.
+for one fixed PGE5 subsequence and one fixed supported core.  Its precise
+fixed-order and geometric consequences follow from the exact general
+theorems already proved above.
+
+### Exact label-one elimination and geometric closure
+
+Insert label \(1\) into an arbitrary cyclic gap \(g\) of
+\(\tau_m^{(5,*)}\), and denote the resulting complete order by
+\(\sigma_{m,g}^{(5,*)}\).  Deleting label \(1\) recovers exactly
+\(\tau_m^{(5,*)}\), independently of \(g\).  Therefore the exact
+label-one elimination theorem (CR12p), together with (KRPGE5-7), gives
+
+\[
+\boxed{
+\Lambda\bigl(\sigma_{m,g}^{(5,*)}\bigr)=K_*}
+\qquad\text{for every insertion gap }g.
+\tag{KRPGE5-33}
+\]
+
+In particular, (CR12m)--(CR12q) apply literally: no maximizing label subset
+contains \(1\), while the unique core maximizer from (KRPGE5-6) remains
+\(B_m\).  Applying the strict fixed-order sandwich (CR22) with
+\(n=10m+4\) now yields
+
+\[
+\boxed{
+{K_*\over\pi}-(10m+4)^2
+<\rho_{\sigma_{m,g}^{(5,*)}}
+<{K_*\over\pi}}
+\qquad\text{for every insertion gap }g.
+\tag{KRPGE5-34}
+\]
+
+This does not assert that the thresholds are independent of \(g\); only
+their common exact \(\Lambda\)-value and common strict enclosure have been
+proved.  At the global level, (CR28a) and (CR27) permit only the one-sided
+substitution
+
+\[
+\boxed{
+R_2^*(10m+4)
+<{\Lambda_{10m+4}\over\pi}
+\le {K_*\over\pi}.}
+\tag{KRPGE5-35}
+\]
+
+Finally, (KRPGE5-31)--(KRPGE5-32) give
+\(K_*/(10m+4)^3\to857/3000\).  Thus the requested geometric
+subsequential corollary is
+
+\[
+\boxed{
+\limsup_{m\to\infty}
+{R_2^*(10m+4)\over(10m+4)^3}
+\le {857\over3000\pi}.}
+\tag{KRPGE5-36}
+\]
+
+No equality \(\Lambda_{10m+4}=K_*\), minimizing-order theorem, or geometric
+optimality follows.  The lower side of (KRPGE5-34) cannot be transferred to
+\(R_2^*(10m+4)\), so there is no matching global lower bound.  Equation
+(KRPGE5-36) is confined to \(n\equiv4\pmod {10}\) and therefore gives no
+all-\(n\) limsup bound.  It is an upper coefficient, not an exact leading
+constant for the global optimum \(R_2^*\) or a convergence theorem for that
+global sequence.  Likewise, \(K_*<K_{825}\) compares the two exact
+\(\Lambda\)-scores but does not by itself order their exact angular
+thresholds.
 
 ### Independent bounded verification and scope
 
-The sole diagnostic for (KRPGE5-1)--(KRPGE5-32) is the standalone
+The sole diagnostic for (KRPGE5-1)--(KRPGE5-36) is the standalone
 standard-library script
 `ops/TASK-20260720__pge5_singleton_reversal_exact_k/exact_diagnostic.py`.
 On \(m=2,\ldots,30\), a candidate-free least-selected-position max-plus
 recurrence checks the exact score and complete argmax classification.  A
 separate all-oriented-arc traversal checks every deletion budget, the exact
 raw-arc plus hole-budget identity, and every proper cyclic arc, including all
-arcs through the displayed cut.  Formula, support, five-residue, target, and
-K825 checks continue through \(m=1000\).  The accepted monotone order is
+arcs through the displayed cut.  On the same bounded rows it checks every
+label-one insertion gap and the exact elimination inequalities; the
+\(n\)-form identity (KRPGE5-31) is also checked coefficientwise in the
+independent symbols \(m,q\); formula, support, five-residue, target, and K825
+checks continue through \(m=1000\).  The accepted monotone order is
 reconstructed only for the pointwise cancellation check.  The script imports
 no project or test helper and searches no path assignment, matching,
-supported-bijection family, subset, cyclic-order family, or permanent.  These
-bounded computations corroborate but do not prove the all-\(m\) theorem.
+supported-bijection family, alternative core-order family, subset, or
+permanent.  These bounded computations corroborate but do not prove the
+all-\(m\) theorem or the real-arithmetic angular sandwich.
 
-All claims in this section concern \(W\) and induced \(K\) for the one map
+The construction-specific claims in this section concern \(W\), induced
+\(K\), and the exact consequences (KRPGE5-33)--(KRPGE5-36) for the one map
 (KRPGE5-1).  They change no production or test file, optimize no other PGE5
-bijection, count no permanent, infer no angular or geometric result, and
-assert no global \(K\)-minimality or global optimality.
+bijection, and count no permanent.  Their exact limitations are the absence
+of a minimizing-order or geometric-optimality theorem, a matching global
+lower bound, an all-\(n\) limsup bound, and an exact leading constant for the
+global optimum \(R_2^*\).
