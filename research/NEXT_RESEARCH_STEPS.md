@@ -31,29 +31,42 @@ The superficially similar Ferrers count and monotone threshold-closing
   [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#20-exact-k-for-the-fixed-pge5-interval-shift)
   and the [stable synopsis](../PROJECT_KNOWLEDGE.md#product-distance-surrogate).
 
+- **COMPLETED -- PGE5 singleton-reversal \(K\):** on the same
+  \(n=10m+4\), \(m\ge2\) scaffold, (KRPGE5-1)--(KRPGE5-32) evaluate only
+  the map that keeps the interval shift through the doubleton, reverses the
+  complete singleton block, and puts \(P_q\) in the closing gap. The map is
+  supported and has \(W=W_n\); its sole induced-\(K\) maximizing subset is
+  \(\{4m+1,\ldots,10m+4\}\). Exact cancellation confirms
+  \(K_\uparrow-K_*=(m-1)(m-2)(m-3)/3\), the fixed-family coefficient
+  \(857/3000\), and strict pointwise improvement over K825. This milestone
+  changes no production or test file and makes no permanent, angular,
+  geometric, or global-optimality claim. See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#21-exact-k-for-the-pge5-singleton-reversal-shift)
+  and the [stable synopsis](../PROJECT_KNOWLEDGE.md#product-distance-surrogate).
+
 ## Sole Next Atomic Task
 
 After manual review, run one fresh STRICT post-review audit of the new
-KPGE5 theorem and its diagnostic at the reviewed commit.
+KRPGE5 theorem and its diagnostic at the reviewed commit.
 
 Acceptance criteria:
 
-- audit KPGE5-1--KPGE5-30 line by line against the literal PGE5 scaffold;
-- independently rederive the block sum, five residue branches, minimum row,
-  and exact K825 subtraction without importing the task formula as an
-  oracle criterion;
+- audit KRPGE5-1--KRPGE5-32 line by line against the literal PGE5 scaffold;
+- independently rederive support, every deletion/shortcut class, the block
+  sum, target cancellation, five residue branches, and exact K825 subtraction
+  without importing the task formula as an oracle criterion;
 - rerun the standalone bounded oracle and repository verification at the
   reviewed commit, recording exact provenance and any contradictory result;
 - check document roles, links, tags, and all scope/non-consequence language;
   and
 - introduce no new bijection, permanent count, or mathematical extension.
 
-This audit is not executed by the present theorem-development task. No
-Ferrers-permanent count is a competing priority.
+This audit is not executed by the present theorem-development task. It adds
+no second bijection, and no Ferrers-permanent count is a competing priority.
 
 ## Deferred, Not Prioritized
 
-All other open directions remain deferred until the new KPGE5 theorem is
+All other open directions remain deferred until the new KRPGE5 theorem is
 reviewed and audited. They include the filtered cubic-convergent obstruction,
 finer Ferrers-count residuals, the asymptotic coefficient gap, tighter finite
 brackets at \(n=5,6\), the radius-one threshold below \(12\), and later

@@ -2607,6 +2607,49 @@ and `ops/`.
   matching, path assignment, path permutation, supported-bijection family,
   or permanent. The finite computation corroborates rather than proves the
   all-\(m\) theorem.
+- EXACT PGE5 SINGLETON-REVERSAL THEOREM (KRPGE5-1--KRPGE5-32): on the same
+  \(n=10m+4\), \(m\ge2\) scaffold, put
+  \(q=\lfloor(4m+3)/5\rfloor\), retain the interval shift through the
+  doubleton, reverse precisely the complete singleton block, and assign
+  \(P_q\) to the genuine closing gap. The five image blocks partition all
+  path indices, and every image belongs to (PGE5-23), including the forced
+  edge, doubleton, empty singleton range at \(m=2\), and exact cyclic
+  threshold. Hence the map is a supported bijection and has \(W=W_n\).
+  Its complete induced-subset classification is
+  \[
+  \operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}P(U)
+  =\bigl\{\{4m+1,\ldots,10m+4\}\bigr\},
+  \]
+  and
+  \[
+  K_*={1714m^3+2439m^2+24mq+965m+12q^2+60q+120\over6}.
+  \]
+  The nine exhaustive deletion classes have unique minimum \(36m+20\) at
+  \(\lambda_0\). Every compressed shortcut is strict; the unique minimum is
+  the genuine closing margin \(9\) at \(m=2\), and \(4m+2\) at \(c_0\)
+  for \(m\ge3\). Exact singleton-block cancellation proves
+  \[
+  K_\uparrow-K_*={(m-1)(m-2)(m-3)\over3},
+  \]
+  including equality at \(m=2,3\); therefore the new fixed-subsequence
+  coefficient is \(857/3000\). Canonical K825 is strictly larger pointwise,
+  with the five exact gap branches in (KRPGE5-30). This is one fixed-core
+  combinatorial theorem and implies nothing about another supported map, the
+  permanent, production, geometry, global \(K\)-minimality, or global
+  optimality. The detailed proof is authoritative in
+  [`research/FIXED_ORDER_CYCLE_RATIO.md`](research/FIXED_ORDER_CYCLE_RATIO.md#21-exact-k-for-the-pge5-singleton-reversal-shift).
+- VERIFIED FACT (FINITE EXACT PGE5 SINGLETON-REVERSAL DIAGNOSTIC): the sole
+  standalone standard-library script in
+  `ops/TASK-20260720__pge5_singleton_reversal_exact_k/` constructs the one
+  prescribed map and the accepted monotone comparator only for direct score
+  cancellation. On \(m=2,\ldots,30\), a candidate-free max-plus recurrence
+  checks the unique backbone through 37,475,656 transitions, while a separate
+  all-arcs traversal checks every deletion budget and all 968,774 proper
+  oriented arcs, including the cyclic cut. Formula, support, empty-range,
+  target, residue, and K825 checks continue through \(m=1000\). It imports no
+  project/test helper and searches no subset, matching, path assignment,
+  supported-bijection family, cyclic-order family, or permanent. The finite
+  computation corroborates rather than proves the all-\(m\) theorem.
 - EXACT \(n=10m+3\), \(e=4\) FERRERS COUNT THEOREM: put
   \(v=2m\), \(d=8m+4\), and
   \[

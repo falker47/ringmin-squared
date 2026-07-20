@@ -172,6 +172,20 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \(m=2\); there is no argmax or score exception. This fixed-core theorem
   has no angular, geometric, global-minimizer, or global-optimality
   consequence.
+- **EXACT THEOREM (PGE5 SINGLETON-REVERSAL CORE):** on that same scaffold,
+  Section 21 keeps the interval shift through the doubleton, reverses the
+  entire singleton block, and puts \(P_q\) in the closing gap. The map is a
+  supported bijection with \(W=W_n\), its sole induced-\(K\) maximizer is
+  \(B_m=\{4m+1,\ldots,10m+4\}\), and
+  \[
+  K_*={1714m^3+2439m^2+24mq+965m+12q^2+60q+120\over6}.
+  \]
+  Every deletion gain and compressed shortcut is strict. The exact identity
+  \(K_\uparrow-K_*=(m-1)(m-2)(m-3)/3\) proves the fixed-subsequence
+  coefficient \(857/3000\). Canonical K825 is strictly larger on every
+  row. These are one-map combinatorial statements with no production,
+  permanent, angular, geometric, global-minimizer, or global-optimality
+  consequence.
 - **EXACT THEOREM:** the accepted same-order comparison gives
   \(\Lambda_n\le(n-1)W_n\). Combined with the strict cyclic-ratio sandwich,
   this yields
@@ -15434,3 +15448,592 @@ All claims in this section concern induced \(K\) on the one fixed core
 Ferrers permanent, modify a construction or production code, infer an exact
 angular or geometric statement, classify a global \(K\)-minimizer, or assert
 global optimality.
+
+## 21. Exact \(K\) For The PGE5 Singleton-Reversal Shift
+
+Retain only the PGE5 scaffold (PGE5-1)--(PGE5-4), so
+
+\[
+d=8m+5,\qquad n=10m+4,\qquad m\ge2,
+\qquad
+q=\left\lfloor{4m+3\over5}\right\rfloor
+=\kappa_{2m-1}.
+\]
+
+Starting from the accepted monotone interval shift (KPGE5-1), keep the
+shift through the doubleton, reverse the entire actual singleton block, and
+leave \(P_q\) in the genuine closing gap.  Explicitly, define just the one
+map
+
+\[
+\boxed{
+\alpha_m^{(5,*)}(j)=
+\begin{cases}
+j,&0\le j<q,\\
+j+1,&q\le j\le m-1,\\
+m+1,&j=m,\\
+3m-j,&m+1\le j\le2m-2,\\
+q,&j=2m-1.
+\end{cases}}
+\tag{KRPGE5-1}
+\]
+
+The five image blocks are
+
+\[
+[0,q-1],\qquad [q+1,m],\qquad\{m+1\},\qquad
+[m+2,2m-1],\qquad\{q\}.
+\tag{KRPGE5-2}
+\]
+
+They are disjoint and partition \(\{0,\ldots,2m-1\}\), with every empty
+range interpreted literally.  Thus (KRPGE5-1) is a bijection.  It is also
+supported by the exact PGE5 theorem.  The edge at \(j=0\) is the forced
+edge \((0,0)\).  For \(1\le j<q\), (PGE5-15)--(PGE5-16) give
+\(j\ge\kappa_j\); for \(q\le j\le m-1\), one has
+\(j+1\ge\kappa_j\).  The image at \(j=m\) is the universal doubleton,
+every image for \(m+1\le j\le2m-2\) is a universal singleton, and the
+closing image is exactly \(q=\kappa_{2m-1}\).  Hence every positive-column
+edge lies in (PGE5-23), and (PGE5-26) proves the exact fixed-construction
+statement
+
+\[
+\boxed{
+\alpha_m^{(5,*)}\text{ is a supported bijection},\qquad
+W(\sigma_{\alpha_m^{(5,*)}})=W_n={d(d-1)\over2}.}
+\tag{KRPGE5-3}
+\]
+
+This conclusion uses the complete all-distance PGE5 theorem; it is not an
+adjacent-only inference.
+
+With \(j^+=j+1\pmod{2m}\), reconstruct the literal core as
+
+\[
+\boxed{
+\tau_m^{(5,*)}
+=\mathop{\bigcirc}_{j=0}^{2m-1}
+ (E_j,\lambda_j,P_{\alpha_m^{(5,*)}(j)},\rho_{j^+}).}
+\tag{KRPGE5-4}
+\]
+
+Every path retains its orientation from (PGE5-4), and the final \(\rho_0\)
+closes back to \(E_0\).  Put
+
+\[
+L=4m+1,\qquad H_m=\{2,\ldots,4m\},\qquad
+B_m=\{L,\ldots,10m+4\}.
+\tag{KRPGE5-5}
+\]
+
+The exact maximizing-subset classification is
+
+\[
+\boxed{
+\operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}
+P_{\tau_m^{(5,*)}}(U)=\{B_m\}.}
+\tag{KRPGE5-6}
+\]
+
+Thus the displayed singleton is the complete argmax list.  Its value is
+
+\[
+\boxed{
+K_*:=K(\tau_m^{(5,*)})
+={1714m^3+2439m^2+24mq+965m+12q^2+60q+120\over6}.}
+\tag{KRPGE5-7}
+\]
+
+We first prove (KRPGE5-6), without using the block sum as a substitute for
+the shortcut audit.
+
+### Exact compressed backbone
+
+Every member of \(H_m\) is isolated between two members of \(B_m\).
+Deleting all of them and starting at \(L=\rho_0\) gives the cyclic word
+
+\[
+\boxed{
+\left(
+L,
+(E_j,P_j)_{j=0}^{q-1},
+(E_j,P_{j+1})_{j=q}^{m-1},
+E_m,a,b,
+(E_j,x_{3m-j})_{j=m+1}^{2m-2},
+E_{2m-1},P_q
+\right).}
+\tag{KRPGE5-8}
+\]
+
+Every indexed block is concatenated in increasing \(j\), while the path
+indices in the singleton block decrease.  The shifted-triple range is empty
+exactly at \(m=2,3\), because exactly there \(q=m\).  The singleton range
+is empty exactly at \(m=2\), has one member at \(m=3\), and is first
+reversed nontrivially at \(m=4\).  The doubleton
+\((a,b)=(5m+3,5m+4)\) occurs on every row and keeps its orientation.
+
+### Complete deletion-gain audit
+
+For a hole \(z\in H_m\) between its backbone neighbors \(u,w\), put
+
+\[
+h_z=uw-z(u+w).
+\tag{KRPGE5-9}
+\]
+
+Literal substitution in (KRPGE5-8) gives all nine position classes:
+
+\[
+\begin{array}{c|c|c}
+\text{hole}&\text{gap range}&h_z\\ \hline
+\lambda_j&0\le j<q&
+-4j^2+(28m+12)j+36m+20\\
+\rho_{j+1}&0\le j<q&
+-4j^2+(28m+8)j+52m+27\\
+\lambda_j&q\le j\le m-1&
+-4j^2+(28m+6)j+28m+10\\
+\rho_{j+1}&q\le j\le m-1&
+-4j^2+(28m+2)j+44m+13\\
+\lambda_m&&17m^2+36m+15\\
+\rho_{m+1}&&17m^2+60m+34\\
+\lambda_j&m+1\le j\le2m-2&
+-j^2+(29m+14)j-4m^2+27m+15\\
+\rho_{j+1}&m+1\le j\le2m-2&
+-j^2+(29m+15)j-4m^2+45m+27\\
+\lambda_{2m-1}=2&&80m^2-20mq+36m-4q.
+\end{array}
+\tag{KRPGE5-10}
+\]
+
+The middle two singleton rows are absent at \(m=2\).  The two unindexed
+rows are exactly the doubleton holes.  The last row is the cyclic closing
+hole between \(E_{2m-1}=n\) and \(A_q\); no nonclosing right-hole formula
+has been continued across the cut.  The class cardinalities sum to
+
+\[
+2q+2(m-q)+2+2(m-2)+1=4m-1=|H_m|,
+\]
+
+so every hole occurs once and \(\rho_0=L\) is retained.
+
+The forward differences of the six ranged classes, in table order, are
+
+\[
+\begin{gathered}
+28m+8-8j,\quad28m+4-8j,\quad
+28m+2-8j,\quad28m-2-8j,\\
+29m+13-2j,\qquad29m+14-2j.
+\end{gathered}
+\tag{KRPGE5-11}
+\]
+
+They are positive on their literal ranges.  The first left class begins at
+\(36m+20\), and the first right class begins at \(52m+27\).  If the
+shifted-triple range is nonempty, its two left-end excesses over
+\(36m+20\) are at least \(64m+8\) and \(80m-1\).  The two doubleton
+excesses are
+
+\[
+17m^2-5,\qquad17m^2+24m+14.
+\]
+
+When the singleton range is nonempty, its two initial excesses are
+
+\[
+8(m+1)(3m+1),\qquad3(8m^2+17m+7).
+\]
+
+Finally, using \(q\le m\), the closing excess is at least
+\(60m^2-4m-20>0\).  Therefore every deletion is strictly profitable and
+
+\[
+\boxed{
+\min_{z\in H_m}h_z=36m+20>0,}
+\tag{KRPGE5-12}
+\]
+
+with equality only for \(z=\lambda_0=4m\).
+
+### Complete compressed-shortcut audit
+
+Apply the exact identity (K825-8).  After deleting only the internal holes
+from an oriented arc, write its compressed path as
+
+\[
+C=(z_0,z_1,\ldots,z_s),\qquad s\ge2,\qquad
+M(C)=\sum_{i=0}^{s-1}z_i z_{i+1}-z_0z_s.
+\tag{KRPGE5-13}
+\]
+
+If an endpoint \(a\) is a hole, each boundary-adjacent internal vertex is
+at least \(L\).  For the other endpoint \(b\), the four corners give
+
+\[
+M(C)\ge L(a+b)-ab\ge4L-4=16m.
+\tag{KRPGE5-14}
+\]
+
+This covers one or two low endpoints in both orientations and is strictly
+above the final minimum below.
+
+Now take both endpoints in \(B_m=[L,n]\).  For \(s=2\), a triple connector
+has the assignment-independent margin
+
+\[
+M(A_k,c_k,B_k)
+=-8k^2+(32m+13)k+4m+2,
+\qquad0\le k\le m.
+\tag{KRPGE5-15}
+\]
+
+Its forward difference is \(32m+5-16k>0\), so this class has the unique
+minimum \(4m+2\) at \(c_0\).  The two separate doubleton roles are
+
+\[
+\begin{aligned}
+M(E_m,a,b)&=25m^2+26m+7,\\
+M(a,b,E_{m+1})&=25m^2+44m+18.
+\end{aligned}
+\tag{KRPGE5-16}
+\]
+
+For a reversed singleton put \(j=m+1+t\), where
+\(0\le t\le m-3\).  Its exact terminal-to-terminal margin is
+
+\[
+\begin{aligned}
+M(E_j,x_{3m-j},E_{j+1})
+&=27m^2-24mt-3m-3t^2-22t-16\\
+&\ge65m+23.
+\end{aligned}
+\tag{KRPGE5-17}
+\]
+
+The expression strictly decreases with \(t\), so the final singleton is
+the unique minimum in this class.  The range is empty at \(m=2\) and has
+one member at \(m=3\).
+
+The retained closing label \(L=\rho_0\) lies between \(B_q\) and \(E_0\),
+with
+
+\[
+M(B_q,L,E_0)=8mq-16m+8q-7.
+\tag{KRPGE5-18}
+\]
+
+This is \(9\) at \((m,q)=(2,2)\).  For \(m\ge3\), one has \(q\ge3\),
+and its excess over \(4m+2\) is at least \(4m+15\).
+
+The remaining two-edge middle roles are outer triple labels and terminals,
+all at least \(R=6m+3\).  For distinct endpoints \(u,w\in[L,n]\), the
+identity
+
+\[
+y(u+w)-uw=y^2-(u-y)(w-y)
+\]
+
+gives, according as both endpoints are above \(y\), below \(y\), or on
+opposite sides,
+
+\[
+M(C)\ge
+\begin{cases}
+20m^2+32m+9,&u,w>y,\\
+32m^2+30m+7,&u,w<y,\\
+(6m+3)^2,&u<y<w\text{ or }w<y<u.
+\end{cases}
+\tag{KRPGE5-19}
+\]
+
+The middle-role count
+
+\[
+(m+1)+2+(m-2)+1+2(m+1)+2m=6m+4=|B_m|
+\]
+
+accounts respectively for connectors, doubleton members, singletons,
+\(L\), outer triple labels, and terminals.  Thus no two-edge role is
+missing.
+
+For \(s=3\), every adjacent pair of internal backbone labels contains one
+member at least \(R\) and the other at least \(L\), except for the literal
+doubleton pair.  Reversing the path if needed and checking the four endpoint
+corners gives
+
+\[
+M(C)\ge RL=24m^2+18m+3.
+\tag{KRPGE5-20}
+\]
+
+The reversed singleton blocks satisfy this property because every singleton
+is flanked by terminals.  The exceptional doubleton window is also strict:
+
+\[
+M(E_m,a,b,E_{m+1})=34m^2+54m+21.
+\]
+
+For every \(s\ge4\), all internal labels are at least \(L\), and the four
+corners give
+
+\[
+M(C)\ge
+12m^2-12m-6+(s-4)L^2>4m+2.
+\tag{KRPGE5-21}
+\]
+
+The full compressed closing word remains
+
+\[
+E_{2m-1},A_q,c_q,B_q,L,E_0.
+\]
+
+Thus (KRPGE5-18) treats the retained closing middle role,
+(KRPGE5-20) treats both adjacent pairs through the cut, and
+(KRPGE5-21) treats every longer cut-crossing arc.  The distinct closing
+hole was already the final row of (KRPGE5-10).  Combining every endpoint,
+length, middle-role, doubleton, and cyclic class proves
+
+\[
+\boxed{
+\min_{C:\,s\ge2}M(C)=
+\begin{cases}
+9,&m=2,\quad C=(15,9,21)=(B_q,L,E_0),\\
+4m+2,&m\ge3,\quad C=(A_0,c_0,B_0).
+\end{cases}}
+\tag{KRPGE5-22}
+\]
+
+In each row the displayed forward arc is the unique equality arc in the
+fixed cyclic presentation.  The strict gains (KRPGE5-12), strict shortcuts
+(KRPGE5-22), and exact lemma (K825-6)--(K825-9) force every maximizing
+subset of cardinality at least two to omit every hole and retain every
+backbone edge.  It is therefore exactly \(B_m\).  The same lemma applied to
+\(\{n-1,n\}\), with its product counted twice, gives
+\(P_{\tau_m^{(5,*)}}(B_m)\ge2n(n-1)>n^2\), so no singleton can tie.
+This proves (KRPGE5-6), including every equality case.
+
+### Exact block sum and five residue classes
+
+For a nonempty path \(P=(p_1,\ldots,p_s)\), retain
+
+\[
+\mathcal C(x,P,y)=xp_1+\sum_{i=1}^{s-1}p_ip_{i+1}+p_sy.
+\]
+
+Reading (KRPGE5-8) from \(L\), the exact score is
+
+\[
+\begin{aligned}
+K_*={}&LE_0
++\sum_{j=0}^{q-1}\mathcal C(E_j,P_j,E_{j+1})
++\sum_{j=q}^{m-1}\mathcal C(E_j,P_{j+1},E_{j+1})\\
+&+\mathcal C(E_m,(a,b),E_{m+1})
++\sum_{j=m+1}^{2m-2}x_{3m-j}(E_j+E_{j+1})
++\mathcal C(E_{2m-1},P_q,L).
+\end{aligned}
+\tag{KRPGE5-23}
+\]
+
+The repeated summands and boundary terms are
+
+\[
+\begin{aligned}
+\mathcal C(E_j,P_j,E_{j+1})
+&=-8j^2-16mj-16j+192m^2+204m+52,\\
+\mathcal C(E_j,P_{j+1},E_{j+1})
+&=-8j^2-16mj-28j+192m^2+172m+25,\\
+\mathcal C(E_m,(a,b),E_{m+1})
+&=115m^2+153m+51,\\
+x_{3m-j}(E_j+E_{j+1})
+&=-2j^2-2mj-5j+112m^2+125m+33,\\
+\mathcal C(E_{2m-1},P_q,L)
+&=176m^2-28mq+152m-4q^2-11q+33,\\
+LE_0&=32m^2+28m+5.
+\end{aligned}
+\tag{KRPGE5-24}
+\]
+
+Standard sums of \(j\) and \(j^2\) on the literal ranges of
+(KRPGE5-23) give (KRPGE5-7), including both empty ranges.
+
+If \(r=m\bmod5\), write
+
+\[
+q={4m+c_r\over5},\qquad
+(c_0,c_1,c_2,c_3,c_4)=(0,1,2,3,-1).
+\]
+
+Then
+
+\[
+\boxed{
+K_*={42850m^3+61647m^2+(25325+216c_r)m
+ +3000+300c_r+12c_r^2\over150}.}
+\tag{KRPGE5-25}
+\]
+
+Equivalently,
+
+\[
+\begin{array}{c|c|c|c}
+r&q&n\bmod50&150K_*\\ \hline
+0&4m/5&4&42850m^3+61647m^2+25325m+3000\\
+1&(4m+1)/5&14&42850m^3+61647m^2+25541m+3312\\
+2&(4m+2)/5&24&42850m^3+61647m^2+25757m+3648\\
+3&(4m+3)/5&34&42850m^3+61647m^2+25973m+4008\\
+4&(4m-1)/5&44&42850m^3+61647m^2+25109m+2712.
+\end{array}
+\tag{KRPGE5-26}
+\]
+
+The five rows begin at \(m=5,6,2,3,4\), respectively.  Every numerator
+is divisible by \(150\) on its stated class because it is the integer block
+score (KRPGE5-23); there is no residual correction.
+
+### Boundary rows and the singleton-reversal target
+
+At \(m=2\), both the shifted-triple and singleton ranges are empty,
+\(q=2\), and
+
+\[
+\alpha_2^{(5,*)}=(0,1,3,2),\qquad
+B_2=\{9,\ldots,24\},\qquad K_*=4297.
+\]
+
+The doubleton occupies \(G_2\), \(P_2\) closes, and the literal core is
+exactly the one displayed in (KPGE5-23).  Its unique deletion and shortcut
+minima are \(92\) at \(\lambda_0\) and \(9\) on the genuine closing arc.
+At \(m=3\), the shifted-triple range is still empty and the singleton block
+has one member, so reversal is order-neutral:
+
+\[
+\alpha_3^{(5,*)}=(0,1,2,4,5,3),\qquad K_*=11958.
+\]
+
+At \(m=4\), the first nontrivial reversal is
+
+\[
+\alpha_4^{(5,*)}=(0,1,2,4,5,7,6,3),\qquad K_*=25546.
+\tag{KRPGE5-27}
+\]
+
+Let \(K_\uparrow=K(\tau_m^{(5,\uparrow)})\) be the accepted score from
+Section 20.  The two backbones agree outside the singleton gaps.  In gap
+\(j\), the monotone singleton is \(x_{j+1}\), while the new singleton is
+\(x_{3m-j}\).  Direct edge cancellation therefore gives
+
+\[
+\begin{aligned}
+K_\uparrow-K_*
+&=\sum_{j=m+1}^{2m-2}
+ (x_{j+1}-x_{3m-j})(E_j+E_{j+1})\\
+&=\sum_{j=m+1}^{2m-2}
+ (2j-3m+1)(16m+11+2j)\\
+&=\boxed{{(m-1)(m-2)(m-3)\over3}}\\
+&={ (n-14)(n-24)(n-34)\over3000}.
+\end{aligned}
+\tag{KRPGE5-28}
+\]
+
+Thus the proposed target is **proved**, including the empty sum at \(m=2\)
+and the zero singleton contribution at \(m=3\).  The gain is strictly
+positive exactly for \(m\ge4\).  The individual summands can have mixed
+signs; (KRPGE5-28) is an aggregate cyclic-score identity, not a gapwise
+dominance statement.
+
+### Pointwise comparison with canonical K825
+
+On the same \(n=10m+4\) row, retain (KPGE5-25):
+
+\[
+K_{825}(m)={572m^3+819m^2+361m+44\over2}.
+\]
+
+Exact subtraction from (KRPGE5-7) gives
+
+\[
+\boxed{
+K_{825}(m)-K_*
+={m^3+9m^2-12mq+59m-6q^2-30q+6\over3}.}
+\tag{KRPGE5-29}
+\]
+
+The numerator decreases with \(q\ge0\).  Since \(q\le m\), for \(m\ge3\)
+it is at least
+
+\[
+m^3-9m^2+29m+6=(m-3)^3+2m+33>0.
+\]
+
+At \(m=2\), its literal value is \(36\).  Hence K825 is strictly larger
+on every row, with no tie or crossover.  The exact five pointwise branches
+are
+
+\[
+\begin{array}{c|c}
+m\bmod5&75(K_{825}-K_*)\\ \hline
+0&25m^3-111m^2+875m+150\\
+1&25m^3-111m^2+767m-6\\
+2&25m^3-111m^2+659m-174\\
+3&25m^3-111m^2+551m-354\\
+4&25m^3-111m^2+983m+294.
+\end{array}
+\tag{KRPGE5-30}
+\]
+
+The first representative of every admitted residue class gives
+
+\[
+\begin{array}{c|c|c|c|c|c}
+m&m\bmod5&q&K_*&K_\uparrow&K_{825}\\ \hline
+2&2&2&4297&4297&4309\\
+3&3&3&11958&11958&11971\\
+4&4&3&25546&25548&25600\\
+5&0&4&46847&46855&46912\\
+6&1&5&77543&77563&77623.
+\end{array}
+\]
+
+Finally, \(q=\lfloor(2n+7)/25\rfloor\), and direct substitution gives
+
+\[
+\boxed{
+3000K_*=857n^3+1911n^2+1200nq-8174n
+ +6000q^2+25200q+7272.}
+\tag{KRPGE5-31}
+\]
+
+Consequently
+
+\[
+\boxed{
+K_*={857\over3000}n^3+O(n^2),\qquad
+K_{825}-K_*={1\over3000}n^3+O(n^2).}
+\tag{KRPGE5-32}
+\]
+
+Equivalently, (KRPGE5-28) supplies the full reduction from the monotone
+coefficient \(143/500=858/3000\) to \(857/3000\).  This is a coefficient
+for one fixed PGE5 subsequence and one fixed supported order, not a global
+minimizing-order or geometric coefficient theorem.
+
+### Independent bounded verification and scope
+
+The sole diagnostic for (KRPGE5-1)--(KRPGE5-32) is the standalone
+standard-library script
+`ops/TASK-20260720__pge5_singleton_reversal_exact_k/exact_diagnostic.py`.
+On \(m=2,\ldots,30\), a candidate-free least-selected-position max-plus
+recurrence checks the exact score and complete argmax classification.  A
+separate all-oriented-arc traversal checks every deletion budget, the exact
+raw-arc plus hole-budget identity, and every proper cyclic arc, including all
+arcs through the displayed cut.  Formula, support, five-residue, target, and
+K825 checks continue through \(m=1000\).  The accepted monotone order is
+reconstructed only for the pointwise cancellation check.  The script imports
+no project or test helper and searches no path assignment, matching,
+supported-bijection family, subset, cyclic-order family, or permanent.  These
+bounded computations corroborate but do not prove the all-\(m\) theorem.
+
+All claims in this section concern \(W\) and induced \(K\) for the one map
+(KRPGE5-1).  They change no production or test file, optimize no other PGE5
+bijection, count no permanent, infer no angular or geometric result, and
+assert no global \(K\)-minimality or global optimality.
