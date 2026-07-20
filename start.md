@@ -1604,6 +1604,25 @@ The construction theorem itself stops at \(W\). For the same unchanged core,
 \(857/3000\), and strict same-row improvement over K825. No angular,
 geometric, global-minimizer, or global-optimality consequence follows.
 
+The even-\(v\) analogue on the existing residue-two \(e=2\) scaffold is
+now exact at the requested construction and \(W\) levels only.  On
+\(n=10m+2\), \(m\ge1\), its genuine closing threshold is
+\[
+q=\kappa_{2m-1}
+=\left\lceil{(m-1)(4m+1)\over5m+1}\right\rceil.
+\]
+The map (PGE2-6), fixed before scoring, preserves every triple and doubleton
+orientation, reverses exactly the full singleton block, and puts \(P_q\) in
+the true closing gap.  The two initial Ferrers thresholds are both zero, so
+every local edge is Hall-extendible; this includes the literal minimum-row
+swap \((1,0)\).  The image partition, all empty ranges, closure, and every
+cyclic positional distance give
+\[
+W={(8m+4)(8m+2)\over2}.
+\]
+No \(K\), alternative candidate, production, angular, geometric, or global
+optimality conclusion is part of this theorem.
+
 Separately, prior global results disprove the former target
 \(R_2^*(n)=n^3/(6\pi)(1+o(1))\). The stronger target
 \(R_2^*(n)=n^3/(6\pi)+O(n^2)\) is also disproved.
@@ -3188,6 +3207,24 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   residue branches have coefficient \(857/3000\) and strictly beat
   canonical K825 on the same subsequence, with no tie or crossover. Neither
   theorem infers geometry, global \(K\)-minimality, or global optimality.
+- EXACT EVEN-\(v\) RESIDUE-TWO PG49-STAR THEOREM: on the existing
+  \(e=2\) scaffold with \(n=10m+2\), \(m\ge1\), put
+  \[
+  q=\kappa_{2m-1}
+  =\left\lceil{(m-1)(4m+1)\over5m+1}\right\rceil
+  \]
+  and use (PGE2-6).  Its four image blocks partition
+  \(\{0,\ldots,2m-1\}\); all values pass the exact Ferrers threshold; and
+  the residual Hall support equals the entire local relation because
+  \(\kappa_0=\kappa_1=0\).  The genuine closing column holds at threshold,
+  while \(m=1\) has empty singleton range and
+  \(\alpha^{(2)}_*=(1,0)\).  The exact fixed-order score is
+  \[
+  W(\sigma_{\alpha^{(2)}_*})={(8m+4)(8m+2)\over2}.
+  \]
+  This is one fixed construction theorem only.  It computes no \(K\),
+  changes no production code, and infers no angular, geometric, or global
+  minimizing-order conclusion.
 - EXACT MONOTONE THRESHOLD-CLOSING PG46 THEOREM: put
   \(q=\lfloor(4m+3)/5\rfloor\) and specialize (PG46) to
   \((q,2m-1)\). The resulting assignment moves \(P_q\) to the closing gap
@@ -3303,6 +3340,16 @@ seven-label lemma, then labels `3` and `2`, and only afterward derives the
   unordered cyclic pairs without enumerating an order family, matching, path
   permutation, or subset. The computation corroborates rather than proves
   the all-\(m\) theorem.
+- VERIFIED FACT (BOUNDED EXACT EVEN-\(v\) RESIDUE-TWO PG49-STAR \(W\)
+  DIAGNOSTIC): the sole standalone standard-library script in
+  ops/TASK-20260720__residue_two_pg49_star_w/ constructs only (PGE2-6).
+  Formula, image, threshold, and Ferrers checks cover
+  \(m=1,\ldots,1000\); literal local-word and residual-Hall checks cover
+  \(m=1,\ldots,40\); and exact all-pairs cyclic scoring covers
+  \(m=1,\ldots,80\), totaling 8,710,200 unordered pairs.  It searches no
+  alternative, matching, path permutation, or subset, computes no \(K\), and
+  imports no project or test helper.  This bounded computation corroborates
+  rather than proves the symbolic theorem.
 - VERIFIED FACT (FINITE EXACT ODD-\(v\) PG49-STAR \(K\) DIAGNOSTIC): the
   sole standalone standard-library script in
   ops/TASK-20260719__pgodd_exact_k/ constructs only (PGODD-6). For

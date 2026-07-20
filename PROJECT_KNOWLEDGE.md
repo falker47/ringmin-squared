@@ -1,6 +1,6 @@
 # PROJECT_KNOWLEDGE - power-ringmin
 
-Last reviewed: 2026-07-19
+Last reviewed: 2026-07-20
 
 This file is stable durable project memory. Chronology, command transcripts, failed attempts, and task-local evidence belong in `ops/`.
 
@@ -2795,6 +2795,32 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   proves a strict all-row improvement over same-subsequence K825. These are
   fixed-order combinatorial theorems and imply no angular, geometric, global
   \(K\)-minimality, or global optimum.
+- EXACT EVEN-\(v\) RESIDUE-TWO PG49-STAR THEOREM: on the existing
+  \(e=2\) scaffold with \(n=10m+2\), \(m\ge1\), put
+  \[
+  q=\kappa_{2m-1}
+  =\left\lceil{(m-1)(4m+1)\over5m+1}\right\rceil
+  =\begin{cases}
+  0,&m=1,\\
+  \lfloor(4m+1)/5\rfloor,&m\ge2,
+  \end{cases}
+  \]
+  and use the pre-score map (PGE2-6). It preserves every non-singleton
+  orientation, reverses exactly the complete singleton block, and assigns
+  \(P_q\) to the genuine closing gap. Its four image blocks partition all
+  \(2m\) path indices. The exact local relation is
+  \(k\ge\kappa_j\), and its Hall-extendible support equals the entire local
+  board because \(\kappa_0=\kappa_1=0\). Every image is supported, including
+  the exact closing equality; at \(m=1\), both relevant ranges are empty and
+  \(\alpha^{(2)}_*=(1,0)\). Hence the construction is compatible for every
+  \(m\ge1\), and the complete cyclic distance audit gives
+  \[
+  W(\sigma_{\alpha^{(2)}_*})
+  ={(8m+4)(8m+2)\over2}=32m^2+24m+4.
+  \]
+  This theorem evaluates no \(K\), alternative candidate, production code,
+  angular or geometric consequence, global minimizing order, or global
+  optimum.
 - EXACT MONOTONE THRESHOLD-CLOSING PG46 CORE-ORDER THEOREM: on the same
   \(n=10m+3\), \(m\ge3\), rows, put
   \(q=\lfloor(4m+3)/5\rfloor=\kappa_{2m-1}\) and specialize (PG46) to
@@ -2927,6 +2953,16 @@ This file is stable durable project memory. Chronology, command transcripts, fai
   \(m=1,\ldots,40\); and exact all-pairs cyclic scoring covers
   \(m=1,\ldots,80\). It checks 8,906,280 unordered pairs and enumerates no
   alternative order, matching, path permutation, or subset. The bounded
+  computation corroborates rather than proves the all-domain theorem.
+- VERIFIED FACT (BOUNDED EXACT EVEN-\(v\) RESIDUE-TWO PG49-STAR \(W\)
+  DIAGNOSTIC): the sole standalone standard-library script in
+  ops/TASK-20260720__residue_two_pg49_star_w/ constructs only (PGE2-6).
+  Formula, image, threshold, and Ferrers checks cover
+  \(m=1,\ldots,1000\); literal local-word and residual-Hall checks cover
+  \(m=1,\ldots,40\); and exact all-pairs cyclic scoring covers
+  \(m=1,\ldots,80\). It checks 8,710,200 unordered pairs and searches no
+  candidate, matching, path permutation, order family, or subset. It
+  computes no \(K\) and imports no project or test helper. The bounded
   computation corroborates rather than proves the all-domain theorem.
 - VERIFIED FACT (FINITE EXACT ODD-\(v\) PG49-STAR \(K\) DIAGNOSTIC): the
   sole standalone standard-library script in
@@ -3474,6 +3510,17 @@ Candidate-set extraction uses the following finite-certificate semantics.
   diagnostics, one for construction/\(W\) and one max-plus/all-arcs for
   \(K\), construct no alternative order or matching. Geometry and global
   optimality remain deliberately unevaluated.
+- COMPLETED PRIORITY: the even-\(v\) residue-two PG49-star analogue now has
+  an exact all-domain construction, compatibility, and \(W\) theorem on
+  \(n=10m+2\), \(m\ge1\). The one map fixed before scoring preserves every
+  non-singleton orientation, reverses the full singleton block, and puts the
+  literal threshold path \(P_q\) in the true closing gap. Exact image blocks,
+  Ferrers thresholds, full local Hall support, all empty ranges, the
+  minimum-row swap \((1,0)\), and cyclic closure prove score
+  \((8m+4)(8m+2)/2\). The sole bounded standard-library diagnostic checks
+  8,710,200 unordered cyclic pairs without candidate, matching, path,
+  order-family, or subset search. No \(K\), production, geometric, or global
+  claim is included.
 - COMPLETED PRIORITY: the canonical eight-twenty-fifths core order now has an
   exact all-domain \(K\) theorem. The symbolic maximizer is the tail from
   \(2v+1\), with connector \(2v+2\) additionally removed exactly for

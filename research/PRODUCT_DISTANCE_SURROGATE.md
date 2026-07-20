@@ -236,6 +236,24 @@
   \(\{4m+3,\ldots,10m+8\}\), its five exact residue formulas have coefficient
   \(857/3000\), and its score is strictly below canonical K825 on every row.
   Neither theorem makes a geometric or global-optimality assertion.
+- **EXACT THEOREM (even-\(v\), residue-two PG49-star analogue):** on the
+  existing \(e=2\) scaffold with \(n=10m+2\), \(m\ge1\), put
+  \[
+  q=\kappa_{2m-1}
+  =\left\lceil{(m-1)(4m+1)\over5m+1}\right\rceil.
+  \]
+  The pre-score map (PGE2-6) sends \(P_q\) to the genuine closing gap,
+  preserves every non-singleton orientation, and reverses exactly the full
+  singleton block.  Its image intervals partition all path indices.  Here
+  \(\kappa_0=\kappa_1=0\), so residual Hall shows that every local Ferrers
+  edge is extendible; in particular the minimum row is the compatible swap
+  \(\alpha^{(2)}_*=(1,0)\).  Every positional distance is checked in
+  (PGE2-7)--(PGE2-28), and
+  \[
+  W(\sigma_{\alpha^{(2)}_*})={(8m+4)(8m+2)\over2}.
+  \]
+  This evaluates one fixed construction only: no \(K\), production,
+  geometric, or global-optimality conclusion is included.
 - **EXACT THEOREM (later monotone threshold-closing shortcut evaluation):**
   specialize (PG46) to \((q,2m-1)\), where
   \(q=\lfloor(4m+3)/5\rfloor=\kappa_{2m-1}\). This puts \(P_q\) in the
@@ -6791,6 +6809,373 @@ closure, and \(m=1,2\) shortcut boundaries, and compares the exact five-branch
 score with canonical K825. It does not alter any statement in
 (PGODD-1)--(PGODD-27).
 
+### The even-\(v\) residue-two PG49-star analogue
+
+We now specialize the existing residue-two, or \(e=2\), scaffold before
+inspecting any score.  Put
+
+\[
+n=10m+2,\qquad m\ge1,\qquad v=2m,\qquad
+d=8m+4,\qquad D=d-1=8m+3,
+\]
+
+and retain its exact threshold
+
+\[
+J={d(d-2)\over2}={D^2-1\over2}.
+\tag{PGE2-1}
+\]
+
+For \(0\le j\le2m-1\), define
+
+\[
+E_j=D+j,\qquad
+\lambda_j=4m-2j,\qquad
+\rho_j=4m+1-2j.
+\tag{PGE2-2}
+\]
+
+The already oriented middle paths are
+
+\[
+\begin{aligned}
+P_k&=(A_k,c_k,B_k)
+=(D-1-2k,\ 4m+2+k,\ D-2-2k),
+&&0\le k\le m-1,\\
+P_m&=(a,b)=(5m+2,\ 5m+3),&&\\
+P_k&=(x_k)=(4m+3+k),
+&&m+1\le k\le2m-1.
+\end{aligned}
+\tag{PGE2-3}
+\]
+
+The last range is empty at \(m=1\).  With
+\(j^+=j+1\pmod {2m}\), placing \(P_k\) in gap \(G_j\) means the literal
+cyclic word
+
+\[
+G_{k,j}=(E_j,\lambda_j,P_k,\rho_{j^+},E_{j^+}).
+\tag{PGE2-4}
+\]
+
+Define the prospective Ferrers thresholds and the genuine closing value by
+
+\[
+\kappa_j=
+\left\lceil{(j-1)(D-1)\over2(D+j)}\right\rceil
+\quad(0\le j\le2m-1),
+\qquad
+q=\kappa_{2m-1}.
+\tag{PGE2-5}
+\]
+
+Before any full-order score calculation, fix the sole map considered here:
+
+\[
+\boxed{
+\alpha^{(2)}_*(j)=
+\begin{cases}
+j,&0\le j<q,\\
+j+1,&q\le j\le m-1,\\
+3m-1-j,&m\le j\le2m-2,\\
+q,&j=2m-1.
+\end{cases}}
+\tag{PGE2-6}
+\]
+
+Thus the final-threshold path is prescribed in the actual closing gap, the
+remaining triples and the doubleton shift without changing orientation, and
+all and only the \(m-1\) singleton paths are assigned in reverse order.  No
+part of (PGE2-6) is changed below after its score is known.
+
+#### Exact local relation and Ferrers thresholds
+
+The unchanged terminal--low maximum is
+
+\[
+f_j=E_j\rho_j,
+\qquad
+f_{j+1}-f_j=-(12m+4j+7)<0,
+\qquad
+J-f_0=4m+1>0.
+\tag{PGE2-7}
+\]
+
+The low--low pair across a terminal is smaller still.  For a triple, every
+path-bearing adjacency is dominated by
+
+\[
+A_kc_k=J-2k(k+1)\le J.
+\tag{PGE2-8}
+\]
+
+Its unique placement-dependent distance-two maximum is
+
+\[
+M^{\rm tr}_2(k,j)
+={E_jA_k\over2}
+=J+{(j-1)A_k-2kd\over2}.
+\tag{PGE2-9}
+\]
+
+Indeed, away from the cut and at the cut respectively,
+
+\[
+E_jA_k-B_kE_{j+1}=j+2k+2>0,
+\]
+
+\[
+nA_k-DB_k=(2m-1)A_k+D>0,
+\tag{PGE2-10}
+\]
+
+and the other distance-two forms have both factors dominated by those in
+\(E_jA_k\).  Hence a triple is admitted exactly when
+
+\[
+(j-1)A_k\le2kd
+\quad\Longleftrightarrow\quad
+k\ge\kappa_j.
+\tag{PGE2-11}
+\]
+
+The doubleton is strictly universal.  Its internal edge and a uniform bound
+for every one of its distance-two placements have the exact margins
+
+\[
+J-ab=7m^2-m-2>0,
+\qquad
+2J-nb=14m^2+8m+2>0.
+\tag{PGE2-12}
+\]
+
+The internal product also dominates both adjacent low--doubleton products,
+because \(a>4m+1\ge\lambda_j,\rho_{j^+}\).  Thus its distance-one
+universality is literal, not only a consequence of the later relation.
+More explicitly, its distance-two maximum off the cut is
+\(b(D+j+1)/2\).  At the cut it is \(bD/2\) for \(m=1\) and \(na/2\) for
+\(m\ge2\), because
+
+\[
+na-bD=10m^2-9m-5
+\tag{PGE2-13}
+\]
+
+is negative only at the minimum row.  Every displayed branch is at most
+\(nb/2<J\).  A singleton has exact distance-two maximum
+
+\[
+M^{\rm sing}_2(k,j)=
+\begin{cases}
+x_k(D+j+1)/2,&0\le j\le2m-2,\\
+x_kn/2,&j=2m-1,
+\end{cases}
+\tag{PGE2-14}
+\]
+
+and all such forms are strict because \(x_k\le6m+2\) and
+
+\[
+2J-n(6m+2)=4m^2+16m+4>0.
+\tag{PGE2-15}
+\]
+
+Their adjacent forms are strict as well:
+
+\[
+J-(4m+1)(6m+2)=8m^2+10m+2>0.
+\tag{PGE2-16}
+\]
+
+The doubleton and singleton indices are at least \(m\), while the largest
+threshold is at most \(m-1\), as proved next.  Equations
+(PGE2-7)--(PGE2-16), including the terminal--low and low--low forms, therefore
+give the exact local Ferrers relation
+
+\[
+\boxed{
+(k,j)\in\mathcal R^{(2)}_{\rm loc}
+\quad\Longleftrightarrow\quad
+k\ge\kappa_j,
+\qquad
+N(G_j)=\{P_{\kappa_j},\ldots,P_{2m-1}\}.}
+\tag{PGE2-17}
+\]
+
+Put \(h_j=(j-1)(D-1)/(2(D+j))\).  Then
+
+\[
+h_{j+1}-h_j
+={J\over(D+j)(D+j+1)}>0,
+\]
+
+\[
+\kappa_0=\kappa_1=0,
+\qquad
+\kappa_2=1\quad(m\ge2),
+\qquad
+1\le\kappa_j\le j-1
+\quad(2\le j\le2m-1).
+\tag{PGE2-18}
+\]
+
+In the true closing column,
+
+\[
+h_{2m-1}={(m-1)(4m+1)\over5m+1},
+\]
+
+so a direct five-residue check gives
+
+\[
+\boxed{
+q=\left\lceil{(m-1)(4m+1)\over5m+1}\right\rceil
+=
+\begin{cases}
+0,&m=1,\\
+\left\lfloor(4m+1)/5\right\rfloor,&m\ge2.
+\end{cases}}
+\tag{PGE2-19}
+\]
+
+In particular \(0\le q\le m-1\), with \(q=0\) only at \(m=1\).
+
+#### Hall support, images, boundary row, and closure
+
+Unlike the former PG49 boards, this board has two initial threshold-zero
+columns.  Fix a local edge \((k,j)\).  Since the neighborhoods are nested,
+residual Hall is again equivalent to the residual suffix inequalities
+
+\[
+\kappa_r+\mathbf1_{\{k\ge\kappa_r\}}
+\le r+\mathbf1_{\{j>r\}}
+\qquad(r\ne j).
+\tag{PGE2-20}
+\]
+
+For \(r=0\), if present, both sides equal one.  For \(r=1\), the left side
+is one and the right side is at least one.  For \(r\ge2\), (PGE2-18) makes
+the left side at most \(r\).  Thus every local edge, including every edge
+in either threshold-zero column, is extendible, and no nonlocal edge is:
+
+\[
+\boxed{
+\mathcal R^{(2)}_{\rm ext}
+=\mathcal R^{(2)}_{\rm loc}
+=\{(k,j):0\le j,k\le2m-1,\ k\ge\kappa_j\}.}
+\tag{PGE2-21}
+\]
+
+The four pieces of the already fixed map have images
+
+\[
+\boxed{
+[0,q-1],\qquad[q+1,m],\qquad[m+1,2m-1],\qquad\{q\}.}
+\tag{PGE2-22}
+\]
+
+Intervals with lower endpoint above their upper endpoint are empty.  These
+sets are pairwise disjoint and partition \(\{0,\ldots,2m-1\}\), so the map
+is a bijection.  Every image lies in the exact support:
+
+\[
+\begin{array}{c|c|c}
+\text{column range}&\alpha^{(2)}_*(j)&\text{Ferrers comparison}\\ \hline
+0\le j<q&j&j\ge\kappa_j\\
+q\le j\le m-1&j+1&j+1>\kappa_j\\
+m\le j\le2m-2&3m-1-j&m+1>q\ge\kappa_j\\
+j=2m-1&q&\alpha^{(2)}_*(j)=\kappa_{2m-1}.
+\end{array}
+\tag{PGE2-23}
+\]
+
+At \(m=1\), both the first image interval and the singleton interval are
+empty, and every boundary is literal:
+
+\[
+(d,D,n,J,q)=(12,11,12,60,0),
+\qquad
+(\kappa_0,\kappa_1)=(0,0),
+\]
+
+\[
+P_0=(10,6,9),\qquad P_1=(7,8),
+\qquad
+\boxed{\alpha^{(2)}_*=(1,0)}.
+\tag{PGE2-24}
+\]
+
+The expanded core order is
+\((11,4,7,8,3,12,2,10,6,9,5)\).
+
+Thus the doubleton occupies \(G_0\), while the threshold triple \(P_0\)
+occupies the closing gap.  At \(m=2\), the singleton block has one member,
+so its reversal is literal but order-neutral.  On every row the actual
+closing word is
+
+\[
+\boxed{
+(n,2,A_q,c_q,B_q,4m+1,D),}
+\tag{PGE2-25}
+\]
+
+and (PGE2-9)--(PGE2-11), with \(q=\kappa_{2m-1}\), check that column rather
+than substituting the last nonclosing threshold.  The pair
+\((4m+1,4m)\) across \(D\) is the already strict low--low distance-two
+form.  Equations (PGE2-17)--(PGE2-25) prove that
+\(\alpha^{(2)}_*\) is a search-free Ferrers/PG49-compatible bijection for
+every \(m\ge1\).  There is no symbolic obstruction.
+
+#### Exact product-distance score
+
+Compatibility checks every positional distance one and two, cyclically.
+The fixed orientation of \(P_0\), wherever that path is assigned, supplies
+
+\[
+A_0c_0=(D-1)(4m+2)=J.
+\tag{PGE2-26}
+\]
+
+Every gap contains a low, a nonempty path, and a second low, so two terminals
+are never at positional distance three.  Every three-step pair has at most
+one terminal endpoint and therefore
+
+\[
+{ij\over3}\le{n(D-1)\over3}<J,
+\qquad
+3J-n(D-1)=16m^2+36m+8>0.
+\tag{PGE2-27}
+\]
+
+For every smaller circular positional distance \(s\ge4\),
+
+\[
+{ij\over s}\le{n(n-1)\over4}<J,
+\qquad
+4J-n(n-1)=28m^2+66m+14>0.
+\tag{PGE2-28}
+\]
+
+These are cyclic bounds: the one- and two-step pairs crossing the cut occur
+in (PGE2-25) or across \(D\), (PGE2-27) covers every three-step closing arc,
+and (PGE2-28) covers every longer closing arc.  Hence the exact fixed-order
+score of this one preassigned construction is
+
+\[
+\boxed{
+W(\sigma_{\alpha^{(2)}_*})
+=J
+={(8m+4)(8m+2)\over2}
+=32m^2+24m+4}
+\qquad(m\ge1).
+\tag{PGE2-29}
+\]
+
+This theorem evaluates only construction, compatibility, and \(W\).  It does
+not evaluate \(K\), compare induced-subset scores, alter a production
+generator, infer an angular or geometric consequence, or assert a global
+minimizing-order or optimality statement.
+
 ## Verification Boundary And Open Questions
 
 `tests/test_product_distance.py` checks exact rational comparisons, canonical
@@ -6949,6 +7334,16 @@ a-priori fixed map (PGODD-6). Formula, image, and Ferrers checks cover
 \(m=1,\ldots,80\). It searches no order or matching, enumerates no path
 permutation or subset, and imports no project or test helper. The finite
 rows corroborate but do not replace the all-\(m\) proof.
+The sole diagnostic for (PGE2-1)--(PGE2-29) is the standalone
+standard-library script in
+ops/TASK-20260720__residue_two_pg49_star_w/. It constructs only the
+pre-score map (PGE2-6). Formula, image, threshold, and Ferrers checks cover
+\(m=1,\ldots,1000\); direct local-word and residual-Hall checks cover
+\(m=1,\ldots,40\); and exact all-pairs cyclic scoring covers
+\(m=1,\ldots,80\). It searches no candidate, order, or matching, enumerates
+no path permutation or subset, computes no \(K\), and imports no project or
+test helper. The finite rows corroborate but do not prove the symbolic
+theorem.
 The sole diagnostic for (KPGODD-1)--(KPGODD-36) is the standalone
 standard-library script in ops/TASK-20260719__pgodd_exact_k/. It constructs
 only (PGODD-6). On \(m=1,\ldots,30\), its independent max-plus recurrence
@@ -7041,6 +7436,17 @@ The following remain unresolved.
   subsequence. The only \(m=1,2\) exception is the identity of the unique
   minimum shortcut, not the formula or argmax. No angular, geometric,
   global-minimizer, or global-optimality statement is inferred.
+- **CLOSED RESIDUE-TWO PARITY-ANALOGUE QUESTION:** (PGE2-1)--(PGE2-29)
+  prove directly that the one map fixed before scoring on
+  \(n=10m+2\), \(m\ge1\), is a Ferrers/PG49-compatible bijection.  Its
+  closing index is the literal \(q=\kappa_{2m-1}\); its two initial
+  threshold-zero columns make every local edge Hall-extendible; its complete
+  singleton block is reversed; and \(m=1\) is the compatible swap
+  \((1,0)\), not an exception or obstruction.  All cyclic positional
+  distances give the exact fixed-order score
+  \((8m+4)(8m+2)/2\).  No \(K\), alternative-candidate, production,
+  angular, geometric, or global-optimality statement is part of this
+  theorem.
 - **CLOSED CORE-ORDER QUESTION:** the interval shift (PG46) with target
   \((q,2m-1)\), \(q=\lfloor(4m+3)/5\rfloor\), keeps every residual path
   increasing. The separate theorem (KPG46Q-1)--(KPG46Q-29) proves its unique
