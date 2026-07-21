@@ -2594,8 +2594,38 @@ and `ops/`.
   \(K\), and it implies no angular or geometric result. Definitions,
   boundary cases, and the complete support proof are authoritative in
   [`research/PRODUCT_DISTANCE_SURROGATE.md`](research/PRODUCT_DISTANCE_SURROGATE.md#the-canonical-even-v-e5-path-to-gap-support).
+- EXACT THEOREM (PGE5ODD-1--PGE5ODD-26): on the canonical odd-\(v\),
+  \(e=5\) scaffold \(n=10m+9\), \(m\ge1\), there are \(m+2\) triples,
+  no doubleton, and \(m-1\) singletons.  With \(d=8m+9\),
+  \(T=W_n=d(d-1)/2\), and
+  \[
+  \kappa_j=\left\lceil{j(d-1)\over2(d+j)}\right\rceil,
+  \]
+  the exact local relation is
+  \(\mathcal R^{\rm odd}_{\rm loc}=\{(k,j):k\ge\kappa_j\}\), with true
+  terminal thresholds
+  \[
+  \kappa_{2m-1}=\left\lfloor{4m+3\over5}\right\rfloor,
+  \qquad
+  \kappa_{2m}=\left\lfloor{4m+5\over5}\right\rfloor.
+  \]
+  Its Hall-extendible and full-threshold supports coincide and equal
+  \[
+  \mathcal R^{\rm odd}_{\rm full}=\mathcal R^{\rm odd}_{\rm ext}
+  =\{(0,0)\}\cup
+  \{(k,j):1\le j\le2m,\ k\ge\kappa_j\}.
+  \]
+  Every scaffold bijection satisfies \(W=W^{(\le2)}\), and local
+  compatibility is equivalent to \(W=W_n\).  The proof treats distances
+  \(1,2,3,\ge4\) and the genuine closing word separately.  There is no
+  odd-parity completion obstruction; the unreduced full support alone is
+  non-Ferrers, while deleting forced \((P_0,G_0)\) leaves a
+  matching-covered Ferrers board.  This theorem evaluates neither \(K\) nor
+  geometry and does not classify outside-scaffold \(W\)-minimizers.  The
+  authoritative proof is
+  [`research/PRODUCT_DISTANCE_SURROGATE.md`](research/PRODUCT_DISTANCE_SURROGATE.md#the-canonical-odd-v-e5-path-to-gap-support).
 - EXACT FIXED PGE5 INTERVAL-SHIFT CORE THEOREM (KPGE5-1--KPGE5-30): on
-  that same \(n=10m+4\), \(m\ge2\) scaffold, fix only (PGE5-22) at
+  the even-\(v\), \(n=10m+4\), \(m\ge2\) scaffold, fix only (PGE5-22) at
   \((q,2m-1)\), where \(q=\lfloor(4m+3)/5\rfloor\). The resulting core has
   the sole induced-subset maximizer
   \[
@@ -3194,6 +3224,19 @@ and `ops/`.
   searches no matching or permutation, computes no \(K\), and imports no
   project or test helper. The bounded computation corroborates rather than
   proves the all-domain theorem.
+- VERIFIED FACT (BOUNDED EXACT CANONICAL ODD-\(v\), \(e=5\) PATH/GAP
+  SUPPORT DIAGNOSTIC): the sole standalone standard-library script in
+  ops/TASK-20260721__canonical_e5_odd_path_gap_support/ reconstructs the
+  literal scaffold directly on \(m=1,\ldots,30\). It checks 39,710 local
+  path/gap incidences, 30,948 local Ferrers edges, 1,408,738 residual suffix
+  Hall inequalities, 30,018 extendible edges, and all 930 zero-column
+  obstructions. It also checks the minimum row, empty singleton range,
+  genuine cyclic threshold split, four exact distance classes, induced
+  \(2K_2\), and reduced Ferrers nesting. Independently, exhaustive scoring
+  of all 5,166 scaffold bijections for \(m=1,2,3\) finds exactly 158 with
+  \(W=W_n\), precisely the locally compatible ones, and recovers the full
+  support. It computes no \(K\), imports no project/test helper, and is
+  bounded corroboration rather than an all-domain proof.
 - VERIFIED FACT (FINITE EXACT ODD-\(v\) PG49-STAR \(K\) DIAGNOSTIC): the
   sole standalone standard-library script in
   ops/TASK-20260719__pgodd_exact_k/ constructs only (PGODD-6). On

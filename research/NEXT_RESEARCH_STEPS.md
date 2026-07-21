@@ -16,6 +16,16 @@ the other research notes, and task evidence in ops/.
   [authoritative proof](PRODUCT_DISTANCE_SURROGATE.md#the-canonical-even-v-e5-path-to-gap-support)
   and the [stable synopsis](../PROJECT_KNOWLEDGE.md#product-distance-surrogate).
 
+- **COMPLETED -- odd-\(v\) PGE5 support:** on the canonical \(e=5\)
+  scaffold \(n=10m+9\), \(m\ge1\), PGE5ODD-1--PGE5ODD-26 close the exact
+  path decomposition, literal local relation including the genuine cyclic
+  column, Hall-extendible and full-threshold supports, four distance classes,
+  and equivalence between local compatibility and \(W=W_n\).  There is no
+  odd-parity completion obstruction; only the unreduced full support is
+  non-Ferrers.  The result evaluates \(W\), not \(K\) or geometry.  See the
+  [authoritative proof](PRODUCT_DISTANCE_SURROGATE.md#the-canonical-odd-v-e5-path-to-gap-support)
+  and the [stable synopsis](../PROJECT_KNOWLEDGE.md#product-distance-surrogate).
+
 The superficially similar Ferrers count and monotone threshold-closing
 \(K\)-theorem already in the repository concern the earlier
 \(n=10m+3\), \(e=4\) scaffold; they were not used as the PGE5 theorem.
@@ -80,7 +90,8 @@ The superficially similar Ferrers count and monotone threshold-closing
 
 ## Next Atomic Task
 
-User review and manual commit decision for the two-contiguous-block task.
+User review and manual commit decision for the canonical odd-\(v\),
+\(e=5\) path-gap support task.
 Afterward, choose exactly one item from the deferred directions below in a
 fresh task before developing further mathematics.
 

@@ -212,8 +212,36 @@
   not classify global \(W\)-minimizers outside this scaffold and is not a
   selected construction or a \(K\), angular, geometric, or global
   geometric-optimality result.
+- **EXACT THEOREM (canonical odd-\(v\), \(e=5\) path/gap support):** on
+  \(n=10m+9\), \(m\ge1\), the scaffold has \(m+2\) triples, no
+  doubleton, and \(m-1\) singletons.  With
+  \(d=8m+9\), \(T=W_n=d(d-1)/2\), and
+  \[
+  \kappa_j=\left\lceil{j(d-1)\over2(d+j)}\right\rceil,
+  \]
+  its complete local relation is again
+  \((k,j)\in\mathcal R^{\rm odd}_{\rm loc}\iff k\ge\kappa_j\).  The true
+  cyclic thresholds are
+  \[
+  \kappa_{2m-1}=\left\lfloor{4m+3\over5}\right\rfloor,
+  \qquad
+  \kappa_{2m}=\left\lfloor{4m+5\over5}\right\rfloor.
+  \]
+  Its Hall-extendible and full-threshold supports coincide:
+  \[
+  \mathcal R^{\rm odd}_{\rm full}=\mathcal R^{\rm odd}_{\rm ext}
+  =\{(0,0)\}\cup
+  \{(k,j):1\le j\le2m,\ k\ge\kappa_j\}.
+  \]
+  Every scaffold bijection satisfies \(W=W^{(\le2)}\), and
+  \(W=W_n\) exactly when all its incidences are local.  The proof treats
+  distances \(1,2,3,\ge4\) and the actual closing word separately.  There
+  is no odd-parity completion obstruction; only the unreduced support is
+  non-Ferrers, while deleting forced \((P_0,G_0)\) leaves a
+  matching-covered Ferrers board.  This is only a fixed-scaffold \(W\) and
+  support theorem; it evaluates no \(K\) and has no geometric consequence.
 - **EXACT THEOREM (later fixed PGE5 interval-shift \(K\) evaluation):** on
-  that same \(e=5\), \(n=10m+4\), \(m\ge2\) scaffold, fix only
+  the even-\(v\), \(e=5\), \(n=10m+4\), \(m\ge2\) scaffold, fix only
   \(\alpha_{q,2m-1}\) from (PGE5-22), where
   \(q=\lfloor(4m+3)/5\rfloor\).  The separate theorem
   (KPGE5-1)--(KPGE5-30) in
@@ -8105,6 +8133,397 @@ the scaffold, search over or select a path assignment, compute \(K\), propose
 a new construction, change production code, or infer an angular, geometric,
 global \(K\)-minimality, or global geometric-optimality claim.
 
+### The canonical odd-\(v\), \(e=5\) path-to-gap support
+
+We now classify the other parity branch of exactly the same canonical
+\(e=5\) scaffold.  As above, every middle path keeps its displayed
+orientation and no assignment is selected.  Put
+
+\[
+v=2m+1,\qquad m\ge1,\qquad
+d=8m+9,\qquad n=10m+9,\qquad
+T={d(d-1)\over2}=W_n.
+\tag{PGE5ODD-1}
+\]
+
+This lower endpoint is exact.  Specializing (UC5) gives
+
+\[
+t=m+2,\qquad \varepsilon=0,\qquad r=m-1.
+\tag{PGE5ODD-2}
+\]
+
+Thus the symbolic block formula holds precisely for \(m\ge1\).  The row
+\(m=0\), namely \(n=9\), has \(r=-1\) and belongs only to the separate
+initial-witness list; it is not a row of this scaffold.
+
+For \(0\le j\le2m\), retain
+
+\[
+E_j=d+j,\qquad
+\lambda_j=4m+2-2j,\qquad
+\rho_j=4m+3-2j.
+\tag{PGE5ODD-3}
+\]
+
+The complete oriented path decomposition is
+
+\[
+\begin{aligned}
+P_k&=(A_k,c_k,B_k)
+    =(d-1-2k,\ 4m+4+k,\ d-2-2k),
+    &&0\le k\le m+1,\\
+P_k&=(x_k)=(4m+4+k),
+    &&m+2\le k\le2m.
+\end{aligned}
+\tag{PGE5ODD-4}
+\]
+
+Hence there are \(m+2\) triples, no doubleton, and \(m-1\) singletons.
+The singleton range is empty exactly at \(m=1\).  In the identity scaffold,
+\(G_0,\ldots,G_{m+1}\) contain the triples and
+\(G_{m+2},\ldots,G_{2m}\) contain the singletons.  In particular, the
+canonical closing path is a triple at \(m=1\) and a singleton for
+\(m\ge2\).
+
+Let \(\alpha\) be an arbitrary bijection of \(\{0,\ldots,2m\}\), put
+\(j^+=j+1\pmod{2m+1}\), and let the prospective incidence \((k,j)\) have
+the literal cyclic word
+
+\[
+Q_{k,j}=(E_j,\lambda_j,P_k,\rho_{j^+},E_{j^+}).
+\tag{PGE5ODD-5}
+\]
+
+As before, call \((k,j)\) **local** when every distance-one and distance-two
+pair determined by this word is bounded by \(T\).  The pair
+\((\rho_j,\lambda_j)\) across a terminal is assignment-independent and is
+also included below.
+
+#### Distance one and the exact local relation
+
+All distance-one pairs are strictly safe, including those crossing the
+displayed cut.  The terminal--low products decrease from their maximum at
+\(E_0\), every low--middle product has the indicated uniform bound, and the
+larger internal edge of a triple is \(A_kc_k\):
+
+\[
+\begin{aligned}
+\max_{0\le j\le2m}\max\{E_j\lambda_j,E_j\rho_j\}
+&=d(4m+3)=T-d,\\
+(4m+3)(d-1)&=T-(12m+12),\\
+A_kc_k&=T-(4m+4)-2k^2<T.
+\end{aligned}
+\tag{PGE5ODD-6}
+\]
+
+The first maximum follows, for
+\(f_j=(d+j)(4m+3-2j)\), from
+\(f_{j+1}-f_j=-(12m+17+4j)<0\).  The other internal triple edge is
+smaller, and a singleton has no internal edge.  Write \(W^{(=1)}\) for
+\(W\) restricted to pairs at circular positional distance exactly one.
+Since \(P_0\) occurs in every reassignment, its exact value is
+
+\[
+\boxed{
+W^{(=1)}(\sigma_\alpha)
+=A_0c_0={(d-1)^2\over2}=T-(4m+4)<T.}
+\tag{PGE5ODD-7}
+\]
+
+For a triple, the five path-bearing distance-two products are
+
+\[
+E_jA_k,\quad \lambda_jc_k,\quad A_kB_k,\quad
+c_k\rho_{j^+},\quad B_kE_{j^+}.
+\tag{PGE5ODD-8}
+\]
+
+The first is the unique maximum.  Componentwise comparison handles the
+three middle competitors, while the right-terminal competitor satisfies
+
+\[
+E_jA_k-B_kE_{j+1}=j+2k+2>0
+\quad(0\le j<2m),
+\]
+
+\[
+Q_{k,2m}=(n,2,A_k,c_k,B_k,4m+3,d),
+\qquad
+nA_k-dB_k=2mA_k+d>0.
+\tag{PGE5ODD-9}
+\]
+
+The second line is the genuine cyclic closure.  Consequently the exact
+triple maximum and admission condition are
+
+\[
+M^{\rm tr}_2(k,j)={E_jA_k\over2}
+=T+{jA_k-2kd\over2},
+\qquad
+\boxed{(k,j)\text{ local}\iff j(d-1-2k)\le2kd.}
+\tag{PGE5ODD-10}
+\]
+
+Equivalently, define
+
+\[
+\ell_k=
+\min\!\left\{2m,
+\left\lfloor{2kd\over d-1-2k}\right\rfloor\right\},
+\qquad
+\kappa_j=
+\left\lceil{j(d-1)\over2(d+j)}\right\rceil.
+\tag{PGE5ODD-11}
+\]
+
+Here \(0\le k\le m+1\) in the definition of \(\ell_k\), while
+\(0\le j\le2m\) in the definition of \(\kappa_j\).
+
+There is no doubleton case.  For a singleton the exact distance-two maximum
+is again sensitive to the literal cut:
+
+\[
+M^{\rm sing}_2(k,j)=
+\begin{cases}
+x_k(d+j+1)/2,&0\le j\le2m-1,\\[4pt]
+x_kn/2,&j=2m.
+\end{cases}
+\tag{PGE5ODD-12}
+\]
+
+It is unique, and every singleton is strictly universal because
+\(x_k\le6m+4\) and
+
+\[
+d(d-1)-n(6m+4)=4m^2+42m+36>0.
+\tag{PGE5ODD-13}
+\]
+
+The unchanged distance-two pair across a terminal is smaller than
+\((4m+3)(4m+2)/2<T\).  Combining all distance-one and distance-two forms
+gives the equivalent row and column descriptions
+
+\[
+\boxed{
+\begin{aligned}
+\mathcal R^{\rm odd}_{\rm loc}
+&=\{(k,j):0\le k\le m+1,\ 0\le j\le\ell_k\}\\
+&\quad\mathbin\cup
+\{(k,j):m+2\le k\le2m,\ 0\le j\le2m\}\\
+&=\{(k,j):0\le j,k\le2m,\ k\ge\kappa_j\},\\
+N_{\rm loc}(G_j)&=\{P_{\kappa_j},\ldots,P_{2m}\}.
+\end{aligned}}
+\tag{PGE5ODD-14}
+\]
+
+The second row set is empty exactly at \(m=1\).
+
+Put \(h_j=j(d-1)/(2(d+j))\).  Then
+
+\[
+h_{j+1}-h_j={d(d-1)\over2(d+j)(d+j+1)}>0,
+\quad
+\kappa_0=0,
+\quad
+\kappa_1=1,
+\]
+
+\[
+2(d+r)(r-1)-r(d-1)=d(r-2)+2r^2-r>0
+\quad(2\le r\le2m),
+\]
+
+and hence
+
+\[
+1\le\kappa_r\le r-1
+\quad(2\le r\le2m).
+\tag{PGE5ODD-15}
+\]
+
+Direct reduction over the five residue classes of \(m\) gives the two true
+terminal thresholds
+
+\[
+\boxed{
+\kappa_{2m-1}=\left\lfloor{4m+3\over5}\right\rfloor,
+\qquad
+q:=\kappa_{2m}=\left\lfloor{4m+5\over5}\right\rfloor\le m.}
+\tag{PGE5ODD-16}
+\]
+
+The closing value is not borrowed from the preceding column: indeed
+\(4m/5<h_{2m}<(4m+1)/5\).  The last nonclosing and closing words are
+literally
+
+\[
+G_{2m-1}=(n-1,4,P_k,3,n),
+\qquad
+G_{2m}=(n,2,P_k,4m+3,d).
+\tag{PGE5ODD-17}
+\]
+
+At the minimum row,
+
+\[
+(m,d,n,T)=(1,17,19,136),
+\quad
+(\kappa_0,\kappa_1,\kappa_2)=(0,1,1),
+\quad
+(\ell_0,\ell_1,\ell_2)=(0,2,2),
+\]
+
+\[
+P_0=(16,8,15),\qquad
+P_1=(14,9,13),\qquad
+P_2=(12,10,11).
+\tag{PGE5ODD-18}
+\]
+
+There is no singleton.  At \(m=2\), the four triples are followed by the
+sole singleton \(P_4=(16)\), and
+\((\kappa_0,\ldots,\kappa_4)=(0,1,1,2,2)\).  The first row on which the
+last two thresholds differ is \(m=4\): with
+\(d=41,n=49,T=820\), the triple \(P_3=(34,23,33)\) has score
+\(48\cdot34/2=816<T\) in \(G_7\), but score
+\(49\cdot34/2=833>T\) in the actual closing gap \(G_8\).  Thus replacing
+the cyclic column by a fictitious nonclosing one changes the relation.
+
+#### Residual Hall and exact full-threshold support
+
+The neighborhoods in (PGE5ODD-14) are nested suffixes, so the local relation
+is Ferrers.  Fix a local edge \((k,j)\), delete its path and gap, and let a
+nonempty residual gap set have minimum \(r\ne j\).  The complete residual
+suffix beginning at \(G_r\) is the strongest Hall demand and has
+
+\[
+|N_{k,j}(S)|
+=2m+1-\kappa_r-\mathbf1_{\{k\ge\kappa_r\}},
+\qquad
+|S|\le2m+1-r-\mathbf1_{\{j>r\}}.
+\tag{PGE5ODD-19}
+\]
+
+Residual Hall is therefore necessary and sufficient exactly when
+
+\[
+\boxed{
+\kappa_r+\mathbf1_{\{k\ge\kappa_r\}}
+\le r+\mathbf1_{\{j>r\}}
+\qquad(r\ne j).}
+\tag{PGE5ODD-20}
+\]
+
+For a positive-column local edge, the cases \(r<j\) and \(r>j\) reduce,
+respectively, to \(\kappa_r+1\le r+1\) and
+\(\kappa_r+1\le r\), using (PGE5ODD-15) in the second case.  The edge
+\((0,0)\) also passes because \(\kappa_r>0\) for \(r\ge1\).  Every
+\((k,0)\) with \(k>0\) fails at \(r=1\), where
+\(\kappa_1+1=2>1\).  Thus
+
+\[
+\boxed{
+\mathcal R^{\rm odd}_{\rm ext}
+=\{(0,0)\}
+\mathbin\cup
+\{(k,j):1\le j\le2m,\ k\ge\kappa_j\}.}
+\tag{PGE5ODD-21}
+\]
+
+Hall's theorem supplies the required perfect matching after every surviving
+edge is fixed.  Equivalently, the nonwrapping interval rotations
+(PGE5-21)--(PGE5-22), with the final index changed from \(2m-1\) to
+\(2m\), witness every edge directly.  They cross only the triple--singleton
+boundary; that boundary is empty at \(m=1\) and universal thereafter.
+
+The complete support is not Ferrers: \((0,0)\) and \((1,1)\) are present,
+while \((0,1)\) and \((1,0)\) are absent, so these incidences form an
+induced \(2K_2\).  After deleting the forced vertices \(P_0,G_0\), the
+remaining neighborhoods are
+
+\[
+N_{\rm red}(G_j)=\{P_{\kappa_j},\ldots,P_{2m}\},
+\qquad1\le j\le2m,
+\tag{PGE5ODD-22}
+\]
+
+which form a Ferrers board and every edge is matching-covered.  Thus, as in
+the even branch, the exact structure is a forced \(K_{1,1}\) component plus
+a reduced Ferrers board.
+
+#### Distances two, three, and at least four
+
+Distance two also supplies the assignment-independent lower witness needed
+for the full score.  Wherever \(P_0\) is placed, its left terminal pair has
+
+\[
+{E_jA_0\over2}
+={E_j(d-1)\over2}
+=T+{j(d-1)\over2}\ge T.
+\tag{PGE5ODD-23}
+\]
+
+Every gap contains a low label, a nonempty path, and a second low label.
+Consequently two terminals are never at positional distance three under any
+whole-path reassignment.  Every distance-three pair has at most one terminal
+endpoint and satisfies
+
+\[
+{ij\over3}\le{n(d-1)\over3}<T,
+\qquad
+3d-2n=4m+9>0.
+\tag{PGE5ODD-24}
+\]
+
+For every smaller circular positional distance \(s\ge4\),
+
+\[
+{ij\over s}\le{n(n-1)\over4}<T,
+\qquad
+2d(d-1)-n(n-1)=28m^2+102m+72>0.
+\tag{PGE5ODD-25}
+\]
+
+Both bounds are cyclic: (PGE5ODD-24) includes all three-step pairs crossing
+the displayed cut, while (PGE5ODD-25) includes every longer closing arc.
+Together with (PGE5ODD-6)--(PGE5ODD-13), they verify the four distance
+classes \(1\), \(2\), \(3\), and at least \(4\) separately.
+
+Equation (PGE5ODD-23) and the strict longer-distance bounds imply, for every
+path-to-gap bijection, compatible or not,
+
+\[
+W(\sigma_\alpha)=W^{(\le2)}(\sigma_\alpha).
+\]
+
+Combining this identity with (PGE5ODD-14) and (PGE5ODD-21) proves the
+**EXACT ODD-\(v\) FULL-SUPPORT THEOREM**
+
+\[
+\boxed{
+W(\sigma_\alpha)=W_n=T
+\iff
+\alpha(j)\ge\kappa_j\quad(0\le j\le2m),}
+\]
+
+\[
+\boxed{
+\mathcal R^{\rm odd}_{\rm full}
+:=\{(k,j):\exists\alpha,\ \alpha(j)=k,\
+W(\sigma_\alpha)=W_n\}
+=\mathcal R^{\rm odd}_{\rm ext}.}
+\tag{PGE5ODD-26}
+\]
+
+There is therefore no obstruction to the odd-parity analogue of the
+even-\(v\) completion theorem.  The absent doubleton is replaced by one
+additional universal triple, and the only surviving obstruction is to
+calling the unreduced full support itself Ferrers.  This theorem classifies
+only \(W\) and the path/gap support on the fixed scaffold.  It neither
+evaluates \(K\) nor implies an angular or geometric consequence, and it does
+not classify \(W\)-minimizers outside this scaffold.
+
 ## Verification Boundary And Open Questions
 
 `tests/test_product_distance.py` checks exact rational comparisons, canonical
@@ -8292,6 +8711,20 @@ It checks all 88,556 path/gap incidences, 69,124 local Ferrers edges, and
 4,132,070 residual suffix Hall inequalities. It verifies the exact local
 cutoffs, closed Hall support, global induced \(2K_2\), and reduced Ferrers
 nesting without constructing a complete assignment or searching a matching.
+
+The sole diagnostic for (PGE5ODD-1)--(PGE5ODD-26) is the standalone
+standard-library script in
+`ops/TASK-20260721__canonical_e5_odd_path_gap_support/`. It reconstructs the
+literal odd-\(v\), \(e=5\) scaffold directly. On \(m=1,\ldots,30\), it
+checks 39,710 path/gap incidences, 30,948 local Ferrers edges, 1,408,738
+residual suffix Hall inequalities, 30,018 extendible edges, the two terminal
+thresholds, exact distance-class margins, and the first genuine
+closing-column split. Independently, it exhausts all 5,166 scaffold
+bijections on \(m=1,2,3\), scores every unordered core pair by its true
+smaller cyclic distance, and finds exactly 158 compatible/full-threshold
+bijections with support equal to (PGE5ODD-21). The bounded computation
+corroborates but does not prove the all-\(m\) theorem and computes neither
+\(K\) nor a geometric quantity.
 
 A separate post-review standard-library oracle in
 `ops/TASK-20260720__pge5_post_review_consolidation/` builds its bipartite
