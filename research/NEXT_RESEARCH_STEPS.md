@@ -1,6 +1,6 @@
 # Next Research Steps
 
-Last reviewed: 2026-07-20
+Last reviewed: 2026-07-21
 
 This file is the roadmap and priority source only. Stable result summaries
 belong in [PROJECT_KNOWLEDGE.md](../PROJECT_KNOWLEDGE.md), detailed proofs in
@@ -49,23 +49,26 @@ The superficially similar Ferrers count and monotone threshold-closing
   [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#21-exact-k-for-the-pge5-singleton-reversal-shift)
   and the [stable synopsis](../PROJECT_KNOWLEDGE.md#product-distance-surrogate).
 
-## Completed Post-Review Closure
+## Completed Post-Review Audit
 
-- **COMPLETED -- KRPGE5 state and provenance:** commit
-  `a15a4d34cc034b669f02382e2e4f27b4822ed382` is the accepted
-  KRPGE5-1--KRPGE5-36 baseline. On its clean tree, the standalone diagnostic,
-  full pytest, checked-artifact verifier, focused schema suite, and repository
-  hygiene checks passed. GitHub Actions `Verification` run `29777676234`
-  succeeded for that exact SHA on Python 3.11--3.13. The earlier successful
-  run on `bce6e4d8a935bd9d8509e59b760cf78c345779b6` was not reused. This
-  closure changes no proof, construction, production code, test, artifact,
-  or mathematical classification.
+- **COMPLETED -- independent KRPGE5 audit:** KRPGE5-1--KRPGE5-36 at
+  accepted baseline `a15a4d34cc034b669f02382e2e4f27b4822ed382` were
+  rederived against the PGE5 scaffold and CR12p/CR22/CR27/CR28a, without
+  using dossier formulas as oracle values. Support, every deletion and
+  shortcut class including the cyclic cut, the block sum, all five residue
+  classes, the singleton cancellation, the K825 subtraction, and the exact
+  closure all passed. Fresh local diagnostics and repository suites passed,
+  and the available GitHub Actions matrix was inspected at that exact SHA
+  without reusing an ancestor run. No audit criterion remains open, and no
+  proof, construction, production code, test, schema, artifact, or workflow
+  changed. See
+  [EV-001](../ops/TASK-20260721__krpge5_post_review_audit/EVIDENCE.md#ev-001---independent-krpge5-post-review-audit).
 
 ## Next Atomic Task
 
-No mathematical successor is selected by this state/provenance closure.
-Choose exactly one item from the deferred directions below in a fresh task
-before developing further mathematics.
+No KRPGE5 audit criterion remains open and no mathematical successor is
+selected by this audit. Choose exactly one item from the deferred directions
+below in a fresh task before developing further mathematics.
 
 ## Deferred, Not Prioritized
 
