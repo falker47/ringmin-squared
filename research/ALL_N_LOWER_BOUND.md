@@ -2,7 +2,7 @@
 
 Date: 2026-07-13
 
-Last updated: 2026-07-18
+Last updated: 2026-07-21
 
 ## Classification
 
@@ -283,6 +283,31 @@ Last updated: 2026-07-18
   that this coefficient is the exact, unattained supremum of the entire
   continuous finite-prefix template family, not only of its all-middle
   subfamily. It is strictly larger than \(C_{5,*}\).
+- EXACT METHOD-SPECIFIC LIMITATION (TWO CONTIGUOUS BLOCKS): introduce a
+  separator density \(\eta\), apply finite-prefix convex charging above and
+  below it, and mix the two block maxima by \(h\in[0,1]\). The effective
+  weights are
+  \[
+  \lambda_i^+=h+(1-h)a_i,\qquad
+  \lambda_j^-=hb_j,
+  \]
+  so they remain globally ordered across the separator. The original edges
+  first split in the two blocks form history-relative disjoint slack pools;
+  no original edge is recreated or charged twice, and the recursive
+  child-edge invariant crosses the separator unchanged. The exact normalized
+  objective is (CR28dw35). Concatenating its two density and weight rows gives
+  exactly one \(K=k_++k_-\) finite-prefix tuple. Formula (CR28dw36) gives the
+  inverse on the strict density domain and identifies the compact closures
+  when collisions or zero endpoints occur. Consequently
+  \[
+  \max C^{\mathrm{2B}}_{k_+,k_-}=C_{K,*}<C_{\mathrm{AF}},
+  \qquad
+  \sup_{k_+,k_-\ge1}C^{\mathrm{2B}}_{k_+,k_-}
+  =C_{\mathrm{AF}}={434+4\sqrt2\over1587}.
+  \]
+  The two-block ansatz therefore supplies no rational coefficient strictly
+  above \(C_{\mathrm{AF}}\). This limitation is not an upper bound on
+  \(\Lambda_n\).
 - EXACT THEOREM (globally optimized five-prefix linear-block refinement):
   optimizing the \(k=5\) specialization on the complete eleven-parameter
   compact closure reduces the ordered weights coordinatewise. All 21 clipping
@@ -1750,6 +1775,46 @@ Thus \(C_{\mathrm{AF}}\) is the exact supremum of the whole continuous
 finite-prefix family and is not attained at finite \(k\). This is a
 continuous template classification; it introduces no finite rounding,
 uniform threshold, or growing-prefix charging assertion.
+
+### Exact limitation of the two-contiguous-block ansatz
+
+Let \(\eta\) split the selected insertion labels into the upper block
+\([\eta,\alpha)\) and the lower block ending at \(\eta\). The lower block
+must remain anchored at the absolute height attained at the separator. If
+\(h\) is its convex mixing coefficient and \(a_i,b_j\) are the two internal
+finite-prefix weight rows, the only valid effective weights are
+
+\[
+\lambda_i^+=h+(1-h)a_i,
+\qquad
+\lambda_j^-=hb_j.
+\]
+
+They concatenate into one globally ordered row. The original-edge pools are
+defined, relative to the literal history, by first split above or below the
+separator. They are disjoint because a split original edge is removed and
+never recreated; every descendant split remains recursive under the original
+base invariant. The complete finite accounting and normalized objective are
+(CR28dw30)--(CR28dw35).
+
+Conversely, every strictly density-ordered finite-prefix row split after one
+of its coordinates has a two-block factorization, using any bridge
+\(h\in[\lambda_{k_++1},\lambda_{k_+}]\); allowing weak orders identifies the
+two compact closures. Therefore the marked separator adds no new normalized
+degree of freedom. At fixed total
+\(K=k_++k_-\), its compact optimum is exactly \(C_{K,*}\), while over all
+finite nonempty two-block rows
+
+\[
+\sup C^{\mathrm{2B}}_{k_+,k_-}
+=C_{\mathrm{AF}}
+={434+4\sqrt2\over1587}.
+\]
+
+This sharp supremum is unattained. Hence the ansatz cannot give a rational
+witness strictly above the current coefficient. The conclusion classifies
+this charging template only; it is not an upper bound for the true
+\(\Lambda_n\).
 
 ### All-fixed-\(k\) corollary
 

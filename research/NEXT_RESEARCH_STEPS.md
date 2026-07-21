@@ -49,6 +49,20 @@ The superficially similar Ferrers count and monotone threshold-closing
   [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#21-exact-k-for-the-pge5-singleton-reversal-shift)
   and the [stable synopsis](../PROJECT_KNOWLEDGE.md#product-distance-surrogate).
 
+- **COMPLETED -- two-contiguous-block charging ansatz:** the separator-density
+  construction, convex bridge, two history-relative disjoint original-edge
+  slack pools, and global recursive child-edge invariant give the exact
+  finite inequality (CR28dw34). Its normalized objective (CR28dw35)
+  concatenates with one ordinary finite-prefix row of the same total length;
+  the inverse holds on strict rows and the compact closures coincide.
+  Consequently its fixed-length optimum is \(C_{K,*}\), and
+  the exact unattained supremum over all finite nonempty two-block rows is
+  \(C_{\mathrm{AF}}=(434+4\sqrt2)/1587\). Thus this ansatz cannot improve the
+  current lower coefficient. See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#two-contiguous-blocks-separated-by-one-density)
+  and the
+  [task evidence](../ops/TASK-20260721__two_block_finite_prefix/EVIDENCE.md).
+
 ## Completed Post-Review Audit
 
 - **COMPLETED -- independent KRPGE5 audit:** KRPGE5-1--KRPGE5-36 at
@@ -66,9 +80,9 @@ The superficially similar Ferrers count and monotone threshold-closing
 
 ## Next Atomic Task
 
-No KRPGE5 audit criterion remains open and no mathematical successor is
-selected by this audit. Choose exactly one item from the deferred directions
-below in a fresh task before developing further mathematics.
+User review and manual commit decision for the two-contiguous-block task.
+Afterward, choose exactly one item from the deferred directions below in a
+fresh task before developing further mathematics.
 
 ## Deferred, Not Prioritized
 

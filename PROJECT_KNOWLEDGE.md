@@ -1,6 +1,6 @@
 # PROJECT_KNOWLEDGE - power-ringmin
 
-Last reviewed: 2026-07-20
+Last reviewed: 2026-07-21
 
 This file is compact stable project memory. Detailed proofs live in
 `research/*.md`; roadmap, chronology, command transcripts, failed attempts,
@@ -1209,6 +1209,33 @@ and `ops/`.
   Hence \(C_{\mathrm{AF}}\) is the exact unattained supremum of the entire
   continuous finite-prefix family. The formal value \(E_\infty(1)=1/3\) is
   not a clipped-family coefficient.
+- EXACT METHOD-SPECIFIC LIMITATION (TWO CONTIGUOUS BLOCKS): split the
+  insertion labels at a density \(\eta\) into two disjoint contiguous blocks.
+  Mixing the upper absolute-prefix maximum with the lower maximum anchored at
+  the separator by \(h\in[0,1]\) forces effective weights
+  \[
+  \lambda_i^+=h+(1-h)a_i,\qquad \lambda_j^-=hb_j,
+  \]
+  and therefore
+  \[
+  1\ge\lambda_1^+\ge\cdots\ge\lambda_{k_+}^+
+  \ge h\ge\lambda_1^-\ge\cdots\ge\lambda_{k_-}^-\ge0.
+  \]
+  Original edges first split above and below the separator form two
+  history-relative disjoint slack pools; a split edge is never recreated,
+  and the global recursive child-edge invariant crosses the separator.
+  The exact finite inequality is (CR28dw34), and the normalized objective is
+  (CR28dw35). Concatenation identifies every valid two-block tuple with one
+  \(K=k_++k_-\) finite-prefix tuple, while (CR28dw36) gives the converse on
+  the strict density domain and identifies the full compact closures by
+  continuity. Hence
+  \[
+  \max C^{\mathrm{2B}}_{k_+,k_-}=C_{K,*}<C_{\mathrm{AF}},
+  \qquad
+  \sup_{k_+,k_-\ge1}C^{\mathrm{2B}}_{k_+,k_-}=C_{\mathrm{AF}}.
+  \]
+  Thus this ansatz has no rational witness strictly above
+  \(C_{\mathrm{AF}}\); this is not an upper bound on \(\Lambda_n\).
 - LIMITATION AND COROLLARY: the \(M_k,E_k\) statements are exact
   normalized-polynomial theorems, and \(\mathscr H_k\) is the separate full
   clipped continuous classification. Both are independent of the charging

@@ -2,7 +2,7 @@
 
 Date: 2026-07-14
 
-Last updated: 2026-07-20
+Last updated: 2026-07-21
 
 ## Scope And Classification
 
@@ -480,6 +480,22 @@ in `research/ALL_N_LOWER_BOUND.md`.
   its value \(C_{k,*}\) increases strictly to \(C_{\mathrm{AF}}\). Thus no
   high-clipped counterexample exists, and the supremum is not attained at
   finite \(k\).
+- **EXACT METHOD-SPECIFIC LIMITATION (TWO CONTIGUOUS BLOCKS):** a separator
+  density \(\eta\) gives two history-relative disjoint original-edge slack
+  pools. The bridge between the two block maxima forces effective weights
+  \(\lambda_i^+=h+(1-h)a_i\) and \(\lambda_j^-=hb_j\), so the two rows
+  concatenate into one globally ordered finite-prefix row. The no-recreation
+  argument proves that no original edge is charged twice, and the global
+  recursive invariant covers lower-block descendants rooted above the
+  separator. Equations (CR28dw30)--(CR28dw39) give the exact finite bound,
+  normalized objective, inverse factorization, and
+  \[
+  \max C^{\mathrm{2B}}_{k_+,k_-}=C_{k_++k_-,*}<C_{\mathrm{AF}},
+  \qquad
+  \sup_{k_+,k_-\ge1}C^{\mathrm{2B}}_{k_+,k_-}=C_{\mathrm{AF}}.
+  \]
+  Hence this ansatz gives no rational witness strictly above the current
+  coefficient. This is not an upper bound on \(\Lambda_n\).
 - **EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (ALL FIXED \(k\)):** put
   \[
   \alpha_\infty={13-2\sqrt2\over23}.
@@ -6209,6 +6225,356 @@ supporting (CR28dw28), and the adversarial fact \(M_7>C_{\mathrm{AF}}\). The
 last check confirms that the valid but loose formal upper relaxation
 \(E_7(1)=M_7\) cannot by itself prove the sharp clipped bound
 \(C_{\mathrm{AF}}\).
+
+### Two contiguous blocks separated by one density
+
+The following ansatz tests whether separating the selected insertion range
+into two disjoint contiguous blocks can create a second usable pool of the
+quadratic base slack. The separator must be combined with the prefix maximum
+before any slack is assigned; otherwise the second block would silently reset
+the height and would not be a lower bound for the original objective.
+
+Fix integers \(k_+,k_-\ge1\), densities
+
+\[
+1>\alpha=\beta^+_0>\beta^+_1>\cdots>
+\beta^+_{k_+}=\eta=\beta^-_0>
+\beta^-_1>\cdots>\beta^-_{k_-}>0,
+\]
+
+and two internally ordered weight rows
+
+\[
+1\ge a_1\ge\cdots\ge a_{k_+}\ge0,
+\qquad
+1\ge b_1\ge\cdots\ge b_{k_-}\ge0.
+\]
+
+Put
+
+\[
+\begin{gathered}
+r=\lfloor\alpha n\rfloor,
+\qquad d=\lceil\eta n\rceil,
+\qquad s_i^+=\lceil\beta_i^+n\rceil,
+\qquad s_j^-=\lceil\beta_j^-n\rceil,\\
+s_0^+=r,
+\qquad s_{k_+}^+=d=s_0^-.
+\end{gathered}
+\tag{CR28dw30}
+\]
+
+At the given finite \(n\), require
+
+\[
+2\le r\le n-2,
+\qquad
+1\le s^-_{k_-}<\cdots<s^-_1\le d-1,
+\qquad
+d=s^+_{k_+}<\cdots<s^+_1\le r-1.
+\]
+
+Thus the upper insertion block is
+\(I^+=\{d,\ldots,r-1\}\), the lower block is
+\(I^-=\{s^-_{k_-},\ldots,d-1\}\), and they are disjoint while their union
+is contiguous. Strict density order makes these conditions eventual for
+every fixed tuple.
+
+For one compatible literal history, define
+
+\[
+H_i^+=\sum_{t=s_i^+}^{r-1}A_t,
+\qquad
+K_j^-=\sum_{t=s_j^-}^{d-1}A_t,
+\qquad
+H_\eta=H_{k_+}^+.
+\]
+
+The selected absolute heights in the lower block are
+\(H_\eta+K_j^-\). Hence, with
+
+\[
+M_+=\max(0,H_1^+,\ldots,H_{k_+}^+),
+\qquad
+M_-=H_\eta+\max(0,K_1^-,\ldots,K_{k_-}^-),
+\]
+
+the exact history maximum dominates both \(M_+\) and \(M_-\). For a bridge
+parameter \(0\le h\le1\), apply the finite-prefix convex inequality inside
+each block and mix the two resulting maxima. With
+\(a_{k_++1}=b_{k_-+1}=0\), this gives
+
+\[
+\begin{aligned}
+\max_{0\le j\le r-1}\mathcal H_j
+\ge{}&(1-h)M_++hM_-\\
+\ge{}&(1-h)\sum_{i=1}^{k_+}(a_i-a_{i+1})H_i^+
+ +hH_\eta
+ +h\sum_{j=1}^{k_-}(b_j-b_{j+1})K_j^-.
+\end{aligned}
+\tag{CR28dw31}
+\]
+
+Expanding this expression before charging an edge produces the effective
+segment weights
+
+\[
+\lambda_i^+=h+(1-h)a_i,
+\qquad
+\lambda_j^-=hb_j,
+\tag{CR28dw32}
+\]
+
+and the exact telescope
+
+\[
+\sum_{i=1}^{k_+}\lambda_i^+
+ \sum_{t=s_i^+}^{s_{i-1}^+-1}A_t
++\sum_{j=1}^{k_-}\lambda_j^-
+ \sum_{t=s_j^-}^{s_{j-1}^--1}A_t.
+\]
+
+The bridge forces the global order
+
+\[
+1\ge\lambda_1^+\ge\cdots\ge\lambda_{k_+}^+
+\ge h\ge
+\lambda_1^-\ge\cdots\ge\lambda_{k_-}^-\ge0.
+\]
+
+This cross-separator condition is not optional. For arbitrary selected
+heights, the coefficient of \(H_\eta\) in the concatenated convex form is
+\(\lambda_{k_+}^+-\lambda_1^-\), which must be nonnegative. Equivalently,
+an upper aggregate \(-1\) followed by a lower relative aggregate \(+1\)
+has global prefix maximum zero, although an independently reset lower
+maximum equals one. Separating the slack cannot repair that failure of the
+height inequality; the bridge in (CR28dw31) is necessary.
+
+We now partition the original slack. Let \(E_0=E(C_0)\). Relative to the
+literal history, let \(E^+\) consist of the original edges whose first split
+occurs at a label in \(I^+\), let \(E^-\) consist of those that survive
+intact through the upper block and are first split in \(I^-\), and put
+
+\[
+E^\circ=E_0\setminus(E^+\cup E^-).
+\]
+
+This is the canonical partition induced by the separator density. It is
+necessarily history-relative: a density alone cannot preassign a fixed edge
+of \(C_0\) to one block, because a literal history may choose any current
+edge at its next split.
+
+The two charged pools are disjoint. Indeed, splitting
+\(e=\{u,v\}\in E_0\) removes \(e\) and replaces it by two children incident
+to the new label \(t<r\). Every descendant still has an inserted endpoint;
+no later split can recreate the edge joining the same two original
+endpoints. Therefore the map from selected base splits to \(E_0\) is
+injective over both blocks, and
+
+\[
+E^+\cap E^-=\varnothing,
+\qquad
+E_0=E^+\mathbin{\dot\cup}E^-\mathbin{\dot\cup}E^\circ.
+\]
+
+Write \(B^\pm\) for the labels in \(I^\pm\) whose split uses an untouched
+original edge \(e_t\), and let \(\lambda_t\) be the effective weight of the
+segment containing \(t\). The exact two-pool accounting identity is
+
+\[
+\begin{aligned}
+P(C_0)-P_{r,n}+\sum_{t\in I^+\cup I^-}\lambda_tA_t
+={}&
+\sum_{t\in B^+}(\Delta_{e_t}+\lambda_tA_t)
++\sum_{t\in I^+\setminus B^+}\lambda_tA_t\\
+&+\sum_{t\in B^-}(\Delta_{e_t}+\lambda_tA_t)
++\sum_{t\in I^-\setminus B^-}\lambda_tA_t
++\sum_{e\in E^\circ}\Delta_e.
+\end{aligned}
+\tag{CR28dw33}
+\]
+
+Thus every original \(\Delta_e\) occurs exactly once, independently of
+whether its numerical value vanishes. A lower-block split of a child rooted
+in \(E^+\) is in the recursive sum and receives no second copy of its root
+slack.
+
+The recursive invariant also crosses the separator without a reset. Just
+before inserting \(t\), every current edge is either an untouched member of
+\(E_0\) or has an endpoint in \(\{t+1,\ldots,r-1\}\). This is the same
+assertion \(\mathcal Q(t)\) used above: splitting either kind of edge creates
+children incident to \(t\), so descending induction continues from the
+upper block into the lower block. In particular, every recursive lower
+split satisfies (CR28ba)--(CR28bd) with the original \(r\), not with a new
+base at \(d\).
+
+For an upper segment define
+\(F_{i,n}^+=G_{n,\lambda_i^+}(s_i^+)\), and for a lower segment define
+\(F_{j,n}^-=G_{n,\lambda_j^-}(s_j^-)\). Equations
+(CR28ay)--(CR28bd), the global invariant, (CR28dw31), and the one-use
+identity (CR28dw33) now prove the exact finite bound
+
+\[
+\boxed{
+\begin{aligned}
+\Lambda_n\ge\gamma^{(r)}_{1,n}\ge{}&P_{r,n}
++\sum_{i=1}^{k_+}(s_{i-1}^+-s_i^+)
+  G_{n,\lambda_i^+}(s_i^+)\\
+&+\sum_{j=1}^{k_-}(s_{j-1}^--s_j^-)
+  G_{n,\lambda_j^-}(s_j^-).
+\end{aligned}
+}
+\tag{CR28dw34}
+\]
+
+No sign assumption on an individual local floor is used.
+
+For fixed strict parameters, divide by \(n^3\) and take the ordinary
+fixed-parameter limit. With \(p(\alpha)\) from (CR28ac) and
+\(g\) from (CR28bw), the exact normalized objective of this ansatz is
+
+\[
+\boxed{
+\begin{aligned}
+C^{\mathrm{2B}}_{k_+,k_-}={}&p(\alpha)
++\sum_{i=1}^{k_+}(\beta_{i-1}^+-\beta_i^+)
+ g\!\left(\alpha,\beta_i^+,h+(1-h)a_i\right)\\
+&+\sum_{j=1}^{k_-}(\beta_{j-1}^--\beta_j^-)
+ g\!\left(\alpha,\beta_j^-,hb_j\right).
+\end{aligned}
+}
+\tag{CR28dw35}
+\]
+
+This formula admits an exact classification. Concatenate the two density
+rows and the two effective weight rows. Equations (CR28dw32) show that the
+result is one ordered \(K=k_++k_-\) tuple in (CR28dw13), with exactly the
+same coefficient. Conversely, split any ordered \(K\)-prefix tuple after
+coordinate \(k_+\), and choose
+
+\[
+\lambda_{k_++1}\le h\le\lambda_{k_+}.
+\]
+
+For \(0<h<1\), the inverse formulas
+
+\[
+a_i={\lambda_i-h\over1-h},
+\qquad
+b_j={\lambda_{k_++j}\over h}
+\tag{CR28dw36}
+\]
+
+give two valid internally ordered rows. Thus the bridge construction is
+surjective onto every strictly density-ordered finite-prefix tuple after the
+chosen split. Its compact closure allows the corresponding weak density
+orders, collisions, and zero endpoint; the cases \(h=0,1\) follow directly,
+and the same formulas or continuity identify this closure with the full
+compact domain \(\mathcal D_K\) in (CR28dw13). It introduces no new effective
+weight profile.
+
+The normalized clipped form makes the upper bound transparent. Put
+
+\[
+s=1+\alpha,
+\quad \tau={\alpha\over s},
+\quad \zeta={\eta\over s},
+\quad \rho_i^+={\beta_i^+\over s},
+\quad \rho_j^-={\beta_j^-\over s}.
+\]
+
+Coordinatewise weight optimization is feasible because the clipped optimizer
+\(\psi_s\) is nondecreasing. Using \(\phi\) from (CR28dw15), the exact
+optimized density objective is
+
+\[
+\boxed{
+\begin{aligned}
+\overline C^{\mathrm{2B}}_{k_+,k_-}
+=p(\alpha)+(1+\alpha)^3\bigg[&
+\sum_{i=1}^{k_+}(\rho_{i-1}^+-\rho_i^+)\phi(\rho_i^+)\\
+&+\sum_{j=1}^{k_-}(\rho_{j-1}^--\rho_j^-)\phi(\rho_j^-)
+\bigg],
+\end{aligned}
+}
+\tag{CR28dw37}
+\]
+
+where \(\rho_0^+=\tau\) and
+\(\rho_{k_+}^+=\zeta=\rho_0^-\). The bracket is one finite lower Darboux
+sum for the increasing function \(\phi\), merely marked at \(\zeta\).
+Therefore
+
+\[
+\overline C^{\mathrm{2B}}_{k_+,k_-}
+\le p(\alpha)+(1+\alpha)^3I\!\left({\alpha\over1+\alpha}\right)
+=\mathscr H_{\mathrm{fin}}(\alpha).
+\tag{CR28dw38}
+\]
+
+The exact three pieces are (CR28dw20). On \([0,1/3]\) the first is at
+most \(22/81\). On \([1/3,1/2]\), the derivative of the middle piece is
+
+\[
+{23\alpha^2-26\alpha+7\over8},
+\]
+
+so its unique maximum is
+
+\[
+\alpha={13-2\sqrt2\over23},
+\qquad
+\mathscr H_{\mathrm{fin}}(\alpha)
+={434+4\sqrt2\over1587}=C_{\mathrm{AF}}.
+\]
+
+On \([1/2,1]\), the derivative
+\((5\alpha^2-14\alpha+5)/24\) is negative, so the last piece is at most
+\(53/192\). The two exact outer comparisons are
+
+\[
+C_{\mathrm{AF}}-{22\over81}
+={80+108\sqrt2\over42849}>0,
+\qquad
+C_{\mathrm{AF}}-{53\over192}
+={256\sqrt2-261\over101568}>0;
+\]
+
+the second sign follows from
+\(2\cdot256^2-261^2=62951>0\).
+
+For each fixed \(K=k_++k_-\), the inverse representation (CR28dw36)
+includes the unique strict all-middle optimizer (CR28dw25), split at the
+chosen separator. Consequently the final classification is exact:
+
+\[
+\boxed{
+\max C^{\mathrm{2B}}_{k_+,k_-}
+=C_{k_++k_-,*}<C_{\mathrm{AF}},
+\qquad
+\sup_{k_+,k_-\ge1}C^{\mathrm{2B}}_{k_+,k_-}
+=C_{\mathrm{AF}}.
+}
+\tag{CR28dw39}
+\]
+
+The supremum is not attained by any finite two-block tuple. Thus this
+ansatz has the rigorous second outcome requested here: an exact upper bound
+equal to \(C_{\mathrm{AF}}\), and no rational witness in the ansatz can have
+a coefficient strictly larger than \(C_{\mathrm{AF}}\). This is a
+method-specific limitation, not an upper bound on \(\Lambda_n\).
+
+The sole new dossier-local oracle uses exact standard-library arithmetic on
+the four-edge base \((11,12,14,13)\) at \((n,r,d)=(14,11,9)\). It
+exhausts all 840 histories for the two two-label blocks
+\(\{10,9\}\) and \(\{8,7\}\), including 504 histories using both original
+slack pools, 576 lower-block recursive splits rooted in the upper pool, and
+64 deep descendants that no longer touch an upper-block label directly.
+It checks the bridge, literal edge linkage, root inheritance, charge count
+zero or one for every original edge, the disjoint pool partition, the global
+child-edge invariant, all local floors, and (CR28dw34). This bounded
+computation corroborates the accounting but does not prove the all-history
+or all-real theorem.
 
 ### Explicit five-prefix rational asymptotic witness
 

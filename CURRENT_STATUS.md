@@ -4,11 +4,15 @@ Last update: 2026-07-21
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Current task:** the independent post-review audit of KRPGE5-1--KRPGE5-36
-  at accepted baseline `a15a4d34cc034b669f02382e2e4f27b4822ed382`
-  is complete; every stated acceptance criterion passed. Detailed methods,
-  results, and limitations are in
-  `ops/TASK-20260721__krpge5_post_review_audit/EVIDENCE.md`.
+- **Current task:** the two-contiguous-block extension of
+  CR28dr--CR28dw29 is complete. The separator-density bridge gives two
+  disjoint history-relative original-edge slack pools and preserves the
+  recursive child-edge invariant, but the effective rows concatenate exactly
+  into the existing finite-prefix family. Its exact supremum is therefore
+  \(C_{\mathrm{AF}}=(434+4\sqrt2)/1587\), unattained, so the ansatz supplies
+  no stronger rational witness. Detailed proof and evidence are in
+  `research/FIXED_ORDER_CYCLE_RATIO.md` and
+  `ops/TASK-20260721__two_block_finite_prefix/EVIDENCE.md`.
 - **Blockers:** none.
 - **Next task:** user review and manual commit decision; afterward, choose one
   bounded item from the deferred roadmap in a fresh task.
