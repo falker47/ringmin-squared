@@ -95,19 +95,27 @@
   \[
   K(\tau_n)={143\over500}n^3+O(n^2).
   \]
-  Exact label-one elimination and the fixed-order angular sandwich sharpen
-  the current upper coefficients to \(143/500\) for \(\Lambda_n\) and
-  \(143/(500\pi)\) geometrically. This does not change the exact \(8/25\)
-  product-distance asymptotic.
+  Exact label-one elimination and the fixed-order angular sandwich
+  historically sharpened the upper coefficients to \(143/500\) for
+  \(\Lambda_n\) and \(143/(500\pi)\) geometrically. The later KR1
+  cancellation lift supersedes these global coefficients. This does not
+  change the exact \(8/25\) product-distance asymptotic.
 - **EXACT THEOREM (later residue-one shortcut evaluation):** for
   \(n=5k+1\), \(k\ge2\), the sharper order
   \(\tau_n^{(1)}=\operatorname{residue\_one\_product\_distance\_order}(n)\)
   has the unique induced-subset maximizer \(\{2k+1,\ldots,n\}\). Its exact
   parity quasipolynomial has leading coefficient \(857/3000\), and its
   \(K\) value is strictly below the canonical K825 value on every admitted
-  residue-one row. This sharpens only the residue-one subsequential upper
-  coefficient for \(\Lambda_n\) and \(R_2^*(n)\); it does not change the
-  all-residue limsup bound.
+  residue-one row. With
+  \(N(n)=5\lceil(n-1)/5\rceil+1\), cancelling labels above \(n\) from a
+  KR1 order at \(N(n)\) gives, for every \(n\ge7\),
+  \[
+  \Lambda_n\le K_{\rm R1}(N(n)),\qquad
+  R_2^*(n)<{K_{\rm R1}(N(n))\over\pi}.
+  \]
+  Since \(0\le N(n)-n\le4\), the all-index limsup coefficients improve to
+  \(857/3000\) and \(857/(3000\pi)\). No optimality, convergence, or exact
+  leading constant follows.
 - **EXACT THEOREM (later residue-two shortcut evaluation):** for
   \(n=5k+2\), \(k\ge2\), the parity-aware order
   \(\tau_n^{(2)}=\operatorname{residue\_two\_product\_distance\_order}(n)\)
@@ -115,7 +123,8 @@
   parity quasipolynomial is strictly below K825 on every residue-two row,
   without crossover. Both have cubic coefficient \(143/500\); their rowwise
   difference is \(21n^2/100+O(n)\), so it sharpens finite and quadratic
-  terms but not the established cubic upper coefficient.
+  terms within that comparison but not the stronger all-index KR1 upper
+  coefficient.
 - **EXACT THEOREM (residue-class matching):** for \(n\ge9\),
   \[
   H_n=
@@ -3307,8 +3316,8 @@ Inserting label \(1\) in any gap gives a complete order
 \Lambda(\widehat\sigma_{n,g})=K(\tau_n).
 \tag{UC24c}
 \]
-The exact fixed-order angular sandwich therefore sharpens the current global
-upper consequence to
+The exact fixed-order angular sandwich therefore gave the historical K825
+global upper consequence
 \[
 \boxed{
 \limsup_{n\to\infty}{\Lambda_n\over n^3}\le{143\over500},
@@ -3319,8 +3328,35 @@ upper consequence to
 \]
 This does not change the exact product-distance theorem (UC23):
 \(W_n/n^2\to8/25\). The improvement is specific to shortcut optimization
-and variable angular spacings; it proves neither convergence nor equality of
+and variable angular spacings. It proves neither convergence nor equality of
 the displayed global upper bounds.
+
+The later KR1 theorem in Section 9 of
+`research/FIXED_ORDER_CYCLE_RATIO.md` supersedes (UC24d) globally. Define
+\[
+N(n)=5\left\lceil{n-1\over5}\right\rceil+1,
+\qquad 0\le N(n)-n\le4.
+\tag{UC24e}
+\]
+For every \(n\ge7\), \(N(n)\ge11\) is in the original KR1 domain.
+Cancelling the labels above \(n\) preserves every remaining induced-subset
+score, so (KR1-33)--(KR1-39) give
+\[
+\Lambda_n\le K_{\rm R1}(N(n)),\qquad
+R_2^*(n)<{K_{\rm R1}(N(n))\over\pi},
+\tag{UC24f}
+\]
+and hence
+\[
+\boxed{
+\limsup_{n\to\infty}{\Lambda_n\over n^3}\le{857\over3000},
+\qquad
+\limsup_{n\to\infty}{R_2^*(n)\over n^3}
+\le{857\over3000\pi}.}
+\tag{UC24g}
+\]
+These are one-sided upper bounds, not optimality, convergence, or exact
+leading-constant statements.
 
 ## Exact Core Feasibility
 
@@ -4572,9 +4608,10 @@ R_2^*(10m+3)
 \tag{NR42}
 \]
 
-Because (NR41) is weaker than both the regular-direction \(8/(25\pi)\)
-construction and its later \(143/(500\pi)\) shortcut refinement, no new
-geometric consequence follows. In particular, this family-specific
+Because (NR41) is weaker than the regular-direction \(8/(25\pi)\)
+construction, the historical K825 \(143/(500\pi)\) shortcut refinement, and
+the still stronger all-index KR1 bound \(857/(3000\pi)\), no new geometric
+consequence follows. In particular, this family-specific
 surrogate obstruction is not a geometric lower bound and says nothing about
 other orders, unequal directions, or non-regular configurations.
 

@@ -457,10 +457,24 @@ Last updated: 2026-07-21
   K(\tau_n)={143\over500}n^3+O(n^2).
   \]
   Exact label-one elimination and the fixed-order angular sandwich therefore
-  sharpen the current geometric upper coefficient to
+  gave the historical K825 geometric upper coefficient
   \[
   \limsup_{n\to\infty}{R_2^*(n)\over n^3}\le {143\over500\pi}.
   \]
+- EXACT THEOREM (later KR1 monotone lift): define
+  \[
+  N(n)=5\left\lceil{n-1\over5}\right\rceil+1.
+  \]
+  For every \(n\ge7\), the argument \(N(n)\) belongs to the original KR1
+  domain and \(0\le N(n)-n\le4\). Cancelling the labels above \(n\) from a
+  complete KR1 order preserves all remaining induced-subset scores, giving
+  \[
+  \Lambda_n\le K_{\rm R1}(N(n)),\qquad
+  R_2^*(n)<{K_{\rm R1}(N(n))\over\pi}.
+  \]
+  Consequently the current all-index upper coefficients are
+  \(857/3000\) and \(857/(3000\pi)\). These are not optimality,
+  convergence, or exact-leading-constant claims.
 - DISPROVED CLAIM:
   \[
   R_2^*(n)= {n^3\over 6\pi}(1+o(1)).
@@ -516,10 +530,12 @@ None of these lower-bound results is an upper
 bound on the true problem. The order-independent regular-core baseline has
 upper coefficient \(1/\pi\), the zigzag refinement gives \(1/(2\pi)\), and
 the later product-distance construction gives \(8/(25\pi)\) on regular
-directions. Exact shortcut evaluation of the same core order sharpens the
-current variable-spacing upper coefficient to \(143/(500\pi)\). This still
-does not match the current lower coefficient. Thus no exact leading constant,
-limiting coefficient, or leading-term asymptotic formula is proved.
+directions. Exact shortcut evaluation of the same core order historically
+sharpened the variable-spacing upper coefficient to \(143/(500\pi)\). The
+later KR1 cancellation lift sharpens the current all-index coefficient
+further to \(857/(3000\pi)\). This still does not match the current lower
+coefficient. Thus no exact leading constant, limiting coefficient, or
+leading-term asymptotic formula is proved.
 
 ## Domain And Definitions
 
@@ -2781,8 +2797,8 @@ In particular,
 \[
 \boxed{R_2^*(n)=\Theta(n^3)}.
 \]
-The later exact shortcut evaluation of the canonical eight-twenty-fifths
-core order sharpens the right endpoint to
+The later KR1 exact evaluation and monotone cancellation lift sharpen the
+right endpoint to
 
 \[
 {434+4\sqrt2\over1587\pi}
@@ -2790,14 +2806,15 @@ core order sharpens the right endpoint to
 \liminf_{n\to\infty}{R_2^*(n)\over n^3}
 \le
 \limsup_{n\to\infty}{R_2^*(n)\over n^3}
-\le {143\over500\pi}.
+\le {857\over3000\pi}.
 \tag{23}
 \]
 
-The coefficient gap in (23) remains open. The value \(1/(2\pi)\) is the
-limsup coefficient of the zigzag construction, and \(8/(25\pi)\) is the
-older regular-direction product-distance coefficient; neither is the current
-best bound. Neither the improved upper bound nor the lower bound proves that
+The positive coefficient gap in (23) remains open. The value \(1/(2\pi)\)
+is the limsup coefficient of the zigzag construction, and \(8/(25\pi)\) is the
+older regular-direction product-distance coefficient; the intervening K825
+coefficient \(143/(500\pi)\) is also superseded. None is the current best
+bound. Neither the improved upper bound nor the lower bound proves that
 \(R_2^*(n)/n^3\) has a limit, and no exact leading constant is claimed.
 
 ## Gap And Counterexample Audit
@@ -2839,9 +2856,11 @@ best bound. Neither the improved upper bound nor the lower bound proves that
   baseline. The zigzag radius \(V_n\) improves its asymptotic upper coefficient
   from \(1/\pi\) to \(1/(2\pi)\); the later product-distance construction
   improves the regular-direction value again to \(8/(25\pi)\). The exact
-  shortcut theorem for the same core improves the variable-spacing upper
-  coefficient to \(143/(500\pi)\), which still does not match the current
-  all-fixed-\(k\) lower coefficient
+  shortcut theorem for the same core historically improves the
+  variable-spacing upper coefficient to \(143/(500\pi)\), and the KR1
+  cancellation lift improves the all-index coefficient further to
+  \(857/(3000\pi)\). This still does not match the current all-fixed-\(k\)
+  lower coefficient
   \[
   {434+4\sqrt2\over1587\pi}.
   \]

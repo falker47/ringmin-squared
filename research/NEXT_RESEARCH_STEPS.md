@@ -77,6 +77,23 @@ The superficially similar Ferrers count and monotone threshold-closing
   [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#22-exact-k-for-the-canonical-odd-v-e5-map)
   and the [stable synopsis](../PROJECT_KNOWLEDGE.md#product-distance-surrogate).
 
+- **COMPLETED -- monotone all-index KR1 lift:** for
+  \[
+  N(n)=5\left\lceil{n-1\over5}\right\rceil+1,
+  \qquad 0\le N(n)-n\le4,
+  \]
+  cancelling labels above \(n\) from a complete KR1 order at \(N(n)\)
+  preserves every remaining induced-subset score. The original KR1 domain
+  therefore gives, for every \(n\ge7\),
+  \(\Lambda_n\le K_{\rm R1}(N(n))\) and
+  \(R_2^*(n)<K_{\rm R1}(N(n))/\pi\). Consequently the all-index limsup
+  upper coefficients are \(857/3000\) and \(857/(3000\pi)\). The result
+  introduces no new order family or finite-prefix extension and proves no
+  optimality, convergence, or exact leading constant. See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#monotone-cancellation-lift-to-every-sufficiently-large-index)
+  and the
+  [task evidence](../ops/TASK-20260721__kr1_monotone_lift/EVIDENCE.md).
+
 - **COMPLETED -- two-contiguous-block charging ansatz:** the separator-density
   construction, convex bridge, two history-relative disjoint original-edge
   slack pools, and global recursive child-edge invariant give the exact
@@ -108,8 +125,7 @@ The superficially similar Ferrers count and monotone threshold-closing
 
 ## Next Atomic Task
 
-User review and manual commit decision for the canonical odd-\(v\),
-\(e=5\) exact-\(K\) task.
+User review and manual commit decision for the monotone all-index KR1 lift.
 Afterward, choose exactly one item from the deferred directions below in a
 fresh task before developing further mathematics.
 

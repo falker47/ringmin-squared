@@ -38,17 +38,25 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \[
   K(\tau_n)={143\over500}n^3+O(n^2).
   \]
-  Hence the current upper coefficients are \(143/500\) for \(\Lambda_n\)
-  and \(143/(500\pi)\) geometrically. This is an upper construction, not a
-  global minimizing-order or convergence theorem.
+  This historically gave upper coefficients \(143/500\) for \(\Lambda_n\)
+  and \(143/(500\pi)\) geometrically. The monotone KR1 cancellation lift
+  below supersedes those global coefficients. This is an upper construction,
+  not a global minimizing-order or convergence theorem.
 - **EXACT THEOREM (EXACT-THRESHOLD RESIDUE-ONE CORE):** for
   \(n=5k+1\), \(k\ge2\), Section 9 proves that the order returned by
   `residue_one_product_distance_order(n)` has the unique maximizing subset
   \(\{2k+1,\ldots,n\}\) and an exact parity quasipolynomial with leading
   coefficient \(857/3000\). It is strictly smaller than the canonical
-  K825 value on every row in this residue class. The improvement gives a
-  sharper residue-one subsequential upper coefficient, not a new all-residue
-  limsup theorem.
+  K825 value on every row in this residue class. If
+  \(N(n)=5\lceil(n-1)/5\rceil+1\), cancellation from a KR1 complete order
+  at \(N(n)\) gives, for every \(n\ge7\),
+  \[
+  \Lambda_n\le K_{\rm R1}(N(n)),\qquad
+  R_2^*(n)<{K_{\rm R1}(N(n))\over\pi}.
+  \]
+  Since \(0\le N(n)-n\le4\), the all-\(n\) limsup upper coefficients are
+  \(857/3000\) and \(857/(3000\pi)\). This proves no optimality,
+  convergence, or exact leading constant.
 - **EXACT THEOREM (EXACT-THRESHOLD RESIDUE-TWO CORE):** for
   \(n=5k+2\), \(k\ge2\), Section 10 proves that the order returned by
   `residue_two_product_distance_order(n)` also has the unique maximizing
@@ -9632,7 +9640,7 @@ R_2^*(n)<{\Lambda_n\over\pi}\le{K(\tau_n)\over\pi}.
 \tag{K825-24}
 \]
 In particular, \(K(\tau_n)/\pi-n^2<R_2^*(n)\) is **not** inferred. Combining
-the new upper coefficient with the current all-fixed-prefix lower coefficient
+this historical K825 upper coefficient with the all-fixed-prefix lower coefficient
 \(C_{\rm AF}=(434+4\sqrt2)/1587\) yields
 \[
 \boxed{
@@ -9652,10 +9660,11 @@ C_{\rm AF}
 }
 \tag{K825-26}
 \]
-The remaining coefficient gap is
-\((9941-2000\sqrt2)/793500>0\). No convergence, exact global leading
-constant, equality \(\Lambda_n=K(\tau_n)\), or minimizing-order
-classification follows.
+At this K825 stage the coefficient gap was
+\((9941-2000\sqrt2)/793500>0\). The later KR1 cancellation lift sharpens
+the upper endpoint. No convergence, exact global leading constant, equality
+\(\Lambda_n=K(\tau_n)\), or minimizing-order classification follows from
+this construction.
 
 ## 9. Exact \(K\) For The Exact-Threshold Residue-One Core Order
 
@@ -10040,16 +10049,107 @@ Consequently,
 \tag{KR1-32}
 \]
 
-No equality \(\Lambda_n=K_{\rm R1}(n)\), global lower bound
-\(K_{\rm R1}(n)/\pi-n^2<R_2^*(n)\), or global minimizing-order
-classification follows. The strict inequality
+### Monotone cancellation lift to every sufficiently large index
+
+The preceding KR1 construction is available only at the original domain
+\(N=5k+1\), \(k\ge2\), equivalently \(N\ge11\) and \(N\equiv1\pmod5\).
+For an arbitrary integer \(n\ge7\), define the least such residue-one index
+not below \(n\) by
+\[
+\boxed{
+N(n)=5\left\lceil{n-1\over5}\right\rceil+1}.
+\tag{KR1-33}
+\]
+Writing \(n-1=5a+r\), \(0\le r\le4\), gives
+\[
+N(n)-n=
+\begin{cases}
+0,&r=0,\\
+5-r,&1\le r\le4,
+\end{cases}
+\qquad
+\boxed{0\le N(n)-n\le4}.
+\tag{KR1-34}
+\]
+In particular, \(N(n)\ge11\), so every value used lies in the proved KR1
+domain. No value below that domain is supplied by this definition.
+
+We first record the exact cancellation step. Let \(3\le n\le N\), let
+\(\sigma\) be any complete cyclic order of \(\{1,\ldots,N\}\), and let
+\(\sigma|_n\) be the order obtained by cancelling the labels
+\(n+1,\ldots,N\). For every nonempty \(T\subseteq\{1,\ldots,n\}\),
+cancellation leaves the induced cyclic order on \(T\) unchanged, and hence
+\[
+P_{\sigma|_n}(T)=P_\sigma(T).
+\tag{KR1-35}
+\]
+Applying the exact induced-subset formula (CR12h) on both complete orders
+therefore gives
+\[
+\Lambda(\sigma|_n)
+=\max_{\varnothing\ne T\subseteq\{1,\ldots,n\}}P_\sigma(T)
+\le
+\max_{\varnothing\ne T\subseteq\{1,\ldots,N\}}P_\sigma(T)
+=\Lambda(\sigma).
+\tag{KR1-36}
+\]
+Thus cancellation proves the general monotonicity
+\(\Lambda_n\le\Lambda_N\) for \(3\le n\le N\): restrict an order attaining
+\(\Lambda_N\), then minimize at size \(n\).
+
+Apply the preceding global monotonicity with \(N=N(n)\). Separately,
+(KR1-31) at this admitted residue-one index compares \(\Lambda_{N(n)}\)
+with the specific KR1 order. Together with the strict global sandwich (CR27),
+these give for every \(n\ge7\)
+\[
+\boxed{
+\Lambda_n\le\Lambda_{N(n)}\le K_{\rm R1}(N(n)),
+\qquad
+R_2^*(n)<{\Lambda_n\over\pi}
+\le{K_{\rm R1}(N(n))\over\pi}.}
+\tag{KR1-37}
+\]
+This uses only deletion from the already proved KR1 family; it introduces no
+new order family.
+
+Finally, (KR1-28) at the admissible argument \(N(n)\), together with
+\(0\le N(n)-n\le4\), yields
+\[
+{K_{\rm R1}(N(n))\over n^3}
+={857\over3000}\left({N(n)\over n}\right)^3
++O\left({N(n)^2\over n^3}\right)
+\longrightarrow{857\over3000}.
+\tag{KR1-38}
+\]
+Consequently the improvement is an all-index, not merely subsequential,
+upper bound:
+\[
+\boxed{
+\limsup_{n\to\infty}{\Lambda_n\over n^3}
+\le{857\over3000},\qquad
+\limsup_{n\to\infty}{R_2^*(n)\over n^3}
+\le{857\over3000\pi}.}
+\tag{KR1-39}
+\]
+Together with the all-fixed-prefix lower coefficient this leaves the positive
+gap
+\[
+{857\over3000}-{434+4\sqrt2\over1587}
+={19353-4000\sqrt2\over1587000}>0.
+\tag{KR1-40}
+\]
+
+No equality \(\Lambda_n=K_{\rm R1}(N(n))\), global lower bound derived from
+\(K_{\rm R1}(N(n))\), or global minimizing-order classification follows.
+In particular, even on the original residue-one rows one still cannot infer
+\(K_{\rm R1}(n)/\pi-n^2<R_2^*(n)\). The strict inequality
 \(K_{\rm R1}<K_{825}\) compares the exact \(\Lambda\) scores of the two
 constructed complete-order families after label-one insertion, but does not
 order their exact angular thresholds \(\rho\). The fixed-order sandwich has
 width \(n^2\), so the quadratic terms of (KR1-4) are not exact geometric
-coefficients. Finally, a strict improvement in only one residue class does
-not improve the existing all-\(n\) limsup coefficient \(143/500\); it gives
-only (KR1-32).
+coefficients. Equations (KR1-37)--(KR1-39) give one-sided upper bounds only:
+they prove neither optimality, convergence of either normalized global
+sequence, nor an exact leading constant.
 
 ## 10. Exact \(K\) For The Exact-Threshold Residue-Two Core Order
 
@@ -10482,9 +10582,9 @@ orders the exact \(\Lambda\) scores of the two inserted construction
 families. However, the rowwise formulas give
 \(0<(K_{825}-K_{\rm R2})/\pi<n^2\), so the two fixed-order sandwiches
 overlap and do not order the exact angular thresholds or identify an exact
-quadratic geometric term. Finally, the coefficient in (KR2-36) is the
-existing canonical coefficient, not an improved all-residue limsup or a
-convergence theorem.
+quadratic geometric term. Finally, the coefficient in (KR2-36) is weaker
+than the all-index KR1 upper coefficient in (KR1-39); the residue-two
+construction does not improve that bound or prove convergence.
 
 ## 11. Exact \(K\) For The Closing PG46 Core Order
 
@@ -12379,16 +12479,18 @@ and
 \le
 \limsup_{n\to\infty}{\Lambda_n\over n^3}
 \le
-{143\over500}.
+{857\over3000}.
 \tag{CR42}
 \]
 
 None of these statements proves that either normalized sequence converges, or
 identifies an exact leading constant. In particular, the bounded values in
-(CR34) do not give a closed-form evaluation of (CR28a); \(143/500\) is the
-current upper coefficient, not an exact constant. The older \(8/25\)
-coefficient remains the exact product-distance asymptotic but is superseded
-for \(\Lambda_n\) and the geometric sandwich by (K825-25)--(K825-26).
+(CR34) do not give a closed-form evaluation of (CR28a); \(857/3000\) is the
+current upper coefficient, not an exact constant. The older \(8/25\) and
+\(143/500\) coefficients remain, respectively, the exact product-distance
+asymptotic and the K825 construction coefficient, but are superseded for
+\(\Lambda_n\) and the geometric sandwich by the all-index lift
+(KR1-33)--(KR1-39).
 
 Further non-consequences are important.
 

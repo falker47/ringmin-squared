@@ -244,6 +244,17 @@ and `ops/`.
   \]
   This route neither uses radius-one insertion nor constructs regular
   directions; it supplies an upper bound, not an exact optimum.
+- EXACT THEOREM (LABEL-CANCELLATION MONOTONICITY): if \(3\le n\le N\),
+  cancelling labels \(n+1,\ldots,N\) from a complete order preserves the
+  induced cyclic order and product score of every nonempty subset of
+  \(\{1,\ldots,n\}\). One-wrap saturation therefore gives
+  \[
+  \Lambda(\sigma|_n)\le\Lambda(\sigma),
+  \qquad \Lambda_n\le\Lambda_N.
+  \]
+  This is monotonicity of the unnormalized global combinatorial score. It is
+  not monotonicity of \(\Lambda_n/n^3\), an equality statement, or a
+  minimizing-order classification.
 - DEFINITION / EXACT THEOREM (TWO NESTED TAILS): for `n>=4` and
   `1<=m<=n-3`, put \(S_m=\{m,\ldots,n\}\) and define
   \[
@@ -1394,7 +1405,7 @@ and `ops/`.
   {434+4\sqrt2\over1587}
   \le\liminf{\Lambda_n\over n^3}
   \le\limsup{\Lambda_n\over n^3}
-  \le{143\over500}.
+  \le{857\over3000}.
   \]
   This proves neither convergence nor an exact leading constant.
 - EXACT THEOREM / DISTINCTION: \(\Lambda\) is natively a complete-order
@@ -1459,16 +1470,18 @@ and `ops/`.
   <\rho_{\sigma_{n,g}}<{K(\tau_n)\over\pi}.
   \]
   Globally, only \(\Lambda_n\le K(\tau_n)\) and
-  \(R_2^*(n)<\Lambda_n/\pi\le K(\tau_n)/\pi\) follow. Therefore
+  \(R_2^*(n)<\Lambda_n/\pi\le K(\tau_n)/\pi\) follow. This historically
+  gave
   \[
   {434+4\sqrt2\over1587}
   \le\liminf{\Lambda_n\over n^3}
   \le\limsup{\Lambda_n\over n^3}
   \le{143\over500},
   \]
-  with the same bracket divided by \(\pi\) for \(R_2^*(n)/n^3\). No
-  convergence, exact leading constant, or global minimizing-order theorem is
-  proved.
+  with the same bracket divided by \(\pi\) for \(R_2^*(n)/n^3\). The later
+  KR1 monotone cancellation lift supersedes the two upper endpoints by
+  \(857/3000\) and \(857/(3000\pi)\). No convergence, exact leading
+  constant, or global minimizing-order theorem is proved.
 - VERIFIED FACT (BOUNDED EXACT DOSSIER DIAGNOSTIC): the standalone
   `ops/TASK-20260718__canonical_eight_twenty_fifths_k/exact_diagnostic.py`
   reconstructs the block order without production imports, checks
@@ -1526,18 +1539,35 @@ and `ops/`.
   <\rho_{\sigma_{n,g}^{(1)}}
   <{K(\tau_n^{(1)})\over\pi}.
   \]
-  Globally, only
+  On the original residue-one rows, globally only
   \[
   \Lambda_n\le K(\tau_n^{(1)}),
   \qquad
   R_2^*(n)<{\Lambda_n\over\pi}
   \le{K(\tau_n^{(1)})\over\pi}
   \]
-  follows on this residue class. Hence the subsequential limsup coefficients
-  are at most \(857/3000\) and \(857/(3000\pi)\). This does not improve the
-  all-residue limsup, globalize the lower side of the fixed-order sandwich,
-  order the exact angular thresholds of the two constructions, transfer the
-  quadratic terms to geometry, or prove a global minimizing-order theorem.
+  follows directly. More generally, define
+  \[
+  N(n)=5\left\lceil{n-1\over5}\right\rceil+1.
+  \]
+  For every \(n\ge7\), this lies in the original KR1 domain and
+  \(0\le N(n)-n\le4\). Cancelling the labels above \(n\) from a complete
+  KR1 order at \(N(n)\) preserves every induced-subset score on the remaining
+  labels. Hence
+  \[
+  \Lambda_n\le\Lambda_{N(n)}\le K_{\rm R1}(N(n)),
+  \qquad
+  R_2^*(n)<{\Lambda_n\over\pi}
+  \le{K_{\rm R1}(N(n))\over\pi}.
+  \]
+  Since \(K_{\rm R1}(N)=857N^3/3000+O(N^2)\), the full-sequence limsup
+  coefficients are at most \(857/3000\) and \(857/(3000\pi)\). This does
+  not globalize the lower side of the fixed-order sandwich, order exact
+  angular thresholds, transfer quadratic terms to geometry, prove equality
+  or a minimizing-order theorem, establish convergence, or identify an exact
+  leading constant. For the prescribed \(N(n)\), the sharp initial domain is
+  \(n\ge7\): \(N(6)=6\) is outside the proved KR1 domain, while \(N(7)=11\)
+  is its first usable row.
 - VERIFIED FACT (BOUNDED EXACT DOSSIER DIAGNOSTIC): the standalone
   `ops/TASK-20260718__residue_one_exact_k/exact_diagnostic.py` imports only
   standard-library modules and no project or test helper. It reconstructs
@@ -1548,6 +1578,15 @@ and `ops/`.
   pointwise comparison checks continue through \(k=1000\). No subset or
   permutation is enumerated; the bounded computation corroborates rather
   than replaces the all-\(k\) proof.
+- VERIFIED FACT (BOUNDED EXACT KR1 LIFT DIAGNOSTIC): the standalone
+  standard-library script in `ops/TASK-20260721__kr1_monotone_lift/` checks
+  exactly 1,000 consecutive indices \(7\le n\le1006\). It covers every
+  class modulo ten 100 times, every offset \(N(n)-n\in\{0,1,2,3,4\}\)
+  200 times, both KR1 parity branches 500 times, and 200 distinct lifted
+  KR1 rows. The \(k\)- and \(N\)-formulas agree with exact divisibility, and
+  970 third finite differences equal \(1714\), giving the coefficient
+  \(857/3000\) exactly. It constructs no order and does not replace the
+  all-index cancellation proof.
 - EXACT THEOREM (EXACT-THRESHOLD RESIDUE-TWO \(K\)): let
   \(\tau_n^{(2)}\) be the core order returned by
   `residue_two_product_distance_order(n)` for \(n=5k+2\), \(k\ge2\), and
@@ -1609,11 +1648,11 @@ and `ops/`.
   \le{K(\tau_n^{(2)})\over\pi}
   \]
   follows on this residue class. The subsequential limsup coefficients are
-  therefore at most \(143/500\) and \(143/(500\pi)\), the already-known
-  canonical coefficients. No global equality, lower sandwich transfer,
+  therefore at most \(143/500\) and \(143/(500\pi)\), which are weaker than
+  the all-index KR1 coefficients. No global equality, lower sandwich transfer,
   minimizing-order theorem, active geometric/STN classification at the exact
   threshold, exact angular ordering, quadratic geometric coefficient, or
-  all-residue improvement follows.
+  improvement of the KR1 all-index bound follows.
 - VERIFIED FACT (BOUNDED EXACT DOSSIER DIAGNOSTIC): the standalone
   `ops/TASK-20260718__residue_two_exact_k/exact_diagnostic.py` imports only
   standard-library modules and no project or test helper. It independently
@@ -1984,9 +2023,10 @@ and `ops/`.
 - INTERPRETATION: the known lower and upper leading coefficients do not match.
   The value \(1/(2\pi)\) is the proved zigzag coefficient, while the later
   matching product-distance construction gives the regular-direction
-  coefficient \(8/(25\pi)\). The exact \(K\) theorem for the same core order
-  improves the current variable-spacing limsup upper coefficient to
-  \(143/(500\pi)\). No geometric limit has been proved.
+  coefficient \(8/(25\pi)\). The exact K825 theorem for the same core order
+  historically improved the variable-spacing limsup upper coefficient to
+  \(143/(500\pi)\); the KR1 cancellation lift improves the current all-index
+  coefficient to \(857/(3000\pi)\). No geometric limit has been proved.
 
 ## Product-Distance Surrogate
 
@@ -2232,8 +2272,10 @@ and `ops/`.
   \]
   This remains the exact regular-direction product-distance coefficient; its
   geometric conclusion is a valid historical upper bound, not an exact
-  leading constant or a convergence theorem. The later \(K\) theorem above
-  sharpens the variable-spacing upper coefficient to \(143/(500\pi)\).
+  leading constant or a convergence theorem. The later K825 theorem
+  historically sharpens the variable-spacing upper coefficient to
+  \(143/(500\pi)\), and the KR1 cancellation lift sharpens the current
+  all-index coefficient further to \(857/(3000\pi)\).
 - EXACT THEOREM: assigning \(\sigma\) to equally spaced polar directions
   makes the core strictly all-pairs feasible at
   \[
