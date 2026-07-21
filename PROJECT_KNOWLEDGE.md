@@ -2732,6 +2732,54 @@ and `ops/`.
   core-order family, or permanent. The finite computation corroborates
   rather than proves the all-\(m\) theorem and does not verify the
   real-arithmetic angular sandwich.
+- EXACT CANONICAL ODD-\(v\), \(e=5\) CORE THEOREM
+  (KRPGE5ODD-1--KRPGE5ODD-40): on \(n=10m+9\), \(m\ge1\), put
+  \(q=\lfloor(4m+5)/5\rfloor\) and fix the map that is the identity below
+  \(q\), shifts triples through \(P_{m+1}\), reverses the complete singleton
+  block, and places \(P_q\) in the genuine closing gap. Its four image
+  blocks partition all path indices, every incidence belongs to the exact
+  PGE5ODD support, and hence the map is a supported bijection with
+  \(W=W_n\). Its complete induced-subset argmax is
+  \[
+  \begin{cases}
+  \bigl\{\{8,\ldots,19\}\bigr\},&m=1,\\
+  \bigl\{\{4m+3,\ldots,10m+9\}\bigr\},&m\ge2.
+  \end{cases}
+  \]
+  With
+  \[
+  F_m={1714m^3+4977m^2+24mq+4721m+12q^2+72q+1464\over6},
+  \]
+  the exact score is \(K_m=F_m+11\mathbf1_{\{m=1\}}\). The minimum row has
+  \(K_1=2175\): the stable tail containing \(7\) has score \(2164\), and
+  deleting \(7\) supplies the real \(+11\) correction. For \(m\ge2\), the
+  unique deletion-gain minimum is \(36m+38\) at \(\lambda_0\); the unique
+  shortcut minimum is the genuine closing margin \(9\) at \(m=2\), then
+  \(4m+4\) at \(c_0\). Canonical K825 is strictly larger on every row,
+  including gap \(11\) at \(m=1\), and the fixed-family coefficient is
+  \(857/3000\). For every insertion gap of label \(1\), exact elimination
+  gives \(\Lambda=K_m\) and the strict fixed-order sandwich. Globally, only
+  \(\Lambda_{10m+9}\le K_m\) and
+  \(R_2^*(10m+9)<\Lambda_{10m+9}/\pi\le K_m/\pi\) follow, with their
+  subsequential upper coefficients. There is no minimizing-order theorem,
+  matching global lower bound, all-\(n\) limsup, convergence, or exact
+  leading constant for \(R_2^*\). The detailed proof is authoritative in
+  [`research/FIXED_ORDER_CYCLE_RATIO.md`](research/FIXED_ORDER_CYCLE_RATIO.md#22-exact-k-for-the-canonical-odd-v-e5-map).
+- VERIFIED FACT (FINITE EXACT CANONICAL ODD-\(v\), \(e=5\) \(K\)
+  DIAGNOSTIC): the sole standalone standard-library script in
+  `ops/TASK-20260721__canonical_e5_odd_exact_k/` constructs only the fixed
+  KRPGE5ODD map. On \(m=1,\ldots,30\), a candidate-free max-plus recurrence
+  checks the exact score and unique induced-subset argmax through
+  39,970,045 transitions. A separate traversal checks 1,891 isolated-hole
+  gains, all 1,016,930 proper oriented arcs, the exact raw-arc plus
+  hole-budget identity, and 1,010,149 nontrivial shortcuts, including the
+  cyclic cut. It also checks all 4,890 label-one insertion gaps and 508,465
+  elimination neighbor pairs on those rows. Formula, support, residue,
+  minimum-row residual, K825, and coefficient identities continue through
+  \(m=1000\). It imports no project/test helper and enumerates no assignment,
+  matching, subset, permanent, or alternative order family. The bounded
+  computation corroborates rather than proves the all-domain theorem and
+  does not verify the real-arithmetic angular sandwich.
 - EXACT \(n=10m+3\), \(e=4\) FERRERS COUNT THEOREM: put
   \(v=2m\), \(d=8m+4\), and
   \[

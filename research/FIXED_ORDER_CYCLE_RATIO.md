@@ -190,6 +190,30 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \(857/(3000\pi)\). This proves no minimizing-order or geometric
   optimality, no matching global lower bound, no all-residue limsup bound,
   and no exact leading constant for the global optimum \(R_2^*\).
+- **EXACT THEOREM (CANONICAL ODD-\(v\), \(e=5\) CORE):** on the
+  \(n=10m+9\), \(m\ge1\) scaffold, Section 22 fixes the closing-threshold
+  shift through the triples, reverses every singleton, and puts
+  \(P_q\), \(q=\lfloor(4m+5)/5\rfloor\), in the genuine closing gap. The
+  map belongs to the exact PGE5ODD support and has \(W=W_n\). Its complete
+  induced-subset argmax is the singleton list
+  \[
+  \bigl\{\{8,\ldots,19\}\bigr\}\quad(m=1),\qquad
+  \bigl\{\{4m+3,\ldots,10m+9\}\bigr\}\quad(m\ge2).
+  \]
+  With
+  \[
+  F_m={1714m^3+4977m^2+24mq+4721m+12q^2+72q+1464\over6},
+  \]
+  the exact value is \(K=F_m+11\mathbf1_{\{m=1\}}\). Thus
+  \(K(\tau_1)=2175\), while the displayed polynomial is exact for every
+  \(m\ge2\). Canonical K825 is strictly larger on every row, with boundary
+  gap \(11\), and this fixed family has coefficient \(857/3000\). For every
+  insertion gap of label \(1\), exact elimination gives \(\Lambda=K\) and
+  the strict fixed-order angular sandwich. Globally one obtains only
+  \(\Lambda_{10m+9}\le K\) and the corresponding one-sided upper bound for
+  \(R_2^*(10m+9)\), including the subsequential coefficient
+  \(857/(3000\pi)\). No minimizing-order, matching global lower bound,
+  all-\(n\) limsup, convergence, or exact global leading constant follows.
 - **EXACT THEOREM:** the accepted same-order comparison gives
   \(\Lambda_n\le(n-1)W_n\). Combined with the strict cyclic-ratio sandwich,
   this yields
@@ -16479,3 +16503,658 @@ bijection, and count no permanent.  Their exact limitations are the absence
 of a minimizing-order or geometric-optimality theorem, a matching global
 lower bound, an all-\(n\) limsup bound, and an exact leading constant for the
 global optimum \(R_2^*\).
+
+## 22. Exact \(K\) For The Canonical Odd-\(v\), \(e=5\) Map
+
+Retain only the canonical odd-\(v\) scaffold
+(PGE5ODD-1)--(PGE5ODD-4), so
+
+\[
+d=8m+9,\qquad n=10m+9,\qquad m\ge1,
+\qquad
+q=\left\lfloor{4m+5\over5}\right\rfloor
+=\kappa_{2m}.
+\]
+
+Fix exactly the map in the statement of this section:
+
+\[
+\boxed{
+\alpha_m^{(5,\mathrm{odd},*)}(j)=
+\begin{cases}
+j,&0\le j<q,\\
+j+1,&q\le j\le m,\\
+3m+1-j,&m+1\le j\le2m-1,\\
+q,&j=2m.
+\end{cases}}
+\tag{KRPGE5ODD-1}
+\]
+
+Its four image blocks are
+
+\[
+[0,q-1],\qquad [q+1,m+1],\qquad
+[m+2,2m]\ \text{in reverse order},\qquad\{q\}.
+\tag{KRPGE5ODD-2}
+\]
+
+They are disjoint and partition \(\{0,\ldots,2m\}\).  The third block is
+empty exactly at \(m=1\), so this also proves bijectivity on the minimum
+row.  It remains to check support rather than infer it from the image
+partition.  Equations (PGE5ODD-15)--(PGE5ODD-16) give
+
+\[
+\kappa_0=0,\qquad \kappa_1=1,\qquad
+\kappa_j\le j-1\ (2\le j\le2m),\qquad
+\kappa_{2m}=q\le m.
+\]
+
+Thus the identity block is supported, every shifted triple has
+\(j+1\ge\kappa_j\), every reversed singleton has index at least
+\(m+2>q\ge\kappa_j\), and the closing edge is exactly
+\((q,2m)=(\kappa_{2m},2m)\).  The zero column uses the forced edge
+\((0,0)\).  Hence every incidence belongs to (PGE5ODD-21), and the complete
+all-distance theorem (PGE5ODD-26) proves
+
+\[
+\boxed{
+\alpha_m^{(5,\mathrm{odd},*)}\text{ is a supported bijection},\qquad
+W(\sigma_{\alpha_m^{(5,\mathrm{odd},*)}})
+=W_n={d(d-1)\over2}.}
+\tag{KRPGE5ODD-3}
+\]
+
+This is not an adjacent-only inference.  With
+\(j^+=j+1\pmod{2m+1}\), expand the one fixed core literally as
+
+\[
+\boxed{
+\tau_m^{(5,\mathrm{odd},*)}
+=\mathop{\bigcirc}_{j=0}^{2m}
+ (E_j,\lambda_j,P_{\alpha_m^{(5,\mathrm{odd},*)}(j)},\rho_{j^+}).}
+\tag{KRPGE5ODD-4}
+\]
+
+Every path retains the orientation in (PGE5ODD-4).  In particular, the true
+closing word is
+
+\[
+(E_{2m}=n,\ 2,\ P_q,\ \rho_0=4m+3)\longrightarrow E_0=d.
+\tag{KRPGE5ODD-5}
+\]
+
+Put
+
+\[
+L=4m+3,\qquad
+F_m={1714m^3+4977m^2+24mq+4721m+12q^2+72q+1464\over6}.
+\tag{KRPGE5ODD-6}
+\]
+
+The exact complete induced-subset classification is
+
+\[
+\boxed{
+\operatorname*{argmax}_{\varnothing\ne U\subseteq\{2,\ldots,n\}}
+P_{\tau_m^{(5,\mathrm{odd},*)}}(U)
+=
+\begin{cases}
+\bigl\{\{8,\ldots,19\}\bigr\},&m=1,\\
+\bigl\{\{4m+3,\ldots,10m+9\}\bigr\},&m\ge2.
+\end{cases}}
+\tag{KRPGE5ODD-7}
+\]
+
+Consequently
+
+\[
+\boxed{
+K_m:=K(\tau_m^{(5,\mathrm{odd},*)})
+=F_m+11\mathbf1_{\{m=1\}}.}
+\tag{KRPGE5ODD-8}
+\]
+
+Thus \(K_1=2175\), while for every \(m\ge2\) equation (KRPGE5ODD-8) is
+exactly the formula displayed in (KRPGE5ODD-6).  We prove the argmax
+statement before using the block sum.
+
+### The stable backbone for \(m\ge2\)
+
+For now let \(m\ge2\) and set
+
+\[
+H_m=\{2,\ldots,4m+2\},\qquad
+B_m=\{L,\ldots,n\}.
+\]
+
+Every member of \(H_m\) is isolated between two members of \(B_m\).
+Deleting all holes and starting at \(L=\rho_0\) gives
+
+\[
+\boxed{
+\left(
+L,
+(E_j,P_j)_{j=0}^{q-1},
+(E_j,P_{j+1})_{j=q}^{m},
+(E_j,x_{3m+1-j})_{j=m+1}^{2m-1},
+E_{2m},P_q
+\right).}
+\tag{KRPGE5ODD-9}
+\]
+
+Every indexed block is concatenated in increasing gap index and every path
+is expanded.  The shifted-triple block is always nonempty.  The reversed
+singleton block has \(m-1\) members and is empty only on the separately
+treated row \(m=1\).  There is no doubleton range.
+
+For a hole \(z\) between its backbone neighbors \(u,w\), put
+
+\[
+h_z=uw-z(u+w).
+\tag{KRPGE5ODD-10}
+\]
+
+Literal substitution in (KRPGE5ODD-9) gives the following seven exhaustive
+classes:
+
+\[
+\begin{array}{c|c|c}
+\text{hole}&\text{gap range}&h_z\\ \hline
+\lambda_j&0\le j<q&
+-4j^2+(28m+26)j+36m+38\\
+\rho_{j+1}&0\le j<q&
+-4j^2+(28m+22)j+52m+53\\
+\lambda_j&q\le j\le m&
+-4j^2+(28m+20)j+28m+24\\
+\rho_{j+1}&q\le j\le m&
+-4j^2+(28m+16)j+44m+35\\
+\lambda_j&m+1\le j\le2m-1&
+-j^2+(29m+24)j-4m^2+17m+17\\
+\rho_{j+1}&m+1\le j\le2m-1&
+-j^2+(29m+25)j-4m^2+35m+35\\
+\lambda_{2m}=2&&
+80m^2-20mq+116m-14q+38.
+\end{array}
+\tag{KRPGE5ODD-11}
+\]
+
+The final row is the genuine closing hole between \(E_{2m}=n\) and
+\(A_q\); no nonclosing right-hole formula has been extended across the cut.
+The cardinalities sum to
+
+\[
+2q+2(m-q+1)+2(m-1)+1=4m+1=|H_m|.
+\]
+
+The forward differences of the six indexed rows, in table order, are
+
+\[
+28m+22-8j,\quad28m+18-8j,\quad
+28m+16-8j,\quad28m+12-8j,\quad
+29m+23-2j,\quad29m+24-2j.
+\tag{KRPGE5ODD-12}
+\]
+
+They are positive on their literal ranges.  Relative to the first left
+value \(36m+38\), the first right value has excess \(16m+15\).  Using
+\(2\le q\le m\), the two shifted classes have excess at least
+\(20m+2\) and \(36m+9\).  The two singleton classes begin with excess
+
+\[
+2(12m^2+16m+1),\qquad3(8m^2+17m+7),
+\]
+
+and \(q\le m\) makes the closing excess at least \(6m(10m+11)\).
+Therefore
+
+\[
+\boxed{
+\min_{z\in H_m}h_z=36m+38>0,\qquad
+z=\lambda_0=4m+2\text{ uniquely}.}
+\tag{KRPGE5ODD-13}
+\]
+
+It remains to audit every compressed shortcut, rather than only adjacent
+backbone deletions.  For a proper oriented arc, delete its internal holes
+and write
+
+\[
+C=(z_0,z_1,\ldots,z_s),\qquad s\ge2,\qquad
+M(C)=\sum_{i=0}^{s-1}z_iz_{i+1}-z_0z_s.
+\tag{KRPGE5ODD-14}
+\]
+
+Every backbone neighbor of a hole is at least \(R_0=5m+6\).  If both
+endpoints are distinct holes, then
+
+\[
+M(C)\ge R_0(a+b)-ab\ge5R_0-6=25m+24.
+\]
+
+If exactly \(a\) is a hole and \(b\in B_m\), the two boundary-adjacent
+backbone labels are at least \(R_0\) and \(L\), respectively.  The four
+corners of \(2\le a\le4m+2\), \(L\le b\le n\) give
+
+\[
+M(C)\ge aR_0+bL-ab\ge16m^2+26m+15.
+\tag{KRPGE5ODD-15}
+\]
+
+These bounds apply in both orientations and for every length; additional
+internal products are positive.
+
+Now take both endpoints in \(B_m\).  For \(s=2\), a triple connector has
+
+\[
+M(A_k,c_k,B_k)
+=-8k^2+(32m+29)k+4m+4,
+\qquad0\le k\le m+1.
+\tag{KRPGE5ODD-16}
+\]
+
+Its forward difference is \(32m+21-16k>0\), so this class has the unique
+minimum \(4m+4\) at \(c_0\).  For a reversed singleton put
+\(j=m+1+t\), \(0\le t\le m-2\).  Its exact terminal-to-terminal margin is
+
+\[
+M(E_j,x_{3m+1-j},E_{j+1})
+=27m^2-24mt+9m-3t^2-34t-26
+\ge35m+30.
+\tag{KRPGE5ODD-17}
+\]
+
+The expression strictly decreases with \(t\), so equality is unique at the
+final singleton.  The retained closing label \(L\), between \(B_q\) and
+\(E_0\), has
+
+\[
+M(B_q,L,E_0)=8mq-16m+12q-15.
+\tag{KRPGE5ODD-18}
+\]
+
+This equals \(9\) at \((m,q)=(2,2)\).  For \(m\ge3\), one has
+\(q\ge3\), so it is at least \(8m+21>4m+4\).
+
+The remaining two-edge middle roles are outer triple labels and terminals,
+all at least \(R=6m+5\).  For distinct endpoints \(u,w\in[L,n]\), the
+identity
+
+\[
+y(u+w)-uw=y^2-(u-y)(w-y)
+\]
+
+and the three relative-position cases give
+
+\[
+M(C)\ge
+\begin{cases}
+20m^2+32m+13,&u,w>y,\\
+32m^2+54m+23,&u,w<y,\\
+(6m+5)^2,&u<y<w\text{ or }w<y<u.
+\end{cases}
+\tag{KRPGE5ODD-19}
+\]
+
+The middle-role count
+
+\[
+(m+2)+(m-1)+1+2(m+2)+(2m+1)=6m+7=|B_m|
+\]
+
+accounts for connectors, singletons, \(L\), outer triple labels, and
+terminals.  Thus no two-edge role or absent doubleton has been omitted.
+
+For \(s=3\), every adjacent pair of internal backbone labels contains one
+member at least \(R=6m+5\) and the other at least \(L\).  Reversing the
+path if needed and checking the endpoint corners gives
+
+\[
+M(C)\ge z_0R+RL+Lz_3-z_0z_3
+\ge24m^2+28m+6.
+\tag{KRPGE5ODD-20}
+\]
+
+For \(s\ge4\), all internal labels are at least \(L\), whence
+
+\[
+\begin{aligned}
+M(C)
+&\ge L(z_0+z_s)+(s-2)L^2-z_0z_s\\
+&\ge12m^2-9+(s-4)L^2.
+\end{aligned}
+\tag{KRPGE5ODD-21}
+\]
+
+The full compressed closing word is
+
+\[
+E_{2m},A_q,c_q,B_q,L,E_0.
+\]
+
+Thus (KRPGE5ODD-18) handles its retained two-edge role,
+(KRPGE5ODD-20) handles both adjacent pairs through the cut, and
+(KRPGE5ODD-21) handles every longer cut-crossing arc.  The separate closing
+hole is the last row of (KRPGE5ODD-11).  All displayed bounds exceed the
+candidate minima, so the exact equality classification is
+
+\[
+\boxed{
+\min_{C:\,s\ge2}M(C)=
+\begin{cases}
+9,&m=2,\quad C=(19,11,25)=(B_q,L,E_0),\\
+4m+4,&m\ge3,\quad C=(A_0,c_0,B_0).
+\end{cases}}
+\tag{KRPGE5ODD-22}
+\]
+
+Each displayed forward arc is the unique equality arc in the fixed cyclic
+presentation.  The strict gains (KRPGE5ODD-13), strict shortcuts
+(KRPGE5ODD-22), and the exact lemma (K825-6)--(K825-9) force every
+maximizing subset of cardinality at least two to omit every hole and retain
+every edge of the compressed backbone.  It is therefore exactly \(B_m\).
+Since \(B_m\) contains \(n-1,n\), the two-element convention gives
+\(P(B_m)\ge2n(n-1)>n^2\), so no singleton can tie.  This proves the
+second row of (KRPGE5ODD-7), including every equality case.
+
+### The genuine minimum row \(m=1\)
+
+Here \(q=1\), \(\alpha=(0,2,1)\), and literal expansion of
+(KRPGE5ODD-4) gives
+
+\[
+\boxed{
+\tau_1^{(5,\mathrm{odd},*)}
+=(17,6,16,8,15,5,18,4,12,10,11,3,19,2,14,9,13,7).}
+\tag{KRPGE5ODD-23}
+\]
+
+The stable tail \(\{7,\ldots,19\}\) has score \(F_1=2164\), but its
+closing middle role has
+
+\[
+M(13,7,17)=7(13+17)-13\cdot17=-11.
+\]
+
+Thus deleting \(7\) raises the score by \(11\).  For the corrected hole set
+\(H'_1=\{2,\ldots,7\}\), the deletion gains and compressed backbone are
+
+\[
+(h_2,h_3,h_4,h_5,h_6,h_7)=(200,119,96,105,74,11),
+\]
+
+\[
+\boxed{(17,16,8,15,18,12,10,11,19,14,9,13).}
+\tag{KRPGE5ODD-24}
+\]
+
+Every gain is strict.  A shortcut with a hole endpoint has margin at least
+\(28\).  The three connector roles have margins \(8,61,98\), with the
+unique minimum on \((16,8,15)\).  Every other two-edge middle label is at
+least \(11\); according to the relative positions of its endpoints, the
+same corner identity used above gives lower bounds \(65,115,121\).  Every
+three-edge path has margin at least \(88\), and every \(s\)-edge path with
+\(s\ge4\) has margin at least
+
+\[
+71+64(s-4)>0.
+\]
+
+Consequently
+
+\[
+\boxed{
+\min_{C:\,s\ge2}M(C)=8,\qquad C=(16,8,15)\text{ uniquely},}
+\tag{KRPGE5ODD-25}
+\]
+
+and the shortcut-budget lemma proves that \(\{8,\ldots,19\}\) is the
+unique maximizing subset.  Its score is \(2164+11=2175>19^2\), so again
+no singleton ties.  This proves the first row of (KRPGE5ODD-7) without
+pretending that the stable backbone remains optimal at the boundary.
+
+### Exact block sum, residues, and coefficient
+
+For a nonempty path \(P=(p_1,\ldots,p_s)\), retain
+
+\[
+\mathcal C(x,P,y)=xp_1+\sum_{i=1}^{s-1}p_ip_{i+1}+p_sy.
+\]
+
+Reading the stable backbone (KRPGE5ODD-9) from \(L\) gives, for every
+\(m\ge1\) with empty ranges interpreted literally,
+
+\[
+\begin{aligned}
+F_m={}&LE_0
++\sum_{j=0}^{q-1}\mathcal C(E_j,P_j,E_{j+1})
++\sum_{j=q}^{m}\mathcal C(E_j,P_{j+1},E_{j+1})\\
+&+\sum_{j=m+1}^{2m-1}x_{3m+1-j}(E_j+E_{j+1})
++\mathcal C(E_{2m},P_q,L).
+\end{aligned}
+\tag{KRPGE5ODD-26}
+\]
+
+The repeated summands and boundary terms are
+
+\[
+\begin{aligned}
+\mathcal C(E_j,P_j,E_{j+1})
+&=-8j^2-16mj-24j+192m^2+396m+202,\\
+\mathcal C(E_j,P_{j+1},E_{j+1})
+&=-8j^2-16mj-36j+192m^2+364m+159,\\
+x_{3m+1-j}(E_j+E_{j+1})
+&=-2j^2-2mj-9j+112m^2+213m+95,\\
+\mathcal C(E_{2m},P_q,L)
+&=176m^2-28mq+328m-4q^2-25q+153,\\
+LE_0&=32m^2+60m+27.
+\end{aligned}
+\tag{KRPGE5ODD-27}
+\]
+
+Standard sums of \(j\) and \(j^2\) on the exact ranges of
+(KRPGE5ODD-26) give precisely \(F_m\) in (KRPGE5ODD-6).  Combining that
+identity with the minimum-row deletion proves the exact all-domain formula
+(KRPGE5ODD-8).
+
+For \(r=m\bmod5\), write
+
+\[
+q={4m+c_r\over5},\qquad
+(c_0,c_1,c_2,c_3,c_4)=(5,1,2,3,4).
+\]
+
+Then the five exact branches, including the sole residual explicitly, are
+
+\[
+\boxed{
+\begin{aligned}
+150K_m={}&42850m^3+125097m^2+(119465+216c_r)m\\
+&+36600+360c_r+12c_r^2
++1650\mathbf1_{\{m=1\}}.
+\end{aligned}}
+\tag{KRPGE5ODD-28}
+\]
+
+The \(r=1\) branch has \(m=1\) as its residual row and begins regularly at
+\(m=6\); the other branches begin at their least positive representatives.
+There is no further correction.  In terms of \(n=10m+9\),
+
+\[
+q=\left\lfloor{2n+7\over25}\right\rfloor,
+\]
+
+\[
+\boxed{
+\begin{aligned}
+3000K_m={}&857n^3+1746n^2+1200nq-3629n\\
+&+6000q^2+25200q-1518
++33000\mathbf1_{\{m=1\}}.
+\end{aligned}}
+\tag{KRPGE5ODD-29}
+\]
+
+Therefore this one fixed supported family has the exact cubic coefficient
+
+\[
+\boxed{K_m={857\over3000}n^3+O(n^2).}
+\tag{KRPGE5ODD-30}
+\]
+
+### Strict pointwise comparison with canonical K825
+
+On \(n=10m+9\), the parameters (K825-1)--(K825-4) specialize to
+
+\[
+e=5,\qquad v=2m+1,\qquad\varepsilon=0,
+\qquad\Gamma=-4m-4,
+\qquad\chi=\mathbf1_{\{m=1\}}.
+\]
+
+Hence
+
+\[
+\boxed{
+K_{825}(m)
+={572m^3+1667m^2+1627m+532\over2}
+-13\mathbf1_{\{m=1\}}.}
+\tag{KRPGE5ODD-31}
+\]
+
+Its unique maximizing subset is \(\{L,\ldots,n\}\), including
+\(\{7,\ldots,19\}\) on the boundary row, but it is a distinct cyclic
+order.  Exact subtraction after both scores have been evaluated gives
+
+\[
+\boxed{
+K_{825}(m)-K_m
+={m^3+12m^2-12mq+80m-6q^2-36q+66\over3}
+-24\mathbf1_{\{m=1\}}.}
+\tag{KRPGE5ODD-32}
+\]
+
+At \(m=1\), this is \(2186-2175=11\).  For \(m\ge2\), the numerator
+decreases with \(q\ge0\), and \(q\le m\), so
+
+\[
+K_{825}-K_m
+\ge {m^3-6m^2+44m+66\over3}
+={m(m-3)^2+35m+66\over3}>0.
+\tag{KRPGE5ODD-33}
+\]
+
+Thus the comparison is strict on every row, with no tie or crossover.  For
+completeness, on the regular rows \(m\ge2\), (KRPGE5ODD-28) gives the exact
+five-branch difference
+
+\[
+\boxed{
+75(K_{825}-K_m)
+=25m^3-36m^2+(1280-108c_r)m
++1650-180c_r-6c_r^2.}
+\tag{KRPGE5ODD-34}
+\]
+
+Equations (KRPGE5ODD-29)--(KRPGE5ODD-31) also give
+
+\[
+K_{825}(m)={858\over3000}n^3+O(n^2),\qquad
+K_{825}(m)-K_m={1\over3000}n^3+O(n^2).
+\tag{KRPGE5ODD-35}
+\]
+
+These are pointwise comparisons of the exact fixed-core \(K\)-scores.  They
+do not by themselves order the exact angular thresholds of the two complete
+order families.
+
+### Exact fixed-order consequences and their boundary
+
+Insert label \(1\) into an arbitrary cyclic gap \(g\) of
+\(\tau_m^{(5,\mathrm{odd},*)}\), and denote the complete order by
+\(\sigma_{m,g}^{(5,\mathrm{odd},*)}\).  Exact label-one elimination
+(CR12m)--(CR12q) gives
+
+\[
+\boxed{
+\Lambda\bigl(\sigma_{m,g}^{(5,\mathrm{odd},*)}\bigr)=K_m}
+\qquad\text{for every insertion gap }g.
+\tag{KRPGE5ODD-36}
+\]
+
+No maximizing induced label subset contains \(1\); the complete list is
+therefore exactly (KRPGE5ODD-7).  This statement classifies induced label
+subsets, not every maximizing closed-walk representation: repetitions and
+decompositions described after (CR12h) remain possible.  Applying the strict
+fixed-order sandwich (CR22) yields
+
+\[
+\boxed{
+{K_m\over\pi}-(10m+9)^2
+<\rho_{\sigma_{m,g}^{(5,\mathrm{odd},*)}}
+<{K_m\over\pi}}
+\qquad\text{for every }g.
+\tag{KRPGE5ODD-37}
+\]
+
+The thresholds need not be independent of \(g\); only their common
+\(\Lambda\)-value and enclosure are proved.  In particular, for every
+choice of gaps \(g=g(m)\),
+
+\[
+\boxed{
+{\rho_{\sigma_{m,g(m)}^{(5,\mathrm{odd},*)}}
+ \over(10m+9)^3}
+\longrightarrow {857\over3000\pi}.}
+\tag{KRPGE5ODD-38}
+\]
+
+At the global level, (CR28a) and (CR27) allow only the one-sided deductions
+
+\[
+\boxed{
+\Lambda_{10m+9}\le K_m,\qquad
+R_2^*(10m+9)
+<{\Lambda_{10m+9}\over\pi}
+\le {K_m\over\pi}.}
+\tag{KRPGE5ODD-39}
+\]
+
+Consequently, only on the subsequence \(n\equiv9\pmod {10}\),
+
+\[
+\boxed{
+\limsup_{m\to\infty}{\Lambda_{10m+9}\over(10m+9)^3}
+\le{857\over3000},\qquad
+\limsup_{m\to\infty}{R_2^*(10m+9)\over(10m+9)^3}
+\le{857\over3000\pi}.}
+\tag{KRPGE5ODD-40}
+\]
+
+No equality \(\Lambda_{10m+9}=K_m\), minimizing-order theorem, or geometric
+optimality follows.  The lower side of (KRPGE5ODD-37) cannot be transferred
+by replacing \(\Lambda_{10m+9}\) with this construction score, so there is
+no matching global lower bound.  Nor do these results prove an all-\(n\)
+limsup, convergence, or an exact leading constant for the global optimum
+\(R_2^*\).
+
+### Independent bounded verification and scope
+
+The sole diagnostic for (KRPGE5ODD-1)--(KRPGE5ODD-40) is the standalone
+standard-library script
+`ops/TASK-20260721__canonical_e5_odd_exact_k/exact_diagnostic.py`.  On
+\(m=1,\ldots,30\), its candidate-free least-selected-position max-plus
+recurrence checks the exact score and complete induced-subset argmax.  A
+separate traversal checks all \(1{,}016{,}930\) proper oriented arcs, all
+\(1{,}891\) isolated-hole gains, the raw-arc plus hole-budget identity, and
+all \(1{,}010{,}149\) nontrivial compressed shortcuts, including every arc
+through the cyclic cut.  It also checks every label-one insertion gap and
+the exact elimination inequalities on those rows.  Formula, support,
+residue, boundary, K825, and coefficient identities continue through
+\(m=1000\).  The script imports no project or test helper and enumerates no
+assignment, matching, subset, permanent, supported-bijection family, or
+alternative order family.  These bounded computations corroborate but do
+not prove the all-\(m\) theorem or the real-arithmetic angular sandwich.
+
+This section changes no construction or production result.  It evaluates
+only (KRPGE5ODD-1) on the already proved PGE5ODD scaffold, and its global
+content is limited exactly to the one-sided statements
+(KRPGE5ODD-39)--(KRPGE5ODD-40).

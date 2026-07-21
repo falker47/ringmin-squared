@@ -59,6 +59,24 @@ The superficially similar Ferrers count and monotone threshold-closing
   [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#21-exact-k-for-the-pge5-singleton-reversal-shift)
   and the [stable synopsis](../PROJECT_KNOWLEDGE.md#product-distance-surrogate).
 
+- **COMPLETED -- canonical odd-\(v\), \(e=5\) exact \(K\):** on the
+  \(n=10m+9\), \(m\ge1\) scaffold, (KRPGE5ODD-1)--(KRPGE5ODD-40)
+  evaluate only the fixed map that shifts the remaining triples, reverses
+  the singleton block, and places \(P_q\),
+  \(q=\lfloor(4m+5)/5\rfloor\), in the genuine closing gap. The map belongs
+  to the exact PGE5ODD support and has \(W=W_n\). Its unique induced-subset
+  maximizer is \(\{8,\ldots,19\}\) at \(m=1\), with \(K=2175\), and
+  \(\{4m+3,\ldots,10m+9\}\) for every \(m\ge2\), with the exact requested
+  polynomial. The stable polynomial misses the minimum row by precisely
+  \(11\), because deleting \(7\) is strictly profitable there. Canonical
+  K825 is strictly larger on every row, and the fixed-family coefficient is
+  \(857/3000\). Exact label-one elimination supplies the fixed-order
+  \(\Lambda\) value and angular sandwich; globally only the one-sided
+  subsequential upper bounds for \(\Lambda_n\) and \(R_2^*(n)\) follow.
+  Production, public tests, schemas, and artifacts are unchanged. See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#22-exact-k-for-the-canonical-odd-v-e5-map)
+  and the [stable synopsis](../PROJECT_KNOWLEDGE.md#product-distance-surrogate).
+
 - **COMPLETED -- two-contiguous-block charging ansatz:** the separator-density
   construction, convex bridge, two history-relative disjoint original-edge
   slack pools, and global recursive child-edge invariant give the exact
@@ -91,7 +109,7 @@ The superficially similar Ferrers count and monotone threshold-closing
 ## Next Atomic Task
 
 User review and manual commit decision for the canonical odd-\(v\),
-\(e=5\) path-gap support task.
+\(e=5\) exact-\(K\) task.
 Afterward, choose exactly one item from the deferred directions below in a
 fresh task before developing further mathematics.
 
