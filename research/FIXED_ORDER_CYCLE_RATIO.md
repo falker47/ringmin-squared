@@ -528,6 +528,23 @@ in `research/ALL_N_LOWER_BOUND.md`.
   \]
   Hence this ansatz gives no rational witness strictly above the current
   coefficient. This is not an upper bound on \(\Lambda_n\).
+- **EXACT METHOD-SPECIFIC LIMITATION (ONE-PREFIX BASE CAPACITY):** classify
+  the selected splits in the \(k=1\) proof only as base or recursive.  A
+  base cycle on \(S_r\) has \(n-r+1\) edges, so at least
+  \([2r-s-n-1]_+\) of the \(r-s\) selected splits are recursive.  Retaining
+  their stronger local floor gives the exact finite inequality (CR28dw41)
+  and the continuous objective (CR28dw43).  Its positive-part hinge is
+  \(\beta=2\alpha-1\).  Complete optimization of both closed sides, every
+  boundary, and the hinge gives
+  \[
+  \max C^{\mathrm{cap}}={4+2\sqrt3\over27}
+  <{434+4\sqrt2\over1587}=C_{\mathrm{AF}}.
+  \]
+  The unique global point is the old inactive one-prefix optimizer; the
+  active-side compact closure has exact maximum \(13/48\), at its filter-off
+  hinge.  Thus the filter is pointwise stronger when
+  \(2\alpha-\beta-1>0\) and \(\lambda>0\), but cannot improve the
+  all-fixed-prefix coefficient.  This is not an upper bound on \(\Lambda_n\).
 - **EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (ALL FIXED \(k\)):** put
   \[
   \alpha_\infty={13-2\sqrt2\over23}.
@@ -6607,6 +6624,286 @@ zero or one for every original edge, the disjoint pool partition, the global
 child-edge invariant, all local floors, and (CR28dw34). This bounded
 computation corroborates the accounting but does not prove the all-history
 or all-real theorem.
+
+### One-prefix base-capacity filter
+
+There is one still coarser nonconstant refinement inside the proof of
+(CR28dw).  Retain a single selected prefix and record only whether each split
+uses an untouched edge of the original base cycle or a recursive edge.  This
+is the smallest filter in the present declared class: the two cells are
+exactly the base/recursive dichotomy already used in (CR28ay)--(CR28bd), and
+the only added datum is the number of original edges.  No minimality among
+arbitrary structural filters is asserted.
+
+Fix
+
+\[
+2\le r\le n-2,
+\qquad 1\le s\le r-1,
+\qquad 0\le\lambda\le1,
+\]
+
+and select the insertion labels \(t=s,\ldots,r-1\).  The base cycle on
+\(S_r\) has \(q=n-r+1\) edges, while the selected prefix has
+\(\ell=r-s\) splits.  Since splitting an original edge removes it forever,
+the map from base splits to original edges is injective.  Hence the number
+of recursive selected splits is at least
+
+\[
+\boxed{
+q=n-r+1,
+\qquad
+\nu_{n,r,s}=[\ell-q]_+=[2r-s-n-1]_+.
+}
+\tag{CR28dw40}
+\]
+
+For a fixed compatible history, use the exact slack partition (CR28ax).
+Every base split at \(t\ge s\) contributes at least
+\(G_{n,\lambda}(s)\), by (CR28ay) and (CR28bc), while every recursive split
+contributes at least \(J_{n,\lambda}(s)\), by
+(CR28ba)--(CR28bc).  The factorization following (CR28bc) gives
+\(J_{n,\lambda}(s)\ge G_{n,\lambda}(s)\), including equality when
+\(\lambda=0\).  Assigning the baseline \(G_{n,\lambda}(s)\) to every
+selected split and the nonnegative difference to the recursive ones, then
+using the same weighted-prefix inequality as in (CR28bf), proves the exact
+all-order bound
+
+\[
+\boxed{
+\Lambda_n\ge\gamma^{(r)}_{1,n}
+\ge P_{r,n}
++\ell G_{n,\lambda}(s)
++
+\nu_{n,r,s}
+\bigl(J_{n,\lambda}(s)-G_{n,\lambda}(s)\bigr).
+}
+\tag{CR28dw41}
+\]
+
+Thus (CR28dw41) is strictly stronger than the \(k=1\) instance of
+(CR28dw) whenever \(\nu_{n,r,s}>0\) and \(\lambda>0\).  The statement is
+pointwise in every compatible history; it neither enumerates orders nor
+assumes that the lower bound is attained.
+
+For fixed strict densities
+\(0<\beta<\alpha<1\), put
+\(r=\lfloor\alpha n\rfloor\) and
+\(s=\lceil\beta n\rceil\).  In addition to \(p\) and \(g\) above, define
+
+\[
+j(\alpha,\beta,\lambda)
+=\lambda\bigl((1+\alpha)\beta-\alpha\bigr).
+\]
+
+The normalized recursive advantage has the exact factorization
+
+\[
+\boxed{
+j-g
+={\lambda\bigl((1-\alpha)^2
++2\lambda(\alpha-\beta)(1-\beta)\bigr)
+ \over2(2-\lambda)}\ge0.
+}
+\tag{CR28dw42}
+\]
+
+Since
+\(\ell/n\to\alpha-\beta\) and
+\(\nu_{n,r,s}/n\to(2\alpha-\beta-1)_+\), the exact continuous objective is
+
+\[
+\boxed{
+\begin{aligned}
+C^{\mathrm{cap}}(\alpha,\beta,\lambda)
+={}&p(\alpha)+(\alpha-\beta)g(\alpha,\beta,\lambda)\\
+&+(2\alpha-\beta-1)_+
+ \bigl(j(\alpha,\beta,\lambda)
+       -g(\alpha,\beta,\lambda)\bigr).
+\end{aligned}
+}
+\tag{CR28dw43}
+\]
+
+It is continuous on the full compact closure
+
+\[
+\mathcal D_{\rm cap}
+=\{0\le\beta\le\alpha\le1,\ 0\le\lambda\le1\},
+\tag{CR28dw44}
+\]
+
+because \(2-\lambda\ge1\) and the positive-part hinge is continuous.  The
+strict proof-valid domain is dense in this closure.  The filter collision is
+the face \(\beta=2\alpha-1\); there the added term vanishes and the two side
+formulas agree exactly.
+
+On the inactive side \(2\alpha-\beta-1\le0\), (CR28dw43) is precisely the
+one-prefix objective already classified on its complete compact domain after
+(CR28bg).  Its unique maximizer is
+
+\[
+\boxed{
+\alpha_* =1-{\sqrt3\over3},
+\qquad
+\beta_*={5\over6}-{\sqrt3\over4},
+\qquad
+\lambda_*={88-32\sqrt3\over73},
+}
+\]
+
+with value
+
+\[
+C_{1,*}={4+2\sqrt3\over27}.
+\]
+
+Since \(\alpha_*<1/2\), this point lies strictly on the inactive side, so
+restricting to that side does not lower its exact maximum.
+
+It remains to optimize the active-side compact closure.  Write
+
+\[
+a=\alpha,
+\qquad b=\beta,
+\qquad B=2a-1.
+\]
+
+Its compact domain is
+\(1/2\le a\le1\), \(0\le b\le B\), and
+\(0\le\lambda\le1\).  Directly from (CR28dw43),
+
+\[
+\boxed{
+C^{\mathrm{cap}}
+=p(a)+(1-a)g(a,b,\lambda)
+ +(B-b)j(a,b,\lambda).
+}
+\tag{CR28dw45}
+\]
+
+Put \(h=(1+a)b-a\).  Equation (CR28dw42) gives
+\(g\le j=\lambda h\le h_+\).  Both coefficients in (CR28dw45) are
+nonnegative, and
+\((1-a)+(B-b)=a-b\).  Consequently the entire active closure satisfies the
+single exact upper certificate
+
+\[
+\boxed{
+C^{\mathrm{cap}}(a,b,\lambda)
+\le p(a)+(a-b)\bigl((1+a)b-a\bigr)_+.
+}
+\tag{CR28dw46}
+\]
+
+For \(1/2\le a\le1/\sqrt2\), one has
+
+\[
+B-{a\over1+a}={2a^2-1\over1+a}\le0.
+\]
+
+Thus the positive part in (CR28dw46) vanishes throughout the active
+\(b\)-interval, and \(C^{\mathrm{cap}}\le p(a)\le p(1/2)=13/48\), because
+\(p'(a)=(1-2a-a^2)/2<0\) there.
+
+For \(1/\sqrt2\le a\le1\), enlarge the positive interval in \(b\) to
+\([a/(1+a),a]\).  The concave product in (CR28dw46) has midpoint maximum
+
+\[
+\max_b (a-b)\bigl((1+a)b-a\bigr)
+={a^4\over4(1+a)}.
+\]
+
+Hence, with
+
+\[
+H(a)=p(a)+{a^4\over4(1+a)},
+\]
+
+one has
+
+\[
+H'(a)
+={a^4-4a^3-8a^2+2\over4(1+a)^2}<0,
+\tag{CR28dw47}
+\]
+
+because the numerator is at most
+\(2-7a^2\le-3/2\).  At the left endpoint,
+
+\[
+H(1/\sqrt2)={2+7\sqrt2\over48}<{13\over48},
+\]
+
+where the last sign is \(7\sqrt2<11\), with square margin
+\(121-98>0\).  Therefore
+
+\[
+\boxed{
+\max_{\substack{1/2\le\alpha\le1\\
+0\le\beta\le2\alpha-1\\0\le\lambda\le1}}
+C^{\mathrm{cap}}(\alpha,\beta,\lambda)
+={13\over48},
+}
+\tag{CR28dw48}
+\]
+
+and equality is unique at
+\((\alpha,\beta,\lambda)=(1/2,0,0)\).  Indeed the active domain then forces
+\(\beta=0\), while
+\(g(1/2,0,\lambda)<0\) for every \(\lambda>0\).
+
+This also completes the boundary audit.  The faces \(\lambda=0\) and
+\(\beta=\alpha\) reduce to \(p(\alpha)\); \(\alpha=0\) forces
+\(\beta=0\); \(\beta=0\), \(\lambda=1\), and \(\alpha=1\) are included
+in the two closed-side arguments; and the filter collision was included in
+both closures.  There is no denominator or unused-coordinate singularity.
+
+Finally,
+
+\[
+C_{1,*}-{13\over48}={32\sqrt3-53\over432}>0,
+\]
+
+with square margin \(32^2\cdot3-53^2=263\).  Combining the inactive and
+active classifications gives the exact no-go for this class:
+
+\[
+\boxed{
+\max_{\mathcal D_{\rm cap}}C^{\mathrm{cap}}
+={4+2\sqrt3\over27}
+<{434+4\sqrt2\over1587}=C_{\mathrm{AF}}.
+}
+\tag{CR28dw49}
+\]
+
+For a direct sign check, the last difference is
+
+\[
+{2(895+18\sqrt2-529\sqrt3)\over14283}>0.
+\]
+
+The elementary bounds \(\sqrt2>7/5\) and \(\sqrt3<26/15\) make the
+parenthesis greater than \(49/15\).  Thus the capacity term creates a
+genuinely stronger cubic inequality on every strict tuple with
+\(2\alpha-\beta-1>0\) and \(\lambda>0\), but its whole compact optimum
+turns the filter off and remains the old one-prefix value.  This is a sharp
+method-specific no-go, not an upper bound on \(\Lambda_n\), and it neither
+changes nor weakens the all-fixed-prefix lower coefficient
+\(C_{\mathrm{AF}}\).
+
+The standalone task-local diagnostic uses only standard-library exact
+arithmetic.  It exhausts 3,300 selected-prefix histories in four
+triangle-base rows: a capacity-saturated control, the first capacity-active
+row, a positive-\(G\) active row, and a row with two forced recursive splits.
+History by history it checks edge linkage and contraction, score corrections,
+the base/recursive invariant, one-use slack, both local floors, the sharp
+base-edge capacity, and (CR28dw41).  A separate denominator-24
+`Fraction` grid checks 8,125 points on the inactive side, active-side
+closure, and hinge, while exact radical arithmetic checks
+\(13/48<C_{1,*}<C_{\mathrm{AF}}\).  This bounded computation imports no
+project, production, test, enumerator, or artifact helper and corroborates,
+but does not replace, the all-history or compact proof.
 
 ### Explicit five-prefix rational asymptotic witness
 

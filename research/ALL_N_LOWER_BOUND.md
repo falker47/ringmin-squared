@@ -308,6 +308,25 @@ Last updated: 2026-07-21
   The two-block ansatz therefore supplies no rational coefficient strictly
   above \(C_{\mathrm{AF}}\). This limitation is not an upper bound on
   \(\Lambda_n\).
+- EXACT METHOD-SPECIFIC LIMITATION (ONE-PREFIX BASE CAPACITY): in the
+  one-prefix proof, the \(r-s\) selected splits contain at least
+  \([2r-s-n-1]_+\) recursive splits because the base cycle has only
+  \(n-r+1\) original edges.  Retaining the stronger recursive floor gives
+  the exact finite inequality (CR28dw41) and normalized objective
+  (CR28dw43).  On its full compact closure, including the positive-part
+  collision \(\beta=2\alpha-1\), all density/weight faces, and both closed
+  sides,
+  \[
+  \max C^{\mathrm{cap}}
+  ={4+2\sqrt3\over27}
+  <{434+4\sqrt2\over1587}=C_{\mathrm{AF}}.
+  \]
+  The active-side compact closure has exact maximum \(13/48\) at its
+  filter-off hinge; the unique global optimizer is the old inactive
+  one-prefix point.  Thus this binary filter
+  strengthens individual tuples with \(2\alpha-\beta-1>0\) and
+  \(\lambda>0\), but is an exact no-go for improving the current coefficient.
+  It is not an upper bound on \(\Lambda_n\).
 - EXACT THEOREM (globally optimized five-prefix linear-block refinement):
   optimizing the \(k=5\) specialization on the complete eleven-parameter
   compact closure reduces the ordered weights coordinatewise. All 21 clipping

@@ -108,6 +108,25 @@ The superficially similar Ferrers count and monotone threshold-closing
   and the
   [task evidence](../ops/TASK-20260721__two_block_finite_prefix/EVIDENCE.md).
 
+- **COMPLETED -- one-prefix base-capacity filter:** retaining only the
+  base/recursive split type and the capacity \(n-r+1\) of the original base
+  cycle forces at least \([2r-s-n-1]_+\) selected recursive splits.  This
+  gives the new exact all-order inequality (CR28dw41) and normalized compact
+  objective (CR28dw43).  The active-side compact closure has exact maximum
+  \(13/48\) at its filter-off hinge; after every boundary and the hinge
+  \(\beta=2\alpha-1\) are included, the whole class has the old one-prefix
+  maximum
+  \[
+  {4+2\sqrt3\over27}
+  <{434+4\sqrt2\over1587}=C_{\mathrm{AF}}.
+  \]
+  Thus this binary filter is an exact no-go for improving the current lower
+  coefficient within the declared one-prefix class.  It does not classify
+  broader structural filters or upper-bound \(\Lambda_n\).  See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#one-prefix-base-capacity-filter)
+  and the
+  [task evidence](../ops/TASK-20260721__base_recursive_capacity_filter/EVIDENCE.md).
+
 ## Completed Post-Review Audit
 
 - **COMPLETED -- independent KRPGE5 audit:** KRPGE5-1--KRPGE5-36 at
@@ -125,14 +144,15 @@ The superficially similar Ferrers count and monotone threshold-closing
 
 ## Next Atomic Task
 
-User review and manual commit decision for the monotone all-index KR1 lift.
-Afterward, choose exactly one item from the deferred directions below in a
-fresh task before developing further mathematics.
+User review and manual commit decision for the one-prefix base-capacity
+filter.  Afterward, choose exactly one item from the deferred directions
+below in a fresh task before developing further mathematics.
 
 ## Deferred, Not Prioritized
 
 All open directions remain deferred until one is selected as a fresh bounded
-task. They include the filtered cubic-convergent obstruction,
+task. They include the distinct PG49/KPGZERO filtered cubic-convergent
+cardinality obstruction,
 finer Ferrers-count residuals, the asymptotic coefficient gap, tighter finite
 brackets at \(n=5,6\), the radius-one threshold below \(12\), and later
 minimizer-set restrictions for \(n\ge94\). Their mathematical context remains

@@ -1247,6 +1247,26 @@ and `ops/`.
   \]
   Thus this ansatz has no rational witness strictly above
   \(C_{\mathrm{AF}}\); this is not an upper bound on \(\Lambda_n\).
+- EXACT METHOD-SPECIFIC LIMITATION (ONE-PREFIX BASE CAPACITY): the coarsest
+  nonconstant filter in the declared one-prefix class retains the existing
+  base/recursive dichotomy and records its capacity count: the \(r-s\)
+  selected splits can use at most \(n-r+1\) original base edges.
+  Hence at least \([2r-s-n-1]_+\) selected splits receive the stronger
+  recursive floor.  The exact all-order inequality is (CR28dw41), and its
+  normalized compact objective is (CR28dw43).  The positive-part collision
+  is \(\beta=2\alpha-1\).  Exact optimization of both closed sides and all
+  boundary faces gives
+  \[
+  \max C^{\mathrm{cap}}={4+2\sqrt3\over27}
+  <{434+4\sqrt2\over1587}=C_{\mathrm{AF}}.
+  \]
+  The active-side compact closure has exact maximum \(13/48\), uniquely at
+  its filter-off hinge \((\alpha,\beta,\lambda)=(1/2,0,0)\); the unique
+  global optimizer is the old inactive one-prefix point.  Thus the filter is
+  strictly stronger when \(2\alpha-\beta-1>0\) and \(\lambda>0\), but cannot
+  improve the current coefficient.  This is a no-go for the declared binary
+  capacity-filter class only, not an upper bound on \(\Lambda_n\) or a claim
+  about arbitrary structural filters.
 - LIMITATION AND COROLLARY: the \(M_k,E_k\) statements are exact
   normalized-polynomial theorems, and \(\mathscr H_k\) is the separate full
   clipped continuous classification. Both are independent of the charging
