@@ -4,13 +4,11 @@ Last update: 2026-07-23
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Current task:** refine KPGZERO-24 into an exact local continued-fraction
-  admission criterion. The signed complete-quotient error, four separate
-  branch/sign windows, congruence-domain scale interval, residue-aware
-  discriminant, fixed-case falsification diagnostic, durable sources, and
-  full verification are complete. Task evidence is in
-  `ops/TASK-20260723__kpgzero_local_cf_criterion/EVIDENCE.md`.
+- **Current task:** formulate and close the two-prefix label-aware nested
+  capacity refinement of lower-bound charging.  The exact no-double-charging
+  finite inequality, coupled discriminant rule, complete compact objective,
+  strict one-prefix improvement, and exact no-go against \(C_{\rm AF}\) are
+  proved and fully verified.  Task evidence is in
+  `ops/TASK-20260723__two_prefix_label_aware_capacity/EVIDENCE.md`.
 - **Blockers:** none.
-- **Next task:** user review and manual commit decision. A theorem deciding
-  the absolute finite/infinite arithmetic alternative remains a deferred
-  fresh task.
+- **Next task:** user review and manual commit decision.

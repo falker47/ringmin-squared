@@ -147,6 +147,29 @@ The superficially similar Ferrers count and monotone threshold-closing
   and the
   [task evidence](../ops/TASK-20260722__one_prefix_label_aware_capacity/EVIDENCE.md).
 
+- **COMPLETED -- two-prefix label-aware nested capacity refinement:** the
+  accepted \(k=2\) height telescope now retains separately the upper-prefix
+  and total-prefix original-edge capacities over one common slack partition.
+  The exact finite bound (CR28dw72) has no reset or double charging, and its
+  coupled integer allocation is decided by the increasing quadratic
+  first-difference (CR28dw73), including endpoint, interior, linear, and
+  adjacent-tie collisions.  The normalized objective (CR28dw75) is classified
+  on the whole ordered compact closure.  A rational inactive witness proves a
+  strict improvement over one prefix, while exact inactive clipped comparison
+  and an active rational certificate prove
+  \[
+  C_{\rm LA,*}
+  <{2769\over10000}
+  <C_{\rm 2LA,*}
+  <{434+4\sqrt2\over1587}=C_{\rm AF}.
+  \]
+  Thus the class has an exact no-go against the arbitrary-finite-prefix
+  coefficient.  Production, enumeration limits, and geometric claims are
+  unchanged.  See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#two-prefix-label-aware-nested-capacity)
+  and the
+  [task evidence](../ops/TASK-20260723__two_prefix_label_aware_capacity/EVIDENCE.md).
+
 - **COMPLETED -- PG49/KPGZERO filtered-cardinality support no-go:** the
   per-row filtered convergent/scale fibre is now defined literally and proved
   bijective with the descending-min zero set, giving the exact
@@ -196,10 +219,9 @@ The superficially similar Ferrers count and monotone threshold-closing
 
 ## Next Atomic Task
 
-User review and manual commit decision for the KPGZERO local continued-
-fraction admission criterion. Afterward, choose exactly one item from the
-deferred directions below in a fresh task before developing further
-mathematics.
+User review and manual commit decision for the two-prefix label-aware nested
+capacity refinement. Afterward, choose exactly one item from the deferred
+directions below in a fresh task before developing further mathematics.
 
 ## Deferred, Not Prioritized
 

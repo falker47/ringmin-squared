@@ -1296,6 +1296,43 @@ and `ops/`.
   model, not an upper bound on \(\Lambda_n\), a geometric conclusion, or a
   classification of richer filters.  See
   [the authoritative proof](research/FIXED_ORDER_CYCLE_RATIO.md#one-prefix-label-aware-base-capacity).
+- EXACT METHOD-SPECIFIC NO-GO (TWO-PREFIX LABEL-AWARE NESTED CAPACITY):
+  retain simultaneously the upper-prefix capacity
+  \(|\mathcal R_1|\ge\nu_1\) and total-prefix capacity
+  \(|\mathcal R_1|+|\mathcal R_2|\ge\nu_2\) in the accepted \(k=2\)
+  height telescope.  One common history-relative original-edge partition
+  proves (CR28dw72), so no slack is reset or double charged at the inner
+  cutoff.  The exact finite allocation over \(q=|\mathcal R_1|\) has
+  increasing quadratic first difference (CR28dw73); its discriminant
+  includes lower/upper endpoint minima, an interior minimum, equal-weight
+  linear degeneration, and adjacent ties.  The normalized objective
+  (CR28dw75) is continuous on
+  \[
+  \{0\le c\le b\le a\le1,\ 0\le v\le u\le1\},
+  \]
+  with both positive-part hinges, all cutoff collisions, all weight faces,
+  and allocation collisions included.  The raw active closure is strictly
+  below \(69/250\).  On the inactive closure, comparison with the exact
+  clipped arbitrary-prefix envelope is strict at \(C_{\rm AF}\), because
+  two constant weights cannot equal its strictly varying pointwise optimizer.
+  The rational inactive witness
+  \[
+  (a,b,c,u,v)
+  =\left({11\over25},{49\over120},{47\over125},
+          {3\over5},{1\over3}\right)
+  \]
+  has value \(588926561981/2126250000000>2769/10000\).  Therefore
+  \[
+  C_{\rm LA,*}
+  <{2769\over10000}
+  <C_{\rm 2LA,*}
+  <{434+4\sqrt2\over1587}=C_{\rm AF}.
+  \]
+  This is an exact strict improvement over the one-prefix floor model and an
+  exact no-go against the arbitrary-finite-prefix coefficient, not an upper
+  bound on \(\Lambda_n\), a geometric claim, or a concatenation of two reset
+  blocks.  See
+  [the authoritative proof](research/FIXED_ORDER_CYCLE_RATIO.md#two-prefix-label-aware-nested-capacity).
 - LIMITATION AND COROLLARY: the \(M_k,E_k\) statements are exact
   normalized-polynomial theorems, and \(\mathscr H_k\) is the separate full
   clipped continuous classification. Both are independent of the charging

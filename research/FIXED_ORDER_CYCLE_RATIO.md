@@ -572,6 +572,25 @@ in `research/ALL_N_LOWER_BOUND.md`.
   does not exceed \(C_{\rm AF}\); the capacity term is inactive at the unique
   optimum.  This classifies only the declared one-prefix label-aware floor
   model, not \(\Lambda_n\) or richer structural filters.
+- **EXACT METHOD-SPECIFIC NO-GO (TWO-PREFIX LABEL-AWARE CAPACITY):** retain
+  separately the upper-prefix and total-prefix original-edge capacities in
+  the accepted \(k=2\) charging theorem.  One common slack partition gives
+  (CR28dw72) without resetting at the inner cutoff.  Its exact integer
+  allocation has the increasing quadratic first difference (CR28dw73), so
+  endpoints, an interior minimizer, equal-weight degeneration, and adjacent
+  ties are all decided by one discriminant.  The normalized objective
+  (CR28dw75) is continuous on the complete compact closure, including both
+  positive-part hinges and every cutoff or weight collision.  Exact inactive
+  clipped comparison and active rational certification give
+  \[
+  C_{\rm LA,*}
+  <{2769\over10000}
+  <C_{\rm 2LA,*}
+  <{434+4\sqrt2\over1587}=C_{\rm AF}.
+  \]
+  Thus two prefixes strictly improve one prefix but cannot beat the accepted
+  arbitrary-finite-prefix coefficient.  This is a floor-model no-go, not an
+  upper bound on \(\Lambda_n\) or a geometric claim.
 - **EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (ALL FIXED \(k\)):** put
   \[
   \alpha_\infty={13-2\sqrt2\over23}.
@@ -7504,6 +7523,427 @@ modulo \(\mathcal Q\), the optimizer coordinate enclosures, and all decisive
 rational and radical comparisons.  It imports no project, production, test,
 enumerator, artifact, or certificate helper and corroborates, but does not
 replace, the all-history and all-real proofs.
+
+### Two-prefix label-aware nested capacity
+
+The one-prefix result keeps one capacity datum.  With two nested cutoffs the
+two data must remain simultaneous: the number of recursive splits above the
+first cutoff and the number above the second cutoff constrain one common
+history.  They cannot be replaced by only the latter cardinality, and the
+two selected segments cannot be reset and classified independently because
+both use the same original-edge slack pool.
+
+Fix
+
+\[
+1\le s_2<s_1\le r-1,
+\qquad
+0\le v\le u\le1,
+\]
+
+and put
+
+\[
+\begin{gathered}
+I_1=\{s_1,\ldots,r-1\},
+\qquad
+I_2=\{s_2,\ldots,s_1-1\},\\
+\ell_1=r-s_1,
+\qquad
+\ell_2=s_1-s_2,
+\qquad
+q_0=n-r+1,\\
+\nu_1=[\ell_1-q_0]_+,
+\qquad
+\nu_2=[\ell_1+\ell_2-q_0]_+.
+\end{gathered}
+\tag{CR28dw69}
+\]
+
+For one literal history, let \(\mathcal R_i\subseteq I_i\) be its recursive
+labels.  The base-split injection into the \(q_0\) original edges gives the
+two separate necessary constraints
+
+\[
+|\mathcal R_1|\ge\nu_1,
+\qquad
+|\mathcal R_1|+|\mathcal R_2|\ge\nu_2.
+\]
+
+They are jointly sharp at the binary-type level.  The first selected split
+\(r-1\) is base, and every subsequent base/recursive word beginning with
+base and containing at most \(q_0\) base letters is realizable by the
+descendant-edge construction used for (CR28dw53).  In particular, the two
+constraints do not describe two independent pools.
+
+Let
+
+\[
+H_1=\sum_{t=s_1}^{r-1}A_t,
+\qquad
+H_2=\sum_{t=s_2}^{r-1}A_t.
+\]
+
+The \(k=2\) height inequality in (CR28ds) is
+
+\[
+\max_j\mathcal H_j
+\ge (u-v)H_1+vH_2
+=u\sum_{t\in I_1}A_t+v\sum_{t\in I_2}A_t.
+\]
+
+Apply the one-use partition (CR28dv) once to \(I_1\mathbin{\dot\cup}I_2\),
+with weight \(u\) on \(I_1\) and \(v\) on \(I_2\).  A base split receives
+its unique original-edge slack and its weighted correction; a recursive
+split receives only its weighted correction.  Thus no descendant in
+\(I_2\) can receive a second copy of slack already charged in \(I_1\), and
+the exact labelwise inequality is
+
+\[
+\boxed{
+\begin{aligned}
+P(C_0)+u\sum_{t\in I_1}A_t+v\sum_{t\in I_2}A_t-P_{r,n}
+\ge{}&
+\sum_{t\in I_1}G_{n,u}(t)
++\sum_{t\in I_2}G_{n,v}(t)\\
+&+\sum_{t\in\mathcal R_1}\Delta_{n,r,u}(t)
++\sum_{t\in\mathcal R_2}\Delta_{n,r,v}(t).
+\end{aligned}
+}
+\tag{CR28dw70}
+\]
+
+All omitted original-edge slacks are nonnegative.  This proves the
+accounting before any capacity minimization and is the point at which
+double charging is excluded.
+
+It remains to solve one coupled finite allocation problem.  A minimizer can
+be chosen with exactly \(\nu_2\) recursive labels because every advantage is
+nonnegative.  If \(q=|\mathcal R_1|\), its exact integer domain is
+
+\[
+\mathcal Q
+=\{L,L+1,\ldots,U\},
+\qquad
+L=\max(\nu_1,\nu_2-\ell_2),
+\qquad
+U=\min(\ell_1-1,\nu_2).
+\]
+
+The term \(\ell_1-1\) retains the forced first base split.  For fixed \(q\),
+monotonicity (CR28dw50) selects
+
+\[
+\mathcal R_1(q)=\{r-q-1,\ldots,r-2\},
+\qquad
+\mathcal R_2(q)=\{s_1-(\nu_2-q),\ldots,s_1-1\}.
+\]
+
+These are not independently optimized blocks: \(q\) transfers one recursive
+slot between the two nested capacity rows.
+
+For a compact closed form define, with \(d=n-r\),
+
+\[
+\boxed{
+\begin{aligned}
+\mathcal A_\lambda(m)
+&:=\sum_{h=0}^{m-1}\Delta_{n,r,\lambda}(r-1-h)\\
+&={\lambda\over2(2-\lambda)}
+\left\{
+m(d+2)^2+2m(m-1)
++\lambda m(m-1)
+\left(d+1+{2m-1\over3}\right)
+\right\}.
+\end{aligned}
+}
+\tag{CR28dw71}
+\]
+
+Empty sums have value zero.  The exact allocation cost is
+
+\[
+\Omega(q)
+=\mathcal A_u(q+1)-\mathcal A_u(1)
++\mathcal A_v(\ell_1+\nu_2-q)-\mathcal A_v(\ell_1).
+\]
+
+Combining (CR28dw70), the exact binary-history classification, and the
+two-prefix height inequality proves the finite theorem
+
+\[
+\boxed{
+\begin{aligned}
+\Lambda_n\ge\gamma^{(r)}_{1,n}\ge{}&
+P_{r,n}
++\sum_{t=s_1}^{r-1}G_{n,u}(t)
++\sum_{t=s_2}^{s_1-1}G_{n,v}(t)\\
+&+\min_{q\in\mathcal Q}\Omega(q).
+\end{aligned}
+}
+\tag{CR28dw72}
+\]
+
+This is the strongest history-uniform consequence of the two retained
+nested capacities and the complete realizable binary type data.  As before,
+that sharpness statement concerns the declared floor information, not
+simultaneous equality of all geometric local inequalities.
+
+The finite minimum has an exact discriminant rule.  Its first difference is
+
+\[
+\boxed{
+\begin{aligned}
+\mathscr D(q)
+&:=\Omega(q+1)-\Omega(q)\\
+&=\Delta_{n,r,u}(r-q-2)
+ -\Delta_{n,r,v}(s_1-\nu_2+q)\\
+&={u\over2(2-u)}
+\left[d^2+4(d+q+2)+2u(q+1)(d+q+2)\right]\\
+&\quad-{v\over2(2-v)}
+\left[
+d^2+4(d+\ell_1+\nu_2-q)\right.\\
+&\hspace{39mm}\left.
+{}+2v(\ell_1+\nu_2-q-1)(d+\ell_1+\nu_2-q)
+\right]\\
+&=:Aq^2+Bq+C,
+\qquad
+A={u^2\over2-u}-{v^2\over2-v}\ge0.
+\end{aligned}
+}
+\tag{CR28dw73}
+\]
+
+The difference is strictly increasing when \(u>0\): its first term samples
+successively lower, more expensive upper labels, while its subtracted term
+samples successively higher, cheaper lower labels.  If \(u>v\), then
+\(A>0\) and the exact discriminant \(B^2-4AC\) locates the sole possible
+sign crossing.  If \(u=v>0\), the quadratic term collides and
+\(\mathscr D\) is strictly increasing linear.  If \(u=v=0\), every cost
+collides at zero.  Consequently the minimizer is the first
+\(q\in[L,U-1]\) with \(\mathscr D(q)\ge0\), or \(U\) if none exists; equality
+\(\mathscr D(q)=0\) gives exactly the adjacent tie \(q,q+1\).  This includes
+both endpoints and every discriminant collision without a numerical search.
+
+Now take fixed densities and the complete ordered compact closure
+
+\[
+\mathcal D_{\rm 2LA}
+=\{0\le c\le b\le a\le1,\ 0\le v\le u\le1\}.
+\]
+
+Use \(g,\delta\) from (CR28dw56), and put
+
+\[
+\kappa_1=(2a-b-1)_+,
+\qquad
+\kappa_2=(2a-c-1)_+,
+\qquad
+\Theta(a,b,c)
+=\left[\kappa_1,\min(a-b,\kappa_2)\right].
+\tag{CR28dw74}
+\]
+
+The interval is always nonempty; it is the scaled limit of
+\(\mathcal Q\).  Riemann summation in (CR28dw72) gives the exact normalized
+objective
+
+\[
+\boxed{
+\begin{aligned}
+C^{\rm 2LA}(a,b,c,u,v)
+={}&p(a)
++\int_b^a g(a,x,u)\,dx
++\int_c^b g(a,x,v)\,dx\\
+&+\min_{\theta\in\Theta(a,b,c)}
+\left\{
+\int_{a-\theta}^a\delta(a,x,u)\,dx
++\int_{b-\kappa_2+\theta}^b\delta(a,x,v)\,dx
+\right\}.
+\end{aligned}
+}
+\tag{CR28dw75}
+\]
+
+The derivative of the expression inside the minimum is
+
+\[
+\delta(a,a-\theta,u)
+-\delta(a,b-\kappa_2+\theta,v).
+\tag{CR28dw76}
+\]
+
+It is nondecreasing, and strictly increasing unless both weights vanish.
+Thus (CR28dw76) gives the continuous endpoint/interior/tie rule corresponding
+to (CR28dw73).  Formula (CR28dw75) is continuous on all of
+\(\mathcal D_{\rm 2LA}\): positive-part hinges occur at
+\(b=2a-1\) and \(c=2a-1\); segment collisions occur at \(b=a\) and \(c=b\);
+allocation endpoints collide when either segment has zero length; and
+\(u=v\), \(v=0\), \(u=1\), \(a=0,1\), and \(c=0\) are ordinary closed
+faces.  The factors \(2-u\) and \(2-v\) stay at least one.  Hence a global
+maximum exists on the entire declared closure.
+
+There are two exact compact estimates.  First suppose \(\kappa_2=0\).
+Then both capacity terms vanish and, with the clipped pointwise floor
+\(\Phi_{1+a}\) from (CR28bw3),
+
+\[
+\begin{aligned}
+C^{\rm 2LA}
+&=p(a)+\int_b^a g(a,x,u)\,dx+\int_c^b g(a,x,v)\,dx\\
+&\le p(a)+\int_0^a\Phi_{1+a}(x)\,dx
+=\mathscr H_{\rm fin}(a)
+\le C_{\rm AF}.
+\end{aligned}
+\tag{CR28dw77}
+\]
+
+Equality with \(C_{\rm AF}\) is impossible.  Equation (CR28dw20) has that
+value only at
+\(a=(13-2\sqrt2)/23\), where the positive middle interval has nonzero
+length and its unique clipped optimizer is a strictly increasing function
+of the label density.  Two constant weights cannot equal that optimizer
+almost everywhere.  Since the inactive set is compact, its maximum is
+therefore strictly below \(C_{\rm AF}\).
+
+It remains to exclude an active counterexample.  Write
+
+\[
+x=a-b,\qquad y=b-c,\qquad d=1-a.
+\]
+
+On the active closure \(2a-c-1\ge0\), one has \(x+y\ge d\), and the two
+allocation endpoints are
+
+\[
+\theta_-=(x-d)_+,
+\qquad
+\theta_+=x-(d-y)_+.
+\]
+
+Let \(E(\theta)\) denote the right-hand side of (CR28dw75) with its
+allocation parameter fixed at \(\theta\).  Since a minimum does not exceed
+any convex combination of endpoint values,
+
+\[
+C^{\rm 2LA}
+\le {4\over5}E(\theta_-)+{1\over5}E(\theta_+).
+\tag{CR28dw78}
+\]
+
+The following exact rational certificate bounds this last expression.  It
+is included to cover the positive-part side, rather than extrapolating the
+inactive clipped argument across the hinge.  Split according as \(x\) and
+\(y\) are below or above \(d\), and split \(d\) at \(1/3\).  With
+\(X,Y,Z\in[0,1]\) and \(e=1-2d\), the eight charts are
+
+| chart | \(d\) | \(x\) | \(y\) |
+|---|---|---|---|
+| \(00_{\rm L}\) | \(X/3\) | \(dY\) | \(d(1-Y+YZ)\) |
+| \(00_{\rm HL}\) | \(1/3+X/6\) | \(eY\) | \(d-x+xZ\) |
+| \(00_{\rm HR}\) | \(1/3+X/6\) | \(e+(d-e)Y\) | \(d-x+eZ\) |
+| \(10_{\rm L}\) | \(X/3\) | \(d+(e-y)Z\) | \(dY\) |
+| \(10_{\rm H}\) | \(1/3+X/6\) | \(d+(e-y)Z\) | \(eY\) |
+| \(01_{\rm L}\) | \(X/3\) | \(dY\) | \(d+(e-x)Z\) |
+| \(01_{\rm H}\) | \(1/3+X/6\) | \(eY\) | \(d+(e-x)Z\) |
+| \(11_{\rm L}\) | \(X/3\) | \(d+(1-3d)Y\) | \(d+(1-3d)(1-Y)Z\) |
+
+The bits record \(x\ge d\) and \(y\ge d\).  These charts cover exactly
+\(0\le d\le1/2\), \(x,y\ge0\), and
+\(d\le x+y\le1-d\), including every shared face.  Put \(v=uw\),
+\(0\le w\le1\), and multiply the difference from \(69/250\) by the positive
+denominator:
+
+\[
+\mathcal B
+=4(2-u)(2-uw)
+\left[
+{69\over250}
+-{4\over5}E(\theta_-)-{1\over5}E(\theta_+)
+\right].
+\]
+
+On each chart \(\mathcal B\) is a rational polynomial.  Cyclic dyadic
+de Casteljau subdivision in \((X,Y,Z,u,w)\) gives the following complete
+Bernstein certificate:
+
+| chart | degree vector | terminal boxes | maximum depth | least terminal coefficient |
+|---|---:|---:|---:|---:|
+| \(00_{\rm L}\) | \((3,3,3,3,2)\) | 10 | 6 | \(661/81000\) |
+| \(00_{\rm HL}\) | \((3,3,3,3,2)\) | 8 | 6 | \(439/81000\) |
+| \(00_{\rm HR}\) | \((3,3,3,3,2)\) | 54 | 12 | \(5963/497664000\) |
+| \(10_{\rm L}\) | \((3,3,2,3,2)\) | 52 | 8 | \(111851/55296000\) |
+| \(10_{\rm H}\) | \((3,3,2,3,2)\) | 1 | 0 | \(31/375\) |
+| \(01_{\rm L}\) | \((3,3,2,3,2)\) | 33 | 8 | \(31/20250\) |
+| \(01_{\rm H}\) | \((3,3,2,3,2)\) | 11 | 6 | \(1253/216000\) |
+| \(11_{\rm L}\) | \((3,2,2,3,2)\) | 16 | 8 | \(31/20250\) |
+
+Every listed coefficient is positive.  The Bernstein convex-hull property,
+the exact chart cover, and (CR28dw78) prove
+
+\[
+\boxed{
+2a-c-1\ge0
+\quad\Longrightarrow\quad
+C^{\rm 2LA}<{69\over250}<{277\over1000}<C_{\rm AF}.
+}
+\tag{CR28dw79}
+\]
+
+Here the first implication is needed only on the active closure; the
+inactive side was already treated by (CR28dw77).  The last exact radical
+comparison is
+\(2\cdot4000^2-5599^2=651199>0\).
+
+Finally, the class is genuinely stronger than the one-prefix label-aware
+class.  The capacity-inactive rational point
+
+\[
+(a,b,c,u,v)
+=\left({11\over25},{49\over120},{47\over125},{3\over5},{1\over3}\right)
+\]
+
+has
+
+\[
+\boxed{
+C^{\rm 2LA}
+={588926561981\over2126250000000}
+>{2769\over10000}.
+}
+\tag{CR28dw80}
+\]
+
+The positive margin in the last comparison is
+\(167936981/2126250000000\).  Since (CR28dw68) gives
+\(C_{\rm LA,*}<553771/2000000<2769/10000\), this is an exact strict
+improvement over one prefix.  It also exceeds the active bound in
+(CR28dw79), so every global maximizer is capacity-inactive.  If
+
+\[
+C_{\rm 2LA,*}
+:=\max_{\mathcal D_{\rm 2LA}}C^{\rm 2LA},
+\]
+
+then the full classification is
+
+\[
+\boxed{
+C_{\rm LA,*}
+<{2769\over10000}
+<C_{\rm 2LA,*}
+<C_{\rm AF}
+={434+4\sqrt2\over1587}.
+}
+\tag{CR28dw81}
+\]
+
+Thus separate nested capacities and labelwise floors do improve the
+one-prefix coefficient, but the complete two-prefix class has an exact
+no-go against the accepted arbitrary-finite-prefix coefficient.  This is a
+method-specific compact classification.  It is not an upper bound on
+\(\Lambda_n\), does not alter the geometric claims, and does not concatenate
+or reset two previously classified blocks.
 
 ### Explicit five-prefix rational asymptotic witness
 
