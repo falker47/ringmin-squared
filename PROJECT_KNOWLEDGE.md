@@ -1,6 +1,6 @@
 # PROJECT_KNOWLEDGE - power-ringmin
 
-Last reviewed: 2026-07-21
+Last reviewed: 2026-07-23
 
 This file is compact stable project memory. Detailed proofs live in
 `research/*.md`; roadmap, chronology, command transcripts, failed attempts,
@@ -3033,7 +3033,7 @@ and `ops/`.
   \(\lambda_j\) insertion gain is exactly zero. The general
   \(2^{|\mathcal Z_m|}\) formula is therefore essential; bounded zero-free
   ranges do not imply universal uniqueness.
-- EXACT DIOPHANTINE CLASSIFICATION WITH OPEN CARDINALITY: for each
+- EXACT DIOPHANTINE CLASSIFICATION AND FILTERED CARDINALITY: for each
   descending-min plateau \(1\le j<m\), the separate equations
   \(L_{m,j}=0\) and \(R_{m,j}=0\) have the unique primitive parametrization
   (KPGZERO-2)--(KPGZERO-6).  Their two literal half-open ceilings are exactly
@@ -3046,8 +3046,29 @@ and `ops/`.
   \(50+51t-27t^2-24t^3\), and (KPGZERO-23) is an exact bijection after
   congruence, domain, side, and scale filters.  The giant left witness is
   reconstructed exactly.  The primitive \(g=19\) witness
-  (KPGZERO-27)--(KPGZERO-30) proves that right holes also exist.  For every
-  fixed \(m\), \(\mathcal Z_m\) is finite; whether
+  (KPGZERO-27)--(KPGZERO-30) proves that right holes also exist.
+  The filtered convergent fibre \(\mathcal C_m\) in (KPGZERO-31) is
+  bijective with \(\mathcal Z_m\), so
+  \[
+  |\mathcal Z_m|=|\mathcal C_m|,
+  \qquad
+  \#\operatorname {argmax}P_{\tau_m^{\min}}=2^{|\mathcal C_m|}.
+  \]
+  The canonical supported family consists exactly of the rows with
+  \(\mathcal C_m\ne\varnothing\); it is infinite exactly when the tagged
+  convergent/scale set, and equivalently the numerical union of zero labels,
+  is infinite. Every fixed primitive direction has only finitely many
+  admitted scales, so no finite set of convergent directions can generate an
+  infinite filtered family. On the giant left-witness board,
+  \(\alpha_{\min}\) has at least two induced-\(K\) maximizers while the
+  PG49-star bijection has exactly one, although both are PG49-supported and
+  have \(W=T=W_n\). Thus support does not determine induced-\(K\) maximizer
+  cardinality. The infinite right conic ray
+  \((u,w,g)=(13,9,20t+1)\) is an exact support-only false positive: both
+  literal plateau residuals are negative for every \(t\ge0\).
+  These are the support-only and fixed-direction no-go theorems
+  (KPGZERO-31)--(KPGZERO-41); they use no geometry. For every fixed \(m\),
+  \(\mathcal Z_m\) is finite; whether
   \(\bigcup_{m\ge3}\mathcal Z_m\) is finite or infinite remains the explicit
   filtered-cubic-convergent obstruction (KPGZERO-24), not a conclusion from
   bounded data.
@@ -3311,6 +3332,18 @@ and `ops/`.
   witnesses, reporting 56 left and eight right parameter triples in its
   bounded proposal set.  These counts prove neither absence outside the
   bounds nor global finiteness or infinitude.
+- VERIFIED FACT (EXACT PG49/KPGZERO CARDINALITY DISCRIMINANTS): the
+  standalone standard-library script in
+  ops/TASK-20260723__pg49_kpgzero_filtered_cardinality/exact_diagnostic.py
+  uses only exact integers and rational cubic signs. It checks an inclusive
+  PG49 boundary, directly scores every unordered pair of one supported
+  \(m=34\) core, checks discriminating rows of the infinite unfiltered conic
+  ray, accepts both filtered branches and both one-sided signs on the left
+  branch, rejects adjacent congruent scales, and distinguishes
+  \(\alpha_{\min}\) from PG49-star on the same giant board. It enumerates no
+  matching, subset, path assignment, or permutation family. The finite
+  discriminants corroborate the exact support/filter separation; they do not
+  decide (KPGZERO-24).
 - VERIFIED FACT (FINITE EXACT PG49-STAR K DIAGNOSTIC): the sole standalone
   standard-library script in
   ops/TASK-20260719__explicit_pg49_star_exact_k/ directly constructs only

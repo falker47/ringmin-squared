@@ -2,7 +2,7 @@
 
 Date: 2026-07-14
 
-Last updated: 2026-07-21
+Last updated: 2026-07-23
 
 ## Scope And Classification
 
@@ -13026,8 +13026,236 @@ L_{m,j}=361912604230649460176213626941542951210331500485392668339373550414973650
 Thus a universal right-hole obstruction is false.  What remains unresolved
 is an infinite right-hole family, not right-hole existence.
 
-The sole bounded diagnostic for this subsection is the standalone
-standard-library script in
+### Filtered cardinality on the PG49 support
+
+We now state exactly what the filtered cubic-convergent condition counts and
+what the PG49 support can prove about it.  Three levels must remain separate.
+
+1. PG49 is the support relation for path assignments.  A supported bijection
+   has \(W=T=W_n\) by (PG62).
+2. The set \(\mathcal Z_m\) and its cardinality concern the induced subset
+   objective \(K\) for the particular supported bijection
+   \(\alpha_{\min,m}\) in (PG104).
+3. Neither statement asserts angular feasibility or any other geometric
+   property.
+
+For a fixed row, define the **filtered convergent fibre**
+
+\[
+\boxed{
+\mathcal C_m=
+\coprod_{\delta\in\{0,1\}}
+\left\{(\delta,\nu,g):
+g\in\mathcal G_\delta(p_\nu,q_\nu),\
+m_\delta(g,p_\nu,q_\nu)=m\right\}.
+}
+\tag{KPGZERO-31}
+\]
+
+The coproduct retains the side tag.  It is essential: the left and right
+gain equations are different, as are their half-open residual tests.
+Combining (KPGZERO-2), (KPGZERO-15), and (KPGZERO-23) with the parity
+argument below gives the bijection
+
+\[
+\boxed{\mathcal C_m\longleftrightarrow\mathcal Z_m.}
+\tag{KPGZERO-32}
+\]
+
+Indeed, at fixed \(m\), the parity of
+\(x_\delta=4m-2j-\delta\) first recovers \(\delta\), and then
+\(j=(4m-\delta-x_\delta)/2\).  The zero label therefore uniquely gives
+\[
+g=\gcd(a_\delta-x_\delta,b-x_\delta),\qquad
+u^2={a_\delta-x_\delta\over g},\qquad
+w^2={b-x_\delta\over g};
+\]
+the coprime square-factor decomposition is unique, its ratio \(u/w\)
+selects one regular convergent, and (KPGZERO-16) separately confirms that
+the two gains cannot vanish on the same plateau.  Conversely, membership in
+\(\mathcal G_\delta(p_\nu,q_\nu)\) includes every congruence, domain, side,
+scale, and literal plateau condition, so substitution gives one zero label.
+Consequently
+
+\[
+\boxed{
+|\mathcal Z_m|=|\mathcal C_m|
+=\sum_{\delta=0}^1\sum_{\nu\ge0}
+\#\{g\in\mathcal G_\delta(p_\nu,q_\nu):
+      m_\delta(g,p_\nu,q_\nu)=m\},
+\qquad
+\#\operatorname {argmax}P_{\tau_m^{\min}}=2^{|\mathcal C_m|}.
+}
+\tag{KPGZERO-33}
+\]
+
+This is the filtered cardinality constraint in literal form.  It counts
+neither PG49 edges nor PG49 matchings.
+
+There is therefore a canonical supported family and a marked version:
+
+\[
+\begin{aligned}
+\mathscr D&=\{(m,\alpha_{\min,m}):\mathcal C_m\ne\varnothing\},\\
+\mathscr D^\#&=
+\{(m,\alpha_{\min,m},\delta,\nu,g):
+  (\delta,\nu,g)\in\mathcal C_m\}.
+\end{aligned}
+\tag{KPGZERO-34}
+\]
+
+Every member of \(\mathscr D\) exists as a supported bijection by
+(PG104) and (PG49), and every one has \(W=T=W_n\) by (PG62).  Its marked
+fibre has exactly \(|\mathcal C_m|\) members, and (KPGZERO-33) gives the
+corresponding induced-\(K\) maximizer cardinality.  Moreover,
+
+\[
+\boxed{
+\begin{aligned}
+\mathscr D\text{ is infinite}
+&\Longleftrightarrow
+\mathscr D^\#\text{ is infinite}\\
+&\Longleftrightarrow
+\coprod_{\delta,\nu}\mathcal G_\delta(p_\nu,q_\nu)
+   \text{ is infinite}\\
+&\Longleftrightarrow
+\bigcup_{m\ge3}\mathcal Z_m\text{ is infinite}.
+\end{aligned}}
+\tag{KPGZERO-35}
+\]
+
+For the first equivalence, every row fibre is finite.  For the final one,
+the zero label is \(x_\delta=guw\); a fixed positive integer has only
+finitely many positive factorizations \(guw=x_\delta\).  Thus forgetting
+the row and side tags cannot collapse infinitely many filtered parameters
+to finitely many numerical labels.  This also makes explicit that the
+unresolved statement (KPGZERO-24) is precisely the question whether the
+canonical supported family \(\mathscr D\) is infinite, not whether its
+individual members exist.  The witnesses (KPGZERO-25) and (KPGZERO-27)
+already prove \(\mathscr D\ne\varnothing\).
+
+The scale filter supplies a first exact no-go.  For a primitive direction
+\((u,w)=(p_\nu,q_\nu)\), put \(A=u(2u+3w)\).  The congruence is
+
+\[
+Ag\equiv8+\delta\pmod {20}.
+\]
+
+For \(\delta=0\) it is soluble exactly when \(5\nmid A\); for
+\(\delta=1\) it is soluble exactly when \(\gcd(A,20)=1\), equivalently
+\(u,w\) are odd and \(5\nmid A\).  When soluble, its solutions form one
+residue class modulo \(20/\gcd(A,20)\).  Intersecting this class in
+\(\mathbb Z_{>0}\) with the domain conditions (KPGZERO-6) and the
+appropriate positive-leading quadratic window (KPGZERO-20) or
+(KPGZERO-21) gives the exact finite number
+
+\[
+\boxed{
+c_{\delta,\nu}:=
+\#\mathcal G_\delta(p_\nu,q_\nu)<\infty.
+}
+\tag{KPGZERO-36}
+\]
+
+Hence the total marked count, interpreted in
+\(\mathbb Z_{\ge0}\cup\{+\infty\}\), is
+
+\[
+\boxed{
+\#_{\mathrm{ext}}\mathscr D^\#
+=\sum_{\nu\ge0}\bigl(c_{0,\nu}+c_{1,\nu}\bigr),
+}
+\tag{KPGZERO-37}
+\]
+
+where the value is allowed to be \(+\infty\).  In particular,
+
+\[
+\boxed{
+\text{no finite set of primitive convergent directions can be rescaled
+into an infinite KPGZERO-filtered family.}
+}
+\tag{KPGZERO-38}
+\]
+
+Any infinite family would have to use infinitely many distinct regular
+convergents of the specific cubic root \(\xi\).  Thus a Pell or conic ray
+with fixed \(u/w\) cannot solve (KPGZERO-24).
+
+There is an exact infinite false-positive ray showing why the plateau filter
+cannot be dropped.  On the right branch set
+
+\[
+\delta=1,\qquad (u,w)=(13,9),\qquad g_t=20t+1
+\quad(t\in\mathbb Z_{\ge0}).
+\]
+
+Equations (KPGZERO-3) give
+
+\[
+\boxed{
+m_t=689t+34,\quad
+j_t=208t+9,\quad
+r_t=34t+2,\quad
+k_t=r_t+2m_t-1-j_t=1204t+60.
+}
+\tag{KPGZERO-39}
+\]
+
+Here \(m_t<k_t<2m_t\), \(j_t\ge1\), and \(k_t\ge j_t\ge\kappa_{j_t}\).
+Thus \((k_t,j_t)\) is a PG49 edge and the PG44 interval shift extends it to
+a supported bijection.  Direct substitution also makes the local right
+insertion gain zero.  Nevertheless, with \(d_t=8m_t+4\), the two literal
+plateau residuals are
+
+\[
+\boxed{
+\begin{aligned}
+c_{j_t}
+&=2r_t(d_t+j_t)-j_t(d_t-1)
+ =-757536t^2-64548t-1335,\\
+c_{j_t+1}
+&=2r_t(d_t+j_t+1)-(j_t+1)(d_t-1)
+ =-757536t^2-69992t-1606.
+\end{aligned}}
+\tag{KPGZERO-40}
+\]
+
+Both are negative for every \(t\ge0\), so no member of this infinite
+supported conic ray is KPGZERO-filtered.  Already at \(t=0\),
+\((m,j,r,k)=(34,9,2,60)\), whereas the literal plateau has
+\(\kappa_9=\kappa_{10}=5\).  The false parameter gives local gains
+\((564,0)\); the actual descending-min singleton has \(k=63\) and gains
+\((63,-507)\).
+
+Finally, PG49 support itself neither forces nor excludes induced-\(K\)
+degeneracy.  At the exact left witness (KPGZERO-25), both
+\(\alpha_{\min,m}\) and the PG49-star bijection \(\alpha_{*,m}\) are
+supported on the same PG49 board and both have \(W=T=W_n\).  Yet
+(KPGMIN-14)--(KPGMIN-15) give at least two maximizers for
+\(\alpha_{\min,m}\), while (KPGSTAR-3) gives exactly one for
+\(\alpha_{*,m}\).  At the discriminating column, the latter has the strict
+deletion gain
+
+\[
+\boxed{
+-4j^2+(28m+9)j+28m+12
+=79369740838380701409883290058284963412992>0.
+}
+\tag{KPGZERO-41}
+\]
+
+This proves the exact **support-only no-go**: the predicate “PG49-supported”
+and its common value \(W=T\) do not determine the induced-\(K\) maximizer
+cardinality of a supported bijection.  Together with (KPGZERO-38), it rules
+out the bare support predicate and fixed-direction rescaling as proofs of an
+infinite filtered family.  It does not assert that the arithmetic set is
+finite; the absolute finite/infinite alternative remains exactly
+(KPGZERO-24).  No geometric claim enters any part of
+(KPGZERO-31)--(KPGZERO-41).
+
+The predecessor bounded diagnostic for (KPGZERO-1)--(KPGZERO-30) is the
+standalone standard-library script in
 `ops/TASK-20260719__pg49_zero_gain_classification/`.  It checks literal rows
 through \(m=500\), a direct near-root denominator range through \(10^5\),
 and finitely many proposed convergents with denominator at most \(10^{200}\)
@@ -13038,6 +13266,18 @@ finds 56 left parameter triples and eight right parameter triples, including
 (KPGZERO-25) and (KPGZERO-27).  These counts are **bounded exact diagnostic
 evidence**, not an exhaustive all-\(m\) result and not evidence sufficient to
 choose either side of (KPGZERO-24).
+
+The independent diagnostic for (KPGZERO-31)--(KPGZERO-41) is
+`ops/TASK-20260723__pg49_kpgzero_filtered_cardinality/exact_diagnostic.py`.
+It uses only exact integers and rational cubic signs.  It checks a literal
+PG49 boundary edge, directly scores all pairs of one discriminating
+\(m=34\) supported core, checks three rows of (KPGZERO-39), accepts exact
+filtered witnesses in both \(\delta\)-branches and, on the left branch, on
+both signs of \(\Phi\), rejects the next congruent scales, and checks the
+same-board \(\alpha_{\min}\)/\(\alpha_*\) discriminator.  It enumerates no
+matching, subset, path assignment, or permutation family.  These finite
+checks are independent corroboration of the symbolic proof, not a decision
+of (KPGZERO-24).
 
 ### Exact comparison with K825 and both PG46 witnesses
 

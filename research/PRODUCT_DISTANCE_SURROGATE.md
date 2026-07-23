@@ -8686,13 +8686,21 @@ limited to the checked rows; (KPGMIN-19)--(KPGMIN-21) give an exact much
 larger zero-gain counterexample.
 The exact branchwise KPGZERO theorem, including primitive parameters,
 integrality, domain, both half-open plateau ceilings, all boundary columns,
-and finite quadratic scale windows, is (KPGZERO-1)--(KPGZERO-23).  It
+and finite quadratic scale windows, is (KPGZERO-1)--(KPGZERO-30).  It
 reconstructs the giant left witness and proves existence of a right-hole
-witness.  Its exact remaining obstruction (KPGZERO-24) is the cardinality of
-a congruence-filtered one-sided convergent set for one irreducible cubic
-root; it is not decided here.
-The sole diagnostic for that KPGZERO Diophantine classification is the
-standalone standard-library script in
+witness.  The filtered-cardinality theorem (KPGZERO-31)--(KPGZERO-41)
+then bijects the per-row convergent/scale fibre with the zero set, counts the
+descending-min maximizers by its power of two, and defines the corresponding
+PG49-supported family.  It proves two exact no-go statements: a finite set of
+primitive convergent directions cannot be rescaled into an infinite filtered
+family, and bare PG49-supportedness with common \(W=T\) does not determine
+the induced \(K\)-maximizer cardinality.  The latter uses descending-min and
+PG49-star on the same board; no geometric conclusion is made.  The absolute
+finite/infinite alternative remains exactly (KPGZERO-24), a congruence-,
+side-, coefficient-, and scale-filtered one-sided convergent question for one
+irreducible cubic root.
+The predecessor diagnostic for the branchwise KPGZERO Diophantine
+classification is the standalone standard-library script in
 ops/TASK-20260719__pg49_zero_gain_classification/. It scans literal rows only
 through `m=500`, direct near-root denominators only through `100000`, and a
 finite list of proposed cubic-root convergents with denominator at most
@@ -8703,6 +8711,14 @@ eight right parameter triples, thereby furnishing exact witnesses in both
 branches. These bounded counts prove neither finiteness nor infinitude; the
 all-parameter result and continued-fraction obstruction are
 (KPGZERO-1)--(KPGZERO-30).
+The independent standard-library diagnostic for
+(KPGZERO-31)--(KPGZERO-41) is
+ops/TASK-20260723__pg49_kpgzero_filtered_cardinality/exact_diagnostic.py.
+It checks exact accepted parameters and rejected congruent candidate scales,
+an infinite support/conic false ray on discriminating instances, one direct
+all-pairs \(W\) row, and the same-board induced-\(K\) discriminator. It
+enumerates no matching, subset, path assignment, or permutation family and
+does not decide (KPGZERO-24).
 The sole diagnostic for (PG110)--(PG114) and
 (KPGSTAR-1)--(KPGSTAR-28) is the standalone standard-library script in
 ops/TASK-20260719__explicit_pg49_star_exact_k/. It constructs only the
@@ -8877,6 +8893,19 @@ The following remain unresolved.
   proves that its cubic coefficient is transcendental and strictly worse
   than \(143/500\). No polynomial or eventual quasipolynomial formula and no
   geometric consequence result.
+- **CLOSED FILTERED-CARDINALITY SUPPORT QUESTION:** the separate theorem
+  (KPGZERO-31)--(KPGZERO-41) gives the exact per-row filtered
+  convergent/scale fibre, its bijection with the descending-min zero set, and
+  the resulting power-of-two argmax count. It proves that finitely many
+  convergent directions cannot generate an infinite filtered family and,
+  by comparing descending-min with PG49-star on one exact common board, that
+  PG49 support and \(W=T\) do not determine induced-\(K\) maximizer
+  cardinality. No geometry is used.
+- **OPEN DIOPHANTINE QUESTION:** (KPGZERO-24) still asks whether infinitely
+  many distinct convergents of the specific irreducible cubic root pass the
+  simultaneous side, congruence, approximation-coefficient, domain, and
+  finite-scale filters. The support-only no-go does not decide this arithmetic
+  alternative.
 - **CLOSED CORE-ORDER QUESTION:** (PG110)--(PG114) prove that the explicit
   threshold-closing PG49-star assignment is a relation-compatible bijection
   for every \(m\ge3\). The separate theorem

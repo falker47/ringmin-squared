@@ -1,6 +1,6 @@
 # Next Research Steps
 
-Last reviewed: 2026-07-22
+Last reviewed: 2026-07-23
 
 This file is the roadmap and priority source only. Stable result summaries
 belong in [PROJECT_KNOWLEDGE.md](../PROJECT_KNOWLEDGE.md), detailed proofs in
@@ -147,6 +147,24 @@ The superficially similar Ferrers count and monotone threshold-closing
   and the
   [task evidence](../ops/TASK-20260722__one_prefix_label_aware_capacity/EVIDENCE.md).
 
+- **COMPLETED -- PG49/KPGZERO filtered-cardinality support no-go:** the
+  per-row filtered convergent/scale fibre is now defined literally and proved
+  bijective with the descending-min zero set, giving the exact
+  power-of-two induced-\(K\) argmax count. The corresponding PG49-supported
+  family is infinite exactly when the filtered cubic-convergent set is
+  infinite. Every primitive direction has only finitely many admitted
+  scales, and two supported bijections on the same exact PG49 board have
+  different induced-\(K\) maximizer cardinalities. Hence fixed-direction
+  rescaling cannot produce an infinite filtered family, and the bare
+  supportedness predicate with \(W=T\) cannot replace the induced-\(K\)
+  filter. An infinite conic/support ray is proved to fail both literal
+  plateau residuals. This is an exact support-only no-go, not a proof that
+  the remaining arithmetic set is finite, and it makes no geometric claim.
+  See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#filtered-cardinality-on-the-pg49-support)
+  and the
+  [task evidence](../ops/TASK-20260723__pg49_kpgzero_filtered_cardinality/EVIDENCE.md).
+
 ## Completed Post-Review Audit
 
 - **COMPLETED -- independent KRPGE5 audit:** KRPGE5-1--KRPGE5-36 at
@@ -164,15 +182,16 @@ The superficially similar Ferrers count and monotone threshold-closing
 
 ## Next Atomic Task
 
-User review and manual commit decision for the one-prefix label-aware
-capacity refinement.  Afterward, choose exactly one item from the deferred
-directions below in a fresh task before developing further mathematics.
+User review and manual commit decision for the PG49/KPGZERO
+filtered-cardinality support no-go. Afterward, choose exactly one item from
+the deferred directions below in a fresh task before developing further
+mathematics.
 
 ## Deferred, Not Prioritized
 
 All open directions remain deferred until one is selected as a fresh bounded
-task. They include the distinct PG49/KPGZERO filtered cubic-convergent
-cardinality obstruction,
+task. They include the absolute finiteness/infinitude of the PG49/KPGZERO
+filtered cubic-convergent set after the support-only no-go,
 finer Ferrers-count residuals, the asymptotic coefficient gap, tighter finite
 brackets at \(n=5,6\), the radius-one threshold below \(12\), and later
 minimizer-set restrictions for \(n\ge94\). Their mathematical context remains
