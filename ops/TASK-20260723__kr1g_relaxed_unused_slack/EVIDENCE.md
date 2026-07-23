@@ -17,7 +17,7 @@
   proof and prior dossier; run `git status --short --branch` and
   `git log -1 --oneline`.
 - **Relevant output:** clean `main...origin/main` at
-  `cb9c8ff29db9a42da558c776a3b728ca6f2a6f6e`.
+  `cb9c8ff67f0e17a238a87c7bbbacf772754fe883`.
 - **Interpretation:** STRICT startup and bounded-task isolation pass.
 - **Limitations:** source inspection alone does not prove the new theorem.
 - **Linked log entry:** `TASK_LOG.md#2026-07-23---strict-startup-and-task-isolation`.

@@ -68,3 +68,18 @@ Append-only. Add a new entry to correct previous information.
   compatible-history scope are ready for manual review.
 - **Evidence:** `EVIDENCE.md#ev-004---repository-and-final-diff-verification`.
 - **Next step:** user review and manual commit decision.
+
+## 2026-07-23 - Startup provenance rectification
+
+- **Action:** at `HEAD` `5faeb60e0fc0113c4ff84fd845c5a5ad3fd2d3f0`,
+  run `git rev-parse HEAD^`, validate the returned commit with
+  `git cat-file -e`, and search repository-wide for the obsolete startup SHA.
+- **Result:** the SHA in the first startup entry above was a nonexistent
+  transcription error. The actual parent of `HEAD`, and the clean task
+  baseline, is `cb9c8ff67f0e17a238a87c7bbbacf772754fe883`; EV-001 has
+  been corrected. The obsolete spelling remains only in the preserved
+  historical entry because this log is append-only.
+- **Interpretation:** this rectifies provenance only; the proof, oracle, and
+  mathematical claims are unchanged.
+- **Evidence:** `EVIDENCE.md#ev-001---startup-and-source-isolation`.
+- **Next step:** user review and manual commit decision.
