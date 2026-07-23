@@ -1,6 +1,6 @@
 # Next Research Steps
 
-Last reviewed: 2026-07-21
+Last reviewed: 2026-07-22
 
 This file is the roadmap and priority source only. Stable result summaries
 belong in [PROJECT_KNOWLEDGE.md](../PROJECT_KNOWLEDGE.md), detailed proofs in
@@ -127,6 +127,26 @@ The superficially similar Ferrers count and monotone threshold-closing
   and the
   [task evidence](../ops/TASK-20260721__base_recursive_capacity_filter/EVIDENCE.md).
 
+- **COMPLETED -- one-prefix label-aware capacity refinement:** retaining
+  every selected-label base floor gives
+  \(\sum_{t=s}^{r-1}G(t)\), and the capacity count adds the \(\nu\) smallest
+  exact advantages \(J(t)-G(t)\).  This is the strongest bound from the
+  cardinality datum alone.  Literal binary histories are stronger by one
+  label shift because the first selected split is necessarily base; the two
+  bounds differ by \(O(n^2)\) and share one exact cubic limit.  Complete
+  compact optimization, including the positive-part hinge and all
+  collisions, gives a unique inactive maximizer with
+  \[
+  0.2768854<C_{\rm LA,*}<0.2768855
+  <{434+4\sqrt2\over1587}=C_{\rm AF}.
+  \]
+  It strictly improves the old one-prefix coefficient but does not exceed
+  the all-fixed-prefix coefficient.  This is a method-specific limitation,
+  not a global or geometric upper bound.  See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#one-prefix-label-aware-base-capacity)
+  and the
+  [task evidence](../ops/TASK-20260722__one_prefix_label_aware_capacity/EVIDENCE.md).
+
 ## Completed Post-Review Audit
 
 - **COMPLETED -- independent KRPGE5 audit:** KRPGE5-1--KRPGE5-36 at
@@ -144,9 +164,9 @@ The superficially similar Ferrers count and monotone threshold-closing
 
 ## Next Atomic Task
 
-User review and manual commit decision for the one-prefix base-capacity
-filter.  Afterward, choose exactly one item from the deferred directions
-below in a fresh task before developing further mathematics.
+User review and manual commit decision for the one-prefix label-aware
+capacity refinement.  Afterward, choose exactly one item from the deferred
+directions below in a fresh task before developing further mathematics.
 
 ## Deferred, Not Prioritized
 

@@ -545,6 +545,33 @@ in `research/ALL_N_LOWER_BOUND.md`.
   hinge.  Thus the filter is pointwise stronger when
   \(2\alpha-\beta-1>0\) and \(\lambda>0\), but cannot improve the
   all-fixed-prefix coefficient.  This is not an upper bound on \(\Lambda_n\).
+- **EXACT METHOD-SPECIFIC LIMITATION (ONE-PREFIX LABEL-AWARE CAPACITY):**
+  retain every selected label instead of replacing its base or recursive
+  contribution by the uniform value at \(s\).  The exact advantage
+  \(\Delta(t)=J(t)-G(t)\) decreases with \(t\), so the strongest consequence
+  of \(|\mathcal R|\ge\nu=[2r-s-n-1]_+\) alone adds the \(\nu\) smallest
+  advantages to \(\sum_{t=s}^{r-1}G(t)\), as in (CR28dw52).  Literal binary
+  histories are stronger still because the first selected split must be
+  base; (CR28dw53) shifts that advantage block down by one label, and every
+  remaining type word is realizable.  The two finite bounds differ by only
+  \(O(n^2)\) and have the common continuous objective (CR28dw57).  Exact
+  optimization of its entire compact closure gives active-side maximum
+  \(13/48\) and a unique inactive global maximizer
+  \[
+  (\alpha_*,\beta_*,\lambda_*)
+  \in(0.4365889,0.4365890)\times
+      (0.3850802,0.3850803)\times
+      (0.5024738,0.5024739),
+  \]
+  with
+  \[
+  {4+2\sqrt3\over27}<0.2768854<C_{\rm LA,*}<0.2768855
+  <{434+4\sqrt2\over1587}=C_{\rm AF}.
+  \]
+  Thus label awareness strictly improves the old one-prefix coefficient but
+  does not exceed \(C_{\rm AF}\); the capacity term is inactive at the unique
+  optimum.  This classifies only the declared one-prefix label-aware floor
+  model, not \(\Lambda_n\) or richer structural filters.
 - **EXACT METHOD-SPECIFIC ASYMPTOTIC COROLLARY (ALL FIXED \(k\)):** put
   \[
   \alpha_\infty={13-2\sqrt2\over23}.
@@ -6904,6 +6931,579 @@ closure, and hinge, while exact radical arithmetic checks
 \(13/48<C_{1,*}<C_{\mathrm{AF}}\).  This bounded computation imports no
 project, production, test, enumerator, or artifact helper and corroborates,
 but does not replace, the all-history or compact proof.
+
+### One-prefix label-aware base capacity
+
+The preceding filter deliberately replaced every selected-label floor by its
+value at the common cutoff \(s\).  Retaining the label \(t\) gives a strictly
+stronger finite inequality.  There is also one finite distinction between the
+order-statistic consequence of (CR28dw40) alone and the strongest consequence
+of the literal base/recursive type history.  Both are recorded here so that
+"strongest history-uniform" is not used ambiguously.
+
+Keep the hypotheses and notation of the preceding section, and put
+
+\[
+\ell=r-s,
+\qquad q_0=n-r+1,
+\qquad d=n-r,
+\qquad \nu=[\ell-q_0]_+.
+\]
+
+For \(s\le t\le r-1\), define the labelwise recursive advantage
+
+\[
+\Delta_{n,r,\lambda}(t)
+:=J_{n,\lambda}(t)-G_{n,\lambda}(t).
+\]
+
+The finite identity following (CR28bc) and one subtraction give
+
+\[
+\boxed{
+\begin{aligned}
+\Delta_{n,r,\lambda}(t)
+&={\lambda\bigl(d^2+4(n-t)
+ +2\lambda(r-1-t)(n-t)\bigr)\over2(2-\lambda)},\\
+\Delta_{n,r,\lambda}(t)-\Delta_{n,r,\lambda}(t+1)
+&={\lambda\bigl(2+\lambda(n+r-2t-2)\bigr)\over2-\lambda}.
+\end{aligned}
+}
+\tag{CR28dw50}
+\]
+
+Thus the advantages are nonnegative and, for \(\lambda>0\), strictly
+decrease with \(t\).  At \(\lambda=0\) they all collide at zero.
+
+Fix one compatible history and let \(\mathcal R\) be its set of selected
+labels inserted on recursive edges.  Assign the full edge slack plus
+\(\lambda A_t\) to a base split, and only \(\lambda A_t\) to a recursive
+split, exactly as in (CR28be), but do not replace the individual floors by
+their values at \(s\).  The unused original-edge slack remains nonnegative,
+so the labelwise decomposition is
+
+\[
+\boxed{
+P(C_0)+\lambda H_\ell-P_{r,n}
+\ge
+\sum_{t=s}^{r-1}G_{n,\lambda}(t)
++\sum_{t\in\mathcal R}\Delta_{n,r,\lambda}(t).
+}
+\tag{CR28dw51}
+\]
+
+Equation (CR28dw40) says only that \(|\mathcal R|\ge\nu\).  Since every
+advantage is nonnegative, the strongest consequence of that cardinality
+datum alone is the sum of the \(\nu\) smallest order statistics, namely
+\(t=r-\nu,\ldots,r-1\).  Combining (CR28dw51) with (CR28bf) proves exactly
+the bound requested from CR28dw40:
+
+\[
+\boxed{
+\Lambda_n\ge\gamma^{(r)}_{1,n}
+\ge P_{r,n}
++\sum_{t=s}^{r-1}G_{n,\lambda}(t)
++\sum_{t=r-\nu}^{r-1}\Delta_{n,r,\lambda}(t).
+}
+\tag{CR28dw52}
+\]
+
+There is a literal-history refinement of (CR28dw52).  The first selected
+insertion \(t=r-1\) has no previously inserted endpoint and is necessarily a
+base split.  Conversely, every binary type word beginning with base and
+using at most \(q_0\) base splits is realizable: after the first base split,
+maintain one descendant edge for every requested recursive split and use a
+fresh untouched original edge for every later requested base split.  Splitting
+the descendant preserves a recursive edge, and the construction never uses
+more than the \(q_0\) original edges.  Hence the exact minimum of the
+labelwise floor expression over realizable base/recursive type histories uses
+
+\[
+\mathcal R_*
+=\{r-\nu-1,\ldots,r-2\}
+\quad(\nu>0),
+\]
+
+and the empty set when \(\nu=0\).  Therefore the strongest finite bound based
+on the complete binary type data is
+
+\[
+\boxed{
+\Lambda_n\ge\gamma^{(r)}_{1,n}
+\ge P_{r,n}
++\sum_{t=s}^{r-1}G_{n,\lambda}(t)
++\sum_{t=r-\nu-1}^{r-2}\Delta_{n,r,\lambda}(t),
+}
+\tag{CR28dw53}
+\]
+
+where the last sum is empty for \(\nu=0\).  Type realizability proves
+sharpness only for the information retained by this binary floor model; it
+does not assert that all local floor inequalities can be equalities in one
+geometric history.
+
+For later exact checking, put
+
+\[
+T_1={\ell(s+r-1)\over2},
+\qquad
+T_2={(r-1)r(2r-1)-(s-1)s(2s-1)\over6}.
+\]
+
+The three sums in (CR28dw52)--(CR28dw53) have the closed forms
+
+\[
+\boxed{
+\begin{aligned}
+\sum_{t=s}^{r-1}G_{n,\lambda}(t)
+&={\lambda\bigl(4(n+r)T_1-\ell(n+r)^2-2\lambda T_2\bigr)
+ \over2(2-\lambda)},\\
+\Omega_{\rm card}
+&:=\sum_{t=r-\nu}^{r-1}\Delta_{n,r,\lambda}(t)\\
+&={\lambda\over2(2-\lambda)}
+\left\{
+\nu(d+2)^2+2\nu(\nu-1)
++\lambda\nu(\nu-1)
+ \left(d+1+{2\nu-1\over3}\right)
+\right\},\\
+\Omega_{\rm hist}
+&:=\sum_{t=r-\nu-1}^{r-2}\Delta_{n,r,\lambda}(t)\\
+&={\lambda\over2(2-\lambda)}
+\left\{
+\nu(d+2)^2+2\nu(\nu+1)
++\lambda\nu(\nu+1)
+ \left(d+1+{2\nu+1\over3}\right)
+\right\}.
+\end{aligned}
+}
+\tag{CR28dw54}
+\]
+
+The last two formulas are zero when \(\nu=0\), and otherwise
+
+\[
+\boxed{
+\Omega_{\rm hist}-\Omega_{\rm card}
+={\lambda\nu\bigl(2+\lambda(d+1+\nu)\bigr)\over2-\lambda}>0
+\quad(\lambda>0).
+}
+\tag{CR28dw55}
+\]
+
+The requested cardinality bound already dominates the uniform bound
+(CR28dw41).  Indeed, after cancelling \(P_{r,n}\), their difference is
+
+\[
+\sum_{t=s}^{r-\nu-1}
+ \bigl(G_{n,\lambda}(t)-G_{n,\lambda}(s)\bigr)
++\sum_{t=r-\nu}^{r-1}
+ \bigl(J_{n,\lambda}(t)-J_{n,\lambda}(s)\bigr)\ge0,
+\]
+
+by (CR28bc).  It is strict for \(\lambda>0\) and \(\ell\ge2\).
+
+Now fix \(0<\beta<\alpha<1\), set
+\(r=\lfloor\alpha n\rfloor\), \(s=\lceil\beta n\rceil\), and use
+\(x\) for a running label density.  Besides \(p\), define
+
+\[
+\begin{aligned}
+g(\alpha,x,\lambda)
+&={\lambda\bigl(4(1+\alpha)x-(1+\alpha)^2
+ -2\lambda x^2\bigr)\over2(2-\lambda)},\\
+j(\alpha,x,\lambda)
+&=\lambda\bigl((1+\alpha)x-\alpha\bigr),\\
+\delta(\alpha,x,\lambda)
+&:=j-g
+={\lambda\bigl((1-\alpha)^2
+ +2\lambda(\alpha-x)(1-x)\bigr)\over2(2-\lambda)},\\
+\kappa(\alpha,\beta)&=(2\alpha-\beta-1)_+.
+\end{aligned}
+\tag{CR28dw56}
+\]
+
+Both finite variants have the same cubic limit.  Their advantage sums differ
+by the single \(O(n^2)\) quantity (CR28dw55), while Riemann summation gives
+
+\[
+\boxed{
+\begin{aligned}
+C^{\rm LA}(\alpha,\beta,\lambda)
+={}&p(\alpha)
++\int_\beta^\alpha g(\alpha,x,\lambda)\,dx
++\int_{\alpha-\kappa}^{\alpha}
+ \delta(\alpha,x,\lambda)\,dx,\\
+\int_{\alpha-\kappa}^{\alpha}\delta\,dx
+={}&{\lambda\over2(2-\lambda)}
+\left(
+\kappa(1-\alpha)^2
++\lambda\kappa^2(1-\alpha)
++{2\lambda\over3}\kappa^3
+\right).
+\end{aligned}
+}
+\tag{CR28dw57}
+\]
+
+This formula extends continuously to the complete compact closure
+
+\[
+\mathcal D_{\rm LA}
+=\{0\le\beta\le\alpha\le1,\ 0\le\lambda\le1\}.
+\]
+
+There is no denominator collision because \(2-\lambda\ge1\).  On the
+inactive side \(\beta\ge2\alpha-1\), write \(a=\alpha\), \(b=\beta\) and
+
+\[
+\boxed{
+C_0(a,b,\lambda)
+=p(a)+{(a-b)\lambda\over2(2-\lambda)}
+\left(
+(1+a)(a+2b-1)
+-{2\lambda\over3}(a^2+ab+b^2)
+\right).
+}
+\tag{CR28dw58}
+\]
+
+On the active side \(a\ge1/2\), \(0\le b\le2a-1\), put
+\(c=1+b-a\).  Since \(g+\delta=j\),
+
+\[
+C_1(a,b,\lambda)
+=p(a)+\int_b^c g(a,x,\lambda)\,dx
++\int_c^a j(a,x,\lambda)\,dx.
+\]
+
+At the capacity hinge \(b=2a-1\), one has \(c=a\) and \(C_1=C_0\).
+At \(a=1\), one has \(c=b\) and the whole selected interval is recursive.
+The face \(b=a\) collapses both integrals to \(p(a)\), while
+\(\lambda=0\) simultaneously collapses every advantage ordering.  The face
+\(b=0\) meets the hinge at \(a=1/2\); \(a=0\) forces \(b=0\).  These are all
+formula collisions, and the closed arguments below include their
+intersections and the faces \(\lambda=1\), \(a=1\), and \(b=0\).
+
+The active side has a short global certificate.  Put
+\(X=2a-1\in[0,1]\).  Direct integration gives
+
+\[
+\boxed{
+C_1=p(a)+{\lambda Q(X,b,\lambda)\over48(2-\lambda)},
+\qquad
+{13\over48}-p(a)={E(X)\over48},
+\quad E(X)=X(X^2+9X+3),
+}
+\tag{CR28dw59}
+\]
+
+where
+
+\[
+\begin{aligned}
+Q={}&12\bigl((3X+1)\lambda-2X-6\bigr)b^2
++24(X+1)(2-\lambda X)b\\
+&+2\lambda X^3+6\lambda X^2-6\lambda X-2\lambda
++9X^3-3X^2+3X-9.
+\end{aligned}
+\]
+
+Let \(K=2X+6-\lambda(3X+1)\ge4\).  The polynomial \(Q\) is concave in
+\(b\), so it is bounded by its unrestricted vertex value \(Q_v\), attained
+at
+
+\[
+b_v={(X+1)(2-\lambda X)\over K}.
+\]
+
+Whether this vertex lies inside the active \(b\)-interval, or collides with
+either endpoint, is therefore immaterial.  Exact division gives
+
+\[
+\boxed{
+(2-\lambda)E-\lambda Q_v=-{M(X,\lambda)\over K},
+}
+\tag{CR28dw60}
+\]
+
+with
+
+\[
+\begin{aligned}
+M={}&6\lambda^3X^4+4\lambda^3X^3+24\lambda^3X^2
+ +12\lambda^3X+2\lambda^3\\
+&-26\lambda^2X^4-52\lambda^2X^3-96\lambda^2X^2
+ -67\lambda^2X-3\lambda^2\\
+&+26\lambda X^4+128\lambda X^3+132\lambda X^2
+ +120\lambda X-6\lambda\\
+&-4X^4-48X^3-120X^2-36X.
+\end{aligned}
+\]
+
+Here is a compact exact sign certificate.  In the degree-three Bernstein
+basis in \(\lambda\),
+
+\[
+\boxed{
+M=B_0(1-\lambda)^3
++3B_1\lambda(1-\lambda)^2
++3B_2\lambda^2(1-\lambda)
++B_3\lambda^3,
+}
+\tag{CR28dw61}
+\]
+
+where
+
+\[
+\begin{aligned}
+B_0&=-4X(X+3)(X^2+9X+3),\\
+B_1&={2\over3}(7X^4-8X^3-114X^2+6X-3),\\
+B_2&={1\over3}(14X^4+60X^3-192X^2+65X-15),\\
+B_3&=2X^4+32X^3-60X^2+29X-7.
+\end{aligned}
+\]
+
+The degree-four Bernstein rows of the three parenthesized polynomials are
+
+| polynomial | \(X\)-interval | Bernstein coefficients |
+|---|---|---|
+| \(3B_1/2\) | \([0,1]\) | \(-3,-3/2,-19,-115/2,-112\) |
+| \(3B_2\) | \([0,1/2]\) | \(-15,-55/8,-27/4,-51/4,-177/8\) |
+| \(3B_2\) | \([1/2,1]\) | \(-177/8,-63/2,-177/4,-461/8,-68\) |
+| \(B_3\) | \([0,1/2]\) | \(-7,-27/8,-9/4,-21/8,-27/8\) |
+| \(B_3\) | \([1/2,1]\) | \(-27/8,-33/8,-21/4,-45/8,-4\) |
+
+All entries are strictly negative, while \(B_0\le0\).  Hence \(M\le0\),
+with equality only when \(X=\lambda=0\).  Equations
+(CR28dw59)--(CR28dw61) now give
+
+\[
+\boxed{
+\max_{\substack{1/2\le a\le1\\
+0\le b\le2a-1\\0\le\lambda\le1}}
+C_1(a,b,\lambda)={13\over48},
+}
+\tag{CR28dw62}
+\]
+
+uniquely at \((a,b,\lambda)=(1/2,0,0)\).  This one certificate includes the
+capacity hinge, both \(b\)-endpoints, the moving-vertex collisions, and both
+weight endpoints.
+
+It remains to optimize \(C_0\).  The pointwise clipped floor from
+(CR28bw3) gives
+
+\[
+C_0(a,b,\lambda)
+\le p(a)+\int_0^a\Phi_{1+a}(x)\,dx
+=\mathscr H_{\rm fin}(a).
+\]
+
+Thus (CR28dw20) bounds \(a\le1/3\) by \(22/81\), and \(a\ge1/2\) by
+\(53/192\).  Both are below the exact interior witness
+
+\[
+\boxed{
+C_0\left({7\over16},{3\over8},{1\over2}\right)
+={20411\over73728}>{173\over625}.
+}
+\tag{CR28dw63}
+\]
+
+Therefore every global inactive maximizer lies in \(1/3<a<1/2\).  On this
+strip, the faces \(\lambda=0\) and \(b=a\) reduce to \(p(a)\), whose maximum
+is \(2(\sqrt2-1)/3<173/625\); the last sign is
+\(1769^2-2\cdot1250^2=4361>0\).  On \(b=0\), the residual bracket in
+(CR28dw58) is
+
+\[
+(1+a)(a-1)-{2\lambda\over3}a^2\le0,
+\]
+
+so this face is no larger than \(p(a)\).  For \(\lambda=1\), the increasing
+function \(g(a,x,1)\) has its lower zero at
+
+\[
+\rho(a)=(1+a)\left(1-{1\over\sqrt2}\right).
+\]
+
+The maximizing cutoff is \(b=a\) up to
+\(a_0=\sqrt2-1\), and \(b=\rho(a)\) from \(a_0\) to \(1/2\).  On the second
+piece the exact value and derivative are
+
+\[
+{\sqrt2-1\over6}(a-\sqrt2-1)^2(a-\sqrt2+2),
+\qquad
+{\sqrt2-1\over2}(a-\sqrt2-1)(a-\sqrt2+1)\le0.
+\]
+
+Thus the whole \(\lambda=1\) face is also bounded by \(p(a_0)\).  Continued
+beyond the localized strip, this zero meets the capacity hinge at
+\(a=5-3\sqrt2>3/4\); that collision is already inside the active or clipped
+certificates.  All inactive boundary faces are therefore strictly below the
+witness, and compactness forces the global inactive maximum into the smooth
+interior.
+
+At an interior maximum, \(\partial C_0/\partial b=-g(a,b,\lambda)=0\).
+Put
+
+\[
+\rho={b\over1+a},
+\qquad
+\lambda={4\rho-1\over2\rho^2},
+\qquad
+{1\over4}<\rho<1-{1\over\sqrt2}.
+\]
+
+After this substitution, the remaining two stationary numerators are
+
+\[
+\boxed{
+\begin{aligned}
+U={}&8a^2\rho^5-6a^2\rho^4-14a^2\rho^3+20a^2\rho^2
+ -8a^2\rho+a^2\\
+&+16a\rho^5-12a\rho^4-4a\rho^3+2a\rho^2
+ +8\rho^5-14\rho^4+10\rho^3-2\rho^2,\\
+V={}&8a^2\rho^5-4a^2\rho^4+16a^2\rho^3-17a^2\rho^2
+ +7a^2\rho-a^2\\
+&+16a\rho^5-16a\rho^4-8a\rho^3+6a\rho^2-a\rho
+ +8\rho^5-12\rho^4+8\rho^3-\rho^2.
+\end{aligned}
+}
+\tag{CR28dw64}
+\]
+
+More precisely, the derivatives are nonzero factors times \(U\) and \(V\),
+so stationarity is equivalent to \(U=V=0\) in the displayed open domain.
+Exact elimination gives
+
+\[
+\boxed{
+\begin{aligned}
+\operatorname{Res}_a(U,V)
+&=\rho^4(2\rho-1)^4\mathcal Q(\rho),\\
+\mathcal Q(\rho)
+&=256\rho^{10}+2048\rho^9+640\rho^8-14528\rho^7
+ +27568\rho^6-25856\rho^5\\
+&\quad+14420\rho^4-5028\rho^3+1082\rho^2-132\rho+7.
+\end{aligned}
+}
+\tag{CR28dw65}
+\]
+
+The linear subresultant is, up to a nonzero rational factor,
+
+\[
+-\rho(2\rho-1)\bigl(D(\rho)a+N(\rho)\bigr),
+\]
+
+where
+
+\[
+\begin{aligned}
+D(\rho)&=32\rho^7+248\rho^6-412\rho^5+106\rho^4
+ +100\rho^3-66\rho^2+14\rho-1,\\
+N(\rho)&=120\rho^6-284\rho^5+294\rho^4-146\rho^3
+ +34\rho^2-3\rho.
+\end{aligned}
+\]
+
+The exact Sturm variations for \(\mathcal Q\) are \(6\) at \(1/4\) and
+\(5\) at \(293/1000\).  They remain \(6\) and \(5\) at the endpoints of
+\((0.2680518,0.2680519)\).  Since
+\(1-1/\sqrt2<293/1000\), while the isolated root lies below \(27/100\)
+and \(27/100<1-1/\sqrt2\), this is the sole feasible root.  Denote it by
+\(\rho_*\).  Exact interval evaluation on the finer isolating interval
+\((0.26805182086214,0.26805182086215)\) gives \(D(\rho_*)>0\), and hence
+
+\[
+\boxed{
+\begin{aligned}
+a_*&=-{N(\rho_*)\over D(\rho_*)},
+&0.4365889&<a_*<0.4365890,\\
+b_*&=(1+a_*)\rho_*,
+&0.3850802&<b_*<0.3850803,\\
+\lambda_*&={4\rho_*-1\over2\rho_*^2},
+&0.5024738&<\lambda_*<0.5024739.
+\end{aligned}
+}
+\tag{CR28dw66}
+\]
+
+This point is strictly feasible and inactive.  Every global maximizer was
+proved interior, and (CR28dw65) leaves only this feasible stationary point;
+therefore it is the unique global maximizer, without a Hessian assumption.
+
+Put \(C_{\rm LA,*}=C_0(a_*,b_*,\lambda_*)\).  Exact elimination and Sturm
+isolation give
+
+\[
+\boxed{
+0.2768854<C_{\rm LA,*}<0.2768855,
+}
+\]
+
+and \(C_{\rm LA,*}\) is the unique root in that rational interval of
+
+\[
+\boxed{
+\begin{aligned}
+\mathcal R(z)={}&159529146921z^{10}+79843376538z^9-8989732026z^8
+ +19509660810z^7\\
+&+2168479593z^6-5562634608z^5+3125143800z^4
+ -1455471984z^3\\
+&+370726096z^2-75167040z+9684288.
+\end{aligned}
+}
+\tag{CR28dw67}
+\]
+
+The variations at the two displayed endpoints are respectively \(5\) and
+\(4\).  Finally, exact rational separators give
+
+\[
+\boxed{
+{4+2\sqrt3\over27}
+<{553\over2000}
+<{173\over625}
+<C_{\rm LA,*}
+<{553771\over2000000}
+<{2198\over7935}
+<{434+4\sqrt2\over1587}=C_{\rm AF}.
+}
+\tag{CR28dw68}
+\]
+
+The first radical sign follows from
+\(6931^2-3\cdot4000^2=38761>0\).  For the last one,
+\(\sqrt2>7/5\) gives \(C_{\rm AF}>2198/7935\), and the intervening rational
+margin is
+
+\[
+{2198\over7935}-{553771\over2000000}
+={365423\over3174000000}>0.
+\]
+
+Thus the label-aware summation strictly improves the old one-prefix compact
+coefficient, but the unique optimum is on the capacity-inactive side and is
+still strictly below \(C_{\rm AF}\).  The capacity advantage itself switches
+off at the optimum.  This is an exact limitation of the declared
+one-prefix label-aware base/recursive floor model, not an upper bound on
+\(\Lambda_n\), a statement about richer endpoint filters, or a new geometric
+leading coefficient.
+
+The sole new task-local diagnostic imports only the standard library.  It
+exhausts 3,300 literal selected-prefix histories in four triangle-base rows,
+checks (CR28dw52) and the forced-first-base improvement (CR28dw53), verifies
+the closed sums, and records positive margins history by history.  Separately,
+exact Fraction arithmetic checks the active identities and Bernstein rows on
+degree-determining grids, 729 active compact points, the two eleven-term
+Sturm chains and both isolating intervals, the algebraic value identity
+modulo \(\mathcal Q\), the optimizer coordinate enclosures, and all decisive
+rational and radical comparisons.  It imports no project, production, test,
+enumerator, artifact, or certificate helper and corroborates, but does not
+replace, the all-history and all-real proofs.
 
 ### Explicit five-prefix rational asymptotic witness
 

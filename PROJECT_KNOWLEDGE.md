@@ -1267,6 +1267,35 @@ and `ops/`.
   improve the current coefficient.  This is a no-go for the declared binary
   capacity-filter class only, not an upper bound on \(\Lambda_n\) or a claim
   about arbitrary structural filters.
+- EXACT METHOD-SPECIFIC LIMITATION (ONE-PREFIX LABEL-AWARE CAPACITY): retain
+  the individual selected-label floors in the preceding binary filter.
+  With \(\Delta(t)=J(t)-G(t)\), (CR28dw50) proves that \(\Delta\) decreases
+  with \(t\).  Therefore the strongest bound implied by the capacity
+  cardinality alone is
+  \(P_{r,n}+\sum_{t=s}^{r-1}G(t)+\sum_{t=r-\nu}^{r-1}\Delta(t)\).
+  Literal histories give the stronger shifted block
+  \(\sum_{t=r-\nu-1}^{r-2}\Delta(t)\), because the first selected split is
+  necessarily base; every other admissible binary type word is realizable.
+  Their finite difference is \(O(n^2)\), so both have the exact common cubic
+  objective (CR28dw57).  Its active compact side has maximum \(13/48\), and
+  its unique global maximizer is inactive with
+  \[
+  0.2768854<C_{\rm LA,*}<0.2768855,\qquad
+  (\alpha_*,\beta_*,\lambda_*)
+  \in(0.4365889,0.4365890)\times(0.3850802,0.3850803)
+     \times(0.5024738,0.5024739).
+  \]
+  Exact Sturm and Bernstein certificates prove
+  \[
+  {4+2\sqrt3\over27}<C_{\rm LA,*}
+  <{434+4\sqrt2\over1587}=C_{\rm AF}.
+  \]
+  Hence label awareness strictly improves the old one-prefix compact
+  coefficient but cannot exceed \(C_{\rm AF}\); the capacity advantage is
+  off at the optimizer.  This is a limitation only of the declared floor
+  model, not an upper bound on \(\Lambda_n\), a geometric conclusion, or a
+  classification of richer filters.  See
+  [the authoritative proof](research/FIXED_ORDER_CYCLE_RATIO.md#one-prefix-label-aware-base-capacity).
 - LIMITATION AND COROLLARY: the \(M_k,E_k\) statements are exact
   normalized-polynomial theorems, and \(\mathscr H_k\) is the separate full
   clipped continuous classification. Both are independent of the charging
