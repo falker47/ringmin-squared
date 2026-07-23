@@ -1654,6 +1654,40 @@ and `ops/`.
   leading constant. For the prescribed \(N(n)\), the sharp initial domain is
   \(n\ge7\): \(N(6)=6\) is outside the proved KR1 domain, while \(N(7)=11\)
   is its first usable row.
+- EXACT THEOREM (KR1 / ARBITRARY-FINITE-PREFIX GAP DECOMPOSITION): on the
+  existing \(n=5k+1\) KR1 family, specialize the accepted finite-prefix
+  charging chain at
+  \[
+  a={13-2\sqrt2\over23},\qquad b={1+a\over4}.
+  \]
+  In the active window \(bn\le t\le an\), every KR1 insertion splits a
+  distinct original edge of the base tail cycle. Hence child-edge coverage
+  and both recursive-floor terms are identically absent. The height telescope
+  and original-slack partition are exact, while the coefficient gap has the
+  exact nonnegative decomposition
+  \[
+  {857\over3000}-C_{\rm AF}
+  =\mathcal U+\mathcal H+\mathcal P+\mathcal Q.
+  \]
+  Here \(\mathcal U\) is discarded slack on unused original edges,
+  \(\mathcal H\) is the convex-height loss, \(\mathcal P\) is the local
+  product relaxation, and \(\mathcal Q\) is the square-center mismatch. The
+  explicit structural term
+  \[
+  \mathcal U
+  ={4614125\sqrt2-5527598\over146004000}
+  =0.006833786426979789\ldots>0
+  \]
+  proves that the current lower functional is not cubically tight when
+  evaluated on KR1. The other coefficients are respectively
+  \(0.001136949526183062\ldots\),
+  \(0.000001205971985529712\ldots\), and
+  \(0.0006582696378683922\ldots\). Within-segment floor loss vanishes only
+  after the all-fixed-prefix supremum; no new growing-prefix theorem is used.
+  This pointwise KR1 audit does not classify the minimum over histories,
+  prove that KR1 minimizes \(K\), improve either global coefficient, or make
+  a geometric claim. The detailed proof is in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`.
 - VERIFIED FACT (BOUNDED EXACT DOSSIER DIAGNOSTIC): the standalone
   `ops/TASK-20260718__residue_one_exact_k/exact_diagnostic.py` imports only
   standard-library modules and no project or test helper. It reconstructs
@@ -1673,6 +1707,16 @@ and `ops/`.
   970 third finite differences equal \(1714\), giving the coefficient
   \(857/3000\) exactly. It constructs no order and does not replace the
   all-index cancellation proof.
+- VERIFIED FACT (BOUNDED EXACT KR1 GAP DIAGNOSTIC): the standalone
+  standard-library script in
+  `ops/TASK-20260723__kr1_af_gap_decomposition/` independently reconstructs
+  six KR1 rows on both parity branches through \(n=100006\), records all
+  deletion endpoints, and checks the exact finite nonnegative decomposition
+  with one active cutoff per integer label. The largest row has 8,168
+  distinct selected original edges and zero recursive splits. Its six
+  normalized components converge to the exact coefficients above. The dense
+  cutoff is only a discriminating Riemann-sum audit, not a uniform \(k(n)\)
+  theorem or a new fixed-prefix optimization.
 - EXACT THEOREM (EXACT-THRESHOLD RESIDUE-TWO \(K\)): let
   \(\tau_n^{(2)}\) be the core order returned by
   `residue_two_product_distance_order(n)` for \(n=5k+2\), \(k\ge2\), and

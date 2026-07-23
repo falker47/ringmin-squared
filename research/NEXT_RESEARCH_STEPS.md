@@ -94,6 +94,26 @@ The superficially similar Ferrers count and monotone threshold-closing
   and the
   [task evidence](../ops/TASK-20260721__kr1_monotone_lift/EVIDENCE.md).
 
+- **COMPLETED -- exact KR1 / arbitrary-finite-prefix gap decomposition:** the
+  accepted charging chain is decomposed pointwise on the existing KR1
+  history before minimization. Throughout the limiting active window every
+  selected insertion splits a distinct original edge, so recursive child-edge
+  coverage loses nothing. The telescope and original-slack partition are
+  identities; the positive cubic losses are discarded unused-original-edge
+  slack, convex height combination, product relaxation, and square-center
+  mismatch. They sum exactly to \(857/3000-C_{\rm AF}\). In particular,
+  \[
+  \mathcal U
+  ={4614125\sqrt2-5527598\over146004000}>0
+  \]
+  is the explicit missing structural term. This proves that the current
+  lower functional is not cubically tight when evaluated on KR1, without a
+  new fixed-prefix model, a growing-prefix theorem, a minimizing-order claim,
+  or a geometric deduction. See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#exact-kr1-audit-of-the-arbitrary-finite-prefix-gap)
+  and the
+  [task evidence](../ops/TASK-20260723__kr1_af_gap_decomposition/EVIDENCE.md).
+
 - **COMPLETED -- two-contiguous-block charging ansatz:** the separator-density
   construction, convex bridge, two history-relative disjoint original-edge
   slack pools, and global recursive child-edge invariant give the exact
@@ -219,9 +239,10 @@ The superficially similar Ferrers count and monotone threshold-closing
 
 ## Next Atomic Task
 
-User review and manual commit decision for the two-prefix label-aware nested
-capacity refinement. Afterward, choose exactly one item from the deferred
-directions below in a fresh task before developing further mathematics.
+User review and manual commit decision for the exact KR1 /
+arbitrary-finite-prefix gap decomposition. Afterward, choose exactly one item
+from the deferred directions below in a fresh task before developing further
+mathematics.
 
 ## Deferred, Not Prioritized
 

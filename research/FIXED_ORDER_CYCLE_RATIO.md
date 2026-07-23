@@ -57,6 +57,21 @@ in `research/ALL_N_LOWER_BOUND.md`.
   Since \(0\le N(n)-n\le4\), the all-\(n\) limsup upper coefficients are
   \(857/3000\) and \(857/(3000\pi)\). This proves no optimality,
   convergence, or exact leading constant.
+- **EXACT THEOREM (KR1 / FINITE-PREFIX GAP AUDIT):** evaluating the accepted
+  arbitrary-finite-prefix charging chain on the existing KR1 family gives an
+  exact nonnegative decomposition before history minimization. In the
+  limiting active window every selected KR1 split uses a distinct original
+  edge, so child-edge and recursive-floor losses vanish. The discarded
+  unused-original-edge term alone has coefficient
+  \[
+  {4614125\sqrt2-5527598\over146004000}>0.
+  \]
+  Together with the positive convex-height, product-relaxation, and
+  square-center terms, it sums exactly to
+  \(857/3000-C_{\rm AF}\). Thus the current lower functional is not
+  cubically tight on KR1. This diagnoses the method on one upper family; it
+  neither proves that KR1 minimizes \(K\) nor transfers these terms uniformly
+  to all histories.
 - **EXACT THEOREM (EXACT-THRESHOLD RESIDUE-TWO CORE):** for
   \(n=5k+2\), \(k\ge2\), Section 10 proves that the order returned by
   `residue_two_product_distance_order(n)` also has the unique maximizing
@@ -11487,6 +11502,340 @@ width \(n^2\), so the quadratic terms of (KR1-4) are not exact geometric
 coefficients. Equations (KR1-37)--(KR1-39) give one-sided upper bounds only:
 they prove neither optimality, convergence of either normalized global
 sequence, nor an exact leading constant.
+
+### Exact KR1 audit of the arbitrary-finite-prefix gap
+
+This subsection evaluates the already proved charging chain
+(CR28dr)--(CR28dw) on the existing KR1 upper family. It introduces no new
+fixed prefix count and no new order family. The order of limits remains the
+one authorized by (CR28dw12): first \(n\to\infty\) for each fixed finite
+prefix tuple, and only afterward the supremum over those finite tuples.
+
+To avoid confusing the KR1 row parameter with the number of selected
+prefixes, write
+\[
+n=5m+1,\qquad L=2m+1,\qquad D=4m+2,
+\]
+and put
+\[
+\boxed{
+a={13-2\sqrt2\over23},\qquad
+b={1+a\over4},\qquad
+c={2\over5},\qquad
+\varsigma=1+a.}
+\tag{KR1G-1}
+\]
+Exact squaring gives
+\[
+b<c<a<{1\over2}.
+\]
+The density \(a\) is the unique limiting density of the best current
+arbitrary-finite-prefix functional, and \(b\) is its inactive-to-middle
+boundary.
+
+We first make every possible relaxation in the finite charging chain
+visible. Fix a finite tuple from (CR28dr), let \(I_i\) be its selected
+segments, and abbreviate
+\[
+\begin{aligned}
+M_h&=\max_{0\le j\le r-1}\mathcal H_j,\\
+W_h&=\sum_i\lambda_i\sum_{t\in I_i}A_t,\\
+B_{h,n}
+&=P_{r,n}+\sum_i|I_i|G_{n,\lambda_i}(s_i).
+\end{aligned}
+\tag{KR1G-2}
+\]
+Here \(h\) denotes the literal history, not the number of prefixes. For a
+base split at \(t\in I_i\), write \(w_t=u_t+v_t\), \(p_t=u_tv_t\), and
+\[
+\begin{aligned}
+E_{p,t}
+&=\lambda_i\left({w_t^2\over4}-p_t\right)
+={\lambda_i\over4}(u_t-v_t)^2,\\
+E_{\square,t}
+&={2-\lambda_i\over4}
+\left(
+w_t-{2(n+r-\lambda_i t)\over2-\lambda_i}
+\right)^2,\\
+E_{{\rm mon},t}
+&=G_{n,\lambda_i}(t)-G_{n,\lambda_i}(s_i).
+\end{aligned}
+\tag{KR1G-3}
+\]
+The completion of the square in (CR28ay) is then the exact identity
+\[
+\Delta_{e_t}+\lambda_iA_t-G_{n,\lambda_i}(s_i)
+=E_{p,t}+E_{\square,t}+E_{{\rm mon},t}.
+\tag{KR1G-4}
+\]
+
+For completeness, if a recursive split has an already inserted endpoint
+\(z_t\le r-1\) and other endpoint \(y_t\le n\), its corresponding exact
+terms are
+\[
+\begin{aligned}
+E_{{\rm cov},t}
+&=\lambda_i\left[
+(r-1-t)(n-t)-(z_t-t)(y_t-t)
+\right],\\
+E_{JG,t}
+&=J_{n,\lambda_i}(t)-G_{n,\lambda_i}(t)\\
+&={\lambda_i\left(
+(n-r)^2+4(n-t)
++2\lambda_i(r-1-t)(n-t)
+\right)\over2(2-\lambda_i)}.
+\end{aligned}
+\tag{KR1G-5}
+\]
+Every quantity in (KR1G-3)--(KR1G-5) is nonnegative. Combining the exact
+height telescope (CR28dt), the exact original-slack partition (CR28dv), and
+the local identities gives
+\[
+\boxed{
+\begin{aligned}
+P(C_0)+M_h-B_{h,n}
+={}&E_{\rm ht}(h)+E_{\rm unused}(h)\\
+&+\sum_{t\in\mathsf B}
+\left(E_{p,t}+E_{\square,t}+E_{{\rm mon},t}\right)\\
+&+\sum_{t\in\mathsf R}
+\left(E_{{\rm cov},t}+E_{JG,t}+E_{{\rm mon},t}\right),
+\end{aligned}}
+\tag{KR1G-6}
+\]
+where
+\[
+E_{\rm ht}(h)=M_h-W_h,
+\qquad
+E_{\rm unused}(h)
+=\sum_{e\in E(C_0)\setminus\{e_t:t\in\mathsf B\}}\Delta_e.
+\]
+Thus the telescope and partition themselves lose nothing. The only
+partition-related inequality is the later discard of
+\(E_{\rm unused}\).
+
+We now specialize (KR1G-6) to KR1. Let
+\[
+q=\left\lfloor{m\over2}\right\rfloor,
+\qquad
+\mu_m=2m+q+2.
+\]
+The last label of \(P_{m-1}\), and the smallest path endpoint that occurs
+below, both equal \(\mu_m\). In the compressed KR1 word, a triple connector
+\(L+j\) splits
+\[
+\{D-2j,D-2j-1\};
+\]
+the closing label \(L\) splits
+\(\{\operatorname{last}(P_{m-1}),D\}\); and the two hole families split,
+respectively,
+\[
+\{E_j,\operatorname{first}(P_j)\},
+\qquad
+\{\operatorname{last}(P_j),E_{j+1}\}.
+\tag{KR1G-7}
+\]
+These are distinct positional edges, and all their endpoints are at least
+\(\mu_m\). Since \(\mu_m/n\to1/2\) while \(r/n\to a<1/2\), every selected
+KR1 insertion is therefore a split of a distinct original edge of \(C_0\)
+for all sufficiently large rows:
+\[
+\boxed{\mathsf R=\varnothing\quad\hbox{on the relevant KR1 window}.}
+\tag{KR1G-8}
+\]
+Consequently child-edge coverage and the \(J-G\) relaxation contribute
+exactly zero here.
+
+Let \(y=t/n\). The single closing label contributes only \(O(n^2)\).
+On the two remaining label families, all parity-dependent endpoint offsets
+are uniformly \(O(1)\), and the KR1 corrections and original-edge slacks
+have the uniform limits
+\[
+A_t=n^2A_\pm(y)+O(n),
+\qquad
+\Delta_{e_t}=n^2D_\pm(y)+O(n),
+\tag{KR1G-9}
+\]
+where
+\[
+\begin{aligned}
+A_-(y)&=\left(y-{2\over5}\right)(y+1),
+&
+D_-(y)&={1\over2}\left({2\over5}-a+{y\over2}\right)^2,
+&&b\le y\le c,\\
+A_+(y)&=8\left(y-{2\over5}\right)\left({4\over5}-y\right),
+&
+D_+(y)&={1\over2}\left({11\over5}-a-4y\right)^2,
+&&c\le y\le a.
+\end{aligned}
+\tag{KR1G-10}
+\]
+The minus branch consists of low holes and is negative; the plus branch
+consists of triple connectors and is positive. The sign change is at the
+known maximizing tail \(S_L\), so the exact KR1 history maximum is
+\[
+P(C_0)+M_h=K_{\rm R1}(n).
+\tag{KR1G-11}
+\]
+
+The coefficient of the complete original slack
+\(P(C_0)-P_{r,n}\) is
+\[
+\mathcal D_0(a)
+={857\over3000}-\int_c^aA_+(y)\,dy-p(a)
+={17a^3\over6}-{43a^2\over10}+{103a\over50}-{923\over3000}.
+\]
+In the refining all-middle finite-prefix sequence, the coefficient assigned
+to selected original edges is
+\[
+\begin{aligned}
+\mathcal D_{\rm used}(a)
+&=\int_b^cD_-(y)\,dy+\int_c^aD_+(y)\,dy\\
+&={970875a^3-1267575a^2+549345a-78893\over192000}.
+\end{aligned}
+\tag{KR1G-12}
+\]
+Their difference is the exact coefficient discarded by (CR28dw):
+\[
+\begin{aligned}
+\mathcal U(a)
+&=\mathcal D_0(a)-\mathcal D_{\rm used}(a)\\
+&={-426875a^3+441975a^2-153825a+19821\over192000}\\
+&=\boxed{
+{4614125\sqrt2-5527598\over146004000}}
+=0.006833786426979789\ldots.
+\end{aligned}
+\tag{KR1G-13}
+\]
+It is strictly positive by the exact square margin
+\[
+2(4614125)^2-(5527598)^2=12025959381646>0.
+\tag{KR1G-14}
+\]
+This is a concrete positive cubic term: the accepted one-use charging
+partition retains all original slacks exactly, but its lower functional
+throws away the slacks of the original edges not split in the selected
+window.
+
+It remains to locate the rest of the gap. Put
+\[
+\omega(y)=4-{\varsigma\over y},
+\qquad
+g(y)={1\over2}(4y-\varsigma)^2.
+\tag{KR1G-15}
+\]
+The selected-height mesh becomes dense after taking the fixed-prefix
+consequences one at a time and then their supremum. Indeed, if
+\(x^{(k)}=(x_1^{(k)},\ldots,x_k^{(k)})\) is the maximizing tuple from
+(CR28cx), then \(F_k(x^{(k)})=M_k\) is the lower Darboux sum for \(x^2\)
+on \([0,1]\), with the interval \([0,x_k^{(k)}]\) omitted. Since
+\(M_k\to1/3=\int_0^1x^2\,dx\) and \(x^2\) is strictly increasing, both
+\(x_k^{(k)}\to0\) and the maximum cell width tend to zero; otherwise one
+cell or the omitted interval would leave a fixed positive integral deficit.
+The affine change in (CR28dw2) therefore gives \(\beta_k\to b\) and maximum
+\(\beta\)-mesh tending to zero. Hence the loss from omitting the exact
+maximizing height vanishes, while the convex-combination loss tends to
+\[
+\boxed{
+\mathcal H
+=\int_b^c-\omega(y)A_-(y)\,dy
++\int_c^a(1-\omega(y))A_+(y)\,dy
+>0.}
+\tag{KR1G-16}
+\]
+Writing
+\[
+L_+=\log{5a\over2},
+\qquad
+L_-=\log{8\over5\varsigma},
+\]
+its exact closed form is
+\[
+\mathcal H
+={47875a^3-106875a^2+165825a-51393\over12000}
+-{64\varsigma\over25}L_+
+-{2\varsigma\over5}L_-
+=0.001136949526183062\ldots.
+\tag{KR1G-17}
+\]
+Both integrands in (KR1G-16) are strictly positive away from their
+endpoints. Structurally, the arbitrary-height convex inequality does not use
+the KR1 fact that the correction signs cross exactly once at \(L\).
+
+The pointwise base-floor loss also remains cubic. The two limiting
+integrands factor exactly as
+\[
+\begin{aligned}
+D_-(y)+\omega(y)A_-(y)-g(y)
+&={(5y-2)^2(20a-31y+20)\over200y},\\
+D_+(y)+\omega(y)A_+(y)-g(y)
+&={16(5y-2)^2(a-2y+1)\over25y}.
+\end{aligned}
+\tag{KR1G-18}
+\]
+They are nonnegative on their stated intervals and strictly positive off
+\(y=c\). Therefore
+\[
+\boxed{
+\mathcal L
+=\int_b^c\left(D_-+\omega A_--g\right)\,dy
++\int_c^a\left(D_++\omega A_+-g\right)\,dy
+=0.000659475609853922\ldots>0.}
+\tag{KR1G-19}
+\]
+More finely,
+\[
+\begin{aligned}
+\mathcal P
+&={9\over16}\int_b^c\omega(y)(y-c)^2\,dy
+=0.000001205971985529712\ldots,\\
+\mathcal Q
+&={49\over16}\int_b^c(2-\omega(y))(y-c)^2\,dy\\
+&\quad
++16\int_c^a(2-\omega(y))(y-c)^2\,dy
+=0.0006582696378683922\ldots,
+\end{aligned}
+\tag{KR1G-20}
+\]
+and \(\mathcal L=\mathcal P+\mathcal Q\). Here \(\mathcal P\) is precisely
+the product relaxation \(p_t\le w_t^2/4\), while \(\mathcal Q\) is the
+square-center mismatch. The within-segment monotonicity terms
+\(E_{{\rm mon},t}\) can be cubic for any one fixed coarse tuple, but their
+normalized sum tends to zero along the refining finite-prefix supremum.
+
+Finally, exact cancellation of the logarithms gives
+\[
+\boxed{
+\begin{aligned}
+{857\over3000}-C_{\rm AF}
+&=\mathcal U+\mathcal H+\mathcal P+\mathcal Q\\
+&={19353-4000\sqrt2\over1587000}.
+\end{aligned}}
+\tag{KR1G-21}
+\]
+Thus approximately \(79.18\%\) of the gap is discarded original slack,
+\(13.17\%\) is the height combination, \(0.014\%\) is the product
+relaxation, and \(7.63\%\) is the square-center mismatch. The telescope,
+the original-slack partition, and child-edge coverage lose no cubic term on
+KR1; the segment floor loses none in the final all-fixed-prefix supremum.
+
+No extra ``history-minimization residual'' should be added to
+(KR1G-21). Equation (KR1G-6) is the complete pointwise decomposition on the
+KR1 history before minimizing. If
+\[
+\gamma^{(r)}_{1,n}=\min_h\bigl(P(C_0)+M_h\bigr),
+\]
+then, because \(B_{h,n}\) is history-independent,
+\[
+K_{\rm R1}(n)-B_{h,n}
+=\left(K_{\rm R1}(n)-\gamma^{(r)}_{1,n}\right)
++\left(\gamma^{(r)}_{1,n}-B_{h,n}\right).
+\tag{KR1G-22}
+\]
+The first term on the right is nonnegative but remains unclassified. The
+present audit neither proves that KR1 minimizes the history objective nor
+transfers any KR1-specific slack term uniformly to all histories. It is an
+exact diagnosis of why the current lower functional is not cubically tight
+when evaluated on KR1, not a global minimizing-order or geometric theorem.
 
 ## 10. Exact \(K\) For The Exact-Threshold Residue-Two Core Order
 
