@@ -137,6 +137,30 @@ The superficially similar Ferrers count and monotone threshold-closing
   and the
   [task evidence](../ops/TASK-20260723__kr1g_relaxed_unused_slack/EVIDENCE.md).
 
+- **COMPLETED -- full KR1G residual on the zigzag-witness class:** for each
+  fixed \(k\), the all-middle tuple used by the KR1G audit is retained
+  unchanged, the base is the translated \(Z_{n-r+1}\), the selected labels
+  split the closing edge and \(r-s_k-1\) slack-\(1/2\) connectors in any
+  assignment, and the completion below \(s_k\) is arbitrary. The maximum
+  endpoint sum \(\mathsf{U}_n=n+r+1\) cannot increase under a split, so
+  \(A_t\ge\mathsf{U}_n\,t-\mathsf{U}_n^2/4\). The consecutive labels down to
+  \(\lceil\mathsf{U}_n/4\rceil\) therefore force a cubic height prefix that
+  no later completion can cancel. After taking \(n\to\infty\) separately
+  for each fixed \(k\), and only then \(k\to\infty\), the whole declared
+  class satisfies
+  \[
+  \liminf_{k\to\infty}\liminf_{n\to\infty}
+  {\min_h(P(C_0)+M_h-B_{h,n})\over n^3}
+  \ge {470-159\sqrt2\over73002}>0.
+  \]
+  This excludes the subcubic alternative in the zigzag-witness class but
+  does not assert the exact coefficient, outer-limit existence, an
+  all-history theorem, a minimizing order, or a geometric consequence. See
+  the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#full-residual-on-the-zigzag-witness-history-class)
+  and the
+  [task evidence](../ops/TASK-20260723__kr1g_zigzag_full_residual/EVIDENCE.md).
+
 - **COMPLETED -- two-contiguous-block charging ansatz:** the separator-density
   construction, convex bridge, two history-relative disjoint original-edge
   slack pools, and global recursive child-edge invariant give the exact
@@ -262,9 +286,9 @@ The superficially similar Ferrers count and monotone threshold-closing
 
 ## Next Atomic Task
 
-User review and manual commit decision for the relaxed KR1G
-unused-original-edge minimum. Afterward, choose exactly one item from the
-deferred directions below in a fresh task before developing further
+User review and manual commit decision for the full KR1G residual lower bound
+on the zigzag-witness history class. Afterward, choose exactly one item from
+the deferred directions below in a fresh task before developing further
 mathematics.
 
 ## Deferred, Not Prioritized

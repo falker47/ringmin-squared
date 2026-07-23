@@ -12042,6 +12042,241 @@ history terms jointly. In particular it does not transfer the KR1-specific
 coefficient \(\mathcal U\), authorize a growing-prefix limit, improve
 \(C_{\rm AF}\), or imply a geometric bound.
 
+### Full residual on the zigzag-witness history class
+
+We now answer the remaining question only for the histories obtained from
+the exact zigzag witness above. The result is a cubic lower bound for that
+entire class. It is not a lower bound for arbitrary base cycles or arbitrary
+histories.
+
+Fix \(k\ge1\) *before* taking \(n\to\infty\), and retain without
+modification the all-middle parameters used in
+(CR28dw1)--(CR28dw5). To keep the present notation compact, put
+\[
+\boxed{
+a={13-2\sqrt2\over23},\qquad
+S=1+a,\qquad
+A=3a-1,\qquad
+b={S\over4},}
+\tag{KR1G-34}
+\]
+and write
+\[
+\beta_i^{(k)}={S+Ax_i^{(k)}\over4},
+\qquad
+\lambda_i^{(k)}={Ax_i^{(k)}\over\beta_i^{(k)}},
+\qquad
+\beta_0^{(k)}=a.
+\]
+Thus \(1/3<a<1/2\), \(A>0\), and
+\(b<\beta_k^{(k)}<\cdots<\beta_1^{(k)}<a\). Define
+\[
+r=\lfloor an\rfloor,\qquad
+s_i=\lceil\beta_i^{(k)}n\rceil,\qquad
+s=s_k,\qquad
+q=n-r+1,\qquad
+\ell=r-s.
+\]
+All integer admissibility statements below are eventual statements for this
+one fixed tuple; their threshold may depend on \(k\).
+
+Let \(C_0\) be \(Z_q\) translated by \(r\). Besides its complementary
+zero-slack edges, it has the slack-\(1/2\) connectors
+\[
+e_x=\{r+x,n+1-x\},
+\qquad
+1\le x\le\left\lfloor{q-1\over2}\right\rfloor,
+\]
+and the closing edge
+\[
+e_{\rm cl}=\left\{r,r+\left\lfloor{q\over2}\right\rfloor\right\}.
+\]
+For all sufficiently large \(n\), one has
+\(\ell\ge1\) and
+\(\ell-1\le\lfloor(q-1)/2\rfloor\). This follows from
+\(\beta_k^{(k)}<a\), \(\beta_k^{(k)}>b\), and
+\(a-b<(1-a)/2\).
+
+Define \(\mathscr Z_{k,n}\) to be the following class. Choose any
+\(\ell-1\) of the connectors \(e_x\), assign the labels
+\(r-1,\ldots,s\) bijectively to those target edges together with
+\(e_{\rm cl}\), and split the assigned original edge when its label is
+inserted. Complete the history below \(s\) by arbitrary compatible edge
+splits. Taking the union over every connector choice only enlarges the
+class, so a lower bound for \(\mathscr Z_{k,n}\) also covers a witness in
+which the connector set was fixed in advance.
+
+There is an exact finite dynamic program for the completion optimization.
+For a current cycle \(C\) immediately before inserting \(t\), put
+\[
+\begin{aligned}
+V_0(C)&=0,\\
+V_t(C)
+&=\min_{e=\{u,v\}\in E(C)}
+\max\left\{0,\,
+t(u+v)-uv+V_{t-1}(C\mathbin\oplus_e t)\right\}.
+\end{aligned}
+\tag{KR1G-35}
+\]
+This is the minimum possible positive excursion of the future correction
+prefixes relative to their current height. If \(\pi\) is one selected-edge
+assignment, let \(C_\pi\) be the cycle after inserting
+\(r-1,\ldots,s\), and let \(H_\pi\) be the sum of those selected
+corrections. The bound below shows that all selected corrections are
+nonnegative for sufficiently large \(n\). Hence the exact optimum after
+fixing \(\pi\) is
+\[
+\min_{\text{completions below }s}M_h
+=H_\pi+V_{s-1}(C_\pi).
+\]
+Thus (KR1G-35), followed by the finite minimum over connector sets and
+assignments, is an exact optimization of the declared class. We will not
+need to solve that exponentially large recurrence: a history-uniform
+barrier already decides the cubic question.
+
+Put
+\[
+\mathsf{U}_n=n+r+1.
+\]
+The initial edge sums on \(C_0\) are, respectively,
+\[
+n+r,\qquad \mathsf{U}_n,\qquad
+2r+\left\lfloor{q\over2}\right\rfloor
+\tag{KR1G-36}
+\]
+on complementary edges, connectors, and the closing edge. Their maximum is
+\(\mathsf{U}_n\). If an edge \(\{u,v\}\) is split by \(t<u,v\), its children
+have sums \(u+t<u+v\) and \(v+t<u+v\). Descending induction therefore
+proves that every edge at every later stage of every history in
+\(\mathscr Z_{k,n}\) has endpoint sum at most \(\mathsf{U}_n\).
+
+For a current edge with \(w=u+v\), the correction is
+\[
+A_t=tw-uv.
+\]
+Since \(uv\le w^2/4\), while \(2t<w\le\mathsf{U}_n\) and the function
+\(tw-w^2/4\) decreases for \(w>2t\), every split in every such history
+satisfies the exact bound
+\[
+\boxed{
+A_t\ge \mathsf{U}_n\,t-{\mathsf{U}_n^2\over4}.}
+\tag{KR1G-37}
+\]
+Let
+\[
+d_n=\left\lceil{\mathsf{U}_n\over4}\right\rceil.
+\]
+The right-hand side of (KR1G-37) is nonnegative for
+\(d_n\le t\le r-1\). These labels occur consecutively at the beginning
+of the descending history, so their prefix cannot be cancelled by any
+later completion. Consequently
+\[
+\boxed{
+\begin{aligned}
+M_h&\ge L_n
+:=\sum_{t=d_n}^{r-1}
+\left(\mathsf{U}_n\,t-{\mathsf{U}_n^2\over4}\right)\\
+&={\mathsf{U}_n(r-d_n)
+\bigl(2(d_n+r-1)-\mathsf{U}_n\bigr)\over4}
+\end{aligned}}
+\tag{KR1G-38}
+\]
+for every \(h\in\mathscr Z_{k,n}\), once \(d_n\le r-1\).
+Notice that \(d_n/n\to b\), whereas
+\(s/n\to\beta_k^{(k)}>b\). Thus a cubic part of (KR1G-38) is forced
+specifically during the supposedly free completion below \(s\).
+
+For the fixed all-middle prefix data, abbreviate
+\[
+\mathcal G_{k,n}
+=B_{h,n}-P_{r,n}
+=\sum_{i=1}^k(s_{i-1}-s_i)
+G_{n,\lambda_i^{(k)}}(s_i).
+\]
+This quantity is independent of \(h\). The base-slack identity gives
+\(P(C_0)-P_{r,n}\ge0\); in fact the exact zigzag excess is
+\(m(m-1)/2\) for \(q=2m\) and \(m(m+1)/2\) for
+\(q=2m+1\), but its precise quadratic value is not needed. Combining
+this fact with (KR1G-38) yields the finite class-uniform inequality
+\[
+\boxed{
+P(C_0)+M_h-B_{h,n}
+\ge P(C_0)-P_{r,n}+L_n-\mathcal G_{k,n}
+\ge L_n-\mathcal G_{k,n}.}
+\tag{KR1G-39}
+\]
+It applies simultaneously to every target assignment and every completion;
+none of those choices can remove the height barrier.
+
+We now take the limits in the required order. For this one fixed \(k\),
+ordinary floor and ceiling convergence gives
+\[
+\begin{aligned}
+{L_n\over n^3}
+&\longrightarrow
+\int_b^a\left(Sy-{S^2\over4}\right)\,dy
+={SA^2\over32},\\
+{\mathcal G_{k,n}\over n^3}
+&\longrightarrow
+\sum_{i=1}^k
+(\beta_{i-1}^{(k)}-\beta_i^{(k)})
+g(a,\beta_i^{(k)},\lambda_i^{(k)})
+={A^3M_k\over8}.
+\end{aligned}
+\tag{KR1G-40}
+\]
+The second identity is exactly (CR28dw7)--(CR28dw8), with the same
+unchanged all-middle tuple. Therefore, defining the minimum only on its
+eventual nonempty domain,
+\[
+\boxed{
+\begin{aligned}
+&\liminf_{n\to\infty}
+{\,\min_{h\in\mathscr Z_{k,n}}
+\bigl(P(C_0)+M_h-B_{h,n}\bigr)\over n^3}
+\ge\delta_k,\\
+&\delta_k
+:={SA^2\over32}-{A^3M_k\over8}
+={A^2\over32}\bigl(S-4AM_k\bigr).
+\end{aligned}}
+\tag{KR1G-41}
+\]
+This is a fixed-\(k\) statement; no \(k=k(n)\) has been introduced.
+
+Only now let \(k\to\infty\). The already proved simplex theorem gives
+\(M_k\uparrow1/3\), so the lower-bound coefficients decrease to
+\[
+\begin{aligned}
+\delta_\infty
+&={A^2(3S-4A)\over96}
+={A^2(7-9a)\over96}\\
+&=\boxed{{470-159\sqrt2\over73002}}
+=0.003357990789056161\ldots>0.
+\end{aligned}
+\tag{KR1G-42}
+\]
+Positivity also follows directly from \(A>0\) and \(a<1/2\); in the
+displayed radical form it has square margin
+\(470^2-2\cdot159^2=170338>0\).
+
+Thus the always-defined robust form of the requested conclusion is
+\[
+\boxed{
+\liminf_{k\to\infty}\;
+\liminf_{n\to\infty}
+{\,\min_{h\in\mathscr Z_{k,n}}
+\bigl(P(C_0)+M_h-B_{h,n}\bigr)\over n^3}
+\ge {470-159\sqrt2\over73002}>0.}
+\tag{KR1G-43}
+\]
+In particular, if the outer limit written in the question exists, it is
+strictly positive; the zero alternative is excluded without assuming that
+outer-limit existence. The theorem supplies a lower bound, not the exact
+minimum coefficient. It applies only to the zigzag-base witness class
+\(\mathscr Z_{k,n}\). It proves nothing for all histories, does not identify
+a minimizing cyclic order, does not change \(C_{\rm AF}\), and has no
+geometric consequence.
+
 ## 10. Exact \(K\) For The Exact-Threshold Residue-Two Core Order
 
 Let \(\tau_n^{(2)}\) be the cyclic core order returned by

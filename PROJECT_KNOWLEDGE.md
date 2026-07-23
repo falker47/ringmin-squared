@@ -1720,6 +1720,45 @@ and `ops/`.
   floor terms. It neither transfers the positive KR1-specific
   \(\mathcal U\), changes \(C_{\rm AF}\), nor implies a geometric result.
   The detailed proof is in `research/FIXED_ORDER_CYCLE_RATIO.md`.
+- EXACT THEOREM (FULL KR1G RESIDUAL ON THE ZIGZAG-WITNESS CLASS): for every
+  fixed \(k\), retain without modification
+  \[
+  a={13-2\sqrt2\over23},\qquad
+  \beta_i^{(k)}
+  ={1+a+(3a-1)x_i^{(k)}\over4},\qquad
+  \lambda_i^{(k)}
+  ={(3a-1)x_i^{(k)}\over\beta_i^{(k)}}.
+  \]
+  Put \(r=\lfloor an\rfloor\), \(s_k=\lceil\beta_k^{(k)}n\rceil\),
+  take the translated zigzag \(Z_{n-r+1}\) as \(C_0\), split its closing
+  edge and any \(r-s_k-1\) slack-\(1/2\) connectors with the selected
+  labels in arbitrary bijection, and complete below \(s_k\) arbitrarily.
+  For every history in the union of these classes, the maximum endpoint sum
+  never exceeds \(\mathsf{U}_n=n+r+1\). Hence every correction satisfies
+  \(A_t\ge\mathsf{U}_n\,t-\mathsf{U}_n^2/4\), forcing a cubic positive
+  prefix down to \(d_n=\lceil\mathsf{U}_n/4\rceil\). With \(M_k\) the
+  exact normalized-simplex value,
+  \[
+  \liminf_{n\to\infty}
+  {\min_h(P(C_0)+M_h-B_{h,n})\over n^3}
+  \ge
+  \delta_k
+  ={(3a-1)^2\over32}
+   \bigl(1+a-4(3a-1)M_k\bigr).
+  \]
+  The quantifiers are fixed \(k\), then \(n\to\infty\), and only afterward
+  \(k\to\infty\). Since \(M_k\uparrow1/3\),
+  \[
+  \liminf_{k\to\infty}\liminf_{n\to\infty}
+  {\min_h(P(C_0)+M_h-B_{h,n})\over n^3}
+  \ge {470-159\sqrt2\over73002}>0.
+  \]
+  Thus the zero alternative is excluded for this whole zigzag-witness
+  history class. The theorem is a lower bound, not an exact residual
+  coefficient or an outer-limit existence theorem, and it makes no claim
+  about arbitrary base cycles, all histories, minimizing orders, or
+  geometry. The detailed proof is in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`.
 - VERIFIED FACT (BOUNDED EXACT DOSSIER DIAGNOSTIC): the standalone
   `ops/TASK-20260718__residue_one_exact_k/exact_diagnostic.py` imports only
   standard-library modules and no project or test helper. It reconstructs
@@ -1758,6 +1797,19 @@ and `ops/`.
   Every exact minimum equals
   \(\frac12[\lceil q/2\rceil-\ell]_+\). This finite oracle corroborates but
   does not replace the all-\(q\) matching proof.
+- VERIFIED FACT (BOUNDED EXACT ZIGZAG-HISTORY CHECKER): the standalone
+  standard-library script in
+  `ops/TASK-20260723__kr1g_zigzag_full_residual/` imports no project helper.
+  On four synthetic rational fixtures it exhausts 18,468 literal histories,
+  including every permitted connector subset, every selected-label
+  assignment, and every completion. Exact `Fraction` arithmetic checks the
+  completion DP, full KR1G decomposition, edge-sum invariant, pointwise
+  correction bound, finite cubic barrier, and two golden minima. A separate
+  exact \(\mathbb Q(\sqrt2)\) implementation checks the first twelve
+  fixed-\(k\) scalar bounds and
+  \((470-159\sqrt2)/73002>0\). The synthetic fixtures corroborate structure;
+  they do not realize the eventual irrational cutoff rows or replace the
+  proof.
 - EXACT THEOREM (EXACT-THRESHOLD RESIDUE-TWO \(K\)): let
   \(\tau_n^{(2)}\) be the core order returned by
   `residue_two_product_distance_order(n)` for \(n=5k+2\), \(k\ge2\), and
