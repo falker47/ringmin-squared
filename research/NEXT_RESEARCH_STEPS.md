@@ -161,6 +161,30 @@ The superficially similar Ferrers count and monotone threshold-closing
   and the
   [task evidence](../ops/TASK-20260723__kr1g_zigzag_full_residual/EVIDENCE.md).
 
+- **COMPLETED -- all KR1G relaxed-equality families:** simultaneous equality
+  in the complementary-edge count, deletion count, and integer-deviation
+  floor classifies every positive-branch equality pair. After contracting
+  the forced complementary matching, the retained unit edges are signed
+  interval components of one block path and the deleted edges join their
+  stubs in one cycle. A decreasing convex weighting of the selected
+  correction prefixes, combined with exact connector-slot majorization,
+  gives a family- and assignment-independent finite lower bound. At each
+  fixed all-middle cutoff its cubic coefficient is positive, and the
+  subsequent \(k\to\infty\) limit satisfies
+  \[
+  \liminf_{k\to\infty}\liminf_{n\to\infty}
+  {\min M_h\over n^3}
+  \ge I(E)
+  \ge {787-551\sqrt2\over73002}>0.
+  \]
+  Thus no relaxed-equality family at the all-middle KR1G cutoffs avoids the
+  selected-prefix barrier. This does not classify nonequality histories or
+  extend the zigzag-specific full-residual coefficient. Production, public
+  tests, and enumeration limits are unchanged. See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#equality-classification-and-the-universal-selected-prefix-barrier)
+  and the
+  [task evidence](../ops/TASK-20260723__kr1g_equality_classification/EVIDENCE.md).
+
 - **COMPLETED -- two-contiguous-block charging ansatz:** the separator-density
   construction, convex bridge, two history-relative disjoint original-edge
   slack pools, and global recursive child-edge invariant give the exact
@@ -286,10 +310,10 @@ The superficially similar Ferrers count and monotone threshold-closing
 
 ## Next Atomic Task
 
-User review and manual commit decision for the full KR1G residual lower bound
-on the zigzag-witness history class. Afterward, choose exactly one item from
-the deferred directions below in a fresh task before developing further
-mathematics.
+User review and manual commit decision for the symbolic classification and
+universal selected-prefix barrier on all positive-branch KR1G relaxed
+equality families. Afterward, choose exactly one item from the deferred
+directions below in a fresh task before developing further mathematics.
 
 ## Deferred, Not Prioritized
 

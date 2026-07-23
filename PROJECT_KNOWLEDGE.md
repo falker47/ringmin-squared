@@ -1720,6 +1720,90 @@ and `ops/`.
   floor terms. It neither transfers the positive KR1-specific
   \(\mathcal U\), changes \(C_{\rm AF}\), nor implies a geometric result.
   The detailed proof is in `research/FIXED_ORDER_CYCLE_RATIO.md`.
+- EXACT THEOREM (KR1G RELAXED-EQUALITY CLASSIFICATION AND UNIVERSAL
+  SELECTED-PREFIX BARRIER): for \(q\ge3\), put
+  \(c=\lceil q/2\rceil\), let \(\mathcal M_q\) be the
+  \(\lfloor q/2\rfloor\) complementary edges \(x+y=q-1\), and let
+  \(\mathcal U_q\) be the edges with
+  \(|x+y-(q-1)|=1\). In the positive branch \(1\le\ell<c\), a pair
+  \((C,E')\) attains the relaxed value \((c-\ell)/2\) exactly when
+  \[
+  |E'|=\ell,\qquad
+  \mathcal M_q\subseteq E(C)\setminus E',\qquad
+  E(C)\setminus(E'\cup\mathcal M_q)\subseteq\mathcal U_q.
+  \]
+  Equivalently, if
+  \(\mathcal B(C)=E(C)\setminus(\mathcal M_q\cup\mathcal U_q)\),
+  an eligible fixed cycle has precisely
+  \[
+  \binom{c-|\mathcal B(C)|}{\ell-|\mathcal B(C)|}
+  \]
+  equality edge sets. After contracting the complementary matching, the
+  retained unit edges form exactly \(\ell\) interval components of the block
+  path, with constant sign on every nontrivial component; \(E'\) joins their
+  free stubs in one contracted cycle. This parametrizes every equality pair
+  for both parities.
+- EXACT THEOREM (FINITE EQUALITY-PREFIX BOUND): translate to
+  \(S_r=\{r,\ldots,n\}\), put \(R=n+r\), and assign the selected labels
+  \(t_j=r-1-j\), \(0\le j<\ell\), arbitrarily to the edges of \(E'\). If
+  \(H_h\) is the chronological correction prefix, then with
+  \[
+  \kappa={q+1\over2},\qquad
+  \omega_j={\kappa\over\kappa+j},\qquad
+  d_j={q-1\over2}-j,
+  \]
+  every equality pair and every assignment obeys
+  \[
+  \max_{0\le h\le\ell}H_h
+  \ge
+  \sum_{j=0}^{\ell-1}\omega_j
+  \left[
+  R(r-1-j)-{R^2\over4}-d_j^2
+  \right]
+  -\kappa(c-\ell).
+  \]
+  This follows from an exact decreasing convex weighting of the selected
+  prefixes, cancellation of the centered connector-slot sum up to
+  \(c-\ell\), and weighted square rearrangement over the complementary slot
+  multiset. It is independent of the equality cycle, stub pairing, and
+  label-to-edge bijection.
+- EXACT THEOREM (ALL-MIDDLE EQUALITY-PREFIX BARRIER): retain the unchanged
+  all-middle cutoffs. With
+  \[
+  a={13-2\sqrt2\over23},\quad
+  b={1+a\over4},\quad
+  M={1-a\over2},\quad E=a-b,
+  \]
+  a fixed cutoff \(\beta\in[b,a)\), \(D=a-\beta\), has the explicit exact
+  symbolic lower coefficient
+  \[
+  I(D)=\int_0^D{M\over M+x}
+  \left[(1+a)(E-x)-(M-x)^2\right]dx>0.
+  \]
+  For \(\beta_k^{(k)}=b+Ex_k^{(k)}\), one has
+  \(D_k=E(1-x_k^{(k)})\to E\). Therefore
+  \[
+  \liminf_{k\to\infty}\liminf_{n\to\infty}
+  {\min M_h\over n^3}
+  \ge I(E)
+  \ge {787-551\sqrt2\over73002}>0
+  \]
+  over every relaxed-equality pair, every selected-edge assignment, and
+  every completion. The exact integral is
+  \[
+  I(E)
+  ={31\sqrt2-75\over2116}
+  +{938-162\sqrt2\over12167}
+   \log\left(2-{\sqrt2\over2}\right)
+  =0.0002413835232370307\ldots.
+  \]
+  Thus no equality family at the all-middle KR1G cutoffs avoids the cubic
+  correction-prefix barrier.
+  There is no uniform positive constant over arbitrary \(D\downarrow0\);
+  the theorem uses fixed \(k\), then \(n\to\infty\), and only afterward
+  \(k\to\infty\). It does not classify nonequality histories or promote the
+  zigzag-specific full-residual theorem to arbitrary base cycles. The
+  detailed proof is in `research/FIXED_ORDER_CYCLE_RATIO.md`.
 - EXACT THEOREM (FULL KR1G RESIDUAL ON THE ZIGZAG-WITNESS CLASS): for every
   fixed \(k\), retain without modification
   \[
@@ -1797,6 +1881,18 @@ and `ops/`.
   Every exact minimum equals
   \(\frac12[\lceil q/2\rceil-\ell]_+\). This finite oracle corroborates but
   does not replace the all-\(q\) matching proof.
+- VERIFIED FACT (BOUNDED EXACT KR1G EQUALITY-CLASSIFICATION ORACLE): the
+  standalone standard-library script in
+  `ops/TASK-20260723__kr1g_equality_classification/` imports no project
+  helper. For every \(3\le q\le10\) and
+  \(1\le\ell<\lceil q/2\rceil\), it exhausts 204,556 Hamiltonian cycles
+  modulo rotation and reversal, 815,188 cycle-level minima, and 173,819
+  literal deletion subsets on the equality-eligible cycles. All 1,066
+  equality pairs satisfy both the matching/unit-edge iff criterion and the
+  signed interval-component structure; the independent binomial counts and
+  complementary-matching histograms also agree exactly. This bounded oracle
+  verifies only the finite classification through \(q=10\). It neither
+  proves the all-\(q\) theorem nor checks the asymptotic prefix barrier.
 - VERIFIED FACT (BOUNDED EXACT ZIGZAG-HISTORY CHECKER): the standalone
   standard-library script in
   `ops/TASK-20260723__kr1g_zigzag_full_residual/` imports no project helper.

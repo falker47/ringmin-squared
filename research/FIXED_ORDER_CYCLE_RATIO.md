@@ -86,6 +86,29 @@ in `research/ALL_N_LOWER_BOUND.md`.
   and is not the KR1 history. The formula supplies the sharp uniform linear
   lower bound to every compatible history, but no positive cubic term follows
   for the unused-edge term.
+- **EXACT THEOREM (KR1G RELAXED-EQUALITY CLASSIFICATION AND PREFIX
+  BARRIER):** in the positive branch
+  \(1\le\ell<\lceil q/2\rceil\), equality in the preceding minimum holds
+  exactly when all complementary zero-slack edges are retained, exactly
+  \(\ell\) noncomplementary edges are deleted, and every other retained edge
+  has deviation \(+1\) or \(-1\). Contracting the complementary matching
+  turns the retained nonzero edges into \(\ell\) signed interval components
+  of one block path, with constant sign on each component; the deleted edges
+  join their free stubs in one cycle. For every such equality pair and every
+  assignment of the selected KR1G labels, an exact weighted-slot inequality
+  applies. Write \(M_{\rm sel}\) for the maximum correction prefix attained
+  during that selected phase. Along the unchanged all-middle sequence, the
+  inequality forces
+  \[
+  \liminf_{k\to\infty}\liminf_{n\to\infty}
+  {\min M_{\rm sel}\over n^3}
+  \ge I_*
+  \ge {787-551\sqrt2\over73002}>0,
+  \]
+  where \(I_*=0.000241383523237\ldots\) is given exactly below. Thus no
+  relaxed-equality family at the all-middle KR1G cutoffs avoids the prefix
+  barrier. This does not classify nonequality histories or transfer the
+  zigzag-specific full-residual bound to arbitrary base cycles.
 - **EXACT THEOREM (EXACT-THRESHOLD RESIDUE-TWO CORE):** for
   \(n=5k+2\), \(k\ge2\), Section 10 proves that the order returned by
   `residue_two_product_distance_order(n)` also has the unique maximizing
@@ -12276,6 +12299,355 @@ minimum coefficient. It applies only to the zigzag-base witness class
 \(\mathscr Z_{k,n}\). It proves nothing for all histories, does not identify
 a minimizing cyclic order, does not change \(C_{\rm AF}\), and has no
 geometric consequence.
+
+### Equality classification and the universal selected-prefix barrier
+
+The preceding zigzag theorem leaves open whether another equality witness
+for (KR1G-24) can accumulate a negative selected-prefix buffer and thereby
+avoid every cubic positive correction prefix. We now classify all equality
+pairs and rule this out. The conclusion concerns the correction maximum
+already attained while the selected labels are inserted. It requires no
+restriction on, and no analysis of, the later completion.
+
+Put
+\[
+c=\left\lceil{q\over2}\right\rceil,\qquad
+m=\left\lfloor{q\over2}\right\rfloor,
+\]
+and define the complementary matching and the unit-deviation edge set
+\[
+\begin{aligned}
+\mathcal M_q
+&=\left\{\{i,q-1-i\}:0\le i<m\right\},\\
+\mathcal U_q
+&=\left\{\{x,y\}:0\le x<y\le q-1,\
+\left|x+y-(q-1)\right|=1\right\}.
+\end{aligned}
+\tag{KR1G-44}
+\]
+For \(q\ge3\) and \(1\le\ell<c\), a pair \((C,E')\) attains the positive
+value \((c-\ell)/2\) in (KR1G-24) if and only if
+\[
+\boxed{
+|E'|=\ell,\qquad
+\mathcal M_q\subseteq E(C)\setminus E',\qquad
+E(C)\setminus(E'\cup\mathcal M_q)\subseteq\mathcal U_q.}
+\tag{KR1G-45}
+\]
+Indeed, let \(z\) be the number of retained zero-deviation edges and \(h\)
+the number of retained nonzero edges. The doubled objective is at least
+\(h\), while
+\[
+h=q-|E'|-z
+\ge q-|E'|-m
+\ge c-\ell>0.
+\tag{KR1G-46}
+\]
+Equality in the objective forces equality at all three steps: exactly
+\(\ell\) edges are deleted, all \(m\) possible complementary edges are
+retained, and every retained nonzero integer deviation has square one.
+Conversely these conditions give the stated value.
+
+There is also a useful cycle-by-cycle form. Define
+\[
+\mathcal B(C)=E(C)\setminus(\mathcal M_q\cup\mathcal U_q).
+\]
+If \(\mathcal M_q\subseteq E(C)\) and
+\(|\mathcal B(C)|\le\ell\), then all equality edge sets on this fixed cycle
+are exactly
+\[
+E'=\mathcal B(C)\cup D,\qquad
+D\subseteq E(C)\cap\mathcal U_q,\qquad
+|D|=\ell-|\mathcal B(C)|.
+\tag{KR1G-47}
+\]
+There are therefore
+\[
+\binom{c-|\mathcal B(C)|}{\ell-|\mathcal B(C)|}
+\tag{KR1G-48}
+\]
+such edge sets. If either displayed condition on \(C\) fails, there are
+none.
+
+The same classification has a complete structural parametrization. For
+\(0\le i<m\), contract the matching edge inside
+\[
+\mathcal B_i=\{i,q-1-i\};
+\]
+when \(q=2m+1\), add the central block
+\(\mathcal B_m=\{m\}\), with its two cycle incidences kept as two formal
+stubs. The unit edges between consecutive blocks are precisely
+\[
+e_i^+=\{i+1,q-1-i\},\qquad
+e_i^-=\{i,q-2-i\},
+\qquad 0\le i<c-1.
+\tag{KR1G-49}
+\]
+After removing \(\mathcal M_q\) and \(E'\), an equality cycle retains
+\(c-\ell\) edges of this block path. Removing the \(\ell\) connector edges
+from the contracted cycle leaves exactly \(\ell\) path components, so these
+components are intervals in
+\[
+\mathcal B_0-\mathcal B_1-\cdots-\mathcal B_{c-1}.
+\]
+At an internal block two retained unit edges must use its two different
+original endpoints. The formulas in (KR1G-49) show that this happens exactly
+when their signs agree. Thus every nontrivial interval has one constant
+sign.
+
+More explicitly, a noncentral interval
+\([\mathcal B_p,\ldots,\mathcal B_h]\) leaves the stubs
+\[
+\begin{array}{c|c}
+\text{sign}&\text{free stubs}\\ \hline
++&p,\ q-1-h\\
+-&q-1-p,\ h.
+\end{array}
+\tag{KR1G-50}
+\]
+For an odd terminal interval the right stub is the unused incidence of the
+central vertex; an isolated central block has two such incidences. The
+deleted edges pair the \(2\ell\) free stubs so that, after contracting the
+intervals, they form one connected degree-two multigraph: one closing loop
+when \(\ell=1\), two parallel joins when \(\ell=2\), and an ordinary cycle
+when \(\ell\ge3\). Expanding the blocks gives a simple labelled cycle.
+Conversely, any interval partition, constant sign on each nontrivial
+interval, and such a stub pairing reconstructs an equality pair. Hence this
+parametrizes all and only the pairs in (KR1G-45), for both parities.
+
+We next prove the prefix barrier uniformly over that parametrization. Return
+to the translated labels \(S_r=\{r,\ldots,n\}\), and take
+\[
+q=n-r+1,\qquad s:=r-\ell\ge1,\qquad R=n+r.
+\]
+Let an arbitrary bijection assign the selected labels to \(E'\), in their
+chronological order:
+\[
+t_j=r-1-j,\qquad e_j=\{u_j,v_j\},
+\qquad 0\le j<\ell.
+\]
+Every \(e_j\) is a distinct original edge. Splitting earlier targets does not
+remove any later target, so all these selected splits are literal base
+splits. Define
+\[
+\begin{aligned}
+A_j&=t_j(u_j+v_j)-u_jv_j,\\
+H_h&=\sum_{0\le j<h}A_j\qquad(0\le h\le\ell),\\
+\kappa&={R\over2}-(r-1)={q+1\over2},\\
+\omega_j&={\kappa\over\kappa+j},\qquad
+d_j={q-1\over2}-j.
+\end{aligned}
+\tag{KR1G-51}
+\]
+Thus \(1=\omega_0>\cdots>\omega_{\ell-1}>0\). Put
+\(\omega_\ell=0\). Summation by parts expresses the auxiliary weighted sum
+as a convex combination of chronological prefixes:
+\[
+\boxed{
+\max_{0\le h\le\ell}H_h
+\ge\sum_{j=0}^{\ell-1}\omega_jA_j
+=\sum_{h=1}^{\ell}(\omega_{h-1}-\omega_h)H_h.}
+\tag{KR1G-52}
+\]
+
+For \(x\in S_r\), center the label by \(z_x=x-R/2\). Since
+\(R/2-t_j=\kappa+j\), every assigned split satisfies the exact identity
+\[
+\omega_jA_j
+=\omega_j\left(Rt_j-{R^2\over4}\right)
+-\kappa(z_{u_j}+z_{v_j})
+-\omega_jz_{u_j}z_{v_j}.
+\tag{KR1G-53}
+\]
+The multiset of centered connector slots is
+\[
+\begin{cases}
+\{\pm d_i:0\le i<m\},&q=2m,\\
+\{\pm d_i:0\le i<m\}\cup\{0,0\},&q=2m+1,
+\end{cases}
+\qquad
+d_i={q-1\over2}-i.
+\tag{KR1G-54}
+\]
+The two zeros in the odd case are the two incidences of the central vertex.
+This slot multiset has sum zero. Equivalently, summing edge deviations around
+the whole cycle gives zero. Since the \(c-\ell\) retained connectors have
+deviation \(+1\) or \(-1\), the selected slots therefore obey
+\[
+\left|
+\sum_{j=0}^{\ell-1}(z_{u_j}+z_{v_j})
+\right|
+\le c-\ell.
+\tag{KR1G-55}
+\]
+
+For the product term, first use
+\(2z_{u_j}z_{v_j}\le z_{u_j}^2+z_{v_j}^2\). The \(2\ell\) selected
+connector slots form a submultiset of (KR1G-54). Its \(2\ell\) largest
+available squares are
+\[
+d_0^2,d_0^2,\ldots,d_{\ell-1}^2,d_{\ell-1}^2,
+\]
+because \(\ell<c\). Rearrangement against the decreasing slot weights
+\(\omega_0/2,\omega_0/2,\ldots,
+\omega_{\ell-1}/2,\omega_{\ell-1}/2\) gives
+\[
+\sum_{j=0}^{\ell-1}\omega_jz_{u_j}z_{v_j}
+\le
+\sum_{j=0}^{\ell-1}\omega_jd_j^2.
+\tag{KR1G-56}
+\]
+Combining (KR1G-52)--(KR1G-56) proves the exact finite, parity-uniform bound
+\[
+\boxed{
+\max_{0\le h\le\ell}H_h
+\ge
+\sum_{j=0}^{\ell-1}\omega_j
+\left[
+R(r-1-j)-{R^2\over4}-d_j^2
+\right]
+-\kappa(c-\ell).}
+\tag{KR1G-57}
+\]
+It is independent of the equality cycle, the stub pairing, and the
+label-to-edge bijection. If desired, its summand can be written entirely in
+\((q,r,j)\):
+\[
+R(r-1-j)-{R^2\over4}-d_j^2
+=r^2-2r+{1\over2}-{q^2\over2}-2rj-j^2,
+\qquad
+\omega_j={q+1\over q+1+2j}.
+\tag{KR1G-58}
+\]
+
+It remains to decide the cubic sign at the KR1G parameters. Put
+\[
+\begin{aligned}
+a&={13-2\sqrt2\over23},&
+S&=1+a,&
+b&={S\over4},\\
+M&={1-a\over2}={5+\sqrt2\over23},&
+E&=a-b={8-3\sqrt2\over46}.
+\end{aligned}
+\tag{KR1G-59}
+\]
+Fix \(b\le\beta<a\), take
+\[
+r=\lfloor an\rfloor,\qquad
+s=\lceil\beta n\rceil,\qquad
+\ell=r-s,\qquad
+D=a-\beta\in(0,E].
+\]
+For this one fixed \(\beta\), the positive branch is eventually admissible.
+After division by \(n^3\), (KR1G-57) is a Riemann sum; all parity and
+floor/ceiling effects, as well as \(\kappa(c-\ell)\), are \(O(n^2)\).
+Uniformly over all equality pairs and assignments,
+\[
+\boxed{
+\liminf_{n\to\infty}{\max_{0\le h\le\ell}H_h\over n^3}
+\ge I(D)
+:=\int_0^D{M\over M+x}F(x)\,dx,}
+\tag{KR1G-60}
+\]
+where
+\[
+F(x)=S(E-x)-(M-x)^2.
+\]
+This is an exact symbolic coefficient. One closed form is
+\[
+I(D)
+=M\left[
+-{D^2\over2}
++(M-2a)D
++{218-76\sqrt2\over529}
+\log\left(1+{D\over M}\right)
+\right].
+\tag{KR1G-61}
+\]
+
+The sign does not come from finite experimentation. Directly,
+\[
+F'(x)=-2(a+x)<0,\qquad
+F(0)={123-72\sqrt2\over529}>0,\qquad
+F(E)=-(M-E)^2<0.
+\tag{KR1G-62}
+\]
+Thus \(F\) has one zero \(x_0\in(0,E)\). Its complete unweighted integral is
+\[
+J(E):=\int_0^EF(x)\,dx
+={(349-243\sqrt2)(8-3\sqrt2)\over146004}
+={4250-2991\sqrt2\over146004}>0.
+\tag{KR1G-63}
+\]
+The last sign is exact because
+\(4250^2-2\cdot2991^2=170338>0\). If \(D\le x_0\), then
+\(I(D)>0\) immediately. If \(x_0\le D\le E\), the integral \(I(D)\)
+decreases with \(D\), so \(I(D)\ge I(E)\). Finally the weight
+\(g(x)=M/(M+x)\) is decreasing, and the signs of
+\(g(x)-g(x_0)\) and \(F(x)\) agree. Hence
+\[
+\begin{aligned}
+I(E)
+&=g(x_0)J(E)
++\int_0^E\bigl(g(x)-g(x_0)\bigr)F(x)\,dx\\
+&\ge g(E)J(E)
+={787-551\sqrt2\over73002}>0.
+\end{aligned}
+\tag{KR1G-64}
+\]
+Here \(787^2-2\cdot551^2=12167>0\). The exact value of the integral is
+\[
+\boxed{
+I(E)
+={31\sqrt2-75\over2116}
++{938-162\sqrt2\over12167}
+\log\left(2-{\sqrt2\over2}\right)
+=0.0002413835232370307\ldots.}
+\tag{KR1G-65}
+\]
+The radical lower certificate in (KR1G-64) is
+\(0.0001064125247585631\ldots\).
+
+Now restore the unchanged all-middle cutoffs from (KR1G-34). Since
+\[
+\beta_k^{(k)}=b+E x_k^{(k)},\qquad
+D_k:=a-\beta_k^{(k)}=E(1-x_k^{(k)})>0,
+\tag{KR1G-66}
+\]
+every fixed \(k\) has a strictly positive coefficient \(I(D_k)\), with an
+integer threshold that may depend on \(k\). The normalized simplex theorem
+gives \(x_k^{(k)}\to0\), so \(D_k\to E\) and continuity gives the robust
+conclusion. Each inner liminf below is taken on the eventual nonempty domain
+\(1\le\ell<c\) for that fixed \(k\):
+\[
+\boxed{
+\liminf_{k\to\infty}\ \liminf_{n\to\infty}
+{\displaystyle
+\min_{\substack{(C,E')\ {\rm satisfying}\ (KR1G\text{-}45)\\
+\text{selected-edge assignments and completions}}}
+M_h
+\over n^3}
+\ge I(E)
+\ge {787-551\sqrt2\over73002}>0.}
+\tag{KR1G-67}
+\]
+The completion cannot cancel a maximum already attained during the selected
+phase. Thus every equality family at the all-middle KR1G cutoffs forces a
+cubically positive prefix, and there is no symbolic counterexample of the
+requested kind in that regime.
+
+There is deliberately no claim of a uniform positive constant for every
+arbitrary \(0<D\le E\): from (KR1G-60),
+\[
+I(D)=F(0)D+O(D^2)\longrightarrow0
+\qquad(D\downarrow0).
+\tag{KR1G-68}
+\]
+This does not affect the all-middle sequence, where \(D_k\to E\). Nor does
+the theorem classify nonequality cycles, evaluate the complete residual on
+arbitrary base cycles, improve \(C_{\rm AF}\), identify a minimizing order,
+or imply a geometric result. The earlier zigzag theorem remains the stronger
+full-residual statement on its narrower history class.
 
 ## 10. Exact \(K\) For The Exact-Threshold Residue-Two Core Order
 
