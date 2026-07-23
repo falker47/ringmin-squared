@@ -165,6 +165,20 @@ The superficially similar Ferrers count and monotone threshold-closing
   and the
   [task evidence](../ops/TASK-20260723__pg49_kpgzero_filtered_cardinality/EVIDENCE.md).
 
+- **COMPLETED -- KPGZERO local continued-fraction admission criterion:** for
+  every regular convergent \(p_\nu/q_\nu\) of the cubic root \(\xi\),
+  (KPGZERO-24a)--(KPGZERO-24h) express its signed error through the next
+  complete quotient and \(q_{\nu-1}/q_\nu\), retain the four separate
+  branch/sign scale quadratics, reduce domain and congruence to one exact
+  arithmetic-progression interval, and give a residue-aware integer
+  discriminant deciding admission without an \(m\)-scan.  The ordinary
+  quadratic discriminant alone does not decide the integer residue filter.
+  This closes the individual-convergent test, not the global frequency
+  question: (KPGZERO-24) still makes no finite/infinite assertion.  See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#exact-diophantine-classification-of-the-zero-gain-set)
+  and the
+  [task evidence](../ops/TASK-20260723__kpgzero_local_cf_criterion/EVIDENCE.md).
+
 ## Completed Post-Review Audit
 
 - **COMPLETED -- independent KRPGE5 audit:** KRPGE5-1--KRPGE5-36 at
@@ -182,16 +196,17 @@ The superficially similar Ferrers count and monotone threshold-closing
 
 ## Next Atomic Task
 
-User review and manual commit decision for the PG49/KPGZERO
-filtered-cardinality support no-go. Afterward, choose exactly one item from
-the deferred directions below in a fresh task before developing further
+User review and manual commit decision for the KPGZERO local continued-
+fraction admission criterion. Afterward, choose exactly one item from the
+deferred directions below in a fresh task before developing further
 mathematics.
 
 ## Deferred, Not Prioritized
 
 All open directions remain deferred until one is selected as a fresh bounded
-task. They include the absolute finiteness/infinitude of the PG49/KPGZERO
-filtered cubic-convergent set after the support-only no-go,
+task. They include a theorem deciding the absolute finiteness/infinitude of
+the PG49/KPGZERO filtered cubic-convergent set after the exact local
+admission criterion,
 finer Ferrers-count residuals, the asymptotic coefficient gap, tighter finite
 brackets at \(n=5,6\), the radius-one threshold below \(12\), and later
 minimizer-set restrictions for \(n\ge94\). Their mathematical context remains

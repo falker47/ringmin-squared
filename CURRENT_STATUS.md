@@ -4,13 +4,13 @@ Last update: 2026-07-23
 
 - **Mode:** STRICT
 - **Status:** READY_FOR_REVIEW
-- **Current task:** formalize PG49/KPGZERO filtered cubic-convergent
-  cardinality and determine exactly what the PG49 support can decide. The
-  cardinality theorem, support-only and fixed-direction no-go, independent
-  exact diagnostic, and durable sources are synchronized and verified; task
-  evidence is in
-  `ops/TASK-20260723__pg49_kpgzero_filtered_cardinality/EVIDENCE.md`.
+- **Current task:** refine KPGZERO-24 into an exact local continued-fraction
+  admission criterion. The signed complete-quotient error, four separate
+  branch/sign windows, congruence-domain scale interval, residue-aware
+  discriminant, fixed-case falsification diagnostic, durable sources, and
+  full verification are complete. Task evidence is in
+  `ops/TASK-20260723__kpgzero_local_cf_criterion/EVIDENCE.md`.
 - **Blockers:** none.
-- **Next task:** user review and manual commit decision. The absolute
-  finite/infinite arithmetic alternative remains a deferred fresh task, not
-  a continuation of this support-level result.
+- **Next task:** user review and manual commit decision. A theorem deciding
+  the absolute finite/infinite arithmetic alternative remains a deferred
+  fresh task.

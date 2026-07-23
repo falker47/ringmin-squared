@@ -12908,15 +12908,283 @@ followed by (KPGZERO-3) and (KPGZERO-15).  Necessity is
 (KPGZERO-22); sufficiency is direct substitution into the congruences,
 domain bounds, and exact plateau residuals.
 
-This is also the sharp obstruction to the requested finite/infinite
+We now refine this obstruction into an exact test on the local continued-
+fraction data of one convergent.  Write
+
+\[
+\xi=[a_0;a_1,a_2,\ldots],\qquad
+\alpha_{\nu+1}=[a_{\nu+1};a_{\nu+2},\ldots],\qquad
+\beta_\nu={q_{\nu-1}\over q_\nu},
+\]
+
+with \(p_{-1}=1\), \(q_{-1}=0\), and convergents indexed from
+\(\nu=0\).  The standard complete-quotient identity gives
+
+\[
+\xi={p_\nu\alpha_{\nu+1}+p_{\nu-1}
+       \over q_\nu\alpha_{\nu+1}+q_{\nu-1}},
+\qquad
+\boxed{\displaystyle
+\xi-{p_\nu\over q_\nu}
+={(-1)^\nu\over
+q_\nu^2(\alpha_{\nu+1}+\beta_\nu)}.}
+\tag{KPGZERO-24a}
+\]
+
+Put \(t_\nu=p_\nu/q_\nu\), \(\Theta_\nu=\alpha_{\nu+1}+\beta_\nu\), and
+
+\[
+\Gamma_\nu
+=24(t_\nu^2+t_\nu\xi+\xi^2)+27(t_\nu+\xi)-51.
+\]
+
+On the relevant domain \(t_\nu>1\), so \(\Gamma_\nu>75\).  Factoring the
+cubic at its root gives
+
+\[
+\phi(t_\nu)=(\xi-t_\nu)\Gamma_\nu,\qquad
+\boxed{\displaystyle
+\Phi(p_\nu,q_\nu)
+=(-1)^\nu{q_\nu\Gamma_\nu\over\Theta_\nu}.}
+\tag{KPGZERO-24b}
+\]
+
+Thus even convergents lie below \(\xi\) and have \(\Phi>0\), while odd
+convergents lie above \(\xi\) and have \(\Phi<0\).  Define the positive
+local coefficient
+
+\[
+\lambda_\nu={t_\nu\Gamma_\nu\over\Theta_\nu},
+\qquad
+A_\nu=q_\nu^2\lambda_\nu
+=p_\nu|\Phi(p_\nu,q_\nu)|\in\mathbb Z_{>0}.
+\]
+
+The four active scale windows must remain separate.  Dividing
+(KPGZERO-20)--(KPGZERO-21) by \(q_\nu^2\), and then recording their exact
+integer form \(f_{\delta,\nu}(g)=A_\nu g^2-b_{\delta,\nu}g+
+C_{\delta,\nu}\), gives
+
+\[
+\boxed{
+\begin{array}{c|c|c|c|c}
+\operatorname {sgn}\Phi&\nu&\text{branch}&
+\lambda_\nu g^2-(b_{\delta,\nu}/q_\nu^2)g+
+ C_{\delta,\nu}/q_\nu^2\le0&
+(b_{\delta,\nu},C_{\delta,\nu})\\ \hline
+-&\text{odd}&L&
+\lambda_\nu g^2-(7t_\nu^2+18t_\nu+50)g-31/q_\nu^2\le0&
+(S_L,-31)\\
+-&\text{odd}&R&
+\lambda_\nu g^2-2t_\nu(13t_\nu+12)g+31/q_\nu^2\le0&
+(S_R,31)\\
++&\text{even}&L&
+\lambda_\nu g^2-3t_\nu(t_\nu-1)g+21/q_\nu^2\le0&
+(B_L,21)\\
++&\text{even}&R&
+\lambda_\nu g^2-(50-16t_\nu^2-9t_\nu)g+39/q_\nu^2\le0&
+(T_R,39).
+\end{array}}
+\tag{KPGZERO-24c}
+\]
+
+Here \(S_L,S_R,B_L,T_R\) are evaluated at
+\((u,w)=(p_\nu,q_\nu)\).  The constants \(21,31,39\) cannot be dropped:
+with the sign and branch indicated by the subscripts,
+
+\[
+f_{L,-}=-N_L,\qquad
+f_{R,-}=25-N_R,\qquad
+f_{L,+}=Q_L+25,\qquad
+f_{R,+}=Q_R+25.
+\]
+
+Therefore equality \(f=0\) is admitted in all four closed quadratics.  It
+is the literal allowed endpoint \(N_L=0\) in the first row, and corresponds
+to \(N_R=25\) or \(Q_\delta=-25\) in the other rows.  The forbidden
+half-open endpoints remain exactly those excluded in
+(KPGZERO-11)--(KPGZERO-14).
+
+It remains to intersect one row of (KPGZERO-24c) with domain and
+congruence, still without scanning \(m\).  Put \(p=p_\nu\), \(q=q_\nu\)
+and
+
+\[
+\begin{aligned}
+d_1&=p(p-q),&
+d_2&=p(2p+3q),\\
+d_3&=p(7q-2p),&
+d_4&=10q^2-4p^2-pq.
+\end{aligned}
+\]
+
+If some \(d_i\le0\), this convergent is rejected.  Otherwise all four
+conditions in (KPGZERO-6) are equivalent to the single integer lower bound
+
+\[
+\boxed{\displaystyle
+g\ge G_{\delta,\nu}:=
+\max\left\{
+1,\
+\left\lceil{9+3\delta\over d_1}\right\rceil,\
+\left\lceil{68+\delta\over d_2}\right\rceil,\
+\left\lceil{12-11\delta\over d_3}\right\rceil,\
+\left\lceil{4+3\delta\over d_4}\right\rceil
+\right\}.}
+\tag{KPGZERO-24d}
+\]
+
+For the congruence, let
+
+\[
+e_{\delta,\nu}=\gcd(d_2,20).
+\]
+
+There is no scale unless \(e_{\delta,\nu}\mid8+\delta\).  When this holds,
+put \(h_{\delta,\nu}=20/e_{\delta,\nu}\), and let
+\(\gamma_{\delta,\nu}\in\{1,\ldots,h_{\delta,\nu}\}\) be the least positive
+representative of
+
+\[
+\boxed{\displaystyle
+\gamma_{\delta,\nu}\equiv
+{8+\delta\over e_{\delta,\nu}}
+\mathbin{\cdot}
+\left({d_2\over e_{\delta,\nu}}\right)^{-1}
+\pmod {h_{\delta,\nu}}.}
+\tag{KPGZERO-24e}
+\]
+
+Then (KPGZERO-5) is exactly
+\(g=\gamma_{\delta,\nu}+h_{\delta,\nu}k\), \(k\in\mathbb Z_{\ge0}\).
+
+For the selected row of (KPGZERO-24c), abbreviate
+\(A=A_\nu\), \(b=b_{\delta,\nu}\), \(C=C_{\delta,\nu}\), and put
+
+\[
+\Delta_{\delta,\nu}=b^2-4AC.
+\]
+
+The four ordinary discriminants, in table order, are
+
+\[
+S_L^2+124A,\qquad
+S_R^2-124A,\qquad
+B_L^2-84A,\qquad
+T_R^2-156A.
+\]
+
+If \(\Delta_{\delta,\nu}<0\), the scale set is empty.  Otherwise set
+\(s_{\delta,\nu}=\lfloor\sqrt{\Delta_{\delta,\nu}}\rfloor\) and
+
+\[
+\begin{aligned}
+L_{\delta,\nu}
+&=\max\left\{
+G_{\delta,\nu},
+\left\lceil{b-s_{\delta,\nu}\over2A}\right\rceil
+\right\},\\
+U_{\delta,\nu}
+&=\left\lfloor{b+s_{\delta,\nu}\over2A}\right\rfloor,\\
+k^-_{\delta,\nu}
+&=\max\left\{0,\
+\left\lceil{L_{\delta,\nu}-\gamma_{\delta,\nu}
+             \over h_{\delta,\nu}}\right\rceil\right\},\\
+k^+_{\delta,\nu}
+&=\left\lfloor{U_{\delta,\nu}-\gamma_{\delta,\nu}
+             \over h_{\delta,\nu}}\right\rfloor.
+\end{aligned}
+\]
+
+Because
+
+\[
+4Af_{\delta,\nu}(g)=(2Ag-b)^2-\Delta_{\delta,\nu}
+\]
+
+and \(0\le\sqrt\Delta-\lfloor\sqrt\Delta\rfloor<1\), the two radical
+roundings above are exact, including a square discriminant.  Consequently
+the necessary-and-sufficient integer interval of scales is
+
+\[
+\boxed{\displaystyle
+\mathcal G_\delta(p_\nu,q_\nu)
+=\{\gamma_{\delta,\nu}+h_{\delta,\nu}k:
+k^-_{\delta,\nu}\le k\le k^+_{\delta,\nu}\}.}
+\tag{KPGZERO-24f}
+\]
+
+As usual, the right side is empty when a preliminary positivity,
+congruence, or discriminant condition fails, or when
+\(k^-_{\delta,\nu}>k^+_{\delta,\nu}\).
+
+There is also a single explicit discriminator which already incorporates
+the gaps in the residue class.  Let
+
+\[
+\begin{aligned}
+g_0&=\gamma_{\delta,\nu}
++h_{\delta,\nu}
+\max\left\{0,\
+\left\lceil{G_{\delta,\nu}-\gamma_{\delta,\nu}
+             \over h_{\delta,\nu}}\right\rceil\right\},\\
+\ell_*&=\max\left\{0,\
+\left\lfloor{b-2Ag_0+Ah_{\delta,\nu}
+              \over2Ah_{\delta,\nu}}\right\rfloor\right\},\\
+g_*&=g_0+h_{\delta,\nu}\ell_*.
+\end{aligned}
+\]
+
+The scale \(g_*\) minimizes \(f_{\delta,\nu}\) over every positive scale
+satisfying both domain and congruence.  Hence the **integer admission
+discriminant**
+
+\[
+\boxed{\displaystyle
+\mathfrak D_{\delta,\nu}
+:=\Delta_{\delta,\nu}-(2Ag_*-b)^2
+=-4A f_{\delta,\nu}(g_*)}
+\tag{KPGZERO-24g}
+\]
+
+decides the individual convergent:
+
+\[
+\boxed{\displaystyle
+\mathcal G_\delta(p_\nu,q_\nu)\ne\varnothing
+\quad\Longleftrightarrow\quad
+\mathfrak D_{\delta,\nu}\ge0,}
+\tag{KPGZERO-24h}
+\]
+
+after the stated domain and congruence compatibility checks.  The ordinary
+quadratic discriminant alone is not sufficient, since an integer or residue
+class can miss its real interval.  Every admitted \(g\) reconstructs
+
+\[
+m={gd_2-(8+\delta)\over20}
+\]
+
+directly; no scan over \(m\) occurs.  Moreover
+
+\[
+\#\mathcal G_\delta(p_\nu,q_\nu)
+=\max\{0,k^+_{\delta,\nu}-k^-_{\delta,\nu}+1\}.
+\]
+
+The value is defined to be \(0\) when a preliminary positivity,
+congruence, or discriminant check fails.
+
+This is the exact local-data refinement of the requested finite/infinite
 dichotomy.  The global left or right set is infinite exactly when infinitely
-many one-sided convergents of this particular cubic root pass both a fixed
-congruence filter and the displayed finite \(g\)-window.  Infinitely many
-convergents by itself is insufficient: side, approximation coefficient, and
-residue class all matter.  No theorem established in this repository decides
-that filtered cubic subsequence.  The general scarcity of information about
-partial quotients of algebraic numbers of degree at least three is documented
-by Adamczewski and Bugeaud, *Acta Mathematica* 195 (2005), 1--20
+many one-sided convergents of this particular cubic root pass the displayed
+integer admission test.  Infinitely many convergents by itself is
+insufficient: side, local approximation coefficient, residue class, domain,
+and scale interval all matter.  No theorem established in this repository
+decides the frequency of \(\mathfrak D_{\delta,\nu}\ge0\).  The general
+scarcity of information about partial quotients of algebraic numbers of
+degree at least three is documented by Adamczewski and Bugeaud,
+*Acta Mathematica* 195 (2005), 1--20
 ([preprint](https://arxiv.org/abs/math/0511677)).  Accordingly,
 
 \[
@@ -13135,24 +13403,26 @@ individual members exist.  The witnesses (KPGZERO-25) and (KPGZERO-27)
 already prove \(\mathscr D\ne\varnothing\).
 
 The scale filter supplies a first exact no-go.  For a primitive direction
-\((u,w)=(p_\nu,q_\nu)\), put \(A=u(2u+3w)\).  The congruence is
+\((u,w)=(p_\nu,q_\nu)\), put \(D_2=u(2u+3w)\).  The congruence is
 
 \[
-Ag\equiv8+\delta\pmod {20}.
+D_2g\equiv8+\delta\pmod {20}.
 \]
 
-For \(\delta=0\) it is soluble exactly when \(5\nmid A\); for
-\(\delta=1\) it is soluble exactly when \(\gcd(A,20)=1\), equivalently
-\(u,w\) are odd and \(5\nmid A\).  When soluble, its solutions form one
-residue class modulo \(20/\gcd(A,20)\).  Intersecting this class in
+For \(\delta=0\) it is soluble exactly when \(5\nmid D_2\); for
+\(\delta=1\) it is soluble exactly when \(\gcd(D_2,20)=1\), equivalently
+\(u,w\) are odd and \(5\nmid D_2\).  When soluble, its solutions form one
+residue class modulo \(20/\gcd(D_2,20)\).  Intersecting this class in
 \(\mathbb Z_{>0}\) with the domain conditions (KPGZERO-6) and the
 appropriate positive-leading quadratic window (KPGZERO-20) or
-(KPGZERO-21) gives the exact finite number
+(KPGZERO-21) gives, by (KPGZERO-24d)--(KPGZERO-24h), the exact finite
+number
 
 \[
 \boxed{
 c_{\delta,\nu}:=
-\#\mathcal G_\delta(p_\nu,q_\nu)<\infty.
+\#\mathcal G_\delta(p_\nu,q_\nu)
+=\max\{0,k^+_{\delta,\nu}-k^-_{\delta,\nu}+1\}<\infty.
 }
 \tag{KPGZERO-36}
 \]
@@ -13278,6 +13548,20 @@ same-board \(\alpha_{\min}\)/\(\alpha_*\) discriminator.  It enumerates no
 matching, subset, path assignment, or permutation family.  These finite
 checks are independent corroboration of the symbolic proof, not a decision
 of (KPGZERO-24).
+
+The fixed-case diagnostic for the local criterion
+(KPGZERO-24a)--(KPGZERO-24h) is
+`ops/TASK-20260723__kpgzero_local_cf_criterion/exact_diagnostic.py`.
+It imports only the standard library, generates no convergent, and scans
+neither \(m\) nor \(g\).  Five prescribed convergents check the universal
+complete-quotient identity with an exact generic tail, the sign parity of
+\(\Phi\), all four sign/branch quadratic rows, three singleton admitted
+scale fibres, one residue-class miss despite a nonempty integer window, and
+one positive ordinary discriminant with no positive integer scale.  Four
+literal ceiling residuals attain \(-1,0,D-1,D\), verifying both sides of
+the half-open convention.  These fixed checks are only falsification tests
+for the formulas; they neither certify the symbolic derivation nor decide
+the global alternative (KPGZERO-24).
 
 ### Exact comparison with K825 and both PG46 witnesses
 

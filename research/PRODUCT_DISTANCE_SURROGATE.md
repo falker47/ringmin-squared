@@ -8688,7 +8688,13 @@ The exact branchwise KPGZERO theorem, including primitive parameters,
 integrality, domain, both half-open plateau ceilings, all boundary columns,
 and finite quadratic scale windows, is (KPGZERO-1)--(KPGZERO-30).  It
 reconstructs the giant left witness and proves existence of a right-hole
-witness.  The filtered-cardinality theorem (KPGZERO-31)--(KPGZERO-41)
+witness.  Its local continued-fraction refinement
+(KPGZERO-24a)--(KPGZERO-24h) expresses the signed error through the next
+complete quotient and \(q_{\nu-1}/q_\nu\), keeps all four branch/sign
+windows separate, and gives both the exact congruence-domain integer
+interval of scales and a residue-aware admission discriminant for one
+convergent.  No scan over \(m\) remains.  The filtered-cardinality theorem
+(KPGZERO-31)--(KPGZERO-41)
 then bijects the per-row convergent/scale fibre with the zero set, counts the
 descending-min maximizers by its power of two, and defines the corresponding
 PG49-supported family.  It proves two exact no-go statements: a finite set of
@@ -8719,6 +8725,14 @@ an infinite support/conic false ray on discriminating instances, one direct
 all-pairs \(W\) row, and the same-board induced-\(K\) discriminator. It
 enumerates no matching, subset, path assignment, or permutation family and
 does not decide (KPGZERO-24).
+The fixed-case standard-library diagnostic for
+(KPGZERO-24a)--(KPGZERO-24h) is
+ops/TASK-20260723__kpgzero_local_cf_criterion/exact_diagnostic.py. It
+generates no convergent and scans neither \(m\) nor \(g\); prescribed cases
+check the generic exact complete-tail identity, all four branch/sign rows,
+congruence and integer-window false positives, and the literal half-open
+residuals \(-1,0,D-1,D\). It is only a falsification aid and makes no global
+cardinality inference.
 The sole diagnostic for (PG110)--(PG114) and
 (KPGSTAR-1)--(KPGSTAR-28) is the standalone standard-library script in
 ops/TASK-20260719__explicit_pg49_star_exact_k/. It constructs only the
@@ -8901,11 +8915,15 @@ The following remain unresolved.
   by comparing descending-min with PG49-star on one exact common board, that
   PG49 support and \(W=T\) do not determine induced-\(K\) maximizer
   cardinality. No geometry is used.
-- **OPEN DIOPHANTINE QUESTION:** (KPGZERO-24) still asks whether infinitely
-  many distinct convergents of the specific irreducible cubic root pass the
-  simultaneous side, congruence, approximation-coefficient, domain, and
-  finite-scale filters. The support-only no-go does not decide this arithmetic
-  alternative.
+- **CLOSED LOCAL-CONTINUED-FRACTION QUESTION / OPEN GLOBAL DIOPHANTINE
+  QUESTION:** (KPGZERO-24a)--(KPGZERO-24h) give an exact, scan-free test for
+  each convergent of the specific irreducible cubic root: signed local error,
+  four separate branch/sign windows, congruence-domain scale interval, exact
+  scale count, and a residue-aware integer admission discriminant. The
+  umbrella statement (KPGZERO-24) still asks whether at least one
+  branch-tagged discriminant is nonnegative for infinitely many distinct
+  convergents. Neither the local criterion nor the support-only no-go decides
+  this frequency question.
 - **CLOSED CORE-ORDER QUESTION:** (PG110)--(PG114) prove that the explicit
   threshold-closing PG49-star assignment is a relation-compatible bijection
   for every \(m\ge3\). The separate theorem

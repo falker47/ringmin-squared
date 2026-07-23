@@ -3043,9 +3043,29 @@ and `ops/`.
   (KPGZERO-20)--(KPGZERO-21).  Every admitted \(u/w\) is a regular
   convergent of the irreducible cubic root
   \(\xi\in(7/5,10/7)\) of
-  \(50+51t-27t^2-24t^3\), and (KPGZERO-23) is an exact bijection after
-  congruence, domain, side, and scale filters.  The giant left witness is
-  reconstructed exactly.  The primitive \(g=19\) witness
+  \(50+51t-27t^2-24t^3\).  For its convergent \(p_\nu/q_\nu\), with next
+  complete quotient \(\alpha_{\nu+1}\),
+  (KPGZERO-24a)--(KPGZERO-24b) give exactly
+  \[
+  \xi-{p_\nu\over q_\nu}
+  ={(-1)^\nu\over
+    q_\nu^2(\alpha_{\nu+1}+q_{\nu-1}/q_\nu)}
+  \]
+  and the corresponding signed integer cubic form.  The four distinct
+  branch/sign windows in (KPGZERO-24c), the domain and congruence reduction,
+  and the rounded radical interval (KPGZERO-24d)--(KPGZERO-24f) give the
+  complete arithmetic progression of admitted scales without scanning
+  \(m\).  The residue-aware integer discriminant
+  \[
+  \mathfrak D_{\delta,\nu}
+  =\Delta_{\delta,\nu}-(2A_\nu g_*-b_{\delta,\nu})^2
+  \]
+  is nonnegative exactly when that single convergent is admitted on branch
+  \(\delta\), after the stated domain and congruence compatibility checks;
+  the ordinary quadratic discriminant alone is insufficient.
+  Equation (KPGZERO-23) is an exact bijection after these congruence, domain,
+  side, and scale filters.  The giant left witness is reconstructed exactly.
+  The primitive \(g=19\) witness
   (KPGZERO-27)--(KPGZERO-30) proves that right holes also exist.
   The filtered convergent fibre \(\mathcal C_m\) in (KPGZERO-31) is
   bijective with \(\mathcal Z_m\), so
@@ -3070,8 +3090,8 @@ and `ops/`.
   (KPGZERO-31)--(KPGZERO-41); they use no geometry. For every fixed \(m\),
   \(\mathcal Z_m\) is finite; whether
   \(\bigcup_{m\ge3}\mathcal Z_m\) is finite or infinite remains the explicit
-  filtered-cubic-convergent obstruction (KPGZERO-24), not a conclusion from
-  bounded data.
+  frequency question for the exact local discriminants in (KPGZERO-24).
+  Neither the local criterion nor bounded data decides that alternative.
 - EXACT DESCENDING-MIN COMPARISON AND ASYMPTOTIC THEOREM: the value is below
   K825 and preclosing PG46 exactly at \(m=4\), above both at \(m=3\) and every
   \(m\ge5\), above closing PG46 for every \(m\ge3\), and never tied. Its
@@ -3344,6 +3364,17 @@ and `ops/`.
   matching, subset, path assignment, or permutation family. The finite
   discriminants corroborate the exact support/filter separation; they do not
   decide (KPGZERO-24).
+- VERIFIED FACT (FIXED LOCAL-CF FORMULA FALSIFICATION): the standalone
+  standard-library script in
+  ops/TASK-20260723__kpgzero_local_cf_criterion/exact_diagnostic.py uses only
+  exact integer and rational arithmetic. It generates no convergent and
+  scans neither \(m\) nor \(g\). Five fixed convergents check the generic
+  complete-tail identity, sign parity, all four branch/sign quadratics,
+  three singleton scale fibres, an exact residue-class miss, and a positive
+  ordinary discriminant with no positive integer scale. Literal ceiling
+  residuals \(-1,0,D-1,D\) check both half-open boundaries. These finite
+  checks can falsify the formulas but do not prove them or decide the global
+  alternative (KPGZERO-24).
 - VERIFIED FACT (FINITE EXACT PG49-STAR K DIAGNOSTIC): the sole standalone
   standard-library script in
   ops/TASK-20260719__explicit_pg49_star_exact_k/ directly constructs only
