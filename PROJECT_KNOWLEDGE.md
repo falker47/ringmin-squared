@@ -1801,9 +1801,63 @@ and `ops/`.
   correction-prefix barrier.
   There is no uniform positive constant over arbitrary \(D\downarrow0\);
   the theorem uses fixed \(k\), then \(n\to\infty\), and only afterward
-  \(k\to\infty\). It does not classify nonequality histories or promote the
-  zigzag-specific full-residual theorem to arbitrary base cycles. The
-  detailed proof is in `research/FIXED_ORDER_CYCLE_RATIO.md`.
+  \(k\to\infty\). This selected-prefix theorem by itself does not evaluate
+  the complete residual; the next theorem does so on exactly the
+  positive-branch equality class. The detailed proof is in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`.
+- EXACT THEOREM (FULL KR1G RESIDUAL ON EVERY POSITIVE-BRANCH EQUALITY
+  FAMILY): retain the unchanged all-middle tuple, fix \(k\), and let
+  \(\mathscr E_{k,n}\) contain every KR1G-24 equality pair, every bijection
+  from \(r-1,\ldots,s_k\) to its deleted edges, and every compatible
+  completion below \(s_k\). All selected splits are base splits. If
+  \(\delta_t=u_t+v_t-(n+r)\) and
+  \[
+  d_t={\lambda_i(n+r-2t)\over2-\lambda_i}
+  \qquad(s_i\le t<s_{i-1}),
+  \]
+  then the square-center part of KR1G-6 is
+  \[
+  E_{\square,t}={2-\lambda_i\over4}(\delta_t-d_t)^2.
+  \]
+  The equality structure gives
+  \(\left|\sum_t\delta_t\right|\le c-\ell\). Therefore, with
+  \[
+  \begin{aligned}
+  T_{k,n}
+  &=\sum_i{\lambda_i\over2-\lambda_i}
+    \sum_{t=s_i}^{s_{i-1}-1}(n+r-2t),\\
+  Q_{k,n}
+  &=\sum_i{4(s_{i-1}-s_i)\over2-\lambda_i},
+  \end{aligned}
+  \]
+  every history in the declared class satisfies the exact finite bound
+  \[
+  P(C_0)+M_h-B_{h,n}
+  \ge{[T_{k,n}-(c-\ell)]_+^2\over Q_{k,n}}.
+  \]
+  For each fixed \(k\), the normalized lower coefficient is
+  \(\tau_k^2/\chi_k>0\), with \(\tau_k,\chi_k\) the finite sums in
+  KR1G-74. Only after taking \(n\to\infty\) is \(k\to\infty\) used. Put
+  \[
+  E={8-3\sqrt2\over46},\qquad
+  J=(1+a)\log\left(2-{\sqrt2\over2}\right)-2E.
+  \]
+  Then
+  \[
+  \liminf_{k\to\infty}\liminf_{n\to\infty}
+  {\min_{h\in\mathscr E_{k,n}}
+   (P(C_0)+M_h-B_{h,n})\over n^3}
+  \ge C_{\rm eq}:={4E^4\over J}
+  =0.0008596674036945946006\ldots,
+  \]
+  and the exact algebraic certificate
+  \[
+  C_{\rm eq}>{786-473\sqrt2\over170338}>0
+  \]
+  has square margin \(170338\). This is a uniform cubic lower bound, not an
+  exact infimum coefficient or a proof that the corresponding inner or outer
+  ordinary limits exist. It contains no nonequality history. The detailed
+  proof is in `research/FIXED_ORDER_CYCLE_RATIO.md`.
 - EXACT THEOREM (FULL KR1G RESIDUAL ON THE ZIGZAG-WITNESS CLASS): for every
   fixed \(k\), retain without modification
   \[
@@ -1893,6 +1947,19 @@ and `ops/`.
   complementary-matching histograms also agree exactly. This bounded oracle
   verifies only the finite classification through \(q=10\). It neither
   proves the all-\(q\) theorem nor checks the asymptotic prefix barrier.
+- VERIFIED FACT (BOUNDED EXACT FULL-EQUALITY-RESIDUAL CHECKER): the
+  standalone standard-library script in
+  `ops/TASK-20260723__kr1g_equality_full_residual/` discovers equality pairs
+  from literal retained slack and imports no project or earlier dossier
+  helper. For \(3\le q\le10\) and every positive-branch \(\ell\), it checks
+  204,556 canonical cycles, 1,066 equality pairs, 17,188 selected-edge
+  assignments, and 230,252 complete histories in exact rational arithmetic.
+  One additional two-segment fixture checks 192 assignments and 21,120
+  histories with a two-label completion. Every direct complete residual,
+  alternative base-slack identity, full KR1G-6 decomposition, finite
+  square-center bound, and independent completion-DP minimum agrees. The
+  fixtures are synthetic exact structural checks, not actual rounded
+  all-middle rows and not a proof of the asymptotic theorem.
 - VERIFIED FACT (BOUNDED EXACT ZIGZAG-HISTORY CHECKER): the standalone
   standard-library script in
   `ops/TASK-20260723__kr1g_zigzag_full_residual/` imports no project helper.

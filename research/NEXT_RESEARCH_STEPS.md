@@ -178,12 +178,41 @@ The superficially similar Ferrers count and monotone threshold-closing
   \ge {787-551\sqrt2\over73002}>0.
   \]
   Thus no relaxed-equality family at the all-middle KR1G cutoffs avoids the
-  selected-prefix barrier. This does not classify nonequality histories or
-  extend the zigzag-specific full-residual coefficient. Production, public
-  tests, and enumeration limits are unchanged. See the
+  selected-prefix barrier. This milestone did not itself evaluate the
+  complete residual; that exact remaining equality-class task is closed by
+  the next milestone. Production, public tests, and enumeration limits are
+  unchanged. See the
   [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#equality-classification-and-the-universal-selected-prefix-barrier)
   and the
   [task evidence](../ops/TASK-20260723__kr1g_equality_classification/EVIDENCE.md).
+
+- **COMPLETED -- full KR1G residual on every positive-branch equality
+  family:** retain the all-middle tuple unchanged and, for each fixed \(k\),
+  minimize over every KR1G-24 equality pair, every assignment of the selected
+  labels, and every compatible completion. The exact KR1G-6 square-center
+  terms and the equality deviation-sum constraint give the finite
+  family-independent bound
+  \[
+  P(C_0)+M_h-B_{h,n}
+  \ge{[T_{k,n}-(c-\ell)]_+^2\over Q_{k,n}}.
+  \]
+  Taking \(n\to\infty\) for that fixed tuple and only afterward
+  \(k\to\infty\) gives
+  \[
+  \liminf_{k\to\infty}\liminf_{n\to\infty}
+  {\min_h(P(C_0)+M_h-B_{h,n})\over n^3}
+  \ge C_{\rm eq}
+  =0.0008596674036945946006\ldots
+  >{786-473\sqrt2\over170338}>0.
+  \]
+  Hence the complete residual is uniformly cubic on the whole declared
+  equality class. The theorem neither claims the exact infimum coefficient
+  nor includes a nonequality history. The independent exact checker evaluates
+  the full residual on 230,252 one-segment histories through \(q=10\) and
+  21,120 additional two-segment histories. See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#full-residual-on-every-positive-branch-equality-family)
+  and the
+  [task evidence](../ops/TASK-20260723__kr1g_equality_full_residual/EVIDENCE.md).
 
 - **COMPLETED -- two-contiguous-block charging ansatz:** the separator-density
   construction, convex bridge, two history-relative disjoint original-edge
@@ -310,10 +339,10 @@ The superficially similar Ferrers count and monotone threshold-closing
 
 ## Next Atomic Task
 
-User review and manual commit decision for the symbolic classification and
-universal selected-prefix barrier on all positive-branch KR1G relaxed
-equality families. Afterward, choose exactly one item from the deferred
-directions below in a fresh task before developing further mathematics.
+User review and manual commit decision for the complete-residual theorem on
+all positive-branch KR1G equality families. Afterward, choose exactly one
+item from the deferred directions below in a fresh task before developing
+further mathematics.
 
 ## Deferred, Not Prioritized
 

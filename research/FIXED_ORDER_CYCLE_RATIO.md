@@ -12644,10 +12644,245 @@ I(D)=F(0)D+O(D^2)\longrightarrow0
 \tag{KR1G-68}
 \]
 This does not affect the all-middle sequence, where \(D_k\to E\). Nor does
-the theorem classify nonequality cycles, evaluate the complete residual on
-arbitrary base cycles, improve \(C_{\rm AF}\), identify a minimizing order,
-or imply a geometric result. The earlier zigzag theorem remains the stronger
-full-residual statement on its narrower history class.
+this selected-prefix theorem by itself evaluate the complete residual on
+the equality cycles. The next subsection closes precisely that remaining
+positive-branch equality problem. No statement here classifies nonequality
+cycles.
+
+### Full residual on every positive-branch equality family
+
+Retain the all-middle tuple from (KR1G-34) without modification. Thus, for
+one fixed \(k\), put
+\[
+\beta_0=a,\qquad
+r=\lfloor an\rfloor,\qquad
+s_i=\lceil\beta_i^{(k)}n\rceil,\qquad
+s=s_k,\qquad
+q=n-r+1,\qquad
+\ell=r-s,\qquad
+c=\left\lceil{q\over2}\right\rceil,
+\]
+and abbreviate \(\lambda_i=\lambda_i^{(k)}\) and \(R=n+r\). As before, all
+integer assertions are eventual for this fixed tuple, with a threshold
+allowed to depend on \(k\).
+
+Let \(\mathscr E_{k,n}\) contain every history obtained as follows. Start
+from any translated pair \((C_0,E')\) satisfying (KR1G-45), assign the
+selected labels \(r-1,\ldots,s\) bijectively to \(E'\), split those assigned
+edges in descending label order, and then complete below \(s\) by arbitrary
+compatible splits. The zigzag pairs show that this class is eventually
+nonempty. The present minimum is only over \(\mathscr E_{k,n}\); no
+nonequality history is included.
+
+Every selected target is a distinct original edge. Splitting one target
+does not remove another, even when the two share an endpoint, so every
+selected split is a base split. Equality in (KR1G-45) retains all
+\(\lfloor q/2\rfloor\) complementary edges and exactly \(c-\ell\) unit
+edges. Consequently
+\[
+E_{\rm unused}={c-\ell\over2},
+\]
+and (KR1G-6) specializes exactly to
+\[
+\boxed{
+\begin{aligned}
+\mathscr R_{k,n}(h)
+&:=P(C_0)+M_h-B_{h,n}\\
+&=E_{\rm ht}(h)+{c-\ell\over2}\\
+&\quad+\sum_{i=1}^k\sum_{t=s_i}^{s_{i-1}-1}
+\left[
+{\lambda_i\over4}(u_t-v_t)^2
++{2-\lambda_i\over4}
+\left(
+u_t+v_t-{2(R-\lambda_i t)\over2-\lambda_i}
+\right)^2\right.\\
+&\hspace{43mm}\left.
++G_{n,\lambda_i}(t)-G_{n,\lambda_i}(s_i)
+\right].
+\end{aligned}}
+\tag{KR1G-69}
+\]
+The arbitrary completion enters this identity only through the nonnegative
+term \(E_{\rm ht}=M_h-W_h\). In particular, it cannot cancel any of the
+displayed local squares.
+
+For the edge assigned to \(t\in[s_i,s_{i-1})\), define
+\[
+\delta_t=u_t+v_t-R,\qquad
+d_t={\lambda_i(R-2t)\over2-\lambda_i}>0.
+\]
+The square-center term in (KR1G-69) is exactly
+\[
+\boxed{
+E_{\square,t}
+={2-\lambda_i\over4}(\delta_t-d_t)^2.}
+\tag{KR1G-70}
+\]
+Here \(d_t>0\) because \(R-2t\ge q+1\), and
+\(0<\lambda_i<1\) by (CR28dw5).
+
+There is one global constraint on the \(\delta_t\)'s. Since the labels of
+\(C_0\) are \(r,\ldots,n\),
+\[
+\sum_{\{u,v\}\in E(C_0)}(u+v-R)
+=2\sum_{x=r}^n x-qR=0.
+\]
+The retained complementary edges contribute zero, while the retained unit
+edges contribute \(+1\) or \(-1\). Therefore every equality pair and every
+assignment satisfy
+\[
+\boxed{
+\left|\sum_{t=s}^{r-1}\delta_t\right|\le c-\ell.}
+\tag{KR1G-71}
+\]
+This is the only equality-family information needed below.
+
+Define the two assignment-independent finite quantities
+\[
+\boxed{
+\begin{aligned}
+T_{k,n}
+&=\sum_{i=1}^k{\lambda_i\over2-\lambda_i}
+\sum_{t=s_i}^{s_{i-1}-1}(R-2t),\\
+Q_{k,n}
+&=\sum_{i=1}^k{4(s_{i-1}-s_i)\over2-\lambda_i}.
+\end{aligned}}
+\tag{KR1G-72}
+\]
+Weighted Cauchy, followed by (KR1G-71), now gives the exact finite bound
+\[
+\begin{aligned}
+\sum_{t=s}^{r-1}E_{\square,t}
+&\ge
+{\left(\sum_{t=s}^{r-1}(d_t-\delta_t)\right)^2\over Q_{k,n}}\\
+&\ge
+{\left[T_{k,n}-(c-\ell)\right]_+^2\over Q_{k,n}}.
+\end{aligned}
+\]
+All other terms in (KR1G-69) are nonnegative. Hence, simultaneously for
+every equality pair, assignment, and compatible completion,
+\[
+\boxed{
+\mathscr R_{k,n}(h)
+\ge
+{\left[T_{k,n}-(c-\ell)\right]_+^2\over Q_{k,n}}.}
+\tag{KR1G-73}
+\]
+This is a bound for the complete residual, not merely for its equality
+classification or selected correction maximum.
+
+We next take the limits in the required order. Put \(S=1+a\) and retain
+\(\beta_0=a\). For this one fixed \(k\), elementary floor and ceiling
+convergence gives
+\[
+\begin{aligned}
+{T_{k,n}\over n^2}&\longrightarrow\tau_k,\\
+{\;Q_{k,n}\over n}&\longrightarrow\chi_k,
+\end{aligned}
+\qquad
+\boxed{
+\begin{aligned}
+\tau_k
+&=\sum_{i=1}^k{\lambda_i\over2-\lambda_i}
+(\beta_{i-1}-\beta_i)
+(S-\beta_{i-1}-\beta_i),\\
+\chi_k
+&=\sum_{i=1}^k{4(\beta_{i-1}-\beta_i)\over2-\lambda_i}.
+\end{aligned}}
+\tag{KR1G-74}
+\]
+Both coefficients are strictly positive. Since \(c-\ell=O(n)\),
+\(T_{k,n}=\tau_kn^2+O(n)\), and \(Q_{k,n}=\chi_kn+O(1)\), (KR1G-73)
+proves
+\[
+\boxed{
+\liminf_{n\to\infty}
+{\min_{h\in\mathscr E_{k,n}}\mathscr R_{k,n}(h)\over n^3}
+\ge{\tau_k^2\over\chi_k}>0.}
+\tag{KR1G-75}
+\]
+This is established separately for every fixed \(k\); there is no
+\(k=k(n)\) and no common finite threshold.
+
+Only now let \(k\to\infty\). The mesh argument immediately preceding
+(KR1G-16) gives \(\beta_k\to b=S/4\) and maximum \(\beta\)-mesh tending to
+zero. Moreover
+\[
+\lambda_i=4-{S\over\beta_i},
+\qquad
+\lambda(y):=4-{S\over y}.
+\tag{KR1G-76}
+\]
+Writing
+\[
+E=a-b={8-3\sqrt2\over46},
+\]
+the two sums in (KR1G-74) therefore converge to
+\[
+\boxed{
+\begin{aligned}
+\tau_\infty
+&=\int_b^a{\lambda(y)\over2-\lambda(y)}(S-2y)\,dy
+=\int_b^a(4y-S)\,dy
+=2E^2,\\
+\chi_\infty
+&=\int_b^a{4\over2-\lambda(y)}\,dy
+=\int_b^a{4y\over S-2y}\,dy\\
+&=S\log\left(2-{\sqrt2\over2}\right)-2E
+=:J.
+\end{aligned}}
+\tag{KR1G-77}
+\]
+The denominator \(J\) is positive directly from its integral. Thus the
+explicit universal coefficient supplied by the square-center mismatch is
+\[
+\boxed{
+\begin{aligned}
+C_{\rm eq}
+&:={\tau_\infty^2\over\chi_\infty}
+={4E^4\over J}\\
+&={2833-1968\sqrt2\over
+12167\left[
+2(18-\sqrt2)\log(2-\sqrt2/2)-(8-3\sqrt2)
+\right]}\\
+&=0.0008596674036945946006\ldots.
+\end{aligned}}
+\tag{KR1G-78}
+\]
+Its sign does not depend on decimal evaluation. Since
+\(\lambda(y)<\lambda(a)=(8-2\sqrt2)/7<1\) for \(b\le y<a\),
+\[
+J
+< {4E\over2-\lambda(a)}.
+\]
+Consequently the entirely algebraic certificate
+\[
+\boxed{
+C_{\rm eq}
+>(2-\lambda(a))E^3
+={786-473\sqrt2\over170338}>0}
+\tag{KR1G-79}
+\]
+holds. The last sign has exact square margin
+\(786^2-2\cdot473^2=170338>0\).
+
+Combining (KR1G-75)--(KR1G-79) in the prescribed order proves
+\[
+\boxed{
+\liminf_{k\to\infty}\ \liminf_{n\to\infty}
+{\displaystyle
+\min_{h\in\mathscr E_{k,n}}
+\bigl(P(C_0)+M_h-B_{h,n}\bigr)
+\over n^3}
+\ge C_{\rm eq}
+>{786-473\sqrt2\over170338}>0.}
+\tag{KR1G-80}
+\]
+Therefore no positive-branch equality family at the unchanged all-middle
+cutoffs has subcubic complete KR1G residual. This lower bound does not claim
+to be the exact infimum coefficient or prove existence of the corresponding
+inner or outer ordinary limits. It deliberately says nothing about
+nonequality histories.
 
 ## 10. Exact \(K\) For The Exact-Threshold Residue-Two Core Order
 
