@@ -72,6 +72,20 @@ in `research/ALL_N_LOWER_BOUND.md`.
   cubically tight on KR1. This diagnoses the method on one upper family; it
   neither proves that KR1 minimizes \(K\) nor transfers these terms uniformly
   to all histories.
+- **EXACT THEOREM (RELAXED UNUSED-ORIGINAL-EDGE SLACK):** if a cycle on
+  \(q\ge3\) consecutive labels may charge/delete at most \(\ell\ge1\)
+  original edges, then the minimum retained quadratic slack is exactly
+  \[
+  {1\over2}\left[\left\lceil{q\over2}\right\rceil-\ell\right]_+.
+  \]
+  At the KR1G densities
+  \(a=(13-2\sqrt2)/23\), \(b=(1+a)/4\), this is
+  \((2+5\sqrt2)n/92+O(1)\), so its cubic normalization tends to zero.
+  The exact zigzag cycle/edge-set witness can be lifted to a history for this
+  slack projection, but it does not control that history's other KR1G terms
+  and is not the KR1 history. The formula supplies the sharp uniform linear
+  lower bound to every compatible history, but no positive cubic term follows
+  for the unused-edge term.
 - **EXACT THEOREM (EXACT-THRESHOLD RESIDUE-TWO CORE):** for
   \(n=5k+2\), \(k\ge2\), Section 10 proves that the order returned by
   `residue_two_product_distance_order(n)` also has the unique maximizing
@@ -11836,6 +11850,197 @@ present audit neither proves that KR1 minimizes the history objective nor
 transfers any KR1-specific slack term uniformly to all histories. It is an
 exact diagnosis of why the current lower functional is not cubically tight
 when evaluated on KR1, not a global minimizing-order or geometric theorem.
+
+### Relaxed minimum for unused original edges
+
+The preceding warning leaves a precise coarse question. Forget the insertion
+linkage of a compatible history and retain only an original base cycle and
+the cardinality of the original edges charged by selected base splits. This
+is a relaxation, not a new parametrization of histories.
+
+Put
+\[
+q=n-r+1,\qquad \ell=r-s.
+\]
+After translating \(S_r=\{r,\ldots,n\}\) to
+\(\{0,\ldots,q-1\}\), write \(u=r+x\), \(v=r+y\). Since
+\(n=r+q-1\), the slack becomes
+\[
+\boxed{
+\Delta_{uv}
+={1\over2}\bigl(x+y-(q-1)\bigr)^2.}
+\tag{KR1G-23}
+\]
+For \(q\ge3\) and an integer \(\ell\ge1\), define the relaxed minimum
+\[
+\mathfrak U(q,\ell)
+=
+\min_{\substack{C\text{ simple cycle on }\{0,\ldots,q-1\}\\
+E'\subseteq E(C),\ |E'|\le\ell}}
+{1\over2}
+\sum_{\{x,y\}\in E(C)\setminus E'}
+\bigl(x+y-(q-1)\bigr)^2.
+\]
+Then the exact finite answer is
+\[
+\boxed{
+\mathfrak U(q,\ell)
+={1\over2}
+\left[\left\lceil{q\over2}\right\rceil-\ell\right]_+.}
+\tag{KR1G-24}
+\]
+
+Indeed, an edge has zero slack exactly when its distinct endpoints satisfy
+\(x+y=q-1\). Such edges belong to the fixed complementary matching, so any
+cycle, and hence any retained edge set, contains at most
+\(\lfloor q/2\rfloor\) of them. Deleting at most \(\ell\) of the \(q\)
+cycle edges leaves at least \(q-\ell\) edges when this number is positive.
+Every retained nonzero slack is at least \(1/2\), because its unsquared
+deviation is a nonzero integer. Therefore
+\[
+\mathfrak U(q,\ell)
+\ge
+{1\over2}
+\left[q-\ell-\left\lfloor{q\over2}\right\rfloor\right]_+
+=
+{1\over2}
+\left[\left\lceil{q\over2}\right\rceil-\ell\right]_+.
+\tag{KR1G-25}
+\]
+
+Equality has the following explicit parity-uniform witness. If \(q=2m\),
+take the cyclic zigzag
+\[
+Z_{2m}
+=(0,2m-1,1,2m-2,\ldots,m-1,m).
+\tag{KR1G-26}
+\]
+Its doubled edge slacks are zero on the \(m\) displayed complementary
+pairs, one on the \(m-1\) forward connectors, and \((m-1)^2\) on the
+closing edge \(\{m,0\}\). If \(q=2m+1\), take
+\[
+Z_{2m+1}
+=(0,2m,1,2m-1,\ldots,m-1,m+1,m).
+\tag{KR1G-27}
+\]
+Now the doubled slacks are zero on \(m\) complementary pairs, one on the
+\(m\) forward connectors, and \(m^2\) on the closing edge
+\(\{m,0\}\). When
+\(\ell\le\lceil q/2\rceil\), delete the closing edge and any
+\(\ell-1\) forward connectors. When
+\(\ell\ge\lceil q/2\rceil\), delete all nonzero edges. These choices attain
+(KR1G-25) and prove (KR1G-24). Adding \(r\) to every entry of \(Z_q\)
+gives the promised cycle on \(S_r\).
+
+Now use the exact KR1G densities
+\[
+a={13-2\sqrt2\over23},
+\qquad
+b={1+a\over4}.
+\]
+They satisfy
+\[
+a-b={8-3\sqrt2\over46}>0,
+\qquad
+{2\over a-b}=16+6\sqrt2<25,
+\qquad
+a<{3\over5}.
+\]
+Consequently, for every \(n\ge25\),
+\[
+\ell=r-s>(a-b)n-2>0,
+\qquad
+\ell\le(a-b)n<{1-a\over2}n<{q\over2}.
+\]
+Thus the positive branch of (KR1G-24) applies and gives the exact
+floor/ceiling formula
+\[
+\boxed{
+\begin{aligned}
+\mathfrak U_n
+&:=
+\min_{\substack{C\text{ simple cycle on }S_r\\
+E'\subseteq E(C),\ |E'|\le r-s}}
+\sum_{e\in E(C)\setminus E'}\Delta_e\\
+&={1\over2}
+\left(
+\left\lceil{\,n-\lfloor an\rfloor+1\over2}\right\rceil
+-\lfloor an\rfloor+\lceil bn\rceil
+\right).
+\end{aligned}}
+\tag{KR1G-28}
+\]
+In particular,
+\[
+\boxed{
+\mathfrak U_n
+={1\over2}
+\left({1-a\over2}-(a-b)\right)n+O(1)
+={3-5a\over8}n+O(1)
+={2+5\sqrt2\over92}n+O(1).}
+\tag{KR1G-29}
+\]
+This is the exact asymptotic scale, not merely a cubic upper estimate:
+\[
+\lim_{n\to\infty}{\mathfrak U_n\over n}
+={2+5\sqrt2\over92},
+\qquad
+\boxed{\lim_{n\to\infty}{\mathfrak U_n\over n^3}=0.}
+\tag{KR1G-30}
+\]
+
+There is nevertheless a genuine, but only linear, uniform consequence for
+compatible histories. For a literal history \(h\), let
+\[
+E'_h=\{e_t:t\in\mathsf B_h\}\subseteq E(C_0)
+\]
+be the distinct original edges charged by its selected base splits. There
+are only \(r-s\) selected labels, so
+\[
+|E'_h|\le r-s,\qquad
+E_{\rm unused}(h)
+=\sum_{e\in E(C_0)\setminus E'_h}\Delta_e
+\ge\mathfrak U_n.
+\tag{KR1G-31}
+\]
+Hence every already valid instance of (KR1G-6) using this selected window
+satisfies
+\[
+P(C_0)+M_h-B_{h,n}\ge\mathfrak U_n.
+\]
+For fixed prefix data \(B_{h,n}=B_n\) is history-independent, so minimizing
+also gives
+\[
+\gamma^{(r)}_{1,n}\ge B_n+\mathfrak U_n.
+\tag{KR1G-32}
+\]
+This additive improvement is \(\Theta(n)\), with exact addend
+\(\mathfrak U_n\), and changes no cubic coefficient.
+
+For completeness, the equality witness can be lifted to a compatible history
+for this term alone. Order its \(\ell\) deleted original edges arbitrarily and
+insert \(r-1,r-2,\ldots,s\) successively into them. Splitting one original
+edge does not alter any other original edge, even when they share an endpoint,
+so every target remains present until its turn and every intermediate graph
+is a connected simple cycle. The labels below \(s\) can then be inserted
+arbitrarily. Hence, over all compatible histories with this selected window,
+\[
+\boxed{
+\min_h E_{\rm unused}(h)=\mathfrak U_n.}
+\tag{KR1G-33}
+\]
+
+This equality concerns only the projection
+\(h\mapsto(C_0,E'_h)\). The lifted zigzag history is not the KR1 history and
+need not make \(E_{\rm ht}\), the base-floor remainders, or the full gap
+\(P(C_0)+M_h-B_{h,n}\) subcubic. Thus (KR1G-30) proves that the unused-edge
+term has no positive uniform cubic lower bound, even over compatible
+histories, while (KR1G-31)--(KR1G-32) record its sharp linear lower bound.
+It does not prove that the complete compatible-history residual is
+subcubic, and it does not exclude a stronger total bound using the other
+history terms jointly. In particular it does not transfer the KR1-specific
+coefficient \(\mathcal U\), authorize a growing-prefix limit, improve
+\(C_{\rm AF}\), or imply a geometric bound.
 
 ## 10. Exact \(K\) For The Exact-Threshold Residue-Two Core Order
 

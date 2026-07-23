@@ -1688,6 +1688,38 @@ and `ops/`.
   prove that KR1 minimizes \(K\), improve either global coefficient, or make
   a geometric claim. The detailed proof is in
   `research/FIXED_ORDER_CYCLE_RATIO.md`.
+- EXACT THEOREM (RELAXED UNUSED-ORIGINAL-EDGE SLACK): put
+  \[
+  a={13-2\sqrt2\over23},\qquad b={1+a\over4},\qquad
+  r=\lfloor an\rfloor,\qquad s=\lceil bn\rceil.
+  \]
+  For every \(n\ge25\), the exact relaxed minimum over a simple cycle \(C\)
+  on \(S_r\) and at most \(r-s\) deleted original edges is
+  \[
+  \begin{aligned}
+  &\min_{\substack{C\text{ simple cycle on }S_r\\
+                   E'\subseteq E(C),\ |E'|\le r-s}}
+    \sum_{e\in E(C)\setminus E'}\Delta_e\\
+  &\qquad={1\over2}
+  \left(
+  \left\lceil{\,n-\lfloor an\rfloor+1\over2}\right\rceil
+  -\lfloor an\rfloor+\lceil bn\rceil
+  \right)\\
+  &\qquad={2+5\sqrt2\over92}n+O(1).
+  \end{aligned}
+  \]
+  The lower bound counts at most
+  \(\lfloor(n-r+1)/2\rfloor\) zero-slack complementary edges. The matching
+  zigzag cycle has every other connector at slack \(1/2\) except one closing
+  edge, which is deleted together with \(r-s-1\) connectors. The selected
+  original edges can be split successively, so the same value is the exact
+  minimum of \(E_{\rm unused}\) over compatible histories for that term
+  alone. Hence \(E_{\rm unused}\) has a sharp uniform linear lower bound but
+  its \(n^3\)-normalized minimum tends to zero. This does not make the full
+  KR1G residual subcubic: the lifted history may have cubic height and local-
+  floor terms. It neither transfers the positive KR1-specific
+  \(\mathcal U\), changes \(C_{\rm AF}\), nor implies a geometric result.
+  The detailed proof is in `research/FIXED_ORDER_CYCLE_RATIO.md`.
 - VERIFIED FACT (BOUNDED EXACT DOSSIER DIAGNOSTIC): the standalone
   `ops/TASK-20260718__residue_one_exact_k/exact_diagnostic.py` imports only
   standard-library modules and no project or test helper. It reconstructs
@@ -1717,6 +1749,15 @@ and `ops/`.
   normalized components converge to the exact coefficients above. The dense
   cutoff is only a discriminating Riemann-sum audit, not a uniform \(k(n)\)
   theorem or a new fixed-prefix optimization.
+- VERIFIED FACT (BOUNDED EXACT RELAXED-SLACK ORACLE): the standalone
+  standard-library script in
+  `ops/TASK-20260723__kr1g_relaxed_unused_slack/` imports no project helper.
+  It exhausts 204,556 Hamiltonian cycles modulo rotation and reversal for
+  \(3\le q\le10\), checks all 52 pairs \(1\le\ell\le q\), and independently
+  verifies the full deletion profile of every explicit zigzag witness.
+  Every exact minimum equals
+  \(\frac12[\lceil q/2\rceil-\ell]_+\). This finite oracle corroborates but
+  does not replace the all-\(q\) matching proof.
 - EXACT THEOREM (EXACT-THRESHOLD RESIDUE-TWO \(K\)): let
   \(\tau_n^{(2)}\) be the core order returned by
   `residue_two_product_distance_order(n)` for \(n=5k+2\), \(k\ge2\), and

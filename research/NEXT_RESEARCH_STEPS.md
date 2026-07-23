@@ -114,6 +114,29 @@ The superficially similar Ferrers count and monotone threshold-closing
   and the
   [task evidence](../ops/TASK-20260723__kr1_af_gap_decomposition/EVIDENCE.md).
 
+- **COMPLETED -- relaxed KR1G unused-original-edge minimum:** after
+  translating \(S_r\) to \(q=n-r+1\) consecutive labels, zero-slack edges
+  form the fixed complementary matching. An explicit zigzag cycle makes
+  every other connector have slack \(1/2\), except one deleted closing edge,
+  proving
+  the finite formula
+  \[
+  \min_{\substack{C,E'\\|E'|\le\ell}}
+  \sum_{e\in E(C)\setminus E'}\Delta_e
+  ={1\over2}
+  \left[\left\lceil{q\over2}\right\rceil-\ell\right]_+.
+  \]
+  At the fixed KR1G densities this equals
+  \((2+5\sqrt2)n/92+O(1)\), and its cubic normalization is zero. The
+  deleted-edge witness can be lifted for the unused-slack projection, so the
+  bound is the sharp uniform linear bound over compatible histories for that
+  term alone. It does not control the other KR1G remainders, transfer the
+  KR1-specific cubic coefficient, or improve the global lower coefficient.
+  Production and enumeration limits are unchanged. See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#relaxed-minimum-for-unused-original-edges)
+  and the
+  [task evidence](../ops/TASK-20260723__kr1g_relaxed_unused_slack/EVIDENCE.md).
+
 - **COMPLETED -- two-contiguous-block charging ansatz:** the separator-density
   construction, convex bridge, two history-relative disjoint original-edge
   slack pools, and global recursive child-edge invariant give the exact
@@ -239,9 +262,9 @@ The superficially similar Ferrers count and monotone threshold-closing
 
 ## Next Atomic Task
 
-User review and manual commit decision for the exact KR1 /
-arbitrary-finite-prefix gap decomposition. Afterward, choose exactly one item
-from the deferred directions below in a fresh task before developing further
+User review and manual commit decision for the relaxed KR1G
+unused-original-edge minimum. Afterward, choose exactly one item from the
+deferred directions below in a fresh task before developing further
 mathematics.
 
 ## Deferred, Not Prioritized
