@@ -1,6 +1,6 @@
 # Next Research Steps
 
-Last reviewed: 2026-07-23
+Last reviewed: 2026-07-24
 
 This file is the roadmap and priority source only. Stable result summaries
 belong in [PROJECT_KNOWLEDGE.md](../PROJECT_KNOWLEDGE.md), detailed proofs in
@@ -207,12 +207,41 @@ The superficially similar Ferrers count and monotone threshold-closing
   \]
   Hence the complete residual is uniformly cubic on the whole declared
   equality class. The theorem neither claims the exact infimum coefficient
-  nor includes a nonequality history. The independent exact checker evaluates
-  the full residual on 230,252 one-segment histories through \(q=10\) and
-  21,120 additional two-segment histories. See the
+  nor includes a nonequality history. See the
   [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#full-residual-on-every-positive-branch-equality-family)
   and the
   [task evidence](../ops/TASK-20260723__kr1g_equality_full_residual/EVIDENCE.md).
+
+- **COMPLETED -- full KR1G residual for every distinct-original-edge
+  selected history:** retain the all-middle tuple unchanged and require only
+  that the \(\ell\) selected labels split \(\ell\) distinct original edges;
+  no KR1G-24 equality is assumed. With
+  \(U=E_{\rm unused}\) and \(m=q-\ell\), the unused deviations give
+  \[
+  \left|\sum_t\delta_t\right|\le\sqrt{2mU},
+  \qquad
+  P(C_0)+M_h-B_{h,n}
+  \ge U+{[T_{k,n}-\sqrt{2mU}]_+^2\over Q_{k,n}}
+  \ge{T_{k,n}^2\over Q_{k,n}+2m}.
+  \]
+  The last expression is the exact continuous scalar-envelope minimum, not
+  a discrete-attainment claim. For each fixed \(k\), its coefficient is
+  \(\tau_k^2/(\chi_k+2\mu_k)\), where
+  \(\mu_k=1-2a+\beta_k^{(k)}\). Taking \(n\to\infty\) first and only then
+  \(k\to\infty\) gives the exact optimized lower-bound limit
+  \[
+  C_{\rm dist}
+  ={2833-1968\sqrt2\over
+  12167[
+  2(18-\sqrt2)\log(2-\sqrt2/2)+4+10\sqrt2]}
+  =0.0001535935517989924090\ldots>0.
+  \]
+  The stronger \(C_{\rm eq}\) remains valid on the equality subclass.
+  Selected recursive splits, growing-prefix conclusions, exact-infimum
+  claims, and geometry are excluded. See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#extension-of-kr1g-69--kr1g-80-to-distinct-original-selected-edges)
+  and the
+  [task evidence](../ops/TASK-20260723__kr1g_distinct_original_edge_residual/EVIDENCE.md).
 
 - **COMPLETED -- two-contiguous-block charging ansatz:** the separator-density
   construction, convex bridge, two history-relative disjoint original-edge
@@ -340,9 +369,9 @@ The superficially similar Ferrers count and monotone threshold-closing
 ## Next Atomic Task
 
 User review and manual commit decision for the complete-residual theorem on
-all positive-branch KR1G equality families. Afterward, choose exactly one
-item from the deferred directions below in a fresh task before developing
-further mathematics.
+all KR1G histories whose selected labels split distinct original edges.
+Afterward, choose exactly one item from the deferred directions below in a
+fresh task before developing further mathematics.
 
 ## Deferred, Not Prioritized
 

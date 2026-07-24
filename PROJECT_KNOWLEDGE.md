@@ -1,6 +1,6 @@
 # PROJECT_KNOWLEDGE - power-ringmin
 
-Last reviewed: 2026-07-23
+Last reviewed: 2026-07-24
 
 This file is compact stable project memory. Detailed proofs live in
 `research/*.md`; roadmap, chronology, command transcripts, failed attempts,
@@ -1858,6 +1858,59 @@ and `ops/`.
   exact infimum coefficient or a proof that the corresponding inner or outer
   ordinary limits exist. It contains no nonequality history. The detailed
   proof is in `research/FIXED_ORDER_CYCLE_RATIO.md`.
+- EXACT THEOREM (FULL KR1G RESIDUAL WITH DISTINCT ORIGINAL SELECTED EDGES):
+  retain the unchanged all-middle tuple and fix \(k\). Let
+  \(\mathscr D_{k,n}\) contain every history in which the selected labels
+  \(r-1,\ldots,s_k\) split exactly
+  \(\ell=r-s_k\) distinct original edges, in any assignment, followed by an
+  arbitrary compatible completion below \(s_k\). Put
+  \[
+  U=E_{\rm unused},\qquad m=q-\ell.
+  \]
+  If \(\delta_t=u_t+v_t-(n+r)\), the selected deviations are the negative
+  sum of the deviations on the \(m\) unused original edges. Hence
+  \[
+  \left|\sum_t\delta_t\right|\le\sqrt{2mU}.
+  \]
+  With \(T_{k,n},Q_{k,n}\) as in the preceding equality theorem, every
+  declared history satisfies the exact finite chain
+  \[
+  P(C_0)+M_h-B_{h,n}
+  \ge
+  U+\frac{[T_{k,n}-\sqrt{2mU}]_+^2}{Q_{k,n}}
+  \ge
+  \frac{T_{k,n}^2}{Q_{k,n}+2m}.
+  \]
+  The second expression is the exact minimum of the continuous scalar
+  envelope over \(U\ge0\), attained there at
+  \(U_*=2mT_{k,n}^2/(Q_{k,n}+2m)^2\); no discrete-history attainment is
+  claimed. For each fixed \(k\),
+  \(m/n\to\mu_k=1-2a+\beta_k^{(k)}\), and
+  \[
+  \liminf_{n\to\infty}
+  {\min_{h\in\mathscr D_{k,n}}(P(C_0)+M_h-B_{h,n})\over n^3}
+  \ge{\tau_k^2\over\chi_k+2\mu_k}>0.
+  \]
+  Only afterward let \(k\to\infty\). With
+  \(\mu_\infty=(12+7\sqrt2)/46\), the optimized lower-bound coefficients
+  have the exact limit
+  \[
+  \begin{aligned}
+  C_{\rm dist}
+  &={4E^4\over J+2\mu_\infty}\\
+  &={2833-1968\sqrt2\over
+  12167[
+  2(18-\sqrt2)\log(2-\sqrt2/2)+4+10\sqrt2]}\\
+  &=0.000153593551798992409046805037317\ldots>0.
+  \end{aligned}
+  \]
+  Thus the nested liminf over \(\mathscr D_{k,n}\) is at least
+  \(C_{\rm dist}\). This is the exact limit of the universal lower-bound
+  coefficients, not the exact residual infimum, and it proves no ordinary
+  limit. The stronger \(C_{\rm eq}\) remains valid on the equality subclass.
+  Selected recursive splits, growing-\(k\) statements, and geometric
+  consequences are excluded. The detailed proof is in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`.
 - EXACT THEOREM (FULL KR1G RESIDUAL ON THE ZIGZAG-WITNESS CLASS): for every
   fixed \(k\), retain without modification
   \[
@@ -1960,6 +2013,21 @@ and `ops/`.
   square-center bound, and independent completion-DP minimum agrees. The
   fixtures are synthetic exact structural checks, not actual rounded
   all-middle rows and not a proof of the asymptotic theorem.
+- VERIFIED FACT (BOUNDED EXACT DISTINCT-ORIGINAL-EDGE RESIDUAL CHECKER): the
+  standalone standard-library script in
+  `ops/TASK-20260723__kr1g_distinct_original_edge_residual/` imports no
+  project or earlier dossier helper and applies no equality filter. For
+  \(3\le q\le8\) and every
+  \(1\le\ell<\lceil q/2\rceil\), it checks all 2,956 canonical cycles,
+  255,975 cycle/target pairs, and 1,103,715 selected-label assignments;
+  1,103,135 of the resulting histories are nonequality histories. A
+  two-segment fixture exhausts 13,440 compatible two-label completions,
+  including 12,768 nonequality histories. Exact rational arithmetic checks
+  the full KR1G-6 decomposition, selected/unused deviation identity,
+  quadratic Cauchy bound, radical finite chain, optimized rational bound,
+  direct combined-Cauchy bound, and completion-DP minimum. The fixtures are
+  bounded synthetic structural checks, not rounded all-middle rows and not
+  a proof of the all-\(q\) or asymptotic theorem.
 - VERIFIED FACT (BOUNDED EXACT ZIGZAG-HISTORY CHECKER): the standalone
   standard-library script in
   `ops/TASK-20260723__kr1g_zigzag_full_residual/` imports no project helper.

@@ -12884,6 +12884,236 @@ to be the exact infimum coefficient or prove existence of the corresponding
 inner or outer ordinary limits. It deliberately says nothing about
 nonequality histories.
 
+### Extension of KR1G-69--KR1G-80 to distinct original selected edges
+
+We now remove the equality hypothesis while retaining the all-middle tuple
+from (KR1G-34) without any change. Keep all the notation of
+(KR1G-69)--(KR1G-72), set \(s_0=r\), and put
+\[
+m=q-\ell=n-2r+s+1.
+\]
+For one fixed \(k\), define
+\[
+\mu_k=1-2a+\beta_k^{(k)}.
+\]
+The floor and ceiling definitions give
+\[
+\boxed{
+{\ell\over n}\longrightarrow a-\beta_k^{(k)},\qquad
+{q\over n}\longrightarrow1-a,\qquad
+{m\over n}\longrightarrow\mu_k.}
+\tag{KR1G-81}
+\]
+All finite domain assertions below are eventual for this fixed \(k\). Indeed,
+\(\beta_0=a>\beta_1>\cdots>\beta_k>b>0\), so every selected segment is
+nonempty and \(\ell\ge1\) eventually. Moreover,
+\[
+m=n-2\lfloor an\rfloor+\lceil\beta_k n\rceil+1
+\ge\mu_kn+1,
+\]
+while
+\[
+\mu_k>1-2a+b={12+7\sqrt2\over46}>0.
+\]
+Thus \(m\ge1\), \(\ell<q\), and \(q\ge3\) eventually. In fact the old
+positive-branch domain is still available, although equality will not be
+used: since
+\(a-\beta_k<a-b<(1-a)/2\), one has
+\(1\le\ell<\lceil q/2\rceil\) eventually. In particular the literal finite
+conditions are then
+\[
+2\le r\le n-2,\qquad
+1\le s_k<\cdots<s_1\le r-1.
+\]
+The threshold may depend on all the gaps of the fixed tuple; no threshold
+uniform in \(k\) is asserted.
+
+Let \(\mathscr D_{k,n}\) contain every history for which the selected labels
+\(r-1,\ldots,s\) split exactly \(\ell\) distinct original edges of
+\(C_0\), in descending label order, and for which the labels below \(s\)
+are inserted by arbitrary compatible splits. Equivalently, choose any
+simple cycle \(C_0\) on \(S_r\), an \(\ell\)-element subset
+\(E'\subset E(C_0)\), and any bijection from the selected labels to \(E'\).
+Splitting one target does not remove any other distinct original target, so
+all selected splits are base splits. Once the eventual domain above holds,
+this construction also proves nonemptiness: a simple \(q\)-cycle and an
+\(\ell\)-edge subset exist, and the remaining labels can always be inserted
+into an arbitrary current edge. The former equality class satisfies
+\(\mathscr E_{k,n}\subset\mathscr D_{k,n}\).
+
+For \(h\in\mathscr D_{k,n}\), put
+\[
+U:=E_{\rm unused}(h)
+=\sum_{e\in E(C_0)\setminus E'}\Delta_e.
+\]
+There are exactly \(m=q-\ell\) unused original edges. The exact decomposition
+(KR1G-6) becomes
+\[
+\boxed{
+\begin{aligned}
+\mathscr R_{k,n}(h)
+&=E_{\rm ht}(h)+U\\
+&\quad+\sum_{i=1}^k\sum_{t=s_i}^{s_{i-1}-1}
+\left[
+{\lambda_i\over4}(u_t-v_t)^2
++{2-\lambda_i\over4}(\delta_t-d_t)^2
++G_{n,\lambda_i}(t)-G_{n,\lambda_i}(s_i)
+\right],
+\end{aligned}}
+\tag{KR1G-82}
+\]
+where \(\delta_t,d_t\) are exactly those in (KR1G-70). Every term other
+than \(U\) displayed on the right is nonnegative, including
+\(E_{\rm ht}\), regardless of the compatible completion below \(s\).
+
+For an unused original edge \(e=\{u,v\}\), write
+\(\eta_e=u+v-R\). The cycle-sum identity used in (KR1G-71) now gives
+\[
+\sum_{t=s}^{r-1}\delta_t
+=-\sum_{e\in E(C_0)\setminus E'}\eta_e,
+\qquad
+U={1\over2}\sum_{e\in E(C_0)\setminus E'}\eta_e^2.
+\]
+Cauchy on precisely these \(m\) edges therefore proves, without any use of
+(KR1G-24) or (KR1G-45),
+\[
+\boxed{
+\left|\sum_{t=s}^{r-1}\delta_t\right|
+\le\sqrt{m\sum_e\eta_e^2}
+=\sqrt{2mU}.}
+\tag{KR1G-83}
+\]
+
+Retain the positive finite quantities \(T_{k,n}\) and \(Q_{k,n}\) from
+(KR1G-72). Their positivity follows from nonempty selected segments,
+\(0<\lambda_i<1\), and
+\(R-2t\ge n-r+2=q+1>0\). Weighted Cauchy and the reverse triangle
+inequality give
+\[
+\begin{aligned}
+\sum_{t=s}^{r-1}E_{\square,t}
+&\ge
+{\left(T_{k,n}-\sum_t\delta_t\right)^2\over Q_{k,n}}\\
+&\ge
+{\left[T_{k,n}-\left|\sum_t\delta_t\right|\right]_+^2
+\over Q_{k,n}}.
+\end{aligned}
+\]
+Together with (KR1G-82)--(KR1G-83), this is exactly the requested finite
+chain:
+\[
+\boxed{
+\mathscr R_{k,n}(h)
+\ge
+U+{\left[T_{k,n}-\sqrt{2mU}\right]_+^2\over Q_{k,n}}.}
+\tag{KR1G-84}
+\]
+
+The scalar optimization is exact. Since \(m,T_{k,n},Q_{k,n}>0\), put
+\(x=\sqrt{2mU}\). For \(0\le x\le T_{k,n}\),
+\[
+{x^2\over2m}+{(T_{k,n}-x)^2\over Q_{k,n}}
+-{T_{k,n}^2\over Q_{k,n}+2m}
+=
+{Q_{k,n}+2m\over2mQ_{k,n}}
+\left(x-{2mT_{k,n}\over Q_{k,n}+2m}\right)^2.
+\]
+For \(x\ge T_{k,n}\), the objective is
+\(x^2/(2m)\ge T_{k,n}^2/(2m)>
+T_{k,n}^2/(Q_{k,n}+2m)\). Hence its unique continuous minimizer is
+\[
+x_*={2mT_{k,n}\over Q_{k,n}+2m},\qquad
+U_*={2mT_{k,n}^2\over(Q_{k,n}+2m)^2},
+\]
+and every declared history satisfies
+\[
+\boxed{
+\mathscr R_{k,n}(h)
+\ge{T_{k,n}^2\over Q_{k,n}+2m}.}
+\tag{KR1G-85}
+\]
+This says that the last expression is the exact minimum of the scalar
+envelope over \(U\ge0\); it does not say that the discrete unused slack of
+a history attains \(U_*\). As an independent direct check, apply weighted
+Cauchy simultaneously to the selected quantities \(d_t-\delta_t\), with
+quadratic coefficients \((2-\lambda_i)/4\), and to the unused quantities
+\(-\eta_e\), with coefficients \(1/2\). Their sum is exactly \(T_{k,n}\),
+and the reciprocal-weight sum is exactly \(Q_{k,n}+2m\), reproducing
+(KR1G-85) without the scalar minimization.
+
+We now take limits only in the authorized order. For this one fixed \(k\),
+(KR1G-74), (KR1G-81), and the floor/ceiling definitions give
+\[
+T_{k,n}=\tau_kn^2+O(n),\qquad
+Q_{k,n}=\chi_kn+O(1),\qquad
+m=\mu_kn+O(1).
+\]
+The class is eventually nonempty, so (KR1G-85) yields
+\[
+\boxed{
+\liminf_{n\to\infty}
+{\min_{h\in\mathscr D_{k,n}}\mathscr R_{k,n}(h)\over n^3}
+\ge
+{\tau_k^2\over\chi_k+2\mu_k}>0.}
+\tag{KR1G-86}
+\]
+This is proved separately for each fixed \(k\), with no \(k=k(n)\) and no
+common rounding threshold.
+
+Only afterward let \(k\to\infty\). The unchanged all-middle mesh gives the
+same limits \(\tau_k\to2E^2\) and \(\chi_k\to J\) as in (KR1G-77), while
+\[
+\mu_k\longrightarrow
+\mu_\infty:=1-2a+b={12+7\sqrt2\over46}.
+\]
+Consequently the optimized universal lower-bound coefficients have the
+exact limit
+\[
+\boxed{
+\begin{aligned}
+C_{\rm dist}
+&:={4E^4\over J+2\mu_\infty}
+={4E^4\over
+S\log(2-\sqrt2/2)+3-5a}\\
+&={2833-1968\sqrt2\over
+12167\left[
+2(18-\sqrt2)\log(2-\sqrt2/2)+4+10\sqrt2
+\right]}\\
+&=0.000153593551798992409046805037317\ldots>0.
+\end{aligned}}
+\tag{KR1G-87}
+\]
+The sign is exact: \(2-\sqrt2/2>1\), every term in the denominator is
+positive, and
+\[
+2833^2-2\cdot1968^2=279841>0.
+\]
+Combining (KR1G-86)--(KR1G-87) in that order proves
+\[
+\boxed{
+\liminf_{k\to\infty}\ \liminf_{n\to\infty}
+{\displaystyle
+\min_{h\in\mathscr D_{k,n}}
+\bigl(P(C_0)+M_h-B_{h,n}\bigr)
+\over n^3}
+\ge C_{\rm dist}>0.}
+\tag{KR1G-88}
+\]
+Thus every history whose selected labels split exactly \(\ell\) distinct
+original edges has a uniformly cubic complete residual at the unchanged
+all-middle cutoffs. The constant \(C_{\rm dist}\) is the exact limit of the
+optimized lower-bound coefficients, not a claimed exact infimum coefficient
+for the histories, and neither inner nor outer ordinary-limit existence is
+asserted. On the equality subclass, the stronger equality-specific
+\(C_{\rm eq}\) bound in (KR1G-73)--(KR1G-80) remains valid.
+
+The proof does not cover a selected recursive split: such a step has the
+different terms in (KR1G-5), and there is then no \(\ell\)-edge complement
+to which (KR1G-83) applies. Arbitrary recursive or base splits are still
+allowed in the completion below \(s\). No conclusion about the original
+geometry, a minimizing order, \(C_{\rm AF}\), or a growing-prefix regime
+follows.
+
 ## 10. Exact \(K\) For The Exact-Threshold Residue-Two Core Order
 
 Let \(\tau_n^{(2)}\) be the cyclic core order returned by
