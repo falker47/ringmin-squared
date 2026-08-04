@@ -13796,8 +13796,7 @@ If \(p_{k,n}=p\) is fixed, then \(p/\ell_{k,n}\to0\) for every fixed
 recovers (KR1G-101) and \(C_{\rm dist}\). Linear recursive counts are also
 covered whenever their base fraction has a positive liminf.
 
-Within this fixed-\(k\) selected-window count problem, the sole remaining
-regime without a positive cubic conclusion is
+The preceding positive-base-density theorem leaves only the regime
 \[
 \boxed{
 \liminf_{n\to\infty}
@@ -13810,6 +13809,218 @@ holds there, but its present order-statistic asymptotic has zero limiting
 cubic coefficient. Nothing here permits \(k=k(n)\), interchanges the two
 limits, proves ordinary-limit existence, derives geometry, classifies a
 minimizing order, invokes \(C_{\rm AF}\), or asserts discrete attainment.
+
+### Exactly one base split in the selected window
+
+We now decide one precise subclass of (KR1G-113), without making a statement
+about a generic sequence with \(b^{\rm base}_{k,n}=o(n)\). Fix \(k\ge1\)
+before taking \(n\to\infty\), retain the all-middle tuple (KR1G-34), and put
+\[
+p=\ell-1.
+\]
+For all sufficiently large \(n\) at this fixed \(k\), one has
+\(q\ge3\) and \(\ell\ge2\). Let
+\[
+\mathscr H^{(1{\rm B})}_{k,n}
+:=\mathscr H^{((\ell-1){\rm R})}_{k,n}
+\]
+be the class with exactly one selected base split, arbitrary recursive
+parentage and depth afterward, and arbitrary compatible completion below
+\(s=s_k\).
+
+Before the first selected insertion there is no recursive edge. Therefore
+the unique base split is forced to occur at the first selected label
+\(r-1\), and every later selected label is recursive:
+\[
+\boxed{
+\mathsf B_h=\{r-1\},\qquad
+\mathcal R(h)=\{s,s+1,\ldots,r-2\},\qquad
+m_p=q-1.}
+\tag{KR1G-114}
+\]
+After the first split, every recursive current edge is a descendant of its
+one original target. If \(j\ge1\) selected insertions have been made, those
+descendants form a path with exactly \(j+1\) current edges. Thus one may
+choose the original target in \(q\) ways and the subsequent recursive
+targets in \(2,3,\ldots,\ell\) ways. Equivalently, (KR1G-89) specializes
+to
+\[
+\boxed{A^{(q)}_{\ell,1}=q\,\ell!.}
+\tag{KR1G-115}
+\]
+This choice process is literal: at each stage it selects every available
+recursive edge, and therefore includes siblings, balanced branches, nested
+descendants of arbitrary depth, and targets whose two endpoints were both
+inserted earlier.
+
+Let \(\Pi^{(1{\rm B})}_{q,\ell}=\Pi_{q,\ell,\ell-1}\). Equations
+(KR1G-90)--(KR1G-91) give the exact finite positive counts
+\[
+\boxed{
+\begin{aligned}
+|\Pi^{(1{\rm B})}_{q,\ell}|
+&={q!\,\ell!\over2},\\
+|\mathscr H^{(1{\rm B})}_{k,n}|
+&={q!\,\ell!\over2}
+  \prod_{j=0}^{s-2}(q+\ell+j).
+\end{aligned}}
+\tag{KR1G-116}
+\]
+The empty-product convention is unchanged. For a prefix \(\pi\), retain
+the labelled-cycle Bellman value \(V_{s-1}(C_\pi)\), the quantities
+\(M_\pi,H_\pi,\widehat M_\pi\), and the history-independent
+\(\mathcal B_{k,n}\) from (KR1G-91a)--(KR1G-91b). Their specialization is
+the requested exact finite optimization formula:
+\[
+\boxed{
+\min_{h\in\mathscr H^{(1{\rm B})}_{k,n}}
+\mathscr R_{k,n}(h)
+=
+\min_{\pi\in\Pi^{(1{\rm B})}_{q,\ell}}
+\left[P(C_0(\pi))+\widehat M_\pi-\mathcal B_{k,n}\right].}
+\tag{KR1G-117}
+\]
+It is a finite identity, including all completions, not a closed-form
+evaluation of the minimum.
+
+We next retain, rather than discard, the recursive terms in (KR1G-93).
+Put \(R=n+r\), \(s_0=r\), and define the number of recursive labels in
+each selected segment by
+\[
+N_{1,n}=r-1-s_1,
+\qquad
+N_{i,n}=s_{i-1}-s_i\quad(2\le i\le k).
+\]
+For \(1\le i\le k\), set
+\[
+\boxed{
+\begin{aligned}
+\mathsf J_{i,n}
+&:=J_{n,\lambda_i}(s_i)-G_{n,\lambda_i}(s_i)\\
+&={\lambda_i\left[
+(n-r)^2+4(n-s_i)
++2\lambda_i(r-1-s_i)(n-s_i)
+\right]\over2(2-\lambda_i)},\\
+K^{(1{\rm B})}_{k,n}
+&:=\sum_{i=1}^k\left[
+N_{i,n}\mathsf J_{i,n}
++{\lambda_i(R-1)N_{i,n}(N_{i,n}-1)\over2}
+\right].
+\end{aligned}}
+\tag{KR1G-118}
+\]
+Every \(\mathsf J_{i,n}\) is strictly positive. If a recursive label
+\(\rho\) lies in segment \(i\), then the two deterministic terms in
+(KR1G-93) obey the exact identity
+\[
+\begin{aligned}
+E_{JG,\rho}+E_{{\rm mon},\rho}
+&=J_{n,\lambda_i}(\rho)-G_{n,\lambda_i}(s_i)\\
+&=\mathsf J_{i,n}+\lambda_i(R-1)(\rho-s_i).
+\end{aligned}
+\]
+Summing the corresponding arithmetic progressions, including the shortened
+first segment ending at \(r-2\), proves
+\[
+\boxed{
+\mathcal E_{\mathcal R}(h)
+=\sum_{\rho=s}^{r-2}E_{{\rm cov},\rho}(h)
++K^{(1{\rm B})}_{k,n}.}
+\tag{KR1G-119}
+\]
+This retains all three recursive addends. Only the coverage part depends on
+the parentage and depth, and each of its summands remains nonnegative even
+when both target endpoints were inserted earlier, by (KR1G-93).
+
+There is only one base coordinate, at \(r-1\) in the first segment. Hence
+(KR1G-96) specializes to
+\[
+T^{(-\mathcal R)}_{k,n}=d_{r-1}
+={\lambda_1(n-r+2)\over2-\lambda_1},
+\qquad
+Q^{(-\mathcal R)}_{k,n}={4\over2-\lambda_1}.
+\]
+Substituting (KR1G-114) and (KR1G-119) into (KR1G-98) gives the finite
+position-sensitive estimate
+\[
+\boxed{
+\begin{aligned}
+\mathscr R_{k,n}(h)
+&\ge
+\sum_{\rho=s}^{r-2}E_{{\rm cov},\rho}(h)
++K^{(1{\rm B})}_{k,n}
++{d_{r-1}^2\over4/(2-\lambda_1)+2(q-1)}\\
+&\ge
+K^{(1{\rm B})}_{k,n}
++{d_{r-1}^2\over4/(2-\lambda_1)+2(q-1)}.
+\end{aligned}}
+\tag{KR1G-120}
+\]
+Unlike (KR1G-99) and (KR1G-104), this bound does not erase the recursive
+contribution. The first line preserves its topology-dependent coverage as
+well as its exact deterministic part.
+
+It remains to determine the scale. Put
+\(\Delta_i=\beta_{i-1}^{(k)}-\beta_i^{(k)}>0\). At this fixed \(k\),
+the floor and ceiling definitions give
+\[
+{N_{i,n}\over n}\longrightarrow\Delta_i
+\]
+also for \(i=1\), since the missing endpoint changes the count by one.
+Moreover,
+\[
+{\mathsf J_{i,n}\over n^2}\longrightarrow
+{\lambda_i\left[
+(1-a)^2+2\lambda_i(a-\beta_i)(1-\beta_i)
+\right]\over2(2-\lambda_i)}.
+\]
+Therefore the exact deterministic recursive floor has the cubic limit
+\[
+\boxed{
+{K^{(1{\rm B})}_{k,n}\over n^3}
+\longrightarrow
+\Theta^{(1{\rm B})}_k
+:=\sum_{i=1}^k\left\{
+{\Delta_i\lambda_i\left[
+(1-a)^2+2\lambda_i(a-\beta_i)(1-\beta_i)
+\right]\over2(2-\lambda_i)}
++{\lambda_i(1+a)\Delta_i^2\over2}
+\right\}.}
+\tag{KR1G-121}
+\]
+Every summand is positive. More explicitly, the strict all-middle order
+\(0<\lambda_k<\cdots<\lambda_1<1\) and
+\(\sum_i\Delta_i=a-\beta_k\) give the elementary lower bound
+\[
+\boxed{
+\Theta^{(1{\rm B})}_k
+\ge
+{(a-\beta_k)\lambda_k(1-a)^2\over2(2-\lambda_k)}
+>0.}
+\tag{KR1G-122}
+\]
+
+The finite class is nonempty by (KR1G-116), and (KR1G-120)--(KR1G-122)
+are uniform in its base cycle, root edge, recursive topology, and completion.
+Consequently
+\[
+\boxed{
+\liminf_{n\to\infty}
+{\displaystyle
+\min_{h\in\mathscr H^{(1{\rm B})}_{k,n}}
+\mathscr R_{k,n}(h)\over n^3}
+\ge\Theta^{(1{\rm B})}_k
+\ge{(a-\beta_k)\lambda_k(1-a)^2\over2(2-\lambda_k)}
+>0.}
+\tag{KR1G-123}
+\]
+Thus no compatible subcubic family exists in the exactly-one-base class at
+any fixed all-middle \(k\). The coefficient
+\(\Theta^{(1{\rm B})}_k\) is the exact limit of the deterministic recursive
+lower bound retained in (KR1G-120), not a claimed exact limit or exact
+infimum coefficient of the residual itself. Nothing in this subsection
+decides a generic \(b^{\rm base}_{k,n}=o(n)\) sequence, permits
+\(k=k(n)\), or implies a geometric conclusion.
 
 ## 10. Exact \(K\) For The Exact-Threshold Residue-Two Core Order
 

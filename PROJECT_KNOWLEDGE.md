@@ -2084,12 +2084,75 @@ and `ops/`.
   class-uniform \(Q+2m\) denominator relaxation; no strongest possible
   residual coefficient is claimed. Fixed \(p\) and every
   \(p_{k,n}=o(n)\) have base density one and recover \(C_{\rm dist}\).
-  The sole count regime still lacking a positive cubic conclusion is
+  This positive-density theorem itself leaves
   \(\liminf b^{\rm base}_{k,n}/\ell_{k,n}=0\), equivalently a subsequence
-  with \(b^{\rm base}_{k,n}=o(n)\). No \(k=k(n)\), geometry, minimizing
-  order, ordinary-limit, exact-infimum, or discrete-attainment conclusion
-  is made. The detailed proof is in
-  `research/FIXED_ORDER_CYCLE_RATIO.md`.
+  with \(b^{\rm base}_{k,n}=o(n)\), untreated. The exactly-one-base
+  subclass is decided separately below; no generic zero-density conclusion
+  follows. No \(k=k(n)\), geometry, minimizing order, ordinary-limit,
+  exact-infimum, or discrete-attainment conclusion is made. The detailed
+  proof is in `research/FIXED_ORDER_CYCLE_RATIO.md`.
+- EXACT THEOREM (EXACTLY ONE SELECTED BASE SPLIT): retain the unchanged
+  all-middle tuple and fix \(k\) before taking \(n\to\infty\). In the class
+  \(p=\ell-1\), the unique base split is forced to be the first selected
+  label \(r-1\); every label in \(\{s,\ldots,r-2\}\) is recursive, with
+  arbitrary parentage and depth, and the completion below \(s\) is arbitrary.
+  The prefix recurrence and completion count specialize exactly to
+  \[
+  A^{(q)}_{\ell,1}=q\ell!,\qquad
+  |\Pi^{(1{\rm B})}_{q,\ell}|={q!\ell!\over2},\qquad
+  |\mathscr H^{(1{\rm B})}_{k,n}|
+  ={q!\ell!\over2}\prod_{j=0}^{s-2}(q+\ell+j),
+  \]
+  and KR1G-91b gives the exact finite minimum over these prefixes with the
+  labelled-cycle Bellman value for every completion.
+
+  Put \(s_0=r\),
+  \(N_{1,n}=r-1-s_1\), and
+  \(N_{i,n}=s_{i-1}-s_i\) for \(i\ge2\). With
+  \[
+  \mathsf J_{i,n}
+  ={\lambda_i[(n-r)^2+4(n-s_i)
+  +2\lambda_i(r-1-s_i)(n-s_i)]\over2(2-\lambda_i)},
+  \]
+  the complete recursive term in KR1G-93 is retained exactly as
+  \[
+  \mathcal E_{\mathcal R}(h)
+  =\sum_{\rho=s}^{r-2}E_{{\rm cov},\rho}(h)
+  +K^{(1{\rm B})}_{k,n},
+  \]
+  where
+  \[
+  K^{(1{\rm B})}_{k,n}
+  =\sum_i\left[N_{i,n}\mathsf J_{i,n}
+  +{\lambda_i(n+r-1)N_{i,n}(N_{i,n}-1)\over2}\right].
+  \]
+  Since \(m_p=q-1\), KR1G-98 yields the finite uniform bound
+  \[
+  \mathscr R_{k,n}(h)
+  \ge\sum_{\rho=s}^{r-2}E_{{\rm cov},\rho}(h)
+  +K^{(1{\rm B})}_{k,n}
+  +{d_{r-1}^2\over4/(2-\lambda_1)+2(q-1)}.
+  \]
+  If \(\Delta_i=\beta_{i-1}-\beta_i\), then
+  \(K^{(1{\rm B})}_{k,n}/n^3\to\Theta^{(1{\rm B})}_k\), with
+  \[
+  \Theta^{(1{\rm B})}_k
+  =\sum_i\left\{
+  {\Delta_i\lambda_i[(1-a)^2
+  +2\lambda_i(a-\beta_i)(1-\beta_i)]\over2(2-\lambda_i)}
+  +{\lambda_i(1+a)\Delta_i^2\over2}\right\}
+  \ge{(a-\beta_k)\lambda_k(1-a)^2\over2(2-\lambda_k)}>0.
+  \]
+  Consequently the minimum complete residual divided by \(n^3\) has
+  positive liminf for every fixed \(k\); no compatible subcubic family
+  exists in this one-base class. The displayed \(\Theta_k^{(1{\rm B})}\)
+  is the exact limit of the retained deterministic recursive lower bound,
+  not an exact residual-infimum coefficient. This theorem says nothing
+  about generic \(2\le b^{\rm base}_{k,n}=o(n)\), \(k=k(n)\), or geometry.
+  See the
+  [authoritative proof](research/FIXED_ORDER_CYCLE_RATIO.md#exactly-one-base-split-in-the-selected-window)
+  and the
+  [task evidence](ops/TASK-20260804__kr1g_one_base_selected_split/EVIDENCE.md).
 - EXACT THEOREM (FULL KR1G RESIDUAL ON THE ZIGZAG-WITNESS CLASS): for every
   fixed \(k\), retain without modification
   \[
@@ -2268,6 +2331,30 @@ and `ops/`.
   factor at \(\sigma=1/4,1/2,3/4,1\). This is a bounded audit of the
   enlarged coordinate-subset relaxation; it neither enumerates histories
   nor proves discrete residual attainment or the asymptotic theorem.
+- VERIFIED FACT (BOUNDED EXACT ONE-BASE KR1G CHECKER): the standalone
+  standard-library script in
+  `ops/TASK-20260804__kr1g_one_base_selected_split/` imports no project or
+  earlier dossier helper. On one fixed nonmonotone theorem-domain base cycle
+  with \((q,\ell,p,s)=(9,4,3,3)\), it exhausts all 216 `BRRR` selected
+  prefixes and all 39,312 completions through labels \(2,1\). It separately
+  verifies the global prefix formula \(q!\ell!/2=4{,}354{,}560\), while
+  deliberately enumerating only one of the 20,160 unoriented base cycles.
+  The 648 recursive records have depth histogram
+  \((324,252,72)\) at depths \((1,2,3)\); there are 72 sibling histories,
+  108 balanced histories, 180 inserted--inserted targets, and 144 histories
+  containing such a target. Exact `Fraction` arithmetic checks fresh edge
+  lineage, every KR1G-93 addend, the deterministic KR1G-118/119 identity,
+  the full KR1G-94 decomposition, the one-base KR1G-98 specialization, and
+  literal completion enumeration against the independent KR1G-91a Bellman
+  value. It obtains
+  \[
+  K_{\rm det}={8333\over140},\qquad
+  K_{\rm det}+{15\over8}={17191\over280},
+  \]
+  topology-sensitive minimum bound \(18591/280\), and matching literal and
+  Bellman residual minimum \(3464/35\). This is a bounded synthetic rational
+  structural check, not a rounded irrational all-middle row, an all-\(q\)
+  proof, or an asymptotic proof.
 - VERIFIED FACT (BOUNDED EXACT ZIGZAG-HISTORY CHECKER): the standalone
   standard-library script in
   `ops/TASK-20260723__kr1g_zigzag_full_residual/` imports no project helper.

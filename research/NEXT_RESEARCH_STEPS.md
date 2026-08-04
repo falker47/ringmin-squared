@@ -309,15 +309,42 @@ The superficially similar Ferrers count and monotone threshold-closing
   \]
   The factor \(\sigma^4\) is correct for the displayed uniform relaxation;
   no exact residual infimum or strongest correlated bound is claimed.
-  Fixed \(p\) and all \(p=o(n)\) are recovered by \(\sigma=1\). The only
-  recursive-count regime left open is vanishing lower base density,
-  \(\liminf_n(\ell-p_{k,n})/\ell=0\). The exact checker audits crossover,
-  ties, the finite subset minimum and denominator, one rounded all-middle
-  row, and the \(\sigma^2\)-to-\(\sigma^4\) mechanism. No geometry,
-  \(k=k(n)\), or discrete attainment is inferred. See the
+  Fixed \(p\) and all \(p=o(n)\) are recovered by \(\sigma=1\). This
+  theorem leaves vanishing lower base density,
+  \(\liminf_n(\ell-p_{k,n})/\ell=0\), untreated; the exactly-one-base
+  subclass is closed by the next milestone. The exact checker audits
+  crossover, ties, the finite subset minimum and denominator, one rounded
+  all-middle row, and the \(\sigma^2\)-to-\(\sigma^4\) mechanism. No
+  geometry, \(k=k(n)\), or discrete attainment is inferred. See the
   [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#variable-recursive-counts-with-positive-base-density)
   and the
   [task evidence](../ops/TASK-20260804__kr1g_variable_recursive_count/EVIDENCE.md).
+
+- **COMPLETED -- exactly one selected base split:** retain the all-middle
+  tuple, fix \(k\), and set \(p=\ell-1\). The only base split is forced at
+  the first selected label, while all later selected splits have arbitrary
+  recursive parentage and depth and the completion is arbitrary. The exact
+  prefix count is \(q!\ell!/2\), and KR1G-91b remains the exact finite
+  Bellman minimum. Keeping the three KR1G-93 addends gives
+  \[
+  \mathcal E_{\mathcal R}(h)
+  =\sum_{\rho=s}^{r-2}E_{{\rm cov},\rho}(h)
+   +K^{(1{\rm B})}_{k,n},
+  \]
+  where the explicit deterministic term satisfies
+  \(K^{(1{\rm B})}_{k,n}/n^3\to\Theta^{(1{\rm B})}_k\) and
+  \[
+  \Theta^{(1{\rm B})}_k
+  \ge{(a-\beta_k)\lambda_k(1-a)^2\over2(2-\lambda_k)}>0.
+  \]
+  Therefore the normalized minimum residual has positive liminf for every
+  fixed \(k\), uniformly over root edge, recursive topology, and completion;
+  there is no compatible subcubic family in this class. This does not decide
+  generic \(2\le b^{\rm base}_{k,n}=o(n)\), \(k=k(n)\), or geometry. See
+  the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#exactly-one-base-split-in-the-selected-window)
+  and the
+  [task evidence](../ops/TASK-20260804__kr1g_one_base_selected_split/EVIDENCE.md).
 
 - **COMPLETED -- two-contiguous-block charging ansatz:** the separator-density
   construction, convex bridge, two history-relative disjoint original-edge
@@ -444,11 +471,11 @@ The superficially similar Ferrers count and monotone threshold-closing
 
 ## Next Atomic Task
 
-User review and manual commit decision for the variable-recursive-count
-KR1G theorem at positive lower base density. Afterward, the proposed next
-atomic research task is the sole uncovered count regime: decide what the
-recursive terms in KR1G-98 imply when
-\(\liminf_n b^{\rm base}_{k,n}/\ell_{k,n}=0\), still at fixed \(k\).
+User review and manual commit decision for the exactly-one-base KR1G theorem.
+Afterward, the proposed next atomic research task is the adjacent fixed-\(k\)
+subclass with exactly two selected base splits, still with arbitrary
+recursive parentage, depth, and completion. This is not a claim about the
+generic \(b^{\rm base}_{k,n}=o(n)\) regime.
 
 ## Deferred, Not Prioritized
 
