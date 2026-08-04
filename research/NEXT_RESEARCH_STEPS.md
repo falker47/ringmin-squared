@@ -243,30 +243,40 @@ The superficially similar Ferrers count and monotone threshold-closing
   and the
   [task evidence](../ops/TASK-20260723__kr1g_distinct_original_edge_residual/EVIDENCE.md).
 
-- **COMPLETED -- full KR1G residual with exactly one selected recursive
-  split:** retain the all-middle tuple unchanged. For every fixed \(k\), the
-  unique selected recursive edge is necessarily a direct child
-  \(\{z,y\}\) of an original edge split by an earlier parent \(z\); the
-  other \(\ell-1\) selected labels hit distinct original edges and leave
-  \(q-\ell+1\) unused originals. Removing the recursive coordinate from
-  \(T_{k,n}\) and \(Q_{k,n}\), the exact KR1G-5/KR1G-6 decomposition and
-  combined Cauchy give the finite position-parent bound KR1G-98 and the
-  class-uniform bound KR1G-99. The removed displacement is only \(O(n)\),
-  so
+- **COMPLETED -- full KR1G residual with any fixed number of selected
+  recursive splits:** fix \(p\ge0\), retain the all-middle tuple unchanged,
+  and then fix \(k\). The \(p\) recursive splits may have arbitrary
+  parentage and depth, while the other \(\ell-p\) selected labels hit
+  distinct original edges and leave \(m_p=q-\ell+p\) unused originals.
+  The exact finite prefix recurrence counts every sibling, nested, and
+  two-inserted-endpoint target and proves non-vacuity. Removing precisely
+  the recursive coordinates gives
   \[
-  \liminf_{n\to\infty}
-  {\min_h(P(C_0)+M_h-B_{h,n})\over n^3}
-  \ge{\tau_k^2\over\chi_k+2\mu_k}>0.
+  T^{(-\mathcal R)}=T-\sum_{\rho\in\mathcal R}d_\rho,
+  \qquad
+  Q^{(-\mathcal R)}=Q-\sum_{\rho\in\mathcal R}
+  {4\over2-\lambda_\rho},
   \]
-  Thus no subcubic counterfamily exists in this class. Only after this
-  fixed-\(k\) statement may \(k\to\infty\), giving the same iterated
-  coefficient \(C_{\rm dist}\); no \(k=k(n)\) claim follows. KR1G-89--91
-  also give a bijective finite prefix parametrization and exact completion
-  recursion. The result makes no claim for two selected recursive splits or
-  geometry. See the
-  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#exactly-one-recursive-split-in-the-selected-window)
+  and KR1G-6 plus combined Cauchy yields the position-sensitive bound
+  KR1G-98. Since the recursive terms are nonnegative even on an edge with
+  two inserted endpoints, KR1G-99 gives the class-uniform finite estimate
+  \[
+  P(C_0)+M_h-B_{h,n}
+  \ge{[T_{k,n}-pD_{k,n}]_+^2\over Q_{k,n}+2m}.
+  \]
+  For fixed \((p,k)\), \(pD_{k,n}=O(n)\), so the normalized lower
+  coefficient remains \(\tau_k^2/(\chi_k+2\mu_k)>0\). Only after taking
+  \(n\to\infty\) for every fixed \(k\) may \(k\to\infty\), with \(p\)
+  still fixed, giving the same iterated lower-bound coefficient
+  \(C_{\rm dist}\). The
+  independent exact \(p=2\) checker covers 15,120 selected prefixes,
+  151,200 arbitrary completions, all sibling/nested/two-inserted target
+  types, and a separate 1,296-history sweep with two distinct base targets.
+  No claim is made for \(p=p(n)\), an exact residual infimum, or geometry.
+  See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#a-fixed-number-of-recursive-splits-in-the-selected-window)
   and the
-  [task evidence](../ops/TASK-20260724__kr1g_one_recursive_selected_split/EVIDENCE.md).
+  [task evidence](../ops/TASK-20260804__kr1g_fixed_recursive_count/EVIDENCE.md).
 
 - **COMPLETED -- two-contiguous-block charging ansatz:** the separator-density
   construction, convex bridge, two history-relative disjoint original-edge
@@ -394,8 +404,8 @@ The superficially similar Ferrers count and monotone threshold-closing
 ## Next Atomic Task
 
 User review and manual commit decision for the complete-residual theorem on
-the all-middle KR1G class with exactly one selected recursive split and all
-other selected splits on distinct original edges.
+the all-middle KR1G class with any fixed number \(p\ge0\) of selected
+recursive splits and all other selected splits on distinct original edges.
 Afterward, choose exactly one item from the deferred directions below in a
 fresh task before developing further mathematics.
 

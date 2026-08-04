@@ -1911,70 +1911,94 @@ and `ops/`.
   Selected recursive splits, growing-\(k\) statements, and geometric
   consequences are excluded. The detailed proof is in
   `research/FIXED_ORDER_CYCLE_RATIO.md`.
-- EXACT THEOREM (FULL KR1G RESIDUAL WITH EXACTLY ONE SELECTED RECURSIVE
-  SPLIT): retain the unchanged all-middle tuple and fix \(k\). Let
-  \(\mathscr H^{(1{\rm R})}_{k,n}\) contain every history in which exactly
-  one selected label \(\rho\in\{s_k,\ldots,r-2\}\) makes a recursive split,
-  all other \(\ell-1\) selected labels split distinct original edges, and
-  the completion below \(s_k\) is arbitrary. The recursive edge has a unique
-  inserted parent \(z>\rho\): it is one direct child \(\{z,y\}\) of the
-  original edge \(\{x,y\}\) split at \(z\). The finite selected-prefix
-  parametrization is bijective and has
+- EXACT THEOREM (FULL KR1G RESIDUAL WITH A FIXED NUMBER OF SELECTED
+  RECURSIVE SPLITS): fix an integer \(p\ge0\), retain the unchanged
+  all-middle tuple, and then fix \(k\). Let
+  \(\mathscr H^{(p{\rm R})}_{k,n}\) contain every history in which exactly
+  \(p\) selected labels make recursive splits of arbitrary parentage and
+  depth, the other \(\ell-p\) selected labels split distinct original
+  edges, and the completion below \(s_k\) is arbitrary. The finite domain
+  is
   \[
-  {(q-1)!\over2}(q)_{\ell-1}\ell(\ell-1)
+  0\le p\le\ell-1,\qquad \ell-p\le q,
   \]
-  elements. The arbitrary completion is reduced exactly by the finite
-  excursion recursion KR1G-90, giving the exact finite optimization
-  KR1G-91.
+  and it holds eventually for each fixed \((p,k)\). If
+  \(A^{(q)}_{0,0}=1\), invalid-index entries vanish, and
+  \[
+  A^{(q)}_{j+1,b}
+  =(q-b+1)A^{(q)}_{j,b-1}+(j+b)A^{(q)}_{j,b},
+  \]
+  then the exact number of selected prefixes over all unoriented base
+  cycles is
+  \[
+  {(q-1)!\over2}A^{(q)}_{\ell,\ell-p}>0.
+  \]
+  The recurrence chooses every untouched original or current recursive
+  edge, and therefore includes siblings, nested descendants, and edges with
+  two inserted endpoints. It reduces to \((q)_\ell\) for \(p=0\) and to
+  \((q)_{\ell-1}\ell(\ell-1)\) for \(p=1\). KR1G-91 also counts every
+  arbitrary compatible completion, proving finite non-vacuity without
+  evaluating a minimum or infimum.
 
-  If \(m_1=q-\ell+1\) is the number of unused original edges and
+  For the actual recursive-label set \(\mathcal R\), put
   \[
-  T^{(-\rho)}_{k,n}=T_{k,n}-d_\rho,\qquad
-  Q^{(-\rho)}_{k,n}
-  =Q_{k,n}-{4\over2-\lambda_\rho},
+  \begin{aligned}
+  m_p&=q-\ell+p,\\
+  T^{(-\mathcal R)}_{k,n}
+  &=T_{k,n}-\sum_{\rho\in\mathcal R}d_\rho,\\
+  Q^{(-\mathcal R)}_{k,n}
+  &=Q_{k,n}-\sum_{\rho\in\mathcal R}
+    {4\over2-\lambda_\rho}.
+  \end{aligned}
   \]
-  then KR1G-5--KR1G-6 give an exact decomposition into the usual
-  nonnegative base terms and the three nonnegative recursive terms
+  There is at least one base coordinate, so the last two quantities are
+  positive. KR1G-5--KR1G-6 give the usual nonnegative base terms and, for
+  each recursive edge, three nonnegative terms
   \(\mathcal E_\rho=E_{{\rm cov},\rho}+E_{JG,\rho}
-  +E_{{\rm mon},\rho}\). The \(\ell-1\) base deviations and the \(m_1\)
-  unused-original deviations still sum to zero. Hence every declared
-  history satisfies
+  +E_{{\rm mon},\rho}\). Coverage remains nonnegative at arbitrary depth
+  because an inserted endpoint satisfies \(z_\rho\le r-1\) and the other
+  endpoint satisfies \(y_\rho\le n\), including when both are inserted.
+  The \(\ell-p\) base deviations and \(m_p\) unused-original deviations
+  sum to zero. Hence every declared history satisfies
   \[
   \begin{aligned}
   P(C_0)+M_h-B_{h,n}
-  &\ge\mathcal E_\rho+U+
-  {[T^{(-\rho)}_{k,n}-\sqrt{2m_1U}]_+^2
-  \over Q^{(-\rho)}_{k,n}}\\
-  &\ge\mathcal E_\rho+
-  {(T^{(-\rho)}_{k,n})^2
-  \over Q^{(-\rho)}_{k,n}+2m_1}.
+  &\ge\sum_{\rho\in\mathcal R}\mathcal E_\rho+U
+  +{[T^{(-\mathcal R)}_{k,n}-\sqrt{2m_pU}]_+^2
+  \over Q^{(-\mathcal R)}_{k,n}}\\
+  &\ge\sum_{\rho\in\mathcal R}\mathcal E_\rho
+  +{(T^{(-\mathcal R)}_{k,n})^2
+  \over Q^{(-\mathcal R)}_{k,n}+2m_p}.
   \end{aligned}
   \]
-  The second expression is the exact minimum of the scalar envelope over
-  \(U\ge0\), not an attainment claim for discrete histories.
 
-  Uniformly over recursive position, parent, and side, removing one
-  square-center coordinate changes \(T_{k,n}\) by only \(O(n)\) and
-  \(Q_{k,n}\) by \(O(1)\). More precisely, KR1G-99 gives the finite
-  class-uniform bound
+  With
+  \[
+  D_{k,n}=\max\bigl(\{d_t:s_k\le t\le r-2\}\cup\{0\}\bigr)=O(n),
+  \]
+  one has
+  \[
+  Q^{(-\mathcal R)}_{k,n}+2m_p
+  =Q_{k,n}+2m-
+  \sum_{\rho\in\mathcal R}{2\lambda_\rho\over2-\lambda_\rho}
+  \le Q_{k,n}+2m.
+  \]
+  Therefore KR1G-99 gives the finite class-uniform bound
   \[
   P(C_0)+M_h-B_{h,n}
-  \ge{(T_{k,n}-D_{k,n})^2\over Q_{k,n}+2m},
-  \qquad
-  D_{k,n}=\max_{s_k\le t\le r-2}d_t=O(n).
+  \ge{[T_{k,n}-pD_{k,n}]_+^2\over Q_{k,n}+2m}.
   \]
-  Therefore, for every fixed \(k\),
+  For fixed \((p,k)\), the removed numerator is only \(O(n)\), so
   \[
   \liminf_{n\to\infty}
-  {\min_{h\in\mathscr H^{(1{\rm R})}_{k,n}}
+  {\min_{h\in\mathscr H^{(p{\rm R})}_{k,n}}
   (P(C_0)+M_h-B_{h,n})\over n^3}
   \ge{\tau_k^2\over\chi_k+2\mu_k}>0.
   \]
-  Only afterward may \(k\to\infty\), yielding the same iterated lower
-  coefficient \(C_{\rm dist}\) as the all-base theorem. This proves that no
-  subcubic counterfamily exists in the one-recursive class. It proves
-  nothing for two selected recursive splits, growing \(k\), an exact
-  history infimum, or geometry. The detailed proof is in
+  Only afterward may \(k\to\infty\), with \(p\) still fixed, yielding the
+  same iterated lower-bound coefficient \(C_{\rm dist}\) as the all-base
+  theorem. No statement is made for \(p=p(n)\), an exact residual infimum,
+  a minimizing order, or geometry. The detailed proof is in
   `research/FIXED_ORDER_CYCLE_RATIO.md`.
 - EXACT THEOREM (FULL KR1G RESIDUAL ON THE ZIGZAG-WITNESS CLASS): for every
   fixed \(k\), retain without modification
@@ -2110,6 +2134,26 @@ and `ops/`.
   and an independent completion-DP minimum. The fixtures are bounded
   synthetic structural checks, not rounded all-middle rows and not a proof
   of the all-\(q\) or asymptotic theorem.
+- VERIFIED FACT (BOUNDED EXACT FIXED-COUNT \(p=2\) KR1G CHECKER): the
+  standalone standard-library script in
+  `ops/TASK-20260804__kr1g_fixed_recursive_count/` imports no project or
+  earlier dossier helper and uses fresh edge-lineage state. Its
+  \((q,\ell,p,s)=(7,3,2,2)\) two-segment fixture checks 360 canonical
+  cycles, 181,440 raw selected histories, all 15,120 histories with exactly
+  two recursive selected splits, and all 151,200 compatible completions.
+  The selected topologies split equally into 5,040 sibling, 5,040 nested
+  outer-endpoint, and 5,040 nested two-inserted-endpoint cases; 30,240
+  completions split an edge with two inserted endpoints. A separate
+  \((4,4,2,1)\) position sweep checks 1,296 retained histories with two
+  distinct original base targets, including all BBRR, BRBR, and BRRB
+  placements, 288 sibling, 576 nested, 432 different-root, and 288
+  two-inserted-target cases. Exact `Fraction` arithmetic checks the literal
+  local identities, full generalized KR1G-6 decomposition, term
+  nonnegativity, \(m_p\) deviation partition, recursive-coordinate removal
+  from \(T,Q\), radical and combined-Cauchy bounds, the finite
+  \([T-pD]_+\) bound, and an independent completion recursion. These are
+  bounded rational structural checks, not rounded all-middle rows, an
+  all-\(q\) proof, an exact residual-infimum result, or an asymptotic proof.
 - VERIFIED FACT (BOUNDED EXACT ZIGZAG-HISTORY CHECKER): the standalone
   standard-library script in
   `ops/TASK-20260723__kr1g_zigzag_full_residual/` imports no project helper.
