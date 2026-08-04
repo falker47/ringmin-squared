@@ -279,12 +279,45 @@ The superficially similar Ferrers count and monotone threshold-closing
   types, and a separate 1,296-history sweep with two distinct base targets.
   A focused theorem-domain fixture additionally checks 42 prefixes and all
   4,620 completions through the two labels \(2,1\), including the exact
-  fixture-global prefix/Bellman minimum identity. No claim is made for
-  \(p=p(n)\), a closed-form evaluation or exact asymptotic value of the
-  finite minima, or geometry. See the
+  fixture-global prefix/Bellman minimum identity. This fixed-count theorem
+  itself makes no claim for \(p=p(n)\), a closed-form evaluation or exact
+  asymptotic value of the finite minima, or geometry. See the
   [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#a-fixed-number-of-recursive-splits-in-the-selected-window)
   and the
   [task evidence](../ops/TASK-20260804__kr1g_fixed_recursive_count/EVIDENCE.md).
+
+- **COMPLETED -- variable selected-recursive count at positive base
+  density:** fix \(\sigma\in(0,1]\), and, for every fixed \(k\), allow
+  \(p_{k,n}\) to vary subject only to
+  \(\liminf_n(\ell_{k,n}-p_{k,n})/\ell_{k,n}\ge\sigma\). If
+  \(\mathsf L_{k,n}(b)\) is the sum of the \(b\) smallest selected
+  \(d_t\)'s, KR1G-98 gives the finite bound
+  \[
+  P(C_0)+M_h-B_{h,n}
+  \ge{\mathsf L_{k,n}(\ell-p_{k,n})^2\over Q_{k,n}+2m},
+  \]
+  uniformly in recursive position, parentage, depth, and completion. Exact
+  threshold/Riemann analysis includes every floor, ceiling, tie, and
+  segment boundary. Its fixed-\(k\) lower-order-statistic functional
+  \(\Phi_k(\rho)\) satisfies
+  \(\Phi_k(\rho)\to2\rho^2E^2\) only after the refining-mesh
+  \(k\to\infty\) step. Hence the correctly ordered iterated bound is
+  \[
+  \liminf_{k\to\infty}\liminf_{n\to\infty}
+  {\min_h(P(C_0)+M_h-B_{h,n})\over n^3}
+  \ge\sigma^4C_{\rm dist}>0.
+  \]
+  The factor \(\sigma^4\) is correct for the displayed uniform relaxation;
+  no exact residual infimum or strongest correlated bound is claimed.
+  Fixed \(p\) and all \(p=o(n)\) are recovered by \(\sigma=1\). The only
+  recursive-count regime left open is vanishing lower base density,
+  \(\liminf_n(\ell-p_{k,n})/\ell=0\). The exact checker audits crossover,
+  ties, the finite subset minimum and denominator, one rounded all-middle
+  row, and the \(\sigma^2\)-to-\(\sigma^4\) mechanism. No geometry,
+  \(k=k(n)\), or discrete attainment is inferred. See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#variable-recursive-counts-with-positive-base-density)
+  and the
+  [task evidence](../ops/TASK-20260804__kr1g_variable_recursive_count/EVIDENCE.md).
 
 - **COMPLETED -- two-contiguous-block charging ansatz:** the separator-density
   construction, convex bridge, two history-relative disjoint original-edge
@@ -411,11 +444,11 @@ The superficially similar Ferrers count and monotone threshold-closing
 
 ## Next Atomic Task
 
-User review and manual commit decision for the complete-residual theorem on
-the all-middle KR1G class with any fixed number \(p\ge0\) of selected
-recursive splits and all other selected splits on distinct original edges.
-Afterward, choose exactly one item from the deferred directions below in a
-fresh task before developing further mathematics.
+User review and manual commit decision for the variable-recursive-count
+KR1G theorem at positive lower base density. Afterward, the proposed next
+atomic research task is the sole uncovered count regime: decide what the
+recursive terms in KR1G-98 imply when
+\(\liminf_n b^{\rm base}_{k,n}/\ell_{k,n}=0\), still at fixed \(k\).
 
 ## Deferred, Not Prioritized
 

@@ -2024,9 +2024,71 @@ and `ops/`.
   \]
   Only afterward may \(k\to\infty\), with \(p\) still fixed, yielding the
   same iterated lower-bound coefficient \(C_{\rm dist}\) as the all-base
-  theorem. No statement is made for \(p=p(n)\), a closed-form evaluation or
-  exact asymptotic value of the finite minima, a minimizing order, or
-  geometry. The detailed proof is in
+  theorem. This fixed-count statement does not itself treat \(p=p(n)\);
+  the positive-base-density theorem below does. No closed-form evaluation
+  or exact asymptotic value of the finite minima, minimizing order, or
+  geometry is asserted. The detailed proof is in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`.
+- EXACT THEOREM (VARIABLE SELECTED RECURSIVE COUNT AT POSITIVE BASE
+  DENSITY): fix \(\sigma\in(0,1]\). For every fixed \(k\), let
+  \(p_{k,n}\) vary with \(n\), put
+  \(b^{\rm base}_{k,n}=\ell_{k,n}-p_{k,n}\), and assume
+  \[
+  \liminf_{n\to\infty}
+  {b^{\rm base}_{k,n}\over\ell_{k,n}}\ge\sigma.
+  \]
+  Sort the \(\ell_{k,n}\) positive selected-coordinate values as
+  \(d^\uparrow_{k,n,1}\le\cdots\le d^\uparrow_{k,n,\ell}\), and put
+  \[
+  \mathsf L_{k,n}(b)=\sum_{j=1}^b d^\uparrow_{k,n,j}
+  =\min_{|B|=b}\sum_{t\in B}d_t.
+  \]
+  KR1G-98 and the unchanged denominator identity give, uniformly in every
+  recursive position, parentage, depth, and arbitrary completion,
+  \[
+  P(C_0)+M_h-B_{h,n}
+  \ge{\mathsf L_{k,n}(b^{\rm base}_{k,n})^2
+  \over Q_{k,n}+2m}.
+  \]
+  This order-statistic minimum is exact only for the unrestricted
+  coordinate-subset relaxation; no history or residual attainment follows.
+  At fixed \(k\), let \(\Phi_k(\rho)\) be the lower rearranged integral of
+  \[
+  \phi_k(y)={\lambda_i\over2-\lambda_i}(1+a-2y),
+  \qquad \beta_i\le y<\beta_{i-1},
+  \]
+  over a fraction \(\rho\) of \([\beta_k,a]\). Exact floor/ceiling and
+  threshold-Riemann analysis gives
+  \[
+  {\mathsf L_{k,n}(j_n)\over n^2}\to\Phi_k(\rho)
+  \quad\hbox{if}\quad {j_n\over\ell_{k,n}}\to\rho,
+  \]
+  and the liminf density assumption yields the fixed-\(k\) coefficient
+  \(\Phi_k(\sigma)^2/(\chi_k+2\mu_k)\). With
+  \(g(y)=4y-(1+a)\), the exact cell comparison
+  \[
+  0\le g(y)-\phi_k(y)
+  ={2(1+a)(y-\beta_i)\over1+a-2\beta_i}
+  \]
+  and the refining all-middle mesh prove
+  \[
+  \Phi_k(\rho)\longrightarrow2\rho^2E^2.
+  \]
+  Therefore, only after the fixed-\(k\) result,
+  \[
+  \liminf_{k\to\infty}\liminf_{n\to\infty}
+  {\min_h(P(C_0)+M_h-B_{h,n})\over n^3}
+  \ge\sigma^4C_{\rm dist}>0.
+  \]
+  The exponent four is correct for this order-statistic numerator and the
+  class-uniform \(Q+2m\) denominator relaxation; no strongest possible
+  residual coefficient is claimed. Fixed \(p\) and every
+  \(p_{k,n}=o(n)\) have base density one and recover \(C_{\rm dist}\).
+  The sole count regime still lacking a positive cubic conclusion is
+  \(\liminf b^{\rm base}_{k,n}/\ell_{k,n}=0\), equivalently a subsequence
+  with \(b^{\rm base}_{k,n}=o(n)\). No \(k=k(n)\), geometry, minimizing
+  order, ordinary-limit, exact-infimum, or discrete-attainment conclusion
+  is made. The detailed proof is in
   `research/FIXED_ORDER_CYCLE_RATIO.md`.
 - EXACT THEOREM (FULL KR1G RESIDUAL ON THE ZIGZAG-WITNESS CLASS): for every
   fixed \(k\), retain without modification
@@ -2191,6 +2253,21 @@ and `ops/`.
   \([T-pD]_+\) bound. These are bounded rational structural checks, not
   rounded all-middle rows, an all-\(q\) proof, a closed-form theorem for the
   general finite minimum, or an asymptotic proof.
+- VERIFIED FACT (FOCUSED EXACT VARIABLE-COUNT ORDER-STATISTIC CHECKER): the
+  standalone standard-library script in
+  `ops/TASK-20260804__kr1g_variable_recursive_count/` uses exact
+  \(\mathbb Q\) and \(\mathbb Q(\sqrt2)\) arithmetic. Two three-coordinate
+  rational fixtures exhaust 16 subsets and check a cross-segment order
+  crossover, a two-minimizer tie, the exact lower-order-statistic sums, the
+  denominator relaxation, and the resulting finite ratios. The literal
+  rounded all-middle row \((k,n)=(3,200)\) has
+  \(r=88\), cutoffs \((86,83,80)\), \(\ell=8\), exact increasing label
+  order \((82,81,80,85,84,83,87,86)\), and all 256 coordinate subsets
+  pass. A separate exact midpoint identity for the limiting linear profile
+  checks the \(\sigma^2\) numerator and hence the squared \(\sigma^4\)
+  factor at \(\sigma=1/4,1/2,3/4,1\). This is a bounded audit of the
+  enlarged coordinate-subset relaxation; it neither enumerates histories
+  nor proves discrete residual attainment or the asymptotic theorem.
 - VERIFIED FACT (BOUNDED EXACT ZIGZAG-HISTORY CHECKER): the standalone
   standard-library script in
   `ops/TASK-20260723__kr1g_zigzag_full_residual/` imports no project helper.

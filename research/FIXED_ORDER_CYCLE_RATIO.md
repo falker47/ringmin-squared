@@ -13495,11 +13495,321 @@ give
 \tag{KR1G-101}
 \]
 This is an iterated fixed-\(p\), fixed-\(k\) conclusion. It gives no theorem
-for \(p=p(n)\), \(k=k(n)\), or a joint growing regime, and its finite
-thresholds may depend on \(p\) and the complete all-middle tuple. The
-constant is the exact limit of these universal lower-bound coefficients,
-not an exact residual infimum. No minimizing-order, \(C_{\rm AF}\), or
-geometric consequence is asserted.
+by itself for \(p=p(n)\), \(k=k(n)\), or a joint growing regime, and its
+finite thresholds may depend on \(p\) and the complete all-middle tuple.
+The constant is the exact limit of these universal lower-bound
+coefficients, not an exact residual infimum. The next subsection treats
+variable \(p\) at every fixed \(k\) under a positive base-density
+hypothesis. No minimizing-order, \(C_{\rm AF}\), or geometric consequence
+is asserted here.
+
+### Variable recursive counts with positive base density
+
+We now allow the recursive count to vary with \(n\). The quantifiers are
+part of the theorem. Fix one common
+\(\sigma\in(0,1]\). For every integer \(k\ge1\), let \(p_{k,n}\) be an
+integer on all sufficiently large rows in the fixed-\(k\) all-middle
+domain, with
+\[
+0\le p_{k,n}\le\ell_{k,n},
+\qquad
+b^{\rm base}_{k,n}:=\ell_{k,n}-p_{k,n},
+\]
+and assume, separately for every fixed \(k\), that
+\[
+\boxed{
+\liminf_{n\to\infty}
+{b^{\rm base}_{k,n}\over\ell_{k,n}}\ge\sigma.}
+\tag{KR1G-102}
+\]
+There is no uniformity in \(k\) in this hypothesis. In the rest of the
+fixed-\(k\) argument suppress the first index on \(p_{k,n}\) and
+\(b^{\rm base}_{k,n}\), and write \(b_n=b^{\rm base}_{k,n}\).
+
+Since
+\[
+{\ell_{k,n}\over n}\longrightarrow
+L_k:=a-\beta_k^{(k)}>0,
+\]
+(KR1G-102) gives \(1\le b_n\le\ell_{k,n}\), and hence
+\(0\le p_{k,n}\le\ell_{k,n}-1\), eventually. Every finite identity and
+count in (KR1G-89)--(KR1G-98) is pointwise in \(p\), so it remains valid
+on each such row. Non-vacuity is also uniform in the value of the count:
+the selected split-type word
+\[
+{\rm B}\,{\rm R}^{p_{k,n}}{\rm B}^{b_n-1}
+\]
+is realizable. The first base split creates recursive children, every
+subsequent recursive split leaves a recursive edge available, and
+\(b_n\le\ell_{k,n}<q\) leaves enough untouched original edges for the
+remaining base splits. Thus the exact recurrence, prefix count, arbitrary
+completion count, and Bellman minimum apply row by row even though the
+count is not fixed.
+
+For the finite order-statistic replacement, sort the complete selected
+multiset as
+\[
+d^{\uparrow}_{k,n,1}\le\cdots\le
+d^{\uparrow}_{k,n,\ell_{k,n}},
+\qquad
+\mathsf L_{k,n}(b)
+:=\sum_{j=1}^{b}d^{\uparrow}_{k,n,j}.
+\]
+Equivalently, this is the exact unrestricted coordinate-subset minimum
+\[
+\boxed{
+\mathsf L_{k,n}(b)
+=\min_{\substack{B\subset I\\|B|=b}}
+\sum_{t\in B}d_t.}
+\tag{KR1G-103}
+\]
+For a declared history, its actual base-coordinate set is
+\(I\setminus\mathcal R(h)\), of cardinality \(b_n\). Therefore
+\[
+T^{(-\mathcal R)}_{k,n}
+=\sum_{t\in I\setminus\mathcal R}d_t
+\ge\mathsf L_{k,n}(b_n).
+\]
+Moreover \(m_{p_{k,n}}=q-b_n\), and the denominator identity used in
+(KR1G-99) is still exact:
+\[
+\begin{aligned}
+Q^{(-\mathcal R)}_{k,n}+2m_{p_{k,n}}
+&=Q_{k,n}+2m
+-\sum_{\rho\in\mathcal R}
+{2\lambda_\rho\over2-\lambda_\rho}\\
+&\le Q_{k,n}+2m.
+\end{aligned}
+\]
+All \(d_t\) are positive, and eventually \(b_n\ge1\). Dropping
+\(\mathcal E_{\mathcal R}\ge0\) in (KR1G-98) now gives the requested
+finite estimate
+\[
+\boxed{
+\mathscr R_{k,n}(h)
+\ge
+{\mathsf L_{k,n}(b_n)^2\over Q_{k,n}+2m}.}
+\tag{KR1G-104}
+\]
+It is uniform in the recursive positions, parentage, depth, and arbitrary
+completion. There is no positive part. Exactness in (KR1G-103) refers to
+the unrestricted \(b\)-coordinate relaxation; (KR1G-104) asserts neither
+that its minimizing coordinate set is a realizable selected history nor
+that a discrete history attains the residual bound.
+
+We next prove the order-statistic asymptotic with all rounding retained.
+For this fixed \(k\), put \(\beta_0=a\),
+\[
+c_i={\lambda_i\over2-\lambda_i}\in(0,1),
+\]
+and define the positive piecewise-affine profile on
+\([\beta_k,a]\) by
+\[
+\boxed{
+\phi_k(y)=c_i(S-2y)
+\quad\hbox{when}\quad
+\beta_i\le y<\beta_{i-1}.}
+\tag{KR1G-105}
+\]
+Let \(\phi_k^\uparrow\) be its nondecreasing rearrangement on an interval
+of length \(L_k=a-\beta_k\), and, for \(0\le\rho\le1\), set
+\[
+\boxed{
+\begin{aligned}
+\Phi_k(\rho)
+&=\int_0^{\rho L_k}\phi_k^\uparrow(u)\,du\\
+&=\inf_{\substack{0\le\vartheta\le1\\
+\int_{\beta_k}^{a}\vartheta(y)\,dy=\rho L_k}}
+\int_{\beta_k}^{a}\vartheta(y)\phi_k(y)\,dy\\
+&=\max_{z\ge0}
+\left\{
+\rho L_kz-
+\int_{\beta_k}^{a}[z-\phi_k(y)]_+\,dy
+\right\}.
+\end{aligned}}
+\tag{KR1G-106}
+\]
+The last two formulas are the usual threshold characterization of the
+lower rearrangement. In particular, \(\Phi_k\) is continuous and
+nondecreasing, \(\Phi_k(0)=0\), and direct integration gives
+\(\Phi_k(1)=\tau_k\).
+
+Here is the discrete-to-continuous statement needed below. For every
+integer sequence \(0\le j_n\le\ell_{k,n}\),
+\[
+{j_n\over\ell_{k,n}}\longrightarrow\rho
+\quad\Longrightarrow\quad
+\boxed{
+{\mathsf L_{k,n}(j_n)\over n^2}
+\longrightarrow\Phi_k(\rho).}
+\tag{KR1G-107}
+\]
+To prove it, first note the literal rounding bounds
+\[
+-{1\over n}< {r\over n}-a\le0,
+\qquad
+0\le {s_i\over n}-\beta_i<{1\over n}.
+\]
+For every \(t\in I_i=\{s_i,\ldots,s_{i-1}-1\}\), with \(s_0=r\),
+these imply
+\[
+\beta_i\le {t\over n}<\beta_{i-1},
+\qquad
+{d_t\over n}
+=\phi_k(t/n)+c_i(r/n-a),
+\]
+so the last error has absolute value less than \(1/n\), uniformly over
+the selected labels. The floor and ceiling endpoints change each of the
+finitely many block Riemann sums by only \(O_k(1/n)\).
+
+For completeness, the exact finite threshold identity is
+\[
+{\mathsf L_{k,n}(j_n)\over n^2}
+=\max_{z\ge0}
+\left\{
+{j_n\over n}z
+-{1\over n}\sum_{t\in I}
+\left[z-{d_t\over n}\right]_+
+\right\}.
+\]
+The maximum may be restricted to one compact threshold interval independent
+of \(n\) at this fixed \(k\); when \(j_n=\ell_{k,n}\), a maximizing
+threshold can be chosen there even though the objective is constant above
+the largest coordinate. The preceding uniform error and the finite block
+Riemann sums make the expression in braces converge uniformly on that
+interval to the last line of (KR1G-106), because
+\(j_n/n\to\rho L_k\). Maxima therefore converge, proving (KR1G-107).
+This argument includes ties, segment boundaries,
+\(r=\lfloor an\rfloor\), every \(s_i=\lceil\beta_i n\rceil\), and any
+rounding of \(j_n\).
+
+The liminf hypothesis needs no convergence of \(b_n/\ell_{k,n}\). For
+every \(0<\varepsilon<\sigma\), (KR1G-102) gives eventually
+\[
+b_n\ge\left\lfloor
+(\sigma-\varepsilon)\ell_{k,n}\right\rfloor.
+\]
+The sums of positive lower order statistics are nondecreasing in their
+count. Apply (KR1G-107) to the right-hand count and then let
+\(\varepsilon\downarrow0\), using continuity of \(\Phi_k\), to obtain
+\[
+\boxed{
+\liminf_{n\to\infty}
+{\mathsf L_{k,n}(b_n)\over n^2}
+\ge\Phi_k(\sigma).}
+\tag{KR1G-108}
+\]
+Combining (KR1G-104), (KR1G-108), and
+\(Q_{k,n}+2m=(\chi_k+2\mu_k)n+O(1)\) proves, separately for every fixed
+\(k\),
+\[
+\boxed{
+\liminf_{n\to\infty}
+{\displaystyle
+\min_{h\in\mathscr H^{(p_{k,n}{\rm R})}_{k,n}}
+\mathscr R_{k,n}(h)
+\over n^3}
+\ge
+{\Phi_k(\sigma)^2\over\chi_k+2\mu_k}>0.}
+\tag{KR1G-109}
+\]
+The eventual domain threshold may depend on \(k\), the complete fixed
+tuple, and the chosen integer sequence. No common threshold is used.
+
+Only now do we let \(k\to\infty\). Retain
+\[
+b={S\over4},
+\qquad E=a-b,
+\qquad g(y)=4y-S=4(y-b),
+\]
+and let
+\(\Delta_k=\max_i(\beta_{i-1}^{(k)}-\beta_i^{(k)})\). The mesh result
+used before (KR1G-16) gives
+\[
+\beta_k^{(k)}\longrightarrow b,
+\qquad
+\Delta_k\longrightarrow0.
+\]
+Since \(\lambda_i=4-S/\beta_i\), direct subtraction on the \(i\)-th
+cell gives the exact comparison
+\[
+\boxed{
+0\le g(y)-\phi_k(y)
+={2S(y-\beta_i)\over S-2\beta_i}
+\le {2S\over1-a}\Delta_k.}
+\tag{KR1G-110}
+\]
+On the same moving interval \([\beta_k,a]\), the lower \(\rho\)-fraction
+for the strictly increasing function \(g\) is its initial interval. Hence
+\[
+G_k(\rho)
+:=\int_{\beta_k}^{\beta_k+\rho(a-\beta_k)}g(y)\,dy
+\]
+satisfies, by (KR1G-110) and rearrangement monotonicity,
+\[
+G_k(\rho)
+-\rho(a-\beta_k){2S\over1-a}\Delta_k
+\le\Phi_k(\rho)\le G_k(\rho).
+\]
+Writing \(\delta_k=\beta_k-b\), its exact value is
+\[
+G_k(\rho)
+=2\left[
+(\delta_k+\rho(E-\delta_k))^2-\delta_k^2
+\right].
+\]
+Therefore, for every fixed \(0\le\rho\le1\),
+\[
+\boxed{
+\Phi_k(\rho)\longrightarrow
+2\rho^2E^2=\rho^2\tau_\infty.}
+\tag{KR1G-111}
+\]
+This proves the requested power of the density rather than assuming it.
+
+Finally use \(\chi_k\to J\) and \(\mu_k\to\mu_\infty\) only after the
+fixed-\(k\) conclusion (KR1G-109). Equations (KR1G-87), (KR1G-109), and
+(KR1G-111) give
+\[
+\boxed{
+\liminf_{k\to\infty}\ \liminf_{n\to\infty}
+{\displaystyle
+\min_{h\in\mathscr H^{(p_{k,n}{\rm R})}_{k,n}}
+\bigl(P(C_0)+M_h-B_{h,n}\bigr)
+\over n^3}
+\ge
+{4\sigma^4E^4\over J+2\mu_\infty}
+=\sigma^4C_{\rm dist}>0.}
+\tag{KR1G-112}
+\]
+Thus the proposed \(\sigma^4C_{\rm dist}\) target is correct. It is the
+exact limit of the coefficients furnished by the lower-order-statistic
+numerator together with the class-uniform denominator relaxation
+\(Q^{(-\mathcal R)}+2m_p\le Q+2m\). It is not claimed to be an exact
+history infimum or the strongest possible estimate obtainable by retaining
+additional correlations or the discarded recursive terms.
+
+If \(p_{k,n}=p\) is fixed, then \(p/\ell_{k,n}\to0\) for every fixed
+\(k\). More generally, every \(p_{k,n}=o(n)\) has
+\(p_{k,n}/\ell_{k,n}\to0\). Both cases have
+\(b^{\rm base}_{k,n}/\ell_{k,n}\to1\), so (KR1G-112) with \(\sigma=1\)
+recovers (KR1G-101) and \(C_{\rm dist}\). Linear recursive counts are also
+covered whenever their base fraction has a positive liminf.
+
+Within this fixed-\(k\) selected-window count problem, the sole remaining
+regime without a positive cubic conclusion is
+\[
+\boxed{
+\liminf_{n\to\infty}
+{b^{\rm base}_{k,n}\over\ell_{k,n}}=0,}
+\tag{KR1G-113}
+\]
+equivalently a subsequence with \(b^{\rm base}_{k,n}=o(n)\), or
+\(\limsup p_{k,n}/\ell_{k,n}=1\). The finite estimate (KR1G-104) still
+holds there, but its present order-statistic asymptotic has zero limiting
+cubic coefficient. Nothing here permits \(k=k(n)\), interchanges the two
+limits, proves ordinary-limit existence, derives geometry, classifies a
+minimizing order, invokes \(C_{\rm AF}\), or asserts discrete attainment.
 
 ## 10. Exact \(K\) For The Exact-Threshold Residue-Two Core Order
 
