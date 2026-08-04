@@ -1,6 +1,6 @@
 # PROJECT_KNOWLEDGE - power-ringmin
 
-Last reviewed: 2026-07-24
+Last reviewed: 2026-08-04
 
 This file is compact stable project memory. Detailed proofs live in
 `research/*.md`; roadmap, chronology, command transcripts, failed attempts,
@@ -1936,9 +1936,36 @@ and `ops/`.
   The recurrence chooses every untouched original or current recursive
   edge, and therefore includes siblings, nested descendants, and edges with
   two inserted endpoints. It reduces to \((q)_\ell\) for \(p=0\) and to
-  \((q)_{\ell-1}\ell(\ell-1)\) for \(p=1\). KR1G-91 also counts every
-  arbitrary compatible completion, proving finite non-vacuity without
-  evaluating a minimum or infimum.
+  \((q)_{\ell-1}\ell(\ell-1)\) for \(p=1\). More explicitly, placing the
+  unique recursive split after \(j\) base splits gives
+  \[
+  A^{(q)}_{\ell,\ell-1}
+  =\sum_{j=1}^{\ell-1}(q)_j(2j)(q-j)_{\ell-j-1}
+  =(q)_{\ell-1}\ell(\ell-1),
+  \]
+  so \(\Pi_{q,\ell,1}\) is exactly the former direct-child parameter set.
+  Every selected prefix has
+  \(\prod_{j=0}^{s_k-2}(q+\ell+j)\) compatible completions. For a current
+  labelled cycle \(C\), their exact Bellman reduction is
+  \[
+  V_0(C)=0,\qquad
+  V_j(C)=\min_{e=\{u,v\}\in E(C)}
+  \max\{0,j(u+v)-uv+V_{j-1}(C\oplus_e j)\}.
+  \]
+  If \(C_\pi,H_\pi,M_\pi\) are the terminal cycle, total correction, and
+  selected-prefix maximum of \(\pi\in\Pi_{q,\ell,p}\), then
+  \(\widehat M_\pi=\max\{M_\pi,H_\pi+V_{s_k-1}(C_\pi)\}\), and KR1G-91b
+  gives, with
+  \(\mathcal B_{k,n}=P_{r,n}+\sum_{i=1}^k(s_{i-1}-s_i)
+  G_{n,\lambda_i}(s_i)\),
+  \[
+  \min_{h\in\mathscr H^{(p{\rm R})}_{k,n}}\mathscr R_{k,n}(h)
+  =\min_{\pi\in\Pi_{q,\ell,p}}
+  [P(C_0(\pi))+\widehat M_\pi-\mathcal B_{k,n}].
+  \]
+  This is an exact finite optimization formula for every fixed \(p\); it
+  does not give a closed-form value. At \(p=1\) it recovers the whole former
+  one-recursive formulation, not only its prefix count.
 
   For the actual recursive-label set \(\mathcal R\), put
   \[
@@ -1997,8 +2024,9 @@ and `ops/`.
   \]
   Only afterward may \(k\to\infty\), with \(p\) still fixed, yielding the
   same iterated lower-bound coefficient \(C_{\rm dist}\) as the all-base
-  theorem. No statement is made for \(p=p(n)\), an exact residual infimum,
-  a minimizing order, or geometry. The detailed proof is in
+  theorem. No statement is made for \(p=p(n)\), a closed-form evaluation or
+  exact asymptotic value of the finite minima, a minimizing order, or
+  geometry. The detailed proof is in
   `research/FIXED_ORDER_CYCLE_RATIO.md`.
 - EXACT THEOREM (FULL KR1G RESIDUAL ON THE ZIGZAG-WITNESS CLASS): for every
   fixed \(k\), retain without modification
@@ -2133,7 +2161,9 @@ and `ops/`.
   radical envelope, optimized position-parent bound, uniform finite bound,
   and an independent completion-DP minimum. The fixtures are bounded
   synthetic structural checks, not rounded all-middle rows and not a proof
-  of the all-\(q\) or asymptotic theorem.
+  of the all-\(q\) or asymptotic theorem. The `TASK-20260724` path is a
+  retained legacy slug: Git history and the dossier correction establish
+  that this one-recursive task was performed on 2026-08-04.
 - VERIFIED FACT (BOUNDED EXACT FIXED-COUNT \(p=2\) KR1G CHECKER): the
   standalone standard-library script in
   `ops/TASK-20260804__kr1g_fixed_recursive_count/` imports no project or
@@ -2147,13 +2177,20 @@ and `ops/`.
   \((4,4,2,1)\) position sweep checks 1,296 retained histories with two
   distinct original base targets, including all BBRR, BRBR, and BRRB
   placements, 288 sibling, 576 nested, 432 different-root, and 288
-  two-inserted-target cases. Exact `Fraction` arithmetic checks the literal
-  local identities, full generalized KR1G-6 decomposition, term
+  two-inserted-target cases. A third theorem-domain fixture fixes one
+  nonmonotone \(q=7\) base cycle at \((\ell,p,s)=(3,2,3)\), checks all 42
+  retained prefixes counted by \(A^{(7)}_{3,1}\), and exhausts all 4,620
+  completions through both labels \(2,1\). Its 42 prefixes and completions
+  divide equally among sibling, nested-outer, and nested-two-inserted
+  topologies; 1,680 completions use an inserted--inserted target. The
+  fixture-global literal residual minimum and the independent prefix/Bellman
+  value agree exactly at \(1541/28\). Exact `Fraction` arithmetic also
+  checks the local identities, full generalized KR1G-6 decomposition, term
   nonnegativity, \(m_p\) deviation partition, recursive-coordinate removal
-  from \(T,Q\), radical and combined-Cauchy bounds, the finite
-  \([T-pD]_+\) bound, and an independent completion recursion. These are
-  bounded rational structural checks, not rounded all-middle rows, an
-  all-\(q\) proof, an exact residual-infimum result, or an asymptotic proof.
+  from \(T,Q\), radical and combined-Cauchy bounds, and the finite
+  \([T-pD]_+\) bound. These are bounded rational structural checks, not
+  rounded all-middle rows, an all-\(q\) proof, a closed-form theorem for the
+  general finite minimum, or an asymptotic proof.
 - VERIFIED FACT (BOUNDED EXACT ZIGZAG-HISTORY CHECKER): the standalone
   standard-library script in
   `ops/TASK-20260723__kr1g_zigzag_full_residual/` imports no project helper.

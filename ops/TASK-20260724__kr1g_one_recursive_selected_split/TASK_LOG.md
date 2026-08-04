@@ -98,3 +98,23 @@ Append-only. Add a new entry to correct previous information.
 - **Evidence:**
   `EVIDENCE.md#ev-005---post-review-roadmap-consistency-correction`.
 - **Next step:** user review and manual commit decision.
+
+## 2026-08-04 - Historical date and equation-reference correction
+
+- **Action:** compare the legacy dossier headings with Git author and commit
+  dates for `ce33177` and `069cb677`, and map the historical one-recursive
+  equation numbering to the later fixed-\(p\) formulation.
+- **Result:** the five earlier headings dated 2026-07-24 are misdated; every
+  action in this dossier occurred on 2026-08-04. The directory slug and
+  earlier headings remain unchanged solely to preserve stable paths and the
+  append-only log. References to historical KR1G-89--KR1G-91 mean the
+  one-recursive count, Bellman recursion, and finite-minimum identity at
+  baseline `069cb677`; the current proof contains their fixed-\(p\)
+  counterparts in KR1G-89--KR1G-91b.
+- **Interpretation:** this entry supersedes the earlier date labels and
+  removes ambiguity without rewriting chronology. It changes no theorem,
+  checker result, production code, schema, or artifact.
+- **Evidence:**
+  `EVIDENCE.md#ev-006---historical-date-and-equation-reference-correction`.
+- **Next step:** use 2026-08-04 as the authoritative task date while
+  retaining the legacy path in citations.

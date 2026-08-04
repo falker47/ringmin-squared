@@ -9,10 +9,12 @@
 | EV-003 | code / computation | Independent exact checker | `exact_checker.py` | PASS |
 | EV-004 | test / audit | Repository and final diff verification | repository commands | PASS |
 | EV-005 | documentation / audit | Post-review roadmap consistency correction | roadmap and dossier | PASS |
+| EV-006 | provenance / audit | Historical date and equation-reference correction | Git history; proof | PASS |
 
 ## EV-001 - Startup and source isolation
 
-- **Date:** 2026-07-24
+- **Date:** 2026-08-04. The linked append-only log heading retains the
+  superseded 2026-07-24 label; see EV-006.
 - **Method or command:** read the operating contract and all required memory,
   proof, roadmap, and prior-dossier sources; run `git rev-parse HEAD` and
   `git status --short`.
@@ -26,13 +28,16 @@
 
 ## EV-002 - One-recursive finite theorem and cubic bound
 
-- **Date:** 2026-07-24
+- **Date:** 2026-08-04. The linked append-only log heading retains the
+  superseded 2026-07-24 label; see EV-006.
 - **Method or command:** exact derivation from KR1G-5--KR1G-6 and the
   original cycle-sum identity; finite parent/side parametrization; Bellman
   completion recursion; simultaneous weighted Cauchy; three independent
   read-only audits; exact SymPy checks of the coverage, \(J-G\),
   denominator, and scalar-square identities.
-- **Relevant output:** KR1G-89--KR1G-91 give the exact finite formulation.
+- **Relevant output:** historical KR1G-89--KR1G-91 at baseline `069cb677`
+  give the exact finite formulation. Their current fixed-\(p\) counterparts
+  are KR1G-89--KR1G-91b.
   With \(m_1=q-\ell+1\),
   \(T^{(-\rho)}=T_{k,n}-d_\rho\), and
   \(Q^{(-\rho)}=Q_{k,n}-4/(2-\lambda_\rho)\), KR1G-98 gives
@@ -56,7 +61,8 @@
 
 ## EV-003 - Independent exact checker
 
-- **Date:** 2026-07-24
+- **Date:** 2026-08-04. The linked append-only log heading retains the
+  superseded 2026-07-24 label; see EV-006.
 - **Method or command:**
   `python ops\TASK-20260724__kr1g_one_recursive_selected_split\exact_checker.py`;
   `python -m ruff check
@@ -84,7 +90,8 @@
 
 ## EV-004 - Repository and final diff verification
 
-- **Date:** 2026-07-24
+- **Date:** 2026-08-04. The linked append-only log heading retains the
+  superseded 2026-07-24 label; see EV-006.
 - **Method or command:** `python -m pytest -p no:cacheprovider`;
   `$env:PYTHONPATH='src'; python -m
   power_ringmin.verify_checked_artifacts`; `python -m pytest
@@ -133,12 +140,35 @@
   dossier, and the complete diff and `git diff --check` pass.
 - **Interpretation:** the post-review roadmap inconsistency is corrected and
   the task remains `READY_FOR_REVIEW`.
-- **Limitations:** this documentation-only correction neither changes nor
-  reopens KR1G-89--KR1G-101. The proof, `PROJECT_KNOWLEDGE.md`, checker,
-  production code, and tests were not modified, and computational tests were
-  not rerun because their inputs and claims are unchanged. Two auxiliary
-  audit wrappers stopped before content evaluation because of PowerShell
-  backtick transport and an unsupported Windows Git configuration override;
-  corrected forms were rerun and all substantive checks passed.
+- **Limitations:** this documentation-only correction neither changed nor
+  reopened the one-recursive theorem numbered KR1G-89--KR1G-101 at
+  historical baseline `069cb677`. The proof, `PROJECT_KNOWLEDGE.md`,
+  checker, production code, and tests were not modified, and computational
+  tests were not rerun because their inputs and claims were unchanged. Two
+  auxiliary audit wrappers stopped before content evaluation because of
+  PowerShell backtick transport and an unsupported Windows Git configuration
+  override; corrected forms were rerun and all substantive checks passed.
 - **Linked log entry:**
   `TASK_LOG.md#2026-08-04---post-review-roadmap-consistency-correction`.
+
+## EV-006 - Historical date and equation-reference correction
+
+- **Date:** 2026-08-04
+- **Method or command:** inspect `git show -s --format=fuller` for baseline
+  `7665e31`, theorem commit `ce33177`, handoff correction `069cb677`, and
+  fixed-\(p\) commit `0240613`; compare the proof diff and all dossier date
+  fields and references.
+- **Relevant output:** `7665e31` is dated 2026-07-24, while `ce33177` and
+  `069cb677` are dated 2026-08-04. Thus the `TASK-20260724` slug and the five
+  earlier log headings are legacy misdates. At `069cb677`, KR1G-89,
+  KR1G-90, and KR1G-91 were respectively the one-recursive prefix count,
+  Bellman recurrence, and exact finite-minimum formula; the current
+  fixed-\(p\) proof records the corresponding material in
+  KR1G-89--KR1G-91b.
+- **Interpretation:** 2026-08-04 is the authoritative task date. The legacy
+  directory and append-only headings remain to preserve stable links, with
+  this correction controlling their interpretation.
+- **Limitations:** this is provenance correction, not new mathematical or
+  computational evidence.
+- **Linked log entry:**
+  `TASK_LOG.md#2026-08-04---historical-date-and-equation-reference-correction`.

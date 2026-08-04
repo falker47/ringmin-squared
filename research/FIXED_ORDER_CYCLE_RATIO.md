@@ -2,7 +2,7 @@
 
 Date: 2026-07-14
 
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 ## Scope And Classification
 
@@ -13116,10 +13116,11 @@ follows.
 
 ### A fixed number of recursive splits in the selected window
 
-We now extend the preceding two theorems to an arbitrary integer
-\(p\ge0\) fixed independently of \(n\) and \(k\). Retain the unchanged
-all-middle tuple and all notation from (KR1G-34), (KR1G-69)--(KR1G-74), and
-(KR1G-81). Thus, for one fixed \(k\),
+We now extend the preceding \(p=0\) theorem and the previously proved
+direct-child \(p=1\) case to an arbitrary integer \(p\ge0\) fixed
+independently of \(n\) and \(k\). Retain the unchanged all-middle tuple and
+all notation from (KR1G-34), (KR1G-69)--(KR1G-74), and (KR1G-81). Thus, for
+one fixed \(k\),
 \[
 r=\lfloor an\rfloor,\qquad
 s_i=\lceil\beta_i^{(k)}n\rceil,\qquad
@@ -13182,8 +13183,20 @@ A^{(q)}_{\ell,\ell-1}
 \]
 Positivity is also constructive: use one base split, then \(p\) recursive
 splits, then the remaining \(\ell-p-1\) untouched original edges. Thus the
-last two lines recover, respectively, the distinct-original class at
-\(p=0\) and the former direct-child count at \(p=1\).
+first specialization recovers the distinct-original class at \(p=0\). For
+\(p=1\), if the unique recursive split follows \(j\) base splits, its
+target is one of the \(2j\) direct children then present. Therefore
+\[
+\begin{aligned}
+A^{(q)}_{\ell,\ell-1}
+&=\sum_{j=1}^{\ell-1}
+(q)_j(2j)(q-j)_{\ell-j-1}\\
+&=(q)_{\ell-1}\ell(\ell-1).
+\end{aligned}
+\]
+Thus \(\Pi_{q,\ell,1}\) is exactly the former direct-child
+parametrization by base cycle, recursive position, injective base targets,
+and parent side, not merely a set with the same cardinality.
 
 Every selected prefix admits every compatible completion below \(s\).
 After the selected window its cycle has \(q+\ell\) edges, and each later
@@ -13197,8 +13210,65 @@ history class itself has the finite positive cardinality
 \tag{KR1G-91}
 \]
 where the empty product for \(s=1\) is one. This establishes finite domain
-and non-vacuity while leaving the completion completely arbitrary; no
-minimum or infimum is evaluated here.
+and non-vacuity while leaving the completion completely arbitrary. The
+count alone does not optimize those completions; the following Bellman
+recursion does so exactly.
+
+For \(0\le j\le s-1\), let \(C\) be a labelled cycle on
+\(S_{j+1}=\{j+1,\ldots,n\}\). If \(C\oplus_e j\) denotes insertion of
+\(j\) into its current edge \(e=\{u,v\}\), define
+\[
+\boxed{
+V_0(C)=0,\qquad
+V_j(C)=
+\min_{e=\{u,v\}\in E(C)}
+\max\left\{0,\,
+j(u+v)-uv+V_{j-1}(C\oplus_e j)\right\}.}
+\tag{KR1G-91a}
+\]
+The state is the whole labelled cycle, not only its number of edges. By
+induction on \(j\), \(V_j(C)\) is the least possible positive excursion of
+the cumulative correction over all compatible insertions of
+\(j,j-1,\ldots,1\): after choosing the first edge, the first correction is
+\(a=j(u+v)-uv\). If the remaining relative excursion is \(X\ge0\), the
+whole relative excursion is \(\max\{0,a+X\}\). This expression is
+nondecreasing in \(X\), so the optimal continuation is precisely the
+child-state value in (KR1G-91a).
+
+For \(\pi\in\Pi_{q,\ell,p}\), let \(C_0(\pi)\) and \(C_\pi\) be its base
+and terminal cycles, let \(H_\pi\) be its total selected correction, and
+let \(M_\pi\) be the maximum of zero and its selected correction prefixes.
+On the fixed all-middle tuple put
+\[
+\mathcal B_{k,n}
+:=P_{r,n}
++\sum_{i=1}^k(s_{i-1}-s_i)G_{n,\lambda_i}(s_i)
+=B_{h,n},
+\]
+which is independent of the history in the declared class, and set
+\[
+\widehat M_\pi
+=\max\{M_\pi,H_\pi+V_{s-1}(C_\pi)\}.
+\]
+The Bellman interpretation and the finite prefix bijection give the exact
+finite identity
+\[
+\boxed{
+\min_{h\in\mathscr H^{(p{\rm R})}_{k,n}}
+\mathscr R_{k,n}(h)
+=
+\min_{\pi\in\Pi_{q,\ell,p}}
+\left[
+P(C_0(\pi))+\widehat M_\pi-\mathcal B_{k,n}
+\right].}
+\tag{KR1G-91b}
+\]
+This is an exact reduction to a finite minimum, not a closed-form evaluation
+of its value. When \(p=1\), the prefix identification above, (KR1G-91a),
+and (KR1G-91b) recover the complete former one-recursive formulation: its
+prefix count, its completion Bellman recursion, and its exact finite
+minimum. The letter \(\pi\) merely replaces the formerly ambiguous use of
+\(p\) for an individual prefix.
 
 We next eliminate the \(p\) recursive coordinates from KR1G-6. Write
 \(\lambda_t=\lambda_i\) and \(s(t)=s_i\) when

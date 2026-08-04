@@ -1,6 +1,6 @@
 # Next Research Steps
 
-Last reviewed: 2026-07-24
+Last reviewed: 2026-08-04
 
 This file is the roadmap and priority source only. Stable result summaries
 belong in [PROJECT_KNOWLEDGE.md](../PROJECT_KNOWLEDGE.md), detailed proofs in
@@ -249,8 +249,13 @@ The superficially similar Ferrers count and monotone threshold-closing
   parentage and depth, while the other \(\ell-p\) selected labels hit
   distinct original edges and leave \(m_p=q-\ell+p\) unused originals.
   The exact finite prefix recurrence counts every sibling, nested, and
-  two-inserted-endpoint target and proves non-vacuity. Removing precisely
-  the recursive coordinates gives
+  two-inserted-endpoint target and proves non-vacuity. The labelled-cycle
+  Bellman recurrence KR1G-91a optimizes every arbitrary completion, and
+  KR1G-91b is the exact finite minimum over the prefixes counted by
+  \(A^{(q)}_{\ell,\ell-p}\). At \(p=1\), the count, direct-child
+  parametrization, Bellman recurrence, and minimum are exactly the former
+  one-recursive formulation. Removing precisely the recursive coordinates
+  gives
   \[
   T^{(-\mathcal R)}=T-\sum_{\rho\in\mathcal R}d_\rho,
   \qquad
@@ -272,8 +277,11 @@ The superficially similar Ferrers count and monotone threshold-closing
   independent exact \(p=2\) checker covers 15,120 selected prefixes,
   151,200 arbitrary completions, all sibling/nested/two-inserted target
   types, and a separate 1,296-history sweep with two distinct base targets.
-  No claim is made for \(p=p(n)\), an exact residual infimum, or geometry.
-  See the
+  A focused theorem-domain fixture additionally checks 42 prefixes and all
+  4,620 completions through the two labels \(2,1\), including the exact
+  fixture-global prefix/Bellman minimum identity. No claim is made for
+  \(p=p(n)\), a closed-form evaluation or exact asymptotic value of the
+  finite minima, or geometry. See the
   [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#a-fixed-number-of-recursive-splits-in-the-selected-window)
   and the
   [task evidence](../ops/TASK-20260804__kr1g_fixed_recursive_count/EVIDENCE.md).

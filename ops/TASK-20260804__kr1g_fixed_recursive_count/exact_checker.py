@@ -4,11 +4,13 @@ This file imports no project module and no earlier dossier helper.  It uses
 only standard-library :class:`fractions.Fraction` arithmetic and a fresh edge
 lineage representation.
 
-The completion fixture has ``q=7``, ``ell=3``, ``p=2``, ``s=2`` and two
-rational selected segments.  It enumerates all 360 Hamiltonian base cycles
-modulo rotation and reversal, all 181,440 three-insertion selected histories,
-the 15,120 histories with exactly two recursive selected splits, and all
-151,200 compatible completions below ``s``.  A second ``q=4``, ``ell=4``,
+The broad structural fixture has ``q=7``, ``ell=3``, ``p=2``, ``s=2`` and
+two rational selected segments.  It enumerates all 360 Hamiltonian base
+cycles modulo rotation and reversal, all 181,440 three-insertion selected
+histories, the 15,120 histories with exactly two recursive selected splits,
+and all 151,200 one-label completions below ``s``.  A separate Bellman
+fixture fixes one canonical ``q=7``, ``ell=3``, ``p=2``, ``s=3`` base cycle
+and exhausts both completion labels ``2,1``.  A third ``q=4``, ``ell=4``,
 ``p=2``, ``s=1`` position sweep has two distinct original base targets and
 exhausts all placements of the two recursive coordinates.  Together the
 fixtures include sibling recursive targets, nested targets, different-root
@@ -123,6 +125,15 @@ POSITION_FIXTURE = Fixture(
     s=1,
     cutoffs=(1,),
     weights=(Fraction(1, 2),),
+)
+
+BELLMAN_FIXTURE = Fixture(
+    q=7,
+    ell=3,
+    p=2,
+    s=3,
+    cutoffs=(4, 3),
+    weights=(Fraction(3, 4), Fraction(1, 4)),
 )
 
 
@@ -961,6 +972,252 @@ def verify_completion_fixture() -> None:
     )
 
 
+def verify_two_label_bellman_fixture() -> None:
+    """Check the exact finite minimum with completion labels 2 and 1."""
+    fixture = BELLMAN_FIXTURE
+    parameters = build_parameters(fixture)
+    if parameters.bound != Fraction(13859, 28):
+        raise AssertionError(f"changed Bellman-fixture B: {parameters.bound}")
+
+    raw_cycle = (0, 5, 1, 4, 2, 3, 6)
+    vertices = tuple(fixture.r + vertex for vertex in raw_cycle)
+    base_state = initial_state(vertices)
+    original_roots = {edge.root for edge in base_state}
+    base_score = state_score(base_state)
+    if base_score != 545:
+        raise AssertionError(f"changed Bellman-fixture base score: {base_score}")
+
+    factor = topology_factor(fixture.ell, fixture.p)
+    expected_raw_selected = rising_factorial(fixture.q, fixture.ell)
+    expected_selected = (
+        falling_factorial(
+            fixture.q,
+            fixture.ell - fixture.p,
+        )
+        * factor
+    )
+    completion_labels = tuple(range(fixture.s - 1, 0, -1))
+    completion_factor = rising_factorial(
+        fixture.q + fixture.ell,
+        len(completion_labels),
+    )
+    expected_complete = expected_selected * completion_factor
+    if factor != 6 or expected_raw_selected != 504 or expected_selected != 42:
+        raise AssertionError("changed Bellman-fixture prefix counts")
+    if completion_labels != (2, 1):
+        raise AssertionError("Bellman fixture lost its two completion labels")
+    if completion_factor != 110 or expected_complete != 4_620:
+        raise AssertionError("changed Bellman-fixture completion count")
+
+    raw_selected_histories = 0
+    selected_histories = 0
+    complete_histories = 0
+    selected_topologies: Counter[str] = Counter()
+    complete_topologies: Counter[str] = Counter()
+    two_inserted_by_topology: Counter[str] = Counter()
+    two_inserted_by_label: Counter[int] = Counter()
+    two_inserted_at_both_labels = 0
+    literal_global_minimum: Fraction | None = None
+    bellman_global_minimum: Fraction | None = None
+    selected_labels = tuple(range(fixture.r - 1, fixture.s - 1, -1))
+
+    def exhaust_selected(
+        state: State,
+        index: int,
+        height: Fraction,
+        peak: Fraction,
+        records: tuple[Record, ...],
+    ) -> None:
+        nonlocal bellman_global_minimum
+        nonlocal complete_histories
+        nonlocal literal_global_minimum
+        nonlocal raw_selected_histories
+        nonlocal selected_histories
+        nonlocal two_inserted_at_both_labels
+
+        if index == len(selected_labels):
+            raw_selected_histories += 1
+            if sum(record.kind == "R" for record in records) != fixture.p:
+                return
+
+            selected_histories += 1
+            topology = classify_completion_topology(records, fixture)
+            selected_topologies[topology] += 1
+            audit = check_selected_history(
+                fixture,
+                parameters,
+                base_state,
+                records,
+            )
+            literal_minimum_peak: Fraction | None = None
+
+            def exhaust_completion(
+                completion_state: State,
+                label: int,
+                completion_height: Fraction,
+                completion_peak: Fraction,
+                two_inserted_labels: frozenset[int],
+            ) -> None:
+                nonlocal complete_histories
+                nonlocal literal_global_minimum
+                nonlocal literal_minimum_peak
+                nonlocal two_inserted_at_both_labels
+
+                if label == 0:
+                    complete_histories += 1
+                    complete_topologies[topology] += 1
+                    if two_inserted_labels:
+                        two_inserted_by_topology[topology] += 1
+                    for used_label in two_inserted_labels:
+                        two_inserted_by_label[used_label] += 1
+                    if two_inserted_labels == frozenset(completion_labels):
+                        two_inserted_at_both_labels += 1
+
+                    residual = check_complete_peak(
+                        parameters,
+                        audit,
+                        completion_peak,
+                    )
+                    literal_minimum_peak = (
+                        completion_peak
+                        if literal_minimum_peak is None
+                        else min(literal_minimum_peak, completion_peak)
+                    )
+                    literal_global_minimum = (
+                        residual
+                        if literal_global_minimum is None
+                        else min(literal_global_minimum, residual)
+                    )
+                    return
+
+                for edge_index, edge in enumerate(completion_state):
+                    child = split_state(
+                        completion_state,
+                        edge_index,
+                        label,
+                    )
+                    value = Fraction(correction(label, edge.u, edge.v))
+                    if state_score(child) - state_score(completion_state) != value:
+                        raise AssertionError(
+                            "Bellman-fixture completion correction failed"
+                        )
+                    next_height = completion_height + value
+                    next_two_inserted = two_inserted_labels
+                    if edge.u < fixture.r and edge.v < fixture.r:
+                        next_two_inserted = frozenset((*two_inserted_labels, label))
+                    exhaust_completion(
+                        child,
+                        label - 1,
+                        next_height,
+                        max(completion_peak, next_height),
+                        next_two_inserted,
+                    )
+
+            exhaust_completion(
+                state,
+                fixture.s - 1,
+                height,
+                peak,
+                frozenset(),
+            )
+            expected_minimum_peak = max(
+                peak,
+                height
+                + completion_excursion(
+                    plain_state(state),
+                    fixture.s - 1,
+                ),
+            )
+            if literal_minimum_peak != expected_minimum_peak:
+                raise AssertionError(
+                    "two-label literal minimum and Bellman value disagree"
+                )
+            bellman_residual = (
+                Fraction(base_score) + expected_minimum_peak - parameters.bound
+            )
+            bellman_global_minimum = (
+                bellman_residual
+                if bellman_global_minimum is None
+                else min(bellman_global_minimum, bellman_residual)
+            )
+            return
+
+        label = selected_labels[index]
+        for edge_index, edge in enumerate(state):
+            endpoint_original = edge_key(edge.u, edge.v) in original_roots
+            lineage_original = not edge.ancestry
+            if endpoint_original != lineage_original:
+                raise AssertionError("Bellman endpoint/lineage types disagree")
+            kind = "B" if lineage_original else "R"
+            child = split_state(state, edge_index, label)
+            value = Fraction(correction(label, edge.u, edge.v))
+            if state_score(child) - state_score(state) != value:
+                raise AssertionError("Bellman-fixture selected correction failed")
+            next_height = height + value
+            exhaust_selected(
+                child,
+                index + 1,
+                next_height,
+                max(peak, next_height),
+                (
+                    *records,
+                    Record(
+                        label=label,
+                        edge=edge,
+                        weight=parameters.weights_by_label[label],
+                        cutoff=parameters.cutoffs_by_label[label],
+                        kind=kind,
+                    ),
+                ),
+            )
+
+    exhaust_selected(base_state, 0, Fraction(), Fraction(), ())
+
+    if raw_selected_histories != expected_raw_selected:
+        raise AssertionError("changed Bellman-fixture raw prefix count")
+    if selected_histories != expected_selected:
+        raise AssertionError("changed Bellman-fixture retained prefix count")
+    if complete_histories != expected_complete:
+        raise AssertionError("changed Bellman-fixture complete-history count")
+    expected_topologies = Counter(
+        {"sibling": 14, "nested_outer": 14, "nested_two_inserted": 14}
+    )
+    if selected_topologies != expected_topologies:
+        raise AssertionError(
+            f"changed Bellman-fixture topologies: {selected_topologies}"
+        )
+    if complete_topologies != Counter({name: 1_540 for name in expected_topologies}):
+        raise AssertionError(
+            f"changed Bellman complete topologies: {complete_topologies}"
+        )
+    if two_inserted_by_topology != Counter({name: 560 for name in expected_topologies}):
+        raise AssertionError("changed Bellman two-inserted completion topology counts")
+    if two_inserted_by_label != Counter({2: 924, 1: 1_008}):
+        raise AssertionError(
+            f"changed Bellman two-inserted label counts: {two_inserted_by_label}"
+        )
+    if two_inserted_at_both_labels != 252:
+        raise AssertionError("changed Bellman both-label two-inserted count")
+    if literal_global_minimum != Fraction(1541, 28):
+        raise AssertionError(
+            f"changed literal global minimum: {literal_global_minimum}"
+        )
+    if bellman_global_minimum != literal_global_minimum:
+        raise AssertionError(
+            "exact finite prefix minimum and literal global minimum disagree"
+        )
+
+    print(
+        "p2-two-label-bellman: "
+        f"raw_selected={raw_selected_histories} "
+        f"selected={selected_histories} complete={complete_histories} "
+        f"completion_labels={completion_labels} "
+        f"topologies={dict(sorted(selected_topologies.items()))} "
+        f"two_inserted={sum(two_inserted_by_topology.values())} "
+        f"min_residual={literal_global_minimum}: PASS"
+    )
+
+
 def verify_position_fixture() -> None:
     """Exhaust every p=2 position with two distinct original base targets."""
     fixture = POSITION_FIXTURE
@@ -1177,13 +1434,15 @@ def verify_position_fixture() -> None:
 
 
 def main() -> None:
-    """Run both exhaustive p=2 fixtures."""
+    """Run all exact p=2 fixtures."""
     verify_completion_fixture()
+    verify_two_label_bellman_fixture()
     verify_position_fixture()
     print(
         "PASS: exact topology recurrence, arbitrary p=2 positions and "
         "parentage, generalized KR1G-6, radical/combined Cauchy, "
-        "[T-pD]_+ uniform bound, and completion Bellman recursion agree"
+        "[T-pD]_+ uniform bound, two-label completion Bellman, and exact "
+        "finite prefix minimum agree"
     )
 
 

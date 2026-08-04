@@ -2,6 +2,13 @@
 
 Last update: 2026-08-04
 
+**Historical-date correction:** `TASK-20260724` is a retained legacy slug.
+This task was actually performed on 2026-08-04 and recorded by commits
+`ce33177d75a596b6b2e9e17f5af351083fd1d84e` and
+`069cb677278fc149e2f8fac49b43d3346949c19e`. The earlier 2026-07-24 log
+headings are preserved only because `TASK_LOG.md` is append-only; its final
+correction entry controls.
+
 ## State
 
 - **Mode:** STRICT
@@ -35,11 +42,13 @@ Last update: 2026-08-04
   checker; Ruff; exact symbolic identities; full repository tests; checked
   artifact and schema verification; equation-tag, display, link, encoding,
   whitespace, status, and diff audits.
-- **Observed result:** KR1G-89--KR1G-101 pass every audit after minor
-  precision fixes. The checker passes 96,600 broad selected histories and
-  6,720 arbitrary completions. Ruff, 283 repository tests, four checked
-  artifacts, four schema tests, symbolic identities, and final source/diff
-  checks pass.
+- **Observed result:** the one-recursive theorem, numbered KR1G-89--KR1G-101
+  at historical baseline `069cb677`, passed every audit after minor
+  precision fixes. The current proof retains that result inside the
+  fixed-\(p\) formulation as KR1G-89--KR1G-91b and KR1G-92--KR1G-101. The
+  checker passes 96,600 broad selected histories and 6,720 arbitrary
+  completions. Ruff, 283 repository tests, four checked artifacts, four
+  schema tests, symbolic identities, and final source/diff checks pass.
 - **Post-review correction:** the final audit had verified roadmap links and
   anchors but missed that `Next Atomic Task` still named the preceding
   distinct-original-edge theorem. The handoff now names the current
@@ -72,5 +81,6 @@ Last update: 2026-08-04
 - **Post-review correction files:** only
   `research/NEXT_RESEARCH_STEPS.md` and this task dossier; the proof, stable
   memory, checker, production code, and tests are unchanged.
-- **Files to read first:** KR1G-89--KR1G-101 in
-  `research/FIXED_ORDER_CYCLE_RATIO.md` and `EVIDENCE.md`.
+- **Files to read first:** the fixed-\(p\) KR1G-89--KR1G-101 section in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`, this dossier's date-correction log
+  entry, and `EVIDENCE.md`.
