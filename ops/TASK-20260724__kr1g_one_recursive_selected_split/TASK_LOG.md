@@ -78,3 +78,23 @@ Append-only. Add a new entry to correct previous information.
 - **Evidence:**
   `EVIDENCE.md#ev-004---repository-and-final-diff-verification`.
 - **Next step:** user review and manual commit decision.
+
+## 2026-08-04 - Post-review roadmap consistency correction
+
+- **Action:** compare the completed one-recursive roadmap milestone, its
+  proof and dossier targets, `CURRENT_STATUS.md`, and the roadmap's
+  `Next Atomic Task`; replace only the stale handoff wording and repeat the
+  targeted documentation checks.
+- **Result:** the final audit recorded in EV-004 had checked link resolution
+  and diff hygiene but missed that `Next Atomic Task` still requested review
+  of the preceding distinct-original-edge theorem. It now requests review
+  and manual commit decision for the current all-middle theorem with exactly
+  one selected recursive split and all other selected splits on distinct
+  original edges. Link/anchor, strict UTF-8/LF, whitespace, scope,
+  full-diff, and `git diff --check` controls pass.
+- **Interpretation:** this is a post-review documentation-coherence
+  correction only. The proof, stable knowledge, checker, production code,
+  and tests remain unchanged.
+- **Evidence:**
+  `EVIDENCE.md#ev-005---post-review-roadmap-consistency-correction`.
+- **Next step:** user review and manual commit decision.

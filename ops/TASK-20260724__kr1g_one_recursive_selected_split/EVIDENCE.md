@@ -8,6 +8,7 @@
 | EV-002 | proof / computation | One-recursive finite theorem | authoritative proof | PASS |
 | EV-003 | code / computation | Independent exact checker | `exact_checker.py` | PASS |
 | EV-004 | test / audit | Repository and final diff verification | repository commands | PASS |
+| EV-005 | documentation / audit | Post-review roadmap consistency correction | roadmap and dossier | PASS |
 
 ## EV-001 - Startup and source isolation
 
@@ -110,3 +111,34 @@
   replace the symbolic all-\(q\) proof.
 - **Linked log entry:**
   `TASK_LOG.md#2026-07-24---repository-verification-and-handoff`.
+
+## EV-005 - Post-review roadmap consistency correction
+
+- **Date:** 2026-08-04
+- **Method or command:** compare the current completed milestone,
+  `CURRENT_STATUS.md`, the authoritative proof heading, and
+  `Next Atomic Task`; inspect the exact relative targets and heading slugs;
+  strictly decode every changed Markdown file as UTF-8 and reject BOM, CR,
+  missing terminal LF, and trailing whitespace; inspect `git status`, the
+  complete `git diff`, and `git diff --check`.
+- **Relevant output:** EV-004's mechanical link and diff checks had passed,
+  but its final audit had missed the stale semantic reference to the
+  distinct-original-edge predecessor. `Next Atomic Task` now names the
+  current all-middle theorem with exactly one selected recursive split and
+  all other selected splits on distinct original edges. All 40 Markdown
+  links resolve, including 25 anchored targets; the focused proof, evidence,
+  and both new dossier cross-link checks pass. All four changed Markdown
+  files are strict UTF-8 without BOM or CR and end in LF, no trailing
+  whitespace is present, the scope contains only the roadmap and current
+  dossier, and the complete diff and `git diff --check` pass.
+- **Interpretation:** the post-review roadmap inconsistency is corrected and
+  the task remains `READY_FOR_REVIEW`.
+- **Limitations:** this documentation-only correction neither changes nor
+  reopens KR1G-89--KR1G-101. The proof, `PROJECT_KNOWLEDGE.md`, checker,
+  production code, and tests were not modified, and computational tests were
+  not rerun because their inputs and claims are unchanged. Two auxiliary
+  audit wrappers stopped before content evaluation because of PowerShell
+  backtick transport and an unsupported Windows Git configuration override;
+  corrected forms were rerun and all substantive checks passed.
+- **Linked log entry:**
+  `TASK_LOG.md#2026-08-04---post-review-roadmap-consistency-correction`.

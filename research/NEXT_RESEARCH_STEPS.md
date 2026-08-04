@@ -394,7 +394,8 @@ The superficially similar Ferrers count and monotone threshold-closing
 ## Next Atomic Task
 
 User review and manual commit decision for the complete-residual theorem on
-all KR1G histories whose selected labels split distinct original edges.
+the all-middle KR1G class with exactly one selected recursive split and all
+other selected splits on distinct original edges.
 Afterward, choose exactly one item from the deferred directions below in a
 fresh task before developing further mathematics.
 

@@ -1,6 +1,6 @@
 # TASK STATUS - TASK-20260724 / KR1G One Recursive Selected Split
 
-Last update: 2026-07-24
+Last update: 2026-08-04
 
 ## State
 
@@ -40,6 +40,12 @@ Last update: 2026-07-24
   6,720 arbitrary completions. Ruff, 283 repository tests, four checked
   artifacts, four schema tests, symbolic identities, and final source/diff
   checks pass.
+- **Post-review correction:** the final audit had verified roadmap links and
+  anchors but missed that `Next Atomic Task` still named the preceding
+  distinct-original-edge theorem. The handoff now names the current
+  all-middle theorem with exactly one selected recursive split; the targeted
+  link/anchor, UTF-8/LF, whitespace, scope, full-diff, and
+  `git diff --check` controls were repeated and pass.
 - **Limitations:** bounded rational fixtures corroborate the finite algebra
   but do not replace the symbolic all-\(q\) theorem. The theorem covers
   exactly one selected recursive split, not two or more.
@@ -63,5 +69,8 @@ Last update: 2026-07-24
   `PROJECT_KNOWLEDGE.md`, `research/NEXT_RESEARCH_STEPS.md`,
   `CURRENT_STATUS.md`, and this task dossier; no production or public test
   file.
+- **Post-review correction files:** only
+  `research/NEXT_RESEARCH_STEPS.md` and this task dossier; the proof, stable
+  memory, checker, production code, and tests are unchanged.
 - **Files to read first:** KR1G-89--KR1G-101 in
   `research/FIXED_ORDER_CYCLE_RATIO.md` and `EVIDENCE.md`.
