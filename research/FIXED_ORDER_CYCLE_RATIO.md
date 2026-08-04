@@ -2,7 +2,7 @@
 
 Date: 2026-07-14
 
-Last updated: 2026-07-23
+Last updated: 2026-07-24
 
 ## Scope And Classification
 
@@ -13113,6 +13113,317 @@ to which (KR1G-83) applies. Arbitrary recursive or base splits are still
 allowed in the completion below \(s\). No conclusion about the original
 geometry, a minimizing order, \(C_{\rm AF}\), or a growing-prefix regime
 follows.
+
+### Exactly one recursive split in the selected window
+
+We now treat the first class excluded by the preceding paragraph. Retain
+the unchanged all-middle tuple and all notation from (KR1G-34),
+(KR1G-69)--(KR1G-74), and (KR1G-81). In particular, for one fixed \(k\),
+\[
+r=\lfloor an\rfloor,\qquad
+s_i=\lceil\beta_i^{(k)}n\rceil,\qquad
+s=s_k,\qquad
+q=n-r+1,\qquad
+\ell=r-s,\qquad
+m=q-\ell.
+\]
+Every assertion about the integer domain below is eventual for this one
+fixed tuple. The strict parameter gaps give
+\[
+2\le r\le n-2,\qquad
+1\le s_k<\cdots<s_1\le r-1,\qquad
+q\ge3,
+\]
+and now also \(\ell\ge2\). As in the preceding theorem,
+\(\ell<\lceil q/2\rceil\), so in particular \(\ell-1\le q\). There is no
+threshold uniform in \(k\).
+
+Let \(\mathscr H^{(1{\rm R})}_{k,n}\) be the following class. Among the
+selected labels
+\[
+I=\{s,\ldots,r-1\}
+\]
+exactly one label \(\rho\) makes a recursive split. Every other selected
+label makes a base split, and hence the resulting \(\ell-1\) original
+targets are distinct. The labels below \(s\) then make arbitrary compatible
+splits.
+
+The position and parentage of the recursive split have a finite exact
+description. Necessarily
+\[
+\rho\in\{s,\ldots,r-2\}.
+\]
+Before \(\rho\), every selected split is a base split. Thus the recursive
+edge has exactly one inserted endpoint: there are unique
+\[
+z\in\{\rho+1,\ldots,r-1\},\qquad x,y\in S_r
+\]
+such that the base split at \(z\) used the original parent edge
+\(\{x,y\}\), while the split at \(\rho\) uses one of its two direct
+children, say \(\{z,y\}\). In particular the selected recursive depth is
+exactly one; an edge with two inserted endpoints cannot occur until after
+the unique selected recursive split.
+
+Conversely, this description is sufficient. Choose a simple cycle \(C_0\)
+on \(S_r\), a recursive position \(\rho\), an injection from
+\(I\setminus\{\rho\}\) to \(E(C_0)\), an earlier label
+\(z\in\{\rho+1,\ldots,r-1\}\), and one endpoint \(y\) of the original edge
+assigned to \(z\). Execute the distinct base targets in descending label
+order and, at \(\rho\), split \(\{z,y\}\). Every later base target is still
+intact. This parametrizes every selected prefix once. If the recursive
+position has \(j=r-1-\rho\) earlier labels, it has \(2j\) possible
+parent-side choices. Hence the number of selected prefixes over all
+unoriented simple cycles is exactly
+\[
+\boxed{
+{(q-1)!\over2}\,(q)_{\ell-1}\,\ell(\ell-1),\qquad
+(q)_{\ell-1}={q!\over(q-\ell+1)!}.}
+\tag{KR1G-89}
+\]
+This proves finite non-vacuity on the displayed domain, rather than merely
+asserting it asymptotically.
+
+There is also an exact finite formulation including the arbitrary
+completion. If \(C\oplus_e j\) denotes insertion of \(j\) into the edge
+\(e=\{u,v\}\) of \(C\), put
+\[
+\boxed{
+V_0(C)=0,\qquad
+V_j(C)=
+\min_{e=\{u,v\}\in E(C)}
+\max\left\{0,\,
+j(u+v)-uv+V_{j-1}(C\oplus_e j)\right\}.}
+\tag{KR1G-90}
+\]
+This finite recursion is exact: \(V_j(C)\) is the least possible positive
+excursion over all compatible insertions of \(j,j-1,\ldots,1\). For a
+selected-prefix datum \(p\) from (KR1G-89), let \(C_p\) be its terminal
+cycle, \(H_p\) its total selected correction, and \(M_p\) the maximum of
+zero and its selected correction prefixes. Also put
+\[
+B_{k,n}=P_{r,n}
++\sum_{i=1}^k(s_{i-1}-s_i)G_{n,\lambda_i}(s_i).
+\]
+Then
+\[
+\widehat M_p=\max\{M_p,H_p+V_{s-1}(C_p)\}
+\]
+is exactly the least complete-history maximum over every completion below
+\(s\). Consequently
+\[
+\boxed{
+\min_{h\in\mathscr H^{(1{\rm R})}_{k,n}}
+\mathscr R_{k,n}(h)
+=
+\min_{p}
+\left[P(C_0(p))+\widehat M_p-B_{k,n}\right],}
+\tag{KR1G-91}
+\]
+where the right-hand minimum is over the explicit finite parameter set in
+(KR1G-89). This is an exact finite optimization, not a relaxation or an
+asymptotic formula.
+
+We next derive a closed lower bound from KR1G-5--KR1G-6. Write
+\(\lambda_t=\lambda_i\) and \(s(t)=s_i\) when
+\(t\in I_i=\{s_i,\ldots,s_{i-1}-1\}\), and retain
+\[
+R=n+r,\qquad
+d_t={\lambda_t(R-2t)\over2-\lambda_t}
+\]
+for every \(t\in I\). For every base split \(t\ne\rho\), also put
+\(\delta_t=u_t+v_t-R\). Let \(E'\) be the \(\ell-1\) original edges used by
+those base splits and put
+\[
+\boxed{
+\begin{aligned}
+m_1&=|E(C_0)\setminus E'|
+=q-\ell+1=m+1\\
+&=n-2\lfloor an\rfloor+\lceil\beta_k^{(k)}n\rceil+2,\\
+U&=\sum_{e\in E(C_0)\setminus E'}\Delta_e.
+\end{aligned}}
+\tag{KR1G-92}
+\]
+Thus \(m_1/n\to\mu_k\), with the same
+\(\mu_k=1-2a+\beta_k^{(k)}\) as before.
+
+The complete contribution of the recursive split, including its parent
+data, is
+\[
+\boxed{
+\begin{aligned}
+\mathcal E_\rho(z,y)
+={}&\lambda_\rho\left[
+(r-1-\rho)(n-\rho)-(z-\rho)(y-\rho)
+\right]\\
+&+{\lambda_\rho\left[
+(n-r)^2+4(n-\rho)
++2\lambda_\rho(r-1-\rho)(n-\rho)
+\right]\over2(2-\lambda_\rho)}\\
+&+G_{n,\lambda_\rho}(\rho)
+-G_{n,\lambda_\rho}(s(\rho)).
+\end{aligned}}
+\tag{KR1G-93}
+\]
+These are exactly \(E_{{\rm cov},\rho}\),
+\(E_{JG,\rho}\), and \(E_{{\rm mon},\rho}\) from (KR1G-5)--(KR1G-6).
+They are nonnegative. For the only parent-dependent term this is also
+immediate from
+\[
+(r-1-\rho)(n-\rho)-(z-\rho)(y-\rho)
+=(r-1-z)(n-\rho)+(z-\rho)(n-y)\ge0.
+\]
+
+The exact decomposition now specializes to
+\[
+\boxed{
+\begin{aligned}
+\mathscr R_{k,n}(h)
+={}&E_{\rm ht}(h)+U+\mathcal E_\rho(z,y)\\
+&+\sum_{\substack{s\le t\le r-1\\t\ne\rho}}
+\left[
+{\lambda_t\over4}(u_t-v_t)^2
++{2-\lambda_t\over4}(\delta_t-d_t)^2
++G_{n,\lambda_t}(t)-G_{n,\lambda_t}(s(t))
+\right].
+\end{aligned}}
+\tag{KR1G-94}
+\]
+The parent original edge is already charged by its base split at \(z\);
+the recursive child receives no second copy of that slack. The arbitrary
+completion occurs only in the nonnegative \(E_{\rm ht}\).
+
+For an unused original edge \(e=\{u,v\}\), write
+\(\eta_e=u+v-R\). The original cycle-sum identity partitions over the
+\(\ell-1\) base targets and the \(m_1\) unused original edges, so
+\[
+\boxed{
+\sum_{\substack{s\le t\le r-1\\t\ne\rho}}\delta_t
++\sum_{e\in E(C_0)\setminus E'}\eta_e=0,
+\qquad
+U={1\over2}\sum_{e\in E(C_0)\setminus E'}\eta_e^2.}
+\tag{KR1G-95}
+\]
+In particular,
+\[
+\left|
+\sum_{\substack{s\le t\le r-1\\t\ne\rho}}\delta_t
+\right|
+\le\sqrt{2m_1U}.
+\]
+
+Remove the recursive coordinate from the finite sums in (KR1G-72):
+\[
+\boxed{
+T^{(-\rho)}_{k,n}=T_{k,n}-d_\rho,\qquad
+Q^{(-\rho)}_{k,n}
+=Q_{k,n}-{4\over2-\lambda_\rho}.}
+\tag{KR1G-96}
+\]
+Both are positive because \(\ell\ge2\), every remaining \(d_t>0\), and
+every remaining reciprocal weight is positive. Weighted Cauchy on the base
+square-center terms, followed by (KR1G-95), gives the exact finite envelope
+\[
+\boxed{
+\begin{aligned}
+\mathscr R_{k,n}(h)
+\ge{}&\mathcal E_\rho(z,y)+U\\
+&+{\left[
+T^{(-\rho)}_{k,n}-\sqrt{2m_1U}
+\right]_+^2\over Q^{(-\rho)}_{k,n}}.
+\end{aligned}}
+\tag{KR1G-97}
+\]
+Exactly as in (KR1G-84)--(KR1G-85), the last two terms have the unique
+continuous scalar minimum
+\[
+U_*={2m_1(T^{(-\rho)}_{k,n})^2\over
+(Q^{(-\rho)}_{k,n}+2m_1)^2}.
+\]
+Therefore every declared history satisfies the explicit exact position- and
+parent-sensitive bound
+\[
+\boxed{
+\mathscr R_{k,n}(h)
+\ge
+\mathcal E_\rho(z,y)
++{(T^{(-\rho)}_{k,n})^2\over
+Q^{(-\rho)}_{k,n}+2m_1}.}
+\tag{KR1G-98}
+\]
+This scalar minimization is exact for the envelope over \(U\ge0\), but no
+attainment by a discrete history is claimed. Equivalently, simultaneous
+weighted Cauchy on the base quantities \(d_t-\delta_t\) and the unused
+quantities \(-\eta_e\) gives (KR1G-98) directly: their sum is
+\(T^{(-\rho)}_{k,n}\), and their reciprocal-weight sum is
+\(Q^{(-\rho)}_{k,n}+2m_1\).
+
+It remains to make uniformity in the recursive position and parent
+explicit. Define the finite quantity
+\[
+D_{k,n}=\max_{s\le t\le r-2}d_t.
+\]
+Then \(T^{(-\rho)}_{k,n}\ge T_{k,n}-D_{k,n}>0\), while
+\[
+\begin{aligned}
+Q^{(-\rho)}_{k,n}+2m_1
+&=Q_{k,n}+2m-
+\left({4\over2-\lambda_\rho}-2\right)\\
+&=Q_{k,n}+2m-{2\lambda_\rho\over2-\lambda_\rho}
+<Q_{k,n}+2m.
+\end{aligned}
+\]
+Dropping the nonnegative \(\mathcal E_\rho\) in (KR1G-98) therefore yields
+the finite class-uniform bound
+\[
+\boxed{
+\mathscr R_{k,n}(h)
+\ge{(T_{k,n}-D_{k,n})^2\over Q_{k,n}+2m}.}
+\tag{KR1G-99}
+\]
+
+For this fixed \(k\), all \(\lambda_i\) are fixed and strictly between zero
+and one. Uniformly over \(s\le t\le r-2\),
+\[
+0<d_t\le{\lambda_1\over2-\lambda_1}(R-2s)=O(n),
+\]
+so \(D_{k,n}=O(n)\). Together with (KR1G-74) and (KR1G-81),
+\[
+T_{k,n}=\tau_kn^2+O(n),\qquad
+Q_{k,n}=\chi_kn+O(1),\qquad
+m=\mu_kn+O(1).
+\]
+The exact count (KR1G-89) shows that the class is eventually nonempty.
+Thus (KR1G-99) proves, separately for every fixed \(k\),
+\[
+\boxed{
+\liminf_{n\to\infty}
+{\displaystyle
+\min_{h\in\mathscr H^{(1{\rm R})}_{k,n}}
+\mathscr R_{k,n}(h)\over n^3}
+\ge{\tau_k^2\over\chi_k+2\mu_k}>0.}
+\tag{KR1G-100}
+\]
+Hence there is no counterfamily with subcubic complete residual in the
+declared one-recursive class.
+
+Only after (KR1G-100) has been proved for each fixed \(k\) may \(k\) tend
+to infinity. The coefficient is the same one as in (KR1G-86), so
+(KR1G-77), (KR1G-81), and (KR1G-87) give
+\[
+\boxed{
+\liminf_{k\to\infty}\ \liminf_{n\to\infty}
+{\displaystyle
+\min_{h\in\mathscr H^{(1{\rm R})}_{k,n}}
+\mathscr R_{k,n}(h)\over n^3}
+\ge C_{\rm dist}>0.}
+\tag{KR1G-101}
+\]
+This is an iterated fixed-\(k\) conclusion, not a theorem for
+\(k=k(n)\), and its finite thresholds may depend on the complete
+all-middle tuple. The constant is the exact limit of these universal
+lower-bound coefficients, not an exact residual infimum. No consequence is
+drawn for two or more selected recursive splits, a minimizing order,
+\(C_{\rm AF}\), the original geometry, or any growing-prefix regime.
 
 ## 10. Exact \(K\) For The Exact-Threshold Residue-Two Core Order
 

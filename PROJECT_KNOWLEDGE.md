@@ -1911,6 +1911,71 @@ and `ops/`.
   Selected recursive splits, growing-\(k\) statements, and geometric
   consequences are excluded. The detailed proof is in
   `research/FIXED_ORDER_CYCLE_RATIO.md`.
+- EXACT THEOREM (FULL KR1G RESIDUAL WITH EXACTLY ONE SELECTED RECURSIVE
+  SPLIT): retain the unchanged all-middle tuple and fix \(k\). Let
+  \(\mathscr H^{(1{\rm R})}_{k,n}\) contain every history in which exactly
+  one selected label \(\rho\in\{s_k,\ldots,r-2\}\) makes a recursive split,
+  all other \(\ell-1\) selected labels split distinct original edges, and
+  the completion below \(s_k\) is arbitrary. The recursive edge has a unique
+  inserted parent \(z>\rho\): it is one direct child \(\{z,y\}\) of the
+  original edge \(\{x,y\}\) split at \(z\). The finite selected-prefix
+  parametrization is bijective and has
+  \[
+  {(q-1)!\over2}(q)_{\ell-1}\ell(\ell-1)
+  \]
+  elements. The arbitrary completion is reduced exactly by the finite
+  excursion recursion KR1G-90, giving the exact finite optimization
+  KR1G-91.
+
+  If \(m_1=q-\ell+1\) is the number of unused original edges and
+  \[
+  T^{(-\rho)}_{k,n}=T_{k,n}-d_\rho,\qquad
+  Q^{(-\rho)}_{k,n}
+  =Q_{k,n}-{4\over2-\lambda_\rho},
+  \]
+  then KR1G-5--KR1G-6 give an exact decomposition into the usual
+  nonnegative base terms and the three nonnegative recursive terms
+  \(\mathcal E_\rho=E_{{\rm cov},\rho}+E_{JG,\rho}
+  +E_{{\rm mon},\rho}\). The \(\ell-1\) base deviations and the \(m_1\)
+  unused-original deviations still sum to zero. Hence every declared
+  history satisfies
+  \[
+  \begin{aligned}
+  P(C_0)+M_h-B_{h,n}
+  &\ge\mathcal E_\rho+U+
+  {[T^{(-\rho)}_{k,n}-\sqrt{2m_1U}]_+^2
+  \over Q^{(-\rho)}_{k,n}}\\
+  &\ge\mathcal E_\rho+
+  {(T^{(-\rho)}_{k,n})^2
+  \over Q^{(-\rho)}_{k,n}+2m_1}.
+  \end{aligned}
+  \]
+  The second expression is the exact minimum of the scalar envelope over
+  \(U\ge0\), not an attainment claim for discrete histories.
+
+  Uniformly over recursive position, parent, and side, removing one
+  square-center coordinate changes \(T_{k,n}\) by only \(O(n)\) and
+  \(Q_{k,n}\) by \(O(1)\). More precisely, KR1G-99 gives the finite
+  class-uniform bound
+  \[
+  P(C_0)+M_h-B_{h,n}
+  \ge{(T_{k,n}-D_{k,n})^2\over Q_{k,n}+2m},
+  \qquad
+  D_{k,n}=\max_{s_k\le t\le r-2}d_t=O(n).
+  \]
+  Therefore, for every fixed \(k\),
+  \[
+  \liminf_{n\to\infty}
+  {\min_{h\in\mathscr H^{(1{\rm R})}_{k,n}}
+  (P(C_0)+M_h-B_{h,n})\over n^3}
+  \ge{\tau_k^2\over\chi_k+2\mu_k}>0.
+  \]
+  Only afterward may \(k\to\infty\), yielding the same iterated lower
+  coefficient \(C_{\rm dist}\) as the all-base theorem. This proves that no
+  subcubic counterfamily exists in the one-recursive class. It proves
+  nothing for two selected recursive splits, growing \(k\), an exact
+  history infimum, or geometry. The detailed proof is in
+  `research/FIXED_ORDER_CYCLE_RATIO.md`.
 - EXACT THEOREM (FULL KR1G RESIDUAL ON THE ZIGZAG-WITNESS CLASS): for every
   fixed \(k\), retain without modification
   \[
@@ -2028,6 +2093,23 @@ and `ops/`.
   direct combined-Cauchy bound, and completion-DP minimum. The fixtures are
   bounded synthetic structural checks, not rounded all-middle rows and not
   a proof of the all-\(q\) or asymptotic theorem.
+- VERIFIED FACT (BOUNDED EXACT ONE-RECURSIVE KR1G CHECKER): the standalone
+  standard-library script in
+  `ops/TASK-20260724__kr1g_one_recursive_selected_split/` imports no project
+  or earlier dossier helper. Its four catalogued one-segment fixtures cover
+  every pair \(5\le q\le7\),
+  \(2\le\ell<\lceil q/2\rceil\), at \(s=1,\lambda=1/2\); across them it
+  checks all 432 canonical cycles and 96,600 selected histories with exactly
+  one genuinely recursive split. This includes both recursive positions when
+  \((q,\ell)=(7,3)\), every possible direct parent and side, and 9,504
+  zero-coverage cases. A two-segment fixture exhausts 6,720 arbitrary
+  completions; 1,920 of them use a completion edge with two inserted
+  endpoints. Exact rational arithmetic checks the direct complete residual,
+  full specialized KR1G-6 decomposition, parentage, deviation identity,
+  radical envelope, optimized position-parent bound, uniform finite bound,
+  and an independent completion-DP minimum. The fixtures are bounded
+  synthetic structural checks, not rounded all-middle rows and not a proof
+  of the all-\(q\) or asymptotic theorem.
 - VERIFIED FACT (BOUNDED EXACT ZIGZAG-HISTORY CHECKER): the standalone
   standard-library script in
   `ops/TASK-20260723__kr1g_zigzag_full_residual/` imports no project helper.

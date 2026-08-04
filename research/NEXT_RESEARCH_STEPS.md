@@ -243,6 +243,31 @@ The superficially similar Ferrers count and monotone threshold-closing
   and the
   [task evidence](../ops/TASK-20260723__kr1g_distinct_original_edge_residual/EVIDENCE.md).
 
+- **COMPLETED -- full KR1G residual with exactly one selected recursive
+  split:** retain the all-middle tuple unchanged. For every fixed \(k\), the
+  unique selected recursive edge is necessarily a direct child
+  \(\{z,y\}\) of an original edge split by an earlier parent \(z\); the
+  other \(\ell-1\) selected labels hit distinct original edges and leave
+  \(q-\ell+1\) unused originals. Removing the recursive coordinate from
+  \(T_{k,n}\) and \(Q_{k,n}\), the exact KR1G-5/KR1G-6 decomposition and
+  combined Cauchy give the finite position-parent bound KR1G-98 and the
+  class-uniform bound KR1G-99. The removed displacement is only \(O(n)\),
+  so
+  \[
+  \liminf_{n\to\infty}
+  {\min_h(P(C_0)+M_h-B_{h,n})\over n^3}
+  \ge{\tau_k^2\over\chi_k+2\mu_k}>0.
+  \]
+  Thus no subcubic counterfamily exists in this class. Only after this
+  fixed-\(k\) statement may \(k\to\infty\), giving the same iterated
+  coefficient \(C_{\rm dist}\); no \(k=k(n)\) claim follows. KR1G-89--91
+  also give a bijective finite prefix parametrization and exact completion
+  recursion. The result makes no claim for two selected recursive splits or
+  geometry. See the
+  [authoritative proof](FIXED_ORDER_CYCLE_RATIO.md#exactly-one-recursive-split-in-the-selected-window)
+  and the
+  [task evidence](../ops/TASK-20260724__kr1g_one_recursive_selected_split/EVIDENCE.md).
+
 - **COMPLETED -- two-contiguous-block charging ansatz:** the separator-density
   construction, convex bridge, two history-relative disjoint original-edge
   slack pools, and global recursive child-edge invariant give the exact
