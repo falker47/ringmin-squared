@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "power-ringmin"
 version = "0.1.0"
 description = "Computational foundation for Power-Ringmin quadratic radii"
-readme = "start.md"
+readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "Maurizio Falconi" }]
