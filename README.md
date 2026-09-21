@@ -15,7 +15,7 @@ This repository extends the geometric framework of [ringmin](https://github.com/
 The project currently contains:
 
 - an exact fixed-order formulation using a circular system of difference constraints / Simple Temporal Network over **all pairwise** angular non-overlap constraints;
-- checked finite interval-certificate artifacts for \(n=3,4,5,6\), interpreted as computer-certified results under the documented guarded \`mpmath.iv\` enclosure contract;
+- checked finite interval-certificate artifacts for \(n=3,4,5,6\), interpreted as computer-certified results under the documented guarded `mpmath.iv` enclosure contract;
 - an independent, bounded Arb/python-flint cross-check of the decisive endpoint signs for the checked \(n=3\) certificate;
 - exact combinatorial results for the maximum cyclic-ratio surrogate \(\Lambda\), together with rigorous links between \(\Lambda\), fixed-order thresholds, and \(R_2^*(n)\);
 - an active program of structural and asymptotic work on product-distance surrogates and KR1/KR1G order families.
@@ -60,11 +60,11 @@ For a fixed cyclic order, the repository enforces the full all-pairs geometry th
 
 Python 3.11+ is required.
 
-\`\`\`bash
+```bash
 python -m pip install -e ".[test,crosscheck]"
 python -m pytest
 python -m power_ringmin.verify_checked_artifacts
-\`\`\`
+```
 
 The checked finite artifacts live in [examples/](examples/), including the \(n=3,\ldots,6\) interval certificates and their derived summary.
 
@@ -74,15 +74,15 @@ The certification boundary is explicit: the exact real-arithmetic implication is
 
 | Path | Role |
 | --- | --- |
-| \`src/power_ringmin/\` | computational library, fixed-order evaluation, interval verification, finite-result analysis |
-| \`verify.py\` | standalone high-precision fixed-order verifier scaffold |
-| \`examples/\` | checked finite artifacts and reproducible example outputs |
-| \`research/\` | authoritative detailed mathematical proofs and research roadmap |
-| \`PROJECT_KNOWLEDGE.md\` | compact stable research knowledge and claim classification |
-| \`docs/INTERVAL_BACKEND_TRUST.md\` | interval-backend trust boundary and independent cross-check scope |
-| \`CURRENT_STATUS.md\` | current bounded research task / handoff state |
-| \`ops/\` | task-local evidence, exact checkers, and verification dossiers |
-| \`UPSTREAM_RINGMIN.md\` | provenance and controlled import history from Ringmin |
+| `src/power_ringmin/` | computational library, fixed-order evaluation, interval verification, finite-result analysis |
+| `verify.py` | standalone high-precision fixed-order verifier scaffold |
+| `examples/` | checked finite artifacts and reproducible example outputs |
+| `research/` | authoritative detailed mathematical proofs and research roadmap |
+| `PROJECT_KNOWLEDGE.md` | compact stable research knowledge and claim classification |
+| `docs/INTERVAL_BACKEND_TRUST.md` | interval-backend trust boundary and independent cross-check scope |
+| `CURRENT_STATUS.md` | current bounded research task / handoff state |
+| `ops/` | task-local evidence, exact checkers, and verification dossiers |
+| `UPSTREAM_RINGMIN.md` | provenance and controlled import history from Ringmin |
 
 The main research roadmap is [research/NEXT_RESEARCH_STEPS.md](research/NEXT_RESEARCH_STEPS.md).
 
